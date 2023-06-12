@@ -249,7 +249,8 @@ class Pokemon
     if @head_shinyhue
       return @head_shinyhue
     else
-      return 0
+      @head_shinyhue=rand(0..360)-180
+      return @head_shinyhue
     end
   end
 
@@ -257,7 +258,8 @@ class Pokemon
     if @body_shinyhue
       return @body_shinyhue
     else
-      return 0
+      @body_shinyhue=rand(0..360)-180
+      return @body_shinyhue
     end
   end
 
@@ -265,7 +267,8 @@ class Pokemon
     if @head_shinyr
       return @head_shinyr
     else
-      return 0
+      @head_shinyr=rand(0..2)
+      return @head_shinyr
     end
   end
 
@@ -273,7 +276,8 @@ class Pokemon
     if @body_shinyr
       return @body_shinyr
     else
-      return 0
+      @body_shinyr=rand(0..2)
+      return @body_shinyr
     end
   end
 
@@ -281,15 +285,17 @@ class Pokemon
     if @head_shinyg
       return @head_shinyg
     else
-      return 1
+      @head_shinyg=rand(0..2)
+      return @head_shinyg
     end
   end
 
   def body_shinyg?
-    if @head_shinyg
-      return @head_shinyg
+    if @body_shinyg
+      return @body_shinyg
     else
-      return 1
+      @body_shinyg=rand(0..2)
+      return @body_shinyg
     end
   end
 
@@ -297,7 +303,8 @@ class Pokemon
     if @head_shinyb
       return @head_shinyb
     else
-      return 2
+      @head_shinyb=rand(0..2)
+      return @head_shinyb
     end
   end
 
@@ -305,7 +312,8 @@ class Pokemon
     if @body_shinyb
       return @body_shinyb
     else
-      return 2
+      @body_shinyb=rand(0..2)
+      return @body_shinyb
     end
   end
 
@@ -321,8 +329,8 @@ class Pokemon
     return @body_shinyc
   end
 
-  def head_shinyhue
-    return @head_shinyhue
+  def body_shinyhue
+    return @body_shinyhue
   end
 
   def head_shinya
