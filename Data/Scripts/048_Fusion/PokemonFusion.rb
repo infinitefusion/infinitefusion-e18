@@ -535,10 +535,26 @@ class PokemonFusionScene
     @sprites["rsprite2"] = PokemonSprite.new(@viewport)
     @sprites["rsprite3"] = PokemonSprite.new(@viewport)
 
-    @sprites["rsprite1"].setPokemonBitmapFromId(poke1_number, false, pokemon1.shiny?)
-    @sprites["rsprite3"].setPokemonBitmapFromId(poke2_number, false, pokemon2.shiny?)
+    @sprites["rsprite1"].setPokemonBitmapFromId(poke1_number, false, pokemon1.shiny?, false, false, pokemon1.shinyValue?, pokemon1.shinyR?, pokemon1.shinyG?, pokemon1.shinyB?)
+    @sprites["rsprite3"].setPokemonBitmapFromId(poke2_number, false, pokemon2.shiny?, false, false, pokemon2.shinyValue?, pokemon2.shinyR?, pokemon2.shinyG?, pokemon2.shinyB?)
 
-    @sprites["rsprite2"].setPokemonBitmapFromId(@newspecies, false, pokemon1.shiny? || pokemon2.shiny?, pokemon1.shiny?, pokemon2.shiny?)
+    domepokehue = rand(0..360) - 180
+    domepoker = rand(0..2)
+    domepokeg = rand(0..2)
+    domepokeb = rand(0..2)
+    if pokemon1.shiny?
+      domepokehue = pokemon1.shinyValue?
+      domepoker = pokemon1.shinyR?
+      domepokeg = pokemon1.shinyG?
+      domepokeb = pokemon1.shinyB?
+    elsif pokemon2.shiny?
+      domepokehue = pokemon2.shinyValue?
+      domepoker = pokemon2.shinyR?
+      domepokeg = pokemon2.shinyG?
+      domepokeb = pokemon2.shinyB?
+    end
+
+    @sprites["rsprite2"].setPokemonBitmapFromId(@newspecies, false, pokemon1.shiny? || pokemon2.shiny?, pokemon1.shiny?, pokemon2.shiny?, domepokehue, domepoker, domepokeg, domepokeb)
 
     @sprites["rsprite1"].ox = @sprites["rsprite1"].bitmap.width / 2
     @sprites["rsprite1"].oy = @sprites["rsprite1"].bitmap.height / 2
@@ -703,9 +719,17 @@ class PokemonFusionScene
 
       if @pokemon2.shiny?
         @pokemon1.head_shiny = true
+        @pokemon1.head_shinyhue = @pokemon2.shinyValue?
+        @pokemon1.head_shinyr = @pokemon2.shinyR?
+        @pokemon1.head_shinyg = @pokemon2.shinyG?
+        @pokemon1.head_shinyb = @pokemon2.shinyB?
       end
       if @pokemon1.shiny?
         @pokemon1.body_shiny = true
+        @pokemon1.head_shinyhue = @pokemon1.shinyValue?
+        @pokemon1.head_shinyr = @pokemon1.shinyR?
+        @pokemon1.head_shinyg = @pokemon1.shinyG?
+        @pokemon1.head_shinyb = @pokemon1.shinyB?
       end
       @pokemon1.debug_shiny = true if @pokemon1.debug_shiny || @pokemon2.debug_shiny
 

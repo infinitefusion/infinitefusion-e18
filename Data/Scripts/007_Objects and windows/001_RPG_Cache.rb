@@ -35,8 +35,7 @@ module RPG
       return @cache.size >= 100
     end
 
-
-    def self.load_bitmap(folder_name, filename, hue = 0)
+    def self.load_bitmap(folder_name, filename, hue = 0, rcode=0, gcode=1, bcode=2)
       path = folder_name + filename
       cached = true
       ret = fromCache(path)
@@ -49,11 +48,14 @@ module RPG
         @cache[path] = ret
         cached = false
       end
-      if hue == 0
+      # rcode = Red Channel
+      # gcode = Green Channel
+      # bcode = Blue Channel
+      if hue == 0 && rcode == 0 && gcode == 1 && bcode == 2
         ret.addRef if cached
         return ret
       end
-      key = [path, hue]
+      key = [path, hue, rcode, gcode, bcode]
       ret2 = fromCache(key)
       if ret2
         ret2.addRef
@@ -65,7 +67,7 @@ module RPG
       return ret2
     end
 
-    def self.load_bitmap_path(path, hue = 0)
+    def self.load_bitmap_path(path, hue = 0, rcode=0, gcode=1, bcode=2)
       cached = true
       ret = fromCache(path)
       if !ret
@@ -77,11 +79,11 @@ module RPG
         @cache[path] = ret
         cached = false
       end
-      if hue == 0
+      if hue == 0 && rcode == 0 && gcode == 1 && bcode == 2
         ret.addRef if cached
         return ret
       end
-      key = [path, hue]
+      key = [path, hue, rcode, gcode, bcode]
       ret2 = fromCache(key)
       if ret2
         ret2.addRef

@@ -36,6 +36,18 @@ class Pokemon
   attr_accessor :body_shiny
   attr_accessor :debug_shiny
   attr_accessor :natural_shiny
+  attr_accessor :head_shinyhue
+  attr_accessor :body_shinyhue
+  attr_accessor :head_shinyr
+  attr_accessor :body_shinyr
+  attr_accessor :head_shinyg
+  attr_accessor :body_shinyg
+  attr_accessor :head_shinyb
+  attr_accessor :body_shinyb
+  attr_accessor :shinyValue
+  attr_accessor :shinyR
+  attr_accessor :shinyG
+  attr_accessor :shinyB
 
   # The index of this Pokémon's ability (0, 1 are natural abilities, 2+ are
   # hidden abilities)as defined for its species/form. An ability may not be
@@ -179,6 +191,170 @@ class Pokemon
     if value && Settings::SHINY_POKEMON_CHANCE != S_CHANCE_VALIDATOR
       @debug_shiny=true
     end
+  end
+
+  def shinyValue=(value)
+    @shinyValue=value
+  end
+
+  def shinyR=(value)
+    @shinyR=value
+  end
+
+  def shinyG=(value)
+    @shinyG=value
+  end
+
+  def shinyB=(value)
+    @shinyB=value
+  end
+
+  def shinyValue?
+    if @shinyValue
+      return @shinyValue
+    else
+      @shinyValue=rand(0..360)-180
+      return @shinyValue
+    end
+  end
+
+  def shinyR?
+    if @shinyR
+      return @shinyR
+    else
+      @shinyR=rand(0..2)
+      return @shinyR
+    end
+  end
+
+  def shinyG?
+    if @shinyG
+      return @shinyG
+    else
+      @shinyG=rand(0..2)
+      return @shinyG
+    end
+  end
+
+  def shinyB?
+    if @shinyB
+      return @shinyB
+    else
+      @shinyB=rand(0..2)
+      return @shinyB
+    end
+  end
+
+  def head_shinyhue?
+    if @head_shinyhue
+      return @head_shinyhue
+    else
+      return 0
+    end
+  end
+
+  def body_shinyhue?
+    if @body_shinyhue
+      return @body_shinyhue
+    else
+      return 0
+    end
+  end
+
+  def head_shinyr?
+    if @head_shinyr
+      return @head_shinyr
+    else
+      return 0
+    end
+  end
+
+  def body_shinyr?
+    if @body_shinyr
+      return @body_shinyr
+    else
+      return 0
+    end
+  end
+
+  def head_shinyg?
+    if @head_shinyg
+      return @head_shinyg
+    else
+      return 1
+    end
+  end
+
+  def body_shinyg?
+    if @head_shinyg
+      return @head_shinyg
+    else
+      return 1
+    end
+  end
+
+  def head_shinyb?
+    if @head_shinyb
+      return @head_shinyb
+    else
+      return 2
+    end
+  end
+
+  def body_shinyb?
+    if @body_shinyb
+      return @body_shinyb
+    else
+      return 2
+    end
+  end
+
+  def body_shinya
+    return @body_shinya
+  end
+
+  def body_shinyb
+    return @body_shinyb
+  end
+
+  def body_shinyc
+    return @body_shinyc
+  end
+
+  def head_shinyhue
+    return @head_shinyhue
+  end
+
+  def head_shinya
+    return @head_shinya
+  end
+
+  def head_shinyb
+    return @head_shinyb
+  end
+
+  def head_shinyc
+    return @head_shinyc
+  end
+
+  def head_shinyhue
+    return @head_shinyhue
+  end
+
+  def shinyValue
+    return @shinyValue
+  end
+
+  def shinyR
+    return @shinyR
+  end
+
+  def shinyG
+    return @shinyG
+  end
+
+  def shinyB
+    return @shinyB
   end
 
   def naturalShiny?
@@ -1231,6 +1407,10 @@ class Pokemon
     heal_status
     @gender = nil
     @shiny = nil
+    @shinyValue = rand(0..360) - 180
+    @shinyR = rand(0..2)
+    @shinyG = rand(0..2)
+    @shinyB = rand(0..2)
     @ability_index = nil
     @ability2_index = nil
 

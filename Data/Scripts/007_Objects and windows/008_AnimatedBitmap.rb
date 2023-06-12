@@ -39,6 +39,94 @@ class AnimatedBitmap
   end
 
 
+  #KurayX - KURAYX_ABOUT_SHINIES
+  def pbGetRedChannel
+    redChannel = []
+    for i in 0..@bitmap.bitmap.width
+      for j in 0..@bitmap.bitmap.height
+        redChannel.push(@bitmap.bitmap.get_pixel(i, j).red)
+      end
+    end
+    return redChannel
+  end
+
+  #KurayX - KURAYX_ABOUT_SHINIES
+  def pbGetBlueChannel
+    blueChannel = []
+    for i in 0..@bitmap.bitmap.width
+      for j in 0..@bitmap.bitmap.height
+        blueChannel.push(@bitmap.bitmap.get_pixel(i, j).blue)
+      end
+    end
+    return blueChannel
+  end
+
+  def pbGetGreenChannel
+    greenChannel = []
+    for i in 0..@bitmap.bitmap.width
+      for j in 0..@bitmap.bitmap.height
+        greenChannel.push(@bitmap.bitmap.get_pixel(i, j).green)
+      end
+    end
+    return greenChannel
+  end
+
+  def pbGiveFinaleColor(shinyR, shinyG, shinyB, offset)
+    dontmodify = 0
+    if shinyR == 0 && shinyG == 1 && shinyB == 2
+      dontmodify = 1
+    end
+    @bitmap = nil
+    newbitmap = GifBitmap.new(@path, @filename, offset, shinyR, shinyG, shinyB)
+    @bitmap = newbitmap.copy
+    greenShiny = []
+    redShiny = []
+    blueShiny = []
+    if shinyR == 1 || shinyB == 1 || shinyG == 1
+      # Need Green
+      greenShiny = self.pbGetGreenChannel
+    end
+    if shinyG == 0 || shinyB == 0 || shinyR == 0
+      # Need Red
+      redShiny = self.pbGetRedChannel
+    end
+    if shinyG == 2 || shinyR == 2 || shinyB == 2
+      # Need Blue
+      blueShiny = self.pbGetBlueChannel
+    end
+    if shinyR == 1
+      canalRed = greenShiny.clone
+    elsif shinyR == 2
+      canalRed = blueShiny.clone
+    else
+      canalRed = redShiny.clone
+    end
+    if shinyG == 1
+      canalGreen = greenShiny.clone
+    elsif shinyG == 2
+      canalGreen = blueShiny.clone
+    else
+      canalGreen = redShiny.clone
+    end
+    if shinyB == 1
+      canalBlue = greenShiny.clone
+    elsif shinyB == 2
+      canalBlue = blueShiny.clone
+    else
+      canalBlue = redShiny.clone
+    end
+    if dontmodify == 0
+      for i in 0..@bitmap.bitmap.width
+        for j in 0..@bitmap.bitmap.height
+          if @bitmap.bitmap.get_pixel(i, j).alpha != 0
+            depth = i*(@bitmap.bitmap.height+1)+j
+            @bitmap.bitmap.set_pixel(i, j, Color.new(canalRed[depth], canalGreen[depth], canalBlue[depth], @bitmap.bitmap.get_pixel(i, j).alpha))
+          end
+        end
+      end
+    end
+  end
+
   def shiftColors(offset = 0)
     @bitmap = GifBitmap.new(@path, @filename, offset)
   end
@@ -248,14 +336,20 @@ end
 class GifBitmap
   attr_accessor :bitmap
   attr_reader :loaded_from_cache
+  attr_accessor :rcode
+  attr_accessor :gcode
+  attr_accessor :bcode
   # Creates a bitmap from a GIF file. Can also load non-animated bitmaps.
   def initialize(dir, filename, hue = 0)
     @bitmap = nil
+    @rcode = 0
+    @gcode = 1
+    @bcode = 2
     @disposed = false
     @loaded_from_cache = false
     filename = "" if !filename
     begin
-      @bitmap = RPG::Cache.load_bitmap(dir, filename, hue)
+      @bitmap = RPG::Cache.load_bitmap(dir, filename, hue, rcode, gcode, bcode)
       @loaded_from_cache = true
     rescue
       @bitmap = nil

@@ -58,9 +58,9 @@ class PokemonSprite < SpriteWrapper
     changeOrigin
   end
 
-  def setPokemonBitmapFromId(id, back = false, shiny=false, bodyShiny=false, headShiny=false)
+  def setPokemonBitmapFromId(id, back = false, shiny=false, bodyShiny=false, headShiny=false, pokeHue = 0, pokeR = 0, pokeG = 1, pokeB = 2)
     @_iconbitmap.dispose if @_iconbitmap
-    @_iconbitmap = GameData::Species.sprite_bitmap_from_pokemon_id(id, back,shiny, bodyShiny,headShiny)
+    @_iconbitmap = GameData::Species.sprite_bitmap_from_pokemon_id(id, back,shiny, bodyShiny,headShiny, pokeHue, pokeR, pokeG, pokeB)
     self.bitmap = (@_iconbitmap) ? @_iconbitmap.bitmap : nil
     self.color = Color.new(0, 0, 0, 0)
     changeOrigin
@@ -152,10 +152,15 @@ class PokemonIconSprite < SpriteWrapper
       @counter = 0
       return
     end
-    if useRegularIcon(@pokemon.species) || @pokemon.egg?
-      @animBitmap = AnimatedBitmap.new(GameData::Species.icon_filename_from_pokemon(value))
+    if @pokemon.egg?
+      @animBitmap = AnimatedBitmap.new(GameData::Species.icon_filename_from_pokemon(@pokemon))
+    elsif useRegularIcon(@pokemon.species)
+      @animBitmap = AnimatedBitmap.new(GameData::Species.icon_filename(@pokemon.species, @pokemon.form, @pokemon.gender, @pokemon.shiny?))
+      if @pokemon.shiny?
+        @animBitmap.pbGiveFinaleColor(@pokemon.shinyR?, @pokemon.shinyG?, @pokemon.shinyB?, @pokemon.shinyValue?)
+      end
     else
-      @animBitmap = createFusionIcon()
+      @animBitmap = createFusionIcon(@pokemon)
     end
     self.bitmap = @animBitmap.bitmap
     self.src_rect.width = @animBitmap.height
@@ -176,7 +181,7 @@ class PokemonIconSprite < SpriteWrapper
   end
 
   SPRITE_OFFSET = 10
-  def createFusionIcon()
+  def createFusionIcon(pokemon)
     bodyPoke_number = getBodyID(pokemon.species)
     headPoke_number = getHeadID(pokemon.species, bodyPoke_number)
 
@@ -187,13 +192,25 @@ class PokemonIconSprite < SpriteWrapper
     icon1 = AnimatedBitmap.new(GameData::Species.icon_filename(headPoke))
     icon2 = AnimatedBitmap.new(GameData::Species.icon_filename(bodyPoke))
 
+    directory_name = "Graphics/Pokemon/FusionIcons"
+    Dir.mkdir(directory_name) unless File.exists?(directory_name)
+    dexNum = getDexNumberForSpecies(@pokemon.species)
+    bitmapFileName = sprintf("Graphics/Pokemon/FusionIcons/icon%03d", dexNum)
+    headPokeFileName = GameData::Species.icon_filename(headPoke)
+    bitmapPath = sprintf("%s.png", bitmapFileName)
+    IO.copy_stream(headPokeFileName, bitmapPath)
+    result_icon = AnimatedBitmap.new(bitmapPath)
+
     for i in 0..icon1.width-1
       for j in ((icon1.height / 2) + Settings::FUSION_ICON_SPRITE_OFFSET)..icon1.height-1
         temp = icon2.bitmap.get_pixel(i, j)
-        icon1.bitmap.set_pixel(i, j, temp)
+        result_icon.bitmap.set_pixel(i, j, temp)
       end
     end
-    return icon1
+    if @pokemon.shiny?
+      result_icon.pbGiveFinaleColor(@pokemon.shinyR?, @pokemon.shinyG?, @pokemon.shinyB?, @pokemon.shinyValue?)
+    end
+    return result_icon
   end
 
   def setOffset(offset = PictureOrigin::Center)

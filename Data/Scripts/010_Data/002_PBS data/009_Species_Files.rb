@@ -83,14 +83,13 @@ module GameData
       return self.front_sprite_filename(species, form, gender, shiny, shadow)
     end
 
-    def self.front_sprite_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false)
-      #filename = self.front_sprite_filename(species, form, gender, shiny, shadow)
+    def self.front_sprite_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false, shinyValue = 0, shinyR = 0, shinyG = 1, shinyB = 2)
       filename = self.front_sprite_filename(GameData::Species.get(species).id_number)
       return (filename) ? AnimatedBitmap.new(filename) : nil
     end
 
-    def self.back_sprite_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false)
-      filename = self.back_sprite_filename(species, form, gender, shiny, shadow)
+    def self.back_sprite_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false, shinyValue = 0, shinyR = 0, shinyG = 1, shinyB = 2)
+      filename = self.back_sprite_filename(species, form, gender, shiny, shadow, shinyValue, shinyR, shinyG, shinyB)
       return (filename) ? AnimatedBitmap.new(filename) : nil
     end
 
@@ -99,10 +98,10 @@ module GameData
       return (filename) ? AnimatedBitmap.new(filename) : nil
     end
 
-    def self.sprite_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false, back = false, egg = false)
+    def self.sprite_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false, back = false, egg = false, shinyValue = 0, shinyR = 0, shinyG = 1, shinyB = 2)
       return self.egg_sprite_bitmap(species, form) if egg
-      return self.back_sprite_bitmap(species, form, gender, shiny, shadow) if back
-      return self.front_sprite_bitmap(species, form, gender, shiny, shadow)
+      return self.back_sprite_bitmap(species, form, gender, shiny, shadow, shinyValue, shinyR, shinyG, shinyB) if back
+      return self.front_sprite_bitmap(species, form, gender, shiny, shadow, shinyValue, shinyR, shinyG, shinyB)
     end
 
     def self.sprite_bitmap_from_pokemon(pkmn, back = false, species = nil)
@@ -110,9 +109,9 @@ module GameData
       species = GameData::Species.get(species).species # Just to be sure it's a symbol
       return self.egg_sprite_bitmap(species, pkmn.form) if pkmn.egg?
       if back
-        ret = self.back_sprite_bitmap(species, pkmn.form, pkmn.gender, pkmn.shiny?, pkmn.shadowPokemon?)
+        ret = self.back_sprite_bitmap(species, pkmn.form, pkmn.gender, pkmn.shiny?, pkmn.shadowPokemon?, pkmn.shinyValue?, pkmn.shinyR?, pkmn.shinyG?, pkmn.shinyB?)
       else
-        ret = self.front_sprite_bitmap(species, pkmn.form, pkmn.gender, pkmn.shiny?, pkmn.shadowPokemon?)
+        ret = self.front_sprite_bitmap(species, pkmn.form, pkmn.gender, pkmn.shiny?, pkmn.shadowPokemon?, pkmn.shinyValue?, pkmn.shinyR?, pkmn.shinyG?, pkmn.shinyB?)
       end
       alter_bitmap_function = MultipleForms.getFunction(species, "alterBitmap")
       if ret && alter_bitmap_function
@@ -153,13 +152,17 @@ module GameData
       return (filename) ? AnimatedBitmap.new(filename).deanimate : nil
     end
 
-    def self.icon_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false)
+    def self.icon_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false, shinyValue = 0, dex_number = 0, bodyShiny = false, headShiny = false, shinyR = 0, shinyG = 1, shinyB = 2)
       filename = self.icon_filename(species, form, gender, shiny, shadow)
-      return (filename) ? AnimatedBitmap.new(filename).deanimate : nil
+      spritemade = (filename) ? AnimatedBitmap.new(filename).deanimate : nil
+      if shiny
+        spritemade.pbGiveFinaleColor(shinyR, shinyG, shinyB, shinyValue)
+      end
+      return spritemade
     end
 
     def self.icon_bitmap_from_pokemon(pkmn)
-      return self.icon_bitmap(pkmn.species, pkmn.form, pkmn.gender, pkmn.shiny?, pkmn.shadowPokemon?, pkmn.egg?)
+      return self.icon_bitmap(pkmn.species, pkmn.form, pkmn.gender, pkmn.shiny?, pkmn.shadowPokemon?, pkmn.egg?, pkmn.shinyValue?, pkmn.dexNum, pkmn.bodyShiny?, pkmn.headShiny?, pkmn.shinyR?, pkmn.shinyG?, pkmn.shinyB?)
     end
 
     #===========================================================================
