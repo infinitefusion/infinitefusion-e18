@@ -723,13 +723,17 @@ class PokemonFusionScene
         @pokemon1.head_shinyr = @pokemon2.shinyR?
         @pokemon1.head_shinyg = @pokemon2.shinyG?
         @pokemon1.head_shinyb = @pokemon2.shinyB?
+        @pokemon1.shinyR = @pokemon2.shinyR?
+        @pokemon1.shinyG = @pokemon2.shinyG?
+        @pokemon1.shinyB = @pokemon2.shinyB?
+        @pokemon1.shinyValue = @pokemon2.shinyValue?
       end
       if @pokemon1.shiny?
         @pokemon1.body_shiny = true
-        @pokemon1.head_shinyhue = @pokemon1.shinyValue?
-        @pokemon1.head_shinyr = @pokemon1.shinyR?
-        @pokemon1.head_shinyg = @pokemon1.shinyG?
-        @pokemon1.head_shinyb = @pokemon1.shinyB?
+        @pokemon1.body_shinyhue = @pokemon1.shinyValue?
+        @pokemon1.body_shinyr = @pokemon1.shinyR?
+        @pokemon1.body_shinyg = @pokemon1.shinyG?
+        @pokemon1.body_shinyb = @pokemon1.shinyB?
       end
       @pokemon1.debug_shiny = true if @pokemon1.debug_shiny || @pokemon2.debug_shiny
 
