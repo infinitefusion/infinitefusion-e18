@@ -723,7 +723,7 @@ class PokemonFusionScene
         @pokemon1.head_shinyr = @pokemon2.shinyR?
         @pokemon1.head_shinyg = @pokemon2.shinyG?
         @pokemon1.head_shinyb = @pokemon2.shinyB?
-        if $PokemonSystem.shinyfusedye == 1
+        if $PokemonSystem.shinyfusedye == 1 || !@pokemon1.shiny?
           @pokemon1.shinyR = @pokemon2.shinyR?
           @pokemon1.shinyG = @pokemon2.shinyG?
           @pokemon1.shinyB = @pokemon2.shinyB?
