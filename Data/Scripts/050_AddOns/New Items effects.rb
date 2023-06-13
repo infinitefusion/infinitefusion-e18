@@ -1498,6 +1498,19 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
 
       if pokemon.shiny?
         pokemon.shiny = false
+        if pokemon.body_shinyhue == nil && pokemon.head_shinyhue == nil
+          if rand(2) == 0
+            pokemon.head_shinyhue=pokemon.shinyValue?
+            pokemon.head_shinyr=pokemon.shinyR?
+            pokemon.head_shinyg=pokemon.shinyG?
+            pokemon.head_shinyb=pokemon.shinyB?
+          else
+            pokemon.body_shinyhue=pokemon.shinyValue?
+            pokemon.body_shinyr=pokemon.shinyR?
+            pokemon.body_shinyg=pokemon.shinyG?
+            pokemon.body_shinyb=pokemon.shinyB?
+          end
+        end
         if pokemon.bodyShiny? && pokemon.headShiny?
           pokemon.shiny = true
           poke2.shiny = true
