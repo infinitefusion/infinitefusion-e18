@@ -17,6 +17,7 @@ class PokemonSystem
   attr_accessor :battle_type
   attr_accessor :download_sprites
   attr_accessor :shiny_icons_kuray
+  attr_accessor :shinyfusedye
 
   def initialize
     @textspeed = 1 # Text speed (0=slow, 1=normal, 2=fast)
@@ -33,6 +34,7 @@ class PokemonSystem
     @quicksurf = 0
     @battle_type = 0
     @shiny_icons_kuray = 0
+    @shinyfusedye = 0
     @download_sprites = 0
 
   end
@@ -583,6 +585,20 @@ class PokemonOption_Scene
                               proc { $PokemonSystem.quicksurf },
                               proc { |value| $PokemonSystem.quicksurf = value },
                               "Start surfing automatically when interacting with water"
+    )
+    options <<
+      EnumOption.new(_INTL("Shiny Fuse Dye"), [_INTL("Off"), _INTL("On"), _INTL("Random")],
+                      proc { $PokemonSystem.shinyfusedye },
+                      proc { |value|
+                        if value == 0
+                          $PokemonSystem.shinyfusedye = 0
+                        elsif value == 1
+                          $PokemonSystem.shinyfusedye = 1
+                        elsif value == 2
+                          $PokemonSystem.shinyfusedye = 2
+                        end
+                        $PokemonSystem.shinyfusedye = value
+                      }, "Toggle on/off shiny color dye when fusing. Random re-roll entirely the shiny color"
     )
 
     return options
