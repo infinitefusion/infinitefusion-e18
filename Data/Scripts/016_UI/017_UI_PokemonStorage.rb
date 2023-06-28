@@ -24,9 +24,18 @@ class PokemonBoxIcon < IconSprite
     return false
   end
 
-  def createFusionIcon(species)
-    bodyPoke_number = getBodyID(species)
-    headPoke_number = getHeadID(species, bodyPoke_number)
+  def createRBGableShiny(pokemon)
+    result_icon = AnimatedBitmap.new(GameData::Species.icon_filename(pokemon.species, pokemon.form, pokemon.gender, pokemon.shiny?))
+    dexNum = getDexNumberForSpecies(pokemon.species)
+    if pokemon.shiny? && $PokemonSystem.shiny_icons_kuray == 1
+      result_icon.pbGiveFinaleColor(pokemon.shinyR?, pokemon.shinyG?, pokemon.shinyB?, pokemon.shinyValue?)
+    end
+    return result_icon
+  end
+
+  def createFusionIcon(pokemon)
+    bodyPoke_number = getBodyID(pokemon.species)
+    headPoke_number = getHeadID(pokemon.species, bodyPoke_number)
 
     bodyPoke = GameData::Species.get(bodyPoke_number).species
     headPoke = GameData::Species.get(headPoke_number).species
@@ -34,13 +43,27 @@ class PokemonBoxIcon < IconSprite
     icon1 = AnimatedBitmap.new(GameData::Species.icon_filename(headPoke))
     icon2 = AnimatedBitmap.new(GameData::Species.icon_filename(bodyPoke))
 
+    #KurayX Github
+    directory_name = "Graphics/Pokemon/FusionIcons"
+    Dir.mkdir(directory_name) unless File.exists?(directory_name)
+    dexNum = getDexNumberForSpecies(pokemon.species)
+    bitmapFileName = sprintf("Graphics/Pokemon/FusionIcons/icon%03d", dexNum)
+    headPokeFileName = GameData::Species.icon_filename(headPoke)
+    bitmapPath = sprintf("%s.png", bitmapFileName)
+    IO.copy_stream(headPokeFileName, bitmapPath)
+    result_icon = AnimatedBitmap.new(bitmapPath)
+
+
     for i in 0..icon1.width - 1
       for j in ((icon1.height / 2) + Settings::FUSION_ICON_SPRITE_OFFSET)..icon1.height - 1
         temp = icon2.bitmap.get_pixel(i, j)
-        icon1.bitmap.set_pixel(i, j, temp)
+        result_icon.bitmap.set_pixel(i, j, temp)
       end
     end
-    return icon1
+    if pokemon.shiny? && $PokemonSystem.shiny_icons_kuray == 1
+      result_icon.pbGiveFinaleColor(pokemon.shinyR?, pokemon.shinyG?, pokemon.shinyB?, pokemon.shinyValue?)
+    end
+    return result_icon
   end
 
   def release
@@ -58,10 +81,12 @@ class PokemonBoxIcon < IconSprite
 
   def refresh(fusion_enabled = true)
     return if !@pokemon
-    if useRegularIcon(@pokemon.species) || @pokemon.egg?
+    if @pokemon.egg?
       self.setBitmap(GameData::Species.icon_filename_from_pokemon(@pokemon))
+    elsif useRegularIcon(@pokemon.species)
+      self.setBitmapDirectly(createRBGableShiny(@pokemon))
     else
-      self.setBitmapDirectly(createFusionIcon(@pokemon.species))
+      self.setBitmapDirectly(createFusionIcon(@pokemon))
       if fusion_enabled
         self.visible = true
       else
@@ -1326,6 +1351,102 @@ class PokemonStorageScene
     return ret
   end
 
+  def pbDefineShinycolor(selected, heldpoke)
+    pokemon = heldpoke
+    if heldpoke
+      pokemon = heldpoke
+    elsif selected[0] == -1
+      pokemon = @storage.party[selected[1]]
+    else
+      pokemon = @storage.boxes[selected[0]][selected[1]]
+    end
+    qty = 360
+    helptext = pbDisplay(_INTL("Hue (0-360)"))
+    params = ChooseNumberParams.new
+    params.setMaxDigits(3)
+    params.setRange(0, 360)
+    params.setDefaultValue(pokemon.shinyValue?+180)
+    params.setInitialValue(pokemon.shinyValue?+180)
+    params.setCancelValue(pokemon.shinyValue?+180)
+    params.setNegativesAllowed(false)
+    qty = @scene.pbChooseNumber(helptext,params)
+    if qty < 361
+      if qty > -1
+        newvalue = qty - 180
+        pokemon.shinyValue=newvalue
+        pbHardRefresh
+        pbDisplay(_INTL("Changed Shiny Hue !"))
+      end
+    end
+    qty = 0
+    helptext = pbDisplay(_INTL("RedChannel (0-2)"))
+    params = ChooseNumberParams.new
+    params.setMaxDigits(1)
+    params.setRange(0, 2)
+    params.setDefaultValue(pokemon.shinyR?)
+    params.setInitialValue(pokemon.shinyR?)
+    params.setCancelValue(pokemon.shinyR?)
+    params.setNegativesAllowed(false)
+    qty = @scene.pbChooseNumber(helptext,params)
+    if qty < 3
+      if qty > -1
+        pokemon.shinyR=qty
+        pbHardRefresh
+        pbDisplay(_INTL("Changed Red Channel !"))
+      end
+    end
+    helptext = pbDisplay(_INTL("GreenChannel (0-2)"))
+    params = ChooseNumberParams.new
+    params.setMaxDigits(1)
+    params.setRange(0, 2)
+    params.setDefaultValue(pokemon.shinyG?)
+    params.setInitialValue(pokemon.shinyG?)
+    params.setCancelValue(pokemon.shinyG?)
+    params.setNegativesAllowed(false)
+    qty = @scene.pbChooseNumber(helptext,params)
+    if qty < 3
+      if qty > -1
+        pokemon.shinyG=qty
+        pbHardRefresh
+        pbDisplay(_INTL("Changed Green Channel !"))
+      end
+    end
+    helptext = pbDisplay(_INTL("BlueChannel (0-2)"))
+    params = ChooseNumberParams.new
+    params.setMaxDigits(1)
+    params.setRange(0, 2)
+    params.setDefaultValue(pokemon.shinyB?)
+    params.setInitialValue(pokemon.shinyB?)
+    params.setCancelValue(pokemon.shinyB?)
+    params.setNegativesAllowed(false)
+    qty = @scene.pbChooseNumber(helptext,params)
+    if qty < 3
+      if qty > -1
+        pokemon.shinyB=qty
+        pbHardRefresh
+        pbDisplay(_INTL("Changed Blue Channel !"))
+      end
+    end
+  end
+
+  def pbRerollShiny(selected, heldpoke)
+    pokemon = heldpoke
+    if heldpoke
+      pokemon = heldpoke
+    elsif selected[0] == -1
+      pokemon = @storage.party[selected[1]]
+    else
+      pokemon = @storage.boxes[selected[0]][selected[1]]
+    end
+    newvalue = rand(0..360) - 180
+    pokemon.shinyValue=newvalue
+    pokemon.shinyR=rand(0..2)
+    pokemon.shinyG=rand(0..2)
+    pokemon.shinyB=rand(0..2)
+    pbHardRefresh
+    pbDisplay(_INTL("Re-rolled Shiny Color !"))
+  end
+
   def pbSummary(selected, heldpoke)
     oldsprites = pbFadeOutAndHide(@sprites)
     scene = PokemonSummary_Scene.new
@@ -1599,6 +1720,10 @@ class PokemonStorageScreen
     @storage = storage
     @pbHeldPokemon = nil
   end
+  
+  def pbChooseNumber(helptext,maximum,initnum=1)
+    return UIHelper.pbChooseNumber(@sprites["helpwindow"],helptext,maximum,initnum) { pbUpdate }
+  end
 
   def pbStartScreen(command)
     @heldpkmn = nil
@@ -1651,6 +1776,8 @@ class PokemonStorageScreen
               cmdDebug = -1
               cmdCancel = -1
               cmdNickname = -1
+              cmdShinyReroll = -1
+              cmdShinyChoose = -1
               if heldpoke
                 helptext = _INTL("{1} is selected.", heldpoke.name)
                 commands[cmdMove = commands.length] = (pokemon) ? _INTL("Shift") : _INTL("Place")
@@ -1672,6 +1799,8 @@ class PokemonStorageScreen
               commands[cmdItem = commands.length] = _INTL("Item")
 
               commands[cmdRelease = commands.length] = _INTL("Release")
+              commands[cmdShinyReroll = commands.length] = _INTL("Re-roll Shiny Color") if $DEBUG
+              commands[cmdShinyChoose = commands.length] = _INTL("Set Shiny Color") if $DEBUG
               commands[cmdDebug = commands.length] = _INTL("Debug") if $DEBUG
               commands[cmdCancel = commands.length] = _INTL("Cancel")
               command = pbShowCommands(helptext, commands)
@@ -1683,7 +1812,11 @@ class PokemonStorageScreen
                 end
               elsif cmdSummary >= 0 && command == cmdSummary # Summary
                 pbSummary(selected, @heldpkmn)
-              elsif cmdNickname >= 0 && command == cmdNickname # Summary
+              elsif cmdShinyReroll >= 0 && command == cmdShinyReroll # Re-roll Shiny Color
+                pbRerollShiny(selected, @heldpkmn)
+              elsif cmdShinyChoose >= 0 && command == cmdShinyChoose # Set Shiny Color
+                pbDefineShinycolor(selected, @heldpkmn)
+              elsif cmdNickname >= 0 && command == cmdNickname # Rename
                 renamePokemon(selected)
               elsif cmdWithdraw >= 0 && command == cmdWithdraw # Store/Withdraw
                 (selected[0] == -1) ? pbStore(selected, @heldpkmn) : pbWithdraw(selected, @heldpkmn)
@@ -2047,6 +2180,14 @@ class PokemonStorageScreen
       end
     end
     return @scene.pbShowCommands(helptext, movenames, index)
+  end
+
+  def pbRerollShiny(selected, heldpoke)
+    @scene.pbRerollShiny(selected, heldpoke)
+  end
+
+  def pbDefineShinycolor(selected, heldpoke)
+    @scene.pbDefineShinycolor(selected, heldpoke)
   end
 
   def pbSummary(selected, heldpoke)

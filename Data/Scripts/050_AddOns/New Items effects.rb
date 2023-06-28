@@ -536,6 +536,11 @@ def reverseFusion(pokemon)
   pokemon.exp_when_fused_head = body_exp
 
   pokemon.head_shiny, pokemon.body_shiny = pokemon.body_shiny, pokemon.head_shiny
+  pokemon.head_shinyr, pokemon.body_shinyr = pokemon.body_shinyr, pokemon.head_shinyr
+  pokemon.head_shinyg, pokemon.body_shinyg = pokemon.body_shinyg, pokemon.head_shinyg
+  pokemon.head_shinyb, pokemon.body_shinyb = pokemon.body_shinyb, pokemon.head_shinyb
+  pokemon.head_shinyhue, pokemon.body_shinyhue = pokemon.body_shinyhue, pokemon.head_shinyhue
+
   #play animation
   pbFadeOutInWithMusic(99999) {
     fus = PokemonEvolutionScene.new
@@ -1485,23 +1490,54 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
       body_level = poke1.level
       head_level = poke2.level
 
+      poke2.shinyValue=pokemon.shinyValue
+
       pokemon.exp_gained_since_fused = 0
       pokemon.exp_when_fused_head = nil
       pokemon.exp_when_fused_body = nil
 
       if pokemon.shiny?
         pokemon.shiny = false
+        if pokemon.body_shinyhue == nil && pokemon.head_shinyhue == nil
+          if rand(2) == 0
+            pokemon.head_shinyhue=pokemon.shinyValue?
+            pokemon.head_shinyr=pokemon.shinyR?
+            pokemon.head_shinyg=pokemon.shinyG?
+            pokemon.head_shinyb=pokemon.shinyB?
+          else
+            pokemon.body_shinyhue=pokemon.shinyValue?
+            pokemon.body_shinyr=pokemon.shinyR?
+            pokemon.body_shinyg=pokemon.shinyG?
+            pokemon.body_shinyb=pokemon.shinyB?
+          end
+        end
         if pokemon.bodyShiny? && pokemon.headShiny?
           pokemon.shiny = true
           poke2.shiny = true
+          pokemon.shinyValue=pokemon.body_shinyhue?
+          pokemon.shinyR=pokemon.body_shinyr?
+          pokemon.shinyG=pokemon.body_shinyg?
+          pokemon.shinyB=pokemon.body_shinyb?
+          poke2.shinyValue=pokemon.head_shinyhue?
+          poke2.shinyR=pokemon.head_shinyr?
+          poke2.shinyG=pokemon.head_shinyg?
+          poke2.shinyB=pokemon.head_shinyb?
           pokemon.natural_shiny = true if pokemon.natural_shiny && !pokemon.debug_shiny
           poke2.natural_shiny = true if pokemon.natural_shiny && !pokemon.debug_shiny
         elsif pokemon.bodyShiny?
           pokemon.shiny = true
+          pokemon.shinyValue=pokemon.body_shinyhue?
+          pokemon.shinyR=pokemon.body_shinyr?
+          pokemon.shinyG=pokemon.body_shinyg?
+          pokemon.shinyB=pokemon.body_shinyb?
           poke2.shiny = false
           pokemon.natural_shiny = true if pokemon.natural_shiny && !pokemon.debug_shiny
         elsif pokemon.headShiny?
           poke2.shiny = true
+          poke2.shinyValue=pokemon.head_shinyhue?
+          poke2.shinyR=pokemon.head_shinyr?
+          poke2.shinyG=pokemon.head_shinyg?
+          poke2.shinyB=pokemon.head_shinyb?
           pokemon.shiny = false
           poke2.natural_shiny = true if pokemon.natural_shiny && !pokemon.debug_shiny
         else
@@ -1510,6 +1546,10 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
             pokemon.shiny = true
           else
             poke2.shiny = true
+            poke2.shinyValue=pokemon.shinyValue?
+            poke2.shinyR=pokemon.shinyR?
+            poke2.shinyG=pokemon.shinyG?
+            poke2.shinyB=pokemon.shinyB?
           end
         end
       end
