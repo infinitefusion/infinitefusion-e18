@@ -7,18 +7,11 @@ module BattleHandlers
   def self.triggerSpeedCalcAbility(ability, battler, mult)
     ability1 = ability
     ability2 = battler.ability2
-    calculateAbilitySpeedMultiplier(ability1, battler, mult)
+    mult = SpeedCalcAbility.trigger(ability1, battler, mult) || mult
     if $game_switches[SWITCH_DOUBLE_ABILITIES]
-      calculateAbilitySpeedMultiplier(ability2, battler, mult)
+      mult = SpeedCalcAbility.trigger(ability2, battler, mult) || mult
     end
     return mult
-  end
-
-  def self.calculateAbilitySpeedMultiplier(ability, battler, mult)
-    ability1 = ability
-    ability2 = battler.ability2
-    ret = SpeedCalcAbility.trigger(ability1, battler, mult) || SpeedCalcAbility.trigger(ability2, battler, mult)
-    return (ret != nil) ? ret : mult
   end
 
   def self.triggerWeightCalcAbility(ability,battler,w)
@@ -108,7 +101,7 @@ module BattleHandlers
   end
   ########
   # FROM HERE
-  # 
+  #
 
   def self.triggerAbilityOnHPDroppedBelowHalf(ability,user,battle)
     ability1 = ability
@@ -243,7 +236,7 @@ module BattleHandlers
   end
 
   #=============================================================================
-  
+
   def self.triggerMoveBaseTypeModifierAbility(ability,user,move,type)
     ability1 = ability
     ability2 = user.ability2
