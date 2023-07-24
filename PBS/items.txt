@@ -315,7 +315,7 @@
 312,TM25,TM25,TM25s,4,30000,"A wicked thunderbolt is dropped on the target to inflict damage. It may also leave the target with paralysis.",3,0,0,THUNDER
 313,TM26,TM26,TM26s,4,10000,"The user sets off an earthquake that strikes every Pokémon around it.",3,0,0,EARTHQUAKE
 314,TM27,TM27,TM27s,4,10000,"A full-power attack that grows more powerful the more the user likes its Trainer.",3,0,0,RETURN
-315,TM28,TM28,TM27s,4,20000,"The user burrows, then attacks on the second turn. It can also be used to exit dungeons.",3,0,0,DIG
+315,TM28,TM28,TM28s,4,20000,"The user burrows, then attacks on the second turn. It can also be used to exit dungeons.",3,0,0,DIG
 316,TM29,TM29,TM29s,4,10000,"The target is hit by a strong telekinetic force. It may also reduce the target's Sp. Def stat.",3,0,0,PSYCHIC
 317,TM30,TM30,TM30s,4,10000,"The user hurls a shadowy blob at the target. It may also lower the target's Sp. Def stat.",3,0,0,SHADOWBALL
 318,TM31,TM31,TM31s,4,10000,"The user attacks with tough fists, etc. It can also break any barrier such as Light Screen and Reflect.",3,0,0,BRICKBREAK
