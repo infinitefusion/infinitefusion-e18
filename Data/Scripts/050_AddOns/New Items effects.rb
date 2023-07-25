@@ -1569,6 +1569,8 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
       #On ajoute l'autre dans le pokedex aussi
       $Trainer.pokedex.set_seen(poke1.species)
       $Trainer.pokedex.set_owned(poke1.species)
+      $Trainer.pokedex.set_seen(poke2.species)
+      $Trainer.pokedex.set_owned(poke2.species)
 
       pokemon.species = poke1.species
       pokemon.level = poke1.level
