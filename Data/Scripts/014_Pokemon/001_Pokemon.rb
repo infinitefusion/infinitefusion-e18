@@ -794,8 +794,15 @@ class Pokemon
   end
 
   def pokemon_can_learn_move(species_data, move_data)
+    is_level_up_move = false
+    for i in 0...species_data.moves.length
+      if (species_data.moves[i][1] == move_data.id) # [0] level, [1] move
+        is_level_up_move = true
+        break
+      end
+    end
     return species_data.tutor_moves.include?(move_data.id) ||
-      species_data.moves.include?(move_data.id) ||
+      is_level_up_move ||
       species_data.egg_moves.include?(move_data.id)
   end
 
