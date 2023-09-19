@@ -794,15 +794,8 @@ class Pokemon
   end
 
   def pokemon_can_learn_move(species_data, move_data)
-    is_level_up_move = false
-    for i in 0...species_data.moves.length
-      if (species_data.moves[i][1] == move_data.id) # [0] level, [1] move
-        is_level_up_move = true
-        break
-      end
-    end
     return species_data.tutor_moves.include?(move_data.id) ||
-      is_level_up_move ||
+      species_data.moves.any?{|m| m[1] == move_data.id} ||
       species_data.egg_moves.include?(move_data.id)
   end
 
@@ -819,6 +812,15 @@ class Pokemon
     baby = pbGetBabySpecies(self.species)
     moves = pbGetSpeciesEggMoves(baby)
     return true if moves.size >= 1
+  end
+
+  def is_move_legal?(move_id)
+    move_data = GameData::Move.try_get(move_id)
+    baby = GameData::Species.get(species_data.get_baby_species)
+    prevo = GameData::Species.get(species_data.get_previous_species)
+    return pokemon_can_learn_move(baby, move_data) ||
+      pokemon_can_learn_move(prevo, move_data) || 
+      pokemon_can_learn_move(self.species_data, move_data)
   end
 
   #=============================================================================

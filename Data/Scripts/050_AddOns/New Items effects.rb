@@ -1536,20 +1536,12 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
       end
 
       if (supersplicers) # check for legal moves and give them to unfused pokes
-        poke1_baby = GameData::Species.get(poke1.species_data.get_baby_species)
-        poke1_prevo = GameData::Species.get(poke1.species_data.get_previous_species)
-        poke2_baby = GameData::Species.get(poke2.species_data.get_baby_species)
-        poke2_prevo = GameData::Species.get(poke2.species_data.get_previous_species)
 
         for i in 0...pokemon.moves.length
-          if (poke1.pokemon_can_learn_move(poke1_baby, pokemon.moves[i]) ||
-              poke1.pokemon_can_learn_move(poke1_prevo, pokemon.moves[i]) || 
-              poke1.pokemon_can_learn_move(poke1.species_data, pokemon.moves[i]))
+          if poke1.is_move_legal?(pokemon.moves[i].id) && !poke1.hasMove?(pokemon.moves[i].id)
             poke1.moves[i] = pokemon.moves[i]
           end
-          if (poke2.pokemon_can_learn_move(poke2_baby, pokemon.moves[i]) || 
-              poke2.pokemon_can_learn_move(poke2_prevo, pokemon.moves[i]) || 
-              poke2.pokemon_can_learn_move(poke2.species_data, pokemon.moves[i]))
+          if poke2.is_move_legal?(pokemon.moves[i].id) && !poke2.hasMove?(pokemon.moves[i].id)
             poke2.moves[i] = pokemon.moves[i]
           end
         end
