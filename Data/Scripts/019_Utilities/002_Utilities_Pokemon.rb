@@ -145,7 +145,7 @@ def pbGenerateEgg(pkmn, text = "")
   pkmn.obtain_text    = text
   pkmn.calc_stats
   # Add egg to party
-  if $Trainer.party.length<6
+  if $Trainer.party.length < Settings::MAX_PARTY_SIZE
     $Trainer.party[$Trainer.party.length] = pkmn
   else
     $PokemonStorage.pbStoreCaught(pkmn)

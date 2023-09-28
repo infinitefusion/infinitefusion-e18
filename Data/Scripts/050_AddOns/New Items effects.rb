@@ -1321,7 +1321,7 @@ def pbDNASplicing(pokemon, scene, supersplicers = false, superSplicer = false)
   dexNumber = pokemon.species_data.id_number
   if (pokemon.species_data.id_number <= NB_POKEMON)
     if pokemon.fused != nil
-      if $Trainer.party.length >= 6
+      if $Trainer.party.length >= Settings::MAX_PARTY_SIZE
         scene.pbDisplay(_INTL("Your party is full! You can't unfuse {1}.", pokemon.name))
         return false
       else
@@ -1453,7 +1453,7 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
       end
 
       keepInParty = 0
-      if $Trainer.party.length >= 6 && !pcPosition
+      if $Trainer.party.length >= Settings::MAX_PARTY_SIZE && !pcPosition
         scene.pbDisplay(_INTL("Your party is full! Keep which Pokémon in party?"))
         choice = Kernel.pbMessage("Select a Pokémon to keep in your party.", [_INTL("{1}", PBSpecies.getName(bodyPoke)), _INTL("{1}", PBSpecies.getName(headPoke)), "Cancel"], 2)
         if choice == 2
@@ -1535,7 +1535,7 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
         poke2.debug_shiny = false
       end
 
-      if $Trainer.party.length >= 6
+      if $Trainer.party.length >= Settings::MAX_PARTY_SIZE
         if (keepInParty == 0)
           $PokemonStorage.pbStoreCaught(poke2)
           scene.pbDisplay(_INTL("{1} was sent to the PC.", poke2.name))
