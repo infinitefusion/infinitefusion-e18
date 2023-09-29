@@ -6,17 +6,18 @@ name: RXDataUnpacker
 # or API.
 on:
   pull_request:
-    # Inputs the workflow accepts.
-     
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  ## Only trigger when pull request has rxdata changes.
+    paths:
+    - '**.rxdata'
 jobs:
-  # This workflow contains a single job called "greet"
-  greet:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  create_branch:
+    runs-on: ubuntu/latest
     steps:
-    # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ inputs.name }}"
+    - uses: peterjgrainger/action-create-branch@v2.2.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        branch: ${{ github.event.pull_request.branch.name + '_unpacked'}}
+        sha: '${{ github.event.pull_request.head.sha }}'
+    
+    
