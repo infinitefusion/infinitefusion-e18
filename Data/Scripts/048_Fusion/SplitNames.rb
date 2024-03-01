@@ -387,7 +387,7 @@ module GameData
     ["Ray", "quaza"],
     ["Ji", "rachi"],
     ["Deo", "xys"],
-    ["Tur", "wig"],
+    ["Tur", "twig"],
     ["Gro", "tle"],
     ["Tor", "terra"],
     ["Chim", "char"],
