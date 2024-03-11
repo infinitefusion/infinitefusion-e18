@@ -350,6 +350,8 @@ class Pokemon
   # Heals all HP of this Pokémon.
   def heal_HP
     return if egg?
+	# TODO setting for override
+	return if fainted?
     @hp = @totalhp
   end
 
