@@ -1187,12 +1187,26 @@ class Pokemon
   # @return [Integer] the maximum HP of this Pokémon
   def calcHP(base, level, iv, ev)
     return 1 if base == 1 # For Shedinja
-    return ((base * 2 + iv + (ev / 4)) * level / 100).floor + level + 10
+	calculated_hp = ((base * 2 + iv + (ev / 4)) * level / 100).floor + level + 10
+	# TODO setting for factors
+	if shiny?
+		calculated_hp = calculated_hp * 4
+	else
+		calculated_hp = calculated_hp * 2
+	end
+    return calculated_hp
   end
 
   # @return [Integer] the specified stat of this Pokémon (not used for total HP)
   def calcStat(base, level, iv, ev, nat)
-    return ((((base * 2 + iv + (ev / 4)) * level / 100).floor + 5) * nat / 100).floor
+    calculated_stat = ((((base * 2 + iv + (ev / 4)) * level / 100).floor + 5) * nat / 100).floor
+	# TODO setting for factors
+	if shiny?
+		calculated_stat = (calculated_stat * 1.21).floor
+	else
+		calculated_stat = (calculated_stat * 1.1).floor
+	end
+	return calculated_stat
   end
 
   def adjust_level_for_base_stats_mode()
