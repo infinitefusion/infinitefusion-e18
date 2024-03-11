@@ -88,6 +88,13 @@ class PokeBattle_Battle
       end
     end
   end
+  
+  # TODO setting for override
+  def pbRegenPP(pkmn)
+    pkmn.moves.each do |m|
+		m.pp = (m.pp + (m.total_pp/5)).clamp(0, m.total_pp)
+    end
+  end
 
 
   def pbGainExpOne(idxParty, defeatedBattler, numPartic, expShare, expAll, showMessages = true)
@@ -96,6 +103,7 @@ class PokeBattle_Battle
     # Don't bother calculating if gainer is already at max Exp
     if pkmn.exp >= growth_rate.maximum_exp
       pkmn.calc_stats # To ensure new EVs still have an effect
+	  pbRegenPP(pkmn)
       return
     end
     isPartic = defeatedBattler.participants.include?(idxParty)
@@ -122,6 +130,7 @@ class PokeBattle_Battle
       exp = a / 2
     end
     return if exp <= 0
+	pbRegenPP(pkmn)
     # Pokémon gain more Exp from trainer battles
     exp = (exp * 1.5).floor if trainerBattle?
     # Scale the gained Exp based on the gainer's level (or not)
