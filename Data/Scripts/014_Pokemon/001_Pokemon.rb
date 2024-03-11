@@ -1237,25 +1237,50 @@ class Pokemon
 	# TODO setting for override
 	# TODO setting for factors
 	# TODO setting for seed offset
+	# TODO setting for number of rolls
+	# TODO setting for number of rolls for shinies
 	
 	# For each stat, a factor is calculated.  The factor determines how much of the stronger stat is used relative to the weaker stat.
 	# For example, a stat factor of 0.75 (and a maximum factor of 1) results in the stat equaling 75% of the pokemon with the stronger stat's, plus 25% of the weaker pokemon.
-	fused_stat_factor_minimum = 0.5
-	fused_stat_factor_maximum = 1.5
+	fused_stat_factor_minimum = 0.25
+	fused_stat_factor_maximum = 0.75
 	
 	# If this stat is changed from 1, fusions can be drastically stronger or weaker than their unfused counterparts.
 	# The factor above is used as a ratio against the combined factor.  With a combined factor of 1, the percentages from the above calculation will add up to 100%.  However, with a combined factor of 2 for example, the percentages add up to 200%.
 	# As an example, if a factor is calculated at 1.25, and the combined factor is 2, your pokemon's stat will be 125% of the stronger pokemon's plus 75% of the weaker (calculated from 2 - 1.25).
 	# For another, if the factor is calculated at 0.75 and the combined factor is 1.25, your pokemon's stat will be 75% of the stronger pokemon's plus 50% of the weaker (calculated from 1.25 - 0.75). 
-	fused_stat_factor_combined_minimum = 1.25
-	fused_stat_factor_combined_maximum = 2
+	fused_stat_factor_combined_minimum = 0.9
+	fused_stat_factor_combined_maximum = 1.2
 	
 	head_id = getHeadID(species)
 	body_id = getBodyID(species)
 	stat_rand = Random.new( (head_id) + (10000+body_id) + 643 ) #seed offset 643
 	
-	combined_stat_factor = fused_stat_factor_combined_maximum == fused_stat_factor_combined_minimum ? fused_stat_factor_combined_maximum : stat_rand.rand(fused_stat_factor_combined_maximum - fused_stat_factor_combined_minimum) + fused_stat_factor_combined_minimum
-	stat_factor = fused_stat_factor_maximum == fused_stat_factor_minimum ? fused_stat_factor_maximum : stat_rand.rand(fused_stat_factor_maximum - fused_stat_factor_minimum) + fused_stat_factor_minimum
+	combined_stat_factor = fused_stat_factor_combined_minimum
+	stat_factor = fused_stat_factor_minimum
+	
+	combined_stat_factor_rolls = shiny? ? 5 : 1
+	stat_factor_rolls = shiny? ? 5 : 1
+	
+	if fused_stat_factor_combined_minimum != fused_stat_factor_combined_maximum then
+		while combined_stat_factor_rolls > 0
+			new_combined_stat_factor = stat_rand.rand(fused_stat_factor_combined_maximum - fused_stat_factor_combined_minimum) + fused_stat_factor_combined_minimum
+			if new_combined_stat_factor > combined_stat_factor then
+				combined_stat_factor = new_combined_stat_factor
+			end
+			combined_stat_factor_rolls = combined_stat_factor_rolls - 1
+		end
+	end
+	if fused_stat_factor_minimum != fused_stat_factor_maximum then
+		while stat_factor_rolls > 0
+			new_stat_factor = stat_rand.rand(fused_stat_factor_maximum - fused_stat_factor_minimum) + fused_stat_factor_minimum
+			if new_stat_factor > stat_factor then
+				stat_factor = new_stat_factor
+			end
+			stat_factor_rolls = stat_factor_rolls - 1
+		end
+	end
+	
 	if stat_factor > combined_stat_factor
 		stat_factor = combined_stat_factor
 	end
