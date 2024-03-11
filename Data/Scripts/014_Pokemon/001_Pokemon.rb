@@ -1098,9 +1098,9 @@ class Pokemon
   end
 
   def check_evolution_on_level_up
-	#TODO setting to disable happiness check
-	return nil if (@happiness - rand(155)) < 100
-	#TODO setting to disable premierball check
+	# TODO setting to disable happiness check
+	# return nil if (@happiness - rand(155)) < 100
+	# TODO setting to disable premierball check
 	return nil if @poke_ball == :PREMIERBALL
 
     if @species_data.is_a?(GameData::FusedSpecies)
