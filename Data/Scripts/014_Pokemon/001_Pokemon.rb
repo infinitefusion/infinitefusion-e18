@@ -1086,6 +1086,10 @@ class Pokemon
   end
 
   def check_evolution_on_level_up
+	#TODO setting to disable happiness check
+	return nil if (@happiness - rand(155)) < 100
+	#TODO setting to disable premierball check
+	return nil if @poke_ball == :PREMIERBALL
 
     if @species_data.is_a?(GameData::FusedSpecies)
       body = self.species_data.body_pokemon
@@ -1135,6 +1139,8 @@ class Pokemon
   # required it to have a held item) or duplicate this Pokémon (Shedinja only).
   # @param new_species [Pokemon] the species that this Pokémon evolved into
   def action_after_evolution(new_species)
+	#TODO setting to disable happiness check
+	@happiness = (@happiness - 100).clamp(0, 255)
     species_data.get_evolutions(true).each do |evo|
       # [new_species, method, parameter]
       break if GameData::Evolution.get(evo[1]).call_after_evolution(self, evo[0], evo[2], new_species)
