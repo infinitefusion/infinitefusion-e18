@@ -507,7 +507,8 @@ def pbUseItem(bag, item, bagscene = nil)
     if !pbConfirmMessage(_INTL("Do you want to teach {1} to a Pokémon?", movename))
       return 0
     elsif pbMoveTutorChoose(machine, nil, true, itm.is_TR?)
-      bag.pbDeleteItem(item) if itm.is_TR?
+	  # TODO setting for override
+      # bag.pbDeleteItem(item) if itm.is_TR?
       return 1
     end
     return 0
