@@ -1386,6 +1386,11 @@ class Pokemon
     else
       @owner = Owner.new(0, '', 2, 2)
     end
+	if owner.is_a?(NPCTrainer)
+		GameData::Stat.each_main do |s|
+			@ev[s.id] = (level / 10) * 4
+		end
+	end
     @obtain_method = 0 # Met
     @obtain_method = 4 if $game_switches && $game_switches[Settings::FATEFUL_ENCOUNTER_SWITCH]
     @obtain_map = ($game_map) ? $game_map.map_id : 0
