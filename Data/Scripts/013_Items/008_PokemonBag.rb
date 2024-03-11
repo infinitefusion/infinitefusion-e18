@@ -230,6 +230,9 @@ class PCItemStorage
     @items = []
     # Start storage with a Potion
     pbStoreItem(:POTION) if GameData::Item.exists?(:POTION)
+	# TODO setting for override
+    pbStoreItem(:MAGICBOOTS) if GameData::Item.exists?(:MAGICBOOTS)
+    pbStoreItem(:SHINYCHARM) if GameData::Item.exists?(:SHINYCHARM)
   end
 
   def [](i)
