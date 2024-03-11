@@ -368,6 +368,20 @@ module GameData
 
         index += 1
       end
+	  
+	  # Trainer's ace is always shiny
+	  # TODO setting for override
+	  strongest_index = 0
+	  strongest_level = 0
+      trainer.party.each_with_index do |p, i|
+		if p.level >= strongest_level
+			strongest_index = i
+			strongest_level = p.level
+		end
+	  end
+	  trainer.party[strongest_index].shiny = true
+	  trainer.party[strongest_index].calc_stats
+	  
       return trainer
     end
   end
