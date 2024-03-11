@@ -354,6 +354,16 @@ class Pokemon
 	return if fainted?
     @hp = @totalhp
   end
+  
+  def heal_HP_revive
+    return if egg?
+    @hp = @totalhp
+  end
+  
+  def heal_HP_revive_barely
+    return if egg?
+    @hp = 1
+  end
 
   # Heals the status problem of this Pokémon.
   def heal_status

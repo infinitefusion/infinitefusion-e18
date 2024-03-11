@@ -204,7 +204,21 @@ class Trainer
 
   # Fully heal all Pokémon in the party.
   def heal_party
-    @party.each { |pkmn| pkmn.heal }
+    all_fainted = true
+	@party.each do |pkmn| 
+		if pkmn.hp > 0
+		    all_fainted = false
+		end
+	end
+	if all_fainted
+		@party.each do |pkmn| 
+			pkmn.heal_HP_revive_barely
+			pkmn.heal_status
+			pkmn.heal_PP
+		end
+	else
+		@party.each { |pkmn| pkmn.heal }
+	end
   end
 
   #=============================================================================
