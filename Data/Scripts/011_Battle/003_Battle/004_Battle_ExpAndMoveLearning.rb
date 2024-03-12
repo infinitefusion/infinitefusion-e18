@@ -58,6 +58,9 @@ class PokeBattle_Battle
 
   def pbGainEVsOne(idxParty, defeatedBattler)
     pkmn = pbParty(0)[idxParty] # The Pokémon gaining EVs from defeatedBattler
+	if !pkmn.hasItem?(:EVERSTONE)
+		return
+	end
     evYield = defeatedBattler.pokemon.evYield
     # Num of effort points pkmn already has
     evTotal = 0
