@@ -1239,12 +1239,12 @@ class Pokemon
   def adjustHPForWonderGuard(stats)
     return self.ability == :WONDERGUARD ? 1 : stats[:HP]
   end
-
-  # Recalculates this Pokémon's stats.
-  def calc_stats
-    base_stats = self.baseStats
-    this_level = self.level
-    this_IV = self.calcIV
+  
+  def get_factor(stat)
+  
+	if !isFusion? then
+		return [1, 0]
+	end
 	
 	# TODO setting for override
 	# TODO setting for factors
@@ -1264,9 +1264,11 @@ class Pokemon
 	fused_stat_factor_combined_minimum = 0.9
 	fused_stat_factor_combined_maximum = 1.2
 	
-	head_id = getHeadID(species)
-	body_id = getBodyID(species)
-	stat_rand = Random.new( (head_id) + (10000+body_id) + 643 ) #seed offset 643
+	# head_id = getHeadID(species)
+	# body_id = getBodyID(species)
+	# stat_rand = Random.new( (head_id) + (10000+body_id) + 643 + sid) #seed offset 643
+	
+	stat_rand = Random.new(@personalID + 643 + GameData::Stat.get(stat).id_number)
 	
 	combined_stat_factor = fused_stat_factor_combined_minimum
 	stat_factor = fused_stat_factor_minimum
@@ -1297,14 +1299,24 @@ class Pokemon
 		stat_factor = combined_stat_factor
 	end
 	
+	return [stat_factor, combined_stat_factor - stat_factor]
+  end
+
+  # Recalculates this Pokémon's stats.
+  def calc_stats
+    base_stats = self.baseStats
+    this_level = self.level
+    this_IV = self.calcIV
+	
     if isFusion?()
 		head_species_data = GameData::Species.get(getHeadID(species)).base_stats
 		body_species_data = GameData::Species.get(getBodyID(species)).base_stats
 		GameData::Stat.each_main do |s|
+			stat_factor = get_factor(s)
 			if head_species_data[s.id] > body_species_data[s.id]
-				base_stats[s.id] = (stat_factor * head_species_data[s.id]) + ((combined_stat_factor - stat_factor) * body_species_data[s.id])
+				base_stats[s.id] = (stat_factor[0] * head_species_data[s.id]) + (stat_factor[1] * body_species_data[s.id])
 			else
-				base_stats[s.id] = (stat_factor * body_species_data[s.id]) + ((combined_stat_factor - stat_factor) * head_species_data[s.id])
+				base_stats[s.id] = (stat_factor[0] * body_species_data[s.id]) + (stat_factor[1] * head_species_data[s.id])
 			end
 		end
 	end
