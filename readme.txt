@@ -12,7 +12,7 @@ Wiki:            https://infinitefusion.fandom.com
 Discord:         https://discord.gg/infinitefusion
 Reddit:          https://www.reddit.com/r/PokemonInfiniteFusion
 Pokecommunity:   https://www.pokecommunity.com/showthread.php?t=347883
-Showdown:        http://play.pokeathlon.com
+Showdown:        https://play.pokeathlon.com
 Fusion dex:      https://if.daena.me
 
 This is a free-to-play Pokémon fan game. If you paid any amount of money to play this game, you have been scammed. 
