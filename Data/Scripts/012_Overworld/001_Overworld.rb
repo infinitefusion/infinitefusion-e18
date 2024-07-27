@@ -283,7 +283,13 @@ Events.onMapChange += proc { |_sender, e|
   if new_map_metadata && new_map_metadata.teleport_destination
     $PokemonGlobal.healingSpot = new_map_metadata.teleport_destination
   end
-  $PokemonMap.clear if $PokemonMap
+  if $PokemonMap
+    blackFluteUsed = $PokemonMap.blackFluteUsed
+    whiteFluteUsed = $PokemonMap.whiteFluteUsed
+    $PokemonMap.clear
+    $PokemonMap.blackFluteUsed = blackFluteUsed
+    $PokemonMap.whiteFluteUsed = whiteFluteUsed
+  end
   $PokemonEncounters.setup($game_map.map_id) if $PokemonEncounters
   $PokemonGlobal.visitedMaps[$game_map.map_id] = true
   next if old_map_ID == 0 || old_map_ID == $game_map.map_id
