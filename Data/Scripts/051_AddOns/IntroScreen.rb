@@ -21,12 +21,8 @@ class Scene_Intro
     intro_sprite.bitmap.looping = false
     intro_sprite.bitmap.play
     pbBGMPlay("INTRO_music_cries")
-    while intro_sprite.bitmap.playing do
-      Graphics.update
-      Input.update
-      if Input.press?(Input::C)
-        break
-      end
+    while intro_sprite.bitmap.playing and not @skip do
+     wait(1) 
     end
     pbBGMStop
   end
