@@ -18,6 +18,10 @@ class Scene_Intro
   def playIntroCinematic
     intro_sprite = Sprite.new
     intro_sprite.bitmap = Bitmap.new("Graphics/Pictures/Intro/INTRO.gif")
+    14.downto(1).each do |i|
+      frame = Bitmap.new(sprintf "Graphics/Pictures/Intro/INTRO-%03d", i)
+      intro_sprite.bitmap.add_frame frame, 0
+    end
     intro_sprite.bitmap.looping = false
     intro_sprite.bitmap.play
     pbBGMPlay("INTRO_music_cries")
