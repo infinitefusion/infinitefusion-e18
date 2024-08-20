@@ -2368,8 +2368,8 @@ class PokemonStorageScreen
     end
     if Kernel.pbConfirmMessageSerious(_INTL("Should {1} be reversed?", pokemon.name))
       reverseFusion(pokemon)
+      $PokemonBag.pbDeleteItem(:DNAREVERSER) if $PokemonBag.pbQuantity(:INFINITEREVERSERS) <= 0
     end
-    $PokemonBag.pbDeleteItem(:DNAREVERSER) if $PokemonBag.pbQuantity(:INFINITEREVERSERS) <= 0
   end
 
   def pbUnfuseFromPC(selected)
