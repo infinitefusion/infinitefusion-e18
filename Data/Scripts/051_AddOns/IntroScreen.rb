@@ -16,17 +16,25 @@ class Scene_Intro
   alias main_old main
 
   def playIntroCinematic
-    intro_frames_path = "Graphics\\Pictures\\Intro\\INTRO-%03d"
-    intro_bgm = "INTRO_music_cries"
-    intro_movie = Movie.new(intro_frames_path,intro_bgm,230,true)
-    intro_movie.playInViewPort(@viewport)
+    intro_sprite = Sprite.new
+    intro_sprite.bitmap = Bitmap.new("Graphics/Pictures/Intro/INTRO.gif")
+    14.downto(1).each do |i|
+      frame = Bitmap.new(sprintf "Graphics/Pictures/Intro/INTRO-%03d", i)
+      intro_sprite.bitmap.add_frame frame, 0
+    end
+    intro_sprite.bitmap.looping = false
+    intro_sprite.bitmap.play
+    pbBGMPlay("INTRO_music_cries")
+    while intro_sprite.bitmap.playing and not @skip do
+     wait(1) 
+    end
+    pbBGMStop
   end
 
   def main
     Graphics.transition(0)
     # Cycles through the intro pictures
     @skip = false
-
 
     playIntroCinematic
     # Selects title screen style
