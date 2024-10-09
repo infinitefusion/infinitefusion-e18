@@ -557,12 +557,12 @@ class Pokemon
 
   # Makes this Pokémon male.
   def makeMale
-    self.gender = 0;
+    @gender = 0
   end
 
   # Makes this Pokémon female.
   def makeFemale
-    self.gender = 1;
+    @gender = 1
   end
 
   # @return [Boolean] whether this Pokémon is male
