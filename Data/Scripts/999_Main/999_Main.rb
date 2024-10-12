@@ -159,6 +159,9 @@ def mainFunctionDebug
     pbPrintException($!) if !$DEBUG
     pbEmergencySave
     raise
+  rescue Reset
+    $scene = nil
+    raise
   end
 end
 
