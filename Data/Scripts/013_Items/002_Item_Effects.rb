@@ -148,17 +148,19 @@ Events.onStepTaken += proc {
 
 ItemHandlers::UseInField.add(:BLACKFLUTE, proc { |item|
   pbUseItemMessage(item)
-  pbMessage(_INTL("Wild Pokémon will be repelled."))
-  $PokemonMap.blackFluteUsed = true
+  message = $PokemonMap.blackFluteUsed ? "Wild Pokemon will no longer be repelled.": "Wild Pokémon will be repelled."
+  pbMessage(_INTL(message))
+  $PokemonMap.blackFluteUsed = !$PokemonMap.blackFluteUsed
   $PokemonMap.whiteFluteUsed = false
   next 1
 })
 
 ItemHandlers::UseInField.add(:WHITEFLUTE, proc { |item|
   pbUseItemMessage(item)
-  pbMessage(_INTL("Wild Pokémon will be lured."))
+  message = $PokemonMap.whiteFluteUsed ? "Wild Pokemon will no longer be lured.": "Wild Pokémon will be lured."
+  pbMessage(_INTL(message))
+  $PokemonMap.whiteFluteUsed = !$PokemonMap.whiteFluteUsed
   $PokemonMap.blackFluteUsed = false
-  $PokemonMap.whiteFluteUsed = true
   next 1
 })
 
