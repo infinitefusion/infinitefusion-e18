@@ -156,6 +156,8 @@ def findLastHairVersion(hairId)
   last_version = 0
   possible_versions.each { |version|
     hair_id = getFullHairId(hairId, version)
+    echoln hair_id
+    echoln pbResolveBitmap(getOverworldHairFilename(hair_id))
     if pbResolveBitmap(getOverworldHairFilename(hair_id))
       last_version = version
     else

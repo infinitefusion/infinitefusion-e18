@@ -43,32 +43,49 @@ def selectHairstyle(all_unlocked = false)
   $Trainer.hat = hat
 end
 
+def swapToNextHairVersion()
+  split_hair = getSplitHairFilenameAndVersionFromID($Trainer.hair)
+  hair_version = split_hair[0]
+  hair_style = split_hair[1]
+  current_version = hair_version
+  pbSEPlay("GUI party switch", 80, 100)
+  newVersion = current_version.to_i + 1
+  lastVersion = findLastHairVersion(hair_style)
+  newVersion = lastVersion if newVersion <= 0
+  newVersion = 1 if newVersion > lastVersion
+  $Trainer.hair = getFullHairId(hair_style,newVersion)
+end
 
 def selectHairColor
   original_color = $Trainer.hair_color
+  original_hair = $Trainer.hair
   $game_switches[SWITCH_SELECTING_CLOTHES]=true
   $game_map.update
   display_outfit_preview()
   hat = $Trainer.hat
-  commands = ["Shift up", "Shift down", "Toggle hat", "Reset", "Confirm", "Never Mind"]
+  commands = ["Swap base color", "Shift up", "Shift down", "Toggle hat", "Remove dye", "Confirm", "Never Mind"]
   previous_input = 0
 
   while (true)
     choice = pbShowCommands(nil, commands, commands.length, previous_input)
     previous_input = choice
     case choice
-    when 0 #NEXT
+    when 0 #change base
+      swapToNextHairVersion()
+      display_outfit_preview()
+      ret = false
+    when 1 #NEXT
       #playOutfitChangeAnimation()
       pbSEPlay("GUI storage pick up", 80, 100)
       shiftHairColor(10)
       display_outfit_preview()
       ret = true
-    when 1 #PREVIOUS
+    when 2 #PREVIOUS
       pbSEPlay("GUI storage pick up", 80, 100)
       shiftHairColor(-10)
       display_outfit_preview()
       ret = true
-    when 2 #Toggle hat
+    when 3 #Toggle hat
       pbSEPlay("GUI storage put down", 80, 100)
       if hat == $Trainer.hat
         $Trainer.hat = nil
@@ -76,15 +93,16 @@ def selectHairColor
         $Trainer.hat = hat
       end
       display_outfit_preview()
-    when 3 #Reset
+    when 4 #Reset
       pbSEPlay("GUI storage put down", 80, 100)
       $Trainer.hair_color = 0
       display_outfit_preview()
       ret = false
-    when 4 #Confirm
+    when 5 #Confirm
       break
     else
       $Trainer.hair_color = original_color
+      $Trainer.hair = original_hair
       ret = false
       break
     end
