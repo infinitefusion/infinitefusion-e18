@@ -63,6 +63,7 @@ module Settings
   SPRITES_FILE_URL = "https://raw.githubusercontent.com/infinitefusion/infinitefusion-e18/main/Data/sprites/CUSTOM_SPRITES"
   BASE_SPRITES_FILE_URL = "https://raw.githubusercontent.com/infinitefusion/infinitefusion-e18/main/Data/sprites/BASE_SPRITES"
 
+  CREDITS_FILE_URL = "https://infinitefusion.net/Sprite Credits.csv"
 
   STARTUP_MESSAGES = ""
 
