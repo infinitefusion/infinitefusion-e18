@@ -64,6 +64,7 @@ module Settings
   BASE_SPRITES_FILE_URL = "https://raw.githubusercontent.com/infinitefusion/infinitefusion-e18/main/Data/sprites/BASE_SPRITES"
 
   CREDITS_FILE_URL = "https://infinitefusion.net/Sprite Credits.csv"
+  CUSTOM_DEX_FILE_URL = "https://raw.githubusercontent.com/infinitefusion/pif-downloadables/refs/heads/master/dex.json"
 
   STARTUP_MESSAGES = ""
 
