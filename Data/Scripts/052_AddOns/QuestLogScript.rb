@@ -332,23 +332,13 @@ class Questlog
     @box = 0
     @completed = []
     @ongoing = []
-    echoln "BEFORE:"
-    for trainer_quest in $Trainer.quests
-      echoln "id: #{trainer_quest.id} completed: #{trainer_quest.completed}"
-    end
-    echoln "----------"
+
 
     fix_broken_TR_quests()
     for q in $Trainer.quests
       @ongoing << q if !q.completed && @ongoing.include?(q)
       @completed << q if q.completed && @completed.include?(q)
     end
-    echoln "AFTER:"
-
-    for trainer_quest in $Trainer.quests
-      echoln "id: #{trainer_quest.id} completed: #{trainer_quest.completed}"
-    end
-
 
     for q in $Trainer.quests
       echoln "#{q.id}: #{q.completed}"
