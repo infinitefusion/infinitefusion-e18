@@ -858,8 +858,7 @@ PokemonDebugMenuCommands.register("speciesform", {
              _INTL("Species {1}, form {2} (forced).", pkmn.speciesName, pkmn.form)][(pkmn.forced_form.nil?) ? 0 : 1]
       cmd = screen.pbShowCommands(msg, [
          _INTL("Set species"),
-         _INTL("Set form"),
-         _INTL("Remove form override")], cmd)
+         _INTL("Set fusion species")], cmd)
       break if cmd < 0
       case cmd
       when 0   # Set species
@@ -874,6 +873,26 @@ PokemonDebugMenuCommands.register("speciesform", {
           screen.pbRefreshSingle(pkmnid)
         end
       when 1   # Set form
+        old_head_dex = get_head_number_from_symbol(pkmn.species)
+        old_body_dex = get_body_number_from_symbol(pkmn.species)
+        pbMessage('Head species?')
+        head_species = pbChooseSpeciesList(old_head_dex,NB_POKEMON)
+        pbMessage('Body species?')
+        body_species = pbChooseSpeciesList(old_body_dex,NB_POKEMON)
+
+        fused_species_dex = getFusionSpecies(head_species.species, body_species.species)
+        species = GameData::Species.get(fused_species_dex)
+
+        if species && species != pkmn.species
+          pkmn.species = species
+          if pkmn.shiny?
+            pkmn.debug_shiny=true
+          end
+          pkmn.calc_stats
+          $Trainer.pokedex.register(pkmn) if !settingUpBattle
+          screen.pbRefreshSingle(pkmnid)
+        end
+
         # cmd2 = 0
         # formcmds = [[], []]
         # GameData::Species.each do |sp|
@@ -901,9 +920,9 @@ PokemonDebugMenuCommands.register("speciesform", {
         #     screen.pbRefreshSingle(pkmnid)
         #   end
         # end
-      when 2   # Remove form override
-        pkmn.forced_form = nil
-        screen.pbRefreshSingle(pkmnid)
+      # when 2   # Remove form override
+      #   pkmn.forced_form = nil
+      #   screen.pbRefreshSingle(pkmnid)
       end
     end
     next false

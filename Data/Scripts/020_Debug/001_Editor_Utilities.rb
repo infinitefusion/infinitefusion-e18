@@ -115,14 +115,16 @@ end
 # selected (or nil if the selection was canceled). "default", if specified, is
 # the ID of the species to initially select. Pressing Input::ACTION will toggle
 # the list sorting between numerical and alphabetical.
-def pbChooseSpeciesList(default = nil)
+def pbChooseSpeciesList(default = nil,max=nil)
   # commands = []
   # GameData::Species.each { |s| commands.push([s.id_number, s.real_name, s.id]) if s.form == 0 }
   # return pbChooseList(commands, default, nil, -1)
   #
   defaultNumber = default == nil ? 1 : getDexNumberForSpecies(default)
   params = ChooseNumberParams.new
-  params.setRange(1,PBSpecies.maxValue)
+
+  max = max ? max : PBSpecies.maxValue
+  params.setRange(1,max)
   params.setInitialValue(defaultNumber)
   dexNum = pbMessageChooseNumber("dex number?",params)
   return GameData::Species.get(dexNum)
