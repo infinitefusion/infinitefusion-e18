@@ -851,7 +851,7 @@ PokemonDebugMenuCommands.register("speciesform", {
   "parent"      => "main",
   "name"        => _INTL("Species/form..."),
   "always_show" => true,
-  "effect"      => proc { |pkmn, pkmnid, heldpoke, settingUpBattle, screen|
+  "effect"      => proc { |pkmn,˚ pkmnid, heldpoke, settingUpBattle, screen|
     cmd = 0
     loop do
       msg = [_INTL("Species {1}, form {2}.", pkmn.speciesName, pkmn.form),
@@ -870,6 +870,7 @@ PokemonDebugMenuCommands.register("speciesform", {
           end
           pkmn.calc_stats
           $Trainer.pokedex.register(pkmn) if !settingUpBattle
+          $Trainer.pokedex.set_owned(pkmn.species) if !settingUpBattle
           screen.pbRefreshSingle(pkmnid)
         end
       when 1   # Set form
@@ -880,7 +881,7 @@ PokemonDebugMenuCommands.register("speciesform", {
         pbMessage('Body species?')
         body_species = pbChooseSpeciesList(old_body_dex,NB_POKEMON)
 
-        fused_species_dex = getFusionSpecies(head_species.species, body_species.species)
+        fused_species_dex = getFusionSpecies(body_species.species,head_species.species)
         species = GameData::Species.get(fused_species_dex)
 
         if species && species != pkmn.species
@@ -890,6 +891,7 @@ PokemonDebugMenuCommands.register("speciesform", {
           end
           pkmn.calc_stats
           $Trainer.pokedex.register(pkmn) if !settingUpBattle
+          $Trainer.pokedex.set_owned(pkmn.species) if !settingUpBattle
           screen.pbRefreshSingle(pkmnid)
         end
 
