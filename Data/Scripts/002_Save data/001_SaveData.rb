@@ -21,8 +21,7 @@ module SaveData
   # @param file_path [String] path of the file to load from
   # @return [Hash, Array] loaded save data
   # @raise [IOError, SystemCallError] if file opening fails
-  def self.get_data_from_file(file_path)
-    validate file_path => String
+  def self.get_data_from_file(file_path)    validate file_path => String
     save_data = nil
     File.open(file_path) do |file|
       data = Marshal.load(file)
