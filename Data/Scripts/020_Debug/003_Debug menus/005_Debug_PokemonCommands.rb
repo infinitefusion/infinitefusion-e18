@@ -851,7 +851,7 @@ PokemonDebugMenuCommands.register("speciesform", {
   "parent"      => "main",
   "name"        => _INTL("Species/form..."),
   "always_show" => true,
-  "effect"      => proc { |pkmn,˚ pkmnid, heldpoke, settingUpBattle, screen|
+  "effect"      => proc { |pkmn, pkmnid, heldpoke, settingUpBattle, screen|
     cmd = 0
     loop do
       msg = [_INTL("Species {1}, form {2}.", pkmn.speciesName, pkmn.form),
