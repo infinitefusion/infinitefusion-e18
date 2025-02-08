@@ -1704,6 +1704,7 @@ def qmarkMaskCheck()
   if $Trainer.seen_qmarks_sprite
     unless hasHat?(HAT_QMARKS)
       obtainHat(HAT_QMARKS)
+      obtainClothes(CLOTHES_GLITCH)
     end
   end
 end

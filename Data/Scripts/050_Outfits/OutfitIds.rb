@@ -10,7 +10,9 @@ CLOTHES_ADVENTURER = "fantasyadventurersoutfit"
 CLOTHES_EMERALD = "emeraldSPE"
 CLOTHES_PIKACHU_ONESIE = "pikaonesie"
 
+CLOTHES_GLITCH = "glitzerset"
 CLOTHES_BREEDER="PKMBreeder"
+
 
 CLOTHES_LASS_YELLOW ="lass"
 CLOTHES_LASS_BLUE ="lass2"

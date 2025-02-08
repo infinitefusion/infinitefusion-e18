@@ -12,7 +12,7 @@
         "name": "Bald",
         "description": "A completely bald look - no hair, no fuss, just pure, unadulterated scalp!",
         "done": "yes",
-        "price": 0,
+        "price": 500,
         "tags": "no-hair"
     },
     {
@@ -150,6 +150,13 @@
         "price": 500,
         "tags": "medium, untied, spiky, thick, npc,",
         "howToGet": "garys mom in their house (lol)?"
+    },
+    {
+        "id": "glitzerset",
+        "name": "Pomeg Cut",
+        "description": "A cute cut that is styled like a Pomeg berry!",
+        "price": 2000,
+        "tags": "kinisland"
     },
     {
         "id": "happinysuit",
@@ -297,7 +304,8 @@
         "howToGet": "quest? cresselia outfit"
     },
     {
-        "id": "lycanrocshorthair"
+        "id": "lycanrocshorthair",
+        "price": 3000
     },
     {
         "id": "mawile",

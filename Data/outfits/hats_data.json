@@ -142,6 +142,7 @@
         "id": "carbink",
         "name": "Carbink Headband",
         "description": "A cute, rock-solid headband resembling Carbink.",
+        "done": "yes",
         "price": 5000,
         "tags": "hat,pokemon-carbink"
     },
@@ -357,6 +358,13 @@
         "howToGet": "cinnabar lab after fusing 100 times"
     },
     {
+        "id": "ghastlygibus",
+        "name": "Gibus",
+        "done": "yes",
+        "price": 6000,
+        "tags": "hat, lavender,pokemon-ghastly,pokemon-haunter,pokemon-gengar,"
+    },
+    {
         "id": "giovannifedora",
         "name": "Mobster Fedora",
         "description": "A stylish black fedora.",
@@ -370,8 +378,10 @@
         "id": "glitzerset",
         "name": "Glitched Mask",
         "description": "An odd mask that makes you look like you just stepped out of a corrupted save file. ",
+        "done": "yes",
         "price": 10000,
-        "tags": "mask"
+        "tags": "mask,special,",
+        "howToGet": "Obtained by defeating a Pokemon without a sprite"
     },
     {
         "id": "glasses",
@@ -445,7 +455,9 @@
     {
         "id": "headlacecovering",
         "name": "Lace Covering",
-        "description": "A delicate seet-hrough lace covering that is worn over the head."
+        "description": "A delicate seet-hrough lace covering that is worn over the head.",
+        "price": 4500,
+        "tags": "hat,ecruteak"
     },
     {
         "id": "headparas",
@@ -973,6 +985,8 @@
     {
         "id": "sableyemask",
         "name": "Sableye Mask",
+        "description": "A creepy, gem-eyed disguise that lets you channel your inner trickster.",
+        "done": "yes",
         "price": 4500,
         "tags": "mask,pokemon-sableye"
     },
@@ -999,6 +1013,7 @@
         "id": "santa",
         "name": "Festive Hat",
         "description": "A warm, snug stocking cap worn during a festive holiday season.",
+        "done": "yes",
         "price": 25000,
         "tags": "hat,"
     },
@@ -1044,7 +1059,10 @@
     {
         "id": "skittyTV",
         "name": "Skitty TV",
-        "price": 5000
+        "description": "A wearable TV themed like a Skitty. Use it to watch your battle replays!",
+        "price": 5000,
+        "tags": "hat,",
+        "howToGet": "goldenrod radio tower"
     },
     {
         "id": "sleepmask",
@@ -1193,6 +1211,7 @@
         "id": "waterdress",
         "name": "Straw Hat",
         "description": "A simple hat made out of straw that is typically worn by bug-catchers.",
+        "done": "yes",
         "price": 1500,
         "tags": "hat,pewter,",
         "howToGet": "trainer clothing store?"

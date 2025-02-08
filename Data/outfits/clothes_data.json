@@ -221,12 +221,24 @@
         "howToGet": "city-exclusive outfit"
     },
     {
+        "id": "flying",
+        "name": "Flying Outfit",
+        "description": "An aerodynamic outfit for gliding through the air.  It captures the essence of Flying-type Pokémon.",
+        "price": 10000,
+        "tags": "type-flying,special"
+    },
+    {
         "id": "fusionnerd",
         "name": "Fusion Outfit",
         "done": "yes",
         "price": 0,
         "tags": "pokemon-fused,special,",
         "howToGet": "cinnabar lab after fusing 100 times"
+    },
+    {
+        "id": "glitzerset",
+        "name": "Glitzer",
+        "price": 2550
     },
     {
         "id": "gothhoodie",
@@ -306,8 +318,8 @@
     },
     {
         "id": "lady",
-        "name": "Summer Dress",
-        "description": "An elegant white dress with a ribbon at the waist, radiating a sense of grace and sophistication.",
+        "name": "Elegant Dress",
+        "description": "An elegant summer dress with a ribbon at the waist, radiating a sense of grace and sophistication.",
         "done": "yes",
         "price": 1500,
         "tags": "cerulean",
