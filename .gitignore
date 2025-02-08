@@ -9,3 +9,6 @@ Data/sprites
 Data/sprites/updated_spritesheets_cache
 Data/sprites/sprites_rate_limit.log
 .gitignore
+PBS
+Game.rxproj
+.DS_Store
