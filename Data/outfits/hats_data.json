@@ -334,6 +334,7 @@
         "id": "firefigther",
         "name": "Firefighter Hat",
         "description": "A safety helmet made for brave heroes who put their lives on the line every day.",
+        "done": "yes",
         "price": 0,
         "tags": "hat, cinnabar,",
         "howToGet": "type trainer"
@@ -356,13 +357,6 @@
         "price": 0,
         "tags": "glasses,special,",
         "howToGet": "cinnabar lab after fusing 100 times"
-    },
-    {
-        "id": "ghastlygibus",
-        "name": "Gibus",
-        "done": "yes",
-        "price": 6000,
-        "tags": "hat, lavender,pokemon-ghastly,pokemon-haunter,pokemon-gengar,"
     },
     {
         "id": "giovannifedora",
@@ -455,9 +449,10 @@
     {
         "id": "headlacecovering",
         "name": "Lace Covering",
-        "description": "A delicate seet-hrough lace covering that is worn over the head.",
+        "description": "A delicate see-through lace covering that is worn over the head.",
+        "done": "yes",
         "price": 4500,
-        "tags": "hat,ecruteak"
+        "tags": "hat,vermillion"
     },
     {
         "id": "headparas",
@@ -614,6 +609,7 @@
         "id": "ludicolosombrero",
         "name": "Ludicolo Sombrero",
         "description": "A festive Sombrero that is often worn during fiestas.",
+        "done": "yes",
         "len": 53,
         "price": 18000,
         "tags": "hat,pokemon-lotad,pokemon-lombre,pokemon-ludicolo,weather-warm,"
@@ -632,6 +628,7 @@
         "id": "lycanrochooddown",
         "name": "Lycanroc Hood (down)",
         "description": "A fluffy hood. Down for those who want a little sun.",
+        "done": "yes",
         "price": 12000,
         "tags": "pokemon-rockruff,pokemon-lycanroc_d,pokemon-lycanroc_n,"
     },
@@ -639,6 +636,7 @@
         "id": "lycanrochoodup",
         "name": "Lycanroc Hood (up)",
         "description": "A fluffy hood. Up for those who shy away from the sun",
+        "done": "yes",
         "price": 12000,
         "tags": "pokemon-rockruff,pokemon-lycanroc_d,pokemon-lycanroc_n,"
     },
@@ -1184,7 +1182,8 @@
     {
         "id": "tvhead",
         "name": "TV Head",
-        "description": "A TV worn as a helmet that could be used to watch replays of your Pokémon battles... If only it worked!",
+        "description": "A TV worn as a helmet that could probably be used to watch replays of your battles... If only it worked!",
+        "done": "yes",
         "price": 4500,
         "tags": "hat,"
     },

@@ -69,6 +69,9 @@ HAT_BIANCA = "bianca"
 HAT_CLEFAIRY = "clefairyearheadband"
 HAT_FLOWER = "mikufairy"
 
+HAT_SKITTY_TV = "skittyTV"
+HAT_TVHEAD = "tvhead"
+
 
 HAT_CARDBOARD_BOX = "box"
 HAT_CAPTAIN = "seacaptain"

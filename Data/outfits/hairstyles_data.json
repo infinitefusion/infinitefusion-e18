@@ -156,7 +156,7 @@
         "name": "Pomeg Cut",
         "description": "A cute cut that is styled like a Pomeg berry!",
         "price": 2000,
-        "tags": "kinisland"
+        "tags": "kin"
     },
     {
         "id": "happinysuit",
@@ -437,7 +437,7 @@
         "tags": "default,"
     },
     {
-        "id": "pompadourdelinquentoutfit",
+        "id": "pompadour",
         "name": "Pompadour",
         "price": 2000,
         "tags": "violet,"
