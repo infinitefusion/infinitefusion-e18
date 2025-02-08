@@ -87,6 +87,7 @@
     },
     {
         "id": "dancer",
+        "name": "Dancer",
         "done": "yes",
         "price": 500,
         "tags": "fuchsia",
@@ -160,10 +161,10 @@
     },
     {
         "id": "happinysuit",
-        "name": "Curled Happiny Ponytail",
+        "name": "Playhouse Ponytail",
         "description": "A cute curly ponytail styled just like a Happiny. A wonderfully charming style for any fans of Baby Pokémon.",
         "len": 108,
-        "price": 5000,
+        "price": 3000,
         "tags": "long, tied, smooth, pokemon,",
         "howToGet": "quest?"
     },
@@ -179,6 +180,7 @@
     },
     {
         "id": "highbun",
+        "name": "High-bun",
         "done": "yes",
         "price": 500,
         "tags": "default"
@@ -201,7 +203,10 @@
     },
     {
         "id": "ho-oh",
-        "price": 5000
+        "name": "Phoenix Crest",
+        "description": "A bold, fiery style featuring a high, curved ponytail resembling the sweeping feathers of Ho-Oh.",
+        "price": 5000,
+        "howToGet": "saffron boutique"
     },
     {
         "id": "janine",
@@ -214,7 +219,10 @@
         "howToGet": "fuchsia city salon"
     },
     {
-        "id": "jessie"
+        "id": "jessie",
+        "name": "Rocket Wave",
+        "description": "A dramatic, sleek style with ultra-long hair swept back into a high, gravity-defying wave.",
+        "price": 2000
     },
     {
         "id": "kurt",
@@ -301,11 +309,15 @@
         "name": "Lunar Cut",
         "description": "A bob cut shaped like a crescent moon, with a sleek, curved silhouette.",
         "price": 5000,
+        "tags": "special",
         "howToGet": "quest? cresselia outfit"
     },
     {
         "id": "lycanrocshorthair",
-        "price": 3000
+        "name": "Lupine Cut",
+        "description": "A sleek cut that is reminiscent of a Lycanroc's mane",
+        "price": 3000,
+        "tags": "special"
     },
     {
         "id": "mawile",
@@ -491,7 +503,8 @@
         "howToGet": "Celadon special"
     },
     {
-        "id": "samurai"
+        "id": "samurai",
+        "name": "Samurai"
     },
     {
         "id": "short1",
@@ -513,12 +526,16 @@
     },
     {
         "id": "shortspike",
+        "name": "Short Spikes",
         "done": "yes",
         "price": 500,
         "tags": "default,"
     },
     {
-        "id": "SpecialLatias"
+        "id": "SpecialLatias",
+        "name": "Eon Bob",
+        "description": "A layered bob with long, outward curls, exuding a gentle and mysterious charm.",
+        "price": 5000
     },
     {
         "id": "vetf",

@@ -121,3 +121,9 @@ HAIR_CHUCK = "chuck" #does not exist yet
 HAIR_PRYCE = "pryce" #does not exist yet
 HAIR_MORTY = "morty" #does not exist yet
 HAIR_JASMINE = "jasmine" #does not exist yet
+
+HAIR_HOOH = "ho-oh"
+HAIR_CRESSELIA = "lunarbob"
+HAIR_LYCANROC="lycanrocshorthair"
+HAIR_HAPPINY="happinysuit"
+HAIR_LATIAS="SpecialLatias"
