@@ -1699,3 +1699,11 @@ def failAllIncompleteRocketQuests()
     finishTRQuest("tr_celadon_4", :FAILURE) if trainer_quest.id == "tr_celadon_4" && !pbCompletedQuest?("tr_celadon_4")
   end
 end
+
+def qmarkMaskCheck()
+  if $Trainer.seen_qmarks_sprite
+    unless hasHat?(HAT_QMARKS)
+      obtainHat(HAT_QMARKS)
+    end
+  end
+end

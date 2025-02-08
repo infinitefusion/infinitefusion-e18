@@ -367,6 +367,13 @@
         "howToGet": "gym reward"
     },
     {
+        "id": "glitzerset",
+        "name": "Glitched Mask",
+        "description": "An odd mask that makes you look like you just stepped out of a corrupted save file. ",
+        "price": 10000,
+        "tags": "mask"
+    },
+    {
         "id": "glasses",
         "name": "Round Glasses",
         "description": "A pair of standard round glasses. The lenses are purely decorative.",
@@ -432,8 +439,13 @@
         "done": "yes",
         "len": 63,
         "price": 10000,
-        "tags": "floating,",
+        "tags": "floating,pokemon-shedinja",
         "howToGet": "reward for beating the ilex forest shedinja encounter? reward for showing a shedinja to someone?"
+    },
+    {
+        "id": "headlacecovering",
+        "name": "Lace Covering",
+        "description": "A delicate seet-hrough lace covering that is worn over the head."
     },
     {
         "id": "headparas",
@@ -813,7 +825,7 @@
     },
     {
         "id": "pikhatchuf",
-        "name": "Head Pikachu",
+        "name": "Head Pikachu (F)",
         "description": "A female Pikachu that has taken a liking to perching atop a trainer's head.",
         "done": "yes",
         "len": 75,
@@ -823,7 +835,7 @@
     },
     {
         "id": "pikhatchum",
-        "name": "Head Pikachu",
+        "name": "Head Pikachu (M)",
         "description": "A male Pikachu that has taken a liking to perching atop a trainer's head.",
         "done": "yes",
         "len": 73,
@@ -959,6 +971,12 @@
         "tags": "glasses,mask,pokemon-budew,pokemon-roselia,pokemon-roserade,celadon"
     },
     {
+        "id": "sableyemask",
+        "name": "Sableye Mask",
+        "price": 4500,
+        "tags": "mask,pokemon-sableye"
+    },
+    {
         "id": "sabrinasballs",
         "name": "Levitating Balls",
         "description": "A few Poké Balls that permanently levitate with psychokinetic energy.",
@@ -1022,6 +1040,11 @@
         "len": 44,
         "price": 3500,
         "tags": "hat,weather-cold,blackthorn,mahogany"
+    },
+    {
+        "id": "skittyTV",
+        "name": "Skitty TV",
+        "price": 5000
     },
     {
         "id": "sleepmask",
@@ -1139,6 +1162,13 @@
         "done": "yes",
         "price": 2500,
         "tags": "glasses,violet,"
+    },
+    {
+        "id": "tvhead",
+        "name": "TV Head",
+        "description": "A TV worn as a helmet that could be used to watch replays of your Pokémon battles... If only it worked!",
+        "price": 4500,
+        "tags": "hat,"
     },
     {
         "id": "veteranM",

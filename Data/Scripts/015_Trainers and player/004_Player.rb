@@ -32,6 +32,8 @@ class Player < Trainer
   attr_accessor :card_background
   attr_accessor :unlocked_card_backgrounds
 
+  attr_accessor :seen_qmarks_sprite
+
 
   # @return [Array<Boolean>] the player's Gym Badges (true if owned)
   attr_accessor :badges
@@ -293,5 +295,7 @@ class Player < Trainer
 
     @card_background = Settings::DEFAULT_TRAINER_CARD_BG
     @unlocked_card_backgrounds = [@card_background]
+
+    @seen_qmarks_sprite = false
   end
 end

@@ -750,6 +750,7 @@ Events.onEndBattle += proc { |_sender,e|
       pbHoneyGather(pkmn)
     end
     pickUpTypeItemSetBonus()
+    qmarkMaskCheck()
   when 2, 5   # Lose, draw
     if !canLose
       $game_system.bgm_unpause

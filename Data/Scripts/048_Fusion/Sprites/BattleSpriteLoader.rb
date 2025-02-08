@@ -119,6 +119,7 @@ class BattleSpriteLoader
       new_extractor = get_sprite_extractor_instance(:AUTOGEN)
       return new_extractor.load_sprite(pif_sprite)
     else
+      $Trainer.seen_qmarks_sprite=true if $Trainer
       #If autogen or base sprite aren't able to load a sprite then we have nothing else to load -> show a ? instead.
       return AnimatedBitmap.new(Settings::DEFAULT_SPRITE_PATH)
     end

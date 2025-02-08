@@ -48,7 +48,7 @@ HAT_SLOWKING_SHELL = "slowking"
 HAT_ZOROARK = "banefulfoxmask"
 HAT_FROG = "froghat"
 HAT_SANTA = "santa"
-
+HAT_QMARKS = "glitzerset"
 
 HAT_BREEDER_1="breedervisor"
 HAT_BREEDER_2="breederbandana"

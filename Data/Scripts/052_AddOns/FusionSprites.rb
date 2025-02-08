@@ -9,7 +9,7 @@ module GameData
       else
         ret = self.front_sprite_bitmap(species, pkmn.shiny?, pkmn.bodyShiny?, pkmn.headShiny?)
       end
-      ret.scale_bitmap(pkmn.sprite_scale) #for pokemon with size differences
+      ret.scale_bitmap(pkmn.sprite_scale) if ret #for pokemon with size differences
       return ret
     end
 
