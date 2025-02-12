@@ -394,12 +394,10 @@ class PokeBattle_Move_019 < PokeBattle_Move
       failed = false
       break
     end
-    if !failed
-      @battle.pbParty(user.index).each do |pkmn|
-        next if !pkmn || !pkmn.able? || pkmn.status == :NONE
-        failed = false
-        break
-      end
+    @battle.pbParty(user.index).each do |pkmn|
+      next if !pkmn || !pkmn.able? || pkmn.status == :NONE
+      failed = false
+      break
     end
     if failed
       @battle.pbDisplay(_INTL("But it failed!"))
