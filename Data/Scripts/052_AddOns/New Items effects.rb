@@ -442,6 +442,8 @@ ItemHandlers::UseInField.add(:EMERGENCYWHISTLE, proc { |item|
 ItemHandlers::UseFromBag.add(:EMERGENCYWHISTLE, proc { |item|
   if isOnPinkanIsland()
     pbCommonEvent(COMMON_EVENT_PINKAN_WHISTLE)
+    $scene.reset_map(true)
+    updatePinkanBerryDisplay()
     next 1
   end
   next 0
