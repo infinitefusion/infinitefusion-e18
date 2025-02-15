@@ -199,6 +199,7 @@ class BattleSpriteLoader
     return PIFSprite.new(:BASE, dex_number, nil, random_alt)
   end
 
+  #todo refactor by using get_triple_fusion_components()
   def getSpecialSpriteName(dexNum)
     base_path = "Graphics/Battlers/special/"
     case dexNum

@@ -208,15 +208,9 @@ module GameData
     def self.check_cry_file(species, form)
       species_data = self.get_species_form(species, form)
       return nil if species_data.nil?
-      return "Cries/BIRDBOSS_2" if $game_switches[SWITCH_TRIPLE_BOSS_BATTLE] && !$game_switches[SWITCH_SILVERBOSS_BATTLE]
       if species_data.is_fusion
         species_data = GameData::Species.get(getHeadID(species_data))
       end
-
-      # if form > 0
-      #   ret = sprintf("Cries/%s_%d", species_data.species, form)
-      #   return ret if pbResolveAudioSE(ret)
-      # end
       ret = sprintf("Cries/%s", species_data.species)
       return (pbResolveAudioSE(ret)) ? ret : nil
     end
@@ -230,6 +224,13 @@ module GameData
     end
 
     def self.play_cry_from_species(species, form = 0, volume = 90, pitch = 100)
+      dex_num = getDexNumberForSpecies(species)
+      return play_triple_fusion_cry(species, volume, pitch) if dex_num > Settings::ZAPMOLCUNO_NB
+      if dex_num > NB_POKEMON
+        body_number = getBodyID(dex_num)
+        head_number = getHeadID(dex_num,body_number)
+        return play_fusion_cry(GameData::Species.get(head_number).species,GameData::Species.get(body_number).species, volume, pitch)
+      end
       filename = self.cry_filename(species, form)
       return if !filename
       pbSEPlay(RPG::AudioFile.new(filename, volume, pitch)) rescue nil
@@ -237,12 +238,36 @@ module GameData
 
     def self.play_cry_from_pokemon(pkmn, volume = 90, pitch = nil)
       return if !pkmn || pkmn.egg?
+
+      species_data = pkmn.species_data
+      return play_triple_fusion_cry(pkmn.species, volume, pitch) if species_data.is_triple_fusion
+      if pkmn.species_data.is_fusion
+        return play_fusion_cry(species_data.get_head_species,species_data.get_body_species, volume, pitch)
+      end
       filename = self.cry_filename_from_pokemon(pkmn)
       return if !filename
       pitch ||= 75 + (pkmn.hp * 25 / pkmn.totalhp)
       pbSEPlay(RPG::AudioFile.new(filename, volume, pitch)) rescue nil
     end
 
+    def self.play_triple_fusion_cry(species_id, volume, pitch)
+      fusion_components = get_triple_fusion_components(species_id)
+
+      echoln fusion_components
+      echoln species_id
+      for id in fusion_components
+        cry_filename = self.check_cry_file(id,nil)
+        pbSEPlay(cry_filename,volume-10) rescue nil
+      end
+    end
+    def self.play_fusion_cry(head_id,body_id, volume = 90, pitch = 100)
+      echoln "fusion"
+      head_cry_filename = self.check_cry_file(head_id,nil)
+      body_cry_filename = self.check_cry_file(body_id,nil)
+
+      pbSEPlay(body_cry_filename,volume-10) rescue nil
+      pbSEPlay(head_cry_filename,volume) rescue nil
+    end
     def self.play_cry(pkmn, volume = 90, pitch = nil)
       if pkmn.is_a?(Pokemon)
         self.play_cry_from_pokemon(pkmn, volume, pitch)

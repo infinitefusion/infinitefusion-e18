@@ -218,6 +218,9 @@ module GameData
       return @id_number > Settings::NB_POKEMON
     end
 
+    def is_triple_fusion
+      return @id_number >= Settings::ZAPMOLCUNO_NB
+    end
     def get_body_species
       return @species
     end

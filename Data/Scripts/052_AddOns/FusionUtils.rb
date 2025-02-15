@@ -331,3 +331,80 @@ def addNewTripleFusion(pokemon1, pokemon2, pokemon3, level = 1)
   #$Trainer.pokedex.register(pokemon)
   return true
 end
+
+def get_triple_fusion_components(species_id)
+  dex_num = GameData::Species.get(species_id).id_number
+  case dex_num
+  when Settings::ZAPMOLCUNO_NB
+    return [144,145,146]
+  when Settings::ZAPMOLCUNO_NB + 1
+    return [144,145,146]
+  when Settings::ZAPMOLCUNO_NB + 2
+    return [243,244,245]
+  when Settings::ZAPMOLCUNO_NB + 3
+    return [340,341,342]
+  when Settings::ZAPMOLCUNO_NB + 4
+    return [343,344,345]
+  when Settings::ZAPMOLCUNO_NB + 5
+    return [349,350,351]
+  when Settings::ZAPMOLCUNO_NB + 6
+    return [151,251,381]
+  when Settings::ZAPMOLCUNO_NB + 11
+    return [150,348,380]
+    #starters
+  when Settings::ZAPMOLCUNO_NB + 7
+    return [3,6,9]
+  when Settings::ZAPMOLCUNO_NB + 8
+    return [154,157,160]
+  when Settings::ZAPMOLCUNO_NB + 9
+    return [278,281,284]
+  when Settings::ZAPMOLCUNO_NB + 10
+    return [318,321,324]
+    #starters prevos
+  when Settings::ZAPMOLCUNO_NB + 12
+    return [1,4,7]
+  when Settings::ZAPMOLCUNO_NB + 13
+    return [2,5,8]
+  when Settings::ZAPMOLCUNO_NB + 14
+    return [152,155,158]
+  when Settings::ZAPMOLCUNO_NB + 15
+    return [153,156,159]
+  when Settings::ZAPMOLCUNO_NB + 16
+    return [276,279,282]
+  when Settings::ZAPMOLCUNO_NB + 17
+    return [277,280,283]
+  when Settings::ZAPMOLCUNO_NB + 18
+    return [316,319,322]
+  when Settings::ZAPMOLCUNO_NB + 19
+    return [317,320,323]
+  when Settings::ZAPMOLCUNO_NB + 20 #birdBoss Left
+    return []
+  when Settings::ZAPMOLCUNO_NB + 21 #birdBoss middle
+    return [144,145,146]
+  when Settings::ZAPMOLCUNO_NB + 22 #birdBoss right
+    return []
+  when Settings::ZAPMOLCUNO_NB + 23 #sinnohboss left
+    return []
+  when Settings::ZAPMOLCUNO_NB + 24 #sinnohboss middle
+    return [343,344,345]
+  when Settings::ZAPMOLCUNO_NB + 25 #sinnohboss right
+    return []
+  when Settings::ZAPMOLCUNO_NB + 25 #cardboard
+    return []
+  when Settings::ZAPMOLCUNO_NB + 26 #cardboard
+    return []
+  when Settings::ZAPMOLCUNO_NB + 27 #Triple regi
+    return [447,448,449]
+    #Triple Kalos 1
+  when Settings::ZAPMOLCUNO_NB + 28
+    return [479,482,485]
+  when Settings::ZAPMOLCUNO_NB + 29
+    return [480,483,486]
+  when Settings::ZAPMOLCUNO_NB + 30
+    return [481,484,487]
+  else
+    return [000]
+  end
+
+end
+
