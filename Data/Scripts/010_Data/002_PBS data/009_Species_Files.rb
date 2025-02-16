@@ -63,6 +63,7 @@ module GameData
     #   return (ret) ? ret : pbResolveBitmap("Graphics/Pokemon/Eggs/000")
     # end
     def self.egg_sprite_filename(species, form)
+      return "Graphics/Battlers/Eggs/000" if $PokemonSystem.use_custom_eggs
       dexNum = getDexNumberForSpecies(species)
       bitmapFileName = sprintf("Graphics/Battlers/Eggs/%03d", dexNum) rescue nil
       if !pbResolveBitmap(bitmapFileName)
@@ -261,7 +262,6 @@ module GameData
       end
     end
     def self.play_fusion_cry(head_id,body_id, volume = 90, pitch = 100)
-      echoln "fusion"
       head_cry_filename = self.check_cry_file(head_id,nil)
       body_cry_filename = self.check_cry_file(body_id,nil)
 

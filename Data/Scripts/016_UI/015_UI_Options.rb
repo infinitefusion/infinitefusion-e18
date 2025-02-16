@@ -23,6 +23,7 @@ class PokemonSystem
   attr_accessor :on_mobile
   attr_accessor :type_icons
   attr_accessor :use_generated_dex_entries
+  attr_accessor :use_custom_eggs
 
   def initialize
     @textspeed = 1 # Text speed (0=slow, 1=normal, 2=fast)
@@ -45,6 +46,7 @@ class PokemonSystem
     @on_mobile = false
     @type_icons = true
     @use_generated_dex_entries = true
+    @use_custom_eggs = true
   end
 end
 
