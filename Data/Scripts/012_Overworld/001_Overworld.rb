@@ -423,7 +423,7 @@ def pbEventNextToPlayer?(event,player)
 end
 
 
-# Returns whether event is in line with the player, is facing the player and is
+# Returns whether event is in line with the player, is
 # within distance tiles of the player.
 def pbEventFacesPlayer?(event, player, distance)
   return pbEventNextToPlayer?(event,player) if distance == 0
