@@ -114,8 +114,13 @@ def getEasterEggHeldItem()
   return "secrets/MAGIKARP" if [394,471,189,].include?(map) #Fishing huts
   return "secrets/AZUREFLUTE" if [694,].include?(map) && $PokemonBag.pbQuantity(:AZUREFLUTE)>=1 #Ice Mountain peak
   return "secrets/BIGSODA" if [436,].include?(map) && $PokemonBag.pbQuantity(:SODAPOP)>=1 #Celadon dept. store top
-  return "secrets/EGG" if [13,406,214,].include?(map) #Celadon Café
+  return "secrets/EGG" if [13,406,214,].include?(map) #Day care
   return "secrets/STICK" if [266,].include?(map) #Ilex forest
+  return "secrets/BANANA" if [600,].include?(map) #Bond Bridge
+  return "secrets/BERRY" if [619,620,].include?(map) #Berry forest
+  return "secrets/COIN" if [357].include?(map) #Pokemart
+  return "secrets/LATTE" if [406].include?(map) #Celadon Café
+
   return nil
 end
 

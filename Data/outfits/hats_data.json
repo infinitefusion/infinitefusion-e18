@@ -177,6 +177,12 @@
         "howToGet": "gym reward"
     },
     {
+        "id": "clownnose",
+        "name": "Clown Nose",
+        "price": 1500,
+        "tags": "mask,pokemon-mimejr,pokemon-mrmime,"
+    },
+    {
         "id": "cloak",
         "name": "Cloak Hood",
         "description": "A dark and mysterious hood that hangs over the face.",
@@ -249,6 +255,12 @@
         "price": 30000,
         "tags": "hat",
         "howToGet": "type trainer"
+    },
+    {
+        "id": "dragonitehorns",
+        "name": "Dragonite Horns",
+        "price": 4500,
+        "tags": "hat,pokemon-dratini,pokemon-dragonair,pokemon-dragonite,"
     },
     {
         "id": "drifloon",
@@ -1013,7 +1025,7 @@
         "description": "A warm, snug stocking cap worn during a festive holiday season.",
         "done": "yes",
         "price": 25000,
-        "tags": "hat,"
+        "tags": "hat,pokemon-delibird,"
     },
     {
         "id": "seacaptain",
