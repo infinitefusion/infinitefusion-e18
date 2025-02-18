@@ -157,9 +157,7 @@ class PokemonPokedexInfo_Scene
     previous_index = @selected_index == 0 ? @available.size - 1 : @selected_index - 1
     next_index = @selected_index == @available.size - 1 ? 0 : @selected_index + 1
 
-    echoln "selected sprite:"
-    get_pif_sprite(@available[@selected_index]).dump_info()
-
+    get_pif_sprite(@available[@selected_index])
     @sprites["bgSelected_previous"].visible = true if is_main_sprite(previous_index) && @available.size > 2
     @sprites["bgSelected_center"].visible = true if is_main_sprite(@selected_index)
     @sprites["bgSelected_next"].visible = true if is_main_sprite(next_index) && @available.size > 1
@@ -170,6 +168,7 @@ class PokemonPokedexInfo_Scene
     if isFusion(dex_number)
       body_id = getBodyID(dex_number)
       head_id = getHeadID(dex_number, body_id)
+
       #Autogen sprite
       if alt_letter == "autogen"
         pif_sprite = PIFSprite.new(:AUTOGEN, head_id, body_id)
@@ -186,6 +185,7 @@ class PokemonPokedexInfo_Scene
       sprite_path = alt_letter.split("_", 2)[1]
       pif_sprite.local_path = sprite_path
     end
+    pif_sprite.dump_info
     return pif_sprite
   end
 
