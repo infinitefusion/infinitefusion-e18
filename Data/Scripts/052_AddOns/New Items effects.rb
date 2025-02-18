@@ -1,55 +1,4 @@
-ItemHandlers::BattleUseOnBattler.add(:POKEDEX, proc { |item, battler, scene|
-  #if battler.battle.battlers.length  > -1
-  #  scene.pbDisplay(_INTL(" The length is {1}",battler.battle.battlers.length))
-  #     scene.pbDisplay(_INTL("The PokéDex cannot be used on multiple enemies at once!"))
-  #     return false
-  #end
 
-  doublebattle = false
-  #DOUBLE BATTLES A FAIRE
-  #variable temporaire doublebattle
-  if doublebattle
-    e = battler.pbOpposing2
-  else
-    is_trainer = battler.battle.opponent
-
-    e1 = battler.pbOpposing1.pokemon
-    enemyname = e1.name
-    e1type1 = e1.type1
-    e1type2 = e1.type2
-  end
-  if e1type1 == e1type2
-    scene.pbDisplay(_INTL("{2} has been identified as a {1} type Pokémon.", PBTypes.getName(e1type1), enemyname))
-  else
-    scene.pbDisplay(_INTL("{3} has been identified as a {1}/{2} type Pokémon.", PBTypes.getName(e1type1), PBTypes.getName(e1type2), enemyname))
-
-    if $game_switches[10] #BADGE 7
-      if battler.pbCanIncreaseStatStage?(PBStats::DEFENSE, false)
-        battler.pbIncreaseStat(PBStats::DEFENSE, 1, true)
-      end
-      if battler.pbCanIncreaseStatStage?(PBStats::SPDEF, false)
-        battler.pbIncreaseStat(PBStats::SPDEF, 1, true)
-      end
-      if battler.pbCanIncreaseStatStage?(PBStats::ACCURACY, false)
-        battler.pbIncreaseStat(PBStats::ACCURACY, 3, true)
-      end
-    elsif $game_switches[8] #BADGE 5
-      if battler.pbCanIncreaseStatStage?(PBStats::ACCURACY, false)
-        battler.pbIncreaseStat(PBStats::ACCURACY, 3, true)
-      end
-    elsif $game_switches[6] #BADGE 3
-      if battler.pbCanIncreaseStatStage?(PBStats::ACCURACY, false)
-        battler.pbIncreaseStat(PBStats::ACCURACY, 2, true)
-      end
-    elsif $game_switches[8] #BADGE 1
-      if battler.pbCanIncreaseStatStage?(PBStats::ACCURACY, false)
-        battler.pbIncreaseStat(PBStats::ACCURACY, 1, true)
-      end
-    end
-
-    return true
-  end
-})
 
 ItemHandlers::UseInBattle.add(:POKEDOLL, proc { |item, battler, battle|
   battle.decision = 3
@@ -144,58 +93,7 @@ def useTeleporter()
   end
 end
 
-ItemHandlers::BattleUseOnBattler.add(:POKEDEX, proc { |item, battler, scene|
-  #if battler.battle.battlers.length  > -1
-  #  scene.pbDisplay(_INTL(" The length is {1}",battler.battle.battlers.length))
-  #     scene.pbDisplay(_INTL("The PokéDex cannot be used on multiple enemies at once!"))
-  #     return false
-  #end
 
-  doublebattle = false
-  #DOUBLE BATTLES A FAIRE
-  #variable temporaire doublebattle
-  if doublebattle
-    e = battler.pbOpposing2
-  else
-    is_trainer = battler.battle.opponent
-
-    e1 = battler.pbOpposing1.pokemon
-    enemyname = e1.name
-    e1type1 = e1.type1
-    e1type2 = e1.type2
-  end
-  if e1type1 == e1type2
-    scene.pbDisplay(_INTL("{2} has been identified as a {1} type Pokémon.", PBTypes.getName(e1type1), enemyname))
-  else
-    scene.pbDisplay(_INTL("{3} has been identified as a {1}/{2} type Pokémon.", PBTypes.getName(e1type1), PBTypes.getName(e1type2), enemyname))
-
-    if $game_switches[10] #BADGE 7
-      if battler.pbCanIncreaseStatStage?(PBStats::DEFENSE, false)
-        battler.pbIncreaseStat(PBStats::DEFENSE, 1, true)
-      end
-      if battler.pbCanIncreaseStatStage?(PBStats::SPDEF, false)
-        battler.pbIncreaseStat(PBStats::SPDEF, 1, true)
-      end
-      if battler.pbCanIncreaseStatStage?(PBStats::ACCURACY, false)
-        battler.pbIncreaseStat(PBStats::ACCURACY, 3, true)
-      end
-    elsif $game_switches[8] #BADGE 5
-      if battler.pbCanIncreaseStatStage?(PBStats::ACCURACY, false)
-        battler.pbIncreaseStat(PBStats::ACCURACY, 3, true)
-      end
-    elsif $game_switches[6] #BADGE 3
-      if battler.pbCanIncreaseStatStage?(PBStats::ACCURACY, false)
-        battler.pbIncreaseStat(PBStats::ACCURACY, 2, true)
-      end
-    elsif $game_switches[8] #BADGE 1
-      if battler.pbCanIncreaseStatStage?(PBStats::ACCURACY, false)
-        battler.pbIncreaseStat(PBStats::ACCURACY, 1, true)
-      end
-    end
-
-    return true
-  end
-})
 
 ItemHandlers::UseInBattle.add(:POKEDOLL, proc { |item, battler, battle|
   battle.decision = 3
@@ -238,7 +136,7 @@ ItemHandlers::UseOnPokemon.add(:TRANSGENDERSTONE, proc { |item, pokemon, scene|
   end
 })
 
-#NOT FULLY IMPLEMENTED
+# NOT FULLY IMPLEMENTED
 ItemHandlers::UseOnPokemon.add(:SECRETCAPSULE, proc { |item, poke, scene|
   abilityList = poke.getAbilityList
   numAbilities = abilityList[0].length
@@ -429,6 +327,14 @@ ItemHandlers::UseInField.add(:ROCKETUNIFORM, proc { |item|
   next useRocketUniform()
 })
 
+ItemHandlers::UseFromBag.add(:FAVORITEOUTFIT, proc { |item|
+  next useFavoriteOutfit()
+})
+
+ItemHandlers::UseInField.add(:FAVORITEOUTFIT, proc { |item|
+  next useFavoriteOutfit()
+})
+
 ItemHandlers::UseInField.add(:EMERGENCYWHISTLE, proc { |item|
   if isOnPinkanIsland()
     pbCommonEvent(COMMON_EVENT_PINKAN_WHISTLE)
@@ -471,16 +377,45 @@ ItemHandlers::UseFromBag.add(:ODDKEYSTONE, proc { |item|
   end
 })
 
+def useFavoriteOutfit()
+  if !$Trainer.favorite_clothes && !$Trainer.favorite_hat
+    pbMessage(_INTL("You can mark clothes and hats as your favorites in the outfits menu and use this to quickly switch to them!"))
+    return 0
+  end
+
+  if isWearingFavoriteOutfit()
+    if (Kernel.pbConfirmMessage("Remove your favorite outfit?"))
+      if ($Trainer.last_worn_outfit == $Trainer.favorite_clothes && $Trainer.last_worn_hat == $Trainer.favorite_hat)
+        $Trainer.last_worn_outfit = getDefaultClothes()
+      end
+      playOutfitChangeAnimation()
+      putOnClothes($Trainer.last_worn_outfit, true) if $Trainer.favorite_clothes
+      putOnHat($Trainer.last_worn_hat, true) if $Trainer.favorite_hat
+    else
+      return 0
+    end
+
+  else
+    if (Kernel.pbConfirmMessage("Put on your favorite outfit?"))
+      playOutfitChangeAnimation()
+      putOnClothes($Trainer.favorite_clothes, true) if $Trainer.favorite_clothes
+      putOnHat($Trainer.favorite_hat, true) if $Trainer.favorite_hat
+    else
+      return 0
+    end
+  end
+end
+
 def useRocketUniform()
   return 0 if !$game_switches[SWITCH_JOINED_TEAM_ROCKET]
   if isWearingTeamRocketOutfit()
     if (Kernel.pbConfirmMessage("Remove the Team Rocket uniform?"))
       if ($Trainer.last_worn_outfit == CLOTHES_TEAM_ROCKET_MALE || $Trainer.last_worn_outfit == CLOTHES_TEAM_ROCKET_FEMALE) && $Trainer.last_worn_hat == HAT_TEAM_ROCKET
-        $Trainer.last_worn_outfit =getDefaultClothes()
+        $Trainer.last_worn_outfit = getDefaultClothes()
       end
       playOutfitChangeAnimation()
-      putOnClothes($Trainer.last_worn_outfit,true)
-      putOnHat($Trainer.last_worn_hat,true)
+      putOnClothes($Trainer.last_worn_outfit, true)
+      putOnHat($Trainer.last_worn_hat, true)
     else
       return 0
     end
@@ -489,11 +424,11 @@ def useRocketUniform()
       playOutfitChangeAnimation()
       gender = pbGet(VAR_TRAINER_GENDER)
       if gender == GENDER_MALE
-        putOnClothes(CLOTHES_TEAM_ROCKET_MALE,true)
+        putOnClothes(CLOTHES_TEAM_ROCKET_MALE, true)
       else
-        putOnClothes(CLOTHES_TEAM_ROCKET_FEMALE,true)
+        putOnClothes(CLOTHES_TEAM_ROCKET_FEMALE, true)
       end
-      putOnHat(HAT_TEAM_ROCKET,true)
+      putOnHat(HAT_TEAM_ROCKET, true)
       #$scene.reset_map(true)
     end
   end
@@ -519,7 +454,7 @@ def useStrangePlant
 
 end
 
-#DREAMMIRROR
+# DREAMMIRROR
 ItemHandlers::UseFromBag.add(:DREAMMIRROR, proc { |item|
   useDreamMirror
   next 1
@@ -530,7 +465,7 @@ ItemHandlers::UseInField.add(:DREAMMIRROR, proc { |item|
   next 1
 })
 
-#STRANGE PLANT
+# STRANGE PLANT
 ItemHandlers::UseFromBag.add(:STRANGEPLANT, proc { |item|
   useStrangePlant()
   next 1
@@ -549,7 +484,7 @@ ItemHandlers::UseFromBag.add(:MAGICBOOTS, proc { |item|
   else
     if Kernel.pbConfirmMessageSerious(_INTL("Put on the Magic Boots?"))
       Kernel.pbMessage(_INTL("Debug mode is now active."))
-      $game_switches[ENABLED_DEBUG_MODE_AT_LEAST_ONCE] = true #got debug mode (for compatibility)
+      $game_switches[ENABLED_DEBUG_MODE_AT_LEAST_ONCE] = true # got debug mode (for compatibility)
       $DEBUG = true
     end
   end
@@ -680,7 +615,7 @@ def reverseFusion(pokemon)
   pokemon.exp_when_fused_head = body_exp
 
   pokemon.head_shiny, pokemon.body_shiny = pokemon.body_shiny, pokemon.head_shiny
-  #play animation
+  # play animation
   pbFadeOutInWithMusic(99999) {
     fus = PokemonEvolutionScene.new
     fus.pbStartScreen(pokemon, newspecies, true)
@@ -705,7 +640,7 @@ ItemHandlers::UseOnPokemon.add(:INFINITEREVERSERS, proc { |item, pokemon, scene|
     pokemon.exp_when_fused_body = head_exp
     pokemon.exp_when_fused_head = body_exp
 
-    #play animation
+    # play animation
     pbFadeOutInWithMusic(99999) {
       fus = PokemonEvolutionScene.new
       fus.pbStartScreen(pokemon, newspecies, true)
@@ -903,26 +838,26 @@ def returnItemsToBag(pokemon, poke2)
   poke2.item = nil
 end
 
-#A AJOUTER: l'attribut dmgup ne modifie presentement pas
+# A AJOUTER: l'attribut dmgup ne modifie presentement pas
 #           le damage d'une attaque
 #
 ItemHandlers::UseOnPokemon.add(:DAMAGEUP, proc { |item, pokemon, scene|
   move = scene.pbChooseMove(pokemon, _INTL("Boost Damage of which move?"))
   if move >= 0
-    #if pokemon.moves[move].damage==0 ||  pokemon.moves[move].accuracy<=5 || pokemon.moves[move].dmgup >=3
+    # if pokemon.moves[move].damage==0 ||  pokemon.moves[move].accuracy<=5 || pokemon.moves[move].dmgup >=3
     #  scene.pbDisplay(_INTL("It won't have any effect."))
     #  next false
-    #else
-    #pokemon.moves[move].dmgup+=1
-    #pokemon.moves[move].damage +=5
-    #pokemon.moves[move].accuracy -=5
+    # else
+    # pokemon.moves[move].dmgup+=1
+    # pokemon.moves[move].damage +=5
+    # pokemon.moves[move].accuracy -=5
 
-    #movename=PBMoves.getName(pokemon.moves[move].id)
-    #scene.pbDisplay(_INTL("{1}'s damage increased.",movename))
-    #next true
+    # movename=PBMoves.getName(pokemon.moves[move].id)
+    # scene.pbDisplay(_INTL("{1}'s damage increased.",movename))
+    # next true
     scene.pbDisplay(_INTL("This item has not been implemented into the game yet. It had no effect."))
     next false
-    #end
+    # end
   end
 })
 
@@ -1015,7 +950,7 @@ ItemHandlers::UseOnPokemon.add(:DAMAGEUP, proc { |item, pokemon, scene|
 #   end
 # })
 
-#easter egg for evolving shellder into slowbro's tail
+# easter egg for evolving shellder into slowbro's tail
 ItemHandlers::UseOnPokemon.add(:SLOWPOKETAIL, proc { |item, pokemon, scene|
   echoln pokemon.species
   next false if pokemon.species != :SHELLDER
@@ -1160,7 +1095,7 @@ ItemHandlers::BattleUseOnPokemon.add(:BALMMUSHROOM, proc { |item, pokemon, battl
 # })
 
 ####EXP. ALL
-#Methodes relative a l'exp sont pas encore la et pas compatibles
+# Methodes relative a l'exp sont pas encore la et pas compatibles
 # avec cette version de essentials donc
 # ca fait fuck all pour l'instant.
 ItemHandlers::UseFromBag.add(:EXPALL, proc { |item|
@@ -1235,7 +1170,7 @@ ItemHandlers::UseOnPokemon.add(:TRANSGENDERSTONE, proc { |item, pokemon, scene|
 #
 # })
 
-#NOT FULLY IMPLEMENTED
+# NOT FULLY IMPLEMENTED
 ItemHandlers::UseOnPokemon.add(:SECRETCAPSULE, proc { |item, poke, scene|
   abilityList = poke.getAbilityList
   numAbilities = abilityList[0].length
@@ -1387,7 +1322,7 @@ ItemHandlers::UseOnPokemon.add(:MISTSTONE, proc { |item, pokemon, scene|
 def pbForceEvo(pokemon)
   evolutions = getEvolvedSpecies(pokemon)
   return false if evolutions.empty?
-  #if multiple evolutions, pick a random one
+  # if multiple evolutions, pick a random one
   #(format of returned value is [[speciesNum, level]])
   newspecies = evolutions[rand(evolutions.length - 1)][0]
   return false if newspecies == nil
@@ -1456,7 +1391,7 @@ def getPokemonPositionInParty(pokemon)
   return -1
 end
 
-#don't remember why there's two Supersplicers arguments.... probably a mistake
+# don't remember why there's two Supersplicers arguments.... probably a mistake
 def pbDNASplicing(pokemon, scene, item = :DNASPLICERS)
   is_supersplicer = isSuperSplicersMechanics(item)
 
@@ -1480,7 +1415,7 @@ def pbDNASplicing(pokemon, scene, item = :DNASPLICERS)
       if chosen >= 0
         poke2 = $Trainer.party[chosen]
         if (poke2.species_data.id_number <= NB_POKEMON) && poke2 != pokemon
-          #check if fainted
+          # check if fainted
 
           if pokemon.egg? || poke2.egg?
             scene.pbDisplay(_INTL("It's impossible to fuse an egg!"))
@@ -1492,10 +1427,10 @@ def pbDNASplicing(pokemon, scene, item = :DNASPLICERS)
           end
 
           selectedHead = selectFusion(pokemon, poke2, is_supersplicer)
-          if selectedHead == -1 #cancelled
+          if selectedHead == -1 # cancelled
             return false
           end
-          if selectedHead == nil #can't fuse (egg, etc.)
+          if selectedHead == nil # can't fuse (egg, etc.)
             scene.pbDisplay(_INTL("It won't have any effect."))
             return false
           end
@@ -1530,7 +1465,7 @@ def pbDNASplicing(pokemon, scene, item = :DNASPLICERS)
       end
     end
   else
-    #UNFUSE
+    # UNFUSE
     return true if pbUnfuse(pokemon, scene, is_supersplicer)
   end
 end
@@ -1539,7 +1474,7 @@ def selectFusion(pokemon, poke2, supersplicers = false)
   return nil if !pokemon.is_a?(Pokemon) || !poke2.is_a?(Pokemon)
   return nil if pokemon.egg? || poke2.egg?
 
-  selectorWindow = FusionPreviewScreen.new(poke2, pokemon, supersplicers) #PictureWindow.new(picturePath)
+  selectorWindow = FusionPreviewScreen.new(poke2, pokemon, supersplicers) # PictureWindow.new(picturePath)
   selectedHead = selectorWindow.getSelection
   selectorWindow.dispose
   return selectedHead
@@ -1578,16 +1513,15 @@ def pbFuse(pokemon_body, pokemon_head, splicer_item)
   if (fus.pbStartScreen(pokemon_body, pokemon_head, newid, splicer_item))
     returnItemsToBag(pokemon_body, pokemon_head)
     fus.pbFusionScreen(false, use_supersplicers_mechanics)
-    $game_variables[VAR_FUSE_COUNTER] += 1 #fuse counter
+    $game_variables[VAR_FUSE_COUNTER] += 1 # fuse counter
     fus.pbEndScreen
     return true
   end
 end
 
-
-#Todo: refactor this, holy shit this is a mess
+# Todo: refactor this, holy shit this is a mess
 def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
-  if pokemon.species_data.id_number > (NB_POKEMON * NB_POKEMON) + NB_POKEMON #triple fusion
+  if pokemon.species_data.id_number > (NB_POKEMON * NB_POKEMON) + NB_POKEMON # triple fusion
     scene.pbDisplay(_INTL("{1} cannot be unfused.", pokemon.name))
     return false
   end
@@ -1661,7 +1595,7 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
           pokemon.shiny = false
           poke2.natural_shiny = true if pokemon.natural_shiny && !pokemon.debug_shiny
         else
-          #shiny was obtained already fused
+          # shiny was obtained already fused
           if rand(2) == 0
             pokemon.shiny = true
           else
@@ -1691,7 +1625,6 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
         poke2.debug_shiny = false
       end
 
-
       if $Trainer.party.length >= 6
         if (keepInParty == 0)
           if isOnPinkanIsland()
@@ -1704,14 +1637,14 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
           poke2 = Pokemon.new(bodyPoke, body_level)
           poke1 = Pokemon.new(headPoke, head_level)
 
-          #Fusing from PC
+          # Fusing from PC
           if pcPosition != nil
             box = pcPosition[0]
             index = pcPosition[1]
-            #todo: store at next available position from current position
+            # todo: store at next available position from current position
             $PokemonStorage.pbStoreCaught(poke2)
           else
-          #Fusing from party
+            # Fusing from party
             if isOnPinkanIsland()
               scene.pbDisplay(_INTL("{1} was released.", poke2.name))
             else
@@ -1724,14 +1657,14 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
         if pcPosition != nil
           box = pcPosition[0]
           index = pcPosition[1]
-          #todo: store at next available position from current position
+          # todo: store at next available position from current position
           $PokemonStorage.pbStoreCaught(poke2)
         else
           Kernel.pbAddPokemonSilent(poke2, poke2.level)
         end
       end
 
-      #On ajoute les poke au pokedex
+      # On ajoute les poke au pokedex
       $Trainer.pokedex.set_seen(poke1.species)
       $Trainer.pokedex.set_owned(poke1.species)
       $Trainer.pokedex.set_seen(poke2.species)
@@ -1744,15 +1677,13 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
       pokemon.obtain_method = 0
       poke1.obtain_method = 0
 
-      #scene.pbDisplay(_INTL(p1.to_s + " " + p2.to_s))
+      # scene.pbDisplay(_INTL(p1.to_s + " " + p2.to_s))
       scene.pbHardRefresh
       scene.pbDisplay(_INTL("Your Pokémon were successfully unfused! "))
       return true
     end
   end
 end
-
-
 
 ItemHandlers::UseOnPokemon.add(:SUPERSPLICERS, proc { |item, pokemon, scene|
   next true if pbDNASplicing(pokemon, scene, item)
@@ -1770,26 +1701,26 @@ def returnItemsToBag(pokemon, poke2)
   poke2.item = nil
 end
 
-#A AJOUTER: l'attribut dmgup ne modifie presentement pas
+# A AJOUTER: l'attribut dmgup ne modifie presentement pas
 #           le damage d'une attaque
 #
 ItemHandlers::UseOnPokemon.add(:DAMAGEUP, proc { |item, pokemon, scene|
   move = scene.pbChooseMove(pokemon, _INTL("Boost Damage of which move?"))
   if move >= 0
-    #if pokemon.moves[move].damage==0 ||  pokemon.moves[move].accuracy<=5 || pokemon.moves[move].dmgup >=3
+    # if pokemon.moves[move].damage==0 ||  pokemon.moves[move].accuracy<=5 || pokemon.moves[move].dmgup >=3
     #  scene.pbDisplay(_INTL("It won't have any effect."))
     #  next false
-    #else
-    #pokemon.moves[move].dmgup+=1
-    #pokemon.moves[move].damage +=5
-    #pokemon.moves[move].accuracy -=5
+    # else
+    # pokemon.moves[move].dmgup+=1
+    # pokemon.moves[move].damage +=5
+    # pokemon.moves[move].accuracy -=5
 
-    #movename=PBMoves.getName(pokemon.moves[move].id)
-    #scene.pbDisplay(_INTL("{1}'s damage increased.",movename))
-    #next true
+    # movename=PBMoves.getName(pokemon.moves[move].id)
+    # scene.pbDisplay(_INTL("{1}'s damage increased.",movename))
+    # next true
     scene.pbDisplay(_INTL("This item has not been implemented into the game yet. It had no effect."))
     next false
-    #end
+    # end
   end
 })
 
@@ -1932,7 +1863,7 @@ ItemHandlers::UseOnPokemon.add(:DAMAGEUP, proc { |item, pokemon, scene|
 #    :SUNSTONE,:DUSKSTONE,:DAWNSTONE,:SHINYSTONE,:OVALSTONE,
 #    :UPGRADE,:DUBIOUSDISC,:ICESTONE,:MAGNETSTONE)
 
-#Quest log
+# Quest log
 
 ItemHandlers::UseFromBag.add(:DEVONSCOPE, proc { |item|
   pbQuestlog()
@@ -1943,7 +1874,7 @@ ItemHandlers::UseInField.add(:DEVONSCOPE, proc { |item|
   pbQuestlog()
 })
 
-#TRACKER (for roaming legendaries)
+# TRACKER (for roaming legendaries)
 ItemHandlers::UseInField.add(:REVEALGLASS, proc { |item|
   track_pokemon()
   next true
@@ -2040,7 +1971,7 @@ def track_pokemon()
 end
 
 ####EXP. ALL
-#Methodes relative a l'exp sont pas encore la et pas compatibles
+# Methodes relative a l'exp sont pas encore la et pas compatibles
 # avec cette version de essentials donc
 # ca fait fuck all pour l'instant.
 ItemHandlers::UseFromBag.add(:EXPALL, proc { |item|
@@ -2073,10 +2004,10 @@ ItemHandlers::UseOnPokemon.add(:GOLDENBANANA, proc { |item, pokemon, scene|
 
 ItemHandlers::UseInField.add(:BOXLINK, proc { |item|
   blacklisted_maps = [
-    315, 316, 317, 318, 328, 343, #Elite Four
-    776, 777, 778, 779, 780, 781, 782, 783, 784, #Mt. Silver
-    722, 723, 724, 720, #Dream sequence
-    304, 306, 307 #Victory road
+    315, 316, 317, 318, 328, 343, # Elite Four
+    776, 777, 778, 779, 780, 781, 782, 783, 784, # Mt. Silver
+    722, 723, 724, 720, # Dream sequence
+    304, 306, 307 # Victory road
   ]
   if blacklisted_maps.include?($game_map.map_id)
     Kernel.pbMessage("There doesn't seem to be any network coverage here...")
@@ -2084,7 +2015,7 @@ ItemHandlers::UseInField.add(:BOXLINK, proc { |item|
     pbFadeOutIn {
       scene = PokemonStorageScene.new
       screen = PokemonStorageScreen.new(scene, $PokemonStorage)
-      screen.pbStartScreen(0) #Boot PC in organize mode
+      screen.pbStartScreen(0) # Boot PC in organize mode
     }
   end
   next 1

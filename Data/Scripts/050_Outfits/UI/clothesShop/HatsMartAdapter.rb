@@ -32,7 +32,9 @@ class HatsMartAdapter < OutfitsMartAdapter
 
   def getDisplayName(item)
     return getName(item) if !item.name
-    return item.name
+    name = item.name
+    name = "* #{name}" if item.id == $Trainer.favorite_hat
+    return name
   end
 
   def getDescription(item)
@@ -79,7 +81,7 @@ class HatsMartAdapter < OutfitsMartAdapter
         $Trainer.hat_color=0
         previewWindow.hat_color=0
       end
-      echoln $Trainer.dyed_hats
+      #echoln $Trainer.dyed_hats
     else
       $Trainer.hat_color=0
       previewWindow.hat_color=0

@@ -22,6 +22,8 @@ class Player < Trainer
   attr_accessor :dyed_hats
   attr_accessor :dyed_clothes
 
+  attr_accessor :favorite_hat
+  attr_accessor :favorite_clothes
 
   attr_accessor :last_worn_outfit
   attr_accessor :last_worn_hat
@@ -292,6 +294,8 @@ class Player < Trainer
     @dyed_hats = {}
     @dyed_clothes = {}
 
+    @favorite_hat = nil
+    @favorite_clothes = nil
 
     @card_background = Settings::DEFAULT_TRAINER_CARD_BG
     @unlocked_card_backgrounds = [@card_background]

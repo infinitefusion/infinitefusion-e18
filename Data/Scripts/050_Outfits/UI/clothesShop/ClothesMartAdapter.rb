@@ -19,7 +19,9 @@ class ClothesMartAdapter < OutfitsMartAdapter
 
   def getDisplayName(item)
     return getName(item) if !item.name
-    return item.name
+    name = item.name
+    name = "* #{name}" if item.id == $Trainer.favorite_clothes
+    return name
   end
 
   def getDescription(item)

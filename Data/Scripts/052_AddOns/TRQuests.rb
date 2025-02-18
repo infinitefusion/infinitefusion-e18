@@ -4,6 +4,18 @@ def isWearingTeamRocketOutfit()
   return (isWearingClothes(CLOTHES_TEAM_ROCKET_MALE) || isWearingClothes(CLOTHES_TEAM_ROCKET_FEMALE)) && isWearingHat(HAT_TEAM_ROCKET)
 end
 
+def isWearingFavoriteOutfit()
+  is_wearing_favorite_hat = $Trainer.hat == $Trainer.favorite_hat || !$Trainer.favorite_hat
+  is_wearing_favorite_clothes = $Trainer.clothes == $Trainer.favorite_clothes || !$Trainer.favorite_clothes
+  if $Trainer.favorite_hat && !$Trainer.favorite_clothes
+    return is_wearing_favorite_hat
+  end
+  if $Trainer.favorite_clothes && !$Trainer.favorite_hat
+    return is_wearing_favorite_clothes
+  end
+  return is_wearing_favorite_clothes && is_wearing_favorite_hat
+end
+
 def obtainRocketOutfit()
   Kernel.pbReceiveItem(:ROCKETUNIFORM)
   gender = pbGet(VAR_TRAINER_GENDER)

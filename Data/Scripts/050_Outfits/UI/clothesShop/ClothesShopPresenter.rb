@@ -24,16 +24,19 @@ class ClothesShopPresenter < PokemonMartScreen
 
     remove_dye_option_available = $Trainer.hat_color != 0
     options << "Remove dye" if remove_dye_option_available
+    options << "Mark as favorite" if $Trainer.favorite_hat != item.id
+    options << "Unmark as favorite" if $Trainer.favorite_hat == item.id
+
     options << "Cancel"
-    #if $Trainer.hat_color != 0
-    choice = pbMessage("What would you like to do?",options,-1)
+    # if $Trainer.hat_color != 0
+    choice = pbMessage("What would you like to do?", options, -1)
     if choice == 0
-      if is_player_hat #remove
+      if is_player_hat # remove
         @adapter.doSpecialItemAction(:REMOVE)
         @scene.pbEndBuyScene
         return false
       else
-        #wear
+        # wear
         putOnClothes(item)
         $Trainer.hat_color = @adapter.get_dye_color(item)
         return false
@@ -43,27 +46,47 @@ class ClothesShopPresenter < PokemonMartScreen
         $Trainer.hat_color = 0
       end
       return true
+    elsif options[choice] == "Mark as favorite"
+        $Trainer.favorite_hat = item.id
+        pbSEPlay("GUI storage show party panel")
+        pbMessage("The #{item.name} is now your favorite!")
+        echoln "marked #{item.id} as favorite hat"
+    elsif options[choice] == "Unmark as favorite"
+      $Trainer.favorite_hat = nil
+      pbSEPlay("GUI storage show party panel")
+      pbMessage("The #{item.name} is no longer marked as your favorite!")
     end
     echoln "cancelled"
     return true
   end
 
-  #returns if should stay in the menu
+  # returns if should stay in the menu
   def playerClothesActionsMenu(item)
     is_worn = item.id == @adapter.worn_clothes
     options = []
     options << "Wear"
     options << "Remove dye" if $Trainer.clothes_color != 0
+    options << "Mark as favorite" if $Trainer.favorite_hat != item.id
+    options << "Unmark as favorite" if $Trainer.favorite_hat == item.id
     options << "Cancel"
-    choice = pbMessage("What would you like to do?",options,-1)
+    choice = pbMessage("What would you like to do?", options, -1)
+
     if choice == 0
-        putOnClothes(item)
-        $Trainer.clothes_color = @adapter.get_dye_color(item)
-        return false
-    elsif choice == 1
+      putOnClothes(item)
+      $Trainer.clothes_color = @adapter.get_dye_color(item)
+      return false
+    elsif options[choice] == "Remove dye"
       if pbConfirm(_INTL("Are you sure you want to remove the dye from the {1}?", item.name))
         $Trainer.clothes_color = 0
       end
+    elsif options[choice] == "Mark as favorite"
+        $Trainer.favorite_clothes = item.id
+        pbSEPlay("GUI storage show party panel")
+        pbMessage("The #{item.name} is now your favorite!")
+    elsif options[choice] == "Unmark favorite"
+      $Trainer.favorite_clothes = nil
+      pbSEPlay("GUI storage show party panel")
+      pbMessage("The #{item.name} is no longer marked as your favorite!")
     end
     return true
   end
@@ -120,7 +143,7 @@ class ClothesShopPresenter < PokemonMartScreen
       @stock.compact!
       pbDisplayPaused(_INTL("Here you are! Thank you!")) { pbSEPlay("Mart buy item") }
       @adapter.addItem(item)
-      #break
+      # break
     end
     @scene.pbEndBuyScene
   end
