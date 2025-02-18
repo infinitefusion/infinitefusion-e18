@@ -767,7 +767,7 @@ def give_date_specific_hats()
   end
 
   # April's fool
-  if (current_date.day == 17 && current_date.month == 2)
+  if (current_date.day == 1 && current_date.month == 4)
     if !$Trainer.unlocked_hats.include?(HAT_CLOWN)
       pbCallBub(2, @event_id, true)
       pbMessage("Hi! We're giving out this fun accessory for this special day. Enjoy!")
