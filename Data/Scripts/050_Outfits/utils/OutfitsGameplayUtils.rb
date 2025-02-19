@@ -6,6 +6,22 @@ def obtainNewClothes(outfit_id)
   return obtainClothes(outfit_id)
 end
 
+def obtainAccessory(outfit_id)
+  echoln "obtained new accessory: " + outfit_id
+  outfit = get_accessory_by_id(outfit_id)
+  if !outfit
+    pbMessage(_INTL("The accessory #{outfit_id} is invalid."))
+    return
+  end
+  $Trainer.unlocked_accessories << outfit_id if !$Trainer.unlocked_accessories.include?(outfit_id)
+  obtainOutfitMessage(outfit)
+  if pbConfirmMessage("Would you like to put it on right now?")
+    putOnAccessory(outfit_id, false)
+    return true
+  end
+  return false
+end
+
 def obtainHat(outfit_id)
   echoln "obtained new hat: " + outfit_id
   outfit = get_hat_by_id(outfit_id)
@@ -63,6 +79,23 @@ def putOnClothes(outfit_id, silent = false)
 
   $game_map.update
   refreshPlayerOutfit()
+  putOnOutfitMessage(outfit) if !silent
+end
+
+def putOnAccessory(outfit_id, silent = false)
+  $Trainer.dyed_accessories= {} if ! $Trainer.dyed_accessories
+  $Trainer.last_worn_accessory = $Trainer.accessory
+  outfit = get_accessory_by_id(outfit_id)
+  $Trainer.accessory = outfit_id
+
+  dye_color = $Trainer.dyed_hats[outfit_id]
+  if dye_color
+    $Trainer.hat_color = dye_color
+  else
+    $Trainer.hat_color = nil
+  end
+
+  $game_map.refreshPlayerOutfit()
   putOnOutfitMessage(outfit) if !silent
 end
 

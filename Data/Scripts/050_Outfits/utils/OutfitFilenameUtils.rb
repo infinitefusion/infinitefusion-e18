@@ -119,6 +119,15 @@ def getTrainerSpriteHatFilename(hat_id)
   return full_path
 end
 
+def getTrainerSpriteAccessoryFilename(hat_id)
+  base_path = Settings::PLAYER_GRAPHICS_FOLDER + Settings::PLAYER_ACCESSORY_FOLDER
+  dynamic_path = _INTL("/{1}/", hat_id)
+  filename = _INTL(Settings::PLAYER_ACCESSORY_FOLDER + "_trainer_{1}", hat_id)
+  full_path = base_path + dynamic_path + filename
+  return full_path
+end
+
+
 def getTrainerSpriteBallFilename(pokeball)
   base_path = Settings::PLAYER_GRAPHICS_FOLDER + Settings::PLAYER_BALL_FOLDER
 

@@ -44,6 +44,8 @@ module Settings
 
   PLAYER_GRAPHICS_FOLDER = "Graphics/Characters/player/"
   PLAYER_HAT_FOLDER = 'hat'
+  PLAYER_ACCESSORY_FOLDER = 'accessory'
+
   PLAYER_HAIR_FOLDER = 'hair'
   PLAYER_CLOTHES_FOLDER = 'clothes'
   PLAYER_BALL_FOLDER = 'balls'
@@ -53,6 +55,7 @@ module Settings
   HATS_DATA_PATH = "Data/outfits/hats_data.json"
   HAIRSTYLE_DATA_PATH = "Data/outfits/hairstyles_data.json"
   CLOTHES_DATA_PATH = "Data/outfits/clothes_data.json"
+  ACCESSORIES_DATA_PATH = "Data/outfits/accessories_data.json"
 
   PLAYER_SURFBASE_FOLDER = 'surf_base/'
   OW_SHINE_ANIMATION_ID=25

@@ -2,6 +2,7 @@ class PokemonGlobalMetadata
   attr_accessor :hats_data
   attr_accessor :hairstyles_data
   attr_accessor :clothes_data
+  attr_accessor :accessories_data
 end
 
 def update_global_hats_list()
@@ -24,6 +25,28 @@ def update_global_hats_list()
     $PokemonGlobal.hats_data[hat.id] = hat
   end
 end
+
+def update_global_accessories_list()
+  file_path = Settings::ACCESSORIES_DATA_PATH
+  json_data = File.read(file_path)
+  hat_data = HTTPLite::JSON.parse(json_data)
+
+  $PokemonGlobal.hats_data = {}
+
+  # Iterate through the JSON data and create Hat objects
+  hat_data.each do |data|
+    tags = data['tags'] ? data['tags'].split(',').map(&:strip) : []
+    hat = Accessory.new(
+      data['id'],
+      data['name'],
+      data['description'],
+      data['price'],
+      tags
+    )
+    $PokemonGlobal.accessories_data[hat.id] = hat
+  end
+end
+
 
 def update_global_hairstyles_list()
   file_path = Settings::HAIRSTYLE_DATA_PATH
@@ -71,5 +94,6 @@ def update_global_outfit_lists()
   update_global_hats_list
   update_global_hairstyles_list
   update_global_clothes_list
+  update_global_accessories_list
 end
 

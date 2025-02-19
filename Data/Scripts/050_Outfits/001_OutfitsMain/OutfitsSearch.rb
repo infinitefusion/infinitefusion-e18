@@ -163,6 +163,11 @@ def get_hat_by_id(id)
   return $PokemonGlobal.hats_data.has_key?(id) ? $PokemonGlobal.hats_data[id] : nil
 end
 
+def get_accessory_by_id(id)
+  update_global_outfit_lists()
+  return $PokemonGlobal.accessories_data.has_key?(id) ? $PokemonGlobal.accessories_data[id] : nil
+end
+
 def get_hair_by_id(id)
   update_global_outfit_lists()
   return $PokemonGlobal.hairstyles_data.has_key?(id) ? $PokemonGlobal.hairstyles_data[id] : nil
