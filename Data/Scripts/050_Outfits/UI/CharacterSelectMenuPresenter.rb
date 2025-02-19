@@ -86,7 +86,7 @@ class CharacterSelectMenuPresenter
       update_cursor(@current_index)
       @name = getDefaultName if @name == ""
       updateDisplayedName(getOptionIndex(OPTION_NAME))
-      cmd = pbMessage("Is this this information correct?", [_INTL("Yes"), _INTL("No")])
+      cmd = pbMessage("Is this information correct?", [_INTL("Yes"), _INTL("No")])
       if cmd == 0
         pbSEPlay("GUI naming confirm", 80, 100)
         #pbMessage("You will be able to customize your appearance further while playing")
