@@ -71,8 +71,38 @@ def hairShop(outfits_list = [],free=false, customMessage=nil)
   genericOutfitsShopMenu(stock, :HAIR, true,!free,customMessage)
 end
 
+
+
+SWAP_HAT_POSITIONS_CAPTION = "Switch hats position"
+def set_hat_adapter_options(adapter)
+  slot1_hat = $Trainer.hat ? "Swap #{get_hat_by_id($Trainer.hat).name}" : "(Empty slot)"
+  slot2_hat = $Trainer.hat2 ? "Swap #{get_hat_by_id($Trainer.hat2).name}" : "(Empty slot)"
+  options = [slot1_hat,slot2_hat]
+  options << SWAP_HAT_POSITIONS_CAPTION if $Trainer.hat && $Trainer.hat2
+  options << "Cancel"
+  hat_options_choice = optionsMenu(options)
+  if options[hat_options_choice] == SWAP_HAT_POSITIONS_CAPTION
+    hat1 = $Trainer.hat
+    hat2 = $Trainer.hat2
+    $Trainer.hat = hat2
+    $Trainer.hat2 = hat1
+    pbSEPlay("GUI naming tab swap start")
+    return set_hat_adapter_options(adapter)
+  end
+  if hat_options_choice == options.length #cancel
+    return nil
+  end
+  is_secondary = hat_options_choice ==1
+  adapter.set_secondary_hat(is_secondary)
+  return adapter
+end
+
 def openSelectOutfitMenu(stock = [], itemType)
   adapter = getAdapter(itemType, stock, false)
+  if adapter.is_a?(HatsMartAdapter)
+    adapter = set_hat_adapter_options(adapter)
+    return if !adapter
+  end
   view = ClothesShopView.new()
   presenter = ClothesShopPresenter.new(view, stock, adapter)
   presenter.pbBuyScreen

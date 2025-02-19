@@ -3,7 +3,7 @@ class Sprite_Wearable < RPG::Sprite
   attr_accessor :action
   attr_accessor :sprite
 
-  def initialize(player_sprite, filename, action, viewport)
+  def initialize(player_sprite, filename, action, viewport, relative_z=0)
     @player_sprite = player_sprite
     @viewport = viewport
     @sprite = Sprite.new(@viewport)
@@ -15,7 +15,7 @@ class Sprite_Wearable < RPG::Sprite
     @frameWidth = 80  #@sprite.width
     @frameHeight = 80 #@sprite.height / 4
     @sprite.z = 0
-    @relative_z=0 #relative to player
+    @relative_z=relative_z #relative to player
     echoln(_INTL("init had at z = {1}, player sprite at {2}",@sprite.z,@player_sprite.z))
 
     #Unused position offset

@@ -1,5 +1,5 @@
 class TrainerClothesPreview
-  attr_writer :pokeball, :clothes, :hat, :hair, :skin_tone, :hair_color, :hat_color, :clothes_color
+  attr_writer :pokeball, :clothes, :hat, :hat2, :hair, :skin_tone, :hair_color, :hat_color, :clothes_color
 
   def initialize(x = 0, y = 0, windowed = true, pokeball = nil)
     @playerBitmap = nil
@@ -15,19 +15,22 @@ class TrainerClothesPreview
   def resetOutfits()
     @clothes = $Trainer.clothes
     @hat = $Trainer.hat
+    @hat2 = $Trainer.hat2
     @hair = $Trainer.hair
     @skin_tone = $Trainer.skin_tone
     @hair_color = $Trainer.hair_color
     @hat_color = $Trainer.hat_color
+    @hat2_color = $Trainer.hat2_color
     @clothes_color = $Trainer.clothes_color
   end
 
   def show()
     @playerBitmap = generate_front_trainer_sprite_bitmap(false,
                                                          @pokeball,
-                                                         @clothes, @hat, @hair,
+                                                         @clothes,
+                                                         @hat,@hat2, @hair,
                                                          @skin_tone,
-                                                         @hair_color, @hat_color, @clothes_color)
+                                                         @hair_color, @hat_color, @clothes_color, @hat2_color)
     initialize_preview()
   end
 

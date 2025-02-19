@@ -133,28 +133,34 @@ def getCurrentPokeball(allowEasterEgg=true)
 end
 
 def generate_front_trainer_sprite_bitmap_from_appearance(trainerAppearance)
-  echoln caller
   echoln trainerAppearance.hat
-  return generate_front_trainer_sprite_bitmap(false,nil,trainerAppearance.clothes,trainerAppearance.hat,
+  return generate_front_trainer_sprite_bitmap(false,nil,trainerAppearance.clothes,trainerAppearance.hat,nil,
                                               trainerAppearance.hair,trainerAppearance.skin_color,
                                               trainerAppearance.hair_color,trainerAppearance.hat_color,trainerAppearance.clothes_color)
 end
 
-def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil, clothes_id = nil, hat_id = nil, hair_id = nil,
-                                         skin_tone_id = nil, hair_color = nil, hat_color = nil, clothes_color = nil)
+def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,
+                                         clothes_id = nil, hat_id = nil, hat2_id=nil, hair_id = nil,
+                                         skin_tone_id = nil, hair_color = nil, hat_color = nil, clothes_color = nil,
+                                         hat2_color = nil)
   echoln hat_id
   clothes_id = $Trainer.clothes if !clothes_id
   hat_id = $Trainer.hat if !hat_id
+  hat2_id = $Trainer.hat if !hat2_id
+
   hair_id = $Trainer.hair if !hair_id
   skin_tone_id = $Trainer.skin_tone if !skin_tone_id
   hair_color = $Trainer.hair_color if !hair_color
   hat_color = $Trainer.hat_color if !hat_color
+  hat2_color = $Trainer.hat2_color if !hat2_color
   clothes_color = $Trainer.clothes_color if !clothes_color
 
   hairFilename = getTrainerSpriteHairFilename(hair_id) #_INTL(Settings::PLAYER_GRAPHICS_FOLDER + Settings::PLAYER_HAIR_FOLDER + "/hair_trainer_{1}", $Trainer.hair)
   outfitFilename = getTrainerSpriteOutfitFilename(clothes_id) #_INTL(Settings::PLAYER_GRAPHICS_FOLDER + Settings::PLAYER_CLOTHES_FOLDER + "/clothes_trainer_{1}", $Trainer.clothes)
 
-  hatFilename = getTrainerSpriteHatFilename(hat_id) # _INTL(Settings::PLAYER_GRAPHICS_FOLDER + Settings::PLAYER_HAT_FOLDER + "/hat_trainer_{1}", $Trainer.hat)
+  hatFilename = getTrainerSpriteHatFilename(hat_id)
+  hat2Filename = getTrainerSpriteHatFilename(hat2_id)
+
   pokeball = getCurrentPokeball(allowEasterEgg) if !pokeball
   ballFilename = getTrainerSpriteBallFilename(pokeball) if pokeball
 
@@ -162,10 +168,13 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil, cl
 
   hair_color_shift = hair_color
   hat_color_shift = hat_color
+  hat2_color_shift = hat2_color
   clothes_color_shift = clothes_color
 
   hair_color_shift = 0 if !hair_color_shift
   hat_color_shift = 0 if !hat_color_shift
+  hat2_color_shift = 0 if !hat2_color_shift
+
   clothes_color_shift = 0 if !clothes_color_shift
 
   baseBitmap = AnimatedBitmap.new(baseFilePath) if pbResolveBitmap(baseFilePath)
@@ -181,7 +190,8 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil, cl
   outfitBitmap = AnimatedBitmap.new(outfitFilename, clothes_color_shift) if pbResolveBitmap(outfitFilename) #pb
   hairBitmapWrapper = AnimatedBitmap.new(hairFilename, hair_color_shift) if pbResolveBitmap(hairFilename)
 
-  hatBitmap = AnimatedBitmap.new(hatFilename, hat_color_shift) if pbResolveBitmap(hatFilename) #pbLoadOutfitBitmap(hatFilename) if pbResolveBitmap(hatFilename)
+  hatBitmap = AnimatedBitmap.new(hatFilename, hat_color_shift) if pbResolveBitmap(hatFilename)
+  hat2Bitmap = AnimatedBitmap.new(hat2Filename, hat2_color_shift) if pbResolveBitmap(hat2Filename)
 
   baseBitmap.bitmap = baseBitmap.bitmap.clone
   if outfitBitmap
@@ -193,6 +203,7 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil, cl
   end
   baseBitmap.bitmap.blt(0, 0, hairBitmapWrapper.bitmap, hairBitmapWrapper.bitmap.rect) if hairBitmapWrapper
   baseBitmap.bitmap.blt(0, 0, hatBitmap.bitmap, hatBitmap.bitmap.rect) if hatBitmap
+  baseBitmap.bitmap.blt(0, 0, hat2Bitmap.bitmap, hat2Bitmap.bitmap.rect) if hat2Bitmap
   baseBitmap.bitmap.blt(44, 42, ballBitmap, ballBitmap.rect) if ballBitmap
 
   return baseBitmap

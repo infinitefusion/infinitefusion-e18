@@ -10,9 +10,13 @@ class Player < Trainer
   attr_accessor :skin_tone
   attr_accessor :clothes
   attr_accessor :hat
+  attr_accessor :hat2
+
   attr_accessor :hair
   attr_accessor :hair_color
   attr_accessor :hat_color
+  attr_accessor :hat2_color
+
   attr_accessor :clothes_color
   attr_accessor :unlocked_clothes
   attr_accessor :unlocked_hats
@@ -110,6 +114,14 @@ class Player < Trainer
       value = HATS[value].id
     end
     @hat=value
+    refreshPlayerOutfit()
+  end
+
+  def hat2=(value)
+    if value.is_a?(Symbol)
+      value = HATS[value].id
+    end
+    @hat2=value
     refreshPlayerOutfit()
   end
 
@@ -268,6 +280,8 @@ class Player < Trainer
     @character_ID          = -1
     @outfit                = 0
     @hat                   = 0
+    @hat2                  = 0
+
     @hair                  = 0
     @clothes               = 0
     @hair_color            = 0
@@ -295,6 +309,7 @@ class Player < Trainer
     @dyed_clothes = {}
 
     @favorite_hat = nil
+    @favorite_hat2 =nil
     @favorite_clothes = nil
 
     @card_background = Settings::DEFAULT_TRAINER_CARD_BG

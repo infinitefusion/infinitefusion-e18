@@ -6,7 +6,7 @@ def obtainNewClothes(outfit_id)
   return obtainClothes(outfit_id)
 end
 
-def obtainHat(outfit_id)
+def obtainHat(outfit_id,secondary=false)
   echoln "obtained new hat: " + outfit_id
   outfit = get_hat_by_id(outfit_id)
   if !outfit
@@ -16,7 +16,8 @@ def obtainHat(outfit_id)
   $Trainer.unlocked_hats << outfit_id if !$Trainer.unlocked_hats.include?(outfit_id)
   obtainOutfitMessage(outfit)
   if pbConfirmMessage("Would you like to put it on right now?")
-    putOnHat(outfit_id, false)
+    putOnHat(outfit_id, false, ) if !secondary
+    putOnSecondaryHat(outfit_id, false, ) if secondary
     return true
   end
   return false
@@ -70,6 +71,7 @@ def putOnHat(outfit_id, silent = false)
   $Trainer.dyed_hats= {} if ! $Trainer.dyed_hats
   $Trainer.last_worn_hat = $Trainer.hat
   outfit = get_hat_by_id(outfit_id)
+
   $Trainer.hat = outfit_id
 
   dye_color = $Trainer.dyed_hats[outfit_id]
@@ -82,6 +84,25 @@ def putOnHat(outfit_id, silent = false)
   $game_map.refreshPlayerOutfit()
   putOnOutfitMessage(outfit) if !silent
 end
+
+def putOnSecondaryHat(outfit_id, silent = false)
+  $Trainer.dyed_hats= {} if ! $Trainer.dyed_hats
+  $Trainer.last_worn_hat = $Trainer.hat2
+  outfit = get_hat_by_id(outfit_id)
+
+  $Trainer.hat2 = outfit_id
+
+  dye_color = $Trainer.dyed_hats[outfit_id]
+  if dye_color
+    $Trainer.hat2_color = dye_color
+  else
+    $Trainer.hat2_color = nil
+  end
+
+  $game_map.refreshPlayerOutfit()
+  putOnOutfitMessage(outfit) if !silent
+end
+
 
 def putOnHairFullId(full_outfit_id)
   outfit_id = getSplitHairFilenameAndVersionFromID(full_outfit_id)[1]
@@ -306,6 +327,7 @@ end
 
 def randomizePlayerOutfit()
   $Trainer.hat = $PokemonGlobal.hats_data.keys.sample
+  $Trainer.hat2 = $PokemonGlobal.hats_data.keys.sample
   $Trainer.clothes = $PokemonGlobal.clothes_data.keys.sample
   $Trainer.hat_color = rand(2)==0 ? rand(255) : 0
   $Trainer.clothes_color = rand(2)==0 ? rand(255) : 0
