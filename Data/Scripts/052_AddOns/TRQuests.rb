@@ -5,15 +5,23 @@ def isWearingTeamRocketOutfit()
 end
 
 def isWearingFavoriteOutfit()
-  is_wearing_favorite_hat = $Trainer.hat == $Trainer.favorite_hat || !$Trainer.favorite_hat
-  is_wearing_favorite_clothes = $Trainer.clothes == $Trainer.favorite_clothes || !$Trainer.favorite_clothes
-  if $Trainer.favorite_hat && !$Trainer.favorite_clothes
-    return is_wearing_favorite_hat
+  favorites = {
+    hat: $Trainer.favorite_hat,
+    hat2: $Trainer.favorite_hat2,
+    clothes: $Trainer.favorite_clothes
+  }
+  favorites.select! { |item, favorite| !favorite.nil? }
+  return false if favorites.empty?
+  return favorites.all? do |item, favorite|
+    case item
+    when :hat
+      $Trainer.hat == favorite
+    when :hat2
+      $Trainer.hat2 == favorite
+    when :clothes
+      $Trainer.clothes == favorite
+    end
   end
-  if $Trainer.favorite_clothes && !$Trainer.favorite_hat
-    return is_wearing_favorite_clothes
-  end
-  return is_wearing_favorite_clothes && is_wearing_favorite_hat
 end
 
 def obtainRocketOutfit()
