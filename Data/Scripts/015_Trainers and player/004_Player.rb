@@ -27,10 +27,13 @@ class Player < Trainer
   attr_accessor :dyed_clothes
 
   attr_accessor :favorite_hat
+  attr_accessor :favorite_hat2
+
   attr_accessor :favorite_clothes
 
   attr_accessor :last_worn_outfit
   attr_accessor :last_worn_hat
+  attr_accessor :last_worn_hat2
 
   attr_accessor :surfing_pokemon
 
@@ -94,8 +97,22 @@ class Player < Trainer
   end
 
 
-  def last_worn_hat
-    return @last_worn_hat
+  def last_worn_hat(is_secondary=false)
+    return is_secondary ? @last_worn_hat2 : @last_worn_hat
+  end
+
+
+  def set_last_worn_hat(value, is_secondary=false)
+    if is_secondary
+      @last_worn_hat = value
+    else
+      @last_worn_hat = value
+    end
+  end
+
+
+  def last_worn_hat2
+    return @last_worn_hat2
   end
 
   # Sets the player's coins amount. It can not exceed {Settings::MAX_COINS}.
@@ -109,6 +126,41 @@ class Player < Trainer
     @outfit=value
   end
 
+  def favorite_hat(is_secondary=false)
+    return is_secondary ?  @favorite_hat2 : @favorite_hat
+  end
+
+
+  #todo change to set_favorite_hat(value,is_secondary=false)
+  def set_favorite_hat(value,is_secondary=false)
+    if is_secondary
+      @favorite_hat=value
+    else
+      @favorite_hat2=value
+    end
+  end
+
+  def hat_color(is_secondary=false)
+    return is_secondary ? @hat2_color : @hat_color
+  end
+  def hat(is_secondary=false)
+    return is_secondary ? @hat2 : @hat
+  end
+
+  def set_hat(value, is_secondary=false)
+    if value.is_a?(Symbol)
+      value = HATS[value].id
+    end
+    if is_secondary
+      @hat2= value
+    else
+      @hat=value
+    end
+    refreshPlayerOutfit()
+  end
+
+
+  #todo : refactor to always use set_hat instead
   def hat=(value)
     if value.is_a?(Symbol)
       value = HATS[value].id
@@ -117,6 +169,7 @@ class Player < Trainer
     refreshPlayerOutfit()
   end
 
+  #todo : refactor to always use set_hat instead
   def hat2=(value)
     if value.is_a?(Symbol)
       value = HATS[value].id
@@ -152,13 +205,34 @@ class Player < Trainer
     $Trainer.dyed_clothes[@clothes] = value if value
     refreshPlayerOutfit()
   end
+
+  #todo change to set_hat_color(value,is_secondary)
+  def set_hat_color(value, is_secondary=false)
+    if is_secondary
+      @hat2_color=value
+    else
+      @hat_color=value
+    end
+    $Trainer.dyed_hats= {} if !$Trainer.dyed_hats
+    worn_hat = is_secondary ? @hat2 : @hat
+    $Trainer.dyed_hats[worn_hat] = value if value
+    refreshPlayerOutfit()
+  end
   def hat_color=(value)
     @hat_color=value
-    $Trainer.dyed_hats= {} if ! $Trainer.dyed_hats
-    $Trainer.dyed_hats[@hat] = value if value
+    $Trainer.dyed_hats= {} if !$Trainer.dyed_hats
+    worn_hat = @hat
+    $Trainer.dyed_hats[worn_hat] = value if value
     refreshPlayerOutfit()
   end
 
+  def hat2_color=(value)
+    @hat2_color=value
+    $Trainer.dyed_hats= {} if !$Trainer.dyed_hats
+    worn_hat = @hat2
+    $Trainer.dyed_hats[worn_hat] = value if value
+    refreshPlayerOutfit()
+  end
 
   def unlock_clothes(outfitID,silent=false)
     update_global_clothes_list()
@@ -304,6 +378,7 @@ class Player < Trainer
     @surfing_pokemon = nil
     @last_worn_outfit = nil
     @last_worn_hat = nil
+    @last_worn_hat2 = nil
 
     @dyed_hats = {}
     @dyed_clothes = {}

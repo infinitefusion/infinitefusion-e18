@@ -143,10 +143,9 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,
                                          clothes_id = nil, hat_id = nil, hat2_id=nil, hair_id = nil,
                                          skin_tone_id = nil, hair_color = nil, hat_color = nil, clothes_color = nil,
                                          hat2_color = nil)
-  echoln hat_id
   clothes_id = $Trainer.clothes if !clothes_id
   hat_id = $Trainer.hat if !hat_id
-  hat2_id = $Trainer.hat if !hat2_id
+  hat2_id = $Trainer.hat2 if !hat2_id
 
   hair_id = $Trainer.hair if !hair_id
   skin_tone_id = $Trainer.skin_tone if !skin_tone_id
@@ -202,8 +201,8 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,
     baseBitmap.bitmap.blt(0, 0, outfitBitmap.bitmap, outfitBitmap.bitmap.rect)
   end
   baseBitmap.bitmap.blt(0, 0, hairBitmapWrapper.bitmap, hairBitmapWrapper.bitmap.rect) if hairBitmapWrapper
-  baseBitmap.bitmap.blt(0, 0, hatBitmap.bitmap, hatBitmap.bitmap.rect) if hatBitmap
   baseBitmap.bitmap.blt(0, 0, hat2Bitmap.bitmap, hat2Bitmap.bitmap.rect) if hat2Bitmap
+  baseBitmap.bitmap.blt(0, 0, hatBitmap.bitmap, hatBitmap.bitmap.rect) if hatBitmap
   baseBitmap.bitmap.blt(44, 42, ballBitmap, ballBitmap.rect) if ballBitmap
 
   return baseBitmap

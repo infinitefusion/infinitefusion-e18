@@ -9,8 +9,8 @@ class Sprite_Player < Sprite_Character
     hatFilename = ""
     hairFilename = ""
     @hair = Sprite_Hair.new(self, hairFilename, @character_name, @viewport)
-    @hat = Sprite_Hat.new(self, hatFilename, @character_name, @viewport)
-    @hat2 = Sprite_Hat.new(self, hatFilename, @character_name, @viewport,3)
+    @hat = Sprite_Hat.new(self, hatFilename, @character_name, @viewport,3)
+    @hat2 = Sprite_Hat.new(self, hatFilename, @character_name, @viewport,2)
 
     @previous_skinTone = 0
 
@@ -63,11 +63,11 @@ class Sprite_Player < Sprite_Character
     outfitFilename = getOverworldOutfitFilename(Settings::PLAYER_TEMP_OUTFIT_FALLBACK) if !pbResolveBitmap(outfitFilename)
     hairFilename = getOverworldHairFilename($Trainer.hair)
     hatFilename = getOverworldHatFilename($Trainer.hat)
-    hat2Filename = getOverworldHatFilename($Trainer.hat2)
+    hat2Filename = getOverworldHatFilename($Trainer.hat(true))
 
     hair_color_shift = $Trainer.hair_color
     hat_color_shift = $Trainer.hat_color
-    hat2_color_shift = $Trainer.hat2_color
+    hat2_color_shift = $Trainer.hat_color(true)
 
     clothes_color_shift = $Trainer.clothes_color
 

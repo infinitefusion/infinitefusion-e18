@@ -1,5 +1,3 @@
-
-
 ItemHandlers::UseInBattle.add(:POKEDOLL, proc { |item, battler, battle|
   battle.decision = 3
   battle.pbDisplayPaused(_INTL("Got away safely!"))
@@ -92,8 +90,6 @@ def useTeleporter()
     return true
   end
 end
-
-
 
 ItemHandlers::UseInBattle.add(:POKEDOLL, proc { |item, battler, battle|
   battle.decision = 3
@@ -378,19 +374,24 @@ ItemHandlers::UseFromBag.add(:ODDKEYSTONE, proc { |item|
 })
 
 def useFavoriteOutfit()
-  if !$Trainer.favorite_clothes && !$Trainer.favorite_hat
+  if !$Trainer.favorite_clothes && !$Trainer.favorite_hat && !$Trainer.favorite_hat2
     pbMessage(_INTL("You can mark clothes and hats as your favorites in the outfits menu and use this to quickly switch to them!"))
     return 0
   end
 
   if isWearingFavoriteOutfit()
     if (Kernel.pbConfirmMessage("Remove your favorite outfit?"))
-      if ($Trainer.last_worn_outfit == $Trainer.favorite_clothes && $Trainer.last_worn_hat == $Trainer.favorite_hat)
+      last_worn_clothes_is_favorite = $Trainer.last_worn_outfit == $Trainer.favorite_clothes
+      last_worn_hat_is_favorite = $Trainer.last_worn_hat == $Trainer.favorite_hat
+      last_worn_hat2_is_favorite = $Trainer.last_worn_hat2 == $Trainer.favorite_hat2
+      if (last_worn_clothes_is_favorite && last_worn_hat_is_favorite && last_worn_hat2_is_favorite)
         $Trainer.last_worn_outfit = getDefaultClothes()
       end
       playOutfitChangeAnimation()
       putOnClothes($Trainer.last_worn_outfit, true) if $Trainer.favorite_clothes
-      putOnHat($Trainer.last_worn_hat, true) if $Trainer.favorite_hat
+      putOnHat($Trainer.last_worn_hat, true,false) if $Trainer.favorite_hat
+      putOnHat($Trainer.last_worn_hat2, true,true) if $Trainer.favorite_hat2
+
     else
       return 0
     end
@@ -399,7 +400,8 @@ def useFavoriteOutfit()
     if (Kernel.pbConfirmMessage("Put on your favorite outfit?"))
       playOutfitChangeAnimation()
       putOnClothes($Trainer.favorite_clothes, true) if $Trainer.favorite_clothes
-      putOnHat($Trainer.favorite_hat, true) if $Trainer.favorite_hat
+      putOnHat($Trainer.favorite_hat, true, false) if $Trainer.favorite_hat
+      putOnHat($Trainer.favorite_hat2, true, true) if $Trainer.favorite_hat2
     else
       return 0
     end

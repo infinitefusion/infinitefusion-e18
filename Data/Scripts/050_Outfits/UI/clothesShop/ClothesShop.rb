@@ -27,12 +27,12 @@ def getPresenter(itemType, view, stock, adapter, versions)
   end
 end
 
-def getAdapter(itemType, stock, isShop)
+def getAdapter(itemType, stock, isShop, is_secondary=false)
   case itemType
   when :CLOTHES
     return ClothesMartAdapter.new(stock, isShop)
   when :HAT
-    return HatsMartAdapter.new(stock, isShop)
+    return HatsMartAdapter.new(stock, isShop,is_secondary)
   when :HAIR
     return HairMartAdapter.new(stock, isShop)
   end
@@ -71,38 +71,45 @@ def hairShop(outfits_list = [],free=false, customMessage=nil)
   genericOutfitsShopMenu(stock, :HAIR, true,!free,customMessage)
 end
 
+def switchHatsPosition()
+  hat1 = $Trainer.hat
+  hat2 = $Trainer.hat2
+  hat1_color = $Trainer.hat_color
+  hat2_color = $Trainer.hat2_color
 
+  $Trainer.hat = hat2
+  $Trainer.hat2 = hat1
+  $Trainer.hat_color = hat1_color
+  $Trainer.hat_color = hat2_color
 
-SWAP_HAT_POSITIONS_CAPTION = "Switch hats position"
-def set_hat_adapter_options(adapter)
-  slot1_hat = $Trainer.hat ? "Swap #{get_hat_by_id($Trainer.hat).name}" : "(Empty slot)"
-  slot2_hat = $Trainer.hat2 ? "Swap #{get_hat_by_id($Trainer.hat2).name}" : "(Empty slot)"
-  options = [slot1_hat,slot2_hat]
-  options << SWAP_HAT_POSITIONS_CAPTION if $Trainer.hat && $Trainer.hat2
-  options << "Cancel"
-  hat_options_choice = optionsMenu(options)
-  if options[hat_options_choice] == SWAP_HAT_POSITIONS_CAPTION
-    hat1 = $Trainer.hat
-    hat2 = $Trainer.hat2
-    $Trainer.hat = hat2
-    $Trainer.hat2 = hat1
-    pbSEPlay("GUI naming tab swap start")
-    return set_hat_adapter_options(adapter)
-  end
-  if hat_options_choice == options.length #cancel
-    return nil
-  end
-  is_secondary = hat_options_choice ==1
-  adapter.set_secondary_hat(is_secondary)
-  return adapter
+  pbSEPlay("GUI naming tab swap start")
 end
 
-def openSelectOutfitMenu(stock = [], itemType)
-  adapter = getAdapter(itemType, stock, false)
-  if adapter.is_a?(HatsMartAdapter)
-    adapter = set_hat_adapter_options(adapter)
-    return if !adapter
-  end
+SWAP_HAT_POSITIONS_CAPTION = "Switch hats position"
+
+#unused
+# def set_hat_adapter_options(adapter)
+#   slot1_hat = $Trainer.hat ? "Swap #{get_hat_by_id($Trainer.hat).name}" : "(Empty slot)"
+#   slot2_hat = $Trainer.hat2 ? "Swap #{get_hat_by_id($Trainer.hat2).name}" : "(Empty slot)"
+#   options = [slot1_hat,slot2_hat]
+#   options << SWAP_HAT_POSITIONS_CAPTION if $Trainer.hat && $Trainer.hat2
+#   options << "Cancel"
+#   hat_options_choice = optionsMenu(options)
+#   if options[hat_options_choice] == SWAP_HAT_POSITIONS_CAPTION
+#     switchHatsPosition()
+#     return nil
+#   end
+#   if hat_options_choice == options.length #cancel
+#     return nil
+#   end
+#   is_secondary = hat_options_choice ==1
+#   adapter.set_secondary_hat(is_secondary)
+#   return adapter
+# end
+
+#is_secondary only used for hats
+def openSelectOutfitMenu(stock = [], itemType =nil, is_secondary=false)
+  adapter = getAdapter(itemType, stock, false, is_secondary)
   view = ClothesShopView.new()
   presenter = ClothesShopPresenter.new(view, stock, adapter)
   presenter.pbBuyScreen
@@ -117,29 +124,41 @@ def changeClothesMenu()
   openSelectOutfitMenu(stock, :CLOTHES)
 end
 
-def changeHatMenu()
+def changeHatMenu(is_secondary_hat = false)
   stock = []
   $Trainer.unlocked_hats.each { |outfit_id|
     outfit = get_hat_by_id(outfit_id)
     stock << outfit if outfit
   }
   stock << :REMOVE_HAT
-  openSelectOutfitMenu(stock, :HAT)
+  openSelectOutfitMenu(stock, :HAT, is_secondary_hat)
 end
 
 def changeOutfit()
+  hat1_name = get_hat_by_id($Trainer.hat) ? get_hat_by_id($Trainer.hat).name : "(Empty)"
+  hat2_name = get_hat_by_id($Trainer.hat2) ? get_hat_by_id($Trainer.hat2).name : "(Empty)"
+
   commands = []
-  commands[cmdHat = commands.length] = _INTL("Change hat")
   commands[cmdClothes = commands.length] = _INTL("Change clothes")
+  commands[cmdHat = commands.length] = _INTL("Change hat 1 (#{hat1_name})")
+  commands[cmdHat2 = commands.length] = _INTL("Change hat 2 (#{hat2_name})")
+  commands[switchHats = commands.length] = _INTL("Switch hat positions")
   commands[cmdQuit = commands.length] = _INTL("Quit")
 
-  cmd = pbMessage(_INTL("What would you like to do?"), commands, cmdQuit + 1)
+  #TODO change this into a graphical menu with icons
   loop do
+    cmd = pbMessage(_INTL("What would you like to do?"), commands, cmdQuit + 1)
     if cmd == cmdClothes
       changeClothesMenu()
       break
     elsif cmd == cmdHat
       changeHatMenu()
+      break
+    elsif cmd == cmdHat2
+      changeHatMenu(true)
+      break
+    elsif cmd == switchHats
+      switchHatsPosition()
       break
     else
       break
