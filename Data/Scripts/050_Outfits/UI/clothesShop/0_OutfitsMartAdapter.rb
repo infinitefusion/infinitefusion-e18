@@ -1,10 +1,12 @@
 class OutfitsMartAdapter < PokemonMartAdapter
   attr_accessor :worn_clothes
+  attr_accessor :is_secondary_hat
 
   WORN_ITEM_BASE_COLOR = MessageConfig::BLUE_TEXT_MAIN_COLOR
   WORN_ITEM_SHADOW_COLOR = MessageConfig::BLUE_TEXT_SHADOW_COLOR
 
-  def initialize(stock = [], isShop = true)
+  def initialize(stock = [], isShop = true, isSecondaryHat = false)
+    @is_secondary_hat = isSecondaryHat
     @items = stock
     @worn_clothes = get_current_clothes()
     @isShop = isShop

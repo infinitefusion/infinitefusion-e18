@@ -12,6 +12,22 @@ class TrainerClothesPreview
     resetOutfits()
   end
 
+  def set_hat(value,is_secondaryHat=false)
+    if is_secondaryHat
+      @hat2 = value
+    else
+      @hat = value
+    end
+  end
+
+  def set_hat_color(value,is_secondaryHat=false)
+    if is_secondaryHat
+      @hat2_color = value
+    else
+      @hat_color = value
+    end
+  end
+
   def resetOutfits()
     @clothes = $Trainer.clothes
     @hat = $Trainer.hat
