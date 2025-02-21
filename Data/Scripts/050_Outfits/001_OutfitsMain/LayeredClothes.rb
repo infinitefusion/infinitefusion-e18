@@ -230,9 +230,17 @@ def generateNPCClothedBitmapStatic(trainerAppearance,action = "walk")
   hair_color_shift = trainerAppearance.hair_color || 0
   hairBitmap = AnimatedBitmap.new(hairFilename, hair_color_shift).bitmap if pbResolveBitmap(hairFilename)
   baseBitmap.blt(0, 0, hairBitmap, hairBitmap.rect)
+
+  #Hat
   hat_color_shift = trainerAppearance.hat_color || 0
+  hat2_color_shift = trainerAppearance.hat2_color || 0
+
   hatFilename = getOverworldHatFilename(trainerAppearance.hat)
+  hat2Filename = getOverworldHatFilename(trainerAppearance.hat2)
+
   hatBitmapWrapper = AnimatedBitmap.new(hatFilename, hat_color_shift) if pbResolveBitmap(hatFilename)
+  hat2BitmapWrapper = AnimatedBitmap.new(hat2Filename, hat2_color_shift) if pbResolveBitmap(hat2Filename)
+
   if hatBitmapWrapper
     frame_count = 4 # Assuming 4 frames for hair animation; adjust as needed
     hat_frame_bitmap = duplicateHatForFrames(hatBitmapWrapper.bitmap, frame_count)
@@ -247,6 +255,22 @@ def generateNPCClothedBitmapStatic(trainerAppearance,action = "walk")
       positionHat(baseBitmap, hat_frame_bitmap, frame_offset, i, frame_width)
     end
   end
+
+  if hat2BitmapWrapper
+    frame_count = 4 # Assuming 4 frames for hair animation; adjust as needed
+    hat2_frame_bitmap = duplicateHatForFrames(hat2BitmapWrapper.bitmap, frame_count)
+
+    frame_width = baseSprite.bitmap.width / frame_count # Calculate frame width
+
+    frame_count.times do |i|
+      # Calculate offset for each frame
+      frame_offset = [i * frame_width, 0]
+      # Adjust Y offset if frame index is odd
+      frame_offset[1] -= 2 if i.odd?
+      positionHat(baseBitmap, hat2_frame_bitmap, frame_offset, i, frame_width)
+    end
+  end
+
   return baseBitmap
 end
 

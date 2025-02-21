@@ -151,12 +151,16 @@ def generateCurrentGalleryBattle(level = nil, number_of_pokemon = 3)
   selected_battlers_idx.each { |species| 00
   party << Pokemon.new(species, level)
   }
+
+  custom_appearance = generate_appearance_from_name(spriter_name)
   customTrainerBattle(spriter_name,
                       :PAINTER,
                       party,
                       level,
                       pick_spriter_losing_dialog(spriter_name),
-                      pick_trainer_sprite(spriter_name)
+                      pick_trainer_sprite(spriter_name),
+  custom_appearance
+
   )
 
 end

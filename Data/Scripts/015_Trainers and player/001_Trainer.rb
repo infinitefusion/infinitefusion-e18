@@ -9,6 +9,7 @@ class Trainer
   attr_accessor :party
   attr_accessor :quests
   attr_accessor :sprite_override
+  attr_accessor :custom_appearance
   attr_accessor :lowest_difficulty
   attr_accessor :selected_difficulty
   attr_accessor :game_mode
@@ -212,13 +213,14 @@ class Trainer
 
   #=============================================================================
 
-  def initialize(name, trainer_type, sprite_override=nil)
+  def initialize(name, trainer_type, sprite_override=nil, custom_appearance=nil)
     @trainer_type = GameData::TrainerType.get(trainer_type).id
     @name = name
     @id = rand(2 ** 16) | rand(2 ** 16) << 16
     @language = pbGetLanguage
     @party = []
     @sprite_override = sprite_override
+    @custom_appearance = custom_appearance
     @lowest_difficulty=2  #On hard by default, lowered whenever the player selects another difficulty
     @selected_difficulty=2  #On hard by default, lowered whenever the player selects another difficulty
     @game_mode =0  #classic
@@ -232,7 +234,7 @@ class NPCTrainer < Trainer
   attr_accessor :items
   attr_accessor :lose_text
 
-  def initialize(name, trainer_type, sprite_override=nil)
+  def initialize(name, trainer_type, sprite_override=nil,custom_appearance=nil)
     super
     @items = []
     @lose_text = nil

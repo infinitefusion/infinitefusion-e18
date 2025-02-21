@@ -53,12 +53,12 @@ class HatsMartAdapter < OutfitsMartAdapter
 
   def updateTrainerPreview(item, previewWindow)
     if item.is_a?(Outfit)
-      previewWindow.hat = item.id
+      previewWindow.set_hat(item.id,@is_secondary_hat)
       $Trainer.set_hat(item.id,@is_secondary_hat)# unless $Trainer.hat==nil
       set_dye_color(item,previewWindow)
     else
       $Trainer.set_hat(nil,@is_secondary_hat)
-      previewWindow.hat= nil
+      previewWindow.set_hat(nil,@is_secondary_hat)
     end
 
 

@@ -567,7 +567,7 @@ end
 #party: array of pokemon team
 # [[:SPECIES,level], ... ]
 #
-def customTrainerBattle(trainerName, trainerType, party_array, default_level=50, endSpeech="", sprite_override=nil)
+def customTrainerBattle(trainerName, trainerType, party_array, default_level=50, endSpeech="", sprite_override=nil,custom_appearance=nil)
 
 
   # trainerID= "customTrainer"
@@ -582,7 +582,7 @@ def customTrainerBattle(trainerName, trainerType, party_array, default_level=50,
   # trainer_info_hash[:pokemon] = party
 
   #trainer = GameData::Trainer.new(trainer_info_hash)
-  trainer = NPCTrainer.new(trainerName,trainerType,sprite_override)
+  trainer = NPCTrainer.new(trainerName,trainerType,sprite_override,custom_appearance)
   trainer.lose_text=endSpeech
   party = []
   party_array.each { |pokemon|

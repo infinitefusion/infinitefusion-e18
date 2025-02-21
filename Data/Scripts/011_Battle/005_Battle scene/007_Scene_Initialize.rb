@@ -74,7 +74,7 @@ class PokeBattle_Scene
     # Opposing trainer(s) sprites
     if @battle.trainerBattle?
       @battle.opponent.each_with_index do |p, i|
-        pbCreateTrainerFrontSprite(i, p.trainer_type, @battle.opponent.length, p.sprite_override)
+        pbCreateTrainerFrontSprite(i, p.trainer_type, @battle.opponent.length, p.sprite_override, p.custom_appearance)
       end
     end
     # Data boxes and Pokémon sprites
@@ -207,7 +207,7 @@ class PokeBattle_Scene
     # trainer.oy = trainer.bitmap.height
   end
 
-  def pbCreateTrainerFrontSprite(idxTrainer, trainerType, numTrainers = 1, sprite_override = nil)
+  def pbCreateTrainerFrontSprite(idxTrainer, trainerType, numTrainers = 1, sprite_override = nil, custom_appearance=nil)
     trainerFile = GameData::TrainerType.front_sprite_filename(trainerType)
     trainerFile = sprite_override if sprite_override
 
@@ -215,7 +215,7 @@ class PokeBattle_Scene
     trainer = pbAddSprite("trainer_#{idxTrainer + 1}", spriteX, spriteY, trainerFile, @viewport)
     spriteOverrideBitmap = setTrainerSpriteOverrides(trainerType)
     trainer.bitmap = spriteOverrideBitmap if spriteOverrideBitmap
-
+    trainer.bitmap = generate_front_trainer_sprite_bitmap_from_appearance(custom_appearance).bitmap if custom_appearance
     return if !trainer.bitmap
     # Alter position of sprite
     trainer.z = 7 + idxTrainer

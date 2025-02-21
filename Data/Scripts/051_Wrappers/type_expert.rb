@@ -1,21 +1,26 @@
 class TrainerAppearance
   attr_accessor :skin_color
   attr_accessor :hat
+  attr_accessor :hat2
   attr_accessor :clothes
   attr_accessor :hair
 
   attr_accessor :hair_color
   attr_accessor :clothes_color
   attr_accessor :hat_color
+  attr_accessor :hat2_color
 
-  def initialize(skin_color, hat, clothes, hair, hair_color = 0, clothes_color = 0, hat_color = 0)
+
+  def initialize(skin_color, hat, clothes, hair, hair_color = 0, clothes_color = 0, hat_color = 0, hat2=nil, hat2_color=0)
     @skin_color = skin_color
     @hat = hat
+    @hat2 = hat2
     @clothes = clothes
     @hair = hair
     @hair_color = hair_color
     @clothes_color = clothes_color
     @hat_color = hat_color
+    @hat2_color = hat2_color
   end
 end
 
