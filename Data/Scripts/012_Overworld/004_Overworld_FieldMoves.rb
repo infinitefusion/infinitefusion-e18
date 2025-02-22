@@ -677,7 +677,9 @@ def changeMeloettaForm(pokemon)
     return
   end
   if is_meloetta_A && is_meloetta_P
-    if pokemon.species_data.get_body_species() == :MELOETTA_A
+    body_id = pokemon.species_data.get_body_species()
+    body_species = GameData::Species.get(body_id)
+    if body_species == :MELOETTA_A
       changeSpeciesSpecific(pokemon, :B467H466)
     else
       changeSpeciesSpecific(pokemon, :B466H467)

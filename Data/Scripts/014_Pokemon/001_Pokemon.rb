@@ -341,7 +341,10 @@ class Pokemon
     #reverse the fusion if it's a meloA and meloP fusion
     # There's probably a smarter way to do this but laziness lol
     if is_already_old_form && is_already_new_form
-      if self.species_data.get_body_species() == oldForm
+      body_id = self.species_data.get_body_species()
+      body_species = GameData::Species.get(body_id)
+
+      if body_species == oldForm
         changeSpeciesSpecific(self, getFusedPokemonIdFromSymbols(newForm, oldForm))
       else
         changeSpeciesSpecific(self, getFusedPokemonIdFromSymbols(oldForm, newForm))

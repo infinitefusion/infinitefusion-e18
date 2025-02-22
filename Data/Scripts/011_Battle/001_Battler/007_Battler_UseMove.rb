@@ -624,27 +624,8 @@ class PokeBattle_Battler
   #For meloetta form change
 
   def changeFormSpecies(oldForm, newForm,animation = "UltraBurst2")
-
     @pokemon.changeFormSpecies(oldForm,newForm)
     playChangeFormAnimation(animation)
-
-    # is_already_old_form = @pokemon.isFusionOf(oldForm)  #A 466
-    # is_already_new_form = @pokemon.isFusionOf(newForm)  #P
-    #
-    #
-    # #reverse the fusion if it's a meloA and meloP fusion
-    # # There's probably a smarter way to do this but laziness lol
-    # if is_already_old_form && is_already_new_form
-    #   if @pokemon.species_data.get_body_species() == oldForm
-    #     changeSpeciesSpecific(@pokemon,getFusedPokemonIdFromSymbols(newForm,oldForm))
-    #   else
-    #     changeSpeciesSpecific(@pokemon,getFusedPokemonIdFromSymbols(oldForm,newForm))
-    #   end
-    #   playChangeFormAnimation(animation)
-    # else
-    #   changeSpecies(@pokemon, oldForm, newForm, animation) if is_already_old_form
-    #   changeSpecies(@pokemon, newForm, oldForm, animation) if is_already_new_form
-    # end
   end
 
 
