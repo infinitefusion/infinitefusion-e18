@@ -45,7 +45,7 @@ Special thanks to Aegide and Reizod for helping to rip the sprites from the webs
 and to the owners of the respective fusion websites for accepting to share
 their sprites.
 
-Intro cinamatic
+Intro cinematic
 #####################
 Kiwikelly
 
@@ -116,7 +116,7 @@ with their respective authors' consent
 		SailorVicious (Prof. Elm OW sprite) 	https://www.deviantart.com/sailorvicious
 		OceansLugiaSpirit (Koga OW sprite)  	http://oceanslugiaspirit.deviantart.com/
 		Wolfang62: https://www.deviantart.com/wolfang62/art/Wimpod-Sprite-Overworld-836704744
-
+		zender1752 (Sabrina OW sprite)
 	Battle sprites: 
 		Custom graphics:
 		Kiwikelly, UnworthyPie
@@ -124,7 +124,7 @@ with their respective authors' consent
 		Free use graphics:
 		luckygirl88  (Misty VS sprite) 		http://luckygirl88.deviantart.com/art/Pokemon-BW-Misty-Sprite-Sheet-268364830
 		Lorelei VS sprite by Nalty 		http://nalty.deviantart.com/art/Lorelei-VS-Sprite-177184960
-		
+		x-5-4-5-2 (Sabrina sprite) 		https://www.deviantart.com/x-5-4-5-2/art/Game-Sabrina-204548703
 ### Custom tileset graphics ###
 Kiwikelly
 

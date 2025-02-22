@@ -13,11 +13,12 @@ class Sprite_Hair < Sprite_Wearable
     crop_spritesheet(direction, current_frame, action)
     adjust_layer()
     set_sprite_position(@action, direction, current_frame)
+    adjust_position_for_nonAnimated_hairstyles(current_frame)
   end
 
   def crop_spritesheet(direction, current_frame, action)
     sprite_x = ((current_frame)) * @frameWidth
-
+    sprite_x = 0 if @frameWidth == @wearableBitmap.width
     # Don't animate surf
     sprite_x = 0 if action == "surf"
 
@@ -25,6 +26,10 @@ class Sprite_Hair < Sprite_Wearable
     @sprite.src_rect.set(sprite_x, sprite_y, @frameWidth, @frameHeight)
   end
 
+  def adjust_position_for_nonAnimated_hairstyles(current_frame)
+    return if @frameWidth != @wearableBitmap.width
+    @sprite.y -= 2 if current_frame % 2 == 1
+  end
   def set_sprite_position(action, direction, current_frame)
     @sprite.x = @player_sprite.x - @player_sprite.ox
     @sprite.y = @player_sprite.y - @player_sprite.oy
@@ -80,7 +85,7 @@ class Sprite_Hair < Sprite_Wearable
         apply_sprite_offset(Outfit_Offsets::FISH_OFFSETS_UP, current_frame)
       end
     end
-
+    adjustPositionForScreenScrolling()
   end
 
 end

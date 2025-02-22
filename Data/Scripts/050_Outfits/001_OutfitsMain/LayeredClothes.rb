@@ -134,9 +134,10 @@ end
 
 def generate_front_trainer_sprite_bitmap_from_appearance(trainerAppearance)
   echoln trainerAppearance.hat
-  return generate_front_trainer_sprite_bitmap(false,nil,trainerAppearance.clothes,trainerAppearance.hat,nil,
+  return generate_front_trainer_sprite_bitmap(false,nil,trainerAppearance.clothes,trainerAppearance.hat,trainerAppearance.hat2,
                                               trainerAppearance.hair,trainerAppearance.skin_color,
-                                              trainerAppearance.hair_color,trainerAppearance.hat_color,trainerAppearance.clothes_color)
+                                              trainerAppearance.hair_color,trainerAppearance.hat_color,trainerAppearance.clothes_color,
+                                              trainerAppearance.hat2_color)
 end
 
 def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,

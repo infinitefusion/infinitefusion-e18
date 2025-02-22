@@ -296,7 +296,7 @@ end
 def getFusedPokemonIdFromSymbols(body_dex, head_dex)
   bodyDexNum = GameData::Species.get(body_dex).id_number
   headDexNum = GameData::Species.get(head_dex).id_number
-  return getFusedPokemonIdFromDexNum(body_dex, head_dex)
+  return getFusedPokemonIdFromDexNum(bodyDexNum, headDexNum)
 end
 
 def generateFusionIcon(dexNum, path)

@@ -313,12 +313,13 @@ def randomizePlayerOutfitUnlocked()
 end
 
 def convert_letter_to_number(letter, max_number = nil)
+  return 0 if !letter
   return letter.ord if !max_number
   return letter.ord % max_number
 end
 
 def generate_appearance_from_name(name)
-  name_seed_length = 15
+  name_seed_length = 11
 
   seed = name[0, name_seed_length] # Truncate if longer than 8
   seed += seed[0, name_seed_length - seed.length] while seed.length < name_seed_length # Repeat first characters if shorter
@@ -330,29 +331,22 @@ def generate_appearance_from_name(name)
   hairstyles_list = $PokemonGlobal.hairstyles_data.keys
 
   hat = hats_list[convert_letter_to_number(seed[0],hats_list.length)]
-  hat2 = hats_list[convert_letter_to_number(seed[1],hats_list.length)]
-  hat2 = nil if convert_letter_to_number(seed[2]) % 3 == 0  #1/3 chance of no 2nd hat
+  hat_color = convert_letter_to_number(seed[1],255)
+  hat_color = 0 if convert_letter_to_number(seed[2]) % 2 == 0 #1/2 chance of no dyed hat
 
-  hat_color = convert_letter_to_number(seed[3],255)
-  hat_color = 0 if convert_letter_to_number(seed[4]) % 2 == 0 #1/2 chance of no dyed hat
-  hat2_color = convert_letter_to_number(seed[5],255)
-  hat2_color = 0 if convert_letter_to_number(seed[6]) % 2 == 0
+  clothes = clothes_list[convert_letter_to_number(seed[3],clothes_list.length)]
+  clothes_color = convert_letter_to_number(seed[4],255)
+  clothes_color = 0 if convert_letter_to_number(seed[5]) % 2 == 0 #1/2 chance of no dyed clothes
 
-  clothes = clothes_list[convert_letter_to_number(seed[7],clothes_list.length)]
-  clothes_color = convert_letter_to_number(seed[8],255)
-  clothes_color = 0 if convert_letter_to_number(seed[9]) % 2 == 0 #1/2 chance of no dyed clothes
-
-  hair_base = hairstyles_list[convert_letter_to_number(seed[10],hairstyles_list.length)]
-  hair_number = [1,2,3,4][convert_letter_to_number(seed[11],3)]
+  hair_base = hairstyles_list[convert_letter_to_number(seed[6],hairstyles_list.length)]
+  hair_number = [1,2,3,4][convert_letter_to_number(seed[7],3)]
   hair=getFullHairId(hair_base,hair_number)
-  hair_color = convert_letter_to_number(seed[12],255)
-  hair_color = 0 if convert_letter_to_number(seed[13]) % 2 == 0 #1/2 chance of no dyed hair
+  hair_color = convert_letter_to_number(seed[8],255)
+  hair_color = 0 if convert_letter_to_number(seed[9]) % 2 == 0 #1/2 chance of no dyed hair
 
-  skin_tone = [1,2,3,4,5,6][convert_letter_to_number(seed[14],5)]
-
-  echoln clothes
+  skin_tone = [1,2,3,4,5,6][convert_letter_to_number(seed[10],5)]
   return TrainerAppearance.new(skin_tone,hat,clothes, hair,
-                               hair_color, clothes_color, hat_color,hat2,hat2_color)
+                               hair_color, clothes_color, hat_color)
 
 end
 

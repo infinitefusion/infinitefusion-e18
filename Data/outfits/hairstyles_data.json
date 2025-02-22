@@ -187,11 +187,18 @@
     },
     {
         "id": "highpony",
-        "name": "High-pony",
+        "name": "Ponytail",
         "description": "A high ponytail reminiscent of Lopunny's fur",
         "done": "yes",
         "price": 500,
         "tags": "default"
+    },
+    {
+        "id": "hilda",
+        "name": "High-pony",
+        "description": "A voluminous high ponytail that shows you're ready for adventure. It's popular with new trainers in Unova!",
+        "price": 2000,
+        "tags": "unova,"
     },
     {
         "id": "hime",
@@ -321,7 +328,10 @@
     },
     {
         "id": "lyra",
-        "name": "Springy Pigtails"
+        "name": "Peppy Pigtails",
+        "description": "Bouncy pigtails with a playful charm that gives off a carefree vibes.",
+        "price": 1500,
+        "tags": "johto,"
     },
     {
         "id": "mawile",
@@ -505,6 +515,16 @@
         "price": 500,
         "tags": "short, untied, spiky, thick, pokemon,celadon,",
         "howToGet": "Celadon special"
+    },
+    {
+        "id": "sabrinaGSC",
+        "name": "Clairvoyant Cut",
+        "description": "A medium-length cut with a distinct parted fringe that frames the face.The style was popularized by the Gym Leader Sabrina.",
+        "price": 2000
+    },
+    {
+        "id": "sabrinaRBY",
+        "name": "Telekinetic Tresses"
     },
     {
         "id": "samurai",

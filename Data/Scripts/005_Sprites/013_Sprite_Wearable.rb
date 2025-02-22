@@ -166,54 +166,5 @@ class Sprite_Wearable < RPG::Sprite
     @disposed
   end
 
-  # def getCurrentSpriteOffset()
-  #   direction = @character.direction
-  #   current_frame = @character.pattern
-  #   case @character_name
-  #   when "run"
-  #     if direction == DIRECTION_DOWN
-  #       return Outfit_Offsets::RUN_OFFSETS_DOWN[current_frame]
-  #     elsif direction == DIRECTION_LEFT
-  #       return Outfit_Offsets::RUN_OFFSETS_LEFT[current_frame]
-  #     elsif direction == DIRECTION_RIGHT
-  #       return Outfit_Offsets::RUN_OFFSETS_RIGHT[current_frame]
-  #     elsif direction == DIRECTION_UP
-  #       return Outfit_Offsets::RUN_OFFSETS_UP[current_frame]
-  #     end
-  #   when "surf"
-  #     #when "dive"
-  #     if direction == DIRECTION_DOWN
-  #       return Outfit_Offsets::SURF_OFFSETS_DOWN[current_frame]
-  #     elsif direction == DIRECTION_LEFT
-  #       return Outfit_Offsets::SURF_OFFSETS_LEFT[current_frame]
-  #     elsif direction == DIRECTION_RIGHT
-  #       return Outfit_Offsets::SURF_OFFSETS_RIGHT[current_frame]
-  #     elsif direction == DIRECTION_UP
-  #       return Outfit_Offsets::SURF_OFFSETS_UP[current_frame]
-  #     end
-  #   when "dive"
-  #     if direction == DIRECTION_DOWN
-  #       return Outfit_Offsets::DIVE_OFFSETS_DOWN[current_frame]
-  #     elsif direction == DIRECTION_LEFT
-  #       return Outfit_Offsets::DIVE_OFFSETS_LEFT[current_frame]
-  #     elsif direction == DIRECTION_RIGHT
-  #       return Outfit_Offsets::DIVE_OFFSETS_RIGHT[current_frame]
-  #     elsif direction == DIRECTION_UP
-  #       return Outfit_Offsets::DIVE_OFFSETS_UP[current_frame]
-  #     end
-  #   when "bike"
-  #     if direction == DIRECTION_DOWN
-  #       return Outfit_Offsets::BIKE_OFFSETS_DOWN[current_frame]
-  #     elsif direction == DIRECTION_LEFT
-  #       return Outfit_Offsets::BIKE_OFFSETS_LEFT[current_frame]
-  #     elsif direction == DIRECTION_RIGHT
-  #       return Outfit_Offsets::BIKE_OFFSETS_RIGHT[current_frame]
-  #     elsif direction == DIRECTION_UP
-  #       return Outfit_Offsets::BIKE_OFFSETS_UP[current_frame]
-  #     end
-  #   end
-  #   return Outfit_Offsets::BASE_OFFSET[current_frame]
-  # end
-
 
 end
