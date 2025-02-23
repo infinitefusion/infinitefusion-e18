@@ -236,6 +236,12 @@
         "howToGet": "cinnabar lab after fusing 100 times"
     },
     {
+        "id": "ghostoutfit",
+        "name": "Ghost Outfit",
+        "tags": "type-ghost,special",
+        "howToGet": "type trainer"
+    },
+    {
         "id": "glitzerset",
         "name": "Glitzer",
         "price": 2550
@@ -315,6 +321,14 @@
         "price": 4500,
         "tags": "mahogany",
         "howToGet": "city-exclusive outfit"
+    },
+    {
+        "id": "kris",
+        "name": "Crystal Classic",
+        "description": "An outfit worn by young female trainers that is popular in the Johto region.",
+        "price": 4000,
+        "tags": "johto",
+        "howToGet": "regional"
     },
     {
         "id": "lady",

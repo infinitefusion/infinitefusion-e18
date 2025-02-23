@@ -119,6 +119,12 @@
         "howToGet": "gym reward"
     },
     {
+        "id": "bruxishcrown",
+        "name": "Bruxish Crown",
+        "price": 5000,
+        "tags": "hairclip,headband,pokemon-bruxish,"
+    },
+    {
         "id": "bugantenna",
         "name": "Bug Antennas",
         "description": "Long antennas that make you look like you're a Bug-Type Pokémon.",
@@ -179,8 +185,8 @@
     {
         "id": "clownnose",
         "name": "Clown Nose",
-        "price": 1500,
-        "tags": "mask,pokemon-mimejr,pokemon-mrmime,"
+        "price": 15000,
+        "tags": "mask,special,"
     },
     {
         "id": "cloak",
@@ -528,6 +534,22 @@
         "len": 59,
         "price": 1000,
         "tags": "hat,celadon,"
+    },
+    {
+        "id": "hilda",
+        "name": "Pink & White Cap",
+        "description": "A sleek pink and white cap with a refined design, popular with fledgling trainers in Unova.",
+        "done": "yes",
+        "price": 2000,
+        "tags": "hat,trainer,unova,"
+    },
+    {
+        "id": "hilda2",
+        "name": "Pink & White Cap (hair)",
+        "description": "A sleek pink and white cap with a refined design, popular with fledgling trainers in Unova.",
+        "done": "yes",
+        "price": 2000,
+        "tags": "hat,trainer,unova,"
     },
     {
         "id": "hilbert",
@@ -1157,6 +1179,12 @@
         "price": 0,
         "tags": "nest,",
         "howToGet": "stay idle on mt. moon summit"
+    },
+    {
+        "id": "sudowoodohorns",
+        "name": "Sudowoodo Horns",
+        "price": 5000,
+        "tags": "pokemon-bonsly,pokemon-sudowoodo,hairclip,headband,"
     },
     {
         "id": "sylveonbow",

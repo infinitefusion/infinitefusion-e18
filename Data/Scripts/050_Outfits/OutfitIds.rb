@@ -51,6 +51,7 @@ HAT_ZOROARK = "banefulfoxmask"
 HAT_FROG = "froghat"
 HAT_SANTA = "santa"
 HAT_QMARKS = "glitzerset"
+HAT_SUDOWOODO = "sudowoodohorns"
 
 HAT_CLOWN = "clownnose"
 
