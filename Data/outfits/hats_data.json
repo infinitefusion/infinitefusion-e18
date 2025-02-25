@@ -1,5 +1,11 @@
 [
     {
+        "id": "absolhat",
+        "name": "absolhat",
+        "price": 5000,
+        "tags": "pokemon-absol,"
+    },
+    {
         "id": "aerodactylSkull",
         "name": "Aerodactyl Skull",
         "description": "An Aerodactyl skull that perfectly fits over a trainer's.",
@@ -120,7 +126,8 @@
     },
     {
         "id": "bruxishcrown",
-        "name": "Bruxish Crown",
+        "name": "Flower Lure",
+        "description": "A crown ressembling the flower-shaped lure from a Bruxish.",
         "price": 5000,
         "tags": "hairclip,headband,pokemon-bruxish,"
     },
@@ -1182,7 +1189,8 @@
     },
     {
         "id": "sudowoodohorns",
-        "name": "Sudowoodo Horns",
+        "name": "Sudowoodo Horn",
+        "description": "A branching horn made out of rock that appears to have fallen off a Sudowoodo.",
         "price": 5000,
         "tags": "pokemon-bonsly,pokemon-sudowoodo,hairclip,headband,"
     },

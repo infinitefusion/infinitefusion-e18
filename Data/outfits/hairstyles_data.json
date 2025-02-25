@@ -232,6 +232,13 @@
         "price": 2000
     },
     {
+        "id": "kris",
+        "name": "Springy Pigtails",
+        "description": "Springy pigtails that somehow defy gravity.",
+        "price": 2000,
+        "tags": "johto,"
+    },
+    {
         "id": "kurt",
         "name": "Slicked-Back Straight",
         "description": "Slicked-back medium-length straight hair, in a very traditional cut. The style was popularized by Gym Leader Kurt.",
@@ -554,6 +561,11 @@
         "done": "yes",
         "price": 500,
         "tags": "default,"
+    },
+    {
+        "id": "sonia",
+        "name": "High Side Pony",
+        "description": "An elegant ponytail worn to the side that was popularized by a Galarian research assistant."
     },
     {
         "id": "SpecialLatias",
