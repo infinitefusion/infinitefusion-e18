@@ -116,3 +116,44 @@ end
 
 # Example usage: Replace 100 with the switch ID you want to search
 # SwitchFinder.search_switch(100)
+
+
+def search_event_scripts(target_string)
+  results = []
+  for map_id in 1..999  # Adjust based on your game's max map ID
+    map_filename = sprintf("Data/Map%03d.rxdata", map_id)
+    next unless File.exist?(map_filename)  # Skip if map file doesn't exist
+
+    map_data = load_data(map_filename)
+    next unless map_data.events  # Skip maps with no events
+
+    map_data.events.each do |event_id, event|
+      event.pages.each_with_index do |page, page_index|
+        next unless page.list  # Skip pages with no commands
+
+        page.list.each_with_index do |command, cmd_index|
+          if command.code == 355 || command.code == 655  # Check script command (multi-line)
+            if command.parameters[0].include?(target_string)
+              results << {
+                map_id: map_id,
+                event_id: event_id,
+                page_index: page_index + 1,
+                command_index: cmd_index + 1
+              }
+            end
+          end
+        end
+      end
+    end
+  end
+
+  if results.empty?
+    echoln "No occurrences of '#{target_string}' found."
+  else
+    echoln "Found occurrences of '#{target_string}':"
+    results.each do |res|
+      echoln "Map #{res[:map_id]}, Event #{res[:event_id]}, Page #{res[:page_index]}, Command #{res[:command_index]}"
+    end
+  end
+end
+
