@@ -129,7 +129,8 @@ def useTeleporter()
   else
     Kernel.pbMessage(_INTL("{1} used the teleporter!", $Trainer.name))
     pbFadeOutIn(99999) {
-      Kernel.pbCancelVehicles
+      # The map ID parameter ensures the player stays on the bike when teleporting
+      Kernel.pbCancelVehicles($PokemonTemp.flydata[0])
       $game_temp.player_new_map_id = $PokemonTemp.flydata[0]
       $game_temp.player_new_x = $PokemonTemp.flydata[1]
       $game_temp.player_new_y = $PokemonTemp.flydata[2]
