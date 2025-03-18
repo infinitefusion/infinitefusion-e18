@@ -239,60 +239,6 @@ ItemHandlers::UseOnPokemon.add(:TRANSGENDERSTONE, proc { |item, pokemon, scene|
   end
 })
 
-#NOT FULLY IMPLEMENTED
-ItemHandlers::UseOnPokemon.add(:SECRETCAPSULE, proc { |item, poke, scene|
-  abilityList = poke.getAbilityList
-  numAbilities = abilityList[0].length
-
-  if numAbilities <= 2
-    scene.pbDisplay(_INTL("It won't have any effect."))
-    next false
-  elsif abilityList[0].length <= 3
-    if changeHiddenAbility1(abilityList, scene, poke)
-      next true
-    end
-    next false
-  else
-    if changeHiddenAbility2(abilityList, scene, poke)
-      next true
-    end
-    next false
-  end
-})
-
-def changeHiddenAbility1(abilityList, scene, poke)
-  abID1 = abilityList[0][2]
-  msg = _INTL("Change {1}'s ability to {2}?", poke.name, PBAbilities.getName(abID1))
-  if Kernel.pbConfirmMessage(_INTL(msg))
-    poke.setAbility(2)
-    abilName1 = PBAbilities.getName(abID1)
-    scene.pbDisplay(_INTL("{1}'s ability was changed to {2}!", poke.name, PBAbilities.getName(abID1)))
-    return true
-  else
-    return false
-  end
-end
-
-def changeHiddenAbility2(abilityList, scene, poke)
-  return false if !Kernel.pbConfirmMessage(_INTL("Change {1}'s ability?", poke.name))
-
-  abID1 = abilityList[0][2]
-  abID2 = abilityList[0][3]
-
-  abilName2 = PBAbilities.getName(abID1)
-  abilName3 = PBAbilities.getName(abID2)
-
-  if (Kernel.pbMessage("Choose an ability.", [_INTL("{1}", abilName2), _INTL("{1}", abilName3)], 2)) == 0
-    poke.setAbility(2)
-    scene.pbDisplay(_INTL("{1}'s ability was changed to {2}!", poke.name, abilName2))
-  else
-    return false
-  end
-  poke.setAbility(3)
-  scene.pbDisplay(_INTL("{1}'s ability was changed to {2}!", poke.name, abilName3))
-  return true
-end
-
 ItemHandlers::UseOnPokemon.add(:ROCKETMEAL, proc { |item, pokemon, scene|
   next pbHPItem(pokemon, 100, scene)
 })
@@ -1234,57 +1180,71 @@ ItemHandlers::UseOnPokemon.add(:TRANSGENDERSTONE, proc { |item, pokemon, scene|
 #
 # })
 
-#NOT FULLY IMPLEMENTED
+# Secret Capsule - Changes a Pokémon's ability to one of its hidden abilities, if available
+# Note: once a hidden ability is set, there is no way to return to a natural ability (with an Ability Capsule)
+#       unless the species is a fusion (which usually allows selecting a natural ability due to its index>=2)
 ItemHandlers::UseOnPokemon.add(:SECRETCAPSULE, proc { |item, poke, scene|
-  abilityList = poke.getAbilityList
-  numAbilities = abilityList[0].length
+  abilities = poke.species_data.abilities
+  hiddenAbilities = poke.species_data.hidden_abilities
 
-  if numAbilities <= 2
+  if hiddenAbilities.length == 0 || (hiddenAbilities.length == 1 && poke.hasAbility?(hiddenAbilities[0]))
+    # If the species has no hidden ability or if the only hidden ability is already set to the Pokémon
     scene.pbDisplay(_INTL("It won't have any effect."))
     next false
-  elsif abilityList[0].length <= 3
-    if changeHiddenAbility1(abilityList, scene, poke)
-      next true
-    end
-    next false
+  elsif hiddenAbilities.length == 1
+    # If there is only one hidden ability available
+    next setHiddenAbilitySingle(hiddenAbilities[0], poke, scene)
   else
-    if changeHiddenAbility2(abilityList, scene, poke)
-      next true
-    end
-    next false
+    # Two or more hidden abilities are available
+    next setHiddenAbilityChoice(hiddenAbilities, poke, scene)
   end
 })
 
-def changeHiddenAbility1(abilityList, scene, poke)
-  abID1 = abilityList[0][2]
-  msg = _INTL("Change {1}'s ability to {2}?", poke.name, PBAbilities.getName(abID1))
+# Only one hidden ability available: display a yes/no choice to the player
+def changeHiddenAbility1(ability, poke, scene)
+  name = GameData::Ability.get(ability).name
+  msg = _INTL("Would you like to change {1}'s Ability to {2}?", poke.name, name)
+  
   if Kernel.pbConfirmMessage(_INTL(msg))
-    poke.setAbility(2)
-    abilName1 = PBAbilities.getName(abID1)
-    scene.pbDisplay(_INTL("{1}'s ability was changed to {2}!", poke.name, PBAbilities.getName(abID1)))
+    poke.ability_index = 2
+    poke.ability = ability
+	  scene.pbHardRefresh
+    scene.pbDisplay(_INTL("{1}'s Ability changed to {2}!", poke.name, name))
     return true
-  else
-    return false
   end
+
+  return false
 end
 
-def changeHiddenAbility2(abilityList, scene, poke)
-  return false if !Kernel.pbConfirmMessage(_INTL("Change {1}'s ability?", poke.name))
+# Two or more hidden abilities available: display a multi-choice message to the player
+def changeHiddenAbility2(hiddenAbilities, poke, scene)
+  return false if !Kernel.pbConfirmMessage(_INTL("Would you like to change {1}'s Ability?", poke.name))
+  
+  list = []
+  nameList = []
 
-  abID1 = abilityList[0][2]
-  abID2 = abilityList[0][3]
+  # Iterate through hidden abilities adding their object and ID to `list`
+  # Also add their names to `nameList` using the same index
+  hiddenAbilities.each_with_index { |a, i|
+    next if !a # ability object is falsish/nil
+    ability = GameData::Ability.get(a)
+    next if ability.id == poke.ability_id # target Pokémon already has this hidden ability
+    
+    list.push([i, ability])
+    nameList.push(ability.name)
+  }
+  
+  choice = Kernel.pbMessage("Choose a Hidden Ability.", nameList, -1)
+  return false if choice == -1
 
-  abilName2 = PBAbilities.getName(abID1)
-  abilName3 = PBAbilities.getName(abID2)
+  abilityId = list[choice][0]
+  abilityObj = list[choice][1]
+  name = nameList[choice]
 
-  if (Kernel.pbMessage("Choose an ability.", [_INTL("{1}", abilName2), _INTL("{1}", abilName3)], 2)) == 0
-    poke.setAbility(2)
-    scene.pbDisplay(_INTL("{1}'s ability was changed to {2}!", poke.name, abilName2))
-  else
-    return false
-  end
-  poke.setAbility(3)
-  scene.pbDisplay(_INTL("{1}'s ability was changed to {2}!", poke.name, abilName3))
+  poke.ability_index = abilityId
+  poke.ability = abilityObj
+  scene.pbHardRefresh
+  scene.pbDisplay(_INTL("{1}'s Ability changed to {2}!", poke.name, name))
   return true
 end
 
