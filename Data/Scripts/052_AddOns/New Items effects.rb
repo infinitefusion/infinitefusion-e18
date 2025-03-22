@@ -1193,10 +1193,10 @@ ItemHandlers::UseOnPokemon.add(:SECRETCAPSULE, proc { |item, poke, scene|
     next false
   elsif hiddenAbilities.length == 1
     # If there is only one hidden ability available
-    next setHiddenAbilitySingle(hiddenAbilities[0], poke, scene)
+    next changeHiddenAbility1(hiddenAbilities[0], poke, scene)
   else
     # Two or more hidden abilities are available
-    next setHiddenAbilityChoice(hiddenAbilities, poke, scene)
+    next changeHiddenAbility2(hiddenAbilities, poke, scene)
   end
 })
 
