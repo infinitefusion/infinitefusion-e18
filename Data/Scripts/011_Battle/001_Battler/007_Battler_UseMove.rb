@@ -195,6 +195,8 @@ class PokeBattle_Battler
         @lastRegularMoveUsed = nil
         @lastRegularMoveTarget = -1
       end
+      # Check if bgm needs to be switched
+      @battle.updateMusic()
       @battle.pbGainExp # In case self is KO'd due to confusion
       pbCancelMoves
       pbEndTurn(choice)
@@ -212,6 +214,8 @@ class PokeBattle_Battler
         @lastRegularMoveUsed = nil
         @lastRegularMoveTarget = -1
         @lastMoveFailed = true
+        # Check if bgm needs to be switched
+        @battle.updateMusic()
         pbCancelMoves
         pbEndTurn(choice)
         return
@@ -289,6 +293,8 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("{1} cannot use {2}!", user.pbThis, move.name))
         @battle.pbHideAbilitySplash(b)
         user.lastMoveFailed = true
+        # Check if bgm needs to be switched
+        @battle.updateMusic()
         pbCancelMoves
         pbEndTurn(choice)
         return
@@ -309,6 +315,8 @@ class PokeBattle_Battler
     if move.pbMoveFailed?(user, targets)
       PBDebug.log(sprintf("[Move failed] In function code %s's def pbMoveFailed?", move.function))
       user.lastMoveFailed = true
+      # Check if bgm needs to be switched
+      @battle.updateMusic()
       pbCancelMoves
       pbEndTurn(choice)
       return
@@ -336,6 +344,8 @@ class PokeBattle_Battler
           user.pbEffectsOnSwitchIn(true)
         end
       end
+      # Check if bgm needs to be switched
+      @battle.updateMusic()
       pbCancelMoves
       pbEndTurn(choice)
       return
@@ -506,6 +516,8 @@ class PokeBattle_Battler
       # External/general effects after all hits. Eject Button, Shell Bell, etc.
       pbEffectsAfterMove(user, targets, move, realNumHits)
     end
+    # Check if bgm needs to be switched
+    @battle.updateMusic()
     # End effect of Mold Breaker
     @battle.moldBreaker = false
     # Gain Exp

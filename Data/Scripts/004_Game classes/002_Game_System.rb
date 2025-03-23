@@ -20,6 +20,8 @@ class Game_System
   attr_accessor :autoscroll_x_speed
   attr_accessor :autoscroll_y_speed
   attr_accessor :bgm_position
+  attr_accessor :bgs_position
+  attr_accessor :paused_bgm
 
   def initialize
     @map_interpreter    = Interpreter.new(0, true)
@@ -37,6 +39,7 @@ class Game_System
     @autoscroll_y_speed = 0
     @bgm_position       = 0
     @bgs_position       = 0
+    @paused_bgm         = nil
   end
 
 ################################################################################
@@ -59,8 +62,8 @@ class Game_System
     end
   end
 
-  def bgm_play_internal(bgm,position) # :nodoc:
-    @bgm_position = position if !@bgm_paused
+  def bgm_play_internal(bgm,position,unpausing=false) # :nodoc:
+    @bgm_position = position if !@bgm_paused || unpausing
     @playing_bgm = (bgm==nil) ? nil : bgm.clone
     if bgm!=nil && bgm.name!=""
       if FileTest.audio_exist?("Audio/BGM/"+bgm.name)
@@ -68,7 +71,7 @@ class Game_System
            bgm.volume,bgm.pitch,@bgm_position) if !@defaultBGM
       end
     else
-      @bgm_position = position if !@bgm_paused
+      @bgm_position = position if !@bgm_paused || unpausing
       @playing_bgm = nil
       Audio.bgm_stop if !@defaultBGM
     end
@@ -93,7 +96,7 @@ class Game_System
 
   def bgm_resume(bgm) # :nodoc:
     if @bgm_paused
-      self.bgm_play_internal(bgm,@bgm_position)
+      self.bgm_play_internal(bgm,@bgm_position,true)
       @bgm_position = 0
       @bgm_paused   = false
     end
@@ -128,6 +131,14 @@ class Game_System
   # Returns an RPG::AudioFile object for the currently playing background music
   def getPlayingBGM
     return (@playing_bgm) ? @playing_bgm.clone : nil
+  end
+  
+  def getPausedBGM
+    return (@paused_bgm) ? @paused_bgm.clone : nil
+  end
+
+  def setPausedBGM
+    @paused_bgm = (@paused_bgm) ? nil : @playing_bgm
   end
 
   def setDefaultBGM(bgm,volume=80,pitch=100)

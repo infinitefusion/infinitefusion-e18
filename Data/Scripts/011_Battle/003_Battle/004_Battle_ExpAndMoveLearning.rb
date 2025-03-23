@@ -234,6 +234,8 @@ class PokeBattle_Battle
       pkmn.calc_stats
       battler.pbUpdate(false) if battler
       @scene.pbRefreshOne(battler.index) if battler
+      # Check if bgm needs to be switched
+      updateMusic()
       pbDisplayPaused(_INTL("{1} grew to Lv. {2}!", pkmn.name, curLevel))
       if !$game_switches[SWITCH_NO_LEVELS_MODE]
         @scene.pbLevelUp(pkmn, battler, oldTotalHP, oldAttack, oldDefense,

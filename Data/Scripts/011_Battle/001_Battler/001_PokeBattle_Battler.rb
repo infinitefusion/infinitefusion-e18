@@ -706,6 +706,11 @@ class PokeBattle_Battler
     return @battle.pbOwnedByPlayer?(@index)
   end
 
+  # Returns true if self has 25% or less hp
+  def isLowHp
+    return @hp > 0 && @hp <= (@totalhp / 4)
+  end
+
   # Returns 0 if self is on the player's side, or 1 if self is on the opposing
   # side.
   def idxOwnSide

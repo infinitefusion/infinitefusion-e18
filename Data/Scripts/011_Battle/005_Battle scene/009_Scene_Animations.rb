@@ -223,6 +223,8 @@ class PokeBattle_Scene
     while @sprites["dataBox_#{battler.index}"].animatingHP
       pbUpdate
     end
+    # Check if bgm needs to be switched
+    @battle.updateMusic()
   end
 
   def pbDamageAnimation(battler,effectiveness=0)

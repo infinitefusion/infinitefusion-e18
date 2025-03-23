@@ -158,6 +158,39 @@ class PokeBattle_Battle
     end
   end
 
+  # Check the healthof every pokemon of the player in battle
+  # Switch to low health bgm if at least one of them has 25% or less hp
+  # Switch back to original battle bgm if all of them are above 25%
+  def updateMusic
+    pausedBGM = $game_system.getPausedBGM
+    hasLowHealthAlly = false
+
+    # Check for low health pokemon of the player 
+    @battlers.each_with_index do |b,i|
+      if b.pbOwnedByPlayer? && b.isLowHp
+        hasLowHealthAlly = true
+      end
+    end
+
+    # Check if bgm should be switched to low health version
+    if pausedBGM == nil && hasLowHealthAlly
+      $game_system.setPausedBGM
+      $game_system.bgm_pause
+
+      pbBGMPlay("A Tight Spot During Battle (Low Health)")
+    end
+
+    # Check if bgm should be switched to original version
+    if pausedBGM && !hasLowHealthAlly
+      pbBGMFade()
+
+      $game_system.bgm_resume(pausedBGM)
+
+      # Reset paused bgm at the end
+      $game_system.setPausedBGM
+    end
+  end
+
   #=============================================================================
   # Attack phase
   #=============================================================================

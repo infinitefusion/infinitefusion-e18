@@ -289,6 +289,8 @@ class PokeBattle_Battle
     # Reorder the party for this battle
     partyOrder = pbPartyOrder(idxBattler)
     partyOrder[idxParty], partyOrder[idxPartyOld] = partyOrder[idxPartyOld], partyOrder[idxParty]
+    # Check if bgm needs to be switched
+    updateMusic()
     # Send out the new Pokémon
     pbSendOut([[idxBattler, party[idxParty]]])
     pbCalculatePriority(false, [idxBattler]) if Settings::RECALCULATE_TURN_ORDER_AFTER_SPEED_CHANGES
