@@ -210,8 +210,10 @@ class PokemonPokedexInfo_Scene
     species_data = GameData::Species.get_species_form(@species, @form)
     if @pokemon != nil
       @sprites["infosprite"].setPokemonBitmap(@pokemon)
-    else
+    elsif @idSpecies != nil
       @sprites["infosprite"].setPokemonBitmapFromId(@idSpecies, false, @isShiny, @isBody_Shiny, @isHead_Shiny)
+    else
+      @sprites["infosprite"].setSpeciesBitmap(@species)
     end
 
     # if @sprites["formfront"]
