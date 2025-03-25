@@ -1557,7 +1557,7 @@ class PokemonStorageScene
         textstrings.push([_INTL("No item"), 86, 336, 2, nonbase, nonshadow])
       end
       if pokemon.shiny?
-        addShinyStarsToGraphicsArray(imagepos,156,198,pokemon.bodyShiny?,pokemon.headShiny?,pokemon.debugShiny?,nil,nil,nil,nil,false,true)
+        addShinyStarsToGraphicsArray(imagepos,148,198,pokemon.bodyShiny?,pokemon.headShiny?,pokemon.debugShiny?,nil,nil,nil,nil,false,true)
         #imagepos.push(["Graphics/Pictures/shiny", 156, 198])
       end
       typebitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/types"))

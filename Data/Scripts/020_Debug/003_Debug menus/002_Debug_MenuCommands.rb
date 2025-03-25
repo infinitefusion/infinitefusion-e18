@@ -1,6 +1,7 @@
 #===============================================================================
 #
 #===============================================================================
+
 module DebugMenuCommands
   @@commands = HandlerHashBasic.new
 
@@ -533,6 +534,56 @@ DebugMenuCommands.register("addpokemon", {
   }
 })
 
+
+DebugMenuCommands.register("changehue", {
+  "parent"      => "pokemonmenu",
+  "name"        => _INTL("Change HUE"),
+  "description" => _INTL("Change HUE of a specific shiny pokemon."),
+  "effect"      => proc {
+    params = ChooseNumberParams.new
+    params.setRange(1, 360)
+    params.setInitialValue(1)
+    params.setCancelValue(0)
+    hue = pbMessageChooseNumber(_INTL("Choose the number of HUE."), params)
+    params = ChooseNumberParams.new
+    params.setRange(1, NB_POKEMON)
+    params.setInitialValue(1)
+    params.setCancelValue(0)
+    dex_number = pbMessageChooseNumber(_INTL("Choose the pokemon to apply."), params)
+    pbMessage(_INTL("The HUE {1}.",  SHINY_COLOR_OFFSETS[dex_number]))
+    SHINY_COLOR_OFFSETS[dex_number] = hue
+
+    pbMessage(_INTL("The HUE was changed."))
+  }
+})
+
+DebugMenuCommands.register("changebwhue", {
+  "parent"      => "pokemonmenu",
+  "name"        => _INTL("Change BW HUE"),
+  "description" => _INTL("Change the black and white HUE of a specific shiny pokemon."),
+  "effect"      => proc {
+    command = pbShowCommands(nil, ["Brighter", "Darker"])
+    if command == 1
+      switch = 1
+    else
+      switch = -1
+    end
+    params = ChooseNumberParams.new
+    params.setRange(0, 255)
+    params.setInitialValue(0)
+    hue = pbMessageChooseNumber(_INTL("Choose the number of HUE."), params) * switch
+    params = ChooseNumberParams.new
+    params.setRange(1, NB_POKEMON)
+    params.setInitialValue(1)
+    params.setCancelValue(0)
+    dex_number = pbMessageChooseNumber(_INTL("Choose the pokemon to apply."), params)
+    
+    SHINY_BW_OFFSETS[dex_number] = hue
+
+    pbMessage(_INTL("The BW HUE was changed."))
+  }
+})
+
 DebugMenuCommands.register("demoparty", {
   "parent"      => "pokemonmenu",
   "name"        => _INTL("Give Demo Party"),
@@ -596,6 +647,8 @@ DebugMenuCommands.register("quickhatch", {
   }
 })
 
+
+
 DebugMenuCommands.register("fillboxes", {
   "parent"      => "pokemonmenu",
   "name"        => _INTL("Fill Storage Boxes"),
@@ -608,7 +661,6 @@ DebugMenuCommands.register("fillboxes", {
       pokemon = getPokemon(num)
       pbAddPokemonSilent(pokemon,50)
     end
-
 
     # GameData::Species.each do |species_data|
     #   break if species_data.is_fusion
@@ -646,6 +698,28 @@ DebugMenuCommands.register("fillboxes", {
   }
 })
 
+
+DebugMenuCommands.register("shinyfillboxes", {
+  "parent"      => "pokemonmenu",
+  "name"        => _INTL("Fill Shiny Storage Boxes"),
+  "description" => _INTL("Add one Pokémon of each species in shiny (at Level 50) to storage."),
+  "effect"      => proc {
+    added = 0
+    box_qty = $PokemonStorage.maxPokemon(0)
+    completed = true
+    for num in 1..NB_POKEMON
+      pokemon = getPokemon(num)
+      pbAddPokemonSilentShiny(pokemon,50)
+    end
+    $Trainer.pokedex.refresh_accessible_dexes
+    pbMessage(_INTL("Storage boxes were filled with one Pokémon of each species in shiny."))
+    if !completed
+      pbMessage(_INTL("Note: The number of storage spaces ({1} boxes of {2}) is less than the number of species.",
+         Settings::NUM_STORAGE_BOXES, box_qty))
+    end
+  }
+})
+
 DebugMenuCommands.register("clearboxes", {
   "parent"      => "pokemonmenu",
   "name"        => _INTL("Clear Storage Boxes"),
@@ -672,6 +746,112 @@ DebugMenuCommands.register("openstorage", {
     }
   }
 })
+
+DebugMenuCommands.register("pokedexmenu", {
+  "parent"      => "pokemonmenu",
+  "name"        => _INTL("Fill/Unfillpokedex..."),
+  "description" => _INTL("Register or  Unregister some pokemon in the Pokedex.")
+})
+
+
+DebugMenuCommands.register("fillpokedex", {
+  "parent"      => "pokedexmenu",
+  "name"        => _INTL("Fill All Pokédex"),
+  "description" => _INTL("Registers all Pokémon in the Pokédex."),
+  "effect"      => proc {
+      for num in 1..(NB_POKEMON**2)+NB_POKEMON
+        $Trainer.pokedex.set_seen(num,false)
+        $Trainer.pokedex.set_owned(num,false)
+      end
+      pbMessage(_INTL("All Pokémon were registered in the Pokédex"))
+  }
+})
+
+DebugMenuCommands.register("unfillpokedex", {
+  "parent"      => "pokedexmenu",
+  "name"        => _INTL("UnFill All Pokédex"),
+  "description" => _INTL("Unregisters all Pokémon in the Pokédex."),
+  "effect"      => proc {
+      for num in 1..(NB_POKEMON**2)+NB_POKEMON
+        $Trainer.pokedex.set_unseen(num,false)
+        $Trainer.pokedex.set_unowned(num,false)
+      end
+      pbMessage(_INTL("All Pokémon were Unregistered in the Pokédex"))
+  }
+})
+
+DebugMenuCommands.register("fillsomepokedex", {
+  "parent"      => "pokedexmenu",
+  "name"        => _INTL("Fill some Pokemon"),
+  "description" => _INTL("Registers some Pokémon in the Pokédex."),
+  "effect"      => proc {
+    params = ChooseNumberParams.new
+    params.setRange(1, (NB_POKEMON**2)+NB_POKEMON)
+    params.setInitialValue(1)
+    params.setCancelValue(0)
+    trav = pbMessageChooseNumber(_INTL("Choose the number of step."), params)
+
+    if trav == (NB_POKEMON**2)+NB_POKEMON
+      steps = 0
+    else
+      params = ChooseNumberParams.new
+      params.setRange(1, ((NB_POKEMON**2)+NB_POKEMON) - trav)
+      params.setInitialValue(1)
+      params.setCancelValue(0)
+      steps = pbMessageChooseNumber(_INTL("Choose the number of the start."), params)
+    end
+	for num in 1..trav
+		$Trainer.pokedex.set_seen(steps,false)
+        $Trainer.pokedex.set_owned(steps,false)
+        steps += 1
+    end
+	pbMessage(_INTL("All your Pokémon were registered in the Pokédex"))
+  }
+})
+
+DebugMenuCommands.register("unfillsomepokedex", {
+  "parent"      => "pokedexmenu",
+  "name"        => _INTL("UnFill some Pokemon"),
+  "description" => _INTL("Unregisters all Pokémon in the Pokédex."),
+  "effect"      => proc {
+    params = ChooseNumberParams.new
+    params.setRange(1, (NB_POKEMON**2)+NB_POKEMON)
+    params.setInitialValue(1)
+    params.setCancelValue(0)
+    trav = pbMessageChooseNumber(_INTL("Choose the number of step."), params)
+
+    if trav == (NB_POKEMON**2)+NB_POKEMON
+      steps = 0
+    else
+      params = ChooseNumberParams.new
+      params.setRange(1, ((NB_POKEMON**2)+NB_POKEMON) - trav)
+      params.setInitialValue(1)
+      params.setCancelValue(0)
+      steps = pbMessageChooseNumber(_INTL("Choose the number of the start."), params)
+    end
+	for num in 1..trav
+		$Trainer.pokedex.set_unseen(steps,false)
+        $Trainer.pokedex.set_unowned(steps,false)
+        steps += 1
+    end
+	pbMessage(_INTL("All your Pokémon were Unregistered in the Pokédex"))
+  }
+})
+
+
+DebugMenuCommands.register("fillfusionpokedex", {
+  "parent"      => "pokedexmenu",
+  "name"        => _INTL("Fill own fusion Pokemon"),
+  "description" => _INTL("Registers all own fusion Pokémon in the Pokédex."),
+  "effect"      => proc {
+      for num in 1..NB_POKEMON
+        $Trainer.pokedex.set_seen(num*(NB_POKEMON+1),false)
+        $Trainer.pokedex.set_owned(num*(NB_POKEMON+1),false)
+      end
+      pbMessage(_INTL("All your Pokémon were registered in the Pokédex"))
+  }
+})
+
 
 #===============================================================================
 # Player options
@@ -708,6 +888,302 @@ DebugMenuCommands.register("setbadges", {
   }
 })
 
+DebugMenuCommands.register("unlockallstyle", {
+  "parent"      => "playermenu",
+  "name"        => _INTL("Unlock Style"),
+  "description" => _INTL("Unlock all Hair/Clothe/Hat."),
+  "effect"      => proc {
+    $Trainer.unlocked_hats = [
+      "aerodactylSkull",
+      "ash",
+      "banefulfoxmask",
+      "bianca",
+      "biancaglasses",
+      "blaineGlasses",
+      "box",
+      "breederbandana",
+      "breedervisor",
+      "brendanORAS",
+      "brendanRSE",
+      "brockpan",
+      "bugantenna",
+      "calem",
+      "carbink",
+      "chuckmoustache",
+      "clairbow",
+      "clefairyearheadband",
+      "cloak",
+      "cowboy",
+      "creepydittomask",
+      "cresseliatiara",
+      "cutecatears",
+      "cynthiaaccessory",
+      "dawnDPP",
+      "designerheadphones",
+      "drifloon",
+      "duskullmask",
+      "eevee",
+      "egg",
+      "emeraldSPEgem",
+      "erikaHeadband",
+      "falknerscage",
+      "fez",
+      "firefigther",
+      "froghat",
+      "fusionnerd",
+      "giovannifedora",
+      "glitzerset",
+      "glasses",
+      "glasses2",
+      "gloria",
+      "goggles",
+      "gold",
+      "goldfortuft",
+      "halo",
+      "headlacecovering",
+      "headparas",
+      "headphones",
+      "hijabblack",
+      "hijabbright",
+      "hijabdark",
+      "hijablight",
+      "hijabwhite",
+      "hilbert",
+      "karateHeadband",
+      "kogascarf",
+      "kris",
+      "kurtsentaihelmet",
+      "lady",
+      "leaf",
+      "lucasDPP",
+      "lucasPLA",
+      "ludicolosombrero",
+      "luluribbon",
+      "lycanrochooddown",
+      "lycanrochoodup",
+      "lyra",
+      "magicap",
+      "magnemitepin",
+      "marshk",
+      "mayORAS",
+      "mayRSE",
+      "mikufairy",
+      "mortyHeadband",
+      "nate",
+      "nateforhair",
+      "nhat",
+      "nursejoyhat",
+      "ogremaskblue",
+      "ogremaskgreen",
+      "ogremaskgrey",
+      "ogremaskred",
+      "parashroom",
+      "pidgey",
+      "pikacap",
+      "pikaonesie",
+      "pikhatchuf",
+      "pikhatchum",
+      "PKMBreeder",
+      "poison",
+      "poisonf",
+      "postman",
+      "prycemask",
+      "Ramos",
+      "ranger",
+      "red",
+      "registeelhelm",
+      "riley",
+      "rocketcap",
+      "rosa",
+      "roseradeF",
+      "roseradeM",
+      "sableyemask",
+      "sabrinasballs",
+      "sandshrewbeanie",
+      "santa",
+      "seacaptain",
+      "seleneSM",
+      "serena",
+      "skierF",
+      "skittyTV",
+      "sleepmask",
+      "slowking",
+      "snorlaxhat",
+      "snoruntcap",
+      "splicer",
+      "squirtlesquadshades",
+      "starmieclip",
+      "surgeglasses",
+      "swablu",
+      "sylveonbow",
+      "tophat",
+      "tophatwhiteband",
+      "triangularsunglasses",
+      "tvhead",
+      "veteranM",
+      "victor",
+      "waterdress",
+      "western",
+      "wooperclips",
+      "yellowSPEhat",
+      "youngster",
+
+    ]
+    $Trainer.unlocked_hairstyles = [
+      "afro",
+      "bald",
+      "bfro",
+      "bob",
+      "bowlcut",
+      "brock",
+      "bugsy",
+      "buzzcut",
+      "clair",
+      "cornrows",
+      "dancer",
+      "elm",
+      "emo",
+      "erika",
+      "fade",
+      "falkner",
+      "fusionnerd",
+      "gary",
+      "glitzerset",
+      "happinysuit",
+      "HexManiac",
+      "highbun",
+      "highpony",
+      "hime",
+      "ho-oh",
+      "janine",
+      "jessie",
+      "kurt",
+      "lady",
+      "lance",
+      "lass",
+      "leaf",
+      "lenora",
+      "lowbraids",
+      "lowpony",
+      "lucy",
+      "lunarbob",
+      "lycanrocshorthair",
+      "mawile",
+      "may",
+      "mikufairy",
+      "mikutwintails",
+      "miror",
+      "mistyGSC",
+      "mistyRBY",
+      "mohawk",
+      "nate",
+      "nhair",
+      "officeworkerF",
+      "painter",
+      "pigtails",
+      "pixie",
+      "pompadourdelinquentoutfit",
+      "red",
+      "richboy",
+      "rosa",
+      "roseradeF",
+      "roseradeM",
+      "samurai",
+      "short1",
+      "shortcut",
+      "shortspike",
+      "SpecialLatias",
+      "vetf",
+      "wavy",
+      "whitney",
+    ]
+    $Trainer.unlocked_clothes = [
+      "activeblueF",
+      "activeblueM",
+      "activegreenF",
+      "activegreenM",
+      "activeredF",
+      "activeredM",
+      "adventurer_f",
+      "adventurer_m",
+      "bikertraineroutfit",
+      "bughakama",
+      "bughakamapants",
+      "BusinessSuit",
+      "cardigandress",
+      "cloak",
+      "cresseliadress",
+      "deadlypoisondanger",
+      "delinquentoutfit",
+      "dragonconqueror",
+      "electriccasual",
+      "emeraldSPE",
+      "fantasyadventurersoutfit",
+      "fighting",
+      "fire",
+      "floraldress",
+      "flowerjumper",
+      "flying",
+      "fusionnerd",
+      "glitzerset",
+      "gothhoodie",
+      "groundcowboy",
+      "gymwear",
+      "happinysuit",
+      "HexManiac",
+      "ho-oh",
+      "hoodie",
+      "iceoutfit",
+      "indigoicebeams",
+      "lady",
+      "lass",
+      "lass2",
+      "leaf",
+      "longshirtskirt",
+      "luluskirt",
+      "lycanrochooddown",
+      "lycanrochoodup",
+      "marshweater",
+      "mikufairyf",
+      "mikufairym",
+      "normal",
+      "officeworkerf",
+      "officeworkerm",
+      "pajamas",
+      "pikajamas",
+      "pikaonesie",
+      "PKMBreeder",
+      "poison",
+      "poison2",
+      "poisonf",
+      "Ramos",
+      "red",
+      "richboy",
+      "richboy2",
+      "rocketf",
+      "rocketm",
+      "roseradeF",
+      "roseradeM",
+      "sandshrewoutfit",
+      "slowsuit ",
+      "SnowCoatFemale",
+      "SnowCoatMale",
+      "splicer",
+      "startfit1",
+      "steelworkerF",
+      "steelworkerM",
+      "summerdress",
+      "urbanelectric",
+      "VeteranM",
+      "waterdress",
+      "yellowSPEoutfit",
+      "youngster",
+    ]
+
+    pbMessage(_INTL("Toutes les tenues ont été débloquées!"))
+  }
+})
+
 DebugMenuCommands.register("setmoney", {
   "parent"      => "playermenu",
   "name"        => _INTL("Set Money"),
@@ -717,7 +1193,7 @@ DebugMenuCommands.register("setmoney", {
     params.setRange(0, Settings::MAX_MONEY)
     params.setDefaultValue($Trainer.money)
     $Trainer.money = pbMessageChooseNumber(_INTL("Set the player's money."), params)
-    pbMessage(_INTL("You now have ${1}.", $Trainer.money.to_s_formatted))
+    pbMessage(_INTL("You now have {1}$.", $Trainer.money.to_s_formatted))
   }
 })
 
@@ -994,60 +1470,60 @@ DebugMenuCommands.register("exportanims", {
 #===============================================================================
 # Other options
 #===============================================================================
-# DebugMenuCommands.register("othermenu", {
-#   "parent"      => "main",
-#   "name"        => _INTL("Other options..."),
-#   "description" => _INTL("Mystery Gifts, translations, compile data, etc."),
-#   "always_show" => true
-# })
-#
-# DebugMenuCommands.register("mysterygift", {
-#   "parent"      => "othermenu",
-#   "name"        => _INTL("Manage Mystery Gifts"),
-#   "description" => _INTL("Edit and enable/disable Mystery Gifts."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     pbManageMysteryGifts
-#   }
-# })
-#
-# DebugMenuCommands.register("extracttext", {
-#   "parent"      => "othermenu",
-#   "name"        => _INTL("Extract Text"),
-#   "description" => _INTL("Extract all text in the game to a single file for translating."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     pbExtractText
-#   }
-# })
-#
-# DebugMenuCommands.register("compiletext", {
-#   "parent"      => "othermenu",
-#   "name"        => _INTL("Compile Text"),
-#   "description" => _INTL("Import text and converts it into a language file."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     pbCompileTextUI
-#   }
-# })
-#
-#
-# DebugMenuCommands.register("renamesprites", {
-#   "parent"      => "othermenu",
-#   "name"        => _INTL("Rename Old Sprites"),
-#   "description" => _INTL("Renames and moves Pokémon/item/trainer sprites from their old places."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     SpriteRenamer.convert_files
-#   }
-# })
-#
-# DebugMenuCommands.register("invalidtiles", {
-#   "parent"      => "othermenu",
-#   "name"        => _INTL("Fix Invalid Tiles"),
-#   "description" => _INTL("Scans all maps and erases non-existent tiles."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     pbDebugFixInvalidTiles
-#   }
-# })
+ DebugMenuCommands.register("othermenu", {
+   "parent"      => "main",
+   "name"        => _INTL("Other options..."),
+   "description" => _INTL("Mystery Gifts, translations, compile data, etc."),
+   "always_show" => true
+ })
+
+
+ DebugMenuCommands.register("mysterygift", {
+   "parent"      => "othermenu",
+   "name"        => _INTL("Manage Mystery Gifts"),
+   "description" => _INTL("Edit and enable/disable Mystery Gifts."),
+   "always_show" => true,
+   "effect"      => proc {
+     pbManageMysteryGifts
+   }
+ })
+
+ DebugMenuCommands.register("extracttext", {
+   "parent"      => "othermenu",
+   "name"        => _INTL("Extract Text"),
+   "description" => _INTL("Extract all text in the game to a single file for translating."),
+   "always_show" => true,
+   "effect"      => proc {
+     pbExtractText
+   }
+ })
+
+ DebugMenuCommands.register("compiletext", {
+   "parent"      => "othermenu",
+   "name"        => _INTL("Compile Text"),
+   "description" => _INTL("Import text and converts it into a language file."),
+   "always_show" => true,
+   "effect"      => proc {
+     pbCompileTextUI
+   }
+ })
+
+ DebugMenuCommands.register("renamesprites", {
+   "parent"      => "othermenu",
+   "name"        => _INTL("Rename Old Sprites"),
+   "description" => _INTL("Renames and moves Pokémon/item/trainer sprites from their old places."),
+   "always_show" => true,
+   "effect"      => proc {
+     SpriteRenamer.convert_files
+   }
+ })
+
+ DebugMenuCommands.register("invalidtiles", {
+   "parent"      => "othermenu",
+   "name"        => _INTL("Fix Invalid Tiles"),
+   "description" => _INTL("Scans all maps and erases non-existent tiles."),
+   "always_show" => true,
+   "effect"      => proc {
+     pbDebugFixInvalidTiles
+   }
+ })

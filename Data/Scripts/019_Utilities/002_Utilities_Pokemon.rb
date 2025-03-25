@@ -97,6 +97,22 @@ def pbAddPokemonSilent(pkmn, level = 1, see_form = true)
   return true
 end
 
+def pbAddPokemonSilentShiny(pkmn, level = 1, see_form = true)
+  return false if !pkmn || pbBoxesFull?
+  pkmn = Pokemon.new(pkmn, level) if !pkmn.is_a?(Pokemon)
+  pkmn.shiny = true
+  pkmn.natural_shiny=true
+  $Trainer.pokedex.register(pkmn) if see_form
+  $Trainer.pokedex.set_owned(pkmn.species)
+  pkmn.record_first_moves
+  if $Trainer.party_full?
+    $PokemonStorage.pbStoreCaught(pkmn)
+  else
+    $Trainer.party[$Trainer.party.length] = pkmn
+  end
+  return true
+end
+
 #===============================================================================
 # Giving Pokémon/eggs to the player (can only add to party)
 #===============================================================================

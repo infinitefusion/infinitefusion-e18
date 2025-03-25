@@ -2,12 +2,13 @@
 #
 #===============================================================================
 class PokemonPokedexInfo_Scene
-  def pbStartScene(dexlist, index, region)
+  def pbStartScene(dexlist, index, region, pokemon = nil)
     @endscene = false
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     @viewport.z = 99999
     @dexlist = dexlist
     @index = index
+    @pokemon = pokemon
     @region = region
     @page = 1
     @entry_page = 0
@@ -18,6 +19,7 @@ class PokemonPokedexInfo_Scene
     @sprites["infosprite"].setOffset(PictureOrigin::Center)
     @sprites["infosprite"].x = 104
     @sprites["infosprite"].y = 136
+    @sprites["infosprite"].setPokemonBitmap(@pokemon)
     @sprites["infosprite"].zoom_x = Settings::FRONTSPRITE_SCALE
     @sprites["infosprite"].zoom_y = Settings::FRONTSPRITE_SCALE
     @spritesLoader = BattleSpriteLoader.new
@@ -95,9 +97,13 @@ class PokemonPokedexInfo_Scene
     @sprites["downarrow"].visible = false
   end
 
-  def pbStartSpritesSelectSceneBrief(species, alts_list)
+  def pbStartSpritesSelectSceneBrief(species, alts_list, headShiny = false, bodyShiny = false)
     @available = alts_list
     @species = species
+    @isHead_Shiny = headShiny
+    @isBody_Shiny = bodyShiny
+    @isShiny = bodyShiny || headShiny
+    @idSpecies = getDexNumberForSpecies(species)
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     @viewport.z = 99999
     @index = 0
@@ -107,6 +113,8 @@ class PokemonPokedexInfo_Scene
     @sprites["background"] = IconSprite.new(0, 0, @viewport)
     @sprites["overlay"] = BitmapSprite.new(Graphics.width, Graphics.height, @viewport)
     @sprites["infosprite"] = PokemonSprite.new(@viewport)
+    @sprites["infosprite"].zoom_x = Settings::FRONTSPRITE_SCALE
+    @sprites["infosprite"].zoom_y = Settings::FRONTSPRITE_SCALE
     @spritesLoader = BattleSpriteLoader.new
     @page = 3
     initializeSpritesPageGraphics
@@ -116,10 +124,14 @@ class PokemonPokedexInfo_Scene
     pbFadeInAndShow(@sprites) { pbUpdate }
   end
 
-  def pbStartSceneBrief(species)
+  def pbStartSceneBrief(species, headShiny = false, bodyShiny = false)
     # For standalone access, shows first page only
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     @viewport.z = 99999
+    @isHead_Shiny = headShiny
+    @isBody_Shiny = bodyShiny
+    @isShiny = bodyShiny || headShiny
+    @idSpecies = getDexNumberForSpecies(species)
     dexnum = 0
     dexnumshift = false
     if $Trainer.pokedex.unlocked?(-1) # National Dex is unlocked
@@ -148,6 +160,8 @@ class PokemonPokedexInfo_Scene
     @sprites["infosprite"].setOffset(PictureOrigin::Center)
     @sprites["infosprite"].x = 104
     @sprites["infosprite"].y = 136
+    @sprites["infosprite"].zoom_x = Settings::FRONTSPRITE_SCALE
+    @sprites["infosprite"].zoom_y = Settings::FRONTSPRITE_SCALE
     @sprites["overlay"] = BitmapSprite.new(Graphics.width, Graphics.height, @viewport)
 
     pbSetSystemFont(@sprites["overlay"].bitmap)
@@ -194,7 +208,13 @@ class PokemonPokedexInfo_Scene
 
     # species_data = pbGetSpeciesData(@species)
     species_data = GameData::Species.get_species_form(@species, @form)
-    @sprites["infosprite"].setSpeciesBitmap(@species) #, @gender, @form)
+    if @pokemon != nil
+      @sprites["infosprite"].setPokemonBitmap(@pokemon)
+    elsif @idSpecies != nil
+      @sprites["infosprite"].setPokemonBitmapFromId(@idSpecies, false, @isShiny, @isBody_Shiny, @isHead_Shiny)
+    else
+      @sprites["infosprite"].setSpeciesBitmap(@species)
+    end
 
     # if @sprites["formfront"]
     #   @sprites["formfront"].setSpeciesBitmap(@species,@gender,@form)
@@ -285,6 +305,13 @@ class PokemonPokedexInfo_Scene
     shadow = Color.new(168, 184, 184)
 
     imagepos = []
+    # Show shininess star
+    if (@pokemon != nil && @pokemon.shiny?)
+      addShinyStarsToGraphicsArray(imagepos, 220, 82, @pokemon.bodyShiny?, @pokemon.headShiny?, @pokemon.debugShiny?, nil, nil, 32, 32, false, false, true, true)
+    elsif @isShiny
+      addShinyStarsToGraphicsArray(imagepos, 220, 82, @isBody_Shiny, @isHead_Shiny, false, nil, nil, 32, 32, false, false, true, true)
+
+    end
     if @brief
       imagepos.push([_INTL("Graphics/Pictures/Pokedex/overlay_info"), 0, 0])
     end
@@ -363,7 +390,7 @@ class PokemonPokedexInfo_Scene
   end
 
 
-  def   drawEntryText(overlay, species_data)
+  def drawEntryText(overlay, species_data)
     baseColor = Color.new(88, 88, 80)
     shadow = Color.new(168, 184, 184)
     shadowCustom = Color.new(160, 200, 150)
@@ -791,7 +818,8 @@ class PokemonPokedexInfoScreen
     return ret # Index of last species viewed in dexlist
   end
 
-  def pbStartSceneSingle(species)
+  def pbStartSceneSingle(pokemon)
+    species = pokemon.species
     # For use from a Pokémon's summary screen
     region = -1
     if Settings::USE_CURRENT_REGION_DEX
@@ -803,21 +831,21 @@ class PokemonPokedexInfoScreen
     dexnum = GameData::Species.get(species).id_number #pbGetRegionalNumber(region,species)
     dexnumshift = Settings::DEXES_WITH_OFFSETS.include?(region)
     dexlist = [[species, GameData::Species.get(species).name, 0, 0, dexnum, dexnumshift]]
-    @scene.pbStartScene(dexlist, 0, region)
+    @scene.pbStartScene(dexlist, 0, region, pokemon)
     @scene.pbScene
     @scene.pbEndScene
   end
 
-  def pbDexEntry(species)
+  def pbDexEntry(species, headshiny = false, bodyshiny = false)
     # For use when capturing a new species
     nb_sprites_for_alts_page = isSpeciesFusion(species) ? 2 : 1
     alts_list = @scene.pbGetAvailableForms(species)
     if alts_list.length > nb_sprites_for_alts_page
-      @scene.pbStartSpritesSelectSceneBrief(species, alts_list)
+      @scene.pbStartSpritesSelectSceneBrief(species, alts_list, headshiny, bodyshiny)
       @scene.pbSelectSpritesSceneBrief
       @scene.pbEndScene
     end
-    @scene.pbStartSceneBrief(species)
+    @scene.pbStartSceneBrief(species, headshiny, bodyshiny)
     @scene.pbSceneBrief
     @scene.pbEndScene
   end

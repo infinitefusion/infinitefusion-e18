@@ -20,16 +20,33 @@ class FusionPreviewScreen < DoublePreviewScreen
     @poke1 = poke1
     @poke2 = poke2
     @fusedPokemon=nil
+
+    if poke1.isShiny?
+      shiny = true
+      poke1_shiny = true
+    end
+
+    if poke2.isShiny?
+      shiny = true
+      poke2_shiny = true
+    end
+
     new_level = calculateFusedPokemonLevel(poke1.level, poke2.level, usingSuperSplicers)
 
     fusion_left = (poke1.species_data.id_number) * NB_POKEMON + poke2.species_data.id_number
     fusion_right = (poke2.species_data.id_number) * NB_POKEMON + poke1.species_data.id_number
+    
 
-    @picture1 = draw_window(fusion_left,new_level,20,30)
-    @picture2 = draw_window(fusion_right,new_level,270,30)
+
+    @picture1 = draw_window(fusion_left,new_level,20,30,shiny,poke1_shiny,poke2_shiny)
+    @picture2 = draw_window(fusion_right,new_level,270,30,shiny,poke2_shiny,poke1_shiny)
+
+
 
     @sprites["picture1"] = @picture1
     @sprites["picture2"] = @picture2
+
+
 
   end
 

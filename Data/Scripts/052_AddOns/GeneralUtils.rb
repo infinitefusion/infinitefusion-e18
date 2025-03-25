@@ -153,19 +153,46 @@ end
 
 
 
-def addShinyStarsToGraphicsArray(imageArray, xPos, yPos, shinyBody, shinyHead, debugShiny, srcx = nil, srcy = nil, width = nil, height = nil,
-                                 showSecondStarUnder = false, showSecondStarAbove = false)
-  color = debugShiny ? Color.new(0, 0, 0, 255) : nil
-  imageArray.push(["Graphics/Pictures/shiny", xPos, yPos, srcx, srcy, width, height, color])
-  if shinyBody && shinyHead
+def addShinyStarsToGraphicsArray(imageArray, xPos, yPos, shinyBody, shinyHead, debugShiny, srcx = nil, srcy = nil, width = nil, height = nil, showSecondStarUnder = false, showSecondStarAbove = false, showSecondStarAfter = false, centraliseStar = false)
+  color = nil
+  if !(shinyBody && shinyHead)
+    if debugShiny
+      imageArray.push(["Graphics/Pictures/shiny_debug", xPos, yPos, srcx, srcy, width, height, color])
+    else
+      imageArray.push(["Graphics/Pictures/shiny", xPos, yPos, srcx, srcy, width, height, color])
+    end
+  else
+    # Centralize the first Star
+    if centraliseStar
+      if showSecondStarUnder
+        yPos -= 8
+      elsif showSecondStarAbove
+        yPos += 8
+      elsif showSecondStarAfter
+        xPos -= 8
+      else
+        xPos += 8
+      end
+    end
+    if debugShiny
+      imageArray.push(["Graphics/Pictures/shiny_debug", xPos, yPos, srcx, srcy, width, height, color])
+    else
+      imageArray.push(["Graphics/Pictures/shiny", xPos, yPos, srcx, srcy, width, height, color])
+    end
     if showSecondStarUnder
       yPos += 15
     elsif showSecondStarAbove
       yPos -= 15
+    elsif showSecondStarAfter
+      xPos += 15
     else
       xPos -= 15
     end
-    imageArray.push(["Graphics/Pictures/shiny", xPos, yPos, srcx, srcy, width, height, color])
+    if debugShiny
+      imageArray.push(["Graphics/Pictures/shiny_debug", xPos, yPos, srcx, srcy, width, height, color])
+    else
+      imageArray.push(["Graphics/Pictures/shiny", xPos, yPos, srcx, srcy, width, height, color])
+    end
   end
   # if onlyOutline
   #   imageArray.push(["Graphics/Pictures/shiny_black",xPos,yPos,srcx,srcy,width,height,color])

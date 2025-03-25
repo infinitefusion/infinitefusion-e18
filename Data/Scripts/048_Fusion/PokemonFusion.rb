@@ -532,7 +532,7 @@ class PokemonFusionScene
   end
   # def pbGenerateMetafiles(nb_seconds,ellipse_center_x,ellipse_center_y,ellipse_major_axis_length,ellipse_minor_axis_length)
 
-  #def pbGenerateMetafiles(s1x, s1y, s2x, s2y, s3x, s3y, sxx, s3xx)
+  # def pbGenerateMetafiles(s1x, s1y, s2x, s2y, s3x, s3y, sxx, s3xx)
 
 
   #OLD ANIMATION
@@ -685,7 +685,7 @@ class PokemonFusionScene
     @sprites["dnasplicer"].y=(Graphics.height/2)-50
     @sprites["dnasplicer"].opacity=0
 
-    @sprites["rsprite1"].setPokemonBitmapFromId(poke_body_number, false, pokemon_head.shiny?)
+    @sprites["rsprite1"].setPokemonBitmapFromId(poke_body_number, false, pokemon_body.shiny?)
     @sprites["rsprite3"].setPokemonBitmapFromId(poke_head_number, false, pokemon_head.shiny?)
 
 
@@ -693,7 +693,7 @@ class PokemonFusionScene
     @fusion_pif_sprite = spriteLoader.obtain_fusion_pif_sprite(poke_head_number,poke_body_number)
 
     #this will use the sprite that is set when we call obtain_fusion_pif_sprite, and apply the shiny effect
-    @sprites["rsprite2"].setPokemonBitmapFromId(@newspecies, false, pokemon_head.shiny? || pokemon_body.shiny?, pokemon_head.shiny?, pokemon_body.shiny?)
+    @sprites["rsprite2"].setPokemonBitmapFromId(@newspecies, false, pokemon_head.shiny? || pokemon_body.shiny?, pokemon_body.shiny?, pokemon_head.shiny?)
 
     splicer_bitmap = _INTL("Graphics/Items/{1}",splicerItem)
     @sprites["dnasplicer"].setBitmap(splicer_bitmap)
@@ -890,7 +890,7 @@ class PokemonFusionScene
         $Trainer.pokedex.set_owned(newSpecies)
         Kernel.pbMessageDisplay(@sprites["msgwindow"],
                                 _INTL("{1}'s data was added to the Pokédex", newspeciesname))
-        @scene.pbShowPokedex(@newspecies)
+        @scene.pbShowPokedex(@newspecies, @pokemon1.head_shiny, @pokemon1.body_shiny)
       end
       overlay.dispose
       #first check if hidden ability
@@ -1081,11 +1081,11 @@ def calculateFusedPokemonLevel(lv1, lv2, superSplicers)
   return lv1
 end
 
-def pbShowPokedex(species)
+def pbShowPokedex(species, headShiny = false, bodyShiny = false)
   pbFadeOutIn {
     scene = PokemonPokedexInfo_Scene.new
     screen = PokemonPokedexInfoScreen.new(scene)
-    screen.pbDexEntry(species)
+    screen.pbDexEntry(species, headShiny, bodyShiny)
   }
 end
 

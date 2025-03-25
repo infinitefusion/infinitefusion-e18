@@ -336,7 +336,7 @@ class PokemonSummary_Scene
     end
     # Show shininess star
     if @pokemon.shiny?
-      addShinyStarsToGraphicsArray(imagepos, 2, 134, @pokemon.bodyShiny?, @pokemon.headShiny?, @pokemon.debugShiny?, nil, nil, nil, nil, true)
+      addShinyStarsToGraphicsArray(imagepos, 2, 126, @pokemon.bodyShiny?, @pokemon.headShiny?, @pokemon.debugShiny?, nil, nil, nil, nil, true)
       #imagepos.push([sprintf("Graphics/Pictures/shiny"), 2, 134])
     end
     # Draw all images
@@ -909,7 +909,7 @@ class PokemonSummary_Scene
     pbFadeOutIn {
       scene = PokemonPokedexInfo_Scene.new
       screen = PokemonPokedexInfoScreen.new(scene)
-      screen.pbStartSceneSingle(@pokemon.species)
+      screen.pbStartSceneSingle(@pokemon)
     }
     pbChangePokemon
     @page -= 1
@@ -1308,7 +1308,7 @@ class PokemonSummary_Scene
       pbFadeOutIn {
         scene = PokemonPokedexInfo_Scene.new
         screen = PokemonPokedexInfoScreen.new(scene)
-        screen.pbStartSceneSingle(@pokemon.species)
+        screen.pbStartSceneSingle(@pokemon)
       }
       pbChangePokemon
       dorefresh = true

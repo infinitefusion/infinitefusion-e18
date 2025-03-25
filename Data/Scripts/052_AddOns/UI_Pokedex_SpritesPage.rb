@@ -1,4 +1,4 @@
-class PokemonPokedexInfo_Scene
+class PokemonPokedexInfo_Scene < Bitmap
   #todo add indicator to show which one is the main sprite -
   # also maybe add an indicator in main list for when a sprite has available alts
 
@@ -83,8 +83,8 @@ class PokemonPokedexInfo_Scene
     @sprites["nextSprite"].zoom_y = Settings::FRONTSPRITE_SCALE #/2
 
     @sprites["selectedSprite"].z = 9999999
-    @sprites["previousSprite"].z = 9999999
-    @sprites["nextSprite"].z = 9999999
+    @sprites["previousSprite"].z = 9999998
+    @sprites["nextSprite"].z = 9999998
 
     @selected_pif_sprite = get_pif_sprite(@available[@selected_index])
     @previous_pif_sprite = get_pif_sprite(@available[@selected_index - 1])
@@ -97,8 +97,7 @@ class PokemonPokedexInfo_Scene
     end
 
     if altsList.size >= 3
-      animated_bitmap =
-        @sprites["previousSprite"].bitmap = load_pif_sprite(@previous_pif_sprite)
+      @sprites["previousSprite"].bitmap = load_pif_sprite(@previous_pif_sprite)
       @sprites["previousSprite"].visible = true
     end
 
@@ -213,10 +212,32 @@ class PokemonPokedexInfo_Scene
     @previous_pif_sprite = get_pif_sprite(@available[previousIndex])
     @next_pif_sprite = get_pif_sprite(@available[nextIndex])
 
-    @sprites["previousSprite"].bitmap = load_pif_sprite(@previous_pif_sprite) if previousIndex != nextIndex
+    if previousIndex != nextIndex
+      @sprites["previousSprite"].bitmap = load_pif_sprite(@previous_pif_sprite) 
+      if @pokemon != nil && @pokemon.shiny?
+        @sprites["previousSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
+        @sprites["previousSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
+      elsif @isShiny
+        @sprites["previousSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+        @sprites["previousSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+      end
+    end
     @sprites["selectedSprite"].bitmap = load_pif_sprite(@selected_pif_sprite)
+    if @pokemon != nil && @pokemon.shiny?
+      @sprites["selectedSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
+      @sprites["selectedSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
+    elsif @isShiny
+      @sprites["selectedSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+      @sprites["selectedSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+    end
     @sprites["nextSprite"].bitmap = load_pif_sprite(@next_pif_sprite)
-
+    if @pokemon != nil && @pokemon.shiny?
+      @sprites["nextSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
+      @sprites["nextSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
+    elsif @isShiny
+      @sprites["nextSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+      @sprites["nextSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+    end
     #selected_bitmap = @sprites["selectedSprite"].getBitmap
     # sprite_path = selected_bitmap.path
     #isBaseSprite = isBaseSpritePath(@available[@selected_index])

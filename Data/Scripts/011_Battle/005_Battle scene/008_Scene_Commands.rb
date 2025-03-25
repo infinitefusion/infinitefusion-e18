@@ -460,11 +460,11 @@ class PokeBattle_Scene
   #=============================================================================
   # Shows the Pokédex entry screen for a newly caught Pokémon
   #=============================================================================
-  def pbShowPokedex(species)
+  def pbShowPokedex(species, headShiny = false, bodyShiny = false)
     pbFadeOutIn {
       scene = PokemonPokedexInfo_Scene.new
       screen = PokemonPokedexInfoScreen.new(scene)
-      screen.pbDexEntry(species)
+      screen.pbDexEntry(species, headShiny, bodyShiny)
     }
   end
 end

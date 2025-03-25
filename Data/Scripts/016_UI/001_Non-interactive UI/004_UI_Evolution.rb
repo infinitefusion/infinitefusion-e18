@@ -626,7 +626,7 @@ class PokemonEvolutionScene
       $Trainer.pokedex.set_owned(@newspecies)
       Kernel.pbMessageDisplay(@sprites["msgwindow"],
                                _INTL("{1}'s data was added to the Pokédex", newspeciesname))
-      @scene.pbShowPokedex(@newspecies)
+      @scene.pbShowPokedex(@newspecies, @pokemon.headShiny?, @pokemon.bodyShiny?)
     end
 
 

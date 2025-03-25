@@ -102,20 +102,23 @@ class DoublePreviewScreen
     pbUpdateSpriteHash(@sprites)
   end
 
-  def draw_window(dexNumber, level, x, y)
+  def draw_window(dexNumber, level, x, y, isShiny = false, bodyShiny = false, headShiny = false)
     body_pokemon = getBodyID(dexNumber)
     head_pokemon = getHeadID(dexNumber, body_pokemon)
 
     # picturePath = getPicturePath(head_pokemon, body_pokemon)
     # bitmap = AnimatedBitmap.new(picturePath)
     spriteLoader = BattleSpriteLoader.new
-    bitmap = spriteLoader.load_fusion_sprite(head_pokemon,body_pokemon)
+    bitmap = GameData::Species.front_sprite_bitmap(dexNumber, isShiny, headShiny, bodyShiny)
     bitmap.scale_bitmap(Settings::FRONTSPRITE_SCALE)
     pif_sprite = spriteLoader.obtain_fusion_pif_sprite(head_pokemon,body_pokemon)
     #hasCustom = picturePath.include?("CustomBattlers")
     #hasCustom = customSpriteExistsBase(body_pokemon,head_pokemon)
     hasCustom = customSpriteExists(body_pokemon,head_pokemon)
     previewwindow = PictureWindow.new(bitmap)
+
+
+    
     previewwindow.x = x
     previewwindow.y = y
     previewwindow.z = 100000
