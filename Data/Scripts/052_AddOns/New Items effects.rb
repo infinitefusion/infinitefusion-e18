@@ -504,11 +504,11 @@ ItemHandlers::UseInField.add(:STRANGEPLANT, proc { |item|
 
 ItemHandlers::UseFromBag.add(:MAGICBOOTS, proc { |item|
   if $DEBUG
-    if Kernel.pbConfirmMessageSerious(_INTL("Enlevez les bottes magiques?"))
+    if Kernel.pbConfirmMessageSerious(_INTL("Enlevez les Bottes Magiques?"))
       $DEBUG = false
     end
   else
-    if Kernel.pbConfirmMessageSerious(_INTL("Enfilez les bottes magiques?"))
+    if Kernel.pbConfirmMessageSerious(_INTL("Enfilez les Bottes Magiques?"))
       Kernel.pbMessage(_INTL("Le mode débogage est maintenant actif.."))
       $game_switches[ENABLED_DEBUG_MODE_AT_LEAST_ONCE] = true #got debug mode (for compatibility)
       $DEBUG = true
