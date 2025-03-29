@@ -488,7 +488,7 @@ class PokemonBagScreen
       commands[commands.length]                 = _INTL("Annuler")
       # Show commands generated above
       itemname = itm.name
-      command = @scene.pbShowCommands(_INTL("{1} is selected.",itemname),commands)
+      command = @scene.pbShowCommands(_INTL("{1} est sélectionné.",itemname),commands)
       if cmdRead>=0 && command==cmdRead   # Read mail
         pbFadeOutIn {
           pbDisplayMail(Mail.new(item, "", ""))
