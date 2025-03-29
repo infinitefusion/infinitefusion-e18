@@ -287,7 +287,7 @@ def useSleepingBag()
   pbFadeOutIn {
     Kernel.pbMessage(_INTL("{1} a dormi un moment...", $Trainer.name))
   }
-  if Settings::LANGUAGES.length >= 2 && $PokemonSystem.language == 1
+  if Settings::LANGUAGES.length >= 2 && Settings::LANGUAGES[$PokemonSystem.language][1] == "french.dat"
     time = pbGetTimeNow.strftime("%H:%M")
   else
     time = pbGetTimeNow.strftime("%I:%M %p")

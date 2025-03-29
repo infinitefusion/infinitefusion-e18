@@ -215,7 +215,7 @@ class Scene_Map
         unless $game_system.menu_disabled || $game_player.moving?
           $game_temp.menu_calling = true
           $game_temp.menu_beep = true
-          if Settings::LANGUAGES.length >= 2 && $PokemonSystem.language == 1
+          if Settings::LANGUAGES.length >= 2 && Settings::LANGUAGES[$PokemonSystem.language][1] == "french.dat"
             dayOfWeek = getDayOfTheWeekFR().to_s
             $scene.spriteset.addUserSprite(LocationWindow.new($game_map.name+ "\n" + "HEURE: " + pbGetTimeNow.strftime("%H:%M") + "\n" +  "JOUR: " + dayOfWeek))
           else

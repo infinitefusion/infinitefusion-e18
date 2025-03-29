@@ -100,8 +100,12 @@ end
 #===============================================================================
 def pbLoadMapInfos
   $PokemonTemp = PokemonTemp.new if !$PokemonTemp
-  if !$PokemonTemp.mapInfos
+  #if !$PokemonTemp.mapInfos
+  if Settings::LANGUAGES.length >= 2 && Settings::LANGUAGES[$PokemonSystem.language][1] == "french.dat"
+    $PokemonTemp.mapInfos = load_data("Data/MapInfosFR.rxdata")
+  else
     $PokemonTemp.mapInfos = load_data("Data/MapInfos.rxdata")
   end
+  #end
   return $PokemonTemp.mapInfos
 end
