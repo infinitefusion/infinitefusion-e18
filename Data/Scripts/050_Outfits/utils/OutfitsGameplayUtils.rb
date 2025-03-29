@@ -141,7 +141,7 @@ end
 def obtainOutfitMessage(outfit)
   pictureViewport = showOutfitPicture(outfit)
   musical_effect = "Key item get"
-  pbMessage(_INTL("\\me[{1}]Vous avez mis \\c[1]{2}\\c[0]!\\wtnp[30]", musical_effect, outfit.name))
+  pbMessage(_INTL("\\me[{1}]Vous avez obtenu \\c[1]{2}\\c[0]!\\wtnp[30]", musical_effect, outfit.name))
   pictureViewport.dispose if pictureViewport
 end
 
