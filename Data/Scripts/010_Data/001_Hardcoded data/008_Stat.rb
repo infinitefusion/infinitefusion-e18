@@ -90,7 +90,7 @@ GameData::Stat.register({
 GameData::Stat.register({
   :id         => :SPECIAL_ATTACK,
   :id_number  => 3,
-  :name       => _INTL("Special Attack"),
+  :name       => _INTL("Attaque Special"),
   :name_brief => _INTL("Att.Spé"),
   :type       => :main_battle,
   :pbs_order  => 4
@@ -99,7 +99,7 @@ GameData::Stat.register({
 GameData::Stat.register({
   :id         => :SPECIAL_DEFENSE,
   :id_number  => 4,
-  :name       => _INTL("Special Defense"),
+  :name       => _INTL("Defense Special"),
   :name_brief => _INTL("Déf.Spé"),
   :type       => :main_battle,
   :pbs_order  => 5
