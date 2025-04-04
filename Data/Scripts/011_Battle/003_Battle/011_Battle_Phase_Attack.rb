@@ -162,7 +162,6 @@ class PokeBattle_Battle
   # Switch to low health bgm if at least one of them has 25% or less hp
   # Switch back to original battle bgm if all of them are above 25%
   def updateMusic()
-    # pbDisplayPaused(_INTL("Check music update"))
     if @battlers.length
       hasLowHealthAlly = false
   
@@ -205,7 +204,7 @@ class PokeBattle_Battle
       end
 
       # Can only start playing the last Pokemon music if
-      # - no low health bgm is playing
+      # - no low health music is playing
       # - the trainer is a gym leader
       # - it is their last pokemon
       # - the song is not already playing
@@ -220,12 +219,6 @@ class PokeBattle_Battle
         pbBGMPlay(nameWithPath)
       end
     end
-
-    # if currentBgm && FileTest.audio_exist?("Audio/BGM/Types/Leader_Last/"+currentBgm+"_last")
-    #   pbBGMPlay("Types/Leader_Last/"+currentBgm+"_last")
-    # else
-    #   pbBGMPlay("Types/Leader_Last/Battle Leader (Black&White)_last")
-    # end
   end
 
   #=============================================================================
