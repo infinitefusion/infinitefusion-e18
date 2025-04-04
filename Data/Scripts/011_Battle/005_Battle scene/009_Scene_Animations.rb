@@ -353,9 +353,9 @@ class PokeBattle_Scene
     @briefMessage = false
 
     wildCaptureMeToPlay = pbGetWildCaptureME
-    wildCaptureMeDuration = 3.5
+    wildCaptureMeDuration = 3.5 # 3.5 seconds
 
-    if !wildCaptureMeToPlay.include?("Audio/ME")
+    if wildCaptureMeToPlay.is_a?(String) && wildCaptureMeToPlay.include?("Audio/BGM")
       Settings::BATTLE_MUSIC_STYLES.each_with_index do |desc, i|
         if pbGetWildCaptureME.include?(desc[:SettingId]) && desc[:CaptureMeDuration]
           wildCaptureMeDuration = desc[:CaptureMeDuration]
@@ -367,7 +367,7 @@ class PokeBattle_Scene
     i = 0
     loop do
       pbUpdate
-      break if i>=Graphics.frame_rate*wildCaptureMeDuration   # 3.5 seconds
+      break if i>=Graphics.frame_rate*wildCaptureMeDuration
       i += 1
     end
     pbMEStop
