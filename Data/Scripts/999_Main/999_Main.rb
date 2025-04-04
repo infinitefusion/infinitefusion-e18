@@ -14,23 +14,23 @@ def handleReplaceExistingSprites()
   return if spritesToReplaceList.size==0
   commands = []
   #commands << "Pick which sprites to use as mains"
-  commands << "Do not import the new sprites"
-  commands << "Replace all the old sprites with the new ones"
+  commands << "Ne pas importer les nouveaux sprites"
+  commands << "Remplacez tous les anciens sprites par les nouveaux"
   #commands << "Import all the new sprites as alts"
 
-  messageSingular = "While importing custom sprites, the game has detected that {1} new custom sprite already has a version that exist in the game."
-  messagePlural = "While importing custom sprites, the game has detected that {1} new custom sprites already have versions that exist in the game."
+  messageSingular = "Lors de l'importation de sprites personnalisés, le jeu a détecté que {1} nouveau sprite personnalisé possède déjà une version qui existe dans le jeu."
+  messagePlural = "Lors de l'importation de sprites personnalisés, le jeu a détecté que {1} nouveaux sprites personnalisés ont déjà des versions qui existent dans le jeu."
 
   messageText = spritesToReplaceList.size==1 ? messageSingular : messagePlural
   message = _INTL(messageText,spritesToReplaceList.length.to_s)
   pbMessage(message)
 
-  command = pbMessage("What to do with the new sprites?",commands,commands.size-1)
+  command = pbMessage("Que faire avec les nouveaux sprites?",commands,commands.size-1)
   case command
   when 0 #Do not import
-    pbMessage("You can manually sort the new sprites in the /indexed folder to choose which ones you want to keep.")
-    pbMessage("You can also delete the ones you don't want to replace the main sprites and restart the game.")
-    pbMessage("Keep in mind that the game will take longer to load until these sprites are imported/removed.")
+    pbMessage("Vous pouvez trier manuellement les nouveaux sprites dans le dossier /indexed pour choisir ceux que vous souhaitez conserver.")
+    pbMessage("Vous pouvez également supprimer ceux que vous ne souhaitez pas remplacer les sprites principaux et redémarrer le jeu.")
+    pbMessage("Gardez à l'esprit que le jeu prendra plus de temps à charger jusqu'à ce que ces sprites soient importés/supprimés.")
 
     return
   when 1 #Replace olds
