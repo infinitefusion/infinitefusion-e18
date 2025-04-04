@@ -814,7 +814,7 @@ class PokemonSummary_Scene
     end
     # Write various bits of text
     textpos = [
-      [_INTL("MOVES"), 26, 10, 0, base, shadow],
+      [_INTL("ATTAQUE"), 26, 10, 0, base, shadow],
       [_INTL("CATÉGORIE"), 20, 116, 0, base, shadow],
       [_INTL("PUISSANCE"), 20, 148, 0, base, shadow],
       [_INTL("PRÉCISION"), 20, 180, 0, base, shadow]
