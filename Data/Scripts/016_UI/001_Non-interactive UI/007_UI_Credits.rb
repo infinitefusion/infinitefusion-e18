@@ -150,10 +150,12 @@ and everyone else who helped out
 The French Team who make the vf:
 Anthony<s>(leader of this project)
 Fragzzh<s>(dev support)
+Orgality<s>(Designer)
 Pokebio<s>(helper)
 Vaiga2140<s>(helper)
 rayzek<s>(helper)
 Ravens<s>(beta tester)
+Edentha<s>(beta tester)
 
 
 "mkxp-z" by:
