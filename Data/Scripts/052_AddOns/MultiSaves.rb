@@ -459,7 +459,7 @@ class PokemonLoadScreen
       handleReplaceExistingSprites()
     end
     if ($game_temp.nb_imported_sprites && $game_temp.nb_imported_sprites > 0)
-      pbMessage(_INTL("{1} nouveaux sprites personnalisés ont été importés dans le jeu", $game_temp.nb_imported_sprites.to_s))
+      pbMessage(_INTL("{1} new custom sprites were imported into the game", $game_temp.nb_imported_sprites.to_s))
     end
     checkEnableSpritesDownload
 

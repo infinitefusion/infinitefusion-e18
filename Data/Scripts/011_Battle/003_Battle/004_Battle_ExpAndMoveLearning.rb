@@ -44,7 +44,7 @@ class PokeBattle_Battle
           eachInTeam(0, 0) do |pkmn, i|
             next if !pkmn.able?
             next if b.participants.include?(i) || expShare.include?(i)
-            pbDisplayPaused(_INTL("Your party Pokémon in waiting also got Exp. Points!")) if showMessage
+            pbDisplayPaused(_INTL("Votre équipe a également reçu des Points d'Exp!")) if showMessage
             showMessage = false
             pbGainEVsOne(i, b)
             pbGainExpOne(i, b, numPartic, expShare, expAll, false)
