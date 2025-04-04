@@ -233,6 +233,8 @@ class PokeBattle_Battle
     @scene.pbShowPartyLineup(idxBattler & 1) if pbSideSize(idxBattler) == 1
     pbMessagesOnReplace(idxBattler, idxParty) if !randomReplacement
     pbReplace(idxBattler, idxParty, batonPass)
+    # Check if bgm needs to be switched
+    updateMusic()
   end
 
   def pbMessageOnRecall(battler)

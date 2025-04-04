@@ -5,8 +5,8 @@
 #==============================================================================#
 module Settings
   # The version of your game. It has to adhere to the MAJOR.MINOR.PATCH format.
-  GAME_VERSION = '6.5.1'
-  GAME_VERSION_NUMBER = "6.5.1"
+  GAME_VERSION = '6.5'
+  GAME_VERSION_NUMBER = "6.5.0"
   LATEST_GAME_RELEASE = "6.5"
 
   POKERADAR_LIGHT_ANIMATION_RED_ID = 17
@@ -606,6 +606,166 @@ module Settings
     "choice 28"
   ]
 
+  BATTLE_MUSIC_STYLES = [
+    {
+      "SettingId": "classic",
+      "Indicator": "Classic",
+      "CaptureMeDuration": 3.5,
+      "Description": {
+        "EN": "Classic",
+        "DE": "Klassisch"
+      }
+    },
+    {
+      "SettingId": "random",
+      "Description": {
+        "EN": "Random",
+        "DE": "Zufällig"
+      }
+    },
+    {
+      "SettingId": "unova1",
+      "Indicator": "Black&White",
+      "CaptureMeDuration": 5.0,
+      "Description": {
+        "EN": "Black/White",
+        "DE": "Schwarz/Weiß"
+      }
+    }
+  ]
+
+  BATTLE_MUSIC_STYLES_TO_BE_ADDED = [
+    {
+      "SettingId": "kanto1",
+      "Indicator": "Red&Blue",
+      "Description": {
+        "EN": "Red/Blue/Yellow (Not Implemented)",
+        "DE": "Rot/Grün/Gelb (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "johto1",
+      "Indicator": "Gold&Silver",
+      "Description": {
+        "EN": "Gold/Silver (Not Implemented)",
+        "DE": "Gold/Silber (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "hoenn1",
+      "Indicator": "Ruby&Saphire",
+      "Description": {
+        "EN": "Ruby/Saphire/Emerald (Not Implemented)",
+        "DE": "Rubin/Saphir/Smaragd (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "kanto2",
+      "Indicator": "FireRed&LeafGreen",
+      "Description": {
+        "EN": "FireRed/LeafGreen (Not Implemented)",
+        "DE": "FeuerRot/BlattGrün (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "sinnoh1",
+      "Indicator": "Diamond&Pearl",
+      "Description": {
+        "EN": "Diamond/Pearl/Platinum (Not Implemented)",
+        "DE": "Diamant/Perl/Platinum (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "johto2",
+      "Indicator": "HeartGold&SoulSilver",
+      "CaptureMeDuration": 3.5,
+      "Description": {
+        "EN": "HeartGold/SoulSilver (Partially Implemented)",
+        "DE": "HeartGold/SoulSilver (Teilweise Implementiert)"
+      }
+    },
+    {
+      "SettingId": "unova2",
+      "Indicator": "Black2&White2",
+      "Description": {
+        "EN": "Black2/White2 (Not Implemented)",
+        "DE": "Schwarz2/Weiß2 (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "kalos1",
+      "Indicator": "X&Y",
+      "Description": {
+        "EN": "X/Y (Not Implemented)",
+        "DE": "X/Y (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "hoenn2",
+      "Indicator": "OmegaRuby&AlphaSaphire",
+      "Description": {
+        "EN": "OmegaRuby/AlphaSaphire (Not Implemented)",
+        "DE": "OmegaRubin/AlphaSaphir (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "alola1",
+      "Indicator": "Sun&Moon",
+      "CaptureMeDuration": 6.0,
+      "Description": {
+        "EN": "Sun/Moon",
+        "DE": "Sonne/Mond"
+      }
+    },
+    {
+      "SettingId": "alola2",
+      "Indicator": "UltraSun&UltraMoon",
+      "Description": {
+        "EN": "UltraSun/UltraMoon (Not Implemented)",
+        "DE": "UltraSonne/UltraMond (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "galar1",
+      "Indicator": "Sword&Shield",
+      "Description": {
+        "EN": "Sword/Shield (Not Implemented)",
+        "DE": "Schwert/Schild (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "kanto3",
+      "Indicator": "Lets Go Pikachu&Eevee",
+      "Description": {
+        "EN": "Lets Go Pikachu/Eevee (Not Implemented)",
+        "DE": "Lets Go Pikachu/Evoli (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "sinnoh2",
+      "Indicator": "BrilliantDiamond&ShiningPearl",
+      "Description": {
+        "EN": "BrilliantDiamond/ShiningPearl (Not Implemented)",
+        "DE": "StrahlenderDiamant/LeuchtendePerle (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "hisui",
+      "Indicator": "Legends Arceus",
+      "Description": {
+        "EN": "Legends Arceus (Not Implemented)",
+        "DE": "Legenden Arceus (Nicht Implementiert)"
+      }
+    },
+    {
+      "SettingId": "paldea1",
+      "Indicator": "Scarlet&Violet",
+      "Description": {
+        "EN": "Scarlet/Violet (Not Implemented)",
+        "DE": "Karmesin/Purpur (Nicht Implementiert)"
+      }
+    }
+  ]
 
   RANDOMIZED_GYM_TYPE_TM=
     {

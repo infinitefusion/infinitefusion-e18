@@ -6,6 +6,7 @@ class PokemonGlobalMetadata
   attr_accessor :nextBattleME
   attr_accessor :nextBattleCaptureME
   attr_accessor :nextBattleBack
+  attr_accessor :nextRandomGenIndicator
 end
 
 
@@ -203,6 +204,16 @@ def pbPrepareBattle(battle)
     else;                                 battle.time = 0
     end
   end
+
+  if $PokemonSystem.musicstyle == "random"
+    musicStyleForRandom = nil
+
+    while !musicStyleForRandom || musicStyleForRandom[:SettingId] == "random"
+      musicStyleForRandom = Settings::BATTLE_MUSIC_STYLES[rand(Settings::BATTLE_MUSIC_STYLES.length)]
+    end
+
+    $PokemonGlobal.nextRandomGenIndicator = musicStyleForRandom[:Indicator]
+  end
 end
 
 # Used to determine the environment in battle, and also the form of Burmy/
@@ -257,11 +268,12 @@ def pbWildBattleCore(*args)
     pbMessage(_INTL("SKIPPING BATTLE...")) if $Trainer.pokemon_count > 0
     pbSet(outcomeVar,1)   # Treat it as a win
     $PokemonTemp.clearBattleRules
-    $PokemonGlobal.nextBattleBGM       = nil
-    $PokemonGlobal.nextBattleME        = nil
-    $PokemonGlobal.nextBattleCaptureME = nil
-    $PokemonGlobal.nextBattleBack      = nil
-    $PokemonTemp.forced_alt_sprites=nil
+    $PokemonGlobal.nextBattleBGM          = nil
+    $PokemonGlobal.nextBattleME           = nil
+    $PokemonGlobal.nextBattleCaptureME    = nil
+    $PokemonGlobal.nextBattleBack         = nil
+    $PokemonGlobal.nextRandomGenIndicator = nil
+    $PokemonTemp.forced_alt_sprites       = nil
     pbMEStop
     return 1   # Treat it as a win
   end
@@ -448,11 +460,12 @@ def pbTrainerBattleCore(*args)
     pbMessage(_INTL("AFTER WINNING...")) if $DEBUG && $Trainer.able_pokemon_count > 0
     pbSet(outcomeVar,($Trainer.able_pokemon_count == 0) ? 0 : 1)   # Treat it as undecided/a win
     $PokemonTemp.clearBattleRules
-    $PokemonGlobal.nextBattleBGM       = nil
-    $PokemonGlobal.nextBattleME        = nil
-    $PokemonGlobal.nextBattleCaptureME = nil
-    $PokemonGlobal.nextBattleBack      = nil
-    $PokemonTemp.forced_alt_sprites=nil
+    $PokemonGlobal.nextBattleBGM          = nil
+    $PokemonGlobal.nextBattleME           = nil
+    $PokemonGlobal.nextBattleCaptureME    = nil
+    $PokemonGlobal.nextBattleBack         = nil
+    $PokemonGlobal.nextRandomGenIndicator = nil
+    $PokemonTemp.forced_alt_sprites       = nil
     pbMEStop
     return ($Trainer.able_pokemon_count == 0) ? 0 : 1   # Treat it as undecided/a win
   end

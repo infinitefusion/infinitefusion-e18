@@ -1,10 +1,13 @@
 def pbStringToAudioFile(str)
-  if str[/^(.*)\:\s*(\d+)\s*\:\s*(\d+)\s*$/]   # Of the format "XXX: ###: ###"
+  formatted = str.split(":")
+  if formatted.length == 3
+    # Of the format "XXX: ###: ###"
     file   = $1
     volume = $2.to_i
     pitch  = $3.to_i
     return RPG::AudioFile.new(file,volume,pitch)
-  elsif str[/^(.*)\:\s*(\d+)\s*$/]             # Of the format "XXX: ###"
+  elsif formatted.length == 2
+    # Of the format "XXX: ###"
     file   = $1
     volume = $2.to_i
     return RPG::AudioFile.new(file,volume,100)

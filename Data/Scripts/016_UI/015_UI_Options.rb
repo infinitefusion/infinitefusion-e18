@@ -24,6 +24,8 @@ class PokemonSystem
   attr_accessor :type_icons
   attr_accessor :use_generated_dex_entries
   attr_accessor :use_custom_eggs
+  attr_accessor :musicstyle
+  attr_accessor :enableLowHealth
 
   def initialize
     @textspeed = 1 # Text speed (0=slow, 1=normal, 2=fast)
@@ -47,6 +49,8 @@ class PokemonSystem
     @type_icons = true
     @use_generated_dex_entries = true
     @use_custom_eggs = true
+    @musicstyle = ""
+    @enableLowHealth = 0
   end
 end
 
@@ -131,13 +135,14 @@ end
 #===============================================================================
 #
 #===============================================================================
-class NumberOption
+class NumberOption < Option
   include PropertyMixin
   attr_reader :name
   attr_reader :optstart
   attr_reader :optend
 
-  def initialize(name, optstart, optend, getProc, setProc)
+  def initialize(name, optstart, optend, getProc, setProc, description = "")
+    super(description)
     @name = name
     @optstart = optstart
     @optend = optend
@@ -214,6 +219,7 @@ class Window_PokemonOption < Window_DrawableCommand
     @mustUpdateDescription = false
     @selected_position = 0
     @allow_arrows_jump = false
+    @is_first_update = true
     for i in 0...@options.length
       @optvalues[i] = 0
     end
@@ -321,23 +327,43 @@ class Window_PokemonOption < Window_DrawableCommand
     oldindex = self.index
     @mustUpdateOptions = false
     super
-    dorefresh = (self.index != oldindex)
+
+    if @is_first_update
+      # Needed for displaying the description of the initially selected option correctly
+      @selected_position = self[self.index]
+      @mustUpdateOptions = true
+      @mustUpdateDescription = true
+      @is_first_update = false
+      refresh
+      return
+    end
+
     if self.active && self.index < @options.length
       if Input.repeat?(Input::LEFT)
         self[self.index] = @options[self.index].prev(self[self.index])
-        dorefresh =
-          @selected_position = self[self.index]
-        @mustUpdateOptions = true
-        @mustUpdateDescription = true
-      elsif Input.repeat?(Input::RIGHT)
-        self[self.index] = @options[self.index].next(self[self.index])
-        dorefresh = true
         @selected_position = self[self.index]
         @mustUpdateOptions = true
         @mustUpdateDescription = true
+        refresh
+        return
+      end
+      if Input.repeat?(Input::RIGHT)
+        self[self.index] = @options[self.index].next(self[self.index])
+        @selected_position = self[self.index]
+        @mustUpdateOptions = true
+        @mustUpdateDescription = true
+        refresh
+        return
+      end
+      if Input.repeat?(Input::UP) || Input.repeat?(Input::DOWN)
+        @selected_position = self[self.index]
+        @mustUpdateOptions = true
+        @mustUpdateDescription = true
+        refresh
+        return
       end
     end
-    refresh if dorefresh
+    refresh if (self.index != oldindex)
   end
 end
 

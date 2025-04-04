@@ -158,6 +158,76 @@ class PokeBattle_Battle
     end
   end
 
+  # Check the health of every pokemon of the player in battle
+  # Switch to low health bgm if at least one of them has 25% or less hp
+  # Switch back to original battle bgm if all of them are above 25%
+  def updateMusic()
+    # pbDisplayPaused(_INTL("Check music update"))
+    if @battlers.length
+      hasLowHealthAlly = false
+  
+      pausedBGMTrack = $game_system.paused_bgm_track
+      pausedBGMPosition = $game_system.paused_bgm_position
+
+      @battlers.each_with_index do |b,i|
+        if b.pbOwnedByPlayer? && b.isLowHp
+          hasLowHealthAlly = true
+        end
+      end
+
+      if !pausedBGMTrack && hasLowHealthAlly
+        nameWithPath = getSpecificGenOrRandomBGMPath("Low_Health")
+
+        if nameWithPath
+          $game_system.setPausedBGM
+          pbBGMFade()
+          pbBGMPlay(nameWithPath)
+        elsif $PokemonSystem.enableLowHealth == 0
+          $game_system.setLowHealthBGSPlaying
+          pbBGSPlay("Low Health")
+        end
+        return
+      end
+
+      if (pausedBGMTrack || $game_system.low_health_playing) && !hasLowHealthAlly
+        if pausedBGMTrack
+          pbBGMFade()
+  
+          $game_system.bgm_play_internal(pausedBGMTrack, pausedBGMPosition)
+  
+          # Clear paused bgm at the end
+          $game_system.clearPausedBGM
+        elsif $PokemonSystem.enableLowHealth == 0
+          pbBGSFade()
+
+          $game_system.clearLowHealthBGSPlaying
+        end
+      end
+
+      # Can only start playing the last Pokemon music if
+      # - no low health bgm is playing
+      # - the trainer is a gym leader
+      # - it is their last pokemon
+      # - the song is not already playing
+      return if pausedBGMTrack || !pbIsTrainerClassTypeAndOne?("LEADER") || !pbIsLastOpposing? || $game_system.bgm_last_opposing
+
+      nameWithPath = getSpecificGenOrRandomBGMPath("Leader_Last")
+
+      if nameWithPath
+        $game_system.bgm_last_opposing = true
+        currentBgm = $game_system.playing_bgm.name
+    
+        pbBGMPlay(nameWithPath)
+      end
+    end
+
+    # if currentBgm && FileTest.audio_exist?("Audio/BGM/Types/Leader_Last/"+currentBgm+"_last")
+    #   pbBGMPlay("Types/Leader_Last/"+currentBgm+"_last")
+    # else
+    #   pbBGMPlay("Types/Leader_Last/Battle Leader (Black&White)_last")
+    # end
+  end
+
   #=============================================================================
   # Attack phase
   #=============================================================================
