@@ -803,7 +803,7 @@ ItemHandlers::UseOnPokemon.add(:RARECANDY, proc { |item, pkmn, scene|
 
 ItemHandlers::UseOnPokemon.add(:POMEGBERRY, proc { |item, pkmn, scene|
   next pbRaiseHappinessAndLowerEV(pkmn, scene, :HP, [
-    _INTL("{1} t'adore ! Ses PV de base diminue!", pkmn.name),
+    _INTL("{1} t'adore! Ses PV de base diminue!", pkmn.name),
     _INTL("{1} est devenu plus amical. Ses PV de base ne peut pas diminuer.", pkmn.name),
     _INTL("{1} est devenu plus amical. Cependant, ses PV de base diminue!", pkmn.name)
   ])
@@ -811,15 +811,15 @@ ItemHandlers::UseOnPokemon.add(:POMEGBERRY, proc { |item, pkmn, scene|
 
 ItemHandlers::UseOnPokemon.add(:KELPSYBERRY, proc { |item, pkmn, scene|
   next pbRaiseHappinessAndLowerEV(pkmn, scene, :ATTACK, [
-    _INTL("{1} t'adore ! Son Attack de base diminue!", pkmn.name),
-    _INTL("{1} est devenu plus amical. Son Attack de base ne peut pas diminuer.", pkmn.name),
+    _INTL("{1} t'adore! Son Attaque de base diminue!", pkmn.name),
+    _INTL("{1} est devenu plus amical. Son Attaque de base ne peut pas diminuer.", pkmn.name),
     _INTL("{1} est devenu plus amical. Cependant, son Attaque de base diminue!", pkmn.name)
   ])
 })
 
 ItemHandlers::UseOnPokemon.add(:QUALOTBERRY, proc { |item, pkmn, scene|
   next pbRaiseHappinessAndLowerEV(pkmn, scene, :DEFENSE, [
-    _INTL("{1} t'adore ! Sa Defense de base diminue!", pkmn.name),
+    _INTL("{1} t'adore! Sa Defense de base diminue!", pkmn.name),
     _INTL("{1} est devenu plus amical. Sa Defense de base ne peut pas diminuer.", pkmn.name),
     _INTL("{1} est devenu plus amical. Cependant, sa Defense de base diminue!", pkmn.name)
   ])
@@ -827,7 +827,7 @@ ItemHandlers::UseOnPokemon.add(:QUALOTBERRY, proc { |item, pkmn, scene|
 
 ItemHandlers::UseOnPokemon.add(:HONDEWBERRY, proc { |item, pkmn, scene|
   next pbRaiseHappinessAndLowerEV(pkmn, scene, :SPECIAL_ATTACK, [
-    _INTL("{1} t'adore ! Son Special Attack de base diminue!", pkmn.name),
+    _INTL("{1} t'adore! Son Attaque Special de base diminue!", pkmn.name),
     _INTL("{1} est devenu plus amical. Son Attaque Special de base ne peut pas diminuer.", pkmn.name),
     _INTL("{1} est devenu plus amical. Cependant, son Attaque Special de base diminue!", pkmn.name)
   ])
@@ -835,7 +835,7 @@ ItemHandlers::UseOnPokemon.add(:HONDEWBERRY, proc { |item, pkmn, scene|
 
 ItemHandlers::UseOnPokemon.add(:GREPABERRY, proc { |item, pkmn, scene|
   next pbRaiseHappinessAndLowerEV(pkmn, scene, :SPECIAL_DEFENSE, [
-    _INTL("{1} t'adore ! Sa Defense Special de base diminue!", pkmn.name),
+    _INTL("{1} t'adore! Sa Defense Special de base diminue!", pkmn.name),
     _INTL("{1} est devenu plus amical. Sa Defense Special de base ne peut pas diminuer.", pkmn.name),
     _INTL("{1} est devenu plus amical. Cependant, sa Defense Special de base diminue!", pkmn.name)
   ])
@@ -843,7 +843,7 @@ ItemHandlers::UseOnPokemon.add(:GREPABERRY, proc { |item, pkmn, scene|
 
 ItemHandlers::UseOnPokemon.add(:TAMATOBERRY, proc { |item, pkmn, scene|
   next pbRaiseHappinessAndLowerEV(pkmn, scene, :SPEED, [
-    _INTL("{1} t'adore ! Sa Vitesse de base diminue!", pkmn.name),
+    _INTL("{1} t'adore! Sa Vitesse de base diminue!", pkmn.name),
     _INTL("{1} est devenu plus amical. Sa Vitesse de base ne peut pas diminuer.", pkmn.name),
     _INTL("{1} est devenu plus amical. Cependant, sa Vitesse de base diminue!", pkmn.name)
   ])

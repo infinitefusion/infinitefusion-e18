@@ -85,7 +85,7 @@ TR_QUESTS = {
   "tr_cerulean_1" => Quest.new("tr_cerulean_1", "Bestioles Effrayantes", "Le Capitaine de la Team Rocket vous a chargé d'éliminer l'infestation d'Insectes dans le QG temporaire de la Team Rocket à Azuria.", QuestBranchRocket, "rocket_petrel", "Cerulean City", TRQuestColor),
   "tr_cerulean_2" => Quest.new("tr_cerulean_2", "Zone Interdite à la Pêche", "Intimidez les pêcheurs du Pont Pépite jusqu'à ce qu'ils quittent la zone.", QuestBranchRocket, "rocket_petrel", "Cerulean City", TRQuestColor),
   "tr_cerulean_3" => Quest.new("tr_cerulean_3", "Pokémon Désobéissant", "Ramenez le Pokémon donné par le Capitaine de la Team Rocket en le mettant K.O. pour lui donner une leçon.", QuestBranchRocket, "rocket_petrel", "Cerulean City", TRQuestColor),
-  "tr_cerulean_4" => Quest.new("tr_cerulean_4", "Braquage de Pokémon!", "Suivez Petrel et allez voler un Pokémon rare à une jeune fille.", QuestBranchRocket, "rocket_petrel", "Cerulean City", TRQuestColor),
+  "tr_cerulean_4" => Quest.new("tr_cerulean_4", "Braquage de Pokémon!", "Suivez Lambda et allez voler un Pokémon rare à une jeune fille.", QuestBranchRocket, "rocket_petrel", "Cerulean City", TRQuestColor),
 
   "tr_celadon_1" => Quest.new("tr_celadon_1", "Fournir les Nouveaux Venus", "Catch 4 Pokémon with Rocket Balls in the outskirts of Celadon City.", QuestBranchRocket, "rocket_archer", "Celadon City", TRQuestColor),
   "tr_celadon_2" => Quest.new("tr_celadon_2", "Interpellation!", "Interceptez la cargaison de CT destinée au Magasin de Céladopole et faites-vous passer pour le livreur afin de livrer de fausses CT.", QuestBranchRocket, "rocket_archer", "Celadon City", TRQuestColor),
