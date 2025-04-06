@@ -189,7 +189,7 @@ def pbGetTrainerVictoryME(trainer)   # can be a Player, NPCTrainer or an array o
     end
 
     # Early exit if no special trainer
-    if !is_champion(npcTrainer) && !is_elite_four(npcTrainer) && !is_gym_leader(npcTrainer) && !is_rival(npcTrainer)
+    if !is_trainer_type(npcTrainer, "CHAMPION") && !is_trainer_type(npcTrainer, "ELITE") && !is_trainer_type(npcTrainer, "LEADER") && !is_trainer_type(npcTrainer, "RIVAL")
       if $PokemonGlobal.nextBattleME
         return $PokemonGlobal.nextBattleME.clone
       end
@@ -198,22 +198,22 @@ def pbGetTrainerVictoryME(trainer)   # can be a Player, NPCTrainer or an array o
     end
 
     case npcTrainer
-    when is_trainer_type(npcTrainer, "CHAMPION")
+    when -> (trainer) { is_trainer_type(trainer, "CHAMPION") }
       ret = getSpecificGenOrRandomBGMPath("Champion_Victory")
       return ret if ret
       ret = getSpecificGenOrRandomBGMPath("Elite_Victory")
       return ret if ret
       ret = getSpecificGenOrRandomBGMPath("Leader_Victory")
       return ret if ret
-    when is_trainer_type(npcTrainer, "ELITE")
+    when -> (trainer) { is_trainer_type(trainer, "ELITE") }
       ret = getSpecificGenOrRandomBGMPath("Elite_Victory")
       return ret if ret
       ret = getSpecificGenOrRandomBGMPath("Leader_Victory")
       return ret if ret
-    when is_trainer_type(npcTrainer, "LEADER")
+    when -> (trainer) { is_trainer_type(trainer, "LEADER") }
       ret = getSpecificGenOrRandomBGMPath("Leader_Victory")
       return ret if ret
-    when is_trainer_type(npcTrainer, "RIVAL")
+    when -> (trainer) { is_trainer_type(trainer, "RIVAL") }
       ret = getSpecificGenOrRandomBGMPath("Rival_Victory")
       return ret if ret
     end
