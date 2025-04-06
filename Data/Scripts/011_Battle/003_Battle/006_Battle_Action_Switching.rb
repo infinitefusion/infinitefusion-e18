@@ -77,7 +77,7 @@ class PokeBattle_Battle
     eachOtherSideBattler(idxBattler) do |b|
       next if !b.abilityActive?
       if BattleHandlers.triggerTrappingTargetAbility(b.ability, battler, b, self)
-        partyScene.pbDisplay(_INTL("{1}'s {2} empêche le switch!",
+        partyScene.pbDisplay(_INTL("{1} empêche le pokemon de se retirer à cause de {2}!",
                                    b.pbThis, b.abilityName)) if partyScene
         return false
       end
@@ -85,7 +85,7 @@ class PokeBattle_Battle
     eachOtherSideBattler(idxBattler) do |b|
       next if !b.itemActive?
       if BattleHandlers.triggerTrappingTargetItem(b.item, battler, b, self)
-        partyScene.pbDisplay(_INTL("{1}'s {2} empêche le switch!",
+        partyScene.pbDisplay(_INTL("{1} empêche le pokemon de se retirer à cause {2}!",
                                    b.pbThis, b.itemName)) if partyScene
         return false
       end
@@ -269,9 +269,9 @@ class PokeBattle_Battle
       elsif opposing.hp >= opposing.totalhp / 2
         pbDisplayBrief(_INTL("Aller, {1}!", newPkmnName))
       elsif opposing.hp >= opposing.totalhp / 4
-        pbDisplayBrief(_INTL("Encore un peu ! Tiens bon, {1}!", newPkmnName))
+        pbDisplayBrief(_INTL("Encore un peu! Tiens bon, {1}!", newPkmnName))
       else
-        pbDisplayBrief(_INTL("Votre adversaire est faible ! Capture {1} maintenant!", newPkmnName))
+        pbDisplayBrief(_INTL("Ton adversaire est faible! Achève le maintenant {1}!", newPkmnName))
       end
     else
       owner = pbGetOwnerFromBattlerIndex(idxBattler)

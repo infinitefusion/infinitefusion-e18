@@ -84,16 +84,16 @@ QuestBranchLegendary = "Legendary Quests"
 #todo: convert to non-numerical ids like team rocket quests
 QUESTS = {
   #Pewter hotel
-  "pewter_1" => Quest.new("pewter_1", "Cueillette de champignons", "Une dame d'Argenta veut que vous lui apportiez 3 petits champignons de la forêt de Jade pour faire un ragoût.", QuestBranchHotels, "BW (74)", "Pewter City", HotelQuestColor),
-  "pewter_2" =>Quest.new("pewter_2", "Médecine perdue", "Un jeune d'Argenta a besoin de votre aide pour retrouver un Revive perdu. Il l'a perdu en s'asseyant sur un banc quelque part à Pewter City.", QuestBranchHotels, "BW (19)", "Pewter City", HotelQuestColor),
-  "pewter_3" =>Quest.new("pewter_3", "Évolution des insectes", "Un chasseur d'Insectes d'Argenta veut que vous lui montriez un Pokémon Insecte entièrement évolué.", QuestBranchHotels, "BWBugCatcher_male", "Pewter City", HotelQuestColor),
-  63 => Quest.new(63, "Je te choisis!", "Un Pikachu du PokéMart a perdu son chapeau officiel de la Ligue Pokémon. Trouvez-en un et donnez-le au Pikachu!", QuestBranchField, "YOUNGSTER_LeagueHat", "Pewter City", FieldQuestColor),
+  "pewter_1" => Quest.new("pewter_1", "Cueillette de champignons", "Une dame d'Argenta veut que vous lui apportiez 3 petits champignons de la forêt de Jade pour faire un ragoût.", QuestBranchHotels, "BW (74)", "Argenta", HotelQuestColor),
+  "pewter_2" =>Quest.new("pewter_2", "Médecine perdue", "Un jeune d'Argenta a besoin de votre aide pour retrouver un Revive perdu. Il l'a perdu en s'asseyant sur un banc quelque part à Argenta.", QuestBranchHotels, "BW (19)", "Argenta", HotelQuestColor),
+  "pewter_3" =>Quest.new("pewter_3", "Évolution des insectes", "Un chasseur d'Insectes d'Argenta veut que vous lui montriez un Pokémon Insecte entièrement évolué.", QuestBranchHotels, "BWBugCatcher_male", "Argenta", HotelQuestColor),
+  63 => Quest.new(63, "Je te choisis!", "Un Pikachu du PokéMart a perdu son chapeau officiel de la Ligue Pokémon. Trouvez-en un et donnez-le au Pikachu!", QuestBranchField, "YOUNGSTER_LeagueHat", "Argenta", FieldQuestColor),
 
   #Cerulean hotel
-  3 => Quest.new(3, "Jouer à Cupidon", "Un garçon d'Azuria veut que tu apportes une lettre d'amour à une éleveuse de Pokémon nommée Maude. Elle est probablement quelque part sur l'une des routes près d'Azuria", QuestBranchHotels, "BW (18)", "Cerulean City", HotelQuestColor),
-  4 => Quest.new(4, "Pêche à la sole", "Un pêcheur vous demande de récupérer une vieille botte. Accrochez-la avec la vieille canne dans n'importe quel plan d'eau.", QuestBranchHotels, "BW (71)", "Cerulean City", HotelQuestColor),
-  5 => Quest.new(5, "Pokémon de Johto", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région de Johto.", QuestBranchHotels, "traveler_johto", "Cerulean City", HotelQuestColor),
-  "cerulean_2" => Quest.new(5, "Experts des types", "Battez tous les experts de type dispersés dans la région de Kanto (#{pbGet(VAR_TYPE_EXPERTS_BEATEN)}/#{TOTAL_NB_TYPE_EXPERTS})", QuestBranchHotels, "expert-normal", "Cerulean City", HotelQuestColor),
+  3 => Quest.new(3, "Jouer à Cupidon", "Un garçon d'Azuria veut que tu apportes une lettre d'amour à une éleveuse de Pokémon nommée Maude. Elle est probablement quelque part sur l'une des routes près d'Azuria", QuestBranchHotels, "BW (18)", "Azuria", HotelQuestColor),
+  4 => Quest.new(4, "Pêche à la sole", "Un pêcheur vous demande de récupérer une vieille botte. Accrochez-la avec la vieille canne dans n'importe quel plan d'eau.", QuestBranchHotels, "BW (71)", "Azuria", HotelQuestColor),
+  5 => Quest.new(5, "Pokémon de Johto", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région de Johto.", QuestBranchHotels, "traveler_johto", "Azuria", HotelQuestColor),
+  "cerulean_2" => Quest.new(5, "Experts des types", "Battez tous les experts de type dispersés dans la région de Kanto (#{pbGet(VAR_TYPE_EXPERTS_BEATEN)}/#{TOTAL_NB_TYPE_EXPERTS})", QuestBranchHotels, "expert-normal", "Azuria", HotelQuestColor),
 
   #Route 24
   6 => Quest.new(6, "Recherche sur le terrain (Part 1)", "L'assistant du professeur Oak veut que vous attrapiez un Abra.", QuestBranchField, "BW (82)", "Route 24", FieldQuestColor),
@@ -101,93 +101,93 @@ QUESTS = {
   8 => Quest.new(8, "Recherche sur le terrain (Part 3)", "L'assistant du professeur Oak veut que vous attrapiez un Laporeille en utilisant le Pokéradar.", QuestBranchField, "BW (82)", "Route 24", FieldQuestColor),
 
   #Vermillion City
-  9 => Quest.new(9, "Types inhabituels 1", "Une femme à l'hôtel veut que vous lui montriez un Pokémon de type Eau/Feu", QuestBranchHotels, "BW (58)", "Vermillion City", HotelQuestColor),
-  10 => Quest.new(10, "Maison des Dresseurs", "Gagnez 10 points à la maison des Dresseurs de Viridian City", QuestBranchHotels, "BW (55)", "Vermillion City", HotelQuestColor),
-  11 => Quest.new(11, "Alimenter le phare", "Attrapez des Voltorbes pour alimenter le phare", QuestBranchHotels, "BW (43)", "Vermillion City", HotelQuestColor),
-  12 => Quest.new(12, "Cocktail de fruits de mer ", "Procurez-vous des cuisses de crabe cuites à la vapeur dans la cuisine du S.S. Anne et ramenez-les à l'hôtel avant qu'elles ne refroidissent.", QuestBranchHotels, "BW (36)", "Vermillion City", HotelQuestColor),
-  13 => Quest.new(13, "Matériaux de construction ", "Récupérez des planches de bois de Viridian City et des briques de Pewter City.", QuestBranchField, "BW (36)", "Vermillion City", FieldQuestColor),
-  64 => Quest.new(64, "Garçon sur l'eau", "Le serveur du S.S. Anne veut que vous preniez les commandes du restaurant pendant qu'il va chercher un gâteau de remplacement.", QuestBranchField, "BW (53)", "S.S. Anne", FieldQuestColor),
+  9 => Quest.new(9, "Types inhabituels 1", "Une femme à l'hôtel veut que vous lui montriez un Pokémon de type Eau/Feu", QuestBranchHotels, "BW (58)", "Carmin sur Mer", HotelQuestColor),
+  10 => Quest.new(10, "Maison des Dresseurs", "Gagnez 10 points à la maison des Dresseurs de Jadielle", QuestBranchHotels, "BW (55)", "Carmin sur Mer", HotelQuestColor),
+  11 => Quest.new(11, "Alimenter le phare", "Attrapez des Voltorbes pour alimenter le phare", QuestBranchHotels, "BW (43)", "Carmin sur Mer", HotelQuestColor),
+  12 => Quest.new(12, "Cocktail de fruits de mer ", "Procurez-vous des cuisses de crabe cuites à la vapeur dans la cuisine de L'Océane et ramenez-les à l'hôtel avant qu'elles ne refroidissent.", QuestBranchHotels, "BW (36)", "Carmin sur Mer", HotelQuestColor),
+  13 => Quest.new(13, "Matériaux de construction ", "Récupérez des planches de bois de Jadielle et des briques de Argenta.", QuestBranchField, "BW (36)", "Carmin sur Mer", FieldQuestColor),
+  64 => Quest.new(64, "Garçon sur l'eau", "Le serveur de L'Océane veut que vous preniez les commandes du restaurant pendant qu'il va chercher un gâteau de remplacement.", QuestBranchField, "BW (53)", "L'Océane", FieldQuestColor),
 
   #Celadon City
-  14 => Quest.new(14, "Soleil ou Lune", "Montre comment Evoli évolue lorsqu'il est exposé à une pierre de Lune ou de Soleil pour aider la scientifique dans ses recherches.", QuestBranchHotels, "BW (82)", "Celadon City", HotelQuestColor),
-  15 => Quest.new(15, "Pour qui sonne la cloche", "Sonnez la cloche de Lavender Town lorsque le moment est venu de révéler son secret.", QuestBranchHotels, "BW (40)", "Lavender Town", HotelQuestColor),
-  16 => Quest.new(16, "Cuit a dur", "Une dame veut que vous lui donniez un oeuf pour faire une omelette.", QuestBranchHotels, "BW (24)", "Celadon City", HotelQuestColor),
-  17 => Quest.new(17, "Une promenade avec Evoli!", "Promenez Évoli pendant un moment jusqu'à ce qu'il se fatigue.", QuestBranchField, "BW (37)", "Celadon City", FieldQuestColor),
+  14 => Quest.new(14, "Soleil ou Lune", "Montre comment Evoli évolue lorsqu'il est exposé à une pierre de Lune ou de Soleil pour aider la scientifique dans ses recherches.", QuestBranchHotels, "BW (82)", "Céladopole", HotelQuestColor),
+  15 => Quest.new(15, "Pour qui sonne la cloche", "Sonnez la cloche de Lavanville lorsque le moment est venu de révéler son secret.", QuestBranchHotels, "BW (40)", "Lavanville", HotelQuestColor),
+  16 => Quest.new(16, "Cuit a dur", "Une dame veut que vous lui donniez un oeuf pour faire une omelette.", QuestBranchHotels, "BW (24)", "Céladopole", HotelQuestColor),
+  17 => Quest.new(17, "Une promenade avec Evoli!", "Promenez Évoli pendant un moment jusqu'à ce qu'il se fatigue.", QuestBranchField, "BW (37)", "Céladopole", FieldQuestColor),
 
   #Fuchsia City
-  18 => Quest.new(18, "Nettoyage de la piste cyclable", "Débarrassez-vous de tous les Pokémon qui salissent la piste cyclable.", QuestBranchHotels, "BW (77)", "Fuchsia City", HotelQuestColor),
-  19 => Quest.new(19, "Pokémon perdu!", "Retrouvez le dresseur perdu de Chansey!", QuestBranchHotels, "113", "Fuchsia City", HotelQuestColor),
-  20 => Quest.new(20, "Course cycliste!", "Allez à la rencontre de la cycliste au bas de la route 17 et battez son temps sur la piste cyclable!", QuestBranchHotels, "BW032", "Cycling Road", HotelQuestColor),
+  18 => Quest.new(18, "Nettoyage de la piste cyclable", "Débarrassez-vous de tous les Pokémon qui salissent la piste cyclable.", QuestBranchHotels, "BW (77)", "Parmanie", HotelQuestColor),
+  19 => Quest.new(19, "Pokémon perdu!", "Retrouvez le dresseur perdu de Chansey!", QuestBranchHotels, "113", "Parmanie", HotelQuestColor),
+  20 => Quest.new(20, "Course cycliste!", "Allez à la rencontre de la cycliste au bas de la route 17 et battez son temps sur la piste cyclable!", QuestBranchHotels, "BW032", "Piste Cyclable", HotelQuestColor),
 
   #Crimson City
-  21 => Quest.new(21, "Sauvetage de Kokiyas", "Remettre à l'eau tous les Kokiyas échoués sur la route de la cité Ecarlate.", QuestBranchHotels, "BW (48)", "Crimson City", HotelQuestColor),
-  22 => Quest.new(22, "Rumble du quatrième tour", "Battez Jeanette et son Chétiflor de haut niveau dans un combat Pokémon", QuestBranchHotels, "BW024", "Crimson City", HotelQuestColor),
-  23 => Quest.new(23, "Types inhabituels 2", "Une femme à l'hôtel veut que vous lui montriez un Pokémon de type Normal/Fantôme", QuestBranchHotels, "BW (58)", "Crimson City", HotelQuestColor),
+  21 => Quest.new(21, "Sauvetage de Kokiyas", "Remettre à l'eau tous les Kokiyas échoués sur la route de la Cité Écarlate.", QuestBranchHotels, "BW (48)", "Cité Écarlate", HotelQuestColor),
+  22 => Quest.new(22, "Rumble du quatrième tour", "Battez Jeanette et son Chétiflor de haut niveau dans un combat Pokémon", QuestBranchHotels, "BW024", "Cité Écarlate", HotelQuestColor),
+  23 => Quest.new(23, "Types inhabituels 2", "Une femme à l'hôtel veut que vous lui montriez un Pokémon de type Normal/Fantôme", QuestBranchHotels, "BW (58)", "Cité Écarlate", HotelQuestColor),
 
   #Saffron City
-  24 => Quest.new(24, "Reine de la danse!", "Danse avec Copinette!", QuestBranchField, "BW (24)", "Saffron City (nightclub)", FieldQuestColor),
+  24 => Quest.new(24, "Reine de la danse!", "Danse avec Copinette!", QuestBranchField, "BW (24)", "Safrania (Boite de nuit)", FieldQuestColor),
     #celadon
-  25 => Quest.new(25, "Pokémon de Sinnoh", "Un voyageur du Centre Départemental veut que vous lui montriez un Pokémon originaire de la région de Sinnoh.", QuestBranchHotels, "traveler_sinnoh", "Celadon City", HotelQuestColor),
-  26 => Quest.new(26, "Chiots perdus", "Retrouvez tous les Caninos manquants dans les itinéraires autour de Safrania.", QuestBranchHotels, "BW (73)", "Saffron City", HotelQuestColor),
-  27 => Quest.new(27, "Pokémon invisibles", "Trouvez un Pokémon invisible dans la partie est de Safrania.", QuestBranchHotels, "BW (57)", "Saffron City", HotelQuestColor),
-  28 => Quest.new(28, "Mauvais jusqu'à l'os!", "Trouvez un os rare en utilisant Éclate-Roc.", QuestBranchHotels, "BW (72)", "Saffron City", HotelQuestColor),
+  25 => Quest.new(25, "Pokémon de Sinnoh", "Un voyageur du Centre Départemental veut que vous lui montriez un Pokémon originaire de la région de Sinnoh.", QuestBranchHotels, "traveler_sinnoh", "Céladopole", HotelQuestColor),
+  26 => Quest.new(26, "Chiots perdus", "Retrouvez tous les Caninos manquants dans les itinéraires autour de Safrania.", QuestBranchHotels, "BW (73)", "Safrania", HotelQuestColor),
+  27 => Quest.new(27, "Pokémon invisibles", "Trouvez un Pokémon invisible dans la partie est de Safrania.", QuestBranchHotels, "BW (57)", "Safrania", HotelQuestColor),
+  28 => Quest.new(28, "Mauvais jusqu'à l'os!", "Trouvez un os rare en utilisant Éclate-Roc.", QuestBranchHotels, "BW (72)", "Safrania", HotelQuestColor),
 
   #Cinnabar Island
-  29 => Quest.new(29, "Les Pokémons transformables", "Le scientifique veut que vous trouviez de la poudre rapide qui peut parfois être trouvée sur des Métamorph dans le sous-sol du manoir.", QuestBranchHotels, "BW (82)", "Cinnabar Island", HotelQuestColor),
-  30 => Quest.new(30, "Diamants et Perles", "Trouvez un collier de diamant pour sauver le mariage de l'homme.", QuestBranchHotels, "BW (71)", "Cinnabar Island", HotelQuestColor),
-  62 => Quest.new(62, "Pokémon d'Alola", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région d'Alola.", QuestBranchHotels, "traveler_alola", "Cinnabar Island", HotelQuestColor),
+  29 => Quest.new(29, "Les Pokémons transformables", "Le scientifique veut que vous trouviez de la poudre rapide qui peut parfois être trouvée sur des Métamorph dans le sous-sol du manoir.", QuestBranchHotels, "BW (82)", "Cramois'Ile", HotelQuestColor),
+  30 => Quest.new(30, "Diamants et Perles", "Trouvez un collier de diamant pour sauver le mariage de l'homme.", QuestBranchHotels, "BW (71)", "Cramois'Ile", HotelQuestColor),
+  62 => Quest.new(62, "Pokémon d'Alola", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région d'Alola.", QuestBranchHotels, "traveler_alola", "Cramois'Ile", HotelQuestColor),
 
   #Vermillion City
-  31 => Quest.new(31, "Pokémon de Hoenn", "Un voyageur dans le PokéMart vous demande de lui montrer un Pokémon originaire de la région de Hoenn.", QuestBranchHotels, "traveler_hoenn", "Vermillion City", HotelQuestColor),
+  31 => Quest.new(31, "Pokémon de Hoenn", "Un voyageur dans le PokéMart vous demande de lui montrer un Pokémon originaire de la région de Hoenn.", QuestBranchHotels, "traveler_hoenn", "Carmin sur Mer", HotelQuestColor),
   #Goldenrod City
-  32 => Quest.new(32, "Souvenir de safari!", "Rapportez un souvenir de la Zone Safari de Parmanie", QuestBranchHotels, "BW (28)", "Goldenrod City", HotelQuestColor),
-  65 => Quest.new(65, "Travail de police infiltré!", "Allez voir la police de Doublonville pour les aider dans une opération policière importante.", QuestBranchField, "BW (80)", "Goldenrod City", FieldQuestColor),
-  66 => Quest.new(66, "Île Guimauve!", "La Team Rocket prépare un braquage sur l'île Guimauve. Vous avez uni vos forces à celles de la police pour les arrêter!", QuestBranchField, "BW (80)", "Goldenrod City", FieldQuestColor),
+  32 => Quest.new(32, "Souvenir de safari!", "Rapportez un souvenir de la Zone Safari de Parmanie", QuestBranchHotels, "BW (28)", "Doublonville", HotelQuestColor),
+  65 => Quest.new(65, "Travail de police infiltré!", "Allez voir la police de Doublonville pour les aider dans une opération policière importante.", QuestBranchField, "BW (80)", "Doublonville", FieldQuestColor),
+  66 => Quest.new(66, "Île Guimauve!", "La Team Rocket prépare un braquage sur l'île Guimauve. Vous avez uni vos forces à celles de la police pour les arrêter!", QuestBranchField, "BW (80)", "Doublonville", FieldQuestColor),
 
   #Violet City
-  33 => Quest.new(33, "Désamorcer les pommes de pin!", "Débarrassez-vous de tous les Pomdepik sur la Route 31 et la Route 30", QuestBranchHotels, "BW (64)", "Violet City", HotelQuestColor),
-  34 => Quest.new(34, "Trouver la queue de Ramoloss!", "Trouvez une Queue Ramoloss dans des fleurs, quelque part autour de Mauville!", QuestBranchHotels, "BW (19)", "Violet City", HotelQuestColor),
+  33 => Quest.new(33, "Désamorcer les pommes de pin!", "Débarrassez-vous de tous les Pomdepik sur la Route 31 et la Route 30", QuestBranchHotels, "BW (64)", "Mauville", HotelQuestColor),
+  34 => Quest.new(34, "Trouver la queue de Ramoloss!", "Trouvez une Queue Ramoloss dans des fleurs, quelque part autour de Mauville!", QuestBranchHotels, "BW (19)", "Mauville", HotelQuestColor),
 
   #Blackthorn City
-  35 => Quest.new(35, "L'évolution du dragon", "Un dompteur de dragons de Ébènelle veut que vous lui montriez un Pokémon Dragon entièrement évolué.", QuestBranchHotels, "BW014", "Blackthorn City", HotelQuestColor),
-  36 => Quest.new(36, "Trésor englouti!", "Trouvez un vieux souvenir sur un navire coulé près de Cramois'Île.", QuestBranchHotels, "BW (28)", "Blackthorn City", HotelQuestColor),
-  37 => Quest.new(37, "La plus grosse carpe", "Un pêcheur veut que vous pêchiez un Magikarp d'un niveau exceptionnellement élevé dans l'Antre du Dragon.", QuestBranchHotels, "BW (71)", "Blackthorn City", HotelQuestColor),
+  35 => Quest.new(35, "L'évolution du dragon", "Un dompteur de dragons de Ébènelle veut que vous lui montriez un Pokémon Dragon entièrement évolué.", QuestBranchHotels, "BW014", "Ébènelle", HotelQuestColor),
+  36 => Quest.new(36, "Trésor englouti!", "Trouvez un vieux souvenir sur un navire coulé près de Cramois'Île.", QuestBranchHotels, "BW (28)", "Ébènelle", HotelQuestColor),
+  37 => Quest.new(37, "La plus grosse carpe", "Un pêcheur veut que vous pêchiez un Magikarp d'un niveau exceptionnellement élevé dans l'Antre du Dragon.", QuestBranchHotels, "BW (71)", "Ébènelle", HotelQuestColor),
 
-    #saffron
-  38 => Quest.new(38, "Pokémon de Kalos", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région de Kalos.", QuestBranchHotels, "traveler_kalos", "Saffron City", HotelQuestColor),
+  #Saffron City
+  38 => Quest.new(38, "Pokémon de Kalos", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région de Kalos.", QuestBranchHotels, "traveler_kalos", "Safrania", HotelQuestColor),
   #Ecruteak City
-  39 => Quest.new(39, "L'évolution des fantômes", "Une fille de Rosalia veut que vous lui montriez un Pokémon Fantôme entièrement évolué.", QuestBranchHotels, "BW014", "Ecruteak City", HotelQuestColor),
+  39 => Quest.new(39, "L'évolution des fantômes", "Une fille de Rosalia veut que vous lui montriez un Pokémon Fantôme entièrement évolué.", QuestBranchHotels, "BW014", "Rosalia", HotelQuestColor),
 
   #Kin Island
-  40 => Quest.new(40, "Banana Slamma!", "Récupérez 30 bananes", QuestBranchHotels, "BW059", "Kin Island", HotelQuestColor),
+  40 => Quest.new(40, "Banana Slamma!", "Récupérez 30 bananes", QuestBranchHotels, "BW059", "Ile Trinité", HotelQuestColor),
     #fuchsia
-  41 => Quest.new(41, "Pokémon de Unys", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région d'Unys.", QuestBranchHotels, "traveler_unova", "Fuchsia City", HotelQuestColor),
-  42 => Quest.new(42, "Objet volé", "Récupérez un vase volé par un cambrioleur dans le manoir Pokémon", QuestBranchHotels, "BW (21)", "Cinnabar Island", HotelQuestColor),
-  43 => Quest.new(43, "Météore tombé", "Enquête sur un cratère près du Pont du Lien.", QuestBranchHotels, "BW009", "Kin Island", HotelQuestColor),
-  44 => Quest.new(44, "Premier contact", "Trouvez les pièces manquantes d'un vaisseau spatial extraterrestre tombé", QuestBranchHotels, "BW (92)", "Bond Bridge", LegendaryQuestColor),
-  45 => Quest.new(45, "Premier contact (Part 2)", "Demandez au marin du port de Cramois'Île de vous emmener sur l'île inexplorée où le vaisseau spatial pourrait se trouver", QuestBranchHotels, "BW (92)", "Bond Bridge", LegendaryQuestColor),
-  46 => Quest.new(46, "Le poisson le plus rare", "Un pêcheur veut que vous lui montriez un Barpeau. Apparemment, on peut en pêcher autour des îles Sevii quand il pleut.", QuestBranchField, "BW056", "Kin Island", FieldQuestColor),
+  41 => Quest.new(41, "Pokémon de Unys", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région d'Unys.", QuestBranchHotels, "traveler_unova", "Parmanie", HotelQuestColor),
+  42 => Quest.new(42, "Objet volé", "Récupérez un vase volé par un cambrioleur dans le manoir Pokémon", QuestBranchHotels, "BW (21)", "Cramois'Ile", HotelQuestColor),
+  43 => Quest.new(43, "Météore tombé", "Enquête sur un cratère près du Pont du Lien.", QuestBranchHotels, "BW009", "Ile Trinité", HotelQuestColor),
+  44 => Quest.new(44, "Premier contact", "Trouvez les pièces manquantes d'un vaisseau spatial extraterrestre tombé", QuestBranchHotels, "BW (92)", "Pont du Lien", LegendaryQuestColor),
+  45 => Quest.new(45, "Premier contact (Part 2)", "Demandez au marin du port de Cramois'Île de vous emmener sur l'île inexplorée où le vaisseau spatial pourrait se trouver", QuestBranchHotels, "BW (92)", "Pont du Lien", LegendaryQuestColor),
+  46 => Quest.new(46, "Le poisson le plus rare", "Un pêcheur veut que vous lui montriez un Barpeau. Apparemment, on peut en pêcher autour des îles Sevii quand il pleut.", QuestBranchField, "BW056", "Ile Trinité", FieldQuestColor),
 
   #Necrozma quest
-  47 => Quest.new(47, "Prismes mystérieux", "Vous avez trouvé un piédestal avec un prisme mystérieux dessus. Il semble y avoir de la place pour d'autres prismes.", QuestBranchLegendary, "BW_Sabrina", "Pokémon Tower", LegendaryQuestColor),
+  47 => Quest.new(47, "Prismes mystérieux", "Vous avez trouvé un piédestal avec un prisme mystérieux dessus. Il semble y avoir de la place pour d'autres prismes.", QuestBranchLegendary, "BW_Sabrina", "Tour Pokémon", LegendaryQuestColor),
 
-  48 => Quest.new(48, "La longue nuit (Part 1)", "Une obscurité mystérieuse a enveloppé une partie de la région. Rencontrez Sabrina à l'extérieur de la porte ouest de Safrania pour enquêter.", QuestBranchLegendary, "BW_Sabrina", "Lavender Town", LegendaryQuestColor),
+  48 => Quest.new(48, "La longue nuit (Part 1)", "Une obscurité mystérieuse a enveloppé une partie de la région. Rencontrez Sabrina à l'extérieur de la porte ouest de Safrania pour enquêter.", QuestBranchLegendary, "BW_Sabrina", "Lavanville", LegendaryQuestColor),
   49 => Quest.new(49, "La longue nuit (Part 2)", "L'obscurité mystérieuse s'est répandue. Rencontrez Sabrina au sommet du grand magasin de Céladopole pour découvrir la source de l'obscurité.", QuestBranchLegendary, "BW_Sabrina", "Route 7", LegendaryQuestColor),
-  50 => Quest.new(50, "La longue nuit (Part 3)", "La ville de Parmanie ne semble pas affectée par l'obscurité. Allez enquêter pour voir si vous pouvez trouver plus d'informations.", QuestBranchLegendary, "BW_Sabrina", "Celadon City", LegendaryQuestColor),
-  51 => Quest.new(51, "La longue nuit (Part 4)", "L'obscurité mystérieuse s'est à nouveau étendue et d'étranges plantes sont apparues. Suivez les plantes pour voir où elles mènent.", QuestBranchLegendary, "BW_koga", "Fuchsia City", LegendaryQuestColor),
+  50 => Quest.new(50, "La longue nuit (Part 3)", "La ville de Parmanie ne semble pas affectée par l'obscurité. Allez enquêter pour voir si vous pouvez trouver plus d'informations.", QuestBranchLegendary, "BW_Sabrina", "Céladopole", LegendaryQuestColor),
+  51 => Quest.new(51, "La longue nuit (Part 4)", "L'obscurité mystérieuse s'est à nouveau étendue et d'étranges plantes sont apparues. Suivez les plantes pour voir où elles mènent.", QuestBranchLegendary, "BW_koga", "Parmanie", LegendaryQuestColor),
   52 => Quest.new(52, "La longue nuit (Part 5)", "Vous avez trouvé un fruit étrange qui semble lié à l'obscurité mystérieuse. Allez voir le professeur Chen pour le faire analyser.", QuestBranchLegendary, "BW029", "Safari Zone", LegendaryQuestColor),
-  53 => Quest.new(53, "La longue nuit (Part 6)", "L'étrange plante que vous avez trouvée semble briller dans l'obscurité mystérieuse qui recouvre désormais toute la région. Essayez de suivre la lueur pour découvrir la source de la perturbation.", QuestBranchLegendary, "BW-oak", "Pallet Town", LegendaryQuestColor),
+  53 => Quest.new(53, "La longue nuit (Part 6)", "L'étrange plante que vous avez trouvée semble briller dans l'obscurité mystérieuse qui recouvre désormais toute la région. Essayez de suivre la lueur pour découvrir la source de la perturbation.", QuestBranchLegendary, "BW-oak", "Bourg Palette", LegendaryQuestColor),
 
-  54 => Quest.new(54, "Jardin de nectar", "Un vieil homme veut que vous apportiez des fleurs de différentes couleurs pour le jardin de la ville.", QuestBranchField, "BW (039)", "Pewter City", FieldQuestColor),
-  55 => Quest.new(55, "La forêt maudite", "Une enfant veut que vous trouviez une souche d'arbre flottante dans le Bois aux Chênes. De quoi pourrait-elle bien parler?", QuestBranchHotels, "BW109", "Goldenrod City", HotelQuestColor),
-  56 => Quest.new(56, "Pokémon mordant", "Un pêcheur veut savoir quel est le Pokémon aux dents acérées qui l'a mordu dans le lac de la Zone Safari.", QuestBranchHotels, "BW (71)", "Fuchsia City", HotelQuestColor),
+  54 => Quest.new(54, "Jardin de nectar", "Un vieil homme veut que vous apportiez des fleurs de différentes couleurs pour le jardin de la ville.", QuestBranchField, "BW (039)", "Argenta", FieldQuestColor),
+  55 => Quest.new(55, "La forêt maudite", "Une enfant veut que vous trouviez une souche d'arbre flottante dans le Bois aux Chênes. De quoi pourrait-elle bien parler?", QuestBranchHotels, "BW109", "Doublonville", HotelQuestColor),
+  56 => Quest.new(56, "Pokémon mordant", "Un pêcheur veut savoir quel est le Pokémon aux dents acérées qui l'a mordu dans le lac de la Zone Safari.", QuestBranchHotels, "BW (71)", "Parmanie", HotelQuestColor),
 
-  57 => Quest.new(57, "Un groupe légendaire (Part 1)", "Le chanteur d'un groupe de Safrania vous demande de l'aider à recruter un batteur. Il pense avoir entendu des batteurs jouer dans les environs de la cité Ecarlate...", QuestBranchLegendary, "BW107", "Saffron City", LegendaryQuestColor),
-  58 => Quest.new(58, "Un groupe légendaire (Part 2)", "Le batteur d'un groupe légendaire de Pokémon veut que vous retrouviez ses anciens camarades de groupe. Le manager du groupe a parlé de deux anciens guitaristes...", QuestBranchLegendary, "band_drummer", "Saffron City", LegendaryQuestColor),
-  59 => Quest.new(59, "Un groupe légendaire (Part 3)", "Le batteur d'un groupe légendaire de Pokémon veut que vous retrouviez ses anciens camarades de groupe. Il y a des rumeurs sur une musique étrange qui a été entendue dans la région.", QuestBranchLegendary, "band_drummer", "Saffron City", LegendaryQuestColor),
-  60 => Quest.new(60, "Un groupe légendaire (Part 4)", "Vous avez réuni le groupe au complet ! Venez assister au spectacle samedi soir.", QuestBranchLegendary, "BW117", "Saffron City", LegendaryQuestColor),
+  57 => Quest.new(57, "Un groupe légendaire (Part 1)", "Le chanteur d'un groupe de Safrania vous demande de l'aider à recruter un batteur. Il pense avoir entendu des batteurs jouer dans les environs de la Cité Écarlate...", QuestBranchLegendary, "BW107", "Safrania", LegendaryQuestColor),
+  58 => Quest.new(58, "Un groupe légendaire (Part 2)", "Le batteur d'un groupe légendaire de Pokémon veut que vous retrouviez ses anciens camarades de groupe. Le manager du groupe a parlé de deux anciens guitaristes...", QuestBranchLegendary, "band_drummer", "Safrania", LegendaryQuestColor),
+  59 => Quest.new(59, "Un groupe légendaire (Part 3)", "Le batteur d'un groupe légendaire de Pokémon veut que vous retrouviez ses anciens camarades de groupe. Il y a des rumeurs sur une musique étrange qui a été entendue dans la région.", QuestBranchLegendary, "band_drummer", "Safrania", LegendaryQuestColor),
+  60 => Quest.new(60, "Un groupe légendaire (Part 4)", "Vous avez réuni le groupe au complet ! Venez assister au spectacle samedi soir.", QuestBranchLegendary, "BW117", "Safrania", LegendaryQuestColor),
 
-  61 => Quest.new(61, "Mystérieuses plumes lunaires", "Une entité mystérieuse vous a demandé de collecter des plumes lunaires pour elle. Elle a dit qu'elle viendrait la nuit pour vous dire où chercher. Qui que ce soit...", QuestBranchLegendary, "lunarFeather", "Lavender Town", LegendaryQuestColor),
+  61 => Quest.new(61, "Mystérieuses plumes lunaires", "Une entité mystérieuse vous a demandé de collecter des plumes lunaires pour elle. Elle a dit qu'elle viendrait la nuit pour vous dire où chercher. Qui que ce soit...", QuestBranchLegendary, "lunarFeather", "Lavanville", LegendaryQuestColor),
 }
 
 class PokeBattle_Trainer
