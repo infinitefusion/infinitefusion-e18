@@ -11,7 +11,7 @@ Events.onStepTaken+=proc {|sender,e|
 
   if $game_variables[102] >= 400 then
     if $game_variables[102] % 100 == 0 then
-      Kernel.pbMessage(_INTL("Eevee is getting tired. You should head back soon!"))
+      Kernel.pbMessage(_INTL("Évoli commence à fatiguer. Tu devrais bientôt rentrer!"))
       cry=pbResolveAudioSE(pbCryFile(133))
       pbSEPlay(cry,100,100)
     end

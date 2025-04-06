@@ -14,8 +14,8 @@ def handleReplaceExistingSprites()
   return if spritesToReplaceList.size==0
   commands = []
   #commands << "Pick which sprites to use as mains"
-  commands << "Ne pas importer les nouveaux sprites"
-  commands << "Remplacez tous les anciens sprites par les nouveaux"
+  commands << "Ne pas importer"
+  commands << "Remplacez tous les anciens sprites"
   #commands << "Import all the new sprites as alts"
 
   messageSingular = "Lors de l'importation de sprites personnalisés, le jeu a détecté que {1} nouveau sprite personnalisé possède déjà une version qui existe dans le jeu."

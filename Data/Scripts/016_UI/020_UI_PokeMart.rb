@@ -249,7 +249,7 @@ end
 #
 #===============================================================================
 class PokemonMart_Scene
-  def initialize(currency_name = "Money")
+  def initialize(currency_name = "Argent")
     @currency_name = currency_name
   end
 
@@ -515,12 +515,12 @@ class PokemonMart_Scene
     numwindow.shadowColor = Color.new(168, 184, 184)
     inbagwindow.visible = @buying
     inbagwindow.viewport = @viewport
-    inbagwindow.width = 190
+    inbagwindow.width = 195
     inbagwindow.height = 64
     inbagwindow.baseColor = Color.new(88, 88, 80)
     inbagwindow.shadowColor = Color.new(168, 184, 184)
-    inbagwindow.text = _INTL("Dans le Sac:<r>{1}  ", qty)
-    numwindow.text = _INTL("x{1}<r>$ {2}", curnumber, (curnumber * itemprice).to_s_formatted)
+    inbagwindow.text = _INTL("Dans le Sac:<r> {1}", qty)
+    numwindow.text = _INTL("x{1}<r>{2}$", curnumber, (curnumber * itemprice).to_s_formatted)
     pbBottomRight(numwindow)
     numwindow.y -= helpwindow.height
     pbBottomLeft(inbagwindow)
@@ -535,22 +535,22 @@ class PokemonMart_Scene
         pbPlayCursorSE
         curnumber -= 10
         curnumber = 1 if curnumber < 1
-        numwindow.text = _INTL("x{1}<r>$ {2}", curnumber, (curnumber * itemprice).to_s_formatted)
+        numwindow.text = _INTL("x{1}<r>{2}$", curnumber, (curnumber * itemprice).to_s_formatted)
       elsif Input.repeat?(Input::RIGHT)
         pbPlayCursorSE
         curnumber += 10
         curnumber = maximum if curnumber > maximum
-        numwindow.text = _INTL("x{1}<r>$ {2}", curnumber, (curnumber * itemprice).to_s_formatted)
+        numwindow.text = _INTL("x{1}<r>{2}$", curnumber, (curnumber * itemprice).to_s_formatted)
       elsif Input.repeat?(Input::UP)
         pbPlayCursorSE
         curnumber += 1
         curnumber = 1 if curnumber > maximum
-        numwindow.text = _INTL("x{1}<r>$ {2}", curnumber, (curnumber * itemprice).to_s_formatted)
+        numwindow.text = _INTL("x{1}<r>{2}$", curnumber, (curnumber * itemprice).to_s_formatted)
       elsif Input.repeat?(Input::DOWN)
         pbPlayCursorSE
         curnumber -= 1
         curnumber = maximum if curnumber < 1
-        numwindow.text = _INTL("x{1}<r>$ {2}", curnumber, (curnumber * itemprice).to_s_formatted)
+        numwindow.text = _INTL("x{1}<r>{2}$", curnumber, (curnumber * itemprice).to_s_formatted)
       elsif Input.trigger?(Input::USE)
         pbPlayDecisionSE
         ret = curnumber
@@ -655,7 +655,7 @@ class PokemonMartScreen
           _INTL("{1}? Bien sûr. Combien en veux-tu ?", itemname), item, maxafford)
         next if quantity == 0
         price *= quantity
-        if !pbConfirm(_INTL("{1}, et vous voulez {2}. Cela fera {3}$. OK?",
+        if !pbConfirm(_INTL("Donc vous voulez {2} {1}?\nCela fera {3}$. OK?",
                             itemname, quantity, price.to_s_formatted))
           next
         end
