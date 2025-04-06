@@ -612,15 +612,15 @@ module Settings
       "Indicator": "Classic",
       "CaptureMeDuration": 3.5,
       "Description": {
-        "EN": "Classic",
-        "DE": "Klassisch"
+        "EN": "Classic (Original Infinite Fusions Music Style)",
+        "DE": "Klassisch (Originaler Infinite Fusions Musikstyle)"
       }
     },
     {
       "SettingId": "random",
       "Description": {
-        "EN": "Random",
-        "DE": "Zufällig"
+        "EN": "Random (Picks A Random Music Style At The Start Of Each Battle)",
+        "DE": "Zufällig (Vor Jedem Kampf Wird Ein Zufälliger Musikstyle Ausgewählt)"
       }
     },
     {
@@ -630,6 +630,15 @@ module Settings
       "Description": {
         "EN": "Black/White",
         "DE": "Schwarz/Weiß"
+      }
+    },
+    {
+      "SettingId": "custom",
+      "Indicator": "Custom",
+      "CaptureMeDuration": 5.0,
+      "Description": {
+        "EN": "Custom (For Music Added By Yourself)",
+        "DE": "Custom (Für Selbst Hinzugefügte Musik)"
       }
     }
   ]
