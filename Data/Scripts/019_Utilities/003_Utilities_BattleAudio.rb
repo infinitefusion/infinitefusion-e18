@@ -9,9 +9,9 @@ def trimFileType(file)
   return file
 end
 
-def getSpecificGenOrRandomBGMPath(type, attachName="", fallback="", attachNameFallback="")
+def getAvailableAudioFilesFromPath(path, type)
   selected_music_option = $PokemonSystem.musicstyle
-  available_music = Dir.children("Audio/BGM/Types/"+type)
+  available_music = Dir.children(path+type)
   available_music_type = available_music
 
   if available_music.length
@@ -31,6 +31,11 @@ def getSpecificGenOrRandomBGMPath(type, attachName="", fallback="", attachNameFa
     available_music_type = available_music.find_all {|bgm| (bgm.upcase).include?(genIndicator.upcase) }
   end
 
+  return available_music_type
+end
+
+def getSpecificGenOrRandomBGMPath(type, attachName="", fallback="", attachNameFallback="")
+  available_music_type = getAvailableAudioFilesFromPath("Audio/BGM/Types/", type)
   amount_songs = available_music_type.length
 
   if amount_songs == 1

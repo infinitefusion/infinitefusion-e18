@@ -162,6 +162,7 @@ class PokeBattle_Battle
   # Switch to low health bgm if at least one of them has 25% or less hp
   # Switch back to original battle bgm if all of them are above 25%
   def updateMusic()
+    # pbDisplayPaused(_INTL("Check music update"))
     if @battlers.length
       hasLowHealthAlly = false
   
@@ -183,7 +184,17 @@ class PokeBattle_Battle
           pbBGMPlay(nameWithPath)
         elsif $PokemonSystem.enableLowHealth == 0
           $game_system.setLowHealthBGSPlaying
-          pbBGSPlay("Low Health")
+
+          available_low_health_sfx = getAvailableAudioFilesFromPath("Audio/BGS/Types/", "Low_Health")
+          amount_songs = available_low_health_sfx.length
+
+          if amount_songs == 1
+            pbBGSPlay("Types/Low_Health/"+trimFileType(available_low_health_sfx[0]))
+          elsif amount_songs > 1
+            pbBGSPlay("Types/Low_Health/"+trimFileType(available_low_health_sfx[rand(amount_songs)]))
+          else
+            pbBGSPlay("Types/Low_Health/Low Health (HeartGold&SoulSilver)")
+          end
         end
         return
       end
