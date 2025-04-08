@@ -20,23 +20,32 @@ class Game_System
   attr_accessor :autoscroll_x_speed
   attr_accessor :autoscroll_y_speed
   attr_accessor :bgm_position
+  attr_reader   :playing_bgm
+  attr_reader   :paused_bgm_track
+  attr_reader   :paused_bgm_position
+  attr_reader   :low_health_playing
+  attr_accessor :bgm_last_opposing
 
   def initialize
-    @map_interpreter    = Interpreter.new(0, true)
-    @battle_interpreter = Interpreter.new(0, false)
-    @timer              = 0
-    @timer_working      = false
-    @save_disabled      = false
-    @menu_disabled      = false
-    @encounter_disabled = false
-    @message_position   = 2
-    @message_frame      = 0
-    @save_count         = 0
-    @magic_number       = 0
-    @autoscroll_x_speed = 0
-    @autoscroll_y_speed = 0
-    @bgm_position       = 0
-    @bgs_position       = 0
+    @map_interpreter      = Interpreter.new(0, true)
+    @battle_interpreter   = Interpreter.new(0, false)
+    @timer                = 0
+    @timer_working        = false
+    @save_disabled        = false
+    @menu_disabled        = false
+    @encounter_disabled   = false
+    @message_position     = 2
+    @message_frame        = 0
+    @save_count           = 0
+    @magic_number         = 0
+    @autoscroll_x_speed   = 0
+    @autoscroll_y_speed   = 0
+    @bgm_position         = 0
+    @bgs_position         = 0
+    @paused_bgm_track     = nil
+    @paused_bgm_position  = nil
+    @low_health_playing   = false
+    @bgm_last_opposing    = false
   end
 
 ################################################################################
@@ -65,7 +74,7 @@ class Game_System
     if bgm!=nil && bgm.name!=""
       if FileTest.audio_exist?("Audio/BGM/"+bgm.name)
         bgm_play_internal2("Audio/BGM/"+bgm.name,
-           bgm.volume,bgm.pitch,@bgm_position) if !@defaultBGM
+            bgm.volume,bgm.pitch,@bgm_position) if !@defaultBGM
       end
     else
       @bgm_position = position if !@bgm_paused
@@ -111,10 +120,6 @@ class Game_System
     Audio.bgm_fade((time*1000).floor) if !@defaultBGM
   end
 
-  def playing_bgm
-    return @playing_bgm
-  end
-
   # Saves the currently playing background music for later playback.
   def bgm_memorize
     @memorized_bgm = @playing_bgm
@@ -128,6 +133,26 @@ class Game_System
   # Returns an RPG::AudioFile object for the currently playing background music
   def getPlayingBGM
     return (@playing_bgm) ? @playing_bgm.clone : nil
+  end
+
+  def setPausedBGM
+    if @playing_bgm
+      @paused_bgm_track = @playing_bgm.clone
+      @paused_bgm_position = @bgm_position
+    end
+  end
+
+  def clearPausedBGM
+    @paused_bgm_track = nil
+    @paused_bgm_position = 0
+  end
+
+  def setLowHealthBGSPlaying
+    @low_health_playing = true
+  end
+
+  def clearLowHealthBGSPlaying
+    @low_health_playing = false
   end
 
   def setDefaultBGM(bgm,volume=80,pitch=100)

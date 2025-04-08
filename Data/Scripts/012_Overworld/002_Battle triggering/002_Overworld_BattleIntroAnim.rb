@@ -27,6 +27,9 @@ def pbBattleAnimation(bgm=nil,battletype=0,foe=nil)
   pbMEFade(0.25)
   #pbWait(Graphics.frame_rate/4)
   pbMEStop
+  # Clear previous battle modifications
+  $game_system.clearLowHealthBGSPlaying
+  $game_system.clearPausedBGM
   # Play battle music
   bgm = pbGetWildBattleBGM([]) if !bgm
   pbBGMPlay(bgm)
@@ -108,11 +111,12 @@ def pbBattleAnimation(bgm=nil,battletype=0,foe=nil)
     $game_system.bgm_resume(playingBGM)
     $game_system.bgs_resume(playingBGS)
   end
-  $PokemonGlobal.nextBattleBGM       = nil
-  $PokemonGlobal.nextBattleME        = nil
-  $PokemonGlobal.nextBattleCaptureME = nil
-  $PokemonGlobal.nextBattleBack      = nil
-  $PokemonTemp.forced_alt_sprites=nil
+  $PokemonGlobal.nextBattleBGM          = nil
+  $PokemonGlobal.nextBattleME           = nil
+  $PokemonGlobal.nextBattleCaptureME    = nil
+  $PokemonGlobal.nextBattleBack         = nil
+  $PokemonGlobal.nextRandomGenIndicator = nil
+  $PokemonTemp.forced_alt_sprites       = nil
   $PokemonEncounters.reset_step_count
   # Fade back to the overworld
   viewport.color = Color.new(0,0,0,255)

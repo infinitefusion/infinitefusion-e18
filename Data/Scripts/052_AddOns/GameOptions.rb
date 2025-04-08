@@ -1,4 +1,26 @@
 class PokemonGameOption_Scene < PokemonOption_Scene
+  def getMusicEntryIndex
+    index = 0
+
+    Settings::BATTLE_MUSIC_STYLES.each_with_index do |desc, i|
+      if desc[:SettingId] == $PokemonSystem.musicstyle
+        index = i
+      end
+    end
+
+    return index
+  end
+
+  def getMusicDescriptions
+    descriptions = []
+
+    Settings::BATTLE_MUSIC_STYLES.each_with_index do |desc, i|
+      descriptions.push(desc[:Description][:EN])
+    end
+
+    return descriptions
+  end
+
   def pbGetOptions(inloadscreen = false)
     options = []
     options << SliderOption.new(_INTL("Music Volume"), 0, 100, 5,
@@ -31,6 +53,19 @@ class PokemonGameOption_Scene < PokemonOption_Scene
                                 }, "Sets the volume for sound effects"
     )
 
+    options << NumberOption.new(_INTL("Battle Music Style"), 1, Settings::BATTLE_MUSIC_STYLES.length,
+                                proc { getMusicEntryIndex },
+                                proc { |value| $PokemonSystem.musicstyle = Settings::BATTLE_MUSIC_STYLES[value][:SettingId] },
+                                getMusicDescriptions
+    )
+
+    options << EnumOption.new(_INTL("Play Low-Health"), [_INTL("On"), _INTL("Off")],
+                              proc { $PokemonSystem.enableLowHealth },
+                              proc { |value| $PokemonSystem.enableLowHealth = value },
+                              ["Play sound effect when Pokemon is in red health",
+                               "Don't play sound effect (Music variants from styles like B&W won't be disabled)"]
+    )
+    
     options << EnumOption.new(_INTL("Default Movement"), [_INTL("Walking"), _INTL("Running")],
                               proc { $PokemonSystem.runstyle },
                               proc { |value| $PokemonSystem.runstyle = value },
@@ -45,6 +80,7 @@ class PokemonGameOption_Scene < PokemonOption_Scene
                                 MessageConfig.pbSetTextSpeed(MessageConfig.pbSettingToTextSpeed(value))
                               }, "Sets the speed at which the text is displayed"
     )
+
     if $game_switches
       options << EnumOption.new(_INTL("Difficulty"), [_INTL("Easy"), _INTL("Normal"), _INTL("Hard")],
                                 proc { $Trainer.selected_difficulty },

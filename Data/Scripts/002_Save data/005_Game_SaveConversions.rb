@@ -29,6 +29,8 @@ SaveData.register_conversion(:v19_convert_PokemonSystem) do
     new_system.bgmvolume   = save_data[:pokemon_system].bgmvolume || new_system.bgmvolume
     new_system.sevolume    = save_data[:pokemon_system].sevolume || new_system.sevolume
     new_system.textinput   = save_data[:pokemon_system].textinput || new_system.textinput
+    new_system.musicstyle    = save_data[:pokemon_system].musicstyle || new_system.musicstyle
+    new_system.enableLowHealth    = save_data[:pokemon_system].enableLowHealth || new_system.enableLowHealth
     save_data[:pokemon_system] = new_system
   end
 end

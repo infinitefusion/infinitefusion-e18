@@ -339,6 +339,10 @@ class PokeBattle_Scene
   # This method can change the battle's music for example.
   def pbWildBattleSuccess
     @battleEnd = true
+    $game_system.bgm_last_opposing = false
+    if $game_system.low_health_playing
+      pbBGSFade()
+    end
     pbBGMPlay(pbGetWildVictoryME)
   end
 
@@ -346,6 +350,10 @@ class PokeBattle_Scene
   # This method can change the battle's music for example.
   def pbTrainerBattleSuccess
     @battleEnd = true
+    $game_system.bgm_last_opposing = false
+    if $game_system.low_health_playing
+      pbBGSFade()
+    end
     pbBGMPlay(pbGetTrainerVictoryME(@battle.opponent))
   end
 end

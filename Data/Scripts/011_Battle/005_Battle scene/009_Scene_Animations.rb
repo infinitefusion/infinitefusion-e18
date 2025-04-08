@@ -223,6 +223,8 @@ class PokeBattle_Scene
     while @sprites["dataBox_#{battler.index}"].animatingHP
       pbUpdate
     end
+    # Check if bgm needs to be switched
+    @battle.updateMusic()
   end
 
   def pbDamageAnimation(battler,effectiveness=0)
@@ -343,12 +345,29 @@ class PokeBattle_Scene
 
   def pbThrowSuccess
     return if @battle.opponent
+    # Clear previous battle modifications
+    if $game_system.low_health_playing
+      pbBGSFade()
+    end
+
     @briefMessage = false
-    pbMEPlay(pbGetWildCaptureME)
+
+    wildCaptureMeToPlay = pbGetWildCaptureME
+    wildCaptureMeDuration = 3.5 # 3.5 seconds
+
+    if wildCaptureMeToPlay.is_a?(String) && wildCaptureMeToPlay.include?("Audio/BGM")
+      Settings::BATTLE_MUSIC_STYLES.each_with_index do |desc, i|
+        if pbGetWildCaptureME.include?(desc[:SettingId]) && desc[:CaptureMeDuration]
+          wildCaptureMeDuration = desc[:CaptureMeDuration]
+        end
+      end
+    end
+
+    pbMEPlay(wildCaptureMeToPlay)
     i = 0
     loop do
       pbUpdate
-      break if i>=Graphics.frame_rate*3.5   # 3.5 seconds
+      break if i>=Graphics.frame_rate*wildCaptureMeDuration
       i += 1
     end
     pbMEStop

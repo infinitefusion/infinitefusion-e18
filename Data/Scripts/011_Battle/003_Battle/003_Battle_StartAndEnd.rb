@@ -280,6 +280,8 @@ class PokeBattle_Battle
     @scene.pbStartBattle(self)
     # Show trainers on both sides sending out Pokémon
     pbStartBattleSendOut(sendOuts)
+    # Check if bgm needs to be switched
+    updateMusic()
     # Weather announcement
     weather_data = GameData::BattleWeather.try_get(@field.weather)
     echoln "Current weather: #{@field.weather}"

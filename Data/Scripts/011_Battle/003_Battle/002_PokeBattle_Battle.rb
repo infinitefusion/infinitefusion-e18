@@ -350,6 +350,21 @@ class PokeBattle_Battle
     return pbAbleCount(idxBattler)==0
   end
 
+  def pbIsLastOpposing?()
+    aliveCount = @party2.count { |p| p && !p.fainted? }
+    totalCount = @party2.length
+
+    return aliveCount == 1 && totalCount > 1 && pbAbleNonActiveCount(1) == 0
+  end
+
+  def pbIsTrainerClassType?(index, type)
+    return @opponent && @opponent[index].trainer_type.to_s.include?(type)
+  end
+
+  def pbIsTrainerClassTypeAndOne?(type)
+    return @opponent && @opponent.length == 1 && pbIsTrainerClassType?(0, type)
+  end
+
   # For the given side of the field (0=player's, 1=opponent's), returns an array
   # containing the number of able Pokémon in each team.
   def pbAbleTeamCounts(side)
