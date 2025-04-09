@@ -246,7 +246,7 @@ class PokeBattle_Battle
       elsif battler.turnCount >= 2
         pbDisplayBrief(_INTL("{1}, reviens!", battler.name))
       else
-        pbDisplayBrief(_INTL("{1}, On Échange! Reviens!", battler.name))
+        pbDisplayBrief(_INTL("{1}, on change! Reviens!", battler.name))
       end
     else
       owner = pbGetOwnerName(battler.index)

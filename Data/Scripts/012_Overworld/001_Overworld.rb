@@ -847,7 +847,7 @@ def pbItemBall(item, quantity = 1, item_name = "", canRandom = true)
     else
       pbMessage(_INTL("\\me[{1}]Tu as trouvé #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
     end
-    pbMessage(_INTL("Tu as rangé {1}\\ndans la Poche <icon=bagPocket{2}>\\c[1]{3} Poche\\c[0].",
+    pbMessage(_INTL("Tu as rangé {1}\\ndans la Poche <icon=bagPocket{2}>\\c[1]{3}\\c[0] du Sac.",
                     itemname, pocket, PokemonBag.pocketNames()[pocket]))
 
     promptRegisterItem(item)

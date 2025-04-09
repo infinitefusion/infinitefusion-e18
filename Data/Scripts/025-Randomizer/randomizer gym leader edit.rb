@@ -345,7 +345,7 @@ def Kernel.pbShuffleTrainers(bst_range = 50, customsOnly = false, customsList = 
     i += 1
     if i % 2 == 0
       n = (i.to_f / trainers.length) * 100
-      Kernel.pbMessageNoSound(_INTL("\\ts[]Shuffling trainers...\\n {1}%\\^", sprintf('%.2f', n), PBSpecies.maxValue))
+      Kernel.pbMessageNoSound(_INTL("\\ts[]Mélange des dresseurs en cours...\\n {1}%\\^", sprintf('%.2f', n), PBSpecies.maxValue))
     end
   end
   $PokemonGlobal.randomTrainersHash = randomTrainersHash
