@@ -1925,7 +1925,11 @@ def track_pokemon()
   currently_roaming = getAllCurrentlyRoamingPokemon()
   echoln currently_roaming
   weather_data = []
-  mapinfos = $RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
+  if Settings::LANGUAGES.length >= 2 && Settings::LANGUAGES[$PokemonSystem.language][1] == "french.dat"
+    mapinfos = load_data("Data/MapInfosFR.rxdata")
+  else
+    mapinfos = load_data("Data/MapInfos.rxdata")
+  end
   currently_roaming.each do |roamer_id|
     map_id = $PokemonGlobal.roamPosition[roamer_id]
     map_name = mapinfos[map_id].name

@@ -222,40 +222,40 @@ end
 def Kernel.sumGameStats()
   stringStats = ""
 
-  stringStats << "Seen " << $Trainer.pokedexSeen.to_s << " Pokémon"
-  stringStats << "\nCaught " << $Trainer.pokedexOwned.to_s << " Pokémon"
+  stringStats << "Tu as vu " << $Trainer.pokedexSeen.to_s << " Pokémon"
+  stringStats << "\nTu as attrapé " << $Trainer.pokedexOwned.to_s << " Pokémon"
 
-  stringStats << "\nBeat the Elite Four " << $game_variables[VAR_STAT_NB_ELITE_FOUR].to_s << " times"
-  stringStats << "\nFused " << $game_variables[VAR_STAT_NB_FUSIONS].to_s << " Pokémon"
+  stringStats << "\nTu as vaincu le Conseil4 " << $game_variables[VAR_STAT_NB_ELITE_FOUR].to_s << " fois"
+  stringStats << "\nTu as fusionné " << $game_variables[VAR_STAT_NB_FUSIONS].to_s << " Pokémon"
 
-  stringStats << "\nRematched " << $game_variables[VAR_STAT_LEADER_REMATCH].to_s << " Gym Leaders"
-  stringStats << "\nTook " << $PokemonGlobal.stepcount.to_s << " steps"
-  stringStats << "\nVisited " << countVisitedMaps.to_s << " different areas"
-  stringStats << "\nUsed " << $game_variables[VAR_STAT_RARE_CANDY] << " Rare Candies"
+  stringStats << "\nTu as refait un combat contre " << $game_variables[VAR_STAT_LEADER_REMATCH].to_s << " Champions d'Arène"
+  stringStats << "\nTu as fait " << $PokemonGlobal.stepcount.to_s << " pas"
+  stringStats << "\nTu as visité " << countVisitedMaps.to_s << " zones différentes"
+  stringStats << "\nTu as utilisé " << $game_variables[VAR_STAT_RARE_CANDY] << " Super Bonbon"
 
   if $game_switches[910]
-    stringStats << "\nMade " << $game_variables[VAR_STAT_NB_WONDERTRADES].to_s << " Wonder Trades"
+    stringStats << "\nTu as effectué " << $game_variables[VAR_STAT_NB_WONDERTRADES].to_s << " Échanges Miracles"
   end
 
-  stringStats << "\nTipped $" << $game_variables[VAR_STAT_CLOWN_TIP_TOTAL].to_s << " to clowns"
-  stringStats << "\nDestroyed " << $game_variables[VAR_STAT_NB_SANDCASTLES].to_s << " sandcastles"
-  stringStats << "\nReported " << $game_variables[VAR_NB_CRIMES_REPORTED].to_s << " crimes" if $game_variables[VAR_NB_CRIMES_REPORTED] > 0
+  stringStats << "\nTu as donné " << $game_variables[VAR_STAT_CLOWN_TIP_TOTAL].to_s << "$ aux clowns"
+  stringStats << "\nTu as détruit " << $game_variables[VAR_STAT_NB_SANDCASTLES].to_s << " châteaux de sable"
+  stringStats << "\nTu as signalé " << $game_variables[VAR_NB_CRIMES_REPORTED].to_s << " crimes" if $game_variables[VAR_NB_CRIMES_REPORTED] > 0
 
 
   if $game_variables[VAR_STAT_GAMBLER_WINS] > 0 || $game_variables[VAR_STAT_GAMBLER_LOSSES] > 0
-    stringStats << "\nWon $" << $game_variables[VAR_STAT_GAMBLER_WINS].to_s << " against gamblers"
-    stringStats << "\nLost $" << $game_variables[VAR_STAT_GAMBLER_LOSSES].to_s << " against gamblers"
+    stringStats << "\nTu as gagné " << $game_variables[VAR_STAT_GAMBLER_WINS].to_s << "$ contre les parieurs"
+    stringStats << "\nTu as perdu " << $game_variables[VAR_STAT_GAMBLER_LOSSES].to_s << "$ contre les parieurs"
   end
-  stringStats << "\nSpent $" << $game_variables[VAR_STAT_HOTELS_SPENT].to_s << " at hotels"
+  stringStats << "\nTu as dépensé " << $game_variables[VAR_STAT_HOTELS_SPENT].to_s << "$ dans des hôtels"
 
-  stringStats << "\nAccepted " << $game_variables[VAR_STAT_QUESTS_ACCEPTED].to_s << " quests"
-  stringStats << "\nCompleted " << $game_variables[VAR_STAT_QUESTS_COMPLETED].to_s << " quests"
-  stringStats << "\nDiscovered " << $game_variables[VAR_STAT_NB_SECRETS].to_s << " secrets"
+  stringStats << "\nTu as accepté " << $game_variables[VAR_STAT_QUESTS_ACCEPTED].to_s << " quêtes"
+  stringStats << "\nTu as complété " << $game_variables[VAR_STAT_QUESTS_COMPLETED].to_s << " quêtes"
+  stringStats << "\nTu as découvert " << $game_variables[VAR_STAT_NB_SECRETS].to_s << " secrets"
 
   if $game_switches[912]
-    stringStats << "\nDied " << $game_variables[191].to_s << " times in Pikachu's adventure"
+    stringStats << "\nTu es mort " << $game_variables[191].to_s << " fois dans l'aventure de Pikachu"
     if $game_variables[193] >= 1
-      stringStats << "\nCollected " << $game_variables[194].to_s << " coins with Pikachu"
+      stringStats << "\nTu as collecté " << $game_variables[194].to_s << " pièces avec Pikachu"
     end
   end
   return stringStats

@@ -435,7 +435,11 @@ end
 
 def Kernel.getRoamingMap(roamingArrayPos)
   curmap = $PokemonGlobal.roamPosition[roamingArrayPos]
-  mapinfos = $RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
+  if Settings::LANGUAGES.length >= 2 && Settings::LANGUAGES[$PokemonSystem.language][1] == "french.dat"
+    mapinfos = load_data("Data/MapInfosFR.rxdata")
+  else
+    mapinfos = load_data("Data/MapInfos.rxdata")
+  end
   text = mapinfos[curmap].name #,(curmap==$game_map.map_id) ? _INTL("(this map)") : "")
   return text
 end

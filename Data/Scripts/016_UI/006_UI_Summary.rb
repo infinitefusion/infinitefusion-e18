@@ -576,8 +576,8 @@ class PokemonSummary_Scene
     memo += _INTL("<c3=404040,B0B0B0>\"L'Inspecteur d'Oeufs\"\n")
     eggstate = _INTL("Il semble que cet oeuf mettra beaucoup de temps à éclore.")
     eggstate = _INTL("Qu'est-ce qui va bien éclore? Cela ne semble pas proche d'éclore.") if @pokemon.steps_to_hatch < 10200
-    eggstate = _INTL("Il semble bouger de temps en temps. Il est peut-être sur le point d'éclore.") if @pokemon.steps_to_hatch < 2550
-    eggstate = _INTL("On peut entendre des bruits provenant de l'intérieur! L'oeuf va bientôt éclore!") if @pokemon.steps_to_hatch < 1275
+    eggstate = _INTL("Il semble bouger de temps en temps. Il va peut-être éclore..") if @pokemon.steps_to_hatch < 2550
+    eggstate = _INTL("On peut entendre des bruits! L'oeuf va bientôt éclore!") if @pokemon.steps_to_hatch < 1275
     memo += sprintf("<c3=404040,B0B0B0>%s\n", eggstate)
     # Draw all text
     drawFormattedTextEx(overlay, 232, 82, 268, memo)
