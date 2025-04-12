@@ -97,7 +97,7 @@ class HatShopView < ClothesShopView
       @adapter.updateTrainerPreview(itemwindow.item, @sprites["trainerPreview"])
       displayLayerIcons(item)
     else
-      description = _INTL("Quit.")
+      description = _INTL("Quitter.")
     end
     @sprites["itemtextwindow"].text = description
   end

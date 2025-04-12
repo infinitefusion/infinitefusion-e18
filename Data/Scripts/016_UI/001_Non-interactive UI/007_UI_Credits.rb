@@ -147,13 +147,15 @@ KitsuneKouta<s>xLeD
 Lisa Anthony<s>
 and everyone else who helped out
 
-The French Team who make the vf:
+The French Team who makes the vf:
 Anthony<s>(leader of this project)
 Fragzzh<s>(dev support)
+Orgality<s>(graphic designer)
 Pokebio<s>(helper)
 Vaiga2140<s>(helper)
-rayzek<s>(helper)
+Rayzek<s>(helper)
 Ravens<s>(beta tester)
+Thortue<s>(beta tester)
 
 
 "mkxp-z" by:

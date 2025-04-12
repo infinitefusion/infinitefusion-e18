@@ -75,7 +75,7 @@ class ClothesShopView < PokemonMart_Scene
           text = @adapter.getDescription(item)
         end
       else
-        text = _INTL("Quit.")
+        text = _INTL("Quitter.")
       end
       @sprites["itemtextwindow"].text = text
       itemwindow.refresh
