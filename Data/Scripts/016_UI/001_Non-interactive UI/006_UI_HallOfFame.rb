@@ -323,10 +323,10 @@ class HallOfFame_Scene
     pubid = sprintf("%05d", $Trainer.public_ID)
     lefttext = _INTL("Nom<r>{1}<br>", $Trainer.name)
     lefttext += _INTL("IDNo.<r>{1}<br>", pubid)
-    lefttext += _ISPRINTF("Time<r>{1:02d}:{2:02d}<br>", hour, min)
+    lefttext += _ISPRINTF("Temps<r>{1:02d}:{2:02d}<br>", hour, min)
     lefttext += _INTL("Pokédex<r>{1}/{2}<br>",
                       $Trainer.pokedex.owned_count, $Trainer.pokedex.seen_count)
-    lefttext += _INTL("Difficulty<r>{1}<br>", getDifficulty())
+    lefttext += _INTL("Difficulté<r>{1}<br>", getDifficulty())
     @sprites["messagebox"] = Window_AdvancedTextPokemon.new(lefttext)
     @sprites["messagebox"].viewport = @viewport
     @sprites["messagebox"].width = 192 if @sprites["messagebox"].width < 192
