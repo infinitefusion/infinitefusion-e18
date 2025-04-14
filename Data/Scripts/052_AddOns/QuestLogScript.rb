@@ -116,7 +116,7 @@ QUESTS = {
 
   #Fuchsia City
   18 => Quest.new(18, "Nettoyage de la piste cyclable", "Débarrassez-vous de tous les Pokémon qui salissent la piste cyclable.", QuestBranchHotels, "BW (77)", "Parmanie", HotelQuestColor),
-  19 => Quest.new(19, "Pokémon perdu!", "Retrouvez le dresseur perdu de Chansey!", QuestBranchHotels, "113", "Parmanie", HotelQuestColor),
+  19 => Quest.new(19, "Pokémon perdu!", "Retrouvez le dresseur perdu de Leveinard!", QuestBranchHotels, "113", "Parmanie", HotelQuestColor),
   20 => Quest.new(20, "Course cycliste!", "Allez à la rencontre de la cycliste au bas de la route 17 et battez son temps sur la piste cyclable!", QuestBranchHotels, "BW032", "Piste Cyclable", HotelQuestColor),
 
   #Crimson City

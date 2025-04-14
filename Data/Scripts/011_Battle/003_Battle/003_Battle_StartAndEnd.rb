@@ -197,7 +197,7 @@ class PokeBattle_Battle
         sent = sendOuts[side][i]
         case sent.length
         when 1
-          msg += _INTL("{1} envoyé {2}!",t.full_name,@battlers[sent[0]].name)
+          msg += _INTL("{1} a envoyé {2}!",t.full_name,@battlers[sent[0]].name)
         when 2
           msg += _INTL("{1} a envoyé {2} et {3}!",t.full_name,
              @battlers[sent[0]].name,@battlers[sent[1]].name)

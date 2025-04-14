@@ -346,7 +346,7 @@ end
 #===============================================================================
 class PokemonOption_Scene
   def getDefaultDescription
-    return _INTL("Vitesse de dialogue {1}.", 1 + $PokemonSystem.textskin)
+    return _INTL("Texture de dialogue N.{1}", 1 + $PokemonSystem.textskin)
   end
 
   def pbUpdate
@@ -366,7 +366,7 @@ class PokemonOption_Scene
     @sprites["title"] = Window_UnformattedTextPokemon.newWithSize(
       _INTL("Options"), 0, 0, Graphics.width, 64, @viewport)
     @sprites["textbox"] = pbCreateMessageWindow
-    @sprites["textbox"].text = _INTL("Vitesse de dialogue {1}.", 1 + $PokemonSystem.textskin)
+    @sprites["textbox"].text = _INTL("Texture de dialogue N.{1}", 1 + $PokemonSystem.textskin)
     @sprites["textbox"].letterbyletter = false
     pbSetSystemFont(@sprites["textbox"].contents)
   end

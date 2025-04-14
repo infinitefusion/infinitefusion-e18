@@ -195,18 +195,18 @@ class PokemonTrade_Scene
     speciesname1=GameData::Species.get(@pokemon.species).name
     speciesname2=GameData::Species.get(@pokemon2.species).name
     pbMessageDisplay(@sprites["msgwindow"],
-       _ISPRINTF("{1:s}\r\nID: {2:05d}   OT: {3:s}\\wtnp[0]",
+       _ISPRINTF("{1:s}\r\nID: {2:05d}   DO: {3:s}\\wtnp[0]",
        @pokemon.name,@pokemon.owner.public_id,@pokemon.owner.name)) { pbUpdate }
     pbMessageWaitForInput(@sprites["msgwindow"],50,true) { pbUpdate }
     pbPlayDecisionSE
     pbScene1
     pbMessageDisplay(@sprites["msgwindow"],
-       _INTL("Pour {1} {2},\r\n{3} envoye {4}.\1",@trader1,@pokemon.name,@trader2,@pokemon2.name)) { pbUpdate }
+       _INTL("{1} envoie son {2},\r\n{3} a envoyé {4}.\1",@trader1,@pokemon.name,@trader2,@pokemon2.name)) { pbUpdate }
     pbMessageDisplay(@sprites["msgwindow"],
        _INTL("{1} fait ses adieux à {2}.",@trader2,@pokemon2.name)) { pbUpdate }
     pbScene2
     pbMessageDisplay(@sprites["msgwindow"],
-       _ISPRINTF("{1:s}\r\nNN: {2:s}   OT: {3:s}\1", speciesname2,@pokemon2.name,@pokemon2.owner.name)) { pbUpdate }
+       _ISPRINTF("{1:s}\r\nNOM: {2:s}   DO: {3:s}\1", speciesname2,@pokemon2.name,@pokemon2.owner.name)) { pbUpdate }
     pbMessageDisplay(@sprites["msgwindow"],
        _INTL("Prends bien soin de {1}.",@pokemon2.name)) { pbUpdate }
   end
