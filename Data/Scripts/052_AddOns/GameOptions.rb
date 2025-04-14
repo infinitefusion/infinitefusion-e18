@@ -166,7 +166,7 @@ class PokemonGameOption_Scene < PokemonOption_Scene
                                "Aucune invite à changer de Pokémon avant que l'adversaire n'envoie le suivant"]
     )
 
-    options << NumberOption.new(_INTL("Frame de Dialogue"), 1, Settings::SPEECH_WINDOWSKINS.length,
+    options << NumberOption.new(_INTL("Texture du Cadre"), 1, Settings::SPEECH_WINDOWSKINS.length,
                                 proc { $PokemonSystem.textskin },
                                 proc { |value|
                                   $PokemonSystem.textskin = value
