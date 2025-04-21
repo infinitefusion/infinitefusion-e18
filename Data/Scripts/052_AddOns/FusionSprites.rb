@@ -58,6 +58,38 @@ module GameData
       end
       return offset
     end
+
+    def self.calculateShinyHueOffset2(dex_number, isBodyShiny = false, isHeadShiny = false)
+      if dex_number <= NB_POKEMON
+        if SHINY_COLOR_OFFSETS2[dex_number]
+          return SHINY_COLOR_OFFSETS2[dex_number]
+        end
+        body_number = dex_number
+        head_number = dex_number
+
+      else 
+        body_number = getBodyID(dex_number)
+        head_number = getHeadID(dex_number, body_number)
+      end
+      if isBodyShiny && isHeadShiny && SHINY_COLOR_OFFSETS2[body_number] && SHINY_COLOR_OFFSETS2[head_number] && (SHINY_BW_OFFSETS[body_number] + SHINY_BW_OFFSETS[head_number] == 0)
+        if (SHINY_COLOR_OFFSETS2[body_number] || SHINY_COLOR_OFFSETS2[head_number]) > 302 && (SHINY_COLOR_OFFSETS2[body_number] || SHINY_COLOR_OFFSETS2[head_number]) < 300
+          offset = SHINY_COLOR_OFFSETS2[body_number] + SHINY_COLOR_OFFSETS2[head_number]
+        elsif SHINY_COLOR_OFFSETS2[body_number] >= 300 && SHINY_COLOR_OFFSETS2[body_number] <= 302
+          offset = SHINY_COLOR_OFFSETS2[head_number]
+        else 
+          offset = SHINY_COLOR_OFFSETS2[body_number]
+        end
+      elsif isHeadShiny && SHINY_COLOR_OFFSETS2[head_number]
+        offset = SHINY_COLOR_OFFSETS2[head_number]
+      elsif isBodyShiny && SHINY_COLOR_OFFSETS2[body_number]
+        offset = SHINY_COLOR_OFFSETS2[body_number]
+      else
+        offset = calculateShinyHueOffsetDefaultMethod(body_number, head_number, dex_number, isBodyShiny, isHeadShiny)
+      end
+      return offset
+    end
+
+
     def self.calculateBWShinyOffset(dex_number, isBodyShiny = false, isHeadShiny = false)
       if dex_number <= NB_POKEMON
         if SHINY_BW_OFFSETS[dex_number]
@@ -129,6 +161,7 @@ module GameData
       if isShiny
         sprite.shiftColors(self.calculateShinyHueOffset(dex_number, bodyShiny, headShiny))
         sprite.shiftBWColors(self.calculateBWShinyOffset(dex_number, bodyShiny, headShiny))
+        sprite.shiftColors(self.calculateShinyHueOffset2(dex_number, bodyShiny, headShiny))
       end
       return sprite
     end
