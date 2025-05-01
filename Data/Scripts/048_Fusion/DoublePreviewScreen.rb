@@ -109,7 +109,8 @@ class DoublePreviewScreen
     # picturePath = getPicturePath(head_pokemon, body_pokemon)
     # bitmap = AnimatedBitmap.new(picturePath)
     spriteLoader = BattleSpriteLoader.new
-    bitmap = GameData::Species.front_sprite_bitmap(dexNumber, isShiny, headShiny, bodyShiny)
+    bitmap = GameData::Species.front_sprite_bitmap(dexNumber)
+    bitmap.shiftAllColors(dexNumber, bodyShiny, headShiny)
     bitmap.scale_bitmap(Settings::FRONTSPRITE_SCALE)
     pif_sprite = spriteLoader.obtain_fusion_pif_sprite(head_pokemon,body_pokemon)
     #hasCustom = picturePath.include?("CustomBattlers")

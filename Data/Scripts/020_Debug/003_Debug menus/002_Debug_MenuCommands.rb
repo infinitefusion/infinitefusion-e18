@@ -540,47 +540,25 @@ DebugMenuCommands.register("changehue", {
   "name"        => _INTL("Change HUE"),
   "description" => _INTL("Change HUE of a specific shiny pokemon."),
   "effect"      => proc {
-    params = ChooseNumberParams.new
-    params.setRange(1, 360)
-    params.setInitialValue(1)
-    params.setCancelValue(0)
-    hue = pbMessageChooseNumber(_INTL("Choose the number of HUE."), params)
+    hue = pbEnterPlayerName(_INTL("Choose the number of HUE. (R G B.R' G' B')"), 12, 25)
     params = ChooseNumberParams.new
     params.setRange(1, NB_POKEMON)
     params.setInitialValue(1)
     params.setCancelValue(0)
     dex_number = pbMessageChooseNumber(_INTL("Choose the pokemon to apply."), params)
-    
-    SHINY_COLOR_OFFSETS[dex_number] = hue
-
-    pbMessage(_INTL("The HUE was changed."))
-  }
-})
-
-DebugMenuCommands.register("changebwhue", {
-  "parent"      => "pokemonmenu",
-  "name"        => _INTL("Change BW HUE"),
-  "description" => _INTL("Change the black and white HUE of a specific shiny pokemon."),
-  "effect"      => proc {
-    command = pbShowCommands(nil, ["Brighter", "Darker"])
-    if command == 1
-      switch = 1
+    if  SHINY_COLOR_OFFSETS[dex_number].keys.count > 1
+      params = ChooseNumberParams.new
+      params.setRange(1, SHINY_COLOR_OFFSETS[dex_number].keys.count)
+      params.setInitialValue(1)
+      params.setCancelValue(0)
+      color = pbMessageChooseNumber(_INTL("Choose the color to apply."), params)
     else
-      switch = -1
+      color = 1
     end
-    params = ChooseNumberParams.new
-    params.setRange(0, 255)
-    params.setInitialValue(0)
-    hue = pbMessageChooseNumber(_INTL("Choose the number of HUE."), params) * switch
-    params = ChooseNumberParams.new
-    params.setRange(1, NB_POKEMON)
-    params.setInitialValue(1)
-    params.setCancelValue(0)
-    dex_number = pbMessageChooseNumber(_INTL("Choose the pokemon to apply."), params)
-    
-    SHINY_BW_OFFSETS[dex_number] = hue
-
-    pbMessage(_INTL("The BW HUE was changed."))
+    if color
+      SHINY_COLOR_OFFSETS[dex_number][:"c#{color}"] = hue
+    end
+    pbMessage(_INTL("The HUE was changed. {1}", hue))
   }
 })
 

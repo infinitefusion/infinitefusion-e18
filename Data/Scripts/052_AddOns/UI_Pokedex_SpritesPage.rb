@@ -46,7 +46,6 @@ class PokemonPokedexInfo_Scene < Bitmap
     @sprites["bgSelected_next"].visible = false
 
     @creditsOverlay = BitmapSprite.new(Graphics.width, Graphics.height, @viewport).bitmap
-
   end
 
   def initializeSpritesPage(altsList)
@@ -100,7 +99,6 @@ class PokemonPokedexInfo_Scene < Bitmap
       @sprites["previousSprite"].bitmap = load_pif_sprite(@previous_pif_sprite)
       @sprites["previousSprite"].visible = true
     end
-
   end
 
   def load_pif_sprite(pif_sprite)
@@ -208,35 +206,37 @@ class PokemonPokedexInfo_Scene < Bitmap
     end
     @selected_pif_sprite = get_pif_sprite(@available[@selected_index])
 
-
     @previous_pif_sprite = get_pif_sprite(@available[previousIndex])
     @next_pif_sprite = get_pif_sprite(@available[nextIndex])
 
     if previousIndex != nextIndex
-      @sprites["previousSprite"].bitmap = load_pif_sprite(@previous_pif_sprite) 
-      if @pokemon != nil && @pokemon.shiny?
-        @sprites["previousSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
-        @sprites["previousSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
-      elsif @isShiny
-        @sprites["previousSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
-        @sprites["previousSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+      @sprites["previousSprite"].bitmap = load_pif_sprite(@previous_pif_sprite)
+
+      if @pokemon != nil && @pokemon.shiny? && @sprites["previousSprite"].bitmap
+        @sprites["previousSprite"].bitmap.hue_clear(@pokemon.id_number, "_previousSprite")
+        @sprites["previousSprite"].bitmap.hue_changecolors(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?, "_previousSprite")
+      elsif @isShiny && @sprites["previousSprite"].bitmap
+        @sprites["previousSprite"].bitmap.hue_clear(@idSpecies, "_previousSprite")
+        @sprites["previousSprite"].bitmap.hue_changecolors(@idSpecies, @isBody_Shiny, @isHead_Shiny, "_previousSprite")
       end
     end
+
     @sprites["selectedSprite"].bitmap = load_pif_sprite(@selected_pif_sprite)
-    if @pokemon != nil && @pokemon.shiny?
-      @sprites["selectedSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
-      @sprites["selectedSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
-    elsif @isShiny
-      @sprites["selectedSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
-      @sprites["selectedSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+    if @pokemon != nil && @pokemon.shiny? && @sprites["selectedSprite"].bitmap
+      @sprites["selectedSprite"].bitmap.hue_clear(@pokemon.id_number, "_selectedSprite")
+      @sprites["selectedSprite"].bitmap.hue_changecolors(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?, "_selectedSprite")
+    elsif @isShiny && @sprites["selectedSprite"].bitmap
+      @sprites["selectedSprite"].bitmap.hue_clear(@idSpecies, "_selectedSprite")
+      @sprites["selectedSprite"].bitmap.hue_changecolors(@idSpecies, @isBody_Shiny, @isHead_Shiny, "_selectedSprite")
     end
+
     @sprites["nextSprite"].bitmap = load_pif_sprite(@next_pif_sprite)
-    if @pokemon != nil && @pokemon.shiny?
-      @sprites["nextSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
-      @sprites["nextSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?))
-    elsif @isShiny
-      @sprites["nextSprite"].bitmap.hue_changefix(GameData::Species.calculateShinyHueOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
-      @sprites["nextSprite"].bitmap.hue_nocolor(GameData::Species.calculateBWShinyOffset(@idSpecies, @isBody_Shiny, @isHead_Shiny))
+    if @pokemon != nil && @pokemon.shiny? && @sprites["nextSprite"].bitmap
+      @sprites["nextSprite"].bitmap.hue_clear(@pokemon.id_number, "_nextSprite")
+      @sprites["nextSprite"].bitmap.hue_changecolors(@pokemon.id_number, @pokemon.bodyShiny?, @pokemon.headShiny?, "_nextSprite")
+    elsif @isShiny && @sprites["nextSprite"].bitmap
+      @sprites["nextSprite"].bitmap.hue_clear(@idSpecies, "_nextSprite")
+      @sprites["nextSprite"].bitmap.hue_changecolors(@idSpecies, @isBody_Shiny, @isHead_Shiny, "_nextSprite")
     end
     #selected_bitmap = @sprites["selectedSprite"].getBitmap
     # sprite_path = selected_bitmap.path
@@ -253,7 +253,7 @@ class PokemonPokedexInfo_Scene < Bitmap
 
     x = Graphics.width / 2 - 75
     y = Graphics.height - 60
-    spritename = File.basename(filename, '.*')
+    spritename = File.basename(filename, ".*")
 
     if !generated_sprite
       discord_name = getSpriteCredits(spritename)
@@ -263,7 +263,7 @@ class PokemonPokedexInfo_Scene < Bitmap
       discord_name = "" #"Japeal\n(Generated)"
     end
     discord_name = "Imported sprite" if @selected_pif_sprite.local_path
-    author_name = File.basename(discord_name, '#*')
+    author_name = File.basename(discord_name, "#*")
 
     label_base_color = Color.new(248, 248, 248)
     label_shadow_color = Color.new(104, 104, 104)
@@ -356,7 +356,7 @@ class PokemonPokedexInfo_Scene < Bitmap
   end
 
   def sprite_is_alt(sprite_path)
-    spritename = File.basename(sprite_path, '.*')
+    spritename = File.basename(sprite_path, ".*")
     return spritename.match?(/[a-zA-Z]/)
   end
 
@@ -370,9 +370,21 @@ class PokemonPokedexInfo_Scene < Bitmap
           pbMessage("Ce sprite est déjà le sprite affiché")
         end
       else
-        message = 'Souhaitez-vous utiliser ce sprite à la place du sprite actuel?'
+        message = "Souhaitez-vous utiliser ce sprite à la place du sprite actuel?"
         if pbConfirmMessage(_INTL(message))
-          swap_main_sprite()
+          # Vérifier que @sprites["selectedSprite"] et son bitmap existent
+          if @sprites["selectedSprite"] && @sprites["selectedSprite"].bitmap
+            if @pokemon
+              @sprites["selectedSprite"].bitmap.hue_clear(@pokemon.id_number, "")
+            elsif @idSpecies
+              @sprites["selectedSprite"].bitmap.hue_clear(@idSpecies, "")
+            else
+              @sprites["selectedSprite"].bitmap.hue_clear(getDexNumberForSpecies(@species), "")
+            end
+          end
+  
+          # Appeler swap_main_sprite si tout est valide
+          swap_main_sprite() if @selected_pif_sprite
           return true
         end
       end

@@ -133,7 +133,7 @@ module GameData
     ["Lévia", "tor"],
     ["Lokh", "lass"],
     ["Méta", "morph"],
-    ["Evo", "li"],
+    ["Évo", "li"],
     ["Aqua", "li"],
     ["Volt", "ali"],
     ["Pyro", "li"],

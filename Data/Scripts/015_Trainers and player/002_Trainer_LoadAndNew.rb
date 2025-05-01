@@ -129,8 +129,8 @@ def pbMissingTrainer(tr_type, tr_name, tr_version)
     if $game_switches[SWITCH_MODERN_MODE]
       message << "[MODERN MODE] "
     end
-    message << "This trainer appears to be missing from the game. Please report this on the game's Discord channel whenever you get a chance."
-    pbMessage(message)
+    message << "Ce dresseur semble être absent du jeu. Veuillez signaler cela sur le canal Discord du jeu dès que vous en avez l'occasion."
+    pbMessage(_INTL(message))
     return 1
   end
   message = ""
