@@ -53,7 +53,8 @@ module GameData
 
     def self.calculateCustomShinyHueOffset(dex_number, bodyShiny, headShiny)
       result = []
-      valid_format = /^\d+ \d+ \d+\.\d+ \d+ \d+$/
+      valid_format_rgb = /^\d+ \d+ \d+\.\d+ \d+ \d+$/ # Format RGB classique
+      valid_format_hex = /^#([0-9a-fA-F]{6})\.#([0-9a-fA-F]{6})$/ # Format hexadécimal
 
       ids = []
       if dex_number <= NB_POKEMON
@@ -67,11 +68,28 @@ module GameData
         offsets = SHINY_COLOR_OFFSETS[id]
         next unless offsets
         offsets.each_value do |value|
-          result << value if value.is_a?(String) && value.match?(valid_format)
+          if value.is_a?(String)
+            if value.match?(valid_format_rgb)
+              result << value
+            elsif value.match?(valid_format_hex)
+              # Conversion des couleurs hexadécimales en RGB
+              from_hex, to_hex = value.split(".")
+              from_rgb = hex_to_rgb(from_hex)
+              to_rgb = hex_to_rgb(to_hex)
+              result << "#{from_rgb.join(" ")}.#{to_rgb.join(" ")}"
+            end
+          end
         end
       end
 
       result.empty? ? "nil" : result.join("|")
+    end
+    def self.hex_to_rgb(hex)
+      hex = hex.delete("#")
+      r = hex[0..1].to_i(16)
+      g = hex[2..3].to_i(16)
+      b = hex[4..5].to_i(16)
+      [r, g, b]
     end
 
     def self.calculateShinyHueOffsetDefaultMethod(body_number, head_number, dex_number, isBodyShiny = false, isHeadShiny = false)
