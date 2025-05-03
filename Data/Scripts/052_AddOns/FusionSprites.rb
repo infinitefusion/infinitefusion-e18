@@ -73,13 +73,13 @@ module GameData
           if value.is_a?(String)
             if value.match?(valid_format_rgb)
               from_rgb, to_rgb = value.split(".").map { |rgb| rgb.split.map(&:to_i) }
-              next if from_rgb == to_rgb && bodyShiny && headShiny && color_to_stay > 5 # for always having black is black white is white gray is gray...
+              next if from_rgb == to_rgb && bodyShiny && headShiny && color_to_stay > 4 # for always having black is black white is white gray is gray...
               result << value
             elsif value.match?(valid_format_hex)
               from_hex, to_hex = value.split(".")
               from_rgb = hex_to_rgb(from_hex)
               to_rgb = hex_to_rgb(to_hex)
-              next if from_rgb == to_rgb && bodyShiny && headShiny && color_to_stay > 5  # for always having black is black white is white gray is gray...
+              next if from_rgb == to_rgb && bodyShiny && headShiny && getBodyID(dex_number) != getHeadID(dex_number, getBodyID(dex_number)) && color_to_stay > 4  # for always having black is black white is white gray is gray...
               result << "#{from_rgb.join(" ")}.#{to_rgb.join(" ")}"
             end
           end
