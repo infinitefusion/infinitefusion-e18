@@ -55,7 +55,7 @@ module GameData
       result = []
       valid_format_rgb = /^\d+ \d+ \d+\.\d+ \d+ \d+$/ # Format RGB classique
       valid_format_hex = /^#([0-9a-fA-F]{6})\.#([0-9a-fA-F]{6})$/ # Format hexadécimal
-
+    
       ids = []
       if dex_number <= NB_POKEMON
         ids << dex_number
@@ -63,25 +63,28 @@ module GameData
         ids << getBodyID(dex_number) if bodyShiny
         ids << getHeadID(dex_number, ids[0]) if headShiny
       end
-
+    
       ids.each do |id|
         offsets = SHINY_COLOR_OFFSETS[id]
         next unless offsets
+        color_to_stay = 0
         offsets.each_value do |value|
+          color_to_stay += 1
           if value.is_a?(String)
             if value.match?(valid_format_rgb)
+              from_rgb, to_rgb = value.split(".").map { |rgb| rgb.split.map(&:to_i) }
+              next if from_rgb == to_rgb && bodyShiny && headShiny && color_to_stay > 5 # for always having black is black white is white gray is gray...
               result << value
             elsif value.match?(valid_format_hex)
-              # Conversion des couleurs hexadécimales en RGB
               from_hex, to_hex = value.split(".")
               from_rgb = hex_to_rgb(from_hex)
               to_rgb = hex_to_rgb(to_hex)
+              next if from_rgb == to_rgb && bodyShiny && headShiny && color_to_stay > 5  # for always having black is black white is white gray is gray...
               result << "#{from_rgb.join(" ")}.#{to_rgb.join(" ")}"
             end
           end
         end
       end
-
       result.empty? ? "nil" : result.join("|")
     end
     def self.hex_to_rgb(hex)

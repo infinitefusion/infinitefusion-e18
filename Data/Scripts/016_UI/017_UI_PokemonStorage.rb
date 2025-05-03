@@ -3,6 +3,7 @@
 #===============================================================================
 class PokemonBoxIcon < IconSprite
   attr_accessor :pokemon
+
   def initialize(pokemon, viewport = nil)
     super(0, 0, viewport)
     @pokemon = pokemon
@@ -25,31 +26,41 @@ class PokemonBoxIcon < IconSprite
     return false
   end
 
-  def createFusionIcon(species,spriteform_head=nil,spriteform_body=nil)
+  def createFusionIcon(species, spriteform_head = nil, spriteform_body = nil, bodyShiny = false, headShiny = false)
     bodyPoke_number = getBodyID(species)
     headPoke_number = getHeadID(species, bodyPoke_number)
 
     bodyPoke = GameData::Species.get(bodyPoke_number).species
     headPoke = GameData::Species.get(headPoke_number).species
 
-    icon1 = AnimatedBitmap.new(GameData::Species.icon_filename(headPoke,spriteform_head))
-    icon2 = AnimatedBitmap.new(GameData::Species.icon_filename(bodyPoke,spriteform_body))
-
     dexNum = getDexNumberForSpecies(species)
-    ensureFusionIconExists
-    bitmapFileName = sprintf("Graphics/Pokemon/FusionIcons/icon%03d", dexNum)
-    headPokeFileName = GameData::Species.icon_filename(headPoke,spriteform_head)
-    bitmapPath = sprintf("%s.png", bitmapFileName)
-    generated_new_icon = generateFusionIcon(headPokeFileName,bitmapPath)
-    result_icon = generated_new_icon ? AnimatedBitmap.new(bitmapPath) : icon1
+    basePath = sprintf("Graphics/Pokemon/FusionIcons/icon%03d", dexNum)
 
-    for i in 0..icon1.width - 1
-      for j in ((icon1.height / 2) + Settings::FUSION_ICON_SPRITE_OFFSET)..icon1.height - 1
-        temp = icon2.bitmap.get_pixel(i, j)
-        result_icon.bitmap.set_pixel(i, j, temp)
+    shinySuffix = ""
+    shinySuffix += "_bodyShiny" if bodyShiny
+    shinySuffix += "_headShiny" if headShiny
+
+    fusedIconFilePath = sprintf("%s%s.png", basePath, shinySuffix)
+
+    if File.exist?(fusedIconFilePath)
+      return AnimatedBitmap.new(fusedIconFilePath)
+    end
+
+    headSprite = AnimatedBitmap.new(GameData::Species.icon_filename(headPoke, spriteform_head, nil, headShiny))
+    bodySprite = AnimatedBitmap.new(GameData::Species.icon_filename(bodyPoke, spriteform_body, nil, bodyShiny))
+
+    fusedIcon = Bitmap.new(headSprite.width, headSprite.height)
+    fusedIcon.blt(0, 0, headSprite.bitmap, Rect.new(0, 0, headSprite.width, headSprite.height))
+
+    for i in 0...bodySprite.width
+      for j in ((bodySprite.height / 2) + Settings::FUSION_ICON_SPRITE_OFFSET)...bodySprite.height
+        pixel = bodySprite.bitmap.get_pixel(i, j)
+        fusedIcon.set_pixel(i, j, pixel)
       end
     end
-    return result_icon
+
+    fusedIcon.save_to_png(fusedIconFilePath)
+    return AnimatedBitmap.new(fusedIconFilePath)
   end
 
   def release
@@ -60,7 +71,7 @@ class PokemonBoxIcon < IconSprite
     @release.tween(self, [
       [Interpolator::ZOOM_X, 0],
       [Interpolator::ZOOM_Y, 0],
-      [Interpolator::OPACITY, 0]
+      [Interpolator::OPACITY, 0],
     ], 100)
     @startRelease = true
   end
@@ -70,7 +81,7 @@ class PokemonBoxIcon < IconSprite
     if useRegularIcon(@pokemon.species) || @pokemon.egg?
       self.setBitmap(GameData::Species.icon_filename_from_pokemon(@pokemon))
     else
-      self.setBitmapDirectly(createFusionIcon(@pokemon.species,@pokemon.spriteform_head, @pokemon.spriteform_body))
+      self.setBitmapDirectly(createFusionIcon(@pokemon.species, @pokemon.spriteform_head, @pokemon.spriteform_body, @pokemon.bodyShiny?, @pokemon.headShiny?))
       if fusion_enabled
         self.visible = true
       else
@@ -144,7 +155,8 @@ class MosaicPokemonSprite < PokemonSprite
       @mosaicbitmap2.stretch_blt(
         Rect.new(-@mosaic / 2 + 1, -@mosaic / 2 + 1,
                  @mosaicbitmap2.width, @mosaicbitmap2.height),
-        @mosaicbitmap, Rect.new(0, 0, newWidth, newHeight))
+        @mosaicbitmap, Rect.new(0, 0, newWidth, newHeight)
+      )
       self.bitmap = @mosaicbitmap2
     end
     @inrefresh = false
@@ -362,7 +374,7 @@ class PokemonBoxSprite < SpriteWrapper
   attr_accessor :refreshBox
   attr_accessor :refreshSprites
 
-  def initialize(storage, boxnumber, viewport = nil, fusionsEnabled=true )
+  def initialize(storage, boxnumber, viewport = nil, fusionsEnabled = true)
     super(viewport)
     @storage = storage
     @boxnumber = boxnumber
@@ -627,7 +639,7 @@ class PokemonBoxPartySprite < SpriteWrapper
   def refresh
     @contents.blt(0, 0, @boxbitmap.bitmap, Rect.new(0, 0, 172, 352))
     pbDrawTextPositions(self.bitmap, [
-      [_INTL("Retour"), 86, 240, 2, Color.new(248, 248, 248), Color.new(80, 80, 80), 1]
+      [_INTL("Retour"), 86, 240, 2, Color.new(248, 248, 248), Color.new(80, 80, 80), 1],
     ])
     xvalues = [] # [18, 90, 18, 90, 18, 90]
     yvalues = [] # [2, 18, 66, 82, 130, 146]
@@ -1112,7 +1124,7 @@ class PokemonStorageScene
   end
 
   def pbSwitchBoxToRight(newbox)
-    newbox = PokemonBoxSprite.new(@storage, newbox, @boxviewport,@sprites["box"].isFusionEnabled)
+    newbox = PokemonBoxSprite.new(@storage, newbox, @boxviewport, @sprites["box"].isFusionEnabled)
     newbox.x = 520
     Graphics.frame_reset
     distancePerFrame = 64 * 20 / Graphics.frame_rate
@@ -1133,7 +1145,7 @@ class PokemonStorageScene
   end
 
   def pbSwitchBoxToLeft(newbox)
-    newbox = PokemonBoxSprite.new(@storage, newbox, @boxviewport,@sprites["box"].isFusionEnabled)
+    newbox = PokemonBoxSprite.new(@storage, newbox, @boxviewport, @sprites["box"].isFusionEnabled)
     newbox.x = -152
     Graphics.frame_reset
     distancePerFrame = 64 * 20 / Graphics.frame_rate
@@ -1381,24 +1393,24 @@ class PokemonStorageScene
         selection -= 3 if selection % 3 == 0
       end
     when Input::UP
-      if selection == 7;
+      if selection == 7
         selection = 6
-      elsif selection == 6;
+      elsif selection == 6
         selection = 4
-      elsif selection < 3;
+      elsif selection < 3
         selection = 7
       else
-        ; selection -= 3
+        selection -= 3
       end
     when Input::DOWN
-      if selection == 7;
+      if selection == 7
         selection = 1
-      elsif selection == 6;
+      elsif selection == 6
         selection = 7
-      elsif selection >= 3;
+      elsif selection >= 3
         selection = 6
       else
-        ; selection += 3
+        selection += 3
       end
     end
     return selection
@@ -1440,7 +1452,7 @@ class PokemonStorageScene
         end
         textpos = [
           [_INTL("OK"), 402, 208, 2, base, shadow, 1],
-          [_INTL("Annuler"), 402, 272, 2, base, shadow, 1]
+          [_INTL("Annuler"), 402, 272, 2, base, shadow, 1],
         ]
         pbDrawTextPositions(@sprites["markingoverlay"].bitmap, textpos)
         pbMarkingSetArrow(@sprites["arrow"], index)
@@ -1535,7 +1547,7 @@ class PokemonStorageScene
     nonshadow = Color.new(224, 224, 224)
     pokename = pokemon.name
     textstrings = [
-      [pokename, 10, 2, false, base, shadow]
+      [pokename, 10, 2, false, base, shadow],
     ]
     if !pokemon.egg?
       imagepos = []
@@ -1557,7 +1569,7 @@ class PokemonStorageScene
         textstrings.push([_INTL("Aucun objet"), 86, 336, 2, nonbase, nonshadow])
       end
       if pokemon.shiny?
-        addShinyStarsToGraphicsArray(imagepos,148,198,pokemon.bodyShiny?,pokemon.headShiny?,pokemon.debugShiny?,nil,nil,nil,nil,false,true)
+        addShinyStarsToGraphicsArray(imagepos, 148, 198, pokemon.bodyShiny?, pokemon.headShiny?, pokemon.debugShiny?, nil, nil, nil, nil, false, true)
         #imagepos.push(["Graphics/Pictures/shiny", 156, 198])
       end
       typebitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/types"))
@@ -1601,7 +1613,6 @@ class PokemonStorageScene
     end
     pbRefresh
   end
-
 end
 
 #===============================================================================
@@ -1755,18 +1766,17 @@ class PokemonStorageScreen
               _INTL("Retirer"),
               _INTL("Résumer"),
               _INTL("Relâcher"),
-              _INTL("Annuler")
+              _INTL("Annuler"),
             ])
             case command
-            when 0 then
+            when 0
               pbWithdraw(selected, nil)
-            when 1 then
+            when 1
               pbSummary(selected, nil)
               #when 2 then pbMark(selected, nil)
-            when 2 then
+            when 2
               pbRelease(selected, nil)
             end
-
           end
         end
       end
@@ -1792,16 +1802,16 @@ class PokemonStorageScreen
             _INTL("Résumer"),
             _INTL("Marquer"),
             _INTL("Relâcher"),
-            _INTL("Annuler")
+            _INTL("Annuler"),
           ])
           case command
-          when 0 then
+          when 0
             pbStore([-1, selected], nil)
-          when 1 then
+          when 1
             pbSummary([-1, selected], nil)
-          when 2 then
+          when 2
             pbMark([-1, selected], nil)
-          when 3 then
+          when 3
             pbRelease([-1, selected], nil)
           end
         end
@@ -1812,7 +1822,6 @@ class PokemonStorageScreen
       @scene.pbCloseBox
     end
   end
-
 
   def renamePokemon(selected)
     box = selected[0]
@@ -1833,10 +1842,11 @@ class PokemonStorageScreen
     end
     commands = [
       _INTL("Renommer"),
-      _INTL("Quitter")
+      _INTL("Quitter"),
     ]
     command = pbShowCommands(
-      _INTL("Que veux-tu faire?"), commands)
+      _INTL("Que veux-tu faire?"), commands
+    )
     case command
     when 0
       newname = pbEnterPokemonName(_INTL("Surnom de {1}?", speciesname), 0, Pokemon::MAX_NAME_SIZE, "", pokemon)
@@ -1893,7 +1903,7 @@ class PokemonStorageScreen
     box = selected[0]
     index = selected[1]
     if box == -1
-      raise _INTL("Impossible de retirer depuis ton équipe...");
+      raise _INTL("Impossible de retirer depuis ton équipe...")
     end
     if @storage.party_full?
       pbDisplay(_INTL("Ton équipe est pleine!"))
@@ -2043,7 +2053,7 @@ class PokemonStorageScreen
     end
     command = pbShowCommands(_INTL("Libérez ce Pokémon?"), [_INTL("Non"), _INTL("Oui")])
     if command == 1
-      if pokemon.owner.name  == "RENTAL"
+      if pokemon.owner.name == "RENTAL"
         pbDisplay(_INTL("Ce Pokémon ne peut pas être libéré"))
         return
       end
@@ -2125,7 +2135,8 @@ class PokemonStorageScreen
       _INTL("Annuler"),
     ]
     command = pbShowCommands(
-      _INTL("Que veux-tu faire?"), commands)
+      _INTL("Que veux-tu faire?"), commands
+    )
     case command
     when 0
       destbox = @scene.pbChooseBox(_INTL("Aller à quelle case?"))
@@ -2175,7 +2186,7 @@ class PokemonStorageScreen
           _INTL("Résumé"),
           _INTL("Retirer"),
           _INTL("Objet"),
-          _INTL("Marquer")
+          _INTL("Marquer"),
         ]
         commands.push(_INTL("Annuler"))
         commands[2] = _INTL("Stocker") if selected[0] == -1
@@ -2212,19 +2223,19 @@ class PokemonStorageScreen
 
   def pbFuseFromPC(selected, heldpoke)
     box = selected[0]
-      index = selected[1]
-      poke_body = @storage[box, index]
-      poke_head = heldpoke
-      if heldpoke
-        if dexNum(heldpoke.species) > NB_POKEMON
-          pbDisplay(_INTL("{1} est déjà fusionné!", heldpoke.name))
-          return
-        end
-        if(heldpoke.egg?)
-          pbDisplay(_INTL("Il est impossible de fusionner un oeuf!"))
-          return
-        end
+    index = selected[1]
+    poke_body = @storage[box, index]
+    poke_head = heldpoke
+    if heldpoke
+      if dexNum(heldpoke.species) > NB_POKEMON
+        pbDisplay(_INTL("{1} est déjà fusionné!", heldpoke.name))
+        return
       end
+      if (heldpoke.egg?)
+        pbDisplay(_INTL("Il est impossible de fusionner un oeuf!"))
+        return
+      end
+    end
 
     splicerItem = selectSplicer()
     if splicerItem == nil
@@ -2288,7 +2299,7 @@ class PokemonStorageScreen
     else
       commands = [
         _INTL("Fusionner"),
-        _INTL("Echanger")
+        _INTL("Echanger"),
       ]
       commands.push(_INTL("Arrêter de fusionner"))
       commands.push(_INTL("Annuler"))
@@ -2313,8 +2324,7 @@ class PokemonStorageScreen
         end
         isSuperSplicer = isSuperSplicer?(@fusionItem)
 
-
-        selectedHead =selectFusion(pokemon, heldpoke, isSuperSplicer)
+        selectedHead = selectFusion(pokemon, heldpoke, isSuperSplicer)
         if selectedHead == nil
           pbDisplay(_INTL("Cela n'aura aucun effet."))
           return false
@@ -2324,8 +2334,7 @@ class PokemonStorageScreen
         end
 
         selectedBase = selectedHead == pokemon ? heldpoke : pokemon
-        firstOptionSelected= selectedBase == pokemon
-
+        firstOptionSelected = selectedBase == pokemon
 
         if (Kernel.pbConfirmMessage(_INTL("Fusionner les deux Pokémon?")))
           playingBGM = $game_system.getPlayingBGM
@@ -2378,6 +2387,7 @@ class PokemonStorageScreen
       reverseFusion(pokemon)
       $PokemonBag.pbDeleteItem(:DNAREVERSER) if $PokemonBag.pbQuantity(:INFINITEREVERSERS) <= 0
     end
+    @scene.pbHardRefresh
   end
 
   def pbUnfuseFromPC(selected)
@@ -2432,5 +2442,4 @@ class PokemonStorageScreen
     end
     return nil
   end
-
 end

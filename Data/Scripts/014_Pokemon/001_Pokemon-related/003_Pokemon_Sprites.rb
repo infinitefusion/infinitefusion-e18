@@ -73,8 +73,7 @@ class PokemonSprite < SpriteWrapper
     changeOrigin
   end
 
-
-  def setPokemonBitmapFromId(id, back = false, shiny = false, bodyShiny = false, headShiny = false, spriteform_body=nil, spriteform_head=nil)
+  def setPokemonBitmapFromId(id, back = false, shiny = false, bodyShiny = false, headShiny = false, spriteform_body = nil, spriteform_head = nil)
     @_iconbitmap.dispose if @_iconbitmap
     @_iconbitmap = GameData::Species.sprite_bitmap_from_pokemon_id(id, back, shiny, bodyShiny, headShiny)
     self.bitmap = (@_iconbitmap) ? @_iconbitmap.bitmap : nil
@@ -137,11 +136,11 @@ class PokemonIconSprite < SpriteWrapper
   end
 
   def x
-    return @logical_x;
+    return @logical_x
   end
 
   def y
-    return @logical_y;
+    return @logical_y
   end
 
   def x=(value)
@@ -182,6 +181,7 @@ class PokemonIconSprite < SpriteWrapper
     @currentFrame = 0 if @currentFrame >= @numFrames
     changeOrigin
   end
+
   def useTripleFusionIcon(species)
     dexNum = getDexNumberForSpecies(species)
     return isTripleFusion?(dexNum)
@@ -199,37 +199,47 @@ class PokemonIconSprite < SpriteWrapper
 
   SPRITE_OFFSET = 10
 
+  def setOffset(offset = PictureOrigin::Center)
+    @offset = offset
+    changeOrigin
+  end
+
   def createFusionIcon()
+
     bodyPoke_number = getBodyID(pokemon.species)
     headPoke_number = getHeadID(pokemon.species, bodyPoke_number)
 
     bodyPoke = GameData::Species.get(bodyPoke_number).species
     headPoke = GameData::Species.get(headPoke_number).species
 
-    icon1 = AnimatedBitmap.new(GameData::Species.icon_filename(headPoke, @pokemon.spriteform_head))
-    icon2 = AnimatedBitmap.new(GameData::Species.icon_filename(bodyPoke, @pokemon.spriteform_body))
-
     dexNum = getDexNumberForSpecies(@pokemon.species)
-    ensureFusionIconExists
-    bitmapFileName = sprintf("Graphics/Pokemon/FusionIcons/icon%03d", dexNum)
-    headPokeFileName = GameData::Species.icon_filename(headPoke, @pokemon.spriteform_head)
+    basePath = sprintf("Graphics/Pokemon/FusionIcons/icon%03d", dexNum)
 
-    bitmapPath = sprintf("%s.png", bitmapFileName)
-    generated_new_icon = generateFusionIcon(headPokeFileName, bitmapPath)
-    result_icon = generated_new_icon ? AnimatedBitmap.new(bitmapPath) : icon1
+    shinySuffix = ""
+    shinySuffix += "_bodyShiny" if @pokemon.headShiny?
+    shinySuffix += "_headShiny" if @pokemon.bodyShiny?
 
-    for i in 0..icon1.width - 1
-      for j in ((icon1.height / 2) + Settings::FUSION_ICON_SPRITE_OFFSET)..icon1.height - 1
-        temp = icon2.bitmap.get_pixel(i, j)
-        result_icon.bitmap.set_pixel(i, j, temp)
+    fusedIconFilePath = sprintf("%s%s.png", basePath, shinySuffix)
+
+    if File.exist?(fusedIconFilePath)
+      return AnimatedBitmap.new(fusedIconFilePath)
+    end
+
+    headSprite = AnimatedBitmap.new(GameData::Species.icon_filename(headPoke, @pokemon.spriteform_head, nil, @pokemon.headShiny?))
+    bodySprite = AnimatedBitmap.new(GameData::Species.icon_filename(bodyPoke, @pokemon.spriteform_body, nil, @pokemon.bodyShiny?))
+
+    fusedIcon = Bitmap.new(headSprite.width, headSprite.height)
+    fusedIcon.blt(0, 0, headSprite.bitmap, Rect.new(0, 0, headSprite.width, headSprite.height))
+
+    for i in 0...bodySprite.width
+      for j in ((bodySprite.height / 2) + Settings::FUSION_ICON_SPRITE_OFFSET)...bodySprite.height
+        pixel = bodySprite.bitmap.get_pixel(i, j)
+        fusedIcon.set_pixel(i, j, pixel)
       end
     end
-    return result_icon
-  end
 
-  def setOffset(offset = PictureOrigin::Center)
-    @offset = offset
-    changeOrigin
+    fusedIcon.save_to_png(fusedIconFilePath)
+    return AnimatedBitmap.new(fusedIconFilePath)
   end
 
   def changeOrigin
@@ -261,9 +271,9 @@ class PokemonIconSprite < SpriteWrapper
     # ret is initially the time a whole animation cycle lasts. It is divided by
     # the number of frames in that cycle at the end.
     ret = Graphics.frame_rate / 4 # Green HP - 0.25 seconds
-    if @pokemon.hp <= @pokemon.totalhp / 4;
+    if @pokemon.hp <= @pokemon.totalhp / 4
       ret *= 4 # Red HP - 1 second
-    elsif @pokemon.hp <= @pokemon.totalhp / 2;
+    elsif @pokemon.hp <= @pokemon.totalhp / 2
       ret *= 2 # Yellow HP - 0.5 seconds
     end
     ret /= @numFrames
