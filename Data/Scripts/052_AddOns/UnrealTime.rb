@@ -96,7 +96,6 @@ module UnrealTime
 
   WEEK_DAY_VARIABLE = 280
   WEEK_DAYS = [:MONDAY,:TUESDAY,:WEDNESDAY,:THURSDAY,:FRIDAY,:SATURDAY,:SUNDAY]
-  WEEK_DAYSFR = [:LUNDI,:MARDI,:MERCREDI,:JEUDI,:VENDREDI,:SAMEDI,:DIMANCHE]
 
   # Initial date. In sequence: Year, month, day, hour and minutes.
   # Method UnrealTime.reset resets time back to this time.
@@ -177,11 +176,6 @@ end
 def getDayOfTheWeek()
   day_of_week = (pbGetTimeNow.day % UnrealTime::WEEK_DAYS.length).to_i
   return UnrealTime::WEEK_DAYS[day_of_week]
-end
-
-def getDayOfTheWeekFR()
-  day_of_week = (pbGetTimeNow.day % UnrealTime::WEEK_DAYSFR.length).to_i
-  return UnrealTime::WEEK_DAYSFR[day_of_week]
 end
 
 def isDayOfTheWeek(day)

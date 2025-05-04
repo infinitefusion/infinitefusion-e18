@@ -363,7 +363,7 @@ def pbCsvField!(str)
     end
     str[0, fieldbytes] = ""
     if !str[/\A\s*,/] && !str[/\A\s*$/]
-      raise _INTL("Champ cité invalide (in: {1})", ret)
+      raise _INTL("Invalid quoted field (in: {1})", ret)
     end
     str[0, str.length] = $~.post_match
   else
@@ -382,7 +382,7 @@ end
 def pbCsvPosInt!(str)
   ret = pbCsvField!(str)
   if !ret[/\A\d+$/]
-    raise _INTL("Le champ {1} n'est pas un entier positif", ret)
+    raise _INTL("Field {1} is not a positive integer", ret)
   end
   return ret.to_i
 end
@@ -393,7 +393,7 @@ end
 def pbGetGoldString
   moneyString = ""
   begin
-    moneyString = _INTL("{1}$", $Trainer.money.to_s_formatted)
+    moneyString = _INTL("${1}", $Trainer.money.to_s_formatted)
   rescue
     if $data_system.respond_to?("words")
       moneyString = _INTL("{1} {2}", $game_party.gold, $data_system.words.gold)
@@ -406,7 +406,7 @@ end
 
 def pbDisplayGoldWindow(msgwindow)
   moneyString = pbGetGoldString()
-  goldwindow = Window_AdvancedTextPokemon.new(_INTL("Argent:\n<ar>{1}</ar>", moneyString))
+  goldwindow = Window_AdvancedTextPokemon.new(_INTL("Money:\n<ar>{1}</ar>", moneyString))
   goldwindow.setSkin("Graphics/Windowskins/goldskin")
   goldwindow.resizeToFit(goldwindow.text, Graphics.width)
   goldwindow.width = 160 if goldwindow.width <= 160
@@ -460,7 +460,7 @@ end
 
 def pbDisplayHeartScalesWindow(msgwindow)
   pointsString = $PokemonBag.pbQuantity(:HEARTSCALE).to_s
-  pointswindow = Window_AdvancedTextPokemon.new(_INTL("Écaille Coeur:\n<ar>{1}</ar>", pointsString))
+  pointswindow = Window_AdvancedTextPokemon.new(_INTL("Heart Scales:\n<ar>{1}</ar>", pointsString))
   pointswindow.setSkin("Graphics/Windowskins/goldskin")
   pointswindow.resizeToFit(pointswindow.text, Graphics.width)
   pointswindow.width = 160 if pointswindow.width <= 160
@@ -476,7 +476,7 @@ end
 
 def pbDisplayCoinsWindow(msgwindow, goldwindow)
   coinString = ($Trainer) ? $Trainer.coins.to_s_formatted : "0"
-  coinwindow = Window_AdvancedTextPokemon.new(_INTL("Pièces:\n<ar>{1}</ar>", coinString))
+  coinwindow = Window_AdvancedTextPokemon.new(_INTL("Coins:\n<ar>{1}</ar>", coinString))
   coinwindow.setSkin("Graphics/Windowskins/goldskin")
   coinwindow.resizeToFit(coinwindow.text, Graphics.width)
   coinwindow.width = 160 if coinwindow.width <= 160
@@ -492,7 +492,7 @@ end
 
 def pbDisplayBattlePointsWindow(msgwindow)
   pointsString = ($Trainer) ? $Trainer.battle_points.to_s_formatted : "0"
-  pointswindow = Window_AdvancedTextPokemon.new(_INTL("Points de Combat:\n<ar>{1}</ar>", pointsString))
+  pointswindow = Window_AdvancedTextPokemon.new(_INTL("Battle Points:\n<ar>{1}</ar>", pointsString))
   pointswindow.setSkin("Graphics/Windowskins/goldskin")
   pointswindow.resizeToFit(pointswindow.text, Graphics.width)
   pointswindow.width = 160 if pointswindow.width <= 160
@@ -583,7 +583,7 @@ def pbMessageDisplay(msgwindow, message, letterbyletter = true, commandProc = ni
     }
   end
   text.gsub!(/\\pn/i, $Trainer.name) if $Trainer
-  text.gsub!(/\\pm/i, _INTL("{1}$", $Trainer.money.to_s_formatted)) if $Trainer
+  text.gsub!(/\\pm/i, _INTL("${1}", $Trainer.money.to_s_formatted)) if $Trainer
   text.gsub!(/\\n/i, "\n")
   text.gsub!(/\\\[([0-9a-f]{8,8})\]/i) { "<c2=" + $1 + ">" }
   text.gsub!(/\\pg/i, "\\b") if $Trainer && $Trainer.male?
@@ -891,11 +891,11 @@ def pbMessageNoSound(message, commands = nil, cmdIfCancel = 0, skin = nil, defau
 end
 
 def pbConfirmMessage(message, &block)
-  return (pbMessage(message, [_INTL("Oui"), _INTL("Non")], 2, &block) == 0)
+  return (pbMessage(message, [_INTL("Yes"), _INTL("No")], 2, &block) == 0)
 end
 
 def pbConfirmMessageSerious(message, &block)
-  return (pbMessage(message, [_INTL("Non"), _INTL("Oui")], 1, &block) == 1)
+  return (pbMessage(message, [_INTL("No"), _INTL("Yes")], 1, &block) == 1)
 end
 
 def pbMessageChooseNumber(message, params, &block)

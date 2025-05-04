@@ -241,28 +241,28 @@ class PokeBattle_Battler
   def pbThis(lowerCase = false)
     if opposes?
       if @battle.trainerBattle?
-        return lowerCase ? _INTL("L'adversaire {1}", name) : _INTL("L'adversaire {1}", name)
+        return lowerCase ? _INTL("the opposing {1}", name) : _INTL("The opposing {1}", name)
       else
-        return lowerCase ? _INTL("Le {1} sauvage", name) : _INTL("Le {1} sauvage", name)
+        return lowerCase ? _INTL("the wild {1}", name) : _INTL("The wild {1}", name)
       end
     elsif !pbOwnedByPlayer?
-      return lowerCase ? _INTL("le pokemon allié {1}", name) : _INTL("le pokemonallié {1}", name)
+      return lowerCase ? _INTL("the ally {1}", name) : _INTL("The ally {1}", name)
     end
     return name
   end
 
   def pbTeam(lowerCase = false)
     if opposes?
-      return lowerCase ? _INTL("La team adverse") : _INTL("La team adverse")
+      return lowerCase ? _INTL("the opposing team") : _INTL("The opposing team")
     end
-    return lowerCase ? _INTL("ton équipe") : _INTL("Ton équipe")
+    return lowerCase ? _INTL("your team") : _INTL("Your team")
   end
 
   def pbOpposingTeam(lowerCase = false)
     if opposes?
-      return lowerCase ? _INTL("ton équipe") : _INTL("Ton équipe")
+      return lowerCase ? _INTL("your team") : _INTL("Your team")
     end
-    return lowerCase ? _INTL("La team adverse") : _INTL("La team adverse")
+    return lowerCase ? _INTL("the opposing team") : _INTL("The opposing team")
   end
 
   #=============================================================================
@@ -547,9 +547,9 @@ class PokeBattle_Battler
       if showMsg
         @battle.pbShowAbilitySplash(self)
         if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-          @battle.pbDisplay(_INTL("{1} n'est pas affecté!", pbThis))
+          @battle.pbDisplay(_INTL("{1} is unaffected!", pbThis))
         else
-          @battle.pbDisplay(_INTL("{1} n'est pas affecté en raison de {2}!", pbThis, abilityName))
+          @battle.pbDisplay(_INTL("{1} is unaffected because of its {2}!", pbThis, abilityName))
         end
         @battle.pbHideAbilitySplash(self)
       end
@@ -585,7 +585,7 @@ class PokeBattle_Battler
   def affectedByPowder?(showMsg = false)
     return false if fainted?
     if pbHasType?(:GRASS) && Settings::MORE_TYPE_EFFECTS
-      @battle.pbDisplay(_INTL("{1} n'est pas affecté!", pbThis)) if showMsg
+      @battle.pbDisplay(_INTL("{1} is unaffected!", pbThis)) if showMsg
       return false
     end
     if Settings::MECHANICS_GENERATION >= 6
@@ -593,9 +593,9 @@ class PokeBattle_Battler
         if showMsg
           @battle.pbShowAbilitySplash(self)
           if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-            @battle.pbDisplay(_INTL("{1} n'est pas affecté!", pbThis))
+            @battle.pbDisplay(_INTL("{1} is unaffected!", pbThis))
           else
-            @battle.pbDisplay(_INTL("{1} n'est pas affecté en raison de {2}!", pbThis, abilityName))
+            @battle.pbDisplay(_INTL("{1} is unaffected because of its {2}!", pbThis, abilityName))
           end
           @battle.pbHideAbilitySplash(self)
         end
@@ -603,7 +603,7 @@ class PokeBattle_Battler
       end
       if hasActiveItem?(:SAFETYGOGGLES)
         if showMsg
-          @battle.pbDisplay(_INTL("{1} n'est pas affecté en raison de {2}!", pbThis, itemName))
+          @battle.pbDisplay(_INTL("{1} is unaffected because of its {2}!", pbThis, itemName))
         end
         return false
       end
@@ -620,7 +620,7 @@ class PokeBattle_Battler
   def affectedByContactEffect?(showMsg = false)
     return false if fainted?
     if hasActiveItem?(:PROTECTIVEPADS)
-      @battle.pbDisplay(_INTL("{1} s'est protégé avec {2}!", pbThis, itemName)) if showMsg
+      @battle.pbDisplay(_INTL("{1} protected itself with the {2}!", pbThis, itemName)) if showMsg
       return false
     end
     return true
@@ -762,13 +762,13 @@ class PokeBattle_Battler
       if @pokemon.isFusionOf(:MINIOR_M)
         if new_hp <= (@totalhp / 2)
           changeBattlerForm(:MINIOR_M, :MINIOR_C,nil, :SHELLSMASH)
-          @battle.pbDisplay(_INTL("{1} a changé pour la forme de base!", pbThis))
+          @battle.pbDisplay(_INTL("{1} changed to the Core Form!", pbThis))
         end
       end
       if @pokemon.isFusionOf(:MINIOR_C)
         if new_hp > (@totalhp / 2)
           changeBattlerForm(:MINIOR_C, :MINIOR_M,nil, :SHELLSMASH)
-          @battle.pbDisplay(_INTL("{1} a changé en forme de météore!", pbThis))
+          @battle.pbDisplay(_INTL("{1} changed to the Meteor Form!", pbThis))
         end
       end
     end

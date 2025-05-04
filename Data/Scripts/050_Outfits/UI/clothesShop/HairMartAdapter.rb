@@ -1,6 +1,6 @@
 class HairMartAdapter < OutfitsMartAdapter
   DEFAULT_NAME = "[unknown]"
-  DEFAULT_DESCRIPTION = "Une coiffure pour les dresseurs."
+  DEFAULT_DESCRIPTION = "A hairstyle for trainers."
 
   POSSIBLE_VERSIONS = (1..9).to_a
 
@@ -51,7 +51,7 @@ class HairMartAdapter < OutfitsMartAdapter
   def toggleText()
     text = ""
     #text << "Color: R, \n"
-    text << "\n"
+    text << "Toggle Hat: D\n"
 
   end
 
@@ -162,7 +162,7 @@ class HairMartAdapter < OutfitsMartAdapter
   def getSpecialItemCaption(specialType)
     case specialType
     when :SWAP_COLOR
-      return "Changer de couleur"
+      return "Swap Color"
     end
     return nil
   end
@@ -184,7 +184,7 @@ class HairMartAdapter < OutfitsMartAdapter
   end
 
   def getSpecialItemDescription(specialType)
-    return "Passez à la couleur suivante."
+    return "Swap to the next base hair color."
   end
 
   def doSpecialItemAction(specialType)

@@ -30,11 +30,11 @@ class PokeBattle_Battler
       if showMessages
         msg = ""
         case self.status
-        when :SLEEP     then msg = _INTL("{1} est déjà endormi !", pbThis)
-        when :POISON    then msg = _INTL("{1} est déjà empoisonné !", pbThis)
-        when :BURN      then msg = _INTL("{1} est déjà brûlé !!", pbThis)
-        when :PARALYSIS then msg = _INTL("{1} est déjà paralysé!", pbThis)
-        when :FROZEN    then msg = _INTL("{1} est déjà complètement gelé!", pbThis)
+        when :SLEEP     then msg = _INTL("{1} is already asleep!", pbThis)
+        when :POISON    then msg = _INTL("{1} is already poisoned!", pbThis)
+        when :BURN      then msg = _INTL("{1} already has a burn!", pbThis)
+        when :PARALYSIS then msg = _INTL("{1} is already paralyzed!", pbThis)
+        when :FROZEN    then msg = _INTL("{1} is already frozen solid!", pbThis)
         end
         @battle.pbDisplay(msg)
       end
@@ -42,18 +42,18 @@ class PokeBattle_Battler
     end
     # Trying to replace a status problem with another one
     if self.status != :NONE && !ignoreStatus && !selfInflicted
-      @battle.pbDisplay(_INTL("Cela n'affecte pas {1}...",pbThis(true))) if showMessages
+      @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
     # Trying to inflict a status problem on a Pokémon behind a substitute
     if @effects[PBEffects::Substitute]>0 && !(move && move.ignoresSubstitute?(user)) &&
        !selfInflicted
-      @battle.pbDisplay(_INTL("Cela n'affecte pas {1}...",pbThis(true))) if showMessages
+      @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
     # Weather immunity
     if newStatus == :FROZEN && [:Sun, :HarshSun].include?(@battle.pbWeather)
-      @battle.pbDisplay(_INTL("Cela n'affecte pas {1}...",pbThis(true))) if showMessages
+      @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
     # Terrains immunity
@@ -61,12 +61,12 @@ class PokeBattle_Battler
       case @battle.field.terrain
       when :Electric
         if newStatus == :SLEEP
-          @battle.pbDisplay(_INTL("{1} s'entoure d'un terrain électrifié!",
+          @battle.pbDisplay(_INTL("{1} surrounds itself with electrified terrain!",
              pbThis(true))) if showMessages
           return false
         end
       when :Misty
-        @battle.pbDisplay(_INTL("{1} s'entoure d'un terrain brumeux!",pbThis(true))) if showMessages
+        @battle.pbDisplay(_INTL("{1} surrounds itself with misty terrain!",pbThis(true))) if showMessages
         return false
       end
     end
@@ -74,7 +74,7 @@ class PokeBattle_Battler
     if newStatus == :SLEEP && !(hasActiveAbility?(:SOUNDPROOF) && !@battle.moldBreaker)
       @battle.eachBattler do |b|
         next if b.effects[PBEffects::Uproar]==0
-        @battle.pbDisplay(_INTL("Mais le Brouhaha de {1} l'a réveillé!",pbThis(true))) if showMessages
+        @battle.pbDisplay(_INTL("But the uproar kept {1} awake!",pbThis(true))) if showMessages
         return false
       end
     end
@@ -96,7 +96,7 @@ class PokeBattle_Battler
       hasImmuneType |= pbHasType?(:ICE)
     end
     if hasImmuneType
-      @battle.pbDisplay(_INTL("Cela n'affecte pas {1}...",pbThis(true))) if showMessages
+      @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
     # Ability immunity
@@ -122,37 +122,37 @@ class PokeBattle_Battler
         msg = ""
         if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
           case newStatus
-          when :SLEEP     then msg = _INTL("{1} reste éveillé!", pbThis)
-          when :POISON    then msg = _INTL("{1} ne peut pas être empoisonné!", pbThis)
-          when :BURN      then msg = _INTL("{1} ne peut pas être brûlé!", pbThis)
-          when :PARALYSIS then msg = _INTL("{1} ne peut pas être paralysé!", pbThis)
-          when :FROZEN    then msg = _INTL("{1} ne peut pas être gelé!", pbThis)
+          when :SLEEP     then msg = _INTL("{1} stays awake!", pbThis)
+          when :POISON    then msg = _INTL("{1} cannot be poisoned!", pbThis)
+          when :BURN      then msg = _INTL("{1} cannot be burned!", pbThis)
+          when :PARALYSIS then msg = _INTL("{1} cannot be paralyzed!", pbThis)
+          when :FROZEN    then msg = _INTL("{1} cannot be frozen solid!", pbThis)
           end
         elsif immAlly
           case newStatus
           when :SLEEP
-            msg = _INTL("{1} reste éveillé à cause de {2}'s {3}!",
+            msg = _INTL("{1} stays awake because of {2}'s {3}!",
                pbThis,immAlly.pbThis(true),immAlly.abilityName)
           when :POISON
-            msg = _INTL("{1} ne peut pas être empoisonné à cause de {2}'s {3}!",
+            msg = _INTL("{1} cannot be poisoned because of {2}'s {3}!",
                pbThis,immAlly.pbThis(true),immAlly.abilityName)
           when :BURN
-            msg = _INTL("{1} ne peut pas être brûlé à cause de {2}'s {3}!",
+            msg = _INTL("{1} cannot be burned because of {2}'s {3}!",
                pbThis,immAlly.pbThis(true),immAlly.abilityName)
           when :PARALYSIS
-            msg = _INTL("{1} ne peut pas être paralysé à cause de {2}'s {3}!",
+            msg = _INTL("{1} cannot be paralyzed because of {2}'s {3}!",
                pbThis,immAlly.pbThis(true),immAlly.abilityName)
           when :FROZEN
-            msg = _INTL("{1} ne peut pas être gelé à cause de {2}'s {3}!",
+            msg = _INTL("{1} cannot be frozen solid because of {2}'s {3}!",
                pbThis,immAlly.pbThis(true),immAlly.abilityName)
           end
         else
           case newStatus
-          when :SLEEP     then msg = _INTL("{1} reste éveillé à cause de {2}!", pbThis, abilityName)
-          when :POISON    then msg = _INTL("{1}'s {2} empêche l'empoisonnement!", pbThis, abilityName)
-          when :BURN      then msg = _INTL("{1}'s {2} empêche la brûlure!", pbThis, abilityName)
-          when :PARALYSIS then msg = _INTL("{1}'s {2} empêche la paralysie!", pbThis, abilityName)
-          when :FROZEN    then msg = _INTL("{1}'s {2} empêche le gel!", pbThis, abilityName)
+          when :SLEEP     then msg = _INTL("{1} stays awake because of its {2}!", pbThis, abilityName)
+          when :POISON    then msg = _INTL("{1}'s {2} prevents poisoning!", pbThis, abilityName)
+          when :BURN      then msg = _INTL("{1}'s {2} prevents burns!", pbThis, abilityName)
+          when :PARALYSIS then msg = _INTL("{1}'s {2} prevents paralysis!", pbThis, abilityName)
+          when :FROZEN    then msg = _INTL("{1}'s {2} prevents freezing!", pbThis, abilityName)
           end
         end
         @battle.pbDisplay(msg)
@@ -163,7 +163,7 @@ class PokeBattle_Battler
     # Safeguard immunity
     if pbOwnSide.effects[PBEffects::Safeguard]>0 && !selfInflicted && move &&
        !(user && user.hasActiveAbility?(:INFILTRATOR))
-      @battle.pbDisplay(_INTL("L'équipe de {1} est protégée par Rune Protect!",pbThis)) if showMessages
+      @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!",pbThis)) if showMessages
       return false
     end
     return true
@@ -231,19 +231,19 @@ class PokeBattle_Battler
     else
       case newStatus
       when :SLEEP
-        @battle.pbDisplay(_INTL("{1} s'est endormi!", pbThis))
+        @battle.pbDisplay(_INTL("{1} fell asleep!", pbThis))
       when :POISON
         if newStatusCount>0
-          @battle.pbDisplay(_INTL("{1} a été gravement empoisonné!", pbThis))
+          @battle.pbDisplay(_INTL("{1} was badly poisoned!", pbThis))
         else
-          @battle.pbDisplay(_INTL("{1} a été empoisonné!", pbThis))
+          @battle.pbDisplay(_INTL("{1} was poisoned!", pbThis))
         end
       when :BURN
-        @battle.pbDisplay(_INTL("{1} a été brûlé!", pbThis))
+        @battle.pbDisplay(_INTL("{1} was burned!", pbThis))
       when :PARALYSIS
-        @battle.pbDisplay(_INTL("{1} est paralysé! Il est peut-être incapable de bouger!", pbThis))
+        @battle.pbDisplay(_INTL("{1} is paralyzed! It may be unable to move!", pbThis))
       when :FROZEN
-        @battle.pbDisplay(_INTL("{1} était complètement gelé!", pbThis))
+        @battle.pbDisplay(_INTL("{1} was frozen solid!", pbThis))
       end
     end
     PBDebug.log("[Status change] #{pbThis}'s sleep count is #{newStatusCount}") if newStatus == :SLEEP
@@ -408,15 +408,15 @@ class PokeBattle_Battler
     yield if block_given?
     case self.status
     when :SLEEP
-      @battle.pbDisplay(_INTL("{1} est profondément endormi.", pbThis))
+      @battle.pbDisplay(_INTL("{1} is fast asleep.", pbThis))
     when :POISON
-      @battle.pbDisplay(_INTL("{1} a été blessé par le poison!", pbThis))
+      @battle.pbDisplay(_INTL("{1} was hurt by poison!", pbThis))
     when :BURN
-      @battle.pbDisplay(_INTL("{1} a été blessé par sa brûlure!", pbThis))
+      @battle.pbDisplay(_INTL("{1} was hurt by its burn!", pbThis))
     when :PARALYSIS
-      @battle.pbDisplay(_INTL("{1} est paralysé! Il ne peut plus bouger!", pbThis))
+      @battle.pbDisplay(_INTL("{1} is paralyzed! It can't move!", pbThis))
     when :FROZEN
-      @battle.pbDisplay(_INTL("{1} est complètement gelé!", pbThis))
+      @battle.pbDisplay(_INTL("{1} is frozen solid!", pbThis))
     end
     PBDebug.log("[Status continues] #{pbThis}'s sleep count is #{@statusCount}") if self.status == :SLEEP
   end
@@ -426,11 +426,11 @@ class PokeBattle_Battler
     self.status = :NONE
     if showMessages
       case oldStatus
-      when :SLEEP     then @battle.pbDisplay(_INTL("{1} a été réveillé!", pbThis))
-      when :POISON    then @battle.pbDisplay(_INTL("{1} a été guéri de son empoisonnement..", pbThis))
-      when :BURN      then @battle.pbDisplay(_INTL("La brûlure de {1} a été guérie", pbThis))
-      when :PARALYSIS then @battle.pbDisplay(_INTL("{1} a été guéri de la paralysie.", pbThis))
-      when :FROZEN    then @battle.pbDisplay(_INTL("{1} est décongelé!", pbThis))
+      when :SLEEP     then @battle.pbDisplay(_INTL("{1} woke up!", pbThis))
+      when :POISON    then @battle.pbDisplay(_INTL("{1} was cured of its poisoning.", pbThis))
+      when :BURN      then @battle.pbDisplay(_INTL("{1}'s burn was healed.", pbThis))
+      when :PARALYSIS then @battle.pbDisplay(_INTL("{1} was cured of paralysis.", pbThis))
+      when :FROZEN    then @battle.pbDisplay(_INTL("{1} thawed out!", pbThis))
       end
     end
     PBDebug.log("[Status change] #{pbThis}'s status was cured") if !showMessages
@@ -442,17 +442,17 @@ class PokeBattle_Battler
   def pbCanConfuse?(user=nil,showMessages=true,move=nil,selfInflicted=false)
     return false if fainted?
     if @effects[PBEffects::Confusion]>0
-      @battle.pbDisplay(_INTL("{1} est déjà confus.",pbThis)) if showMessages
+      @battle.pbDisplay(_INTL("{1} is already confused.",pbThis)) if showMessages
       return false
     end
     if @effects[PBEffects::Substitute]>0 && !(move && move.ignoresSubstitute?(user)) &&
        !selfInflicted
-      @battle.pbDisplay(_INTL("Mais ça a échoué!")) if showMessages
+      @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
     # Terrains immunity
     if affectedByTerrain? && @battle.field.terrain == :Misty
-      @battle.pbDisplay(_INTL("{1} s'entoure d'un terrain brumeux!",pbThis(true))) if showMessages
+      @battle.pbDisplay(_INTL("{1} surrounds itself with misty terrain!",pbThis(true))) if showMessages
       return false
     end
     if selfInflicted || !@battle.moldBreaker
@@ -460,9 +460,9 @@ class PokeBattle_Battler
         if showMessages
           @battle.pbShowAbilitySplash(self)
           if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-            @battle.pbDisplay(_INTL("{1} évite la confusion!",pbThis))
+            @battle.pbDisplay(_INTL("{1} doesn't become confused!",pbThis))
           else
-            @battle.pbDisplay(_INTL("{1}'s {2} évite la confusion!",pbThis,abilityName))
+            @battle.pbDisplay(_INTL("{1}'s {2} prevents confusion!",pbThis,abilityName))
           end
           @battle.pbHideAbilitySplash(self)
         end
@@ -471,7 +471,7 @@ class PokeBattle_Battler
     end
     if pbOwnSide.effects[PBEffects::Safeguard]>0 && !selfInflicted &&
        !(user && user.hasActiveAbility?(:INFILTRATOR))
-      @battle.pbDisplay(_INTL(" l'équipe de {1} est protégée par Rune Protect!",pbThis)) if showMessages
+      @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!",pbThis)) if showMessages
       return false
     end
     return true
@@ -484,7 +484,7 @@ class PokeBattle_Battler
   def pbConfuse(msg=nil)
     @effects[PBEffects::Confusion] = pbConfusionDuration
     @battle.pbCommonAnimation("Confusion",self)
-    msg = _INTL("{1} est devenu confus!",pbThis) if nil_or_empty?(msg)
+    msg = _INTL("{1} became confused!",pbThis) if nil_or_empty?(msg)
     @battle.pbDisplay(msg)
     PBDebug.log("[Lingering effect] #{pbThis}'s confusion count is #{@effects[PBEffects::Confusion]}")
     # Confusion cures
@@ -508,13 +508,13 @@ class PokeBattle_Battler
     return false if fainted?
     return false if !user || user.fainted?
     if @effects[PBEffects::Attract]>=0
-      @battle.pbDisplay(_INTL("{1} n'est pas affecté!",pbThis)) if showMessages
+      @battle.pbDisplay(_INTL("{1} is unaffected!",pbThis)) if showMessages
       return false
     end
     agender = user.gender
     ogender = gender
     if agender==2 || ogender==2 || agender==ogender
-      @battle.pbDisplay(_INTL("{1} n'est pas affecté!",pbThis)) if showMessages
+      @battle.pbDisplay(_INTL("{1} is unaffected!",pbThis)) if showMessages
       return false
     end
     if !@battle.moldBreaker
@@ -522,9 +522,9 @@ class PokeBattle_Battler
         if showMessages
           @battle.pbShowAbilitySplash(self)
           if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-            @battle.pbDisplay(_INTL("{1} n'est pas affecté!",pbThis))
+            @battle.pbDisplay(_INTL("{1} is unaffected!",pbThis))
           else
-            @battle.pbDisplay(_INTL("{1}'s {2} empêche la romance!",pbThis,abilityName))
+            @battle.pbDisplay(_INTL("{1}'s {2} prevents romance!",pbThis,abilityName))
           end
           @battle.pbHideAbilitySplash(self)
         end
@@ -535,9 +535,9 @@ class PokeBattle_Battler
           if showMessages
             @battle.pbShowAbilitySplash(self)
             if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-              @battle.pbDisplay(_INTL("{1} n'est pas affecté!",pbThis))
+              @battle.pbDisplay(_INTL("{1} is unaffected!",pbThis))
             else
-              @battle.pbDisplay(_INTL("{1}'s {2} empêche la romance!",b.pbThis,b.abilityName))
+              @battle.pbDisplay(_INTL("{1}'s {2} prevents romance!",b.pbThis,b.abilityName))
             end
             @battle.pbHideAbilitySplash(self)
           end
@@ -551,11 +551,11 @@ class PokeBattle_Battler
   def pbAttract(user,msg=nil)
     @effects[PBEffects::Attract] = user.index
     @battle.pbCommonAnimation("Attract",self)
-    msg = _INTL("{1} est tombé amoureux!",pbThis) if nil_or_empty?(msg)
+    msg = _INTL("{1} fell in love!",pbThis) if nil_or_empty?(msg)
     @battle.pbDisplay(msg)
     # Destiny Knot
     if hasActiveItem?(:DESTINYKNOT) && user.pbCanAttract?(self,false)
-      user.pbAttract(self,_INTL("{1} tombé amoureux par {2}!",user.pbThis(true),itemName))
+      user.pbAttract(self,_INTL("{1} fell in love from the {2}!",user.pbThis(true),itemName))
     end
     # Attraction cures
     pbItemStatusCureCheck

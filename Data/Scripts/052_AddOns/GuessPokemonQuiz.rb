@@ -34,20 +34,20 @@ class FusionQuiz
 
     for i in 1..nb_rounds
       if i == nb_rounds
-        pbMessage(_INTL("Préparez-vous ! Voici le tour final!"))
+        pbMessage(_INTL("Get ready! Here comes the final round!"))
       elsif i == 1
-        pbMessage(_INTL("Préparez-vous ! Voici le premier tour!"))
+        pbMessage(_INTL("Get ready! Here comes the first round!"))
       else
-        pbMessage(_INTL("Préparez-vous ! Le tour {1}  arrive!", i))
+        pbMessage(_INTL("Get ready! Here comes round {1}!", i))
       end
       start_quiz_new_round(round_multiplier)
 
       rounds_left = nb_rounds - i
       if rounds_left > 0
-        pbMessage(_INTL("C'est tout pour le tour {1}. Vous avez cumulé {2} points jusqu'à présent.", i, @score))
-        prompt_next_round = pbMessage(_INTL("Êtes-vous prêt à passer au tour suivant?", i), ["Oui", "Non"])
+        pbMessage(_INTL("That's it for round {1}. You've cumulated {2} points so far.", i, @score))
+        prompt_next_round = pbMessage(_INTL("Are you ready to move on to the next round?", i), ["Yes", "No"])
         if prompt_next_round != 0
-          prompt_quit = pbMessage(_INTL("Il vous reste encore {1} tours à jouer. Vous ne conserverez vos points que si vous terminez les {2} tours. Voulez-vous vraiment quitter?", rounds_left, nb_rounds), ["Yes", "No"])
+          prompt_quit = pbMessage(_INTL("You still have {1} rounds to go. You'll only keep your points if you finish all {2} rounds. Do you really want to quit now?", rounds_left, nb_rounds), ["Yes", "No"])
           if prompt_quit
             @abandonned = true
             break
@@ -55,8 +55,8 @@ class FusionQuiz
         end
         round_multiplier += round_multiplier_increase
       else
-        pbMessage(_INTL("Ceci conclut notre quiz! Vous avez cumulé {1} points au total.", @score))
-        pbMessage("Merci d'avoir joué avec nous aujourd'hui!")
+        pbMessage(_INTL("This concludes our quiz! You've cumulated {1} points in total.", @score))
+        pbMessage("Thanks for playing with us today!")
       end
     end
     end_quiz()
@@ -93,29 +93,29 @@ class FusionQuiz
     correct_answers = []
 
     #OBSCURED
-    correct_answers << new_question(calculate_points_awarded(base_points_q1, round_multiplier), "Quel Pokémon est le corps de cette fusion?", @body_id, true, true)
-    pbMessage("Question suivante!")
-    correct_answers << new_question(calculate_points_awarded(base_points_q2, round_multiplier), "Quel Pokémon est la tête de cette fusion?", @head_id, true, true)
+    correct_answers << new_question(calculate_points_awarded(base_points_q1, round_multiplier), "Which Pokémon is this fusion's body?", @body_id, true, true)
+    pbMessage("Next question!")
+    correct_answers << new_question(calculate_points_awarded(base_points_q2, round_multiplier), "Which Pokémon is this fusion's head?", @head_id, true, true)
 
     #NON-OBSCURED
     if !correct_answers[0] || !correct_answers[1]
       show_fusion_picture(false)
-      pbMessage("Ok, c'est maintenant votre chance de rattraper les points que vous avez manqués!")
+      pbMessage("Okay, now's your chance to make up for the points you missed!")
       if !correct_answers[0] #1st question redemption
-        new_question(calculate_points_awarded(base_points_q1_redemption, round_multiplier), "Quel Pokémon est le corps de cette fusion?", @body_id, true, false)
+        new_question(calculate_points_awarded(base_points_q1_redemption, round_multiplier), "Which Pokémon is this fusion's body?", @body_id, true, false)
         if !correct_answers[1]
-          pbMessage("Question suivante!")
+          pbMessage("Next question!")
         end
       end
 
       if !correct_answers[1] #2nd question redemption
-        new_question(calculate_points_awarded(base_points_q2_redemption, round_multiplier), "Quel Pokémon est la tête de cette fusion?", @head_id, true, false)
+        new_question(calculate_points_awarded(base_points_q2_redemption, round_multiplier), "Which Pokémon is this fusion's head?", @head_id, true, false)
       end
     else
       pbSEPlay("Applause", 80)
-      pbMessage(_INTL("Waouh! Un tour parfait! Vous obtenez {1} points supplémentaires!", perfect_round_points))
+      pbMessage(_INTL("Wow! A perfect round! You get {1} more points!", perfect_round_points))
       show_fusion_picture(false, 100)
-      pbMessage("Voyons à quoi ressemblait ce Pokémon!")
+      pbMessage("Let's see what this Pokémon looked like!")
     end
     current_streak_dialog()
     hide_fusion_picture()
@@ -162,7 +162,7 @@ class FusionQuiz
     streak_color = base_color_medium_streak if @current_streak >= 2
     streak_color = base_color_high_streak if @current_streak >= 4
 
-    message = _INTL("Enchainement: {1}",@current_streak)
+    message = _INTL("Streak: {1}",@current_streak)
     Kernel.pbClearText()
     Kernel.pbDisplayText(message,420,340,nil,streak_color)
   end
@@ -173,7 +173,7 @@ class FusionQuiz
 
   def question_answer_followup_dialog(answered_correctly, correct_answer, points_awarded_if_win, other_chance_later = false)
     if !other_chance_later
-      pbMessage("Et la bonne réponse était...")
+      pbMessage("And the correct answer was...")
       pbMessage("...")
       pbMessage(_INTL("{1}!", correct_answer))
     end
@@ -181,13 +181,13 @@ class FusionQuiz
     if answered_correctly
       pbSEPlay("itemlevel", 80)
       increase_streak
-      pbMessage("C'est une bonne réponse!")
-      pbMessage(_INTL("Votre réponse vous a valu {1} points. Votre score actuel est de {2}", points_awarded_if_win, @score.to_s))
+      pbMessage("That's a correct answer!")
+      pbMessage(_INTL("You're awarded {1} points for your answer. Your current score is {2}", points_awarded_if_win, @score.to_s))
     else
       pbSEPlay("buzzer", 80)
       break_streak
-      pbMessage("Malheureusement, c'était une mauvaise réponse.")
-      pbMessage("Mais tu auras une autre chance.!") if other_chance_later
+      pbMessage("Unfortunately, that was a wrong answer.")
+      pbMessage("But you'll get another chance at it!") if other_chance_later
     end
   end
 
@@ -197,11 +197,11 @@ class FusionQuiz
     if @current_streak % 4 == 0
       extra_points = (@current_streak/4)*streak_base_worth
       if @current_streak >= 8
-        pbMessage(_INTL("C'est {1} bonnes réponses d'affilée. Vous êtes sur la bonne voie!", @current_streak))
+        pbMessage(_INTL("That's {1} correct answers in a row. You're on a roll!", @current_streak))
       else
-        pbMessage(_INTL("C'est {1} bonnes réponses d'affilée. Vous vous en sortez très bien!", @current_streak))
+        pbMessage(_INTL("That's {1} correct answers in a row. You're doing great!", @current_streak))
       end
-      pbMessage(_INTL("Voici {1} points supplémentaires pour maintenir un enchainement",extra_points))
+      pbMessage(_INTL("Here's {1} extra points for maintaining a streak!",extra_points))
       award_points(extra_points)
     end
   end
@@ -241,7 +241,7 @@ class FusionQuiz
       else
         player_answer = prompt_pick_answer_regular(prompt_message, answer_id, should_generate_new_choices)
       end
-      confirmed = pbMessage("Est-ce votre réponse finale?", ["Oui", "Non"])
+      confirmed = pbMessage("Is this your final answer?", ["Yes", "No"])
       if confirmed == 0
         question_answered = true
       else

@@ -164,6 +164,7 @@ class BetterRegionMap
     @sprites["cursor"] = Sprite.new(@viewport2)
     @sprites["cursor"].bmp("Graphics/Pictures/mapCursor")
     @sprites["cursor"].src_rect.width = @sprites["cursor"].bmp.height
+
     if !$PokemonGlobal.regionMapSel
       $PokemonGlobal.regionMapSel = [0, 0]
     end
@@ -663,12 +664,11 @@ class BetterRegionMap
     text = location[2] if location
     poi = ""
     poi = location[3] if location && location[3]
-    
     @sprites["txt"].draw([
                            [pbGetMessage(MessageTypes::RegionNames, @region), 16, 0, 0,
                             Color.new(255, 255, 255), Color.new(0, 0, 0)],
-                           [text, 16, 348, 0, Color.new(255, 255, 255), Color.new(0, 0, 0)],
-                           [poi, 496, 348, 1, Color.new(255, 255, 255), Color.new(0, 0, 0)],
+                           [text, 16, 354, 0, Color.new(255, 255, 255), Color.new(0, 0, 0)],
+                           [poi, 496, 354, 1, Color.new(255, 255, 255), Color.new(0, 0, 0)],
                          ], true)
   end
 

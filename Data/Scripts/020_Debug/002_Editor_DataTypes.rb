@@ -3,7 +3,7 @@
 #===============================================================================
 module UndefinedProperty
   def self.set(_settingname,oldsetting)
-    pbMessage(_INTL("Cette propriété ne peut pas être modifiée ici pour le moment."))
+    pbMessage(_INTL("This property can't be edited here at this time."))
     return oldsetting
   end
 
@@ -16,7 +16,7 @@ end
 
 module ReadOnlyProperty
   def self.set(_settingname,oldsetting)
-    pbMessage(_INTL("Cette propriété ne peut pas être modifiée."))
+    pbMessage(_INTL("This property cannot be edited."))
     return oldsetting
   end
 
@@ -36,7 +36,7 @@ class UIntProperty
     params = ChooseNumberParams.new
     params.setMaxDigits(@maxdigits)
     params.setDefaultValue(oldsetting || 0)
-    return pbMessageChooseNumber(_INTL("Définir la valeur pour {1}.",settingname),params)
+    return pbMessageChooseNumber(_INTL("Set the value for {1}.",settingname),params)
   end
 
   def defaultValue
@@ -60,7 +60,7 @@ class LimitProperty
     params = ChooseNumberParams.new
     params.setRange(0,@maxvalue)
     params.setDefaultValue(oldsetting)
-    return pbMessageChooseNumber(_INTL("Définir la valeur pour {1} (0-#{@maxvalue}).",settingname),params)
+    return pbMessageChooseNumber(_INTL("Set the value for {1} (0-#{@maxvalue}).",settingname),params)
   end
 
   def defaultValue
@@ -85,7 +85,7 @@ class LimitProperty2
     params.setRange(0,@maxvalue)
     params.setDefaultValue(oldsetting)
     params.setCancelValue(-1)
-    ret = pbMessageChooseNumber(_INTL("Définir la valeur pour {1} (0-#{@maxvalue}).",settingname),params)
+    ret = pbMessageChooseNumber(_INTL("Set the value for {1} (0-#{@maxvalue}).",settingname),params)
     return (ret>=0) ? ret : nil
   end
 
@@ -110,7 +110,7 @@ class NonzeroLimitProperty
     params = ChooseNumberParams.new
     params.setRange(1,@maxvalue)
     params.setDefaultValue(oldsetting)
-    return pbMessageChooseNumber(_INTL("Définir la valeur pour {1}.",settingname),params)
+    return pbMessageChooseNumber(_INTL("Set the value for {1}.",settingname),params)
   end
 
   def defaultValue
@@ -126,7 +126,7 @@ end
 
 module BooleanProperty
   def self.set(settingname,_oldsetting)
-    return pbConfirmMessage(_INTL("Activer le paramètre {1}?",settingname)) ? true : false
+    return pbConfirmMessage(_INTL("Enable the setting {1}?",settingname)) ? true : false
   end
 
   def self.format(value)
@@ -138,7 +138,7 @@ end
 
 module BooleanProperty2
   def self.set(_settingname,_oldsetting)
-    ret = pbShowCommands(nil,[_INTL("VRAI"),_INTL("FAUX")],-1)
+    ret = pbShowCommands(nil,[_INTL("True"),_INTL("False")],-1)
     return (ret>=0) ? (ret==0) : nil
   end
 
@@ -147,7 +147,7 @@ module BooleanProperty2
   end
 
   def self.format(value)
-    return (value) ? _INTL("VRAI") : (value!=nil) ? _INTL("FAUX") : "-"
+    return (value) ? _INTL("True") : (value!=nil) ? _INTL("False") : "-"
   end
 end
 
@@ -155,7 +155,7 @@ end
 
 module StringProperty
   def self.set(settingname,oldsetting)
-    return pbMessageFreeText(_INTL("Définir la valeur pour {1}.",settingname),
+    return pbMessageFreeText(_INTL("Set the value for {1}.",settingname),
        (oldsetting) ? oldsetting : "",false,250,Graphics.width)
   end
 
@@ -176,7 +176,7 @@ class LimitStringProperty
   end
 
   def set(settingname,oldsetting)
-    return pbMessageFreeText(_INTL("Définir la valeur pour {1}.",settingname),
+    return pbMessageFreeText(_INTL("Set the value for {1}.",settingname),
        (oldsetting) ? oldsetting : "",false,@limit)
   end
 end
@@ -193,7 +193,7 @@ class EnumProperty
     for value in @values
       commands.push(value)
     end
-    cmd = pbMessage(_INTL("Choisissez une valeur pour {1}.",settingname),commands,-1)
+    cmd = pbMessage(_INTL("Choose a value for {1}.",settingname),commands,-1)
     return oldsetting if cmd<0
     return cmd
   end
@@ -220,7 +220,7 @@ class EnumProperty2
     for i in 0..@module.maxValue
       commands.push(getConstantName(@module, i))
     end
-    cmd = pbMessage(_INTL("Choisissez une valeur pour {1}.", settingname), commands, -1, nil, oldsetting)
+    cmd = pbMessage(_INTL("Choose a value for {1}.", settingname), commands, -1, nil, oldsetting)
     return oldsetting if cmd < 0
     return cmd
   end
@@ -238,7 +238,7 @@ end
 
 class GameDataProperty
   def initialize(value)
-    raise _INTL("Impossible de trouver la classe {1} dans le module GameData.", value.to_s) if !GameData.const_defined?(value.to_sym)
+    raise _INTL("Couldn't find class {1} in module GameData.", value.to_s) if !GameData.const_defined?(value.to_sym)
     @module = GameData.const_get(value.to_sym)
   end
 
@@ -422,7 +422,7 @@ end
 
 module GenderProperty
   def self.set(_settingname,_oldsetting)
-    ret = pbShowCommands(nil,[_INTL("Male"),_INTL("Femelle")],-1)
+    ret = pbShowCommands(nil,[_INTL("Male"),_INTL("Female")],-1)
     return (ret>=0) ? ret : nil
   end
 
@@ -432,7 +432,7 @@ module GenderProperty
 
   def self.format(value)
     return _INTL("-") if !value
-    return (value==0) ? _INTL("Male") : (value==1) ? _INTL("Femelle") : "-"
+    return (value==0) ? _INTL("Male") : (value==1) ? _INTL("Female") : "-"
   end
 end
 
@@ -468,7 +468,7 @@ class IVsProperty
     GameData::Stat.each_main do |s|
       oldsetting[s.pbs_order] = 0 if !oldsetting[s.pbs_order]
       properties[s.pbs_order] = [s.name, LimitProperty2.new(@limit),
-                                 _INTL("Valeurs individuelles pour les Pokémon {1} stat (0-{2}).", s.name, @limit)]
+                                 _INTL("Individual values for the Pokémon's {1} stat (0-{2}).", s.name, @limit)]
       data[s.pbs_order] = oldsetting[s.id]
       stat_ids[s.pbs_order] = s.id
     end
@@ -508,7 +508,7 @@ class EVsProperty
     GameData::Stat.each_main do |s|
       oldsetting[s.pbs_order] = 0 if !oldsetting[s.pbs_order]
       properties[s.pbs_order] = [s.name, LimitProperty2.new(@limit),
-                                 _INTL("Valeurs d'effort pour les Pokémon {1} stat (0-{2}).", s.name, @limit)]
+                                 _INTL("Effort values for the Pokémon's {1} stat (0-{2}).", s.name, @limit)]
       data[s.pbs_order] = oldsetting[s.id]
       stat_ids[s.pbs_order] = s.id
     end
@@ -517,7 +517,7 @@ class EVsProperty
       evtotal = 0
       data.each { |value| evtotal += value if value }
       break if evtotal <= Pokemon::EV_LIMIT
-      pbMessage(_INTL("Total EVs ({1}) est supérieur à celui autorisé ({2}). Veuillez les réduire.", evtotal, Pokemon::EV_LIMIT))
+      pbMessage(_INTL("Total EVs ({1}) are greater than allowed ({2}). Please reduce them.", evtotal, Pokemon::EV_LIMIT))
     end
     ret = {}
     stat_ids.each_with_index { |s, i| ret[s] = data[i] || 0 }
@@ -578,14 +578,14 @@ module PlayerProperty
   def self.set(settingname,oldsetting)
     oldsetting = [nil,"xxx","xxx","xxx","xxx","xxx","xxx","xxx"] if !oldsetting
     properties = [
-       [_INTL("Trainer Type"), TrainerTypeProperty, _INTL("Type de dresseur de ce joueur.")],
-       [_INTL("Sprite"),       CharacterProperty,   _INTL("Sprite de personnage marchant.")],
-       [_INTL("Cycling"),      CharacterProperty,   _INTL("Sprite de personnage cycliste.")],
-       [_INTL("Surfing"),      CharacterProperty,   _INTL("Sprite de personnage de surf.")],
-       [_INTL("Running"),      CharacterProperty,   _INTL("Sprite de personnage d'un coureur.")],
-       [_INTL("Diving"),       CharacterProperty,   _INTL("Sprite de personnage de plongée.")],
-       [_INTL("Fishing"),      CharacterProperty,   _INTL("Sprite de personnage de pêche.")],
-       [_INTL("Field Move"),   CharacterProperty,   _INTL("Utilisation d'un sprite de personnage de déplacement de champ.")]
+       [_INTL("Trainer Type"), TrainerTypeProperty, _INTL("Trainer type of this player.")],
+       [_INTL("Sprite"),       CharacterProperty,   _INTL("Walking character sprite.")],
+       [_INTL("Cycling"),      CharacterProperty,   _INTL("Cycling character sprite.")],
+       [_INTL("Surfing"),      CharacterProperty,   _INTL("Surfing character sprite.")],
+       [_INTL("Running"),      CharacterProperty,   _INTL("Running character sprite.")],
+       [_INTL("Diving"),       CharacterProperty,   _INTL("Diving character sprite.")],
+       [_INTL("Fishing"),      CharacterProperty,   _INTL("Fishing character sprite.")],
+       [_INTL("Field Move"),   CharacterProperty,   _INTL("Using a field move character sprite.")]
     ]
     pbPropertyList(settingname,oldsetting,properties,false)
     return oldsetting
@@ -602,8 +602,8 @@ module MapSizeProperty
   def self.set(settingname,oldsetting)
     oldsetting = [0,""] if !oldsetting
     properties = [
-       [_INTL("Width"),         NonzeroLimitProperty.new(30), _INTL("La largeur de cette carte en carrés de la carte régionale.")],
-       [_INTL("Valid Squares"), StringProperty,               _INTL("Une série de 1 et de 0 indiquant les cases qui font partie de cette carte (1=part, 0=not part).")],
+       [_INTL("Width"),         NonzeroLimitProperty.new(30), _INTL("The width of this map in Region Map squares.")],
+       [_INTL("Valid Squares"), StringProperty,               _INTL("A series of 1s and 0s marking which squares are part of this map (1=part, 0=not part).")],
     ]
     pbPropertyList(settingname,oldsetting,properties,false)
     return oldsetting
@@ -619,7 +619,7 @@ end
 def chooseMapPoint(map,rgnmap=false)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
-  title = Window_UnformattedTextPokemon.newWithSize(_INTL("Cliquez sur un point sur la carte."),
+  title = Window_UnformattedTextPokemon.newWithSize(_INTL("Click a point on the map."),
      0, Graphics.height - 64, Graphics.width, 64, viewport)
   title.z = 2
   if rgnmap
@@ -673,8 +673,8 @@ module MapCoordsFacingProperty
     if chosenmap>=0
       mappoint = chooseMapPoint(chosenmap)
       if mappoint
-        facing = pbMessage(_INTL("Choisissez la direction dans laquelle vous voulez faire face."),
-           [_INTL("BAS"),_INTL("GAUCHE"),_INTL("DROITE"),_INTL("HAUT")],-1)
+        facing = pbMessage(_INTL("Choose the direction to face in."),
+           [_INTL("Down"),_INTL("Left"),_INTL("Right"),_INTL("Up")],-1)
         return (facing>=0) ? [chosenmap,mappoint[0],mappoint[1],[2,4,6,8][facing]] : oldsetting
       else
         return oldsetting
@@ -696,7 +696,7 @@ module RegionMapCoordsProperty
     regions = self.getMapNameList
     selregion = -1
     if regions.length==0
-      pbMessage(_INTL("Aucune carte de région n'est définie."))
+      pbMessage(_INTL("No region maps are defined."))
       return oldsetting
     elsif regions.length==1
       selregion = regions[0][0]
@@ -705,7 +705,7 @@ module RegionMapCoordsProperty
       for region in regions
         cmds.push(region[1])
       end
-      selcmd = pbMessage(_INTL("Choisissez une carte de région."),cmds,-1)
+      selcmd = pbMessage(_INTL("Choose a region map."),cmds,-1)
       if selcmd>=0
         selregion = regions[selcmd][0]
       else
@@ -746,12 +746,12 @@ module WeatherEffectProperty
       options.push(w.real_name)
       ids.push(w.id)
     end
-    cmd = pbMessage(_INTL("Choisissez un effet météo."), options, -1, nil, default)
+    cmd = pbMessage(_INTL("Choose a weather effect."), options, -1, nil, default)
     return nil if cmd < 0 || ids[cmd] == :None
     params = ChooseNumberParams.new
     params.setRange(0, 100)
     params.setDefaultValue(oldsetting[1])
-    number = pbMessageChooseNumber(_INTL("Définir la probabilité de la météo."), params)
+    number = pbMessageChooseNumber(_INTL("Set the probability of the weather."), params)
     return [ids[cmd], number]
   end
 
@@ -781,7 +781,7 @@ end
 
 module ItemNameProperty
   def self.set(settingname, oldsetting)
-    return pbMessageFreeText(_INTL("Définir la valeur pour {1}.",settingname),
+    return pbMessageFreeText(_INTL("Set the value for {1}.",settingname),
        (oldsetting) ? oldsetting : "",false,30)
   end
 
@@ -800,7 +800,7 @@ module PocketProperty
   def self.set(_settingname, oldsetting)
     commands = Settings.bag_pocket_names.clone
     commands.shift
-    cmd = pbMessage(_INTL("Choisissez une poche pour cet item."), commands, -1)
+    cmd = pbMessage(_INTL("Choose a pocket for this item."), commands, -1)
     return (cmd >= 0) ? cmd + 1 : oldsetting
   end
 
@@ -809,7 +809,7 @@ module PocketProperty
   end
 
   def self.format(value)
-    return _INTL("Pas de poche") if value == 0
+    return _INTL("No Pocket") if value == 0
     return (value) ? Settings.bag_pocket_names[value] : value.inspect
   end
 end
@@ -825,7 +825,7 @@ module BaseStatsProperty
     GameData::Stat.each_main do |s|
       next if s.pbs_order < 0
       properties[s.pbs_order] = [_INTL("Base {1}", s.name), NonzeroLimitProperty.new(255),
-                                 _INTL("Statistique de base {1} du Pokémon.", s.name)]
+                                 _INTL("Base {1} stat of the Pokémon.", s.name)]
       data[s.pbs_order] = oldsetting[s.id] || 10
       stat_ids[s.pbs_order] = s.id
     end
@@ -864,7 +864,7 @@ module EffortValuesProperty
     GameData::Stat.each_main do |s|
       next if s.pbs_order < 0
       properties[s.pbs_order] = [_INTL("{1} EVs", s.name), LimitProperty.new(255),
-                                 _INTL("Nombre de {1} points de valeur d'effort gagnés grâce au Pokémon.", s.name)]
+                                 _INTL("Number of {1} Effort Value points gained from the Pokémon.", s.name)]
       data[s.pbs_order] = oldsetting[s.id] || 0
       stat_ids[s.pbs_order] = s.id
     end
@@ -961,7 +961,7 @@ module MovePoolProperty
             params.setRange(0, GameData::GrowthRate.max_level)
             params.setDefaultValue(1)
             params.setCancelValue(-1)
-            newlevel = pbMessageChooseNumber(_INTL("Choisissez un niveau."),params)
+            newlevel = pbMessageChooseNumber(_INTL("Choose a level."),params)
             if newlevel >= 0
               newmove = pbChooseMoveList
               if newmove
@@ -980,13 +980,13 @@ module MovePoolProperty
               end
             end
           else   # Edit existing move
-            case pbMessage(_INTL("\\ts[]Que faire de cette capacité?"),
-               [_INTL("Changer de niveau"), _INTL("Changer de capacité"), _INTL("Supprimer"), _INTL("Annuler")], 4)
+            case pbMessage(_INTL("\\ts[]Do what with this move?"),
+               [_INTL("Change level"), _INTL("Change move"), _INTL("Delete"), _INTL("Cancel")], 4)
             when 0   # Change level
               params = ChooseNumberParams.new
               params.setRange(0, GameData::GrowthRate.max_level)
               params.setDefaultValue(entry[0])
-              newlevel = pbMessageChooseNumber(_INTL("Choisissez un nouveau niveau."), params)
+              newlevel = pbMessageChooseNumber(_INTL("Choose a new level."), params)
               if newlevel >= 0 && newlevel != entry[0]
                 havemove = -1
                 realcmds.each do |e|
@@ -1028,8 +1028,8 @@ module MovePoolProperty
             end
           end
         else   # Cancel/quit
-          case pbMessage(_INTL("Enregistrer les modifications?"),
-             [_INTL("Oui"), _INTL("Non"), _INTL("Annuler")], 3)
+          case pbMessage(_INTL("Save changes?"),
+             [_INTL("Yes"), _INTL("No"), _INTL("Cancel")], 3)
           when 0
             for i in 0...realcmds.length
               realcmds[i].pop   # Remove name
@@ -1104,8 +1104,8 @@ module EggMovesProperty
             refreshlist = true
           end
         else   # Edit move
-          case pbMessage(_INTL("\\ts[]Que faire de cette capacité?"),
-             [_INTL("Changer de capacité"), _INTL("Supprimer"), _INTL("Annuler")], 3)
+          case pbMessage(_INTL("\\ts[]Do what with this move?"),
+             [_INTL("Change move"), _INTL("Delete"), _INTL("Cancel")], 3)
           when 0   # Change move
             newmove = pbChooseMoveList(entry[0])
             if newmove
@@ -1127,8 +1127,8 @@ module EggMovesProperty
           end
         end
       else   # Cancel/quit
-        case pbMessage(_INTL("Enregistrer les modifications?"),
-           [_INTL("Oui"), _INTL("Non"), _INTL("Annuler")], 3)
+        case pbMessage(_INTL("Save changes?"),
+           [_INTL("Yes"), _INTL("No"), _INTL("Cancel")], 3)
         when 0
           for i in 0...realcmds.length
             realcmds[i] = realcmds[i][0]
@@ -1191,7 +1191,7 @@ class EvolutionsProperty
       params.setRange(0, 65535)
       params.setDefaultValue(value) if value
       params.setCancelValue(-1)
-      ret = pbMessageChooseNumber(_INTL("Choisissez un paramètre."), params)
+      ret = pbMessageChooseNumber(_INTL("Choose a parameter."), params)
       ret = nil if ret < 0
     end
     return ret
@@ -1252,10 +1252,10 @@ class EvolutionsProperty
         if cmd[1]>=0
           entry = realcmds[cmd[1]]
           if entry[3]==-1   # Add new evolution path
-            pbMessage(_INTL("Choisissez une forme, une méthode et un paramètre évolués."))
+            pbMessage(_INTL("Choose an evolved form, method and parameter."))
             newspecies = pbChooseSpeciesList
             if newspecies
-              newmethodindex = pbMessage(_INTL("Choisir une méthode d'évolution."),@methods,-1)
+              newmethodindex = pbMessage(_INTL("Choose an evolution method."),@methods,-1)
               if newmethodindex >= 0
                 newmethod = @evo_ids[newmethodindex]
                 newparam = edit_parameter(newmethod)
@@ -1279,9 +1279,9 @@ class EvolutionsProperty
               end
             end
           else   # Edit evolution
-            case pbMessage(_INTL("\\ts[]Que faire de cette évolution?"),
-               [_INTL("Changer d'espèce"),_INTL("Changer de méthode"),
-                _INTL("Changer les paramètres"),_INTL("Supprimer"),_INTL("Annuler")],5)
+            case pbMessage(_INTL("\\ts[]Do what with this evolution?"),
+               [_INTL("Change species"),_INTL("Change method"),
+                _INTL("Change parameter"),_INTL("Delete"),_INTL("Cancel")],5)
             when 0   # Change species
               newspecies = pbChooseSpeciesList(entry[0])
               if newspecies
@@ -1304,7 +1304,7 @@ class EvolutionsProperty
             when 1   # Change method
               default_index = 0
               @evo_ids.each_with_index { |evo, i| default_index = i if evo == entry[1] }
-              newmethodindex = pbMessage(_INTL("Choisir une méthode d'évolution."),@methods,-1,nil,default_index)
+              newmethodindex = pbMessage(_INTL("Choose an evolution method."),@methods,-1,nil,default_index)
               if newmethodindex >= 0
                 newmethod = @evo_ids[newmethodindex]
                 existing_evo = -1
@@ -1326,7 +1326,7 @@ class EvolutionsProperty
               end
             when 2   # Change parameter
               if GameData::Evolution.get(entry[1]).parameter.nil?
-                pbMessage(_INTL("Cette méthode d'évolution n'utilise pas de paramètre."))
+                pbMessage(_INTL("This evolution method doesn't use a parameter."))
               else
                 newparam = edit_parameter(entry[1], entry[2])
                 if newparam
@@ -1355,8 +1355,8 @@ class EvolutionsProperty
             end
           end
         else
-          cmd2 = pbMessage(_INTL("Enregistrer les modifications?"),
-             [_INTL("Oui"),_INTL("Non"),_INTL("Annuler")],3)
+          cmd2 = pbMessage(_INTL("Save changes?"),
+             [_INTL("Yes"),_INTL("No"),_INTL("Cancel")],3)
           if cmd2==0 || cmd2==1
             if cmd2==0
               for i in 0...realcmds.length
@@ -1414,10 +1414,10 @@ module EncounterSlotProperty
     end
     data[3] = data[2] if !data[3]
     properties = [
-      [_INTL("Probability"),   NonzeroLimitProperty.new(999),       _INTL("Probabilité relative de choisir cet emplacement.")],
-      [_INTL("Species"),       SpeciesFormProperty.new(data[1]),    _INTL("Une espèce/forme de Pokémon.")],
-      [_INTL("Minimum level"), NonzeroLimitProperty.new(max_level), _INTL("Niveau minimum de cette espèce (1-{1}).", max_level)],
-      [_INTL("Maximum level"), NonzeroLimitProperty.new(max_level), _INTL("Niveau maximum de cette espèce (1-{1}).", max_level)]
+      [_INTL("Probability"),   NonzeroLimitProperty.new(999),       _INTL("Relative probability of choosing this slot.")],
+      [_INTL("Species"),       SpeciesFormProperty.new(data[1]),    _INTL("A Pokémon species/form.")],
+      [_INTL("Minimum level"), NonzeroLimitProperty.new(max_level), _INTL("Minimum level of this species (1-{1}).", max_level)],
+      [_INTL("Maximum level"), NonzeroLimitProperty.new(max_level), _INTL("Maximum level of this species (1-{1}).", max_level)]
     ]
     pbPropertyList(setting_name, data, properties, false)
     if data[2] > data[3]
@@ -1487,7 +1487,7 @@ def pbPropertyList(title,data,properties,saveprompt=false)
       if Input.trigger?(Input::ACTION)
         propobj = properties[selectedmap][1]
         if propobj!=ReadOnlyProperty && !propobj.is_a?(ReadOnlyProperty) &&
-           pbConfirmMessage(_INTL("Réinitialiser le paramètre {1}?",properties[selectedmap][0]))
+           pbConfirmMessage(_INTL("Reset the setting {1}?",properties[selectedmap][0]))
           if propobj.respond_to?("defaultValue")
             data[selectedmap] = propobj.defaultValue
           else
@@ -1518,8 +1518,8 @@ def pbPropertyList(title,data,properties,saveprompt=false)
       end
     end
     if selectedmap==-1 && saveprompt
-      cmd = pbMessage(_INTL("Enregistrer les modifications?"),
-         [_INTL("Oui"),_INTL("Non"),_INTL("Annuler")],3)
+      cmd = pbMessage(_INTL("Save changes?"),
+         [_INTL("Yes"),_INTL("No"),_INTL("Cancel")],3)
       if cmd==2
         selectedmap = list.index
       else

@@ -2,12 +2,12 @@ class CharacterSelectMenuPresenter
   attr_accessor :options
   attr_reader :current_index
 
-  OPTION_NAME = 'Nom'
+  OPTION_NAME = 'Name'
   OPTION_AGE = "Age"
-  OPTION_GENDER = "Genre"
-  OPTION_HAIR = "Cheveux"
-  OPTION_SKIN = "Peaux"
-  OPTION_CONFIRM = "Confirmer"
+  OPTION_GENDER = "Gender"
+  OPTION_HAIR = "Hair"
+  OPTION_SKIN = "Skin"
+  OPTION_CONFIRM = "Confirm"
 
   MIN_AGE = 10
   MAX_AGE = 17
@@ -16,10 +16,10 @@ class CharacterSelectMenuPresenter
   MIN_SKIN_COLOR = 1
   MAX_SKIN_COLOR = 6
   SKIN_COLOR_IDS = ["Type A", "Type B", "Type C", "Type D", "Type E", "Type F"]
-  GENDERS_IDS = ["Femelle", "Male"]
+  GENDERS_IDS = ["Female", "Male"]
 
   HAIR_COLOR_IDS = [1, 2, 3, 4]
-  HAIR_COLOR_NAMES = ["Blond", "Brun clair", "Brun foncé", "Noir"]
+  HAIR_COLOR_NAMES = ["Blonde", "Light Brown", "Dark Brown", "Black"]
 
   #ids for displayed text sprites
   NAME_TEXT_ID = "name"
@@ -75,7 +75,7 @@ class CharacterSelectMenuPresenter
     case selected_option
     when OPTION_NAME
       pbSEPlay("GUI summary change page", 80, 100)
-      @name = pbEnterPlayerName(_INTL("Entrez votre nom"), 0, Settings::MAX_PLAYER_NAME_SIZE)
+      @name = pbEnterPlayerName(_INTL("Enter your name"), 0, Settings::MAX_PLAYER_NAME_SIZE)
       @name = getDefaultName() if @name == ''
       pbSEPlay("GUI trainer card open", 80, 100)
       updateDisplayedName(current_index)
@@ -86,7 +86,7 @@ class CharacterSelectMenuPresenter
       update_cursor(@current_index)
       @name = getDefaultName if @name == ""
       updateDisplayedName(getOptionIndex(OPTION_NAME))
-      cmd = pbMessage("Est-ce que cette information est correcte?", [_INTL("Oui"), _INTL("Non")])
+      cmd = pbMessage("Is this information correct?", [_INTL("Yes"), _INTL("No")])
       if cmd == 0
         pbSEPlay("GUI naming confirm", 80, 100)
         #pbMessage("You will be able to customize your appearance further while playing")

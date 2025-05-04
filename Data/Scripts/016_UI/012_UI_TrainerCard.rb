@@ -46,8 +46,8 @@ class PokemonTrainerCard_Scene
   def promptSwapBackground()
     $Trainer.unlocked_card_backgrounds = [] if !$Trainer.unlocked_card_backgrounds
     if $Trainer.unlocked_card_backgrounds.length >= 1
-      if pbConfirmMessage("Changer l'arrière-plan de ta Carte Dresseur actuelle?")
-        chosen = pbListScreen("Carte Dresseur", TrainerCardBackgroundLister.new($Trainer.unlocked_card_backgrounds))
+      if pbConfirmMessage("Swap your current Trainer Card background")
+        chosen = pbListScreen("Trainer card", TrainerCardBackgroundLister.new($Trainer.unlocked_card_backgrounds))
         echoln chosen
         if chosen
           $Trainer.card_background = chosen
@@ -56,7 +56,7 @@ class PokemonTrainerCard_Scene
         end
       end
     else
-      pbMessage("Tu peux acheter de nouveaux arrière-plans pour ta Carte Dresseur dans les PokéMarts!")
+      pbMessage("You can purchase new Trainer Card backgrounds at PokéMarts!")
     end
   end
 
@@ -75,17 +75,17 @@ class PokemonTrainerCard_Scene
                       $PokemonGlobal.startTime.day,
                       $PokemonGlobal.startTime.year)
     textPositions = [
-      [_INTL("Nom"), 34, 58, 0, baseColor, shadowColor],
+      [_INTL("Name"), 34, 58, 0, baseColor, shadowColor],
       [$Trainer.name, 302, 58, 1, baseColor, shadowColor],
       [_INTL("ID No."), 332, 58, 0, baseColor, shadowColor],
       [sprintf("%05d", $Trainer.public_ID), 468, 58, 1, baseColor, shadowColor],
-      [_INTL("Argent"), 34, 106, 0, baseColor, shadowColor],
-      [_INTL("{1}$", $Trainer.money.to_s_formatted), 302, 106, 1, baseColor, shadowColor],
+      [_INTL("Money"), 34, 106, 0, baseColor, shadowColor],
+      [_INTL("${1}", $Trainer.money.to_s_formatted), 302, 106, 1, baseColor, shadowColor],
       [_INTL("Pokédex"), 34, 154, 0, baseColor, shadowColor],
       [sprintf("%d/%d", $Trainer.pokedex.owned_count, $Trainer.pokedex.seen_count), 302, 154, 1, baseColor, shadowColor],
-      [_INTL("Temps"), 34, 202, 0, baseColor, shadowColor],
+      [_INTL("Time"), 34, 202, 0, baseColor, shadowColor],
       [time, 302, 202, 1, baseColor, shadowColor],
-      [_INTL("Commencé"), 34, 250, 0, baseColor, shadowColor],
+      [_INTL("Started"), 34, 250, 0, baseColor, shadowColor],
       [starttime, 302, 250, 1, baseColor, shadowColor]
     ]
     pbDrawTextPositions(overlay, textPositions)

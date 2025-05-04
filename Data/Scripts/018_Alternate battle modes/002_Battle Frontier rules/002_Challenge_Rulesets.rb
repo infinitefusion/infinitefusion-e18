@@ -196,19 +196,19 @@ class PokemonRuleSet
   # Pokemon in the team must be valid.
   def isValid?(team, error = nil)
     if team.length < self.minLength
-      error.push(_INTL("Choisissez un Pokémon.")) if error && self.minLength == 1
-      error.push(_INTL("{1} Des Pokémon sont nécessaires.", self.minLength)) if error && self.minLength > 1
+      error.push(_INTL("Choose a Pokémon.")) if error && self.minLength == 1
+      error.push(_INTL("{1} Pokémon are needed.", self.minLength)) if error && self.minLength > 1
       return false
     elsif team.length > self.maxLength
-      error.push(_INTL("Pas plus de {1} Pokémon peuvent entrer.", self.maxLength)) if error
+      error.push(_INTL("No more than {1} Pokémon may enter.", self.maxLength)) if error
       return false
     end
     for pkmn in team
       next if isPokemonValid?(pkmn)
       if pkmn
-        error.push(_INTL("{1} n'est pas autorisé.", pkmn.name)) if error
+        error.push(_INTL("{1} is not allowed.", pkmn.name)) if error
       else
-        error.push(_INTL("Cette équipe n'est pas autorisée.")) if error
+        error.push(_INTL("This team is not allowed.")) if error
       end
       return false
     end

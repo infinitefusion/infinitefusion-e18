@@ -40,11 +40,11 @@ class PokeBattle_Battle
     # Weather wears off
     if @field.weatherDuration==0
       case @field.weather
-      when :Sun       then pbDisplay(_INTL("La lumière du soleil s'est estompée."))
-      when :Rain      then pbDisplay(_INTL("La pluie s'est arrêtée."))
-      when :Sandstorm then pbDisplay(_INTL("La tempête de sable s'est calmée."))
-      when :Hail      then pbDisplay(_INTL("La grêle s'est arrêté."))
-      when :ShadowSky then pbDisplay(_INTL("Le ciel d'ombre s'est estompé."))
+      when :Sun       then pbDisplay(_INTL("The sunlight faded."))
+      when :Rain      then pbDisplay(_INTL("The rain stopped."))
+      when :Sandstorm then pbDisplay(_INTL("The sandstorm subsided."))
+      when :Hail      then pbDisplay(_INTL("The hail stopped."))
+      when :ShadowSky then pbDisplay(_INTL("The shadow sky faded."))
       end
       @field.weather = :None
       # Check for form changes caused by the weather changing
@@ -59,12 +59,12 @@ class PokeBattle_Battle
     case @field.weather
 #    when :Sun         then pbDisplay(_INTL("The sunlight is strong."))
 #    when :Rain        then pbDisplay(_INTL("Rain continues to fall."))
-    when :Sandstorm   then pbDisplay(_INTL("La tempête de sable fait rage."))
-    when :Hail        then pbDisplay(_INTL("La grêle s'abat."))
+    when :Sandstorm   then pbDisplay(_INTL("The sandstorm is raging."))
+    when :Hail        then pbDisplay(_INTL("The hail is crashing down."))
 #    when :HarshSun    then pbDisplay(_INTL("The sunlight is extremely harsh."))
 #    when :HeavyRain   then pbDisplay(_INTL("It is raining heavily."))
 #    when :StrongWinds then pbDisplay(_INTL("The wind is strong."))
-    when :ShadowSky   then pbDisplay(_INTL("Le ciel d'ombre continue."))
+    when :ShadowSky   then pbDisplay(_INTL("The shadow sky continues."))
     end
     # Effects due to weather
     curWeather = pbWeather
@@ -79,21 +79,21 @@ class PokeBattle_Battle
       case curWeather
       when :Sandstorm
         next if !b.takesSandstormDamage?
-        pbDisplay(_INTL("{1} est secoué par la tempête de sable!",b.pbThis))
+        pbDisplay(_INTL("{1} is buffeted by the sandstorm!",b.pbThis))
         @scene.pbDamageAnimation(b)
         b.pbReduceHP(b.totalhp/16,false)
         b.pbItemHPHealCheck
         b.pbFaint if b.fainted?
       when :Hail
         next if !b.takesHailDamage?
-        pbDisplay(_INTL("{1} est secoué par la grêle!",b.pbThis))
+        pbDisplay(_INTL("{1} is buffeted by the hail!",b.pbThis))
         @scene.pbDamageAnimation(b)
         b.pbReduceHP(b.totalhp/16,false)
         b.pbItemHPHealCheck
         b.pbFaint if b.fainted?
       when :ShadowSky
         next if !b.takesShadowSkyDamage?
-        pbDisplay(_INTL("{1} est blessé par l'ombre du ciel!",b.pbThis))
+        pbDisplay(_INTL("{1} is hurt by the shadow sky!",b.pbThis))
         @scene.pbDamageAnimation(b)
         b.pbReduceHP(b.totalhp/16,false)
         b.pbItemHPHealCheck
@@ -112,13 +112,13 @@ class PokeBattle_Battle
     if @field.terrain != :None && @field.terrainDuration == 0
       case @field.terrain
       when :Electric
-        pbDisplay(_INTL("Le courant électrique a disparu du champ de bataille!"))
+        pbDisplay(_INTL("The electric current disappeared from the battlefield!"))
       when :Grassy
-        pbDisplay(_INTL("L'herbe a disparu du champ de bataille!"))
+        pbDisplay(_INTL("The grass disappeared from the battlefield!"))
       when :Misty
-        pbDisplay(_INTL("La brume a disparu du champ de bataille!"))
+        pbDisplay(_INTL("The mist disappeared from the battlefield!"))
       when :Psychic
-        pbDisplay(_INTL("l'atmosphère étrange a disparu du champ de bataille!"))
+        pbDisplay(_INTL("The weirdness disappeared from the battlefield!"))
       end
       @field.terrain = :None
       # Start up the default terrain
@@ -129,10 +129,10 @@ class PokeBattle_Battle
     terrain_data = GameData::BattleTerrain.try_get(@field.terrain)
     pbCommonAnimation(terrain_data.animation) if terrain_data
     case @field.terrain
-    when :Electric then pbDisplay(_INTL("Un courant électrique traverse le champ de bataille."))
-    when :Grassy   then pbDisplay(_INTL("L'herbe recouvre le champ de bataille."))
-    when :Misty    then pbDisplay(_INTL("La brume tourbillonne sur le champ de bataille."))
-    when :Psychic  then pbDisplay(_INTL("La zone est étrange.."))
+    when :Electric then pbDisplay(_INTL("An electric current is running across the battlefield."))
+    when :Grassy   then pbDisplay(_INTL("Grass is covering the battlefield."))
+    when :Misty    then pbDisplay(_INTL("Mist is swirling about the battlefield."))
+    when :Psychic  then pbDisplay(_INTL("The battlefield is weird."))
     end
   end
 
@@ -187,9 +187,9 @@ class PokeBattle_Battle
         next if !pbSwapBattlers(pair[0],pair[1])
         case pbSideSize(side)
         when 2
-          pbDisplay(_INTL("{1} déplacé à côté!",@battlers[pair[1]].pbThis))
+          pbDisplay(_INTL("{1} moved across!",@battlers[pair[1]].pbThis))
         when 3
-          pbDisplay(_INTL("{1} est déplacé vers le centre!",@battlers[pair[1]].pbThis))
+          pbDisplay(_INTL("{1} moved to the center!",@battlers[pair[1]].pbThis))
         end
       end
     end
@@ -231,7 +231,7 @@ class PokeBattle_Battle
       end
       next if !moveUser   # User is fainted
       move = pos.effects[PBEffects::FutureSightMove]
-      pbDisplay(_INTL("{1} a pris l'attaque {2}!",@battlers[idxPos].pbThis,
+      pbDisplay(_INTL("{1} took the {2} attack!",@battlers[idxPos].pbThis,
          GameData::Move.get(move).name))
       # NOTE: Future Sight failing against the target here doesn't count towards
       #       Stomping Tantrum.
@@ -254,7 +254,7 @@ class PokeBattle_Battle
       next if !@battlers[idxPos] || !@battlers[idxPos].canHeal?
       wishMaker = pbThisEx(idxPos,pos.effects[PBEffects::WishMaker])
       @battlers[idxPos].pbRecoverHP(pos.effects[PBEffects::WishAmount])
-      pbDisplay(_INTL("Le souhait de {1} s'est réalisé!",wishMaker))
+      pbDisplay(_INTL("{1}'s wish came true!",wishMaker))
     end
     # Sea of Fire damage (Fire Pledge + Grass Pledge combination)
     curWeather = pbWeather
@@ -269,7 +269,7 @@ class PokeBattle_Battle
         oldHP = b.hp
         @scene.pbDamageAnimation(b)
         b.pbReduceHP(b.totalhp/8,false)
-        pbDisplay(_INTL("{1} est blessé par Aire de Feu!",b.pbThis))
+        pbDisplay(_INTL("{1} is hurt by the sea of fire!",b.pbThis))
         b.pbItemHPHealCheck
         b.pbAbilitiesOnDamageTaken(oldHP)
         b.pbFaint if b.fainted?
@@ -282,7 +282,7 @@ class PokeBattle_Battle
       if @field.terrain == :Grassy && b.affectedByTerrain? && b.canHeal?
         PBDebug.log("[Lingering effect] Grassy Terrain heals #{b.pbThis(true)}")
         b.pbRecoverHP(b.totalhp/16)
-        pbDisplay(_INTL("Les PV de {1} ont été restaurés.",b.pbThis))
+        pbDisplay(_INTL("{1}'s HP was restored.",b.pbThis))
       end
       # Healer, Hydration, Shed Skin
       BattleHandlers.triggerEORHealingAbility(b.ability,b,self) if b.abilityActive?
@@ -296,7 +296,7 @@ class PokeBattle_Battle
       hpGain = b.totalhp/16
       hpGain = (hpGain*1.3).floor if b.hasActiveItem?(:BIGROOT)
       b.pbRecoverHP(hpGain)
-      pbDisplay(_INTL("Anneau Hydro a restauré les PV de {1}!",b.pbThis(true)))
+      pbDisplay(_INTL("Aqua Ring restored {1}'s HP!",b.pbThis(true)))
     end
     # Ingrain
     priority.each do |b|
@@ -305,7 +305,7 @@ class PokeBattle_Battle
       hpGain = b.totalhp/16
       hpGain = (hpGain*1.3).floor if b.hasActiveItem?(:BIGROOT)
       b.pbRecoverHP(hpGain)
-      pbDisplay(_INTL("{1} absorbe les nutriments avec ses racines!",b.pbThis))
+      pbDisplay(_INTL("{1} absorbed nutrients with its roots!",b.pbThis))
     end
     # Leech Seed
     priority.each do |b|
@@ -318,7 +318,7 @@ class PokeBattle_Battle
       pbCommonAnimation("LeechSeed",recipient,b)
       hpLoss = b.pbReduceHP(b.totalhp/8)
       recipient.pbRecoverHPFromDrain(hpLoss,b,
-         _INTL("La santé de {1} est sapée par les vampigraines!",b.pbThis))
+         _INTL("{1}'s health is sapped by Leech Seed!",b.pbThis))
       recipient.pbAbilitiesOnDamageTaken(oldHPRecipient) if recipient.hp<oldHPRecipient
       b.pbItemHPHealCheck
       b.pbAbilitiesOnDamageTaken(oldHP)
@@ -331,7 +331,7 @@ class PokeBattle_Battle
       hpLoss = b.totalhp/24
       @scene.pbDamageAnimation(b)
       b.pbReduceHP(hpLoss,false)
-      pbDisplay(_INTL("L'attaque en Hyper Mode fait mal à {1}!",b.pbThis(true)))
+      pbDisplay(_INTL("The Hyper Mode attack hurts {1}!",b.pbThis(true)))
       b.pbFaint if b.fainted?
     end
     # Damage from poisoning
@@ -349,9 +349,9 @@ class PokeBattle_Battle
           pbShowAbilitySplash(b)
           b.pbRecoverHP(b.totalhp/8)
           if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-            pbDisplay(_INTL("Les PV de {1} ont été restaurés.",b.pbThis))
+            pbDisplay(_INTL("{1}'s HP was restored.",b.pbThis))
           else
-            pbDisplay(_INTL("{1}'s {2} a restauré ses PV.",b.pbThis,b.abilityName))
+            pbDisplay(_INTL("{1}'s {2} restored its HP.",b.pbThis,b.abilityName))
           end
           pbHideAbilitySplash(b)
         end
@@ -381,7 +381,7 @@ class PokeBattle_Battle
       next if !b.effects[PBEffects::Nightmare] || !b.takesIndirectDamage?
       oldHP = b.hp
       b.pbReduceHP(b.totalhp/4)
-      pbDisplay(_INTL("{1} est enfermé dans un cauchemar!",b.pbThis))
+      pbDisplay(_INTL("{1} is locked in a nightmare!",b.pbThis))
       b.pbItemHPHealCheck
       b.pbAbilitiesOnDamageTaken(oldHP)
       b.pbFaint if b.fainted?
@@ -391,7 +391,7 @@ class PokeBattle_Battle
       next if !b.effects[PBEffects::Curse] || !b.takesIndirectDamage?
       oldHP = b.hp
       b.pbReduceHP(b.totalhp/4)
-      pbDisplay(_INTL("{1} est affecter par une malédiction!",b.pbThis))
+      pbDisplay(_INTL("{1} is afflicted by the curse!",b.pbThis))
       b.pbItemHPHealCheck
       b.pbAbilitiesOnDamageTaken(oldHP)
       b.pbFaint if b.fainted?
@@ -402,7 +402,7 @@ class PokeBattle_Battle
       b.effects[PBEffects::Trapping] -= 1
       moveName = GameData::Move.get(b.effects[PBEffects::TrappingMove]).name
       if b.effects[PBEffects::Trapping]==0
-        pbDisplay(_INTL("{1} a été libéré de {2}!",b.pbThis,moveName))
+        pbDisplay(_INTL("{1} was freed from {2}!",b.pbThis,moveName))
       else
         case b.effects[PBEffects::TrappingMove]
         when :BIND        then pbCommonAnimation("Bind", b)
@@ -421,7 +421,7 @@ class PokeBattle_Battle
           end
           @scene.pbDamageAnimation(b)
           b.pbReduceHP(hpLoss,false)
-          pbDisplay(_INTL("{1} est blessé par {2}!",b.pbThis,moveName))
+          pbDisplay(_INTL("{1} is hurt by {2}!",b.pbThis,moveName))
           b.pbItemHPHealCheck
           # NOTE: No need to call pbAbilitiesOnDamageTaken as b can't switch out.
           b.pbFaint if b.fainted?
@@ -430,7 +430,7 @@ class PokeBattle_Battle
     end
     # Taunt
     pbEORCountDownBattlerEffect(priority,PBEffects::Taunt) { |battler|
-      pbDisplay(_INTL("La provoc de {1} s'est estompée!",battler.pbThis))
+      pbDisplay(_INTL("{1}'s taunt wore off!",battler.pbThis))
     }
     # Encore
     priority.each do |b|
@@ -440,7 +440,7 @@ class PokeBattle_Battle
         b.effects[PBEffects::Encore] -= 1
         if b.effects[PBEffects::Encore]==0 || b.moves[idxEncoreMove].pp==0
           b.effects[PBEffects::Encore] = 0
-          pbDisplay(_INTL("Le Encore de {1} s'est terminé!",b.pbThis))
+          pbDisplay(_INTL("{1}'s encore ended!",b.pbThis))
         end
       else
         PBDebug.log("[End of effect] #{b.pbThis}'s encore ended (encored move no longer known)")
@@ -451,23 +451,23 @@ class PokeBattle_Battle
     # Disable/Cursed Body
     pbEORCountDownBattlerEffect(priority,PBEffects::Disable) { |battler|
       battler.effects[PBEffects::DisableMove] = nil
-      pbDisplay(_INTL("{1} n'est plus désactivé!",battler.pbThis))
+      pbDisplay(_INTL("{1} is no longer disabled!",battler.pbThis))
     }
     # Magnet Rise
     pbEORCountDownBattlerEffect(priority,PBEffects::MagnetRise) { |battler|
-      pbDisplay(_INTL("L'électromagnétisme de {1} s'est estompé!",battler.pbThis))
+      pbDisplay(_INTL("{1}'s electromagnetism wore off!",battler.pbThis))
     }
     # Telekinesis
     pbEORCountDownBattlerEffect(priority,PBEffects::Telekinesis) { |battler|
-      pbDisplay(_INTL("{1} a été libéré de la télékinésie!",battler.pbThis))
+      pbDisplay(_INTL("{1} was freed from the telekinesis!",battler.pbThis))
     }
     # Heal Block
     pbEORCountDownBattlerEffect(priority,PBEffects::HealBlock) { |battler|
-      pbDisplay(_INTL("L'Anti-Soin de {1} s'est estompé!",battler.pbThis))
+      pbDisplay(_INTL("{1}'s Heal Block wore off!",battler.pbThis))
     }
     # Embargo
     pbEORCountDownBattlerEffect(priority,PBEffects::Embargo) { |battler|
-      pbDisplay(_INTL("{1} peut à nouveau utiliser des objets!",battler.pbThis))
+      pbDisplay(_INTL("{1} can use items again!",battler.pbThis))
       battler.pbItemTerrainStatBoostCheck
     }
     # Yawn
@@ -482,7 +482,7 @@ class PokeBattle_Battle
     priority.each do |b|
       next if b.fainted? || b.effects[PBEffects::PerishSong]==0
       b.effects[PBEffects::PerishSong] -= 1
-      pbDisplay(_INTL("Le Requiem de {1} est tombé à {2}!",b.pbThis,b.effects[PBEffects::PerishSong]))
+      pbDisplay(_INTL("{1}'s perish count fell to {2}!",b.pbThis,b.effects[PBEffects::PerishSong]))
       if b.effects[PBEffects::PerishSong]==0
         perishSongUsers.push(b.effects[PBEffects::PerishSongUser])
         b.pbReduceHP(b.hp)
@@ -505,53 +505,53 @@ class PokeBattle_Battle
     for side in 0...2
       # Reflect
       pbEORCountDownSideEffect(side,PBEffects::Reflect,
-         _INTL("La Protection de {1} s'est estompé!",@battlers[side].pbTeam))
+         _INTL("{1}'s Reflect wore off!",@battlers[side].pbTeam))
       # Light Screen
       pbEORCountDownSideEffect(side,PBEffects::LightScreen,
-         _INTL("Le Mur Lumière de {1} s'est estompé!",@battlers[side].pbTeam))
+         _INTL("{1}'s Light Screen wore off!",@battlers[side].pbTeam))
       # Safeguard
       pbEORCountDownSideEffect(side,PBEffects::Safeguard,
-         _INTL("{1} n'est plus protégé par Rune Protect",@battlers[side].pbTeam))
+         _INTL("{1} is no longer protected by Safeguard!",@battlers[side].pbTeam))
       # Mist
       pbEORCountDownSideEffect(side,PBEffects::Mist,
-         _INTL("{1} n'est plus protégé par la brume!",@battlers[side].pbTeam))
+         _INTL("{1} is no longer protected by mist!",@battlers[side].pbTeam))
       # Tailwind
       pbEORCountDownSideEffect(side,PBEffects::Tailwind,
-         _INTL("Le vent arrière de {1} s'est éteint!",@battlers[side].pbTeam))
+         _INTL("{1}'s Tailwind petered out!",@battlers[side].pbTeam))
       # Lucky Chant
       pbEORCountDownSideEffect(side,PBEffects::LuckyChant,
-         _INTL("L'Air Veinard de {1} s'est estompé!",@battlers[side].pbTeam))
+         _INTL("{1}'s Lucky Chant wore off!",@battlers[side].pbTeam))
       # Pledge Rainbow
       pbEORCountDownSideEffect(side,PBEffects::Rainbow,
-         _INTL("L'arc-en-ciel du côté de {1} a disparu!",@battlers[side].pbTeam(true)))
+         _INTL("The rainbow on {1}'s side disappeared!",@battlers[side].pbTeam(true)))
       # Pledge Sea of Fire
       pbEORCountDownSideEffect(side,PBEffects::SeaOfFire,
-         _INTL("L'Aire de Feu autour de {1} se dissipe!",@battlers[side].pbTeam(true)))
+         _INTL("The sea of fire around {1} disappeared!",@battlers[side].pbTeam(true)))
       # Pledge Swamp
       pbEORCountDownSideEffect(side,PBEffects::Swamp,
-         _INTL("Le marais autour de {1} a disparu!",@battlers[side].pbTeam(true)))
+         _INTL("The swamp around {1} disappeared!",@battlers[side].pbTeam(true)))
       # Aurora Veil
       pbEORCountDownSideEffect(side,PBEffects::AuroraVeil,
-         _INTL("Le Voile Aurore de {1} s'est estompé!",@battlers[side].pbTeam(true)))
+         _INTL("{1}'s Aurora Veil wore off!",@battlers[side].pbTeam(true)))
     end
     # Trick Room
     pbEORCountDownFieldEffect(PBEffects::TrickRoom,
-       _INTL("Les dimensions sont revenues à la normale!"))
+       _INTL("The twisted dimensions returned to normal!"))
     # Gravity
     pbEORCountDownFieldEffect(PBEffects::Gravity,
-       _INTL("La gravité est revenue à la normale!"))
+       _INTL("Gravity returned to normal!"))
     # Water Sport
     pbEORCountDownFieldEffect(PBEffects::WaterSportField,
-       _INTL("Les effets de Tourniquet se sont estompés."))
+       _INTL("The effects of Water Sport have faded."))
     # Mud Sport
     pbEORCountDownFieldEffect(PBEffects::MudSportField,
-       _INTL("Les effets de Lance-Boue se sont estompés."))
+       _INTL("The effects of Mud Sport have faded."))
     # Wonder Room
     pbEORCountDownFieldEffect(PBEffects::WonderRoom,
-       _INTL("Zone Étrange s'est estompé et les stats de Défense et de Défense Spéciale sont revenues à la normale!"))
+       _INTL("Wonder Room wore off, and Defense and Sp. Def stats returned to normal!"))
     # Magic Room
     pbEORCountDownFieldEffect(PBEffects::MagicRoom,
-       _INTL("Zone Magique s'est estompé et les effets des objets sont revenus à la normale!"))
+       _INTL("Magic Room wore off, and held items' effects returned to normal!"))
     # End of terrains
     pbEORTerrain
     priority.each do |b|
@@ -561,25 +561,25 @@ class PokeBattle_Battle
         if pbRandom(100)<10
           b.pokemon.hyper_mode = false
           b.pokemon.adjustHeart(-50)
-          pbDisplay(_INTL("{1} est revenu à la raison!",b.pbThis))
+          pbDisplay(_INTL("{1} came to its senses!",b.pbThis))
         else
-          pbDisplay(_INTL("{1} est en Hyper Mode!",b.pbThis))
+          pbDisplay(_INTL("{1} is in Hyper Mode!",b.pbThis))
         end
       end
       # Uproar
       if b.effects[PBEffects::Uproar]>0
         b.effects[PBEffects::Uproar] -= 1
         if b.effects[PBEffects::Uproar]==0
-          pbDisplay(_INTL("{1} se calme.",b.pbThis))
+          pbDisplay(_INTL("{1} calmed down.",b.pbThis))
         else
-          pbDisplay(_INTL("{1} fait du Brouhaha!",b.pbThis))
+          pbDisplay(_INTL("{1} is making an uproar!",b.pbThis))
         end
       end
       # Slow Start's end message
       if b.effects[PBEffects::SlowStart]>0
         b.effects[PBEffects::SlowStart] -= 1
         if b.effects[PBEffects::SlowStart]==0
-          pbDisplay(_INTL("{1} a finalement réussi à se ressaisir!",b.pbThis))
+          pbDisplay(_INTL("{1} finally got its act together!",b.pbThis))
         end
       end
       # Bad Dreams, Moody, Speed Boost

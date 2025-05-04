@@ -69,7 +69,7 @@ class MoveRelearner_Scene
       end
     end
 
-    text = @pokemon ? "Enseigner quel capacité?" : "Liste des Capacités"
+    text = @pokemon ? "Teach which move?" : "Moves list"
     textpos=[
        [_INTL(text),16,2,0,Color.new(88,88,80),Color.new(168,184,184)]
     ]
@@ -100,11 +100,11 @@ class MoveRelearner_Scene
     basedamage=selMoveData.base_damage
     category=selMoveData.category
     accuracy=selMoveData.accuracy
-    textpos.push([_INTL("CATÉGORIE"),272,108,0,Color.new(248,248,248),Color.new(0,0,0)])
-    textpos.push([_INTL("PUISSANCE"),272,140,0,Color.new(248,248,248),Color.new(0,0,0)])
+    textpos.push([_INTL("CATEGORY"),272,108,0,Color.new(248,248,248),Color.new(0,0,0)])
+    textpos.push([_INTL("POWER"),272,140,0,Color.new(248,248,248),Color.new(0,0,0)])
     textpos.push([basedamage<=1 ? basedamage==1 ? "???" : "---" : sprintf("%d",basedamage),
           468,140,2,Color.new(64,64,64),Color.new(176,176,176)])
-    textpos.push([_INTL("PRÉCISION"),272,172,0,Color.new(248,248,248),Color.new(0,0,0)])
+    textpos.push([_INTL("ACCURACY"),272,172,0,Color.new(248,248,248),Color.new(0,0,0)])
     textpos.push([accuracy==0 ? "---" : "#{accuracy}%",
           468,172,2,Color.new(64,64,64),Color.new(176,176,176)])
     pbDrawTextPositions(overlay,textpos)
@@ -189,13 +189,13 @@ class MoveRelearnerScreen
         return false
       end
       if move
-        if @scene.pbConfirm(_INTL("Apprendre {1}?", GameData::Move.get(move).name))
+        if @scene.pbConfirm(_INTL("Teach {1}?", GameData::Move.get(move).name))
           if pbLearnMove(pkmn, move)
             @scene.pbEndScene
             return true
           end
         end
-      elsif @scene.pbConfirm(_INTL("Arrêtez d'essayer d'enseigner un nouvelle attaque à {1}?", pkmn.name))
+      elsif @scene.pbConfirm(_INTL("Give up trying to teach a new move to {1}?", pkmn.name))
         @scene.pbEndScene
         return false
       end

@@ -319,14 +319,14 @@ def addNewTripleFusion(pokemon1, pokemon2, pokemon3, level = 1)
   return if !pokemon3
 
   if pbBoxesFull?
-    pbMessage(_INTL("Il n'y a plus de place pour les Pokémon!\1"))
-    pbMessage(_INTL("Les boîtes Pokémon sont pleines et ne peuvent plus en accepter!"))
+    pbMessage(_INTL("There's no more room for Pokémon!\1"))
+    pbMessage(_INTL("The Pokémon Boxes are full and can't accept any more!"))
     return false
   end
 
   pokemon = TripleFusion.new(pokemon1, pokemon2, pokemon3, level)
   pokemon.calc_stats
-  pbMessage(_INTL("{1} a obtenu {2}!\\me[Pkmn get]\\wtnp[80]\1", $Trainer.name, pokemon.name))
+  pbMessage(_INTL("{1} obtained {2}!\\me[Pkmn get]\\wtnp[80]\1", $Trainer.name, pokemon.name))
   pbNicknameAndStore(pokemon)
   #$Trainer.pokedex.register(pokemon)
   return true

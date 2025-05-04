@@ -59,16 +59,16 @@ def pbFishing(hasEncounter,rodType=1)
     if pbWaitMessage(msgWindow,time)
       pbFishingEnd
       $game_player.setDefaultCharName(nil,oldpattern)
-      pbMessageDisplay(msgWindow,_INTL("Pas même un petit grignotage..."))
+      pbMessageDisplay(msgWindow,_INTL("Not even a nibble..."))
       break
     end
     if hasEncounter && rand(100)<biteChance
       $scene.spriteset.addUserAnimation(Settings::EXCLAMATION_ANIMATION_ID,$game_player.x,$game_player.y,true,3)
       frames = Graphics.frame_rate - rand(Graphics.frame_rate/2)   # 0.5-1 second
-      if !pbWaitForInput(msgWindow,message+_INTL("\r\nOh! Ca mort!"),frames)
+      if !pbWaitForInput(msgWindow,message+_INTL("\r\nOh! A bite!"),frames)
         pbFishingEnd
         $game_player.setDefaultCharName(nil,oldpattern)
-        pbMessageDisplay(msgWindow,_INTL("Le Pokémon s'est échappé..."))
+        pbMessageDisplay(msgWindow,_INTL("The Pokémon got away..."))
         break
       end
 
@@ -107,7 +107,7 @@ def pbFishing(hasEncounter,rodType=1)
 
       if autohook || rand(100) < hookChance
         pbFishingEnd
-        pbMessageDisplay(msgWindow,_INTL("A attrapé un Pokémon!")) if !autohook
+        pbMessageDisplay(msgWindow,_INTL("Landed a Pokémon!")) if !autohook
         $game_player.setDefaultCharName(nil,oldpattern)
         ret = true
         break
@@ -117,7 +117,7 @@ def pbFishing(hasEncounter,rodType=1)
     else
       pbFishingEnd
       $game_player.setDefaultCharName(nil,oldpattern)
-      pbMessageDisplay(msgWindow,_INTL("Pas même un petit grignotage..."))
+      pbMessageDisplay(msgWindow,_INTL("Not even a nibble..."))
       break
     end
   end

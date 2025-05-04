@@ -25,7 +25,7 @@ class PokeBattle_Battle
     #       side.
     if trainerBattle? && (@sideSizes[0]>2 || @sideSizes[1]>2) &&
        @player.length>1 && @opponent.length>1
-      raise _INTL("Il ne peut pas y avoir de batailles plus grandes que 2 contre 2 où les deux camps ont plusieurs dresseurs")
+      raise _INTL("Can't have battles larger than 2v2 where both sides have multiple trainers")
     end
     # Find out how many Pokémon each trainer has
     side1counts = pbAbleTeamCounts(0)
@@ -61,15 +61,15 @@ class PokeBattle_Battle
         end
         sideCounts.each_with_index do |_count,i|
           if !requireds[i] || requireds[i]==0
-            raise _INTL("Le dresseur adverse côté joueur {1} n'a pas de position de combat pour son Pokémon (trying {2}v{3} battle)",
+            raise _INTL("Player-side trainer {1} has no battler position for their Pokémon to go (trying {2}v{3} battle)",
                i+1,@sideSizes[0],@sideSizes[1]) if side==0
-            raise _INTL("Le dresseur adverse {1} n'a pas de position de combat pour son Pokémon (trying {2}v{3} battle)",
+            raise _INTL("Opposing trainer {1} has no battler position for their Pokémon to go (trying {2}v{3} battle)",
                i+1,@sideSizes[0],@sideSizes[1]) if side==1
           end
           next if requireds[i]<=sideCounts[i]   # Trainer has enough Pokémon to fill their positions
           if requireds[i]==1
-            raise _INTL("Le dresseur côté joueur {1} n'a plus aucun Pokémon",i+1) if side==0
-            raise _INTL("Le dresseur adverse {1} n'a plus aucun Pokémon",i+1) if side==1
+            raise _INTL("Player-side trainer {1} has no able Pokémon",i+1) if side==0
+            raise _INTL("Opposing trainer {1} has no able Pokémon",i+1) if side==1
           end
           # Not enough Pokémon, try lowering the number of battler positions
           needsChanging = true
@@ -89,7 +89,7 @@ class PokeBattle_Battle
         newSize = @sideSizes.max-1
       end
       if newSize==0
-        raise _INTL("Impossible de réduire davantage la taille de l'un ou l'autre camp, la bataille n'est pas possible")
+        raise _INTL("Couldn't lower either side's size any further, battle isn't possible")
       end
       for side in 0...2
         next if side==1 && wildBattle?   # Wild Pokémon's side size is fixed
@@ -105,7 +105,7 @@ class PokeBattle_Battle
   #=============================================================================
   def pbCreateBattler(idxBattler,pkmn,idxParty)
     if !@battlers[idxBattler].nil?
-      raise _INTL("L'index de ce combattant {1} existe déjà",idxBattler)
+      raise _INTL("Battler index {1} already exists",idxBattler)
     end
     @battlers[idxBattler] = PokeBattle_Battler.new(self,idxBattler)
     @positions[idxBattler] = PokeBattle_ActivePosition.new
@@ -164,23 +164,23 @@ class PokeBattle_Battle
       foeParty = pbParty(1)
       case foeParty.length
       when 1
-        pbDisplayPaused(_INTL("Oh! Un {1} sauvage est apparu!",foeParty[0].name))
+        pbDisplayPaused(_INTL("Oh! A wild {1} appeared!",foeParty[0].name))
       when 2
-        pbDisplayPaused(_INTL("Oh! Un {1} et un {2} sauvages sont apparus!",foeParty[0].name,
+        pbDisplayPaused(_INTL("Oh! A wild {1} and {2} appeared!",foeParty[0].name,
            foeParty[1].name))
       when 3
-        pbDisplayPaused(_INTL("Oh! Un {1}, {2} et {3} sauvage est apparu!",foeParty[0].name,
+        pbDisplayPaused(_INTL("Oh! A wild {1}, {2} and {3} appeared!",foeParty[0].name,
            foeParty[1].name,foeParty[2].name))
       end
     else   # Trainer battle
       case @opponent.length
       when 1
-        pbDisplayPaused(_INTL("Vous êtes mis au défi par {1}!",@opponent[0].full_name))
+        pbDisplayPaused(_INTL("You are challenged by {1}!",@opponent[0].full_name))
       when 2
-        pbDisplayPaused(_INTL("Vous êtes mis au défi par {1} et {2}!",@opponent[0].full_name,
+        pbDisplayPaused(_INTL("You are challenged by {1} and {2}!",@opponent[0].full_name,
            @opponent[1].full_name))
       when 3
-        pbDisplayPaused(_INTL("Vous êtes mis au défi par {1}, {2} et {3}!",
+        pbDisplayPaused(_INTL("You are challenged by {1}, {2} and {3}!",
            @opponent[0].full_name,@opponent[1].full_name,@opponent[2].full_name))
       end
     end
@@ -197,19 +197,19 @@ class PokeBattle_Battle
         sent = sendOuts[side][i]
         case sent.length
         when 1
-          msg += _INTL("{1} a envoyé {2}!",t.full_name,@battlers[sent[0]].name)
+          msg += _INTL("{1} sent out {2}!",t.full_name,@battlers[sent[0]].name)
         when 2
-          msg += _INTL("{1} a envoyé {2} et {3}!",t.full_name,
+          msg += _INTL("{1} sent out {2} and {3}!",t.full_name,
              @battlers[sent[0]].name,@battlers[sent[1]].name)
         when 3
           if $game_switches[SWITCH_TRIPLE_BOSS_BATTLE]
             if $game_switches[SWITCH_SILVERBOSS_BATTLE]
-              msg += _INTL("Une Paldiatina sauvage est apparue!",t.full_name)
+              msg += _INTL("A wild Paldiatina appeared!",t.full_name)
             else
-              msg += _INTL("{1} a envoyé Zapmolcuno!",t.full_name)
+              msg += _INTL("{1} sent out Zapmolcuno!",t.full_name)
             end
           else
-            msg += _INTL("{1} a envoyé {2}, {3} et {4}!",t.full_name,
+            msg += _INTL("{1} sent out {2}, {3} and {4}!",t.full_name,
                          @battlers[sent[0]].name,@battlers[sent[1]].name,@battlers[sent[2]].name)
           end
 
@@ -222,11 +222,11 @@ class PokeBattle_Battle
         sent = sendOuts[side][0]
         case sent.length
         when 1
-          msg += _INTL("Allez! {1}!",@battlers[sent[0]].name)
+          msg += _INTL("Go! {1}!",@battlers[sent[0]].name)
         when 2
-          msg += _INTL("Allez! {1} et {2}!",@battlers[sent[0]].name,@battlers[sent[1]].name)
+          msg += _INTL("Go! {1} and {2}!",@battlers[sent[0]].name,@battlers[sent[1]].name)
         when 3
-          msg += _INTL("Allez! {1}, {2} et {3}!",@battlers[sent[0]].name,
+          msg += _INTL("Go! {1}, {2} and {3}!",@battlers[sent[0]].name,
              @battlers[sent[1]].name,@battlers[sent[2]].name)
         end
         toSendOut.concat(sent)
@@ -286,27 +286,27 @@ class PokeBattle_Battle
 
     pbCommonAnimation(weather_data.animation) if weather_data
     case @field.weather
-    when :Sun         then pbDisplay(_INTL("La lumière du soleil est forte."))
-    when :Rain        then pbDisplay(_INTL("Il pleut."))
-    when :Sandstorm   then pbDisplay(_INTL("Une tempête de sable fait rage."))
-    when :Hail        then pbDisplay(_INTL("La grêle tombe."))
-    when :HarshSun    then pbDisplay(_INTL("La lumière du soleil est extrêmement fort."))
-    when :HeavyRain   then pbDisplay(_INTL("Il pleut beaucoup."))
-    when :StrongWinds then pbDisplay(_INTL("Le vent est fort."))
-    when :ShadowSky   then pbDisplay(_INTL("Le ciel est ombragé."))
+    when :Sun         then pbDisplay(_INTL("The sunlight is strong."))
+    when :Rain        then pbDisplay(_INTL("It is raining."))
+    when :Sandstorm   then pbDisplay(_INTL("A sandstorm is raging."))
+    when :Hail        then pbDisplay(_INTL("Hail is falling."))
+    when :HarshSun    then pbDisplay(_INTL("The sunlight is extremely harsh."))
+    when :HeavyRain   then pbDisplay(_INTL("It is raining heavily."))
+    when :StrongWinds then pbDisplay(_INTL("The wind is strong."))
+    when :ShadowSky   then pbDisplay(_INTL("The sky is shadowy."))
     end
     # Terrain announcement
     terrain_data = GameData::BattleTerrain.try_get(@field.terrain)
     pbCommonAnimation(terrain_data.animation) if terrain_data
     case @field.terrain
     when :Electric
-      pbDisplay(_INTL("Un courant électrique traverse le champ de bataille!"))
+      pbDisplay(_INTL("An electric current runs across the battlefield!"))
     when :Grassy
-      pbDisplay(_INTL("L'herbe recouvre le champ de bataille!"))
+      pbDisplay(_INTL("Grass is covering the battlefield!"))
     when :Misty
-      pbDisplay(_INTL("La brume tourne sur le champ de bataille!"))
+      pbDisplay(_INTL("Mist swirls about the battlefield!"))
     when :Psychic
-      pbDisplay(_INTL("Le champ de bataille est étrange!"))
+      pbDisplay(_INTL("The battlefield is weird!"))
     end
     # Abilities upon entering battle
     pbOnActiveAll
@@ -362,7 +362,7 @@ class PokeBattle_Battle
       pbPlayer.money += tMoney
       moneyGained = pbPlayer.money-oldMoney
       if moneyGained>0
-        pbDisplayPaused(_INTL("Vous avez gagné {1}$!",moneyGained.to_s_formatted))
+        pbDisplayPaused(_INTL("You got ${1} for winning!",moneyGained.to_s_formatted))
       end
     end
     # Pick up money scattered by Pay Day
@@ -373,7 +373,7 @@ class PokeBattle_Battle
       pbPlayer.money += @field.effects[PBEffects::PayDay]
       moneyGained = pbPlayer.money-oldMoney
       if moneyGained>0
-        pbDisplayPaused(_INTL("Tu as ramassé {1}$!",moneyGained.to_s_formatted))
+        pbDisplayPaused(_INTL("You picked up ${1}!",moneyGained.to_s_formatted))
       end
     end
   end
@@ -391,9 +391,9 @@ class PokeBattle_Battle
     moneyLost = oldMoney-pbPlayer.money
     if moneyLost>0
       if trainerBattle?
-        pbDisplayPaused(_INTL("Vous avez donné {1}$ au gagnant...",moneyLost.to_s_formatted))
+        pbDisplayPaused(_INTL("You gave ${1} to the winner...",moneyLost.to_s_formatted))
       else
-        pbDisplayPaused(_INTL("Vous avez paniqué et avez laissé tomber {1}$...",moneyLost.to_s_formatted))
+        pbDisplayPaused(_INTL("You panicked and dropped ${1}...",moneyLost.to_s_formatted))
       end
     end
   end
@@ -410,12 +410,12 @@ class PokeBattle_Battle
         @scene.pbTrainerBattleSuccess
         case @opponent.length
         when 1
-          pbDisplayPaused(_INTL("Vous avez vaincu {1}!",@opponent[0].full_name))
+          pbDisplayPaused(_INTL("You defeated {1}!",@opponent[0].full_name))
         when 2
-          pbDisplayPaused(_INTL("Vous avez vaincu {1} et {2}!",@opponent[0].full_name,
+          pbDisplayPaused(_INTL("You defeated {1} and {2}!",@opponent[0].full_name,
              @opponent[1].full_name))
         when 3
-          pbDisplayPaused(_INTL("Vous avez vaincu {1}, {2} et {3}!",@opponent[0].full_name,
+          pbDisplayPaused(_INTL("You defeated {1}, {2} and {3}!",@opponent[0].full_name,
              @opponent[1].full_name,@opponent[2].full_name))
         end
         @opponent.each_with_index do |_t,i|
@@ -438,22 +438,22 @@ class PokeBattle_Battle
       PBDebug.log("***Player lost***") if @decision==2
       PBDebug.log("***Player drew with opponent***") if @decision==5
       if @internalBattle
-        pbDisplayPaused(_INTL("Vous n’avez plus de Pokémon capable de se battre!"))
+        pbDisplayPaused(_INTL("You have no more Pokémon that can fight!"))
         if trainerBattle?
           case @opponent.length
           when 1
-            pbDisplayPaused(_INTL("Vous avez perdu contre {1}!",@opponent[0].full_name))
+            pbDisplayPaused(_INTL("You lost against {1}!",@opponent[0].full_name))
           when 2
-            pbDisplayPaused(_INTL("Vous avez perdu contre {1} et {2}!",
+            pbDisplayPaused(_INTL("You lost against {1} and {2}!",
                @opponent[0].full_name,@opponent[1].full_name))
           when 3
-            pbDisplayPaused(_INTL("Vous avez perdu contre {1}, {2} et {3}!",
+            pbDisplayPaused(_INTL("You lost against {1}, {2} and {3}!",
                @opponent[0].full_name,@opponent[1].full_name,@opponent[2].full_name))
           end
         end
         # Lose money from losing a battle
         pbLoseMoney
-        pbDisplayPaused(_INTL("Tu t'es évanoui!")) if !@canLose
+        pbDisplayPaused(_INTL("You blacked out!")) if !@canLose
       elsif @decision==2
         if @opponent
           @opponent.each_with_index do |_t,i|

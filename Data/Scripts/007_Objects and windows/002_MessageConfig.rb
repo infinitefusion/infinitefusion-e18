@@ -7,7 +7,7 @@ module MessageConfig
   BLUE_TEXT_MAIN_COLOR    =  Color.new(35, 130, 200)
   BLUE_TEXT_SHADOW_COLOR  =  Color.new(20, 75, 115)
 
-  FONT_NAME               = "Power Clear"
+  FONT_NAME               = "Power Green"
   FONT_SIZE               = 29
   SMALL_FONT_NAME         = "Power Green Small"
   SMALL_FONT_SIZE         = 25

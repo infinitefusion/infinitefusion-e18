@@ -154,12 +154,12 @@ def pbDebugVariableScreen(id)
     params.setDefaultValue(value)
     params.setMaxDigits(8)
     params.setNegativesAllowed(true)
-    value = pbMessageChooseNumber(_INTL("Définir une variable {1}.",id),params)
+    value = pbMessageChooseNumber(_INTL("Set variable {1}.",id),params)
     $game_variables[id] = [value,99999999].min
     $game_variables[id] = [$game_variables[id],-99999999].max
     $game_map.need_refresh = true
   elsif $game_variables[id].is_a?(String)
-    value = pbMessageFreeText(_INTL("Définir une variable {1}.",id),
+    value = pbMessageFreeText(_INTL("Set variable {1}.",id),
        $game_variables[id],false,250,Graphics.width)
     $game_variables[id] = value
     $game_map.need_refresh = true
@@ -224,11 +224,11 @@ end
 # Debug Day Care screen
 #===============================================================================
 def pbDebugDayCare
-  commands = [_INTL("Retirer Pokémon 1"),
-              _INTL("Retirer Pokémon 2"),
-              _INTL("Déposer des Pokémon"),
-              _INTL("Générer un oeuf"),
-              _INTL("Ramasser l'oeuf")]
+  commands = [_INTL("Withdraw Pokémon 1"),
+              _INTL("Withdraw Pokémon 2"),
+              _INTL("Deposit Pokémon"),
+              _INTL("Generate egg"),
+              _INTL("Collect egg")]
   viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z = 99999
   sprites = {}
@@ -249,9 +249,9 @@ def pbDebugDayCare
   loop do
     if refresh
       if pbEggGenerated?
-        commands[3] = _INTL("Jeter l'oeuf")
+        commands[3] = _INTL("Discard egg")
       else
-        commands[3] = _INTL("Générer un oeuf")
+        commands[3] = _INTL("Generate egg")
       end
       cmdwindow.commands = commands
       sprites["overlay"].bitmap.clear
@@ -272,7 +272,7 @@ def pbDebugDayCare
         elsif pkmn.female?
           textpos.push([_INTL("Female ♀"),8+i*Graphics.width/2,y,0,Color.new(248,96,96),shadow])
         else
-          textpos.push([_INTL("Sans genre"),8+i*Graphics.width/2,y,0,base,shadow])
+          textpos.push([_INTL("Genderless"),8+i*Graphics.width/2,y,0,base,shadow])
         end
         y += 32
         if initlevel>=GameData::GrowthRate.max_level
@@ -316,7 +316,7 @@ def pbDebugDayCare
           pbPlayBuzzerSE
         elsif $Trainer.party_full?
           pbPlayBuzzerSE
-          pbMessage(_INTL("Ton équipe est plein, impossible de retirer des Pokémon."))
+          pbMessage(_INTL("Party is full, can't withdraw Pokémon."))
         else
           pbPlayDecisionSE
           pbDayCareGetDeposited(0,3,4)
@@ -328,7 +328,7 @@ def pbDebugDayCare
           pbPlayBuzzerSE
         elsif $Trainer.party_full?
           pbPlayBuzzerSE
-          pbMessage(_INTL("Ton équipe est plein, impossible de retirer des Pokémon."))
+          pbMessage(_INTL("Party is full, can't withdraw Pokémon."))
         else
           pbPlayDecisionSE
           pbDayCareGetDeposited(1,3,4)
@@ -340,7 +340,7 @@ def pbDebugDayCare
           pbPlayBuzzerSE
         elsif $Trainer.party.length==0
           pbPlayBuzzerSE
-          pbMessage(_INTL("Ton équipe est vide, impossible de déposer des Pokémon."))
+          pbMessage(_INTL("Party is empty, can't deposit Pokémon."))
         else
           pbPlayDecisionSE
           pbChooseNonEggPokemon(1,3)
@@ -369,13 +369,13 @@ def pbDebugDayCare
           pbPlayBuzzerSE
         elsif $Trainer.party_full?
           pbPlayBuzzerSE
-          pbMessage(_INTL("Ton équipe est pleine, impossible de récupérer l'oeuf."))
+          pbMessage(_INTL("Party is full, can't collect the egg."))
         else
           pbPlayDecisionSE
           pbDayCareGenerateEgg
           $PokemonGlobal.daycareEgg      = 0
           $PokemonGlobal.daycareEggSteps = 0
-          pbMessage(_INTL("A ramassé l'oeuf {1}.", $Trainer.last_party.speciesName))
+          pbMessage(_INTL("Collected the {1} egg.", $Trainer.last_party.speciesName))
           refresh = true
         end
       end
@@ -556,27 +556,27 @@ end
 def pbExtractText
   msgwindow = pbCreateMessageWindow
   if safeExists?("intl.txt") &&
-     !pbConfirmMessageSerious(_INTL("intl.txt existe déjà. le Remplacez?"))
+     !pbConfirmMessageSerious(_INTL("intl.txt already exists. Overwrite it?"))
     pbDisposeMessageWindow(msgwindow)
     return
   end
-  pbMessageDisplay(msgwindow,_INTL("S'il vous plaît, attendez.\\wtnp[0]"))
+  pbMessageDisplay(msgwindow,_INTL("Please wait.\\wtnp[0]"))
   MessageTypes.extract("intl.txt")
-  pbMessageDisplay(msgwindow,_INTL("Tout le texte du jeu a été extrait et enregistré dans intl.txt.\1"))
-  pbMessageDisplay(msgwindow,_INTL("Pour localiser le texte dans une langue particulière, traduisez chaque deuxième ligne du fichier.\1"))
-  pbMessageDisplay(msgwindow,_INTL("Après avoir traduit, choisissez \"Compile Text.\""))
+  pbMessageDisplay(msgwindow,_INTL("All text in the game was extracted and saved to intl.txt.\1"))
+  pbMessageDisplay(msgwindow,_INTL("To localize the text for a particular language, translate every second line in the file.\1"))
+  pbMessageDisplay(msgwindow,_INTL("After translating, choose \"Compile Text.\""))
   pbDisposeMessageWindow(msgwindow)
 end
 
 def pbCompileTextUI
   msgwindow = pbCreateMessageWindow
-  pbMessageDisplay(msgwindow,_INTL("S'il vous plaît, attendez.\\wtnp[0]"))
+  pbMessageDisplay(msgwindow,_INTL("Please wait.\\wtnp[0]"))
   begin
     pbCompileText
-    pbMessageDisplay(msgwindow,_INTL("Texte compilé avec succès et enregistré dans intl.dat.\1"))
-    pbMessageDisplay(msgwindow,_INTL("Pour utiliser le fichier dans un jeu, placez le fichier dans le dossier Données sous un nom différent et modifiez le tableau Paramètres::LANGUAGES dans les scripts."))
+    pbMessageDisplay(msgwindow,_INTL("Successfully compiled text and saved it to intl.dat.\1"))
+    pbMessageDisplay(msgwindow,_INTL("To use the file in a game, place the file in the Data folder under a different name, and edit the Settings::LANGUAGES array in the scripts."))
   rescue RuntimeError
-    pbMessageDisplay(msgwindow,_INTL("Impossible de compiler le texte: {1}",$!.message))
+    pbMessageDisplay(msgwindow,_INTL("Failed to compile text: {1}",$!.message))
   end
   pbDisposeMessageWindow(msgwindow)
 end
@@ -618,13 +618,13 @@ def pbExportAllAnimations
         end
       end
       pbDisposeMessageWindow(msgwindow)
-      pbMessage(_INTL("Toutes les animations ont été extraites et enregistrées dans le dossier Animations."))
+      pbMessage(_INTL("All animations were extracted and saved to the Animations folder."))
     else
-      pbMessage(_INTL("Il n'y a aucune animation à exporter."))
+      pbMessage(_INTL("There are no animations to export."))
     end
   rescue
     p $!.message,$!.backtrace
-    pbMessage(_INTL("L'exportation a échoué."))
+    pbMessage(_INTL("The export failed."))
   end
 end
 
@@ -639,7 +639,7 @@ def pbImportAllAnimations
     }
   end
   if animationFolders.length==0
-    pbMessage(_INTL("Il n'y a aucune animation à importer. Placez chaque animation dans un dossier du dossier Animations."))
+    pbMessage(_INTL("There are no animations to import. Put each animation in a folder within the Animations folder."))
   else
     msgwindow = pbCreateMessageWindow
     animations = pbLoadBattleAnimations
@@ -697,7 +697,7 @@ def pbImportAllAnimations
     save_data(animations,"Data/PkmnAnimations.rxdata")
     $PokemonTemp.battleAnims = nil
     pbDisposeMessageWindow(msgwindow)
-    pbMessage(_INTL("Toutes les animations ont été importées."))
+    pbMessage(_INTL("All animations were imported."))
   end
 end
 
@@ -719,7 +719,7 @@ def pbDebugFixInvalidTiles
     changed = false
     map = mapData.getMap(id)
     next if !map || !mapData.mapinfos[id]
-    pbSetWindowText(_INTL("Traitement de la Carte {1} ({2})", id, mapData.mapinfos[id].name))
+    pbSetWindowText(_INTL("Processing map {1} ({2})", id, mapData.mapinfos[id].name))
     passages = mapData.getTilesetPassages(map, id)
     # Check all tiles in map for non-existent tiles
     for x in 0...map.data.xsize
@@ -750,10 +750,10 @@ def pbDebugFixInvalidTiles
     mapData.saveMap(id)
   end
   if num_error_maps == 0
-    pbMessage(_INTL("Aucune tile invalide n'a été trouvée."))
+    pbMessage(_INTL("No invalid tiles were found."))
   else
-    pbMessage(_INTL("{1} erreur(s) ont été trouvées sur {2} carte(s) et corrigées.", num_errors, num_error_maps))
-    pbMessage(_INTL("Fermez RPG Maker XP pour vous assurer que les changements ont été appliqués correctement."))
+    pbMessage(_INTL("{1} error(s) were found across {2} map(s) and fixed.", num_errors, num_error_maps))
+    pbMessage(_INTL("Close RPG Maker XP to ensure the changes are applied properly."))
   end
 end
 
@@ -826,7 +826,7 @@ class PokemonDebugPartyScreen
     @messageBox.text    = text
     @messageBox.visible = true
     @helpWindow.visible = false
-    using(cmdwindow = Window_CommandPokemon.new([_INTL("Oui"),_INTL("Non")])) {
+    using(cmdwindow = Window_CommandPokemon.new([_INTL("Yes"),_INTL("No")])) {
       cmdwindow.visible = false
       pbBottomRight(cmdwindow)
       cmdwindow.y -= @messageBox.height

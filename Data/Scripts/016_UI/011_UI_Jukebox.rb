@@ -66,11 +66,11 @@ class PokemonJukeboxScreen
     cmdLullaby = -1
     cmdOak     = -1
     cmdCustom  = -1
-    commands[cmdMarch = commands.length]   = _INTL("Marche")
-    commands[cmdLullaby = commands.length] = _INTL("Berceuse")
+    commands[cmdMarch = commands.length]   = _INTL("March")
+    commands[cmdLullaby = commands.length] = _INTL("Lullaby")
     commands[cmdOak = commands.length]     = _INTL("Oak")
-    commands[cmdCustom = commands.length]  = _INTL("Personnalisé")
-    commands[commands.length]              = _INTL("Sortie")
+    commands[cmdCustom = commands.length]  = _INTL("Custom")
+    commands[commands.length]              = _INTL("Exit")
     @scene.pbStartScene(commands)
     loop do
       cmd = @scene.pbScene
@@ -94,7 +94,7 @@ class PokemonJukeboxScreen
         $PokemonMap.blackFluteUsed = false if $PokemonMap
       elsif cmdCustom>=0 && cmd==cmdCustom
         pbPlayDecisionSE
-        files = [_INTL("(Défaut)")]
+        files = [_INTL("(Default)")]
         Dir.chdir("Audio/BGM/") {
           Dir.glob("*.mp3") { |f| files.push(f) }
           Dir.glob("*.MP3") { |f| files.push(f) }

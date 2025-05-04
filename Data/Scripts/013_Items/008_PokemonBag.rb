@@ -92,7 +92,7 @@ class PokemonBag
   # Gets the index of the current selected item in the pocket
   def getChoice(pocket)
     if pocket <= 0 || pocket > PokemonBag.numPockets
-      raise ArgumentError.new(_INTL("Poche invalide: {1}", pocket.inspect))
+      raise ArgumentError.new(_INTL("Invalid pocket: {1}", pocket.inspect))
     end
     rearrange
     return [@choices[pocket], @pockets[pocket].length].min || 0
@@ -101,7 +101,7 @@ class PokemonBag
   # Sets the index of the current selected item in the pocket
   def setChoice(pocket,value)
     if pocket <= 0 || pocket > PokemonBag.numPockets
-      raise ArgumentError.new(_INTL("Poche invalide: {1}", pocket.inspect))
+      raise ArgumentError.new(_INTL("Invalid pocket: {1}", pocket.inspect))
     end
     rearrange
     @choices[pocket] = value if value <= @pockets[pocket].length

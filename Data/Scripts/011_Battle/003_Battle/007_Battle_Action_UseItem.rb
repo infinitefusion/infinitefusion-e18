@@ -4,12 +4,12 @@ class PokeBattle_Battle
   #=============================================================================
   def pbCanUseItemOnPokemon?(item,pkmn,battler,scene,showMessages=true)
     if !pkmn || pkmn.egg?
-      scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+      scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
       return false
     end
     # Embargo
     if battler && battler.effects[PBEffects::Embargo]>0
-      scene.pbDisplay(_INTL("L'effet d'embargo empêche l'utilisation de l'objet sur {1}!",
+      scene.pbDisplay(_INTL("Embargo's effect prevents the item's use on {1}!",
          battler.pbThis(true))) if showMessages
       return false
     end
@@ -45,7 +45,7 @@ class PokeBattle_Battle
     return if useType==0 || (useType>=6 && useType<=10)   # Not consumed upon use
     if pbOwnedByPlayer?(idxBattler)
       if !$PokemonBag.pbDeleteItem(item)
-        raise _INTL("a essayé de consommer un objet qui n'était pas dans le sac d'une manière ou d'une autre.")
+        raise _INTL("Tried to consume item that wasn't in the Bag somehow.")
       end
     else
       items = pbGetOwnerItems(idxBattler)
@@ -66,7 +66,7 @@ class PokeBattle_Battle
       if $PokemonBag && $PokemonBag.pbCanStore?(item)
         $PokemonBag.pbStoreItem(item)
       else
-        raise _INTL("Impossible de retourner un objet inutilisé au sac pour une raison quelconque..")
+        raise _INTL("Couldn't return unused item to Bag somehow.")
       end
     else
       items = pbGetOwnerItems(idxBattler)
@@ -77,9 +77,9 @@ class PokeBattle_Battle
   def pbUseItemMessage(item,trainerName)
     itemName = GameData::Item.get(item).name
     if itemName.starts_with_vowel?
-      pbDisplayBrief(_INTL("{1} a utilisé {2}.",trainerName,itemName))
+      pbDisplayBrief(_INTL("{1} used an {2}.",trainerName,itemName))
     else
-      pbDisplayBrief(_INTL("{1} a utilisé {2}.",trainerName,itemName))
+      pbDisplayBrief(_INTL("{1} used a {2}.",trainerName,itemName))
     end
   end
 
@@ -95,7 +95,7 @@ class PokeBattle_Battle
       ch[1] = nil   # Delete item from choice
       return
     end
-    pbDisplay(_INTL("Mais cela n'a eu aucun effet!"))
+    pbDisplay(_INTL("But it had no effect!"))
     # Return unused item to Bag
     pbReturnUnusedItemToBag(item,userBattler.index)
   end
@@ -112,10 +112,10 @@ class PokeBattle_Battle
         ch[1] = nil   # Delete item from choice
         return
       else
-        pbDisplay(_INTL("Mais cela n'a eu aucun effet!"))
+        pbDisplay(_INTL("But it had no effect!"))
       end
     else
-      pbDisplay(_INTL("Mais ce n'est pas ici que cet objet peut être utilisé!"))
+      pbDisplay(_INTL("But it's not where this item can be used!"))
     end
     # Return unused item to Bag
     pbReturnUnusedItemToBag(item,userBattler.index)
@@ -141,7 +141,7 @@ class PokeBattle_Battle
       ch[1] = nil   # Delete item from choice
       return
     end
-    pbDisplay(_INTL("Mais cela n'a eu aucun effet!"))
+    pbDisplay(_INTL("But it had no effect!"))
     # Return unused item to Bag
     pbReturnUnusedItemToBag(item,userBattler.index)
   end

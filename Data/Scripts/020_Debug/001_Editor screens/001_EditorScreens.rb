@@ -7,7 +7,7 @@
 #===============================================================================
 def pbMetadataScreen(map_id = 0)
   loop do
-    map_id = pbListScreen(_INTL("DÉFINIR METADATA"), MapLister.new(map_id, true))
+    map_id = pbListScreen(_INTL("SET METADATA"), MapLister.new(map_id, true))
     break if map_id < 0
     pbEditMetadata(map_id)
   end
@@ -100,7 +100,7 @@ def pbRegionalDexEditor(dex)
   viewport.z = 99999
   cmd_window = pbListWindow([])
   info = Window_AdvancedTextPokemon.newWithSize(
-     _INTL("Z+Haut/Bas: Réorganiser les entrées\nZ+Droite: Insérer une nouvelle entrée\nZ+Gauche: Supprimer l'entrée\nD: Effacer l'entrée"),
+     _INTL("Z+Up/Down: Rearrange entries\nZ+Right: Insert new entry\nZ+Left: Delete entry\nD: Clear entry"),
      Graphics.width / 2, 64, Graphics.width / 2, Graphics.height - 64, viewport)
   info.z = 2
   dex.compact!
@@ -154,8 +154,8 @@ def pbRegionalDexEditor(dex)
       end
     when 0
       if cmd[1] >= 0   # Edit entry
-        case pbMessage(_INTL("\\ts[]Que faire avec cette entrée?"),
-           [_INTL("Changer d'espèce"), _INTL("Effacer"), _INTL("Insérer une entrée"), _INTL("Supprimer l'entrée"), _INTL("Annuler")], 5)
+        case pbMessage(_INTL("\\ts[]Do what with this entry?"),
+           [_INTL("Change species"), _INTL("Clear"), _INTL("Insert entry"), _INTL("Delete entry"), _INTL("Cancel")], 5)
         when 0   # Change species
           species = pbChooseSpeciesList(dex[cmd[1]])
           if species
@@ -180,8 +180,8 @@ def pbRegionalDexEditor(dex)
           end
         end
       else   # Cancel
-        case pbMessage(_INTL("Enregistrer les modifications?"),
-           [_INTL("Oui"),_INTL("Non"),_INTL("Annuler")],3)
+        case pbMessage(_INTL("Save changes?"),
+           [_INTL("Yes"),_INTL("No"),_INTL("Cancel")],3)
         when 0   # Save all changes to Dex
           dex.slice!(-1) while !dex[-1]
           ret = dex
@@ -254,7 +254,7 @@ end
 def pbAnimationsOrganiser
   list = pbLoadBattleAnimations
   if !list || !list[0]
-    pbMessage(_INTL("Aucune animation n'existe."))
+    pbMessage(_INTL("No animations exist."))
     return
   end
   viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
@@ -265,7 +265,7 @@ def pbAnimationsOrganiser
   title = Window_UnformattedTextPokemon.newWithSize(_INTL("Animations Organiser"),
      Graphics.width / 2, 0, Graphics.width / 2, 64, viewport)
   title.z = 2
-  info = Window_AdvancedTextPokemon.newWithSize(_INTL("Z+Haut/Bas: Échanger\nZ+Gauche: Supprimer\nZ+Droite: Insérer"),
+  info = Window_AdvancedTextPokemon.newWithSize(_INTL("Z+Up/Down: Swap\nZ+Left: Delete\nZ+Right: Insert"),
      Graphics.width / 2, 64, Graphics.width / 2, Graphics.height - 64, viewport)
   info.z = 2
   commands = []
@@ -300,14 +300,14 @@ def pbAnimationsOrganiser
       refreshlist = true
       pbWait(Graphics.frame_rate*2/10)
     elsif cmd[0]==0
-      cmd2 = pbMessage(_INTL("Enregistrer les modifications?"),
-          [_INTL("Oui"),_INTL("Non"),_INTL("Cancel")],3)
+      cmd2 = pbMessage(_INTL("Save changes?"),
+          [_INTL("Yes"),_INTL("No"),_INTL("Cancel")],3)
       if cmd2==0 || cmd2==1
         if cmd2==0
           # Save animations here
           save_data(list,"Data/PkmnAnimations.rxdata")
           $PokemonTemp.battleAnims = nil
-          pbMessage(_INTL("Données enregistrées."))
+          pbMessage(_INTL("Data saved."))
         end
         break
       end

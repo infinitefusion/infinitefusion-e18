@@ -182,10 +182,10 @@ class PokemonTilesetScene
         update_cursor_position(0, @visible_height)
       elsif Input.trigger?(Input::ACTION)
         commands = [
-           _INTL("Aller en bas"),
-           _INTL("Aller en haut"),
-           _INTL("Changer tileset"),
-           _INTL("Annuler")
+           _INTL("Go to bottom"),
+           _INTL("Go to top"),
+           _INTL("Change tileset"),
+           _INTL("Cancel")
         ]
         case pbShowCommands(nil, commands, -1)
         when 0
@@ -196,7 +196,7 @@ class PokemonTilesetScene
           choose_tileset
         end
       elsif Input.trigger?(Input::BACK)
-        if pbConfirmMessage(_INTL("Enregistrer les modifications?"))
+        if pbConfirmMessage(_INTL("Save changes?"))
           save_data(@tilesets_data, "Data/Tilesets.rxdata")
           $data_tilesets = @tilesets_data
           if $game_map && $MapFactory
@@ -207,15 +207,15 @@ class PokemonTilesetScene
               $scene.createSpritesets
             end
           end
-          pbMessage(_INTL("Pour garantir que les modifications sont conservées, fermez et rouvrez RPG Maker XP."))
+          pbMessage(_INTL("To ensure that the changes remain, close and reopen RPG Maker XP."))
         end
-        break if pbConfirmMessage(_INTL("Quitter l'éditeur?"))
+        break if pbConfirmMessage(_INTL("Exit from the editor?"))
       elsif Input.trigger?(Input::USE)
         selected = tile_ID_from_coordinates(@x, @y)
         params = ChooseNumberParams.new
         params.setRange(0, 99)
         params.setDefaultValue(@tileset.terrain_tags[selected])
-        set_terrain_tag_for_tile_ID(selected, pbMessageChooseNumber(_INTL("Définir l'étiquette du terrain."), params))
+        set_terrain_tag_for_tile_ID(selected, pbMessageChooseNumber(_INTL("Set the terrain tag."), params))
         draw_overlay
       end
     end

@@ -44,7 +44,7 @@ class PokeBattle_Battle
           eachInTeam(0, 0) do |pkmn, i|
             next if !pkmn.able?
             next if b.participants.include?(i) || expShare.include?(i)
-            pbDisplayPaused(_INTL("Votre équipe a également reçu des Points d'Exp!")) if showMessage
+            pbDisplayPaused(_INTL("Your party Pokémon in waiting also got Exp. Points!")) if showMessage
             showMessage = false
             pbGainEVsOne(i, b)
             pbGainExpOne(i, b, numPartic, expShare, expAll, false)
@@ -167,9 +167,9 @@ class PokeBattle_Battle
     # "Exp gained" message
     if showMessages
       if isOutsider
-        pbDisplayPaused(_INTL("{1} a reçu un boost de {2} Points d'Exp!", pkmn.name, expGained))
+        pbDisplayPaused(_INTL("{1} got a boosted {2} Exp. Points!", pkmn.name, expGained))
       else
-        pbDisplayPaused(_INTL("{1} a obtenu {2} Points d'Exp!", pkmn.name, expGained))
+        pbDisplayPaused(_INTL("{1} got {2} Exp. Points!", pkmn.name, expGained))
       end
     end
     curLevel = pkmn.level
@@ -181,7 +181,7 @@ class PokeBattle_Battle
       # raise RuntimeError.new(
       #   echoln  _INTL("{1}'s new level is less than its\r\ncurrent level, which shouldn't happen.\r\n[Debug: {2}]",
       #         pkmn.name, debugInfo)
-      pbDisplayPaused(_INTL("Le taux de croissance de {1} a changé pour '{2}'. Son niveau sera ajusté pour refléter son expérience actuelle.", pkmn.name, pkmn.growth_rate.real_name))
+      pbDisplayPaused(_INTL("{1}'s growth rate has changed to '{2}''. Its level will be adjusted to reflect its current exp.", pkmn.name, pkmn.growth_rate.real_name))
     end
     # Give Exp
     if pkmn.shadowPokemon?
@@ -234,7 +234,7 @@ class PokeBattle_Battle
       pkmn.calc_stats
       battler.pbUpdate(false) if battler
       @scene.pbRefreshOne(battler.index) if battler
-      pbDisplayPaused(_INTL("{1} monte jusqu'au Lv.{2}!", pkmn.name, curLevel))
+      pbDisplayPaused(_INTL("{1} grew to Lv. {2}!", pkmn.name, curLevel))
       if !$game_switches[SWITCH_NO_LEVELS_MODE]
         @scene.pbLevelUp(pkmn, battler, oldTotalHP, oldAttack, oldDefense,
                          oldSpAtk, oldSpDef, oldSpeed)
@@ -264,7 +264,7 @@ class PokeBattle_Battle
       move = Pokemon::Move.new(newMove)
       pkmn.moves.push(move)
       pkmn.add_learned_move(move)
-      pbDisplay(_INTL("{1} a appris {2}!", pkmnName, moveName)) { pbSEPlay("Pkmn move learnt") }
+      pbDisplay(_INTL("{1} learned {2}!", pkmnName, moveName)) { pbSEPlay("Pkmn move learnt") }
       if battler
         battler.moves.push(PokeBattle_Move.from_pokemon_move(self, pkmn.moves.last))
         battler.pbCheckFormOnMovesetChange
@@ -273,10 +273,10 @@ class PokeBattle_Battle
     end
     # Pokémon already knows the maximum number of moves; try to forget one to learn the new move
     loop do
-       pbDisplayPaused(_INTL("{1} veut apprendre {2}, mais il connaît déjà {3}.",
+      pbDisplayPaused(_INTL("{1} wants to learn {2}, but it already knows {3} moves.",
                             pkmnName, moveName, pkmn.moves.length.to_word))
-      if pbDisplayConfirm(_INTL("Oubliez une attaque pour apprendre {1}?", moveName))
-        pbDisplayPaused(_INTL("Quel attaque doit être oublié?"))
+      if pbDisplayConfirm(_INTL("Forget a move to learn {1}?", moveName))
+        pbDisplayPaused(_INTL("Which move should be forgotten?"))
         forgetMove = @scene.pbForgetMove(pkmn, newMove)
         if forgetMove >= 0
           oldMoveName = pkmn.moves[forgetMove].name
@@ -284,17 +284,17 @@ class PokeBattle_Battle
           pkmn.add_learned_move(newMove)
           battler.moves[forgetMove] = PokeBattle_Move.from_pokemon_move(self, pkmn.moves[forgetMove]) if battler
 
-          pbDisplayPaused(_INTL("1, 2, et... ... ... Ta-da!"))
-          pbDisplayPaused(_INTL("{1} a oublié comment utiliser {2}. Et...", pkmnName, oldMoveName))
-          pbDisplay(_INTL("{1} a appris {2}!", pkmnName, moveName)) { pbSEPlay("Pkmn move learnt") }
+          pbDisplayPaused(_INTL("1, 2, and... ... ... Ta-da!"))
+          pbDisplayPaused(_INTL("{1} forgot how to use {2}. And...", pkmnName, oldMoveName))
+          pbDisplay(_INTL("{1} learned {2}!", pkmnName, moveName)) { pbSEPlay("Pkmn move learnt") }
           battler.pbCheckFormOnMovesetChange if battler
           break
-        elsif pbDisplayConfirm(_INTL("Renoncer à {1}?", moveName))
-          pbDisplay(_INTL("{1} n'a pas appris {2}.", pkmnName, moveName))
+        elsif pbDisplayConfirm(_INTL("Give up on learning {1}?", moveName))
+          pbDisplay(_INTL("{1} did not learn {2}.", pkmnName, moveName))
           break
         end
-      elsif pbDisplayConfirm(_INTL("Renoncer à {1}?", moveName))
-        pbDisplay(_INTL("{1} n'a pas appris {2}.", pkmnName, moveName))
+      elsif pbDisplayConfirm(_INTL("Give up on learning {1}?", moveName))
+        pbDisplay(_INTL("{1} did not learn {2}.", pkmnName, moveName))
         break
       end
     end

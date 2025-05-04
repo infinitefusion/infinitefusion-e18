@@ -42,7 +42,6 @@ end
 
 class Window_AdvancedTextPokemon
   def text=(value)
-    
     if value != nil && value != "" && $PokemonTemp.speechbubble_bubble && $PokemonTemp.speechbubble_bubble > 0
       if $PokemonTemp.speechbubble_bubble == 1
         $PokemonTemp.speechbubble_bubble = 0
@@ -73,8 +72,6 @@ class Window_AdvancedTextPokemon
 end
 
 def pbRepositionMessageWindow(msgwindow, linecount=2)
-  msgwindow.opacity = 255 #make sure the backgroud is visible
-  
   msgwindow.height=32*linecount+msgwindow.borderY
   msgwindow.y=(Graphics.height)-(msgwindow.height)
   if $game_temp && $game_temp.in_battle && !$scene.respond_to?("update_basic")

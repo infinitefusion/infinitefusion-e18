@@ -9,7 +9,7 @@ class PokeBattle_Battler
       @battle.rules["alwaysflee"] && @battle.pbCanRun?(@index)
       pbBeginTurn(choice)
       pbSEPlay("Battle flee")
-      @battle.pbDisplay(_INTL("{1} a fui la bataille!", pbThis))
+      @battle.pbDisplay(_INTL("{1} fled from battle!", pbThis))
       @battle.decision = 3
       pbEndTurn(choice)
       return true
@@ -29,9 +29,9 @@ class PokeBattle_Battler
         @battle.pbSwapBattlers(@index, idxOther)
         case @battle.pbSideSize(@index)
         when 2
-          @battle.pbDisplay(_INTL("{1} déplacé à côté!", pbThis))
+          @battle.pbDisplay(_INTL("{1} moved across!", pbThis))
         when 3
-          @battle.pbDisplay(_INTL("{1} déplacé vers le centre!", pbThis))
+          @battle.pbDisplay(_INTL("{1} moved to the center!", pbThis))
         end
       end
       pbBeginTurn(choice)
@@ -92,7 +92,7 @@ class PokeBattle_Battler
     # Outragers get confused anyway if they are disrupted during their final
     # turn of using the move
     if @effects[PBEffects::Outrage] == 1 && pbCanConfuseSelf?(false) && !full_cancel
-      pbConfuse(_INTL("{1} est devenu confus à cause de la fatigue!", pbThis))
+      pbConfuse(_INTL("{1} became confused due to fatigue!", pbThis))
     end
     # Cancel usage of most multi-turn moves
     @effects[PBEffects::TwoTurnAttack] = nil
@@ -205,8 +205,8 @@ class PokeBattle_Battler
     # Subtract PP
     if !specialUsage
       if !pbReducePP(move)
-        @battle.pbDisplay(_INTL("{1} a utilisé {2}!", pbThis, move.name))
-        @battle.pbDisplay(_INTL("Mais il n'y avait plus de PP pour attaquer!"))
+        @battle.pbDisplay(_INTL("{1} used {2}!", pbThis, move.name))
+        @battle.pbDisplay(_INTL("But there was no PP left for the move!"))
         @lastMoveUsed = nil
         @lastMoveUsedType = nil
         @lastRegularMoveUsed = nil
@@ -284,9 +284,9 @@ class PokeBattle_Battler
     @battle.pbPriority(true).each do |b|
       next if !b || !b.abilityActive?
       if BattleHandlers.triggerMoveBlockingAbility(b.ability, b, user, targets, move, @battle)
-        @battle.pbDisplayBrief(_INTL("{1} a utilisé {2}!", user.pbThis, move.name))
+        @battle.pbDisplayBrief(_INTL("{1} used {2}!", user.pbThis, move.name))
         @battle.pbShowAbilitySplash(b)
-        @battle.pbDisplay(_INTL("{1} ne peut pas utiliser {2}!", user.pbThis, move.name))
+        @battle.pbDisplay(_INTL("{1} cannot use {2}!", user.pbThis, move.name))
         @battle.pbHideAbilitySplash(b)
         user.lastMoveFailed = true
         pbCancelMoves
@@ -303,7 +303,7 @@ class PokeBattle_Battler
     # Snatch's message (user is the new user, self is the original user)
     if move.snatched
       @lastMoveFailed = true # Intentionally applies to self, not user
-      @battle.pbDisplay(_INTL("{1} a arraché le coup de {2}!", user.pbThis, pbThis(true)))
+      @battle.pbDisplay(_INTL("{1} snatched {2}'s move!", user.pbThis, pbThis(true)))
     end
     # "But it failed!" checks
     if move.pbMoveFailed?(user, targets)
@@ -319,12 +319,12 @@ class PokeBattle_Battler
     # Self-thawing due to the move
     if user.status == :FROZEN && move.thawsUser?
       user.pbCureStatus(false)
-      @battle.pbDisplay(_INTL("{1} fait fondre la glace!", user.pbThis))
+      @battle.pbDisplay(_INTL("{1} melted the ice!", user.pbThis))
     end
     # Powder
     if user.effects[PBEffects::Powder] && move.calcType == :FIRE
       @battle.pbCommonAnimation("Powder", user)
-      @battle.pbDisplay(_INTL("Lorsque la flamme a touché la poudre sur le Pokémon, elle a explosé!"))
+      @battle.pbDisplay(_INTL("When the flame touched the powder on the Pokémon, it exploded!"))
       user.lastMoveFailed = true
       if ![:Rain, :HeavyRain].include?(@battle.pbWeather) && user.takesIndirectDamage?
         oldHP = user.hp
@@ -345,7 +345,7 @@ class PokeBattle_Battler
       case @battle.pbWeather
       when :HeavyRain
         if move.calcType == :FIRE
-          @battle.pbDisplay(_INTL("L'attaque de type Feu s'est effondrée sous la forte pluie!"))
+          @battle.pbDisplay(_INTL("The Fire-type attack fizzled out in the heavy rain!"))
           user.lastMoveFailed = true
           pbCancelMoves
           pbEndTurn(choice)
@@ -353,7 +353,7 @@ class PokeBattle_Battler
         end
       when :HarshSun
         if move.calcType == :WATER
-          @battle.pbDisplay(_INTL("L'attaque de type Eau s'est évaporée sous la forte lumière du soleil!"))
+          @battle.pbDisplay(_INTL("The Water-type attack evaporated in the harsh sunlight!"))
           user.lastMoveFailed = true
           pbCancelMoves
           pbEndTurn(choice)
@@ -367,7 +367,7 @@ class PokeBattle_Battler
         @battle.pbShowAbilitySplash(user)
         user.pbChangeTypes(move.calcType)
         typeName = GameData::Type.get(move.calcType).name
-        @battle.pbDisplay(_INTL("{1} transformé en type {2}!", user.pbThis, typeName))
+        @battle.pbDisplay(_INTL("{1} transformed into the {2} type!", user.pbThis, typeName))
         @battle.pbHideAbilitySplash(user)
         # NOTE: The GF games say that if Curse is used by a non-Ghost-type
         #       Pokémon which becomes Ghost-type because of Protean, it should
@@ -386,7 +386,7 @@ class PokeBattle_Battler
       # def pbFindTargets should have found a target(s), but it didn't because
       # they were all fainted
       # All target types except: None, User, UserSide, FoeSide, BothSides
-      @battle.pbDisplay(_INTL("Mais il n'y avait pas de cible..."))
+      @battle.pbDisplay(_INTL("But there was no target..."))
       user.lastMoveFailed = true
     else
       # We have targets, or move doesn't use targets
@@ -463,9 +463,9 @@ class PokeBattle_Battler
           end
         end
         if realNumHits == 1
-          @battle.pbDisplay(_INTL("Taper 1 fois!"))
+          @battle.pbDisplay(_INTL("Hit 1 time!"))
         elsif realNumHits > 1
-          @battle.pbDisplay(_INTL("Taper {1} fois!", realNumHits))
+          @battle.pbDisplay(_INTL("Hit {1} times!", realNumHits))
         end
       end
       # Magic Coat's bouncing back (move has targets)
@@ -473,7 +473,7 @@ class PokeBattle_Battler
         next if b.fainted?
         next if !b.damageState.magicCoat && !b.damageState.magicBounce
         @battle.pbShowAbilitySplash(b) if b.damageState.magicBounce
-        @battle.pbDisplay(_INTL("{1} a fait rebondir {2}!", b.pbThis, move.name))
+        @battle.pbDisplay(_INTL("{1} bounced the {2} back!", b.pbThis, move.name))
         @battle.pbHideAbilitySplash(b) if b.damageState.magicBounce
         newChoice = choice.clone
         newChoice[3] = user.index
@@ -490,7 +490,7 @@ class PokeBattle_Battler
         if !mc.fainted?
           user.lastMoveFailed = true
           @battle.pbShowAbilitySplash(mc) if magicBouncer >= 0
-          @battle.pbDisplay(_INTL("{1} a fait rebondir {2}!", mc.pbThis, move.name))
+          @battle.pbDisplay(_INTL("{1} bounced the {2} back!", mc.pbThis, move.name))
           @battle.pbHideAbilitySplash(mc) if magicBouncer >= 0
           success = pbProcessMoveHit(move, mc, [], 0, false)
           mc.lastMoveFailed = true if !success
@@ -524,7 +524,7 @@ class PokeBattle_Battler
       b.eachMoveWithIndex { |m, i| idxMove = i if m.id == b.lastMoveUsed }
       next if idxMove < 0
       oldLastRoundMoved = b.lastRoundMoved
-      @battle.pbDisplay(_INTL("{1} utilisé l'attaque indiqué par {2}!", b.pbThis, user.pbThis(true)))
+      @battle.pbDisplay(_INTL("{1} used the move instructed by {2}!", b.pbThis, user.pbThis(true)))
       PBDebug.logonerr {
         b.effects[PBEffects::Instructed] = true
         b.pbUseMoveSimple(b.lastMoveUsed, b.lastRegularMoveTarget, idxMove, false)
@@ -556,7 +556,7 @@ class PokeBattle_Battler
         @battle.pbShowAbilitySplash(nextUser, true)
         @battle.pbHideAbilitySplash(nextUser)
         if !PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-          @battle.pbDisplay(_INTL("{1} a continué la danse avec {2}!",
+          @battle.pbDisplay(_INTL("{1} kept the dance going with {2}!",
                                   nextUser.pbThis, nextUser.abilityName))
         end
         PBDebug.logonerr {
@@ -583,7 +583,7 @@ class PokeBattle_Battler
 
       #changeForm(1,:AEGISLASH)
 
-      @battle.pbDisplay(_INTL("{1} changé en mode Epée!", pbThis))
+      @battle.pbDisplay(_INTL("{1} changed to Sword Mode!", pbThis))
     elsif inSwordForm && !attacking
       user.effects[PBEffects::PowerTrick] = false
       user.attack, user.defense = user.defense, user.attack
@@ -591,7 +591,7 @@ class PokeBattle_Battler
 
       #user.changeForm(nil,:AEGISLASH)
 
-      @battle.pbDisplay(_INTL("{1} est passé en mode Bouclier!", pbThis))
+      @battle.pbDisplay(_INTL("{1} changed to Shield Mode!", pbThis))
     end
   end
 
@@ -708,7 +708,7 @@ class PokeBattle_Battler
       # NOTE: The consume animation and message for Gems are shown now, but the
       #       actual removal of the item happens in def pbEffectsAfterMove.
       @battle.pbCommonAnimation("UseItem", user)
-      @battle.pbDisplay(_INTL("Le {1} a renforcé la puissance de {2}!",
+      @battle.pbDisplay(_INTL("The {1} strengthened {2}'s power!",
                               GameData::Item.get(user.effects[PBEffects::GemConsumed]).name, move.name))
     end
     # Messages about missed target(s) (relevant for multi-target moves only)
@@ -799,7 +799,7 @@ class PokeBattle_Battler
     targets.each do |b|
       next if b.damageState.unaffected
       next if !b.damageState.berryWeakened
-      @battle.pbDisplay(_INTL("Le {1} a affaibli les dégâts causés à {2}!", b.itemName, b.pbThis(true)))
+      @battle.pbDisplay(_INTL("The {1} weakened the damage to {2}!", b.itemName, b.pbThis(true)))
       b.pbConsumeItem
     end
     targets.each { |b| b.pbFaint if b && b.fainted? }

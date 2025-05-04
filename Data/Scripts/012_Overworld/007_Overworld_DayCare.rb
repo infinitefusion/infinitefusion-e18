@@ -59,14 +59,14 @@ def pbDayCareDeposit(index)
     $PokemonGlobal.daycareEggSteps = 0
     return
   end
-  raise _INTL("Pas de place pour déposer un Pokémon")
+  raise _INTL("No room to deposit a Pokémon")
 end
 
 def pbDayCareWithdraw(index)
   if !$PokemonGlobal.daycare[index][0]
-    raise _INTL("Il n'y a pas de Pokémon ici...")
+    raise _INTL("There's no Pokémon here...")
   elsif $Trainer.party_full?
-    raise _INTL("Impossible de stocker le Pokémon...")
+    raise _INTL("Can't store the Pokémon...")
   else
     $Trainer.party[$Trainer.party.length] = $PokemonGlobal.daycare[index][0]
     $PokemonGlobal.daycare[index][0] = nil
@@ -78,7 +78,7 @@ end
 def pbDayCareChoose(text,variable)
   count = pbDayCareDeposited
   if count==0
-    raise _INTL("Il n'y a pas de Pokémon ici...")
+    raise _INTL("There's no Pokémon here...")
   elsif count==1
     $game_variables[variable] = ($PokemonGlobal.daycare[0][0]) ? 0 : 1
   else
@@ -93,7 +93,7 @@ def pbDayCareChoose(text,variable)
         choices.push(_ISPRINTF("{1:s} (Lv.{2:d})",pokemon.name,pokemon.level))
       end
     end
-    choices.push(_INTL("ANNULER"))
+    choices.push(_INTL("CANCEL"))
     command = pbMessage(text,choices,choices.length)
     $game_variables[variable] = (command==2) ? -1 : command
   end
@@ -154,7 +154,7 @@ end
 #===============================================================================
 def pbDayCareGenerateEgg
   return if pbDayCareDeposited != 2
-  raise _INTL("Impossible de conserver l'oeuf.") if $Trainer.party_full?
+  raise _INTL("Can't store the egg.") if $Trainer.party_full?
   pkmn0 = $PokemonGlobal.daycare[0][0]
   pkmn1 = $PokemonGlobal.daycare[1][0]
   mother = nil
@@ -357,8 +357,8 @@ def pbDayCareGenerateEgg
   egg.iv = ivs
   egg.moves = finalmoves
   egg.calc_stats
-  egg.obtain_text = _INTL("Couple de garderie")
-  egg.name = _INTL("Oeuf")
+  egg.obtain_text = _INTL("Day-Care Couple")
+  egg.name = _INTL("Egg")
   egg.steps_to_hatch = egg.species_data.hatch_steps
   egg.givePokerus if rand(65536) < Settings::POKERUS_CHANCE
   # Add egg to party

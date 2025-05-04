@@ -97,18 +97,18 @@ def pbStartOver(gameover=false)
   $Trainer.heal_party
   if isOnPinkanIsland()
     if $game_switches[SWITCH_PINKAN_SIDE_POLICE]
-      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]Hé, ça va là-bas ? Je te ramène au quai."))
+      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]Hey, are you okay over there? Let me take you back to the dock."))
     else
-      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]Hé, ça va là-bas ? Je vais te ramener à la plage."))
+      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]Hey, are you okay over there? Let me take you back to the beach."))
     end
     pinkanIslandWarpToStart()
     return
   end
   if $PokemonGlobal.pokecenterMapId && $PokemonGlobal.pokecenterMapId>=0
     if gameover
-      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]Après cette malheureuse défaite, vous vous précipitez vers un Centre Pokémon."))
+      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]After the unfortunate defeat, you scurry back to a Pokémon Center."))
     else
-      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]Vous vous précipitez vers un Centre Pokémon, protégeant votre Pokémon épuisé de tout autre dommage..."))
+      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]You scurry back to a Pokémon Center, protecting your exhausted Pokémon from any further harm..."))
     end
     pbCancelVehicles
     pbRemoveDependencies
@@ -123,15 +123,15 @@ def pbStartOver(gameover=false)
     homedata = GameData::Metadata.get.home
     if homedata && !pbRgssExists?(sprintf("Data/Map%03d.rxdata",homedata[0]))
       if $DEBUG
-        pbMessage(_ISPRINTF("Impossible de trouver la carte 'Map{1:03d}' dans le dossier Data. Le jeu reprendra à la position du joueur.",homedata[0]))
+        pbMessage(_ISPRINTF("Can't find the map 'Map{1:03d}' in the Data folder. The game will resume at the player's position.",homedata[0]))
       end
       $Trainer.heal_party
       return
     end
     if gameover
-      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]Après cette malheureuse défaite, tu te précipites vers la maison."))
+      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]After the unfortunate defeat, you scurry back home."))
     else
-      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]Vous vous précipitez vers la maison, protégeant votre Pokémon épuisé de tout autre dommage...."))
+      pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]You scurry back home, protecting your exhausted Pokémon from any further harm..."))
     end
     if homedata
       pbCancelVehicles

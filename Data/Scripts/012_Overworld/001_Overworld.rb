@@ -53,7 +53,7 @@ Events.onMapUpdate += proc { |_sender, _e|
       !$game_player.move_route_forcing && !$game_temp.message_window_showing &&
       !pbMapInterpreterRunning?
       if pbGetTimeNow.sec == 0
-        pbMessage(_INTL("Le jeu a détecté que la batterie est faible. Vous devriez sauvegarder rapidement pour éviter de perdre votre progression."))
+        pbMessage(_INTL("The game has detected that the battery is low. You should save soon to avoid losing your progress."))
         $PokemonTemp.batterywarning = true
       end
     end
@@ -100,12 +100,12 @@ Events.onStepTakenTransferPossible += proc { |_sender, e|
         i.hp -= 1 if i.hp > 1 || Settings::POISON_FAINT_IN_FIELD
         if i.hp == 1 && !Settings::POISON_FAINT_IN_FIELD
           i.status = :NONE
-          pbMessage(_INTL("{1} a survécu à l'empoisonnement.\\nLe poison a disparu!\1", i.name))
+          pbMessage(_INTL("{1} survived the poisoning.\\nThe poison faded away!\1", i.name))
           next
         elsif i.hp == 0
           i.changeHappiness("faint")
           i.status = :NONE
-          pbMessage(_INTL("{1} évanouie...", i.name))
+          pbMessage(_INTL("{1} fainted...", i.name))
         end
         if $Trainer.able_pokemon_count == 0
           handled[0] = true
@@ -118,8 +118,8 @@ Events.onStepTakenTransferPossible += proc { |_sender, e|
 
 def pbCheckAllFainted
   if $Trainer.able_pokemon_count == 0
-    pbMessage(_INTL("Vous n’avez plus de Pokémon capable de se battre!\1"))
-    pbMessage(_INTL("Tu t'évanoui !"))
+    pbMessage(_INTL("You have no more Pokémon that can fight!\1"))
+    pbMessage(_INTL("You blacked out!"))
     pbBGMFade(1.0)
     pbBGSFade(1.0)
     pbFadeOutIn { pbStartOver }
@@ -344,7 +344,7 @@ Events.onMapSceneChange += proc { |_sender, e|
   scene = e[0]
   mapChanged = e[1]
   next if !scene || !scene.spriteset
-    # Update map trail
+  # Update map trail
   if $game_map
     $PokemonGlobal.mapTrail = [] if !$PokemonGlobal.mapTrail
     if $PokemonGlobal.mapTrail[0] != $game_map.map_id
@@ -837,17 +837,17 @@ def pbItemBall(item, quantity = 1, item_name = "", canRandom = true)
     text_color = item.is_key_item? ? "\\c[3]" : "\\c[1]"
 
     if item == :LEFTOVERS
-      pbMessage(_INTL("\\me[{1}]Vous avez trouvé quelque \\c[1]{2}\\c[0]!\\wtnp[30]", meName, itemname))
+      pbMessage(_INTL("\\me[{1}]You found some \\c[1]{2}\\c[0]!\\wtnp[30]", meName, itemname))
     elsif item.is_machine? # TM or HM
-      pbMessage(_INTL("\\me[{1}]Tu as trouvé \\c[1]{2} {3}\\c[0]!\\wtnp[30]", meName, itemname, GameData::Move.get(move).name))
+      pbMessage(_INTL("\\me[{1}]You found \\c[1]{2} {3}\\c[0]!\\wtnp[30]", meName, itemname, GameData::Move.get(move).name))
     elsif quantity > 1
-      pbMessage(_INTL("\\me[{1}]Tu as trouvé {2} #{text_color}{3}\\c[0]!\\wtnp[30]", meName, quantity, itemname))
+      pbMessage(_INTL("\\me[{1}]You found {2} #{text_color}{3}\\c[0]!\\wtnp[30]", meName, quantity, itemname))
     elsif itemname.starts_with_vowel?
-      pbMessage(_INTL("\\me[{1}]Tu as trouvé #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
+      pbMessage(_INTL("\\me[{1}]You found an #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
     else
-      pbMessage(_INTL("\\me[{1}]Tu as trouvé #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
+      pbMessage(_INTL("\\me[{1}]You found a #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
     end
-    pbMessage(_INTL("Tu as rangé {1}\\ndans la Poche <icon=bagPocket{2}>\\c[1]{3}\\c[0] du Sac.",
+    pbMessage(_INTL("You put the {1} away\\nin the <icon=bagPocket{2}>\\c[1]{3} Pocket\\c[0].",
                     itemname, pocket, PokemonBag.pocketNames()[pocket]))
 
     promptRegisterItem(item)
@@ -856,17 +856,17 @@ def pbItemBall(item, quantity = 1, item_name = "", canRandom = true)
   end
   # Can't add the item
   if item == :LEFTOVERS
-    pbMessage(_INTL("Vous avez trouvé quelque \\c[1]{1}\\c[0]!\\wtnp[30]", itemname))
+    pbMessage(_INTL("You found some \\c[1]{1}\\c[0]!\\wtnp[30]", itemname))
   elsif item.is_machine? # TM or HM
-    pbMessage(_INTL("Tu as trouvé \\c[1]{1} {2}\\c[0]!\\wtnp[30]", itemname, GameData::Move.get(move).name))
+    pbMessage(_INTL("You found \\c[1]{1} {2}\\c[0]!\\wtnp[30]", itemname, GameData::Move.get(move).name))
   elsif quantity > 1
-    pbMessage(_INTL("Tu as trouvé {1} \\c[1]{2}\\c[0]!\\wtnp[30]", quantity, itemname))
+    pbMessage(_INTL("You found {1} \\c[1]{2}\\c[0]!\\wtnp[30]", quantity, itemname))
   elsif itemname.starts_with_vowel?
-    pbMessage(_INTL("Tu as trouvé \\c[1]{1}\\c[0]!\\wtnp[30]", itemname))
+    pbMessage(_INTL("You found an \\c[1]{1}\\c[0]!\\wtnp[30]", itemname))
   else
-    pbMessage(_INTL("Tu as trouvé \\c[1]{1}\\c[0]!\\wtnp[30]", itemname))
+    pbMessage(_INTL("You found a \\c[1]{1}\\c[0]!\\wtnp[30]", itemname))
   end
-  pbMessage(_INTL("Mais ton sac est plein..."))
+  pbMessage(_INTL("But your Bag is full..."))
   return false
 end
 
@@ -899,22 +899,22 @@ def pbReceiveItem(item, quantity = 1, item_name = "", music = nil, canRandom = t
   meName = (item.is_key_item?) ? "Key item get" : "Item get"
   text_color = item.is_key_item? ? "\\c[3]" : "\\c[1]"
   if item == :LEFTOVERS
-    pbMessage(_INTL("\\me[{1}]Vous avez obtenu quelque \\c[1]{2}\\c[0]!\\wtnp[30]", meName, itemname))
+    pbMessage(_INTL("\\me[{1}]You obtained some \\c[1]{2}\\c[0]!\\wtnp[30]", meName, itemname))
   elsif item.is_machine? # TM or HM
     # if $game_switches[SWITCH_RANDOMIZE_GYMS_SEPARATELY] && $game_switches[SWITCH_RANDOMIZED_GYM_TYPES] && $game_variables[VAR_CURRENT_GYM_TYPE] > -1
     #   item = GameData::Item.get(randomizeGymTM(item))
     # end
-    pbMessage(_INTL("\\me[{1}]Vous avez obtenu \\c[1]{2} {3}\\c[0]!\\wtnp[30]", meName, itemname, GameData::Move.get(move).name))
+    pbMessage(_INTL("\\me[{1}]You obtained \\c[1]{2} {3}\\c[0]!\\wtnp[30]", meName, itemname, GameData::Move.get(move).name))
   elsif quantity > 1
-    pbMessage(_INTL("\\me[{1}Vous avez obtenu {2} #{text_color}{3}\\c[0]!\\wtnp[30]", meName, quantity, itemname))
+    pbMessage(_INTL("\\me[{1}]You obtained {2} #{text_color}{3}\\c[0]!\\wtnp[30]", meName, quantity, itemname))
   elsif itemname.starts_with_vowel?
-    pbMessage(_INTL("\\me[{1}]Vous avez obtenu #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
+    pbMessage(_INTL("\\me[{1}]You obtained an #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
   else
-    pbMessage(_INTL("\\me[{1}]Vous avez obtenu #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
+    pbMessage(_INTL("\\me[{1}]You obtained a #{text_color}{2}\\c[0]!\\wtnp[30]", meName, itemname))
   end
   promptRegisterItem(item)
   if $PokemonBag.pbStoreItem(item, quantity) # If item can be added
-    pbMessage(_INTL("Tu as rangé {1}\\n dans la Poche <icon=bagPocket{2}>\\c[1]{3}\\c[0].",
+    pbMessage(_INTL("You put the {1} away\\nin the <icon=bagPocket{2}>\\c[1]{3} Pocket\\c[0].",
                     itemname, pocket, PokemonBag.pocketNames()[pocket]))
     updatePinkanBerryDisplay()
     return true
@@ -924,9 +924,9 @@ end
 
 def promptRegisterItem(item)
   if item.is_key_item? && pbCanRegisterItem?(item)
-    if pbConfirmMessage(_INTL("Souhaitez-vous enregistrer \\c[3]{1}\\c[0] dans le menu d'actions rapide?",item.name))
+    if pbConfirmMessage(_INTL("Would you like to register the \\c[3]{1}\\c[0] in the quick actions menu?",item.name))
       $PokemonBag.pbRegisterItem(item)
-      pbMessage(_INTL("\\se[{1}]Le \\c[3]{2}\\c[0] a été enregistré!", "GUI carte de dresseur ouverte", item.name))
+      pbMessage(_INTL("\\se[{1}]The \\c[3]{2}\\c[0] was registered!", "GUI trainer card open", item.name))
     end
   end
 end

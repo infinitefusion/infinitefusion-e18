@@ -232,7 +232,7 @@ MultipleForms.register(:ROTOM,{
       if move_index >= 0
         move_name = pkmn.moves[move_index].name
         pkmn.forget_move_at_index(move_index)
-        pbMessage(_INTL("{1} a oublié {2}...", pkmn.name, move_name))
+        pbMessage(_INTL("{1} forgot {2}...", pkmn.name, move_name))
         pbLearnMove(:THUNDERSHOCK) if pkmn.numMoves == 0
       end
     else
@@ -244,12 +244,12 @@ MultipleForms.register(:ROTOM,{
         if GameData::Move.exists?(new_move_id)
           pkmn.moves[move_index].id = new_move_id
           new_move_name = pkmn.moves[move_index].name
-          pbMessage(_INTL("1,\\wt[16] 2, et\\wt[16]...\\wt[16] ...\\wt[16] ... Ta-da!\\se[Battle ball drop]\1"))
-          pbMessage(_INTL("{1} a appris comment utilisé {2}.\\nEt...\1", pkmn.name, old_move_name))
-          pbMessage(_INTL("\\se[]{1} a appris {2}!\\se[Pkmn move learnt]", pkmn.name, new_move_name))
+          pbMessage(_INTL("1,\\wt[16] 2, and\\wt[16]...\\wt[16] ...\\wt[16] ... Ta-da!\\se[Battle ball drop]\1"))
+          pbMessage(_INTL("{1} forgot how to use {2}.\\nAnd...\1", pkmn.name, old_move_name))
+          pbMessage(_INTL("\\se[]{1} learned {2}!\\se[Pkmn move learnt]", pkmn.name, new_move_name))
         else
           pkmn.forget_move_at_index(move_index)
-          pbMessage(_INTL("{1} a oublié {2}...", pkmn.name, old_move_name))
+          pbMessage(_INTL("{1} forgot {2}...", pkmn.name, old_move_name))
           pbLearnMove(:THUNDERSHOCK) if pkmn.numMoves == 0
         end
       else
@@ -577,7 +577,7 @@ MultipleForms.register(:NECROZMA,{
       if move_index >= 0
         move_name = pkmn.moves[move_index].name
         pkmn.forget_move_at_index(move_index)
-        pbMessage(_INTL("{1} a oublié {2}...", pkmn.name, move_name))
+        pbMessage(_INTL("{1} forgot {2}...", pkmn.name, move_name))
         pbLearnMove(:CONFUSION) if pkmn.numMoves == 0
       end
     else

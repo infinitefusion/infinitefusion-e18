@@ -148,9 +148,9 @@ class PokeBattle_Battler
       targets.clear
       pbAddTarget(targets,user,b,move,nearOnly)
       if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-        @battle.pbDisplay(_INTL("{1} a pris l'attaque!",b.pbThis))
+        @battle.pbDisplay(_INTL("{1} took the attack!",b.pbThis))
       else
-        @battle.pbDisplay(_INTL("{1} a pris l'attaque avec {2}!",b.pbThis,b.abilityName))
+        @battle.pbDisplay(_INTL("{1} took the attack with its {2}!",b.pbThis,b.abilityName))
       end
       @battle.pbHideAbilitySplash(b)
       break

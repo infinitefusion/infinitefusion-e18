@@ -6,7 +6,7 @@
 class PokeBattle_UnimplementedMove < PokeBattle_Move
   def pbMoveFailed?(user,targets)
     if statusMove?
-      @battle.pbDisplay(_INTL("Mais cela échoue!"))
+      @battle.pbDisplay(_INTL("But it failed!"))
       return true
     end
     return false
@@ -77,7 +77,7 @@ class PokeBattle_Struggle < PokeBattle_Move
   def pbEffectAfterAllHits(user,target)
     return if target.damageState.unaffected
     user.pbReduceHP((user.totalhp/4.0).round,false)
-    @battle.pbDisplay(_INTL("{1} est endommagé par le recul!",user.pbThis))
+    @battle.pbDisplay(_INTL("{1} is damaged by recoil!",user.pbThis))
     user.pbItemHPHealCheck
   end
 end
@@ -259,7 +259,7 @@ class PokeBattle_MultiStatUpMove < PokeBattle_Move
       break
     end
     if failed
-      @battle.pbDisplay(_INTL("Les stats de {1} n'iront pas plus haut!",user.pbThis))
+      @battle.pbDisplay(_INTL("{1}'s stats won't go any higher!",user.pbThis))
       return true
     end
     return false
@@ -346,14 +346,14 @@ class PokeBattle_TargetMultiStatDownMove < PokeBattle_Move
           canLower = true
           break
         end
-        @battle.pbDisplay(_INTL("Les stats de {1} n'augmenteront pas plus!",user.pbThis)) if !canLower
+        @battle.pbDisplay(_INTL("{1}'s stats won't go any higher!",user.pbThis)) if !canLower
       else
         for i in 0...@statDown.length/2
           next if target.statStageAtMin?(@statDown[i*2])
           canLower = true
           break
         end
-        @battle.pbDisplay(_INTL("Les stats de {1} ne baisseront pas plus!",user.pbThis)) if !canLower
+        @battle.pbDisplay(_INTL("{1}'s stats won't go any lower!",user.pbThis)) if !canLower
       end
       if canLower
         target.pbCanLowerStatStage?(@statDown[0],user,self,true)
@@ -447,7 +447,7 @@ class PokeBattle_TwoTurnMove < PokeBattle_Move
         if !["0C9","0CA","0CB","0CC","0CD","0CE","14D"].include?(@function)
           @battle.pbCommonAnimation("UseItem",user)
         end
-        @battle.pbDisplay(_INTL("{1} est devenu complètement chargé grâce à son Herbe Pouvoir!",user.pbThis))
+        @battle.pbDisplay(_INTL("{1} became fully charged due to its Power Herb!",user.pbThis))
         user.pbConsumeItem
       end
     end
@@ -455,7 +455,7 @@ class PokeBattle_TwoTurnMove < PokeBattle_Move
   end
 
   def pbChargingTurnMessage(user,targets)
-    @battle.pbDisplay(_INTL("{1} a commencé à charger!",user.pbThis))
+    @battle.pbDisplay(_INTL("{1} began charging up!",user.pbThis))
   end
 
   def pbAttackingTurnMessage(user,targets)
@@ -492,7 +492,7 @@ class PokeBattle_HealingMove < PokeBattle_Move
 
   def pbMoveFailed?(user,targets)
     if user.hp==user.totalhp
-      @battle.pbDisplay(_INTL("Les PV de {1} sont pleins!",user.pbThis))
+      @battle.pbDisplay(_INTL("{1}'s HP is full!",user.pbThis))
       return true
     end
     return false
@@ -501,7 +501,7 @@ class PokeBattle_HealingMove < PokeBattle_Move
   def pbEffectGeneral(user)
     amt = pbHealAmount(user)
     user.pbRecoverHP(amt)
-    @battle.pbDisplay(_INTL("Les PV de {1} ont été restaurés.",user.pbThis))
+    @battle.pbDisplay(_INTL("{1}'s HP was restored.",user.pbThis))
   end
 end
 
@@ -521,7 +521,7 @@ class PokeBattle_RecoilMove < PokeBattle_Move
     amt = pbRecoilDamage(user,target)
     amt = 1 if amt<1
     user.pbReduceHP(amt,false)
-    @battle.pbDisplay(_INTL("{1} est endommagé par le recul!",user.pbThis))
+    @battle.pbDisplay(_INTL("{1} is damaged by recoil!",user.pbThis))
     user.pbItemHPHealCheck
   end
 end
@@ -547,19 +547,19 @@ class PokeBattle_ProtectMove < PokeBattle_Move
     if @sidedEffect
       if user.pbOwnSide.effects[@effect]
         user.effects[PBEffects::ProtectRate] = 1
-        @battle.pbDisplay(_INTL("Mais ça a échoué!"))
+        @battle.pbDisplay(_INTL("But it failed!"))
         return true
       end
     elsif user.effects[@effect]
       user.effects[PBEffects::ProtectRate] = 1
-      @battle.pbDisplay(_INTL("Mais ça a échoué!"))
+      @battle.pbDisplay(_INTL("But it failed!"))
       return true
     end
     if (!@sidedEffect || Settings::MECHANICS_GENERATION <= 5) &&
        user.effects[PBEffects::ProtectRate]>1 &&
        @battle.pbRandom(user.effects[PBEffects::ProtectRate])!=0
       user.effects[PBEffects::ProtectRate] = 1
-      @battle.pbDisplay(_INTL("Mais c'est un échec!"))
+      @battle.pbDisplay(_INTL("But it failed!"))
       return true
     end
     if pbMoveFailedLastInRound?(user)
@@ -581,9 +581,9 @@ class PokeBattle_ProtectMove < PokeBattle_Move
 
   def pbProtectMessage(user)
     if @sidedEffect
-      @battle.pbDisplay(_INTL("{1} a protégé {2}!",@name,user.pbTeam(true)))
+      @battle.pbDisplay(_INTL("{1} protected {2}!",@name,user.pbTeam(true)))
     else
-      @battle.pbDisplay(_INTL("{1} s'est protégé!",user.pbThis))
+      @battle.pbDisplay(_INTL("{1} protected itself!",user.pbThis))
     end
   end
 end
@@ -602,16 +602,16 @@ class PokeBattle_WeatherMove < PokeBattle_Move
   def pbMoveFailed?(user,targets)
     case @battle.field.weather
     when :HarshSun
-      @battle.pbDisplay(_INTL("La lumière extrêmement forte du soleil n'a pas du tout diminué!"))
+      @battle.pbDisplay(_INTL("The extremely harsh sunlight was not lessened at all!"))
       return true
     when :HeavyRain
-      @battle.pbDisplay(_INTL("Il n'y a aucun répit face à cette forte pluie!"))
+      @battle.pbDisplay(_INTL("There is no relief from this heavy rain!"))
       return true
     when :StrongWinds
-      @battle.pbDisplay(_INTL("Le mystérieux courant d'air continue de souffler, peu importe!"))
+      @battle.pbDisplay(_INTL("The mysterious air current blows on regardless!"))
       return true
     when @weatherType
-      @battle.pbDisplay(_INTL("Mais ça a échoué!"))
+      @battle.pbDisplay(_INTL("But it failed!"))
       return true
     end
     return false
@@ -634,7 +634,7 @@ class PokeBattle_PledgeMove < PokeBattle_Move
     # Check whether this is the use of a combo move
     @combos.each do |i|
       next if i[0]!=user.effects[PBEffects::FirstPledge]
-      @battle.pbDisplay(_INTL("Les deux capacités ne font plus qu'un! C'est une attaque combiné!"))
+      @battle.pbDisplay(_INTL("The two moves have become one! It's a combined move!"))
       @pledgeCombo = true
       @comboEffect = i[1]; @overrideType = i[2]; @overrideAnim = i[3]
       @overrideType = nil if !GameData::Type.exists?(@overrideType)
@@ -674,7 +674,7 @@ class PokeBattle_PledgeMove < PokeBattle_Move
   def pbEffectGeneral(user)
     user.effects[PBEffects::FirstPledge] = 0
     return if !@pledgeSetup
-    @battle.pbDisplay(_INTL("{1} attend l'attaque de {2}...",
+    @battle.pbDisplay(_INTL("{1} is waiting for {2}'s move...",
        user.pbThis,@pledgeOtherUser.pbThis(true)))
     @pledgeOtherUser.effects[PBEffects::FirstPledge] = @function
     @pledgeOtherUser.effects[PBEffects::MoveNext]    = true
@@ -688,19 +688,19 @@ class PokeBattle_PledgeMove < PokeBattle_Move
     when :SeaOfFire   # Grass + Fire
       if user.pbOpposingSide.effects[PBEffects::SeaOfFire]==0
         user.pbOpposingSide.effects[PBEffects::SeaOfFire] = 4
-        msg = _INTL("Une mer de feu a enveloppé {1}!",user.pbOpposingTeam(true))
+        msg = _INTL("A sea of fire enveloped {1}!",user.pbOpposingTeam(true))
         animName = (user.opposes?) ? "SeaOfFire" : "SeaOfFireOpp"
       end
     when :Rainbow   # Fire + Water
       if user.pbOwnSide.effects[PBEffects::Rainbow]==0
         user.pbOwnSide.effects[PBEffects::Rainbow] = 4
-        msg = _INTL("Un arc-en-ciel est apparu dans le ciel du côté de {1}!",user.pbTeam(true))
+        msg = _INTL("A rainbow appeared in the sky on {1}'s side!",user.pbTeam(true))
         animName = (user.opposes?) ? "RainbowOpp" : "Rainbow"
       end
     when :Swamp   # Water + Grass
       if user.pbOpposingSide.effects[PBEffects::Swamp]==0
         user.pbOpposingSide.effects[PBEffects::Swamp] = 4
-        msg = _INTL("Un marais a enveloppé {1}!",user.pbOpposingTeam(true))
+        msg = _INTL("A swamp enveloped {1}!",user.pbOpposingTeam(true))
         animName = (user.opposes?) ? "Swamp" : "SwampOpp"
       end
     end

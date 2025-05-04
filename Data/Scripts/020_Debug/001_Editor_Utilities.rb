@@ -25,7 +25,7 @@ def pbSafeCopyFile(x,y,z=nil)
         different = true if filedata!=filedata2
       end
       if different
-        safetocopy=pbConfirmMessage(_INTL("Un autre fichier nommé '{1}' existe déjà. Remplacez-le?",y))
+        safetocopy=pbConfirmMessage(_INTL("A different file named '{1}' already exists. Overwrite it?",y))
       else
         # No need to copy
         return

@@ -38,7 +38,7 @@ class PokeBattle_Battler
 
   # Used by Future Sight only, when Future Sight's user is no longer in battle.
   def pbInitDummyPokemon(pkmn,idxParty)
-    raise _INTL("Un oeuf ne peut pas être un Pokémon actif.") if pkmn.egg?
+    raise _INTL("An egg can't be an active Pokémon.") if pkmn.egg?
     @name         = pkmn.name
     @species      = pkmn.species
     @form         = pkmn.form
@@ -72,7 +72,7 @@ class PokeBattle_Battler
   end
 
   def pbInitPokemon(pkmn,idxParty)
-    raise _INTL("Un oeuf ne peut pas être un Pokémon actif.") if pkmn.egg?
+    raise _INTL("An egg can't be an active Pokémon.") if pkmn.egg?
     @name         = pkmn.name
     @species      = pkmn.species
     @form         = pkmn.form

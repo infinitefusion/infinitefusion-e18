@@ -7,7 +7,7 @@ class BattleSwapScene
     @sprites = {}
     addBackgroundPlane(@sprites, "bg", "rentbg", @viewport)
     @sprites["title"] = Window_UnformattedTextPokemon.newWithSize(
-       _INTL("POKÉMON DE LOCATION"), 0, 0, Graphics.width, 64, @viewport)
+       _INTL("RENTAL POKÉMON"), 0, 0, Graphics.width, 64, @viewport)
     @sprites["list"] = Window_AdvancedCommandPokemonEx.newWithSize(
        [], 0, 64, Graphics.width, Graphics.height - 128 , @viewport)
     @sprites["help"] = Window_UnformattedTextPokemon.newWithSize("",
@@ -29,7 +29,7 @@ class BattleSwapScene
     @sprites = {}
     addBackgroundPlane(@sprites, "bg", "swapbg", @viewport)
     @sprites["title"] = Window_UnformattedTextPokemon.newWithSize(
-       _INTL("ÉCHANGE DE POKÉMON"), 0, 0, Graphics.width, 64, @viewport)
+       _INTL("POKÉMON SWAP"), 0, 0, Graphics.width, 64, @viewport)
     @sprites["list"] = Window_AdvancedCommandPokemonEx.newWithSize(
        [], 0, 64, Graphics.width, Graphics.height - 128, @viewport)
     @sprites["help"] = Window_UnformattedTextPokemon.newWithSize(
@@ -44,8 +44,8 @@ class BattleSwapScene
 
   def pbInitSwapScreen
     commands = pbGetCommands(@currentPokemon, [])
-    commands.push(_INTL("ANNULER"))
-    @sprites["help"].text = _INTL("Sélectionnez le Pokémon à échanger.")
+    commands.push(_INTL("CANCEL"))
+    @sprites["help"].text = _INTL("Select Pokémon to swap.")
     @sprites["list"].commands = commands
     @sprites["list"].index = 0
     @mode = 1
@@ -105,20 +105,20 @@ class BattleSwapScene
     commands = pbGetCommands(@rentals, choices)
     @choices = choices
     if choices.length == 0
-      @sprites["help"].text = _INTL("Choisissez le premier Pokémon.")
+      @sprites["help"].text = _INTL("Choose the first Pokémon.")
     elsif choices.length == 1
-      @sprites["help"].text = _INTL("Choisissez le deuxième Pokémon.")
+      @sprites["help"].text = _INTL("Choose the second Pokémon.")
     else
-      @sprites["help"].text = _INTL("Choisissez le troisième Pokémon.")
+      @sprites["help"].text = _INTL("Choose the third Pokémon.")
     end
     @sprites["list"].commands = commands
   end
 
   def pbSwapChosen(_pkmnindex)
     commands=pbGetCommands(@newPokemon, [])
-    commands.push(_INTL("PKMN POUR ÉCHANGE"))
-    commands.push(_INTL("ANNULER"))
-    @sprites["help"].text = _INTL("Sélectionnez le Pokémon à accepter.")
+    commands.push(_INTL("PKMN FOR SWAP"))
+    commands.push(_INTL("CANCEL"))
+    @sprites["help"].text = _INTL("Select Pokémon to accept.")
     @sprites["list"].commands = commands
     @sprites["list"].index = 0
     @mode = 2
@@ -154,13 +154,13 @@ class BattleSwapScreen
     loop do
       index = @scene.pbChoosePokemon(false)
       commands = []
-      commands.push(_INTL("RÉSUMÉ"))
+      commands.push(_INTL("SUMMARY"))
       if chosen.include?(index)
-        commands.push(_INTL("DÉSÉLECTIONNER"))
+        commands.push(_INTL("DESELECT"))
       else
-        commands.push(_INTL("LOUER"))
+        commands.push(_INTL("RENT"))
       end
-      commands.push(_INTL("AUTRES"))
+      commands.push(_INTL("OTHERS"))
       command = @scene.pbShowCommands(commands)
       if command == 0
         @scene.pbSummary(rentals, index)
@@ -172,7 +172,7 @@ class BattleSwapScreen
           chosen.push(index)
           @scene.pbUpdateChoices(chosen.clone)
           if chosen.length == 3
-            if @scene.pbConfirm(_INTL("Ces trois Pokémon sont-ils OK?"))
+            if @scene.pbConfirm(_INTL("Are these three Pokémon OK?"))
               retval = []
               chosen.each { |i| retval.push(rentals[i]) }
               @scene.pbEndScene
@@ -192,7 +192,7 @@ class BattleSwapScreen
     loop do
       pkmn = @scene.pbChoosePokemon(true)
       if pkmn >= 0
-        commands = [_INTL("RÉSUMÉ"), _INTL("ÉCHANGER"), _INTL("RECHOISIR")]
+        commands = [_INTL("SUMMARY"), _INTL("SWAP"), _INTL("RECHOOSE")]
         command = @scene.pbShowCommands(commands)
         if command == 0
           @scene.pbSummary(currentPokemon, pkmn)
@@ -202,7 +202,7 @@ class BattleSwapScreen
           loop do
             pkmn = @scene.pbChoosePokemon(true)
             if pkmn >= 0
-              if @scene.pbConfirm(_INTL("Accepter ce Pokémon?"))
+              if @scene.pbConfirm(_INTL("Accept this Pokémon?"))
                 @scene.pbEndScene
                 currentPokemon[yourPkmn] = newPokemon[pkmn]
                 return true
@@ -211,7 +211,7 @@ class BattleSwapScreen
               @scene.pbSwapCanceled
               break   # Back to first screen
             elsif pkmn == -1
-              if @scene.pbConfirm(_INTL("Arrêtez d'échanger?"))
+              if @scene.pbConfirm(_INTL("Quit swapping?"))
                 @scene.pbEndScene
                 return false
               end
@@ -220,7 +220,7 @@ class BattleSwapScreen
         end
       else
         # Canceled
-        if @scene.pbConfirm(_INTL("Arrêtez d'échanger?"))
+        if @scene.pbConfirm(_INTL("Quit swapping?"))
           @scene.pbEndScene
           return false
         end

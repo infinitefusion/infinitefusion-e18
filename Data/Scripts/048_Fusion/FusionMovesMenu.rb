@@ -139,7 +139,7 @@ class FusionMovesOptionsScene < PokemonOption_Scene
   end
 
   def getDefaultDescription
-    return  _INTL("Aucune Attaque Sélectionner")
+    return  _INTL("No move selected")
   end
 
   def getMoveForIndex(index)

@@ -106,7 +106,7 @@ end
 def show_shuffle_progress(i)
   if i % 2 == 0
     n = (i.to_f / NB_POKEMON) * 100
-    Kernel.pbMessageNoSound(_INTL("\\ts[]Mélange des Pokémon sauvages en cours...\\n {1}%\\^", sprintf('%.2f', n), NB_POKEMON))
+    Kernel.pbMessageNoSound(_INTL("\\ts[]Shuffling wild Pokémon...\\n {1}%\\^", sprintf('%.2f', n), NB_POKEMON))
   end
 end
 

@@ -1,8 +1,8 @@
 [
     {
         "id": "activeblueF",
-        "name": "Tenue Actif Bleue (F)",
-        "description": "Un ensemble sportif bleu, élégant et léger, conçu pour les dresseuses dynamiques.",
+        "name": "Blue Activewear (F)",
+        "description": "A feminine, blue, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "len": 90,
         "done": "yes",
         "price": 3500,
@@ -11,8 +11,8 @@
     },
     {
         "id": "activeblueM",
-        "name": "Tenue Actif Bleue (M)",
-        "description": "Un ensemble sportif bleu, élégant et léger, conçu pour les dresseurs dynamiques.",
+        "name": "Blue Activewear (M)",
+        "description": "A masculine, blue, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "len": 91,
         "done": "yes",
         "price": 3500,
@@ -21,8 +21,8 @@
     },
     {
         "id": "activegreenF",
-        "name": "Tenue Actif Verte (F)",
-        "description": "Un ensemble sportif vert, élégant et léger, idéal pour une dresseuse athlète.",
+        "name": "Green Activewear (F)",
+        "description": "A feminine, green, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "len": 91,
         "done": "yes",
         "price": 3500,
@@ -31,8 +31,8 @@
     },
     {
         "id": "activegreenM",
-        "name": "Tenue Actif Verte (M)",
-        "description": "Un ensemble sportif vert, élégant et léger, idéal pour un dresseur athlète.",
+        "name": "Green Activewear (M)",
+        "description": "A masculine, green, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "len": 92,
         "done": "yes",
         "price": 3500,
@@ -41,8 +41,8 @@
     },
     {
         "id": "activeredF",
-        "name": "Tenue Actif Rouge (F)",
-        "description": "Un ensemble sportif rouge, parfait pour une dresseuse pleine d'énergie.",
+        "name": "Red Activewear (F)",
+        "description": "A feminine, red, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "len": 89,
         "done": "yes",
         "price": 3500,
@@ -51,8 +51,8 @@
     },
     {
         "id": "activeredM",
-        "name": "Tenue Actif Rouge (M)",
-        "description": "Un ensemble sportif rouge, parfait pour un dresseur plein d'énergie.",
+        "name": "Red Activewear (M)",
+        "description": "A masculine, red, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "len": 90,
         "done": "yes",
         "price": 3500,
@@ -61,8 +61,8 @@
     },
     {
         "id": "adventurer_f",
-        "name": "Tenue d'Aventurière (F)",
-        "description": "Une tenue robuste, parfaite pour explorer la nature et vivre de grandes aventures.",
+        "name": "Adventurer Gear (F)",
+        "description": "A rugged feminine outfit, perfect for adventuring out into the wilderness.",
         "len": 74,
         "done": "yes",
         "price": 3500,
@@ -71,8 +71,8 @@
     },
     {
         "id": "adventurer_m",
-        "name": "Tenue d'Aventurier (M)",
-        "description": "Un ensemble robuste conçu pour affronter les terrains les plus sauvages.",
+        "name": "Adventurer Gear (M)",
+        "description": "A rugged masculine outfit, perfect for adventuring out into the wilderness.",
         "len": 75,
         "done": "yes",
         "price": 3500,
@@ -81,8 +81,8 @@
     },
     {
         "id": "bikertraineroutfit",
-        "name": "Tenue de Motard",
-        "description": "Une tenue en cuir et jean, prisée par les motards et les esprits libres. ",
+        "name": "Biker Outfit",
+        "description": "A rugged outfit made of leather and jeans. It's often worn by bikers. ",
         "len": 70,
         "done": "yes",
         "price": 4500,
@@ -91,8 +91,17 @@
     },
     {
         "id": "bughakama",
-        "name": "Robe Hakama Insecte",
-        "description": "Une robe traditionnelle inspirée du type Insecte, accompagnée d'un filet à insectes!",
+        "name": "Bug Hakama Dress",
+        "description": "A traditionnal looking hakama dress, that captures the essence of bug-type Pokémon, complete with a bug-catching net!",
+        "done": "yes",
+        "price": 10000,
+        "tags": "azalea,special,",
+        "howToGet": "type trainer"
+    },
+    {
+        "id": "bughakamapants",
+        "name": "Bug Hakama Pants",
+        "description": "A traditionnal looking pair of hakama pants that capture the essence of bug-type Pokémon, complete with a bug-catching net!",
         "done": "yes",
         "price": 10000,
         "tags": "azalea,special,",
@@ -100,24 +109,14 @@
     },
     {
         "id": "butler",
-        "name": "Haut Majordome",
-        "description": "Un couvre-chef élégant porté par les majordomes les plus distingués, symbole de raffinement et de service impeccable",
+        "name": "Butler Uniform",
         "price": 5000,
         "tags": "special,"
     },
     {
-        "id": "bughakamapants",
-        "name": "Kimono Hakama Insecte",
-        "description": "Un Kimono traditionnel inspiré du type Insecte, avec un filet pour capturer des Pokémon Bug!",
-        "done": "yes",
-        "price": 10000,
-        "tags": "azalea,special,",
-        "howToGet": "type trainer"
-    },
-    {
         "id": "BusinessSuit",
-        "name": "Costume d'Affaires",
-        "description": "Une tenue classe et professionnelle pour les dresseurs au style soigné.",
+        "name": "Business Suit",
+        "description": "A classy, professional-looking business suit.",
         "len": 45,
         "done": "yes",
         "price": 6000,
@@ -125,16 +124,16 @@
     },
     {
         "id": "cardigandress",
-        "name": "Robe-Cardigan",
-        "description": "Un cardigan marron porté sur une chemise blanche et une jupe pour un look élégant.",
+        "name": "Cardigan Dress",
+        "description": "A brown cardigan worn over a white shirt with a skirt for a clean and professional appearance.",
         "done": "yes",
         "price": 2000,
         "tags": "default"
     },
     {
         "id": "cloak",
-        "name": "Moulant Noire",
-        "description": "Une tenue serrée noire et mystérieuse, parfaite pour attirer les regards.",
+        "name": "Black Cloak Dress",
+        "description": "A mysterious long black cloak or dress, worn over black leggings.",
         "len": 65,
         "done": "yes",
         "price": 6500,
@@ -143,38 +142,37 @@
     },
     {
         "id": "cresseliadress",
-        "name": "Robe Lunaire",
-        "description": "Une robe mystique inspirée du légendaire Cresselia.",
+        "name": "Lunar Dress",
+        "description": "A whimsical dress that is inspired by the legendary Pokémon Cresselia.",
         "done": "yes",
         "price": 25000,
         "tags": "pokemon-cresselia"
     },
     {
         "id": "deadlypoisondanger",
-        "name": "Tenue Poison",
-        "description": "Une tenue au style toxique, conçue pour ceux qui manipulent les poisons les plus dangereux.",
+        "name": "Poison Outfit",
+        "description": "A noxious-looking outfit for those who handle deadly poisons. It captures the essence of Poison-type Pokémon.",
         "price": 10000,
         "tags": "type-poison,special"
     },
     {
         "id": "delinquentoutfit",
-        "name": "Tenue de Délinquant",
-        "description": "Un ensemble rebelle qui rappelle les sbires d'une organisation malveillante.",
+        "name": "Delinquent Outfit",
         "price": 8000,
         "tags": "violet,",
         "howToGet": "city exclusive outfit"
     },
     {
         "id": "dragonconqueror",
-        "name": "Tenue Dragon",
-        "description": "Un vêtement majestueux et imposant, digne des Maîtres du type Dragon.",
+        "name": "Dragon Outfit",
+        "description": "The extravagant outfit of a conquerer. It captures the essence of Dragon-type Pokémon.",
         "price": 10000,
         "tags": "type-dragon,special"
     },
     {
         "id": "electriccasual",
-        "name": "Tenue Électrique",
-        "description": "Un ensemble décontracté inspiré du type Électrik.",
+        "name": "Electric Outfit",
+        "description": "A casual outfit themed around the Electric type.",
         "len": 48,
         "done": "yes",
         "price": 10000,
@@ -182,8 +180,8 @@
     },
     {
         "id": "emeraldSPE",
-        "name": "Tenue Émeraude",
-        "description": "Une veste ample inspirée du motif de Mimigal.",
+        "name": "Emerald Gear",
+        "description": "A floaty jacket inspired by the color scheme of Spinarak.",
         "done": "yes",
         "price": 6000,
         "tags": "azalea,pokemon-spinarak,pokemon-ariados,",
@@ -191,14 +189,12 @@
     },
     {
         "id": "Eri",
-        "name": "Tenue Captain",
-        "description": "Une tenue porté par les leaders, inspirant courage et discipline aux dresseurs sous leurs ordres.",
+        "name": "Caph Squad Captain",
         "tags": "paldea,"
     },
     {
         "id": "fantasyadventurersoutfit",
-        "name": "Tenue Voyageur",
-        "description": "Un habit robuste et pratique, conçu pour les dresseurs parcourant le monde aux côtés de leurs Pokémon.",
+        "name": "Traveller Outfit",
         "done": "yes",
         "price": 0,
         "tags": "special,",
@@ -206,28 +202,27 @@
     },
     {
         "id": "fauxwrap",
-        "name": "Voile Spectral",
-        "description": "Une robe légère qui semble onduler comme une illusion. Les rumeurs disent qu'elle serait inspirée d’un Pokémon capable de se fondre dans l’air.",
+        "name": "Faux Wrap Dress",
         "price": 3500,
         "tags": "ecruteak"
     },
     {
         "id": "fighting",
-        "name": "Tenue Combat",
-        "description": "Une tenue sportive appréciée par les experts en arts martiaux et inspirée du type Combat.",
+        "name": "Fighting Outfit",
+        "description": "A sportsy outfit that is liked by those who practice martial arts. It captures the essence of Fighting-type Pokémon.",
         "done": "yes",
         "tags": "type-fighting,special"
     },
     {
         "id": "fire",
-        "name": "Tenue Feu",
-        "description": "Une tenue ignifugée capturant l'essence des Pokémon de type Feu.",
+        "name": "Fire Outfit",
+        "description": "A fire-proof outfit that captures the essence of fire-type Pokémon.",
         "tags": "type-fire,special"
     },
     {
         "id": "floraldress",
-        "name": "Robe Florale",
-        "description": "Une robe sans manches aux motifs floraux vibrants, parfaite pour une dresseuse inspirée par le type Plante.",
+        "name": "Floral Dress",
+        "description": "A sleeveless dress adorned with a vibrant floral pattern.",
         "done": "yes",
         "price": 3500,
         "tags": "celadon",
@@ -235,8 +230,8 @@
     },
     {
         "id": "flowerjumper",
-        "name": "Salopette Fleurie",
-        "description": "Une combinaison au motif floral enchanteur.",
+        "name": "Flower Jumper",
+        "description": "A jumper suit with a beautiful floral pattern.",
         "done": "yes",
         "price": 4000,
         "tags": "celadon",
@@ -244,15 +239,14 @@
     },
     {
         "id": "flying",
-        "name": "Tenue d'Aviateur",
-        "description": "Une tenue aérodynamique conçue pour planer dans les airs. Elle capture l'essence des Pokémon de type Vol",
+        "name": "Flying Outfit",
+        "description": "An aerodynamic outfit for gliding through the air.  It captures the essence of Flying-type Pokémon.",
         "price": 10000,
         "tags": "type-flying,special"
     },
     {
         "id": "fusionnerd",
-        "name": "Tenue Fusion",
-        "description": "Une tenue inspirée des Expériences ADN et des Pokémon fusionnés.",
+        "name": "Fusion Outfit",
         "done": "yes",
         "price": 0,
         "tags": "pokemon-fused,special,",
@@ -260,38 +254,36 @@
     },
     {
         "id": "ghostoutfit",
-        "name": "Tenue Spectral",
-        "description": "Une tenue sombre et éthérée qui semble flotter légèrement. Parfaite pour ceux qui veulent s’immerger dans l’aura des Pokémon Spectre.",
+        "name": "Ghost Outfit",
         "tags": "type-ghost,special",
         "howToGet": "type trainer"
     },
     {
         "id": "glitzerset",
-        "name": "Glitch",
-        "description": "Une tenue étrange aux motifs instables, comme si elle défiait les lois de la réalité Pokémon.",
+        "name": "Glitzer",
         "price": 2550,
         "tags": "special,"
     },
     {
         "id": "gothhoodie",
-        "name": "Sweat Gothique",
-        "description": "Un hoodie sombre ornementé d'un emblème en forme de crâne, pour les esprits rebelles.",
+        "name": "Goth Hoodie",
+        "description": "A dark, oversized hoodie with a skull emblem, paired with ripped leggings for expressing your inner rebel.",
         "done": "yes",
         "price": 3500,
         "tags": "lavender"
     },
     {
         "id": "groundcowboy",
-        "name": "Tenue Sol",
-        "description": "Un ensemble de cowboy aux teintes terreuses, inspiré du type Sol.",
+        "name": "Ground Outfit",
+        "description": "A rugged cowboy outfit with earthy tones that captures the essence of the Ground type.",
         "price": 10000,
         "tags": "type-ground",
         "howToGet": "type trainer"
     },
     {
         "id": "gymwear",
-        "name": "Tenue de Sport",
-        "description": "Des vêtements ajustés qui mettent en valeur la musculature d'un dresseur aguerri.",
+        "name": "Gymwear",
+        "description": "Form fitting gym clothes that accentuate a trainer's rippling musculature.",
         "len": 74,
         "price": 15000,
         "tags": "pokemon-machop,pokemon-machoke,pokemon-machamp",
@@ -299,8 +291,8 @@
     },
     {
         "id": "happinysuit",
-        "name": "Déguisement Ptiravi",
-        "description": "Une tenue rose agrémentée de motifs en forme d'oeufs, inspirée de Ptiravi.",
+        "name": "Happiny Costume",
+        "description": "A pink outfit with white eggs, made to ressemble a Happiny costume.",
         "len": 67,
         "done": "yes",
         "price": 15000,
@@ -308,8 +300,8 @@
     },
     {
         "id": "HexManiac",
-        "name": "Robe Mystimaniac",
-        "description": "Une robe violette vintage, souvent portée par les Mystimaniacs.",
+        "name": "Hex Maniac Dress",
+        "description": "A dark purple vintage dress. It's often worn by Hex Maniacs.",
         "len": 60,
         "done": "yes",
         "price": 3500,
@@ -318,8 +310,8 @@
     },
     {
         "id": "ho-oh",
-        "name": "Tenue Arc-en-Ciel",
-        "description": "Un ensemble coloré inspiré du légendaire Ho-Oh.",
+        "name": "Rainbow Outfit",
+        "description": "A vibrant, colorfoul outfit inspired by the legendary Pokémon Ho-Oh.",
         "done": "yes",
         "price": 25000,
         "tags": "pokemon-hooh",
@@ -327,23 +319,22 @@
     },
     {
         "id": "hoodie",
-        "name": "Sweat à Capuche",
-        "description": "Un hoodie confortable, parfait pour les dresseurs décontractés.",
+        "name": "Hoodie",
+        "description": "A cozy hoodie, perfect for a laid-back trainer who likes to keep things casual.",
         "done": "yes",
         "price": 2000,
         "tags": "default"
     },
     {
         "id": "iceoutfit",
-        "name": "Tenue Glace",
-        "description": "Un manteau chaud aux reflets givrés, inspiré du type Glace.",
+        "name": "Ice Outfit",
         "price": 10000,
         "tags": "type-ice,"
     },
     {
         "id": "indigoicebeams",
-        "name": "Maillot de Hockey",
-        "description": "Une tenue inspirée de l'équipe des Indigo Laser Glace. Allez Indigos !",
+        "name": "Hockey Jersey",
+        "description": "An outfit themed around the Indigo Ice Beams hockey team. Go Indigos!",
         "len": 69,
         "price": 4500,
         "tags": "mahogany",
@@ -351,16 +342,16 @@
     },
     {
         "id": "kris",
-        "name": "Tenue Cristal",
-        "description": "Une tenue populaire à Johto, portée par les jeunes dresseuses pleines d’ambition. Son éclat rappelle les gemmes du Mont Creuset.",
+        "name": "Crystal Classic",
+        "description": "A popular Johtonian outfit worn by aspiring female trainers.",
         "price": 4000,
         "tags": "johto",
         "howToGet": "regional"
     },
     {
         "id": "lady",
-        "name": "Robe d'Été",
-        "description": "Une robe blanche élégante avec un ruban à la taille, incarnant grâce et raffinement.",
+        "name": "Elegant Dress",
+        "description": "An elegant summer dress with a ribbon at the waist, radiating a sense of grace and sophistication.",
         "done": "yes",
         "price": 1500,
         "tags": "cerulean",
@@ -368,8 +359,8 @@
     },
     {
         "id": "lass",
-        "name": "Tenue Scolaire Jaune",
-        "description": "Un chemisier jaune à manches bouffantes et une jupe noire, inspirés des uniformes scolaires classiques.",
+        "name": "Yellow School Dress",
+        "description": "A yellow blouse with puffed sleeves and a black skirt, styled as a traditional school uniform.",
         "done": "yes",
         "price": 1500,
         "tags": "pewter",
@@ -377,8 +368,8 @@
     },
     {
         "id": "lass2",
-        "name": "Tenue Scolaire Bleue",
-        "description": "Un chemisier blanc à manches bouffantes et une jupe bleue, dans le style des uniformes scolaires traditionnels.",
+        "name": "Blue School Dress",
+        "description": "A white blouse with puffed sleeves and a blue skirt, styled as a traditional school uniform.",
         "done": "yes",
         "price": 1500,
         "tags": "cerulean",
@@ -386,8 +377,8 @@
     },
     {
         "id": "leaf",
-        "name": "Débardeur/Jupe",
-        "description": "Ton débardeur bleu préféré et ta jupe rouge que tu portes toujours en aventure !",
+        "name": "Tank Top & Skirt",
+        "description": "Your favourite blue tank and red skirt that you always wear on adventures!",
         "len": 74,
         "done": "yes",
         "price": 0,
@@ -396,8 +387,8 @@
     },
     {
         "id": "longshirtskirt",
-        "name": "Chemise Longue et Jupe",
-        "description": "Une chemise longue aux couleurs d'une Poké Ball, portée avec une jupe noire à volants.",
+        "name": "Long Shirt & Skirt",
+        "description": "A casual long shirt that's colored like a Pokéball, worn with a black frilled skirt.",
         "done": "yes",
         "price": 2000,
         "tags": "default",
@@ -405,8 +396,8 @@
     },
     {
         "id": "luluskirt",
-        "name": "Tablier Rouge",
-        "description": "Un tablier rouge vif porté par-dessus une chemise blanche.",
+        "name": "Red Pinafore",
+        "description": "A bright red pinafore worn over a white shirt.",
         "len": 46,
         "done": "yes",
         "price": 3500,
@@ -415,37 +406,34 @@
     },
     {
         "id": "lycanrochooddown",
-        "name": "Manteau Lougaroc (Capuche)",
-        "description": "Un manteau épais inspiré de Lougaroc, avec une capuche qui imite sa crinière rocheuse.",
+        "name": "Lycanroc Coat (Hooded)",
         "price": 18000,
         "tags": "pokemon-rockruff,pokemon-lycanroc_d,pokemon-lycanroc_n,"
     },
     {
         "id": "lycanrochoodup",
-        "name": "Manteau Lougaroc",
-        "description": "Un manteau robuste inspiré du pelage rugueux de Lougaroc, idéal pour les terrains escarpés.",
+        "name": "Lycanroc Coat",
         "price": 18000,
         "tags": "pokemon-rockruff,pokemon-lycanroc_d,pokemon-lycanroc_n,"
     },
     {
         "id": "maid",
-        "name": "Uniforme de Gouvernant",
-        "description": "Une tenue élégante et soignée, souvent portée dans les grandes demeures.",
+        "name": "Maid Uniform",
         "price": 5000,
         "tags": "special,"
     },
     {
         "id": "marshweater",
-        "name": "Pull Flobio",
-        "description": "Un pull confortable conçu pour ressembler à Flobio.",
+        "name": "Marshweater",
+        "description": "A comfortable sweater designed to look like a Marshtomp.",
         "done": "yes",
         "price": 15000,
         "tags": "pokemon-mudkip,pokemon-marshtomp,pokemon-swampert,"
     },
     {
         "id": "mikufairyf",
-        "name": "Tenue Féérique (F)",
-        "description": "Un pull pastel et une jupe capturant l’essence du type Fée.",
+        "name": "Fairy Outfit (F)",
+        "description": "A whimsical pastel sweater and skirt that capture the essence of the Fairy type.",
         "done": "yes",
         "price": 10000,
         "tags": "type-fairy,special,",
@@ -453,8 +441,8 @@
     },
     {
         "id": "mikufairym",
-        "name": "Tenue Féérique (M)",
-        "description": "Un pull pastel léger et un pantalon ajusté capturant l’essence du type Fée.",
+        "name": "Fairy Outfit (M)",
+        "description": "A light pastel sweater and tailored pants that capture the essence of the Fairy type.",
         "done": "yes",
         "price": 10000,
         "tags": "type-fairy,special,",
@@ -462,15 +450,15 @@
     },
     {
         "id": "normal",
-        "name": "Tenue Normale",
-        "description": "Une veste marron avec une écharpe qui évoque le type Normal.",
+        "name": "Normal Outfit",
+        "description": "A brown jacket with a scarf that capture the essence of the Normal-type.",
         "price": 10000,
         "tags": "type-normal,special,"
     },
     {
         "id": "officeworkerf",
-        "name": "Tenue de Bureau (F)",
-        "description": "Un tailleur rose élégant et une jupe crayon, parfaits pour un look professionnel.",
+        "name": "Office Worker (F)",
+        "description": "A classy, professional-looking pink business suit and pencil skirt.",
         "len": 67,
         "done": "yes",
         "price": 3000,
@@ -478,16 +466,16 @@
     },
     {
         "id": "officeworkerm",
-        "name": "Tenue de Bureau (M)",
-        "description": "Une chemise blanche impeccable avec une cravate, pour un style classe et soigné.",
+        "name": "Office Worker (M)",
+        "description": "A sharp white button-up shirt with a tie that offers a polished and professional look.",
         "done": "yes",
         "price": 3000,
         "howToGet": "found in silph. co"
     },
     {
         "id": "pajamas",
-        "name": "Pyjama Rose",
-        "description": "Un pyjama rose confortable avec un logo Poké Ball sur le haut.",
+        "name": "Pink Pyjamas",
+        "description": "Comfy pink pyjamas with a Poké Ball logo on the shirt.",
         "len": 54,
         "done": "yes",
         "price": 2000,
@@ -496,8 +484,8 @@
     },
     {
         "id": "pikajamas",
-        "name": "Pyjama Pikachu",
-        "description": "Un pyjama bleu confortable avec un imprimé Pikachu.",
+        "name": "Pikachu Pyjamas",
+        "description": "Comfy blue pyjamas with a Pikachu print.",
         "len": 40,
         "done": "yes",
         "price": 0,
@@ -506,16 +494,15 @@
     },
     {
         "id": "pikaonesie",
-        "name": "Grenouillère Pikachu",
-        "description": "Une grenouillère douillette inspirée de Pikachu.",
+        "name": "Pikachu Onesie",
+        "description": "A cozy onesie designed to look like Pikachu.",
         "done": "yes",
         "price": 4000,
         "howToGet": "bill"
     },
     {
         "id": "PKMBreeder",
-        "name": "Tenue d'Éleveur",
-        "description": "Une tenue pratique portée par les éleveurs Pokémon pour s'occuper de leurs compagnons.",
+        "name": "Breeder Outfit",
         "done": "yes",
         "price": 15000,
         "tags": "special,",
@@ -523,8 +510,7 @@
     },
     {
         "id": "poison",
-        "name": "Gilet Venimeux (M)",
-        "description": "Un gilet sombre avec des motifs évoquant le poison, idéal pour un dresseur spécialisé en Pokémon toxiques.",
+        "name": "Venomous Vest (M)",
         "done": "yes",
         "price": 3500,
         "tags": "azalea,",
@@ -532,16 +518,14 @@
     },
     {
         "id": "poison2",
-        "name": "Tenue Poison",
-        "description": "Une tenue teintée de violet et noir, parfaite pour refléter l’aura mystérieuse du type Poison.",
+        "name": "Poison Outfit",
         "price": 15000,
         "tags": "fuchsia,",
         "howToGet": "type trainer"
     },
     {
         "id": "poisonf",
-        "name": "Gilet Venimeux (F)",
-        "description": "Un gilet élégant inspiré des Pokémon Poison, avec des détails rappelant un Nidorina en embuscade.",
+        "name": "Venomous Vest (F)",
         "done": "yes",
         "price": 3500,
         "tags": "azalea,",
@@ -549,15 +533,15 @@
     },
     {
         "id": "Ramos",
-        "name": "Tenue de Jardinier",
-        "description": "Une tenue portée par les jardiniers, popularisée par un certain Champion d'Arène de Kalos.",
+        "name": "Gardener Outfit",
+        "description": "An outfit worn by gardeners. It was popularized by a certain Gym Leader from the Kalos region.",
         "tags": "kalos,",
         "howToGet": "regional set"
     },
     {
         "id": "red",
-        "name": "Veste Rouge/Jean",
-        "description": "Ta veste rouge préférée et ton jean, parfaits pour l’aventure !",
+        "name": "Red jacket and Jeans",
+        "description": "Your favourite red jacket and jeans that you always wear on adventures!",
         "len": 71,
         "done": "yes",
         "price": 0,
@@ -565,8 +549,8 @@
     },
     {
         "id": "richboy",
-        "name": "Costume Luxe (Clair)",
-        "description": "Un costume blanc élégant qui respire le luxe et la confiance, idéal pour les dresseurs qui aiment gagner avec style.",
+        "name": "Luxury Suit (Light)",
+        "description": "A sharp, white suit that screams luxury and confidence for trainers who likes to win in style.",
         "done": "yes",
         "price": 3500,
         "tags": "goldenrod",
@@ -574,8 +558,8 @@
     },
     {
         "id": "richboy2",
-        "name": "Costume Luxe (Sombre)",
-        "description": "Un costume sombre raffiné qui inspire luxe et assurance, parfait pour les dresseurs qui aiment la victoire avec prestance.",
+        "name": "Luxury Suit (Dark)",
+        "description": "A sharp, dark suit that screams luxury and confidence for trainers who likes to win in style.",
         "done": "yes",
         "price": 3500,
         "tags": "goldenrod",
@@ -583,8 +567,8 @@
     },
     {
         "id": "rocketf",
-        "name": "Uniforme Team Rocket (F)",
-        "description": "La version féminine de l’uniforme emblématique porté par tous les Sbires de la Team Rocket.",
+        "name": "Team Rocket Uniform (F)",
+        "description": "The feminine version of the Team Rocket uniform every Grunt wears.",
         "len": 66,
         "done": "yes",
         "price": 0,
@@ -592,8 +576,8 @@
     },
     {
         "id": "rocketm",
-        "name": "Uniforme Team Rocket (M)",
-        "description": "La version masculine de l’uniforme emblématique porté par tous les Sbires de la Team Rocket.",
+        "name": "Team Rocket Uniform (M)",
+        "description": "The masculine version of the Team Rocket uniform every Grunt wears.",
         "len": 67,
         "done": "yes",
         "price": 0,
@@ -601,8 +585,8 @@
     },
     {
         "id": "roseradeF",
-        "name": "Costume Roserade (F)",
-        "description": "Un élégant costume vert inspiré de Roserade.",
+        "name": "Roserade Suit (F)",
+        "description": "A feminine green suit resembling a Roserade.",
         "len": 44,
         "done": "yes",
         "price": 12000,
@@ -610,8 +594,8 @@
     },
     {
         "id": "roseradeM",
-        "name": "Costume Roserade (M)",
-        "description": "Un costume vert raffiné rappelant Roserade.",
+        "name": "Roserade Suit (M)",
+        "description": "A masculine green suit resembling a Roserade.",
         "len": 45,
         "done": "yes",
         "price": 12000,
@@ -619,40 +603,38 @@
     },
     {
         "id": "sada",
-        "name": "Tenue Antique (F)",
-        "description": "Un vêtement rudimentaire inspiré des premières dresseuses de l’histoire. Il rappelle un Pokémon anciens.",
+        "name": "Primitive Clothes (F)",
         "price": 10000,
         "tags": "special",
         "howToGet": "fossil guy final"
     },
     {
         "id": "sado",
-        "name": "Tenue Antique (M)",
-        "description": "Une tenue rustique qui évoque l’époque où les humains et Pokémon vivaient en parfaite harmonie dans la nature.",
+        "name": "Primitive Clothes (M)",
         "price": 10000,
         "tags": "special",
         "howToGet": "fossil guy final"
     },
     {
         "id": "sandshrewoutfit",
-        "name": "Tenue Sabelette",
-        "description": "Un ensemble avec pantalon et cape dont la texture imite la peau de Sabelette, parfait pour se fondre dans le désert.",
+        "name": "Sandshrew Outfit",
+        "description": "A pants and cape set designed with a texture mimicking Sandshrew's hide that allows you to easily blend in with desert environments.",
         "done": "yes",
         "price": 12000,
         "tags": "pokemon-sandshrew,pokemon-sandslash,"
     },
     {
         "id": "slowsuit",
-        "name": "Tenue Ramollo",
-        "description": "Le costume ultime pour la détente, avec une gigantesque coquille mordant ta queue.",
+        "name": "Slow Suit",
+        "description": "The ultimate chill costume, complete with a giant shell chomping on your tail.",
         "done": "yes",
         "price": 12000,
         "tags": "pokemon-slowpoke,pokemon-slowbro,pokemon-slowking"
     },
     {
         "id": "SnowCoatFemale",
-        "name": "Manteau d'Hiver Bleu (F)",
-        "description": "Un manteau bleu chaud, une jupe rouge, des leggings et des bottes, parfaits pour affronter le froid.",
+        "name": "Blue Snow Coat (F)",
+        "description": "A warm blue coat, red skirt, leggins and boots, perfect for cold weather.",
         "len": 73,
         "done": "yes",
         "price": 5000,
@@ -661,8 +643,8 @@
     },
     {
         "id": "SnowCoatMale",
-        "name": "Manteau d'Hiver Rouge (M)",
-        "description": "Un manteau rouge chaud, un jean et des bottes, idéals pour les climats froids.",
+        "name": "Red Snow Coat (M)",
+        "description": "A warm red coat, jeans and boots, perfect for cold weather.",
         "len": 59,
         "done": "yes",
         "price": 5000,
@@ -671,16 +653,15 @@
     },
     {
         "id": "splicer",
-        "name": "Tenue Pointeau",
-        "description": "Une tenue mystérieuse inspirée des Pointeaux ADN, utilisée pour fusionner les Pokémon légendaires.",
+        "name": "Splicer Outfit",
         "done": "yes",
         "price": 10000,
         "tags": "pokemon-fused"
     },
     {
         "id": "startfit1",
-        "name": "T-shirt Noir et Jean",
-        "description": "Un jean noir et un t-shirt noir avec une Poké Ball sur le devant.",
+        "name": "Black Shirt & Jeans",
+        "description": "Black jeans and a black shirt with a Poké Ball on the front.",
         "len": 60,
         "done": "yes",
         "price": 2000,
@@ -689,8 +670,8 @@
     },
     {
         "id": "steelworkerF",
-        "name": "Tenue Acier (F)",
-        "description": "Une combinaison robuste au style industriel qui incarne la force du type Acier.",
+        "name": "Steel Outfit (F)",
+        "description": "A sturdy jumpsuit giving off a strong, industrial vibe that captures the essence of the Steel type.",
         "done": "yes",
         "price": 10000,
         "tags": "type-steel,special",
@@ -698,8 +679,8 @@
     },
     {
         "id": "steelworkerM",
-        "name": "Tenue Acier (M)",
-        "description": "Une combinaison résistante dégageant une aura puissante qui reflète l’essence du type Acier.",
+        "name": "Steel Outfit (M)",
+        "description": "A rugged jumpsuit giving off a strong, industrial vibe that captures the essence of the Steel type.",
         "done": "yes",
         "price": 10000,
         "tags": "type-steel,special",
@@ -707,23 +688,21 @@
     },
     {
         "id": "summerdress",
-        "name": "Robe de Plage",
-        "description": "Une robe légère et aérée, idéale pour se promener sous le soleil ou au bord de la mer.",
+        "name": "Summer Dress",
+        "description": "A light, breezy summer dress, perfect for strolls in sunny fields or along the beach.",
         "done": "yes",
         "price": 1500,
         "tags": "default"
     },
     {
         "id": "trevenantforestkingcloak",
-        "name": "Manteau du Roi Sylvestre",
-        "description": "Une cape majestueuse aux teintes de la forêt, réservée à ceux qui veulent gagner la confiance des Pokémon Plante.",
+        "name": "Forest King Cloak",
         "price": 25000,
         "tags": "pokemon-phantump,pokemon-trevenant,"
     },
     {
         "id": "urbanelectric",
-        "name": "Tenue Électrique",
-        "description": "Une tenue aux couleurs vives qui évoque la rapidité et l'énergie du type Électrik.",
+        "name": "Electric Outfit",
         "done": "yes",
         "price": 10000,
         "tags": "type-electric,special,",
@@ -731,8 +710,8 @@
     },
     {
         "id": "VeteranM",
-        "name": "Imperméable Vétéran",
-        "description": "Un long manteau noir souvent porté par les dresseurs vétérans.",
+        "name": "Veteran Trenchcoat",
+        "description": "A heavy black trenchcoat, often worn by Veteran trainers.",
         "len": 57,
         "done": "yes",
         "price": 22000,
@@ -740,16 +719,16 @@
     },
     {
         "id": "waterdress",
-        "name": "Robe Aquatique",
-        "description": "Une robe élégante qui capture l’essence des Pokémon de type Eau.",
+        "name": "Water Dress",
+        "description": "A stylish dress that captures the essence of Water-type Pokémon.",
         "price": 10000,
         "tags": "type-water,special",
         "howToGet": "type trainer"
     },
     {
         "id": "yellowSPEoutfit",
-        "name": "Qipao Jaune",
-        "description": "Un qipao jaune porté sur un pantalon. Il est populaire parmi les jeunes dresseurs de Kanto",
+        "name": "Yellow Qipao",
+        "description": "A yellow qipao worn over pants. It's popular with fledgling trainers in Kanto.",
         "len": 78,
         "done": "yes",
         "price": 3000,
@@ -757,8 +736,8 @@
     },
     {
         "id": "youngster",
-        "name": "Tenue de Jeune Dresseur",
-        "description": "Un débardeur orange et un short, souvent portés par les jeunes dresseurs de la région.",
+        "name": "Youngster Outfit",
+        "description": "An orange tank top and shorts that's often worn by youngsters around the region.",
         "price": 1500,
         "tags": "pewter",
         "howToGet": "city-exclusive outfit"

@@ -17,7 +17,7 @@ class PokeBattle_Move
   end
 
   def pbDisplayUseMessage(user)
-    @battle.pbDisplayBrief(_INTL("{1} a utilisé {2}!",user.pbThis,@name))
+    @battle.pbDisplayBrief(_INTL("{1} used {2}!",user.pbThis,@name))
   end
 
   def pbMissMessage(user,target); return false; end
@@ -106,7 +106,7 @@ class PokeBattle_Move
       break
     end
     if !unmoved
-      @battle.pbDisplay(_INTL("Mais cela échoue!"))
+      @battle.pbDisplay(_INTL("But it failed!"))
       return true
     end
     return false
@@ -115,7 +115,7 @@ class PokeBattle_Move
   def pbMoveFailedTargetAlreadyMoved?(target)
     if (@battle.choices[target.index][0]!=:UseMove &&
        @battle.choices[target.index][0]!=:Shift) || target.movedThisRound?
-      @battle.pbDisplay(_INTL("Mais cela échoue!"))
+      @battle.pbDisplay(_INTL("But it failed!"))
       return true
     end
     return false
@@ -127,9 +127,9 @@ class PokeBattle_Move
       if showMessage
         @battle.pbShowAbilitySplash(target)
         if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-          @battle.pbDisplay(_INTL("{1} n'est pas affecté!",target.pbThis))
+          @battle.pbDisplay(_INTL("{1} is unaffected!",target.pbThis))
         else
-          @battle.pbDisplay(_INTL("{1} n'est pas affecté en raison de {2}!",
+          @battle.pbDisplay(_INTL("{1} is unaffected because of its {2}!",
             target.pbThis,target.abilityName))
         end
         @battle.pbHideAbilitySplash(target)
@@ -141,9 +141,9 @@ class PokeBattle_Move
       if showMessage
         @battle.pbShowAbilitySplash(target)
         if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-          @battle.pbDisplay(_INTL("{1} n'est pas affecté!",target.pbThis))
+          @battle.pbDisplay(_INTL("{1} is unaffected!",target.pbThis))
         else
-          @battle.pbDisplay(_INTL("{1} n'est pas affecté en raison de {2}'s {3}!",
+          @battle.pbDisplay(_INTL("{1} is unaffected because of {2}'s {3}!",
             target.pbThis,b.pbThis(true),b.abilityName))
         end
         @battle.pbHideAbilitySplash(target)
@@ -232,7 +232,7 @@ class PokeBattle_Move
         next if b.damageState.unaffected || b.damageState.hpLost==0
         next if (side==0 && b.opposes?(user)) || (side==1 && !b.opposes?(user))
         oldHP = b.hp+b.damageState.hpLost
-        PBDebug.log("[Dégats D'attaque] #{b.pbThis} a perdu #{b.damageState.hpLost} PV (#{oldHP}=>#{b.hp})")
+        PBDebug.log("[Move damage] #{b.pbThis} lost #{b.damageState.hpLost} HP (#{oldHP}=>#{b.hp})")
         effectiveness = 0
         if Effectiveness.resistant?(b.damageState.typeMod);          effectiveness = 1
         elsif Effectiveness.super_effective?(b.damageState.typeMod); effectiveness = 2
@@ -253,15 +253,15 @@ class PokeBattle_Move
     return if target.damageState.disguise
     if Effectiveness.super_effective?(target.damageState.typeMod)
       if numTargets>1
-        @battle.pbDisplay(_INTL("C'est super efficace sur {1}!",target.pbThis(true)))
+        @battle.pbDisplay(_INTL("It's super effective on {1}!",target.pbThis(true)))
       else
-        @battle.pbDisplay(_INTL("C'est super efficace!"))
+        @battle.pbDisplay(_INTL("It's super effective!"))
       end
     elsif Effectiveness.not_very_effective?(target.damageState.typeMod)
       if numTargets>1
-        @battle.pbDisplay(_INTL("Ce n'est pas très efficace sur {1}...",target.pbThis(true)))
+        @battle.pbDisplay(_INTL("It's not very effective on {1}...",target.pbThis(true)))
       else
-        @battle.pbDisplay(_INTL("Ce n'est pas très efficace..."))
+        @battle.pbDisplay(_INTL("It's not very effective..."))
       end
     end
   end
@@ -269,13 +269,13 @@ class PokeBattle_Move
   def pbHitEffectivenessMessages(user,target,numTargets=1)
     return if target.damageState.disguise
     if target.damageState.substitute
-      @battle.pbDisplay(_INTL("Le Clone a subi des dommages pour {1}!",target.pbThis(true)))
+      @battle.pbDisplay(_INTL("The substitute took damage for {1}!",target.pbThis(true)))
     end
     if target.damageState.critical
       if numTargets>1
-        @battle.pbDisplay(_INTL("Un coup critique sur {1}!",target.pbThis(true)))
+        @battle.pbDisplay(_INTL("A critical hit on {1}!",target.pbThis(true)))
       else
-        @battle.pbDisplay(_INTL("Un coup critique!"))
+        @battle.pbDisplay(_INTL("A critical hit!"))
       end
     end
     # Effectiveness message, for moves with 1 hit
@@ -284,7 +284,7 @@ class PokeBattle_Move
     end
     if target.damageState.substitute && target.effects[PBEffects::Substitute]==0
       target.effects[PBEffects::Substitute] = 0
-      @battle.pbDisplay(_INTL("Le Clone de {1} s'est estompé!",target.pbThis))
+      @battle.pbDisplay(_INTL("{1}'s substitute faded!",target.pbThis))
     end
   end
 
@@ -292,29 +292,29 @@ class PokeBattle_Move
     if target.damageState.disguise
       @battle.pbShowAbilitySplash(target)
       if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-        @battle.pbDisplay(_INTL("Son déguisement lui servait de leurre!"))
+        @battle.pbDisplay(_INTL("Its disguise served it as a decoy!"))
       else
-        @battle.pbDisplay(_INTL("Le déguisement de {1} lui a servi de leurre!",target.pbThis))
+        @battle.pbDisplay(_INTL("{1}'s disguise served it as a decoy!",target.pbThis))
       end
       @battle.pbHideAbilitySplash(target)
-      target.pbChangeForm(1,_INTL("Le déguisement de {1} a été brisé!",target.pbThis))
+      target.pbChangeForm(1,_INTL("{1}'s disguise was busted!",target.pbThis))
     elsif target.damageState.endured
-      @battle.pbDisplay(_INTL("{1} a enduré le coup!",target.pbThis))
+      @battle.pbDisplay(_INTL("{1} endured the hit!",target.pbThis))
     elsif target.damageState.sturdy
       @battle.pbShowAbilitySplash(target)
       if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-        @battle.pbDisplay(_INTL("{1} a enduré le coup!",target.pbThis))
+        @battle.pbDisplay(_INTL("{1} endured the hit!",target.pbThis))
       else
-        @battle.pbDisplay(_INTL("{1} tient bon grace à Fermeté!",target.pbThis))
+        @battle.pbDisplay(_INTL("{1} hung on with Sturdy!",target.pbThis))
       end
       @battle.pbHideAbilitySplash(target)
     elsif target.damageState.focusSash
       @battle.pbCommonAnimation("UseItem",target)
-      @battle.pbDisplay(_INTL("{1} tient bon grace à Ceinture Force!",target.pbThis))
+      @battle.pbDisplay(_INTL("{1} hung on using its Focus Sash!",target.pbThis))
       target.pbConsumeItem
     elsif target.damageState.focusBand
       @battle.pbCommonAnimation("UseItem",target)
-      @battle.pbDisplay(_INTL("{1} tient bon grace à Bandeau!",target.pbThis))
+      @battle.pbDisplay(_INTL("{1} hung on using its Focus Band!",target.pbThis))
     end
   end
 

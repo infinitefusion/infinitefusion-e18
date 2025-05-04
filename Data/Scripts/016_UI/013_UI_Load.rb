@@ -71,7 +71,7 @@ class PokemonLoadPanel < SpriteWrapper
         textpos.push([_INTL(getDisplayDifficultyFromIndex(@trainer.lowest_difficulty)),16*2,69*2,0,TEXTCOLOR,TEXTSHADOWCOLOR])
         textpos.push([getGameModeFromIndex(@trainer.game_mode),103*2,69*2,1,TEXTCOLOR,TEXTSHADOWCOLOR])
 
-        textpos.push([_INTL("Heure:"),16*2,85*2,0,TEXTCOLOR,TEXTSHADOWCOLOR])
+        textpos.push([_INTL("Time:"),16*2,85*2,0,TEXTCOLOR,TEXTSHADOWCOLOR])
         hour = @totalsec / 60 / 60
         min  = @totalsec / 60 % 60
         if hour>0
@@ -229,7 +229,7 @@ class PokemonLoadScreen
     save_data = SaveData.read_from_file(file_path)
     unless SaveData.valid?(save_data)
       if File.file?(file_path + '.bak')
-        pbMessage(_INTL('Le fichier de sauvegarde est corrompu. Une sauvegarde sera chargée.'))
+        pbMessage(_INTL('The save file is corrupt. A backup will be loaded.'))
         save_data = load_save_file(file_path + '.bak')
       else
         self.prompt_save_deletion
@@ -242,9 +242,9 @@ class PokemonLoadScreen
   # Called if all save data is invalid.
   # Prompts the player to delete the save files.
   def prompt_save_deletion
-    pbMessage(_INTL('Le fichier de sauvegarde est corrompu ou incompatible avec ce jeu.'))
+    pbMessage(_INTL('The save file is corrupt, or is incompatible with this game.'))
     exit unless pbConfirmMessageSerious(
-      _INTL('Voulez-vous supprimer le fichier de sauvegarde et recommencer ?')
+      _INTL('Do you want to delete the save file and start anew?')
     )
     self.delete_save_data
     $game_system   = Game_System.new
@@ -255,15 +255,15 @@ class PokemonLoadScreen
     @scene.pbStartDeleteScene
     @scene.pbStartScene2
     if SaveData.exists?
-      if pbConfirmMessageSerious(_INTL("Supprimer toutes les données enregistrées?"))
-        pbMessage(_INTL("Une fois les données supprimées, il n'y a aucun moyen de les récupérer.\1"))
-        if pbConfirmMessageSerious(_INTL("Supprimer quand même les données enregistrées?"))
-          pbMessage(_INTL("Suppression de toutes les données. Ne coupez pas l'alimentation.\\wtnp[0]"))
+      if pbConfirmMessageSerious(_INTL("Delete all saved data?"))
+        pbMessage(_INTL("Once data has been deleted, there is no way to recover it.\1"))
+        if pbConfirmMessageSerious(_INTL("Delete the saved data anyway?"))
+          pbMessage(_INTL("Deleting all data. Don't turn off the power.\\wtnp[0]"))
           self.delete_save_data
         end
       end
     else
-      pbMessage(_INTL("Aucun fichier de sauvegarde n'a été trouvé."))
+      pbMessage(_INTL("No save file was found."))
     end
     @scene.pbEndScene
     $scene = pbCallTitle
@@ -272,9 +272,9 @@ class PokemonLoadScreen
   def delete_save_data
     begin
       SaveData.delete_file
-      pbMessage(_INTL('Les données enregistrées ont été supprimées.'))
+      pbMessage(_INTL('The saved data was deleted.'))
     rescue SystemCallError
-      pbMessage(_INTL("Toutes les données enregistrées n'ont pas pu être supprimées."))
+      pbMessage(_INTL('All saved data could not be deleted.'))
     end
   end
 
@@ -311,14 +311,14 @@ class PokemonLoadScreen
         commands[cmd_mystery_gift = commands.length] = _INTL('Mystery Gift')
       end
     end
-    commands[cmd_new_game = commands.length]  = _INTL('Nouvelle partie')
+    commands[cmd_new_game = commands.length]  = _INTL('New Game')
     if new_game_plus
-      commands[cmd_new_game_plus = commands.length]  = _INTL('Nouvelle partie +')
+      commands[cmd_new_game_plus = commands.length]  = _INTL('New Game +')
     end
     commands[cmd_options = commands.length]   = _INTL('Options')
     commands[cmd_language = commands.length]  = _INTL('Language') if Settings::LANGUAGES.length >= 2
     commands[cmd_debug = commands.length]     = _INTL('Debug') if $DEBUG
-    commands[cmd_quit = commands.length]      = _INTL('Quitter le jeu')
+    commands[cmd_quit = commands.length]      = _INTL('Quit Game')
     map_id = show_continue ? @save_data[:map_factory].map.map_id : 0
     @scene.pbStartScene(commands, show_continue, @save_data[:player],
                         @save_data[:frame_count] || 0, map_id)

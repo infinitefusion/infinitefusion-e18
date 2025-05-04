@@ -37,8 +37,8 @@ def pbTrainerInfo(pokemonlist, trfile, rules)
       gender = GameData::TrainerType.get(trainerid).gender
       randomName = getRandomNameEx(gender, nil, 0, 12)
       # Add the trainer to bttrainers
-      tr = [trainerid, randomName, _INTL("Me voici!"), _INTL("Oui, j'ai gagné !"),
-         _INTL("Mec, j'ai perdu!"), []]
+      tr = [trainerid, randomName, _INTL("Here I come!"), _INTL("Yes, I won!"),
+         _INTL("Man, I lost!"), []]
       bttrainers.push(tr)
     end
     # Sort all the randomly chosen trainers by their base money (smallest first)

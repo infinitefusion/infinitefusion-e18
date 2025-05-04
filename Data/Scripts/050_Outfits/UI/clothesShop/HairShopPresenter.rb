@@ -17,7 +17,7 @@ class HairShopPresenter < PokemonMartScreen
       break if !item
 
       if !@adapter.isShop?
-        if pbConfirm(_INTL("Souhaitez-vous acheter {1}?", item.name))
+        if pbConfirm(_INTL("Would you like to purchase {1}?", item.name))
           @adapter.putOnOutfit(item)
           @scene.pbEndBuyScene
           return
@@ -32,29 +32,29 @@ class HairShopPresenter < PokemonMartScreen
       echoln price
       if !price.is_a?(Integer)
         #@adapter.switchVersion(item,1)
-        pbDisplayPaused(_INTL("C'est ta coiffure actuelle!"))
+        pbDisplayPaused(_INTL("This is your current hairstyle!"))
         next
       end
       if @adapter.getMoney < price
-        pbDisplayPaused(_INTL("Tu n'as pas assez d'argent."))
+        pbDisplayPaused(_INTL("You don't have enough money."))
         next
       end
 
-      if !pbConfirm(_INTL("Bien sûr. Tu veux {1}. Ce sera {2}$. OK?",
+      if !pbConfirm(_INTL("Certainly. You want {1}. That will be ${2}. OK?",
                           itemname, price.to_s_formatted))
         next
       end
       quantity = 1
 
       if @adapter.getMoney < price
-        pbDisplayPaused(_INTL("Tu n'as pas assez d'argent."))
+        pbDisplayPaused(_INTL("You don't have enough money."))
         next
       end
       added = 0
 
       @adapter.setMoney(@adapter.getMoney - price)
       @stock.compact!
-      pbDisplayPaused(_INTL("Voilà, merci !")) { pbSEPlay("Mart buy item") }
+      pbDisplayPaused(_INTL("Here you are! Thank you!")) { pbSEPlay("Mart buy item") }
       @adapter.addItem(item)
       #break
     end

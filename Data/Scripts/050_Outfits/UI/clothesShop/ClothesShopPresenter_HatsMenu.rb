@@ -18,7 +18,7 @@ class ClothesShopPresenter < PokemonMartScreen
   end
 
   def removeDye(item)
-    if pbConfirm(_INTL("Êtes-vous sûr de vouloir retirer la teinture {1}?", item.name))
+    if pbConfirm(_INTL("Are you sure you want to remove the dye from the {1}?", item.name))
       $Trainer.set_hat_color(0,@adapter.is_secondary_hat)
     end
   end
@@ -30,7 +30,7 @@ class ClothesShopPresenter < PokemonMartScreen
 
     $Trainer.hat, $Trainer.hat2 = $Trainer.hat2, $Trainer.hat
 
-    pbSEPlay("GUI commencement de l'échange")
+    pbSEPlay("GUI naming tab swap start")
     new_selected_hat = @adapter.is_secondary_hat ? $Trainer.hat2 : $Trainer.hat
     echoln "hat 1: #{$Trainer.hat}"
     echoln "hat 2: #{$Trainer.hat2}"
@@ -76,12 +76,12 @@ class ClothesShopPresenter < PokemonMartScreen
     putOnHat($Trainer.hat2,true,true)
 
     playOutfitChangeAnimation()
-    pbMessage(_INTL("Tu as mis le chapeau!\\wtnp[30]"))
+    pbMessage(_INTL("You put on the hat(s)!\\wtnp[30]"))
   end
 
   def dyeOptions(secondary_hat=false,item)
     original_color = secondary_hat ? $Trainer.hat2_color : $Trainer.hat_color
-    options = ["Monter", "Descendre", "Réinitialiser", "Confirmer", "Annuler"]
+    options = ["Shift up", "Shift down", "Reset", "Confirm", "Never Mind"]
     previous_input = 0
     while (true)
       choice = pbShowCommands(nil, options, options.length, previous_input,200)
@@ -125,14 +125,14 @@ class ClothesShopPresenter < PokemonMartScreen
   end
 
   def playerHatActionsMenu(item)
-    cmd_confirm = "Confirmer"
-    cmd_remove = "Enlever le chapeau"
-    cmd_cancel = "Annuler"
-    cmd_dye = "Kit de Teinture"
-    cmd_swap = "Changer de chapeau"
+    cmd_confirm = "Confirm"
+    cmd_remove = "Remove hat"
+    cmd_cancel = "Cancel"
+    cmd_dye = "Dye Kit"
+    cmd_swap = "Swap hat positions"
 
     options = build_options_menu(item,cmd_confirm,cmd_remove,cmd_dye,cmd_swap,cmd_cancel)
-    choice = pbMessage("Qu'aimeriez-vous faire?", options, -1,nil,0)
+    choice = pbMessage("What would you like to do?", options, -1,nil,0)
     if options[choice] == cmd_remove
       removeHat(item)
       return true

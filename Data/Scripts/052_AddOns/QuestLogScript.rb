@@ -84,110 +84,110 @@ QuestBranchLegendary = "Legendary Quests"
 #todo: convert to non-numerical ids like team rocket quests
 QUESTS = {
   #Pewter hotel
-  "pewter_1" => Quest.new("pewter_1", "Cueillette de champignons", "Une dame d'Argenta veut que vous lui apportiez 3 petits champignons de la forêt de Jade pour faire un ragoût.", QuestBranchHotels, "BW (74)", "Argenta", HotelQuestColor),
-  "pewter_2" =>Quest.new("pewter_2", "Médecine perdue", "Un jeune d'Argenta a besoin de votre aide pour retrouver un Revive perdu. Il l'a perdu en s'asseyant sur un banc quelque part à Argenta.", QuestBranchHotels, "BW (19)", "Argenta", HotelQuestColor),
-  "pewter_3" =>Quest.new("pewter_3", "Évolution des insectes", "Un chasseur d'Insectes d'Argenta veut que vous lui montriez un Pokémon Insecte entièrement évolué.", QuestBranchHotels, "BWBugCatcher_male", "Argenta", HotelQuestColor),
-  63 => Quest.new(63, "Je te choisis!", "Un Pikachu du PokéMart a perdu son chapeau officiel de la Ligue Pokémon. Trouvez-en un et donnez-le au Pikachu!", QuestBranchField, "YOUNGSTER_LeagueHat", "Argenta", FieldQuestColor),
+  "pewter_1" => Quest.new("pewter_1", "Mushroom Gathering", "A lady in Pewter City wants you to bring her 3 TinyMushroom from Viridian Forest to make a stew.", QuestBranchHotels, "BW (74)", "Pewter City", HotelQuestColor),
+  "pewter_2" =>Quest.new("pewter_2", "Lost Medicine", "A youngster in Pewter City needs your help to find a lost Revive. He lost it by sitting on a bench somewhere in Pewter City.", QuestBranchHotels, "BW (19)", "Pewter City", HotelQuestColor),
+  "pewter_3" =>Quest.new("pewter_3", "Bug Evolution ", "A Bug Catcher in Pewter City wants you to show him a fully-evolved Bug Pokémon.", QuestBranchHotels, "BWBugCatcher_male", "Pewter City", HotelQuestColor),
+  63 => Quest.new(63, "I Choose You!", "A Pikachu in the PokéMart has lost its official Pokémon League Hat. Find one and give it to the Pikachu!", QuestBranchField, "YOUNGSTER_LeagueHat", "Pewter City", FieldQuestColor),
 
   #Cerulean hotel
-  3 => Quest.new(3, "Jouer à Cupidon", "Un garçon d'Azuria veut que tu apportes une lettre d'amour à une éleveuse de Pokémon nommée Maude. Elle est probablement quelque part sur l'une des routes près d'Azuria", QuestBranchHotels, "BW (18)", "Azuria", HotelQuestColor),
-  4 => Quest.new(4, "Pêche à la sole", "Un pêcheur vous demande de récupérer une vieille botte. Accrochez-la avec la vieille canne dans n'importe quel plan d'eau.", QuestBranchHotels, "BW (71)", "Azuria", HotelQuestColor),
-  5 => Quest.new(5, "Pokémon de Johto", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région de Johto.", QuestBranchHotels, "traveler_johto", "Azuria", HotelQuestColor),
-  "cerulean_2" => Quest.new(5, "Experts des types", "Battez tous les experts de type dispersés dans la région de Kanto (#{pbGet(VAR_TYPE_EXPERTS_BEATEN)}/#{TOTAL_NB_TYPE_EXPERTS})", QuestBranchHotels, "expert-normal", "Azuria", HotelQuestColor),
+  3 => Quest.new(3, "Playing Cupid", "A boy in Cerulean City wants you bring a love letter to a Pokémon Breeder named Maude. She's probably somewhere in one of the routes near Cerulean City", QuestBranchHotels, "BW (18)", "Cerulean City", HotelQuestColor),
+  4 => Quest.new(4, "Fishing for Sole", "A fisherman wants you to fish up an old boot. Hook it up with the old rod in any body of water.", QuestBranchHotels, "BW (71)", "Cerulean City", HotelQuestColor),
+  5 => Quest.new(5, "Johto Pokémon", "A traveler in the PokéMart wants you to show him a Pokémon native to the Johto region.", QuestBranchHotels, "traveler_johto", "Cerulean City", HotelQuestColor),
+  "cerulean_2" => Quest.new(5, "Type Experts", "Defeat all of the Type Experts scattered around the Kanto region (#{pbGet(VAR_TYPE_EXPERTS_BEATEN)}/#{TOTAL_NB_TYPE_EXPERTS})", QuestBranchHotels, "expert-normal", "Cerulean City", HotelQuestColor),
 
   #Route 24
-  6 => Quest.new(6, "Recherche sur le terrain (Part 1)", "L'assistant du professeur Oak veut que vous attrapiez un Abra.", QuestBranchField, "BW (82)", "Route 24", FieldQuestColor),
-  7 => Quest.new(7, "Recherche sur le terrain (Part 2)", "L'assistant du professeur Oak veut que vous rencontriez tous les Pokémon sur la Route 24.", QuestBranchField, "BW (82)", "Route 24", FieldQuestColor),
-  8 => Quest.new(8, "Recherche sur le terrain (Part 3)", "L'assistant du professeur Oak veut que vous attrapiez un Laporeille en utilisant le Pokéradar.", QuestBranchField, "BW (82)", "Route 24", FieldQuestColor),
+  6 => Quest.new(6, "Field Research (Part 1)", "Professor Oak's aide wants you to catch an Abra.", QuestBranchField, "BW (82)", "Route 24", FieldQuestColor),
+  7 => Quest.new(7, "Field Research (Part 2)", "Professor Oak's aide wants you to encounter every Pokémon on Route 24.", QuestBranchField, "BW (82)", "Route 24", FieldQuestColor),
+  8 => Quest.new(8, "Field Research (Part 3)", "Professor Oak's aide wants you to catch a Buneary using the Pokéradar.", QuestBranchField, "BW (82)", "Route 24", FieldQuestColor),
 
   #Vermillion City
-  9 => Quest.new(9, "Types inhabituels 1", "Une femme à l'hôtel veut que vous lui montriez un Pokémon de type Eau/Feu", QuestBranchHotels, "BW (58)", "Carmin sur Mer", HotelQuestColor),
-  10 => Quest.new(10, "Maison des Dresseurs", "Gagnez 10 points à la maison des Dresseurs de Jadielle", QuestBranchHotels, "BW (55)", "Carmin sur Mer", HotelQuestColor),
-  11 => Quest.new(11, "Alimenter le phare", "Attrapez des Voltorbes pour alimenter le phare", QuestBranchHotels, "BW (43)", "Carmin sur Mer", HotelQuestColor),
-  12 => Quest.new(12, "Cocktail de fruits de mer ", "Procurez-vous des cuisses de crabe cuites à la vapeur dans la cuisine de L'Océane et ramenez-les à l'hôtel avant qu'elles ne refroidissent.", QuestBranchHotels, "BW (36)", "Carmin sur Mer", HotelQuestColor),
-  13 => Quest.new(13, "Matériaux de construction ", "Récupérez des planches de bois de Jadielle et des briques de Argenta.", QuestBranchField, "BW (36)", "Carmin sur Mer", FieldQuestColor),
-  64 => Quest.new(64, "Garçon sur l'eau", "Le serveur de L'Océane veut que vous preniez les commandes du restaurant pendant qu'il va chercher un gâteau de remplacement.", QuestBranchField, "BW (53)", "L'Océane", FieldQuestColor),
+  9 => Quest.new(9, "Unusual Types 1", "A woman at the hotel wants you to show her a Water/Fire-type Pokémon", QuestBranchHotels, "BW (58)", "Vermillion City", HotelQuestColor),
+  10 => Quest.new(10, "Trainer House", "Earn 10 Trainer Points at the Trainer House in Viridian City", QuestBranchHotels, "BW (55)", "Vermillion City", HotelQuestColor),
+  11 => Quest.new(11, "Powering the Lighthouse", "Catch some Voltorb to power up the lighthouse", QuestBranchHotels, "BW (43)", "Vermillion City", HotelQuestColor),
+  12 => Quest.new(12, "Seafood Cocktail ", "Get some steamed Krabby legs from the S.S. Anne's kitchen and bring them back to the hotel before they get cold", QuestBranchHotels, "BW (36)", "Vermillion City", HotelQuestColor),
+  13 => Quest.new(13, "Building Materials ", "Get some wooden planks from Viridian City and some Bricks from Pewter City.", QuestBranchField, "BW (36)", "Vermillion City", FieldQuestColor),
+  64 => Quest.new(64, "Waiter on the Water", "The S.S. Anne waiter wants you to take restaurant orders while he went to get a replacement cake.", QuestBranchField, "BW (53)", "S.S. Anne", FieldQuestColor),
 
   #Celadon City
-  14 => Quest.new(14, "Soleil ou Lune", "Montre comment Evoli évolue lorsqu'il est exposé à une pierre de Lune ou de Soleil pour aider la scientifique dans ses recherches.", QuestBranchHotels, "BW (82)", "Céladopole", HotelQuestColor),
-  15 => Quest.new(15, "Pour qui sonne la cloche", "Sonnez la cloche de Lavanville lorsque le moment est venu de révéler son secret.", QuestBranchHotels, "BW (40)", "Lavanville", HotelQuestColor),
-  16 => Quest.new(16, "Cuit a dur", "Une dame veut que vous lui donniez un oeuf pour faire une omelette.", QuestBranchHotels, "BW (24)", "Céladopole", HotelQuestColor),
-  17 => Quest.new(17, "Une promenade avec Evoli!", "Promenez Évoli pendant un moment jusqu'à ce qu'il se fatigue.", QuestBranchField, "BW (37)", "Céladopole", FieldQuestColor),
+  14 => Quest.new(14, "Sun or Moon", "Show the Pokémon that Eevee evolves when exposed to a Moon or Sun stone to help the scientist with her research.", QuestBranchHotels, "BW (82)", "Celadon City", HotelQuestColor),
+  15 => Quest.new(15, "For Whom the Bell Tolls", "Ring Lavender Town's bell when the time is right to reveal its secret.", QuestBranchHotels, "BW (40)", "Lavender Town", HotelQuestColor),
+  16 => Quest.new(16, "Hardboiled", "A lady wants you to give her an egg to make an omelette.", QuestBranchHotels, "BW (24)", "Celadon City", HotelQuestColor),
+  17 => Quest.new(17, "A stroll with Eevee!", "Walk Eevee around for a while until it gets tired.", QuestBranchField, "BW (37)", "Celadon City", FieldQuestColor),
 
   #Fuchsia City
-  18 => Quest.new(18, "Nettoyage de la piste cyclable", "Débarrassez-vous de tous les Pokémon qui salissent la piste cyclable.", QuestBranchHotels, "BW (77)", "Parmanie", HotelQuestColor),
-  19 => Quest.new(19, "Pokémon perdu!", "Retrouvez le dresseur perdu de Leveinard!", QuestBranchHotels, "113", "Parmanie", HotelQuestColor),
-  20 => Quest.new(20, "Course cycliste!", "Allez à la rencontre de la cycliste au bas de la route 17 et battez son temps sur la piste cyclable!", QuestBranchHotels, "BW032", "Piste Cyclable", HotelQuestColor),
+  18 => Quest.new(18, "Cleaning up the Cycling Road", "Get rid of all the Pokémon dirtying up the Cycling Road.", QuestBranchHotels, "BW (77)", "Fuchsia City", HotelQuestColor),
+  19 => Quest.new(19, "Lost Pokémon!", "Find the lost Chansey's trainer!", QuestBranchHotels, "113", "Fuchsia City", HotelQuestColor),
+  20 => Quest.new(20, "Bicycle Race!", "Go meet the Cyclist at the bottom of Route 17 and beat her time up the Cycling Road!", QuestBranchHotels, "BW032", "Cycling Road", HotelQuestColor),
 
   #Crimson City
-  21 => Quest.new(21, "Sauvetage de Kokiyas", "Remettre à l'eau tous les Kokiyas échoués sur la route de la Cité Écarlate.", QuestBranchHotels, "BW (48)", "Cité Écarlate", HotelQuestColor),
-  22 => Quest.new(22, "Rumble du quatrième tour", "Battez Jeanette et son Chétiflor de haut niveau dans un combat Pokémon", QuestBranchHotels, "BW024", "Cité Écarlate", HotelQuestColor),
-  23 => Quest.new(23, "Types inhabituels 2", "Une femme à l'hôtel veut que vous lui montriez un Pokémon de type Normal/Fantôme", QuestBranchHotels, "BW (58)", "Cité Écarlate", HotelQuestColor),
+  21 => Quest.new(21, "Shellfish Rescue", "Put all the stranded Shellders back in the water on the route to Crimson City.", QuestBranchHotels, "BW (48)", "Crimson City", HotelQuestColor),
+  22 => Quest.new(22, "Fourth Round Rumble", "Defeat Jeanette and her high-level Bellsprout in a Pokémon Battle", QuestBranchHotels, "BW024", "Crimson City", HotelQuestColor),
+  23 => Quest.new(23, "Unusual Types 2", "A woman at the hotel wants you to show her a Normal/Ghost-type Pokémon", QuestBranchHotels, "BW (58)", "Crimson City", HotelQuestColor),
 
   #Saffron City
-  24 => Quest.new(24, "Reine de la danse!", "Danse avec Copinette!", QuestBranchField, "BW (24)", "Safrania (Boite de nuit)", FieldQuestColor),
+  24 => Quest.new(24, "Dancing Queen!", "Dance with the Copycat Girl!", QuestBranchField, "BW (24)", "Saffron City (nightclub)", FieldQuestColor),
     #celadon
-  25 => Quest.new(25, "Pokémon de Sinnoh", "Un voyageur du Centre Départemental veut que vous lui montriez un Pokémon originaire de la région de Sinnoh.", QuestBranchHotels, "traveler_sinnoh", "Céladopole", HotelQuestColor),
-  26 => Quest.new(26, "Chiots perdus", "Retrouvez tous les Caninos manquants dans les itinéraires autour de Safrania.", QuestBranchHotels, "BW (73)", "Safrania", HotelQuestColor),
-  27 => Quest.new(27, "Pokémon invisibles", "Trouvez un Pokémon invisible dans la partie est de Safrania.", QuestBranchHotels, "BW (57)", "Safrania", HotelQuestColor),
-  28 => Quest.new(28, "Mauvais jusqu'à l'os!", "Trouvez un os rare en utilisant Éclate-Roc.", QuestBranchHotels, "BW (72)", "Safrania", HotelQuestColor),
+  25 => Quest.new(25, "Sinnoh Pokémon", "A traveler in the Department Center wants you to show him a Pokémon native to the Sinnoh region.", QuestBranchHotels, "traveler_sinnoh", "Celadon City", HotelQuestColor),
+  26 => Quest.new(26, "Lost Puppies", "Find all of the missing Growlithe in the routes around Saffron City.", QuestBranchHotels, "BW (73)", "Saffron City", HotelQuestColor),
+  27 => Quest.new(27, "Invisible Pokémon", "Find an invisible Pokémon in the eastern part of Saffron City.", QuestBranchHotels, "BW (57)", "Saffron City", HotelQuestColor),
+  28 => Quest.new(28, "Bad to the Bone!", "Find a Rare Bone using Rock Smash.", QuestBranchHotels, "BW (72)", "Saffron City", HotelQuestColor),
 
   #Cinnabar Island
-  29 => Quest.new(29, "Les Pokémons transformables", "Le scientifique veut que vous trouviez de la poudre rapide qui peut parfois être trouvée sur des Métamorph dans le sous-sol du manoir.", QuestBranchHotels, "BW (82)", "Cramois'Ile", HotelQuestColor),
-  30 => Quest.new(30, "Diamants et Perles", "Trouvez un collier de diamant pour sauver le mariage de l'homme.", QuestBranchHotels, "BW (71)", "Cramois'Ile", HotelQuestColor),
-  62 => Quest.new(62, "Pokémon d'Alola", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région d'Alola.", QuestBranchHotels, "traveler_alola", "Cramois'Ile", HotelQuestColor),
+  29 => Quest.new(29, "The transformation Pokémon", "The scientist wants you to find some Quick Powder that can sometimes be found with wild Ditto in the mansion's basement.", QuestBranchHotels, "BW (82)", "Cinnabar Island", HotelQuestColor),
+  30 => Quest.new(30, "Diamonds and Pearls", "Find a Diamond Necklace to save the man's marriage.", QuestBranchHotels, "BW (71)", "Cinnabar Island", HotelQuestColor),
+  62 => Quest.new(62, "Alola Pokémon", "A traveler in the PokéMart wants you to show him a Pokémon native to the Alola region.", QuestBranchHotels, "traveler_alola", "Cinnabar Island", HotelQuestColor),
 
   #Vermillion City
-  31 => Quest.new(31, "Pokémon de Hoenn", "Un voyageur dans le PokéMart vous demande de lui montrer un Pokémon originaire de la région de Hoenn.", QuestBranchHotels, "traveler_hoenn", "Carmin sur Mer", HotelQuestColor),
+  31 => Quest.new(31, "Hoenn Pokémon", "A traveler in the PokéMart you to show him a Pokémon native to the Hoenn region.", QuestBranchHotels, "traveler_hoenn", "Vermillion City", HotelQuestColor),
   #Goldenrod City
-  32 => Quest.new(32, "Souvenir de safari!", "Rapportez un souvenir de la Zone Safari de Parmanie", QuestBranchHotels, "BW (28)", "Doublonville", HotelQuestColor),
-  65 => Quest.new(65, "Travail de police infiltré!", "Allez voir la police de Doublonville pour les aider dans une opération policière importante.", QuestBranchField, "BW (80)", "Doublonville", FieldQuestColor),
-  66 => Quest.new(66, "Île Guimauve!", "La Team Rocket prépare un braquage sur l'île Guimauve. Vous avez uni vos forces à celles de la police pour les arrêter!", QuestBranchField, "BW (80)", "Doublonville", FieldQuestColor),
+  32 => Quest.new(32, "Safari Souvenir!", "Bring back a souvenir from the Fuchsia City Safari Zone", QuestBranchHotels, "BW (28)", "Goldenrod City", HotelQuestColor),
+  65 => Quest.new(65, "Undercover police work!", "Go see the police in Goldenrod City to help them with an important police operation.", QuestBranchField, "BW (80)", "Goldenrod City", FieldQuestColor),
+  66 => Quest.new(66, "Pinkan Island!", "Team Rocket is planning a heist on Pinkan Island. You joined forces with the police to stop them!", QuestBranchField, "BW (80)", "Goldenrod City", FieldQuestColor),
 
   #Violet City
-  33 => Quest.new(33, "Désamorcer les pommes de pin!", "Débarrassez-vous de tous les Pomdepik sur la Route 31 et la Route 30", QuestBranchHotels, "BW (64)", "Mauville", HotelQuestColor),
-  34 => Quest.new(34, "Trouver la queue de Ramoloss!", "Trouvez une Queue Ramoloss dans des fleurs, quelque part autour de Mauville!", QuestBranchHotels, "BW (19)", "Mauville", HotelQuestColor),
+  33 => Quest.new(33, "Defuse the Pinecones!", "Get rid of all the Pineco on Route 31 and Route 30", QuestBranchHotels, "BW (64)", "Violet City", HotelQuestColor),
+  34 => Quest.new(34, "Find Slowpoke's Tail!", "Find a SlowpokeTail in some flowers, somewhere around Violet City!", QuestBranchHotels, "BW (19)", "Violet City", HotelQuestColor),
 
   #Blackthorn City
-  35 => Quest.new(35, "L'évolution du dragon", "Un dompteur de dragons de Ébènelle veut que vous lui montriez un Pokémon Dragon entièrement évolué.", QuestBranchHotels, "BW014", "Ébènelle", HotelQuestColor),
-  36 => Quest.new(36, "Trésor englouti!", "Trouvez un vieux souvenir sur un navire coulé près de Cramois'Île.", QuestBranchHotels, "BW (28)", "Ébènelle", HotelQuestColor),
-  37 => Quest.new(37, "La plus grosse carpe", "Un pêcheur veut que vous pêchiez un Magikarp d'un niveau exceptionnellement élevé dans l'Antre du Dragon.", QuestBranchHotels, "BW (71)", "Ébènelle", HotelQuestColor),
+  35 => Quest.new(35, "Dragon Evolution", "A Dragon Tamer in Blackthorn City wants you to show her a fully-evolved Dragon Pokémon.", QuestBranchHotels, "BW014", "Blackthorn City", HotelQuestColor),
+  36 => Quest.new(36, "Sunken Treasure!", "Find an old memorabilia on a sunken ship near Cinnabar Island.", QuestBranchHotels, "BW (28)", "Blackthorn City", HotelQuestColor),
+  37 => Quest.new(37, "The Largest Carp", "A fisherman wants you to fish up a Magikarp that's exceptionally high-level at Dragon's Den.", QuestBranchHotels, "BW (71)", "Blackthorn City", HotelQuestColor),
 
-  #Saffron City
-  38 => Quest.new(38, "Pokémon de Kalos", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région de Kalos.", QuestBranchHotels, "traveler_kalos", "Safrania", HotelQuestColor),
+    #saffron
+  38 => Quest.new(38, "Kalos Pokémon", "A traveler in the PokéMart wants you to show him a Pokémon native to the Kalos region.", QuestBranchHotels, "traveler_kalos", "Saffron City", HotelQuestColor),
   #Ecruteak City
-  39 => Quest.new(39, "L'évolution des fantômes", "Une fille de Rosalia veut que vous lui montriez un Pokémon Fantôme entièrement évolué.", QuestBranchHotels, "BW014", "Rosalia", HotelQuestColor),
+  39 => Quest.new(39, "Ghost Evolution", "A girl in Ecruteak City wants you to show her a fully-evolved Ghost Pokémon.", QuestBranchHotels, "BW014", "Ecruteak City", HotelQuestColor),
 
   #Kin Island
-  40 => Quest.new(40, "Banana Slamma!", "Récupérez 30 bananes", QuestBranchHotels, "BW059", "Ile Trinité", HotelQuestColor),
+  40 => Quest.new(40, "Banana Slamma!", "Collect 30 bananas", QuestBranchHotels, "BW059", "Kin Island", HotelQuestColor),
     #fuchsia
-  41 => Quest.new(41, "Pokémon de Unys", "Un voyageur du PokéMart veut que vous lui montriez un Pokémon originaire de la région d'Unys.", QuestBranchHotels, "traveler_unova", "Parmanie", HotelQuestColor),
-  42 => Quest.new(42, "Objet volé", "Récupérez un vase volé par un cambrioleur dans le manoir Pokémon", QuestBranchHotels, "BW (21)", "Cramois'Ile", HotelQuestColor),
-  43 => Quest.new(43, "Météore tombé", "Enquête sur un cratère près du Pont du Lien.", QuestBranchHotels, "BW009", "Ile Trinité", HotelQuestColor),
-  44 => Quest.new(44, "Premier contact", "Trouvez les pièces manquantes d'un vaisseau spatial extraterrestre tombé", QuestBranchHotels, "BW (92)", "Pont du Lien", LegendaryQuestColor),
-  45 => Quest.new(45, "Premier contact (Part 2)", "Demandez au marin du port de Cramois'Île de vous emmener sur l'île inexplorée où le vaisseau spatial pourrait se trouver", QuestBranchHotels, "BW (92)", "Pont du Lien", LegendaryQuestColor),
-  46 => Quest.new(46, "Le poisson le plus rare", "Un pêcheur veut que vous lui montriez un Barpeau. Apparemment, on peut en pêcher autour des îles Sevii quand il pleut.", QuestBranchField, "BW056", "Ile Trinité", FieldQuestColor),
+  41 => Quest.new(41, "Unova Pokémon", "A traveler in the PokéMart wants you to show him a Pokémon native to the Unova region.", QuestBranchHotels, "traveler_unova", "Fuchsia City", HotelQuestColor),
+  42 => Quest.new(42, "Stolen artifact", "Recover a stolen vase from a burglar in the Pokémon Mansion", QuestBranchHotels, "BW (21)", "Cinnabar Island", HotelQuestColor),
+  43 => Quest.new(43, "Fallen Meteor", "Investigate a crater near Bond Bridge.", QuestBranchHotels, "BW009", "Kin Island", HotelQuestColor),
+  44 => Quest.new(44, "First Contact", "Find the missing pieces of a fallen alien spaceship", QuestBranchHotels, "BW (92)", "Bond Bridge", LegendaryQuestColor),
+  45 => Quest.new(45, "First Contact (Part 2)", "Ask the sailor at Cinnabar Island's harbour to take you to the uncharted island where the spaceship might be located", QuestBranchHotels, "BW (92)", "Bond Bridge", LegendaryQuestColor),
+  46 => Quest.new(46, "The rarest fish", "A fisherman wants you to show him a Feebas. Apparently they can be fished around the Sevii Islands when it rains.", QuestBranchField, "BW056", "Kin Island", FieldQuestColor),
 
   #Necrozma quest
-  47 => Quest.new(47, "Prismes mystérieux", "Vous avez trouvé un piédestal avec un prisme mystérieux dessus. Il semble y avoir de la place pour d'autres prismes.", QuestBranchLegendary, "BW_Sabrina", "Tour Pokémon", LegendaryQuestColor),
+  47 => Quest.new(47, "Mysterious prisms", "You found a pedestal with a mysterious prism on it. There seems to be room for more prisms.", QuestBranchLegendary, "BW_Sabrina", "Pokémon Tower", LegendaryQuestColor),
 
-  48 => Quest.new(48, "La longue nuit (Part 1)", "Une obscurité mystérieuse a enveloppé une partie de la région. Rencontrez Sabrina à l'extérieur de la porte ouest de Safrania pour enquêter.", QuestBranchLegendary, "BW_Sabrina", "Lavanville", LegendaryQuestColor),
-  49 => Quest.new(49, "La longue nuit (Part 2)", "L'obscurité mystérieuse s'est répandue. Rencontrez Sabrina au sommet du grand magasin de Céladopole pour découvrir la source de l'obscurité.", QuestBranchLegendary, "BW_Sabrina", "Route 7", LegendaryQuestColor),
-  50 => Quest.new(50, "La longue nuit (Part 3)", "La ville de Parmanie ne semble pas affectée par l'obscurité. Allez enquêter pour voir si vous pouvez trouver plus d'informations.", QuestBranchLegendary, "BW_Sabrina", "Céladopole", LegendaryQuestColor),
-  51 => Quest.new(51, "La longue nuit (Part 4)", "L'obscurité mystérieuse s'est à nouveau étendue et d'étranges plantes sont apparues. Suivez les plantes pour voir où elles mènent.", QuestBranchLegendary, "BW_koga", "Parmanie", LegendaryQuestColor),
-  52 => Quest.new(52, "La longue nuit (Part 5)", "Vous avez trouvé un fruit étrange qui semble lié à l'obscurité mystérieuse. Allez voir le professeur Chen pour le faire analyser.", QuestBranchLegendary, "BW029", "Safari Zone", LegendaryQuestColor),
-  53 => Quest.new(53, "La longue nuit (Part 6)", "L'étrange plante que vous avez trouvée semble briller dans l'obscurité mystérieuse qui recouvre désormais toute la région. Essayez de suivre la lueur pour découvrir la source de la perturbation.", QuestBranchLegendary, "BW-oak", "Bourg Palette", LegendaryQuestColor),
+  48 => Quest.new(48, "The long night (Part 1)", "A mysterious darkness has shrouded some of the region. Meet Sabrina outside of Saffron City's western gate to investigate.", QuestBranchLegendary, "BW_Sabrina", "Lavender Town", LegendaryQuestColor),
+  49 => Quest.new(49, "The long night (Part 2)", "The mysterious darkness has expended. Meet Sabrina on top of Celadon City's Dept. Store to figure out the source of the darkness.", QuestBranchLegendary, "BW_Sabrina", "Route 7", LegendaryQuestColor),
+  50 => Quest.new(50, "The long night (Part 3)", "Fuchsia City appears to be unaffected by the darkness. Go investigate to see if you can find out more information.", QuestBranchLegendary, "BW_Sabrina", "Celadon City", LegendaryQuestColor),
+  51 => Quest.new(51, "The long night (Part 4)", "The mysterious darkness has expended yet again and strange plants have appeared. Follow the plants to see where they lead.", QuestBranchLegendary, "BW_koga", "Fuchsia City", LegendaryQuestColor),
+  52 => Quest.new(52, "The long night (Part 5)", "You found a strange fruit that appears to be related to the mysterious darkness. Go see professor Oak to have it analyzed.", QuestBranchLegendary, "BW029", "Safari Zone", LegendaryQuestColor),
+  53 => Quest.new(53, "The long night (Part 6)", "The strange plant you found appears to glow in the mysterious darkness that now covers the entire region. Try to follow the glow to find out the source of the disturbance.", QuestBranchLegendary, "BW-oak", "Pallet Town", LegendaryQuestColor),
 
-  54 => Quest.new(54, "Jardin de nectar", "Un vieil homme veut que vous apportiez des fleurs de différentes couleurs pour le jardin de la ville.", QuestBranchField, "BW (039)", "Argenta", FieldQuestColor),
-  55 => Quest.new(55, "La forêt maudite", "Une enfant veut que vous trouviez une souche d'arbre flottante dans le Bois aux Chênes. De quoi pourrait-elle bien parler?", QuestBranchHotels, "BW109", "Doublonville", HotelQuestColor),
-  56 => Quest.new(56, "Pokémon mordant", "Un pêcheur veut savoir quel est le Pokémon aux dents acérées qui l'a mordu dans le lac de la Zone Safari.", QuestBranchHotels, "BW (71)", "Parmanie", HotelQuestColor),
+  54 => Quest.new(54, "Nectar garden", "An old man wants you to bring differently colored flowers for the city's garden.", QuestBranchField, "BW (039)", "Pewter City", FieldQuestColor),
+  55 => Quest.new(55, "The Cursed Forest", "A child wants you to find a floating tree stump in Ilex Forest. What could she be talking about?", QuestBranchHotels, "BW109", "Goldenrod City", HotelQuestColor),
+  56 => Quest.new(56, "Bitey Pokémon", "A fisherman wants to know what is the sharp-toothed Pokémon that bit him in the Safari Zone's lake.", QuestBranchHotels, "BW (71)", "Fuchsia City", HotelQuestColor),
 
-  57 => Quest.new(57, "Un groupe légendaire (Part 1)", "Le chanteur d'un groupe de Safrania vous demande de l'aider à recruter un batteur. Il pense avoir entendu des batteurs jouer dans les environs de la Cité Écarlate...", QuestBranchLegendary, "BW107", "Safrania", LegendaryQuestColor),
-  58 => Quest.new(58, "Un groupe légendaire (Part 2)", "Le batteur d'un groupe légendaire de Pokémon veut que vous retrouviez ses anciens camarades de groupe. Le manager du groupe a parlé de deux anciens guitaristes...", QuestBranchLegendary, "band_drummer", "Safrania", LegendaryQuestColor),
-  59 => Quest.new(59, "Un groupe légendaire (Part 3)", "Le batteur d'un groupe légendaire de Pokémon veut que vous retrouviez ses anciens camarades de groupe. Il y a des rumeurs sur une musique étrange qui a été entendue dans la région.", QuestBranchLegendary, "band_drummer", "Safrania", LegendaryQuestColor),
-  60 => Quest.new(60, "Un groupe légendaire (Part 4)", "Vous avez réuni le groupe au complet ! Venez assister au spectacle samedi soir.", QuestBranchLegendary, "BW117", "Safrania", LegendaryQuestColor),
+  57 => Quest.new(57, "A legendary band (Part 1)", "The singer of a band in Saffron City wants you to help them recruit a drummer. They think they've heard some drumming around Crimson City...", QuestBranchLegendary, "BW107", "Saffron City", LegendaryQuestColor),
+  58 => Quest.new(58, "A legendary band (Part 2)", "The drummer from a legendary Pokéband wants you to find its former bandmates. The band manager talked about two former guitarists...", QuestBranchLegendary, "band_drummer", "Saffron City", LegendaryQuestColor),
+  59 => Quest.new(59, "A legendary band (Part 3)", "The drummer from a legendary Pokéband wants you to find its former bandmates. There are rumors about strange music that was heard around the region.", QuestBranchLegendary, "band_drummer", "Saffron City", LegendaryQuestColor),
+  60 => Quest.new(60, "A legendary band (Part 4)", "You assembled the full band! Come watch the show on Saturday night.", QuestBranchLegendary, "BW117", "Saffron City", LegendaryQuestColor),
 
-  61 => Quest.new(61, "Mystérieuses plumes lunaires", "Une entité mystérieuse vous a demandé de collecter des plumes lunaires pour elle. Elle a dit qu'elle viendrait la nuit pour vous dire où chercher. Qui que ce soit...", QuestBranchLegendary, "lunarFeather", "Lavanville", LegendaryQuestColor),
+  61 => Quest.new(61, "Mysterious Lunar feathers", "A mysterious entity asked you to collect Lunar Feathers for them. It said that they will come at night to tell you where to look. Whoever that may be...", QuestBranchLegendary, "lunarFeather", "Lavender Town", LegendaryQuestColor),
 }
 
 class PokeBattle_Trainer
@@ -211,7 +211,7 @@ def showNewQuestMessage(title,description, show_description)
   pbMEPlay("Voltorb Flip Win")
 
   pbCallBub(3)
-  Kernel.pbMessage("\\C[6]NOUVELLE QUÊTE: " + title)
+  Kernel.pbMessage("\\C[6]NEW QUEST: " + title)
   if show_description
     pbCallBub(3)
     Kernel.pbMessage("\\C[1]" + description)
@@ -229,7 +229,7 @@ end
 def finishQuest(id, silent=false)
   return if pbCompletedQuest?(id)
   pbMEPlay("Register phone") if !silent
-  Kernel.pbMessage("\\C[6]Quête terminée!") if !silent
+  Kernel.pbMessage("\\C[6]Quest completed!") if !silent
 
   $game_variables[222] += 1 # karma
   $game_variables[97] -= 1 #nb. quests active
@@ -267,6 +267,10 @@ end
 def pbSetQuest(id, completed)
   $Trainer.quests = [] if $Trainer.quests.class == NilClass
   for q in $Trainer.quests
+    echoln id
+    echoln q.id
+    echoln q.completed
+    echoln "----"
     q.completed = completed if q.id == id
   end
 end
@@ -337,6 +341,7 @@ class Questlog
     end
 
     for q in $Trainer.quests
+      echoln "#{q.id}: #{q.completed}"
       @ongoing << q if !q.completed
       @completed << q if q.completed
     end
@@ -349,7 +354,7 @@ class Questlog
     @sprites["main"].opacity = 0
     @main = @sprites["main"].bitmap
     pbSetSystemFont(@main)
-    pbDrawOutlineText(@main, 0, 2 - 178, 512, 384, "Journal de Quête", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+    pbDrawOutlineText(@main, 0, 2 - 178, 512, 384, "Quest Log", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
 
     @sprites["bg0"] = IconSprite.new(0, 0, @viewport)
     @sprites["bg0"].setBitmap("Graphics/Pictures/pokegearbg")
@@ -366,8 +371,8 @@ class Questlog
     end
     #pbDrawOutlineText(@main, 0, 142 - 178, 512, 384, "Ongoing: " + @ongoing.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
     #pbDrawOutlineText(@main, 0, 198 - 178, 512, 384, "Completed: " + @completed.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
-    pbDrawOutlineText(@main, 0, 142, 512, 384, "En cours: " + @ongoing.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
-    pbDrawOutlineText(@main, 0, 198, 512, 384, "Terminées: " + @completed.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+    pbDrawOutlineText(@main, 0, 142, 512, 384, "Ongoing: " + @ongoing.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+    pbDrawOutlineText(@main, 0, 198, 512, 384, "Completed: " + @completed.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
 
     12.times do |i|
       Graphics.update
@@ -378,6 +383,7 @@ class Questlog
     end
     pbUpdate
   end
+
 
   def pbUpdate
     @frame = 0
@@ -472,9 +478,9 @@ class Questlog
       pbDrawOutlineText(@main, 188, 330, 512, 384, quest.location, Color.new(255, 172, 115), Color.new(0, 0, 0))
       pbDrawOutlineText(@main, 10, -178, 512, 384, quest.name, quest.color, Color.new(0, 0, 0))
       if !quest.completed
-        pbDrawOutlineText(@main, 8, 250, 512, 384, "Non Terminées", pbColor(:LIGHTRED), Color.new(0, 0, 0))
+        pbDrawOutlineText(@main, 8, 250, 512, 384, "Not Completed", pbColor(:LIGHTRED), Color.new(0, 0, 0))
       else
-        pbDrawOutlineText(@main, 8, 250, 512, 384, "Terminées", pbColor(:LIGHTBLUE), Color.new(0, 0, 0))
+        pbDrawOutlineText(@main, 8, 250, 512, 384, "Completed", pbColor(:LIGHTBLUE), Color.new(0, 0, 0))
       end
       10.times do |i|
         Graphics.update
@@ -504,20 +510,20 @@ class Questlog
       @sprites["text2"].bitmap = Bitmap.new(Graphics.width, Graphics.height)
       @text2 = @sprites["text2"].bitmap
       pbSetSystemFont(@text2)
-      pbDrawOutlineText(@text2, 188, -122, 512, 384, "Quête reçue dans:", Color.new(255, 255, 255), Color.new(0, 0, 0))
+      pbDrawOutlineText(@text2, 188, -122, 512, 384, "Quest received in:", Color.new(255, 255, 255), Color.new(0, 0, 0))
       pbDrawOutlineText(@text2, 188, -94, 512, 384, quest.location, Color.new(255, 172, 115), Color.new(0, 0, 0))
-      pbDrawOutlineText(@text2, 188, -62, 512, 384, "Quête reçue à:", Color.new(255, 255, 255), Color.new(0, 0, 0))
+      pbDrawOutlineText(@text2, 188, -62, 512, 384, "Quest received at:", Color.new(255, 255, 255), Color.new(0, 0, 0))
       time = quest.time.to_s
       txt = time.split(' ')[1] + " " + time.split(' ')[2] + ", " + time.split(' ')[3].split(':')[0] + ":" + time.split(' ')[3].split(':')[1] rescue "?????"
       pbDrawOutlineText(@text2, 188, -36, 512, 384, txt, Color.new(255, 172, 115), Color.new(0, 0, 0))
-      pbDrawOutlineText(@text2, 188, -4, 512, 384, "Quête reçue de:", Color.new(255, 255, 255), Color.new(0, 0, 0))
+      pbDrawOutlineText(@text2, 188, -4, 512, 384, "Quest received from:", Color.new(255, 255, 255), Color.new(0, 0, 0))
       pbDrawOutlineText(@text2, 188, 22, 512, 384, quest.npc, Color.new(255, 172, 115), Color.new(0, 0, 0))
-      pbDrawOutlineText(@text2, 188, 162, 512, 384, "De " + quest.npc, Color.new(255, 172, 115), Color.new(0, 0, 0))
+      pbDrawOutlineText(@text2, 188, 162, 512, 384, "From " + quest.npc, Color.new(255, 172, 115), Color.new(0, 0, 0))
       pbDrawOutlineText(@text2, 10, -178, 512, 384, quest.name, quest.color, Color.new(0, 0, 0))
       if !quest.completed
-        pbDrawOutlineText(@text2, 8, 136, 512, 384, "Non Terminées", pbColor(:LIGHTRED), Color.new(0, 0, 0))
+        pbDrawOutlineText(@text2, 8, 136, 512, 384, "Not Completed", pbColor(:LIGHTRED), Color.new(0, 0, 0))
       else
-        pbDrawOutlineText(@text2, 8, 136, 512, 384, "Terminées", pbColor(:LIGHTBLUE), Color.new(0, 0, 0))
+        pbDrawOutlineText(@text2, 8, 136, 512, 384, "Completed", pbColor(:LIGHTBLUE), Color.new(0, 0, 0))
       end
       @sprites["text2"].x = 512
       16.times do
@@ -561,9 +567,9 @@ class Questlog
       pbDrawOutlineText(@text, 188, 162, 512, 384, "From " + quest.npc, Color.new(255, 172, 115), Color.new(0, 0, 0))
       pbDrawOutlineText(@text, 10, -178, 512, 384, quest.name, quest.color, Color.new(0, 0, 0))
       if !quest.completed
-        pbDrawOutlineText(@text, 8, 136, 512, 384, "Non Terminées", pbColor(:LIGHTRED), Color.new(0, 0, 0))
+        pbDrawOutlineText(@text, 8, 136, 512, 384, "Not Completed", pbColor(:LIGHTRED), Color.new(0, 0, 0))
       else
-        pbDrawOutlineText(@text, 8, 136, 512, 384, "Terminées", pbColor(:LIGHTBLUE), Color.new(0, 0, 0))
+        pbDrawOutlineText(@text, 8, 136, 512, 384, "Completed", pbColor(:LIGHTBLUE), Color.new(0, 0, 0))
       end
       @sprites["text"].x = -512
       16.times do
@@ -588,6 +594,7 @@ class Questlog
   end
 
   def pbMain
+    pbWait(1)
     12.times do |i|
       Graphics.update
       @sprites["main"].opacity -= 32 if @sprites["main"] rescue nil
@@ -615,9 +622,9 @@ class Questlog
     @text2.clear if @text2 rescue nil
     @sel_two = 0
     @scene = 0
-    pbDrawOutlineText(@main, 0, 2, 512, 384, "Journal de Quête", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
-    pbDrawOutlineText(@main, 0, 142, 512, 384, "En cours: " + @ongoing.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
-    pbDrawOutlineText(@main, 0, 198, 512, 384, "Terminées: " + @completed.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+    pbDrawOutlineText(@main, 0, 2, 512, 384, "Quest Log", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+    pbDrawOutlineText(@main, 0, 142, 512, 384, "Ongoing: " + @ongoing.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+    pbDrawOutlineText(@main, 0, 198, 512, 384, "Completed: " + @completed.size.to_s, Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
     12.times do |i|
       Graphics.update
       @sprites["bg0"].opacity += 32 if i < 8
@@ -642,7 +649,6 @@ class Questlog
   end
 
   def pbMove(dir)
-    pbWait(1)
     if dir == :DOWN
       return if @sel_two == @ongoing.size - 1 && @mode == 0
       return if @sel_two == @completed.size - 1 && @mode == 1
@@ -674,7 +680,7 @@ class Questlog
           else
             @sprites["down"].visible = false
           end
-          pbDrawOutlineText(@main, 0, 2, 512, 384, "Quêtes en cours", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+          pbDrawOutlineText(@main, 0, 2, 512, 384, "Ongoing Quests", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
         else
           for i in 0...@completed.size
             break if i > 5
@@ -692,7 +698,7 @@ class Questlog
           else
             @sprites["down"].visible = false
           end
-          pbDrawOutlineText(@main, 0, 2 - 178, 512, 384, "Quêtes terminées", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+          pbDrawOutlineText(@main, 0, 2 - 178, 512, 384, "Completed Quests", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
         end
       end
     else
@@ -724,7 +730,7 @@ class Questlog
           else
             @sprites["down"].visible = false
           end
-          pbDrawOutlineText(@main, 0, 2, 512, 384, "Quêtes en cours", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+          pbDrawOutlineText(@main, 0, 2, 512, 384, "Ongoing Quests", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
         else
           for i in 0...@completed.size
             break if i > 5
@@ -741,7 +747,7 @@ class Questlog
           else
             @sprites["down"].visible = false
           end
-          pbDrawOutlineText(@main, 0, 2 - 178, 512, 384, "Quêtes terminées", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+          pbDrawOutlineText(@main, 0, 2 - 178, 512, 384, "Completed Quests", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
         end
       end
     end
@@ -810,8 +816,8 @@ class Questlog
 
         #pbDrawOutlineText(@main, 11, -124 + 52 * i, 512, 384, @ongoing[i].name, @ongoing[i].color, Color.new(0, 0, 0), 1)
       end
-      pbDrawOutlineText(@main, 0, 175, 512, 384, "Aucune Quête en Cours", pbColor(:WHITE), pbColor(:BLACK), 1) if @ongoing.size == 0
-      pbDrawOutlineText(@main, 0, 2, 512, 384, "Quêtes en Cours", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+      pbDrawOutlineText(@main, 0, 175, 512, 384, "No ongoing quests", pbColor(:WHITE), pbColor(:BLACK), 1) if @ongoing.size == 0
+      pbDrawOutlineText(@main, 0, 2, 512, 384, "Ongoing Quests", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
       12.times do |i|
         Graphics.update
         @sprites["main"].opacity += 32 if i < 8
@@ -833,8 +839,8 @@ class Questlog
         pbDrawOutlineText(@main, 11, getCellYPosition(i), 512, 384, @completed[i].name, @completed[i].color, Color.new(0, 0, 0), 1)
       end
 
-      pbDrawOutlineText(@main, 0, 175, 512, 384, "Aucune Quête Terminée", pbColor(:WHITE), pbColor(:BLACK), 1) if @completed.size == 0
-      pbDrawOutlineText(@main, 0, 2, 512, 384, "Quête Terminée", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
+      pbDrawOutlineText(@main, 0, 175, 512, 384, "No completed quests", pbColor(:WHITE), pbColor(:BLACK), 1) if @completed.size == 0
+      pbDrawOutlineText(@main, 0, 2, 512, 384, "Completed Quests", Color.new(255, 255, 255), Color.new(0, 0, 0), 1)
       12.times do |i|
         Graphics.update
         @sprites["main"].opacity += 32 if i < 8
@@ -1027,11 +1033,11 @@ def showQuestStatistics(eventId,includeRocketQuests=false)
     end
   end
   pbCallBub(2, eventId)
-  pbMessage("Quêtes acceptées: \\C[1]#{quests_accepted.length}")
+  pbMessage("Accepted quests: \\C[1]#{quests_accepted.length}")
   pbCallBub(2, eventId)
-  pbMessage("Quêtes terminées: \\C[1]#{quests_completed.length}")
+  pbMessage("Completed quests: \\C[1]#{quests_completed.length}")
   pbCallBub(2, eventId)
-  pbMessage("En cours: \\C[1]#{quests_in_progress.length}")
+  pbMessage("In-progress: \\C[1]#{quests_in_progress.length}")
 end
 
 def get_completed_quests(includeRocketQuests=false)
@@ -1067,9 +1073,9 @@ def getQuestReward(eventId)
       next
     end
     pbCallBub(2, eventId)
-    pbMessage("Et puis, il y a encore une chose...")
+    pbMessage("Also, there's one more thing...")
     pbCallBub(2, eventId)
-    pbMessage("En guise de cadeau pour avoir aidé tant de personnes, je veux vous offrir ceci.")
+    pbMessage("As a gift for having helped so many people, I want to give you this.")
     pbReceiveItem(reward.item, reward.quantity)
     $PokemonGlobal.questRewardsObtained << reward.item
 
@@ -1081,11 +1087,11 @@ def getQuestReward(eventId)
 
   pbCallBub(2, eventId)
   if nb_to_next_reward <= 0
-    pbMessage("Je n'ai plus de récompenses à vous offrir! Merci d'aider toutes ces personnes!")
+    pbMessage("I have no more rewards to give you! Thanks for helping all these people!")
   elsif nb_to_next_reward == 1
-    pbMessage("Aidez #{nb_to_next_reward} personnes supplémentaires et je vous donnerai quelque chose de bien!")
+    pbMessage("Help #{nb_to_next_reward} more person and I'll give you something good!")
   else
-    pbMessage("Aidez #{nb_to_next_reward} personnes supplémentaires et je vous donnerai quelque chose de bien!")
+    pbMessage("Help #{nb_to_next_reward} more people and I'll give you something good!")
   end
 end
 

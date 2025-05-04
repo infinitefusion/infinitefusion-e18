@@ -147,7 +147,7 @@ module PokemonDebugMixin
       commands.add(option, hash) if !settingUpBattle || hash["always_show"]
     end
     loop do
-      command = pbShowCommands(_INTL("Faire quoi avec {1}?", pkmn.name), commands.list, command)
+      command = pbShowCommands(_INTL("Do what with {1}?", pkmn.name), commands.list, command)
       if command < 0
         parent = commands.getParent
         if parent

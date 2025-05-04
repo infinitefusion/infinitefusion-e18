@@ -85,9 +85,9 @@ class VoltorbFlip
       pbUpdateColumnNumbers(0,0,i)
     end
     pbDrawShadowText(@sprites["text"].bitmap,8,16,118,26,
-       _INTL("Vos pièces"),Color.new(60,60,60),Color.new(150,190,170),1)
+       _INTL("Your coins"),Color.new(60,60,60),Color.new(150,190,170),1)
     pbDrawShadowText(@sprites["text"].bitmap,8,82,118,26,
-       _INTL("Pièces gagnées"),Color.new(60,60,60),Color.new(150,190,170),1)
+       _INTL("Earned coins"),Color.new(60,60,60),Color.new(150,190,170),1)
     # Draw current level
     pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,
        _INTL("Level {1}",@level.to_s),Color.new(60,60,60),Color.new(150,190,170),1)
@@ -109,7 +109,7 @@ class VoltorbFlip
     @sprites["curtainR"].visible=false
     @sprites["curtain"].opacity=100
     if $Trainer.coins >= Settings::MAX_COINS
-      pbMessage(_INTL("Vous avez collecté {1} pièces. Vous ne pouvez plus en collecter.", Settings::MAX_COINS.to_s_formatted))
+      pbMessage(_INTL("You've gathered {1} Coins. You cannot gather any more.", Settings::MAX_COINS.to_s_formatted))
       $Trainer.coins = Settings::MAX_COINS   # As a precaution
       @quit=true
 #    elsif !pbConfirmMessage(_INTL("Play Voltorb Flip Lv. {1}?",@level)) && $Trainer.coins<Settings::MAX_COINS
@@ -302,7 +302,7 @@ class VoltorbFlip
                 @sprites["animation"].bitmap.clear
               end
               # Unskippable text block, parameter 2 = wait time (corresponds to ME length)
-              pbMessage(_INTL("\\me[Voltorb Flip Game Over]Oh non! Vous obtenez 0 pièces!\\wtnp[50]"))
+              pbMessage(_INTL("\\me[Voltorb Flip Game Over]Oh no! You get 0 Coins!\\wtnp[50]"))
               pbShowAndDispose
               @sprites["mark"].bitmap.clear
               if @level>1
@@ -315,7 +315,7 @@ class VoltorbFlip
                 if @level>newLevel
                   @level=newLevel
                   @level=1 if @level<1
-                  pbMessage(_INTL("\\se[Voltorb Flip level down]Rejeté au jeu Lv. {1}!",@level.to_s))
+                  pbMessage(_INTL("\\se[Voltorb Flip level down]Dropped to Game Lv. {1}!",@level.to_s))
                 end
               end
               # Update level text
@@ -363,13 +363,13 @@ class VoltorbFlip
       # Game cleared
       if count==0
         @sprites["curtain"].opacity=100
-        pbMessage(_INTL("\\me[Voltorb Flip Win]Jeu terminé!\\wtnp[40]"))
+        pbMessage(_INTL("\\me[Voltorb Flip Win]Game clear!\\wtnp[40]"))
 #        pbMessage(_INTL("You've found all of the hidden x2 and x3 cards."))
 #        pbMessage(_INTL("This means you've found all the Coins in this game, so the game is now over."))
-        pbMessage(_INTL("\\se[Voltorb Flip Gain Coins]{1} a reçu {2} pièces!",$Trainer.name,@points.to_s_formatted))
+        pbMessage(_INTL("\\se[Voltorb Flip Gain Coins]{1} received {2} Coins!",$Trainer.name,@points.to_s_formatted))
         # Update level text
         @sprites["level"].bitmap.clear
-        pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,_INTL("Avancé au jeu {1}",@level.to_s),Color.new(60,60,60),Color.new(150,190,170),1)
+        pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,_INTL("Level {1}",@level.to_s),Color.new(60,60,60),Color.new(150,190,170),1)
         $Trainer.coins+=@points
         @points=0
         pbUpdateCoins
@@ -384,7 +384,7 @@ class VoltorbFlip
         @sprites["curtain"].opacity=100
         if @level<8
           @level+=1
-          pbMessage(_INTL("\\se[Voltorb Flip Level Up]Avancé au jeu Lv. {1}!",@level.to_s))
+          pbMessage(_INTL("\\se[Voltorb Flip Level Up]Advanced to Game Lv. {1}!",@level.to_s))
 #          if @firstRound
 #            pbMessage(_INTL("Congratulations!"))
 #            pbMessage(_INTL("You can receive even more Coins in the next game!"))
@@ -412,8 +412,8 @@ class VoltorbFlip
           pbShowAndDispose
           @quit=true
         end
-      elsif pbConfirmMessage(_INTL("Si vous quittez maintenant,vous recevrez {1} pièces. Allez-vous quitter?",@points.to_s_formatted))
-        pbMessage(_INTL("{1} a reçu {2} Piece(s)!",$Trainer.name,@points.to_s_formatted))
+      elsif pbConfirmMessage(_INTL("If you quit now, you will recieve {1} Coin(s). Will you quit?",@points.to_s_formatted))
+        pbMessage(_INTL("{1} received {2} Coin(s)!",$Trainer.name,@points.to_s_formatted))
         $Trainer.coins+=@points
         @points=0
         pbUpdateCoins

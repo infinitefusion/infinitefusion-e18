@@ -112,7 +112,7 @@ class BugContestState
     for cont in @contestants
       enc=$PokemonEncounters.choose_wild_pokemon_for_map(@contestMap,enctype)
       if !enc
-        raise _INTL("Aucune rencontre pour la carte {1}, donc impossible de juger le concours",@contestMap)
+        raise _INTL("No encounters for map {1}, so can't judge contest",@contestMap)
       end
       pokemon=Pokemon.new(enc[0],enc[1])
       pokemon.hp = rand(1..pokemon.totalhp - 1)
@@ -120,7 +120,7 @@ class BugContestState
       judgearray.push([cont,pokemon.species,score])
     end
     if judgearray.length<3
-      raise _INTL("Trop peu de participants à la chasse aux insectes")
+      raise _INTL("Too few bug catching contestants")
     end
     judgearray.sort! { |a,b| b[2]<=>a[2] }   # sort by score in descending order
     @places.push(judgearray[0])
@@ -312,7 +312,7 @@ Events.onMapUpdate += proc { |_sender,_e|
      !$game_temp.message_window_showing
     if pbBugContestState.expired?
       pbMessage(_INTL("ANNOUNCER:  BEEEEEP!"))
-      pbMessage(_INTL("Le temps est écoulé !"))
+      pbMessage(_INTL("Time's up!"))
       pbBugContestState.pbStartJudging
     end
   end
@@ -380,7 +380,7 @@ def pbBugContestBattle(species,level)
   # Update Bug Contest game data based on result of battle
   pbBugContestState.ballcount = battle.ballCount
   if pbBugContestState.ballcount==0
-    pbMessage(_INTL("ANIMATEUR : Le concours de capture d'insectes est terminé!"))
+    pbMessage(_INTL("ANNOUNCER:  The Bug-Catching Contest is over!"))
     pbBugContestState.pbStartJudging
   end
   # Save the result of the battle in Game Variable 1

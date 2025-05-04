@@ -16,7 +16,7 @@ class ClothesShopPresenter < PokemonMartScreen
 
   def dyeClothes()
     original_color = $Trainer.clothes_color
-    options = ["Monter", "Descendre", "Réinitialiser", "Confirmer", "Annuler"]
+    options = ["Shift up", "Shift down", "Reset", "Confirm", "Never Mind"]
     previous_input = 0
     ret = false
     while (true)
@@ -24,15 +24,15 @@ class ClothesShopPresenter < PokemonMartScreen
       previous_input = choice
       case choice
       when 0 #NEXT
-        pbSEPlay("GUI storage put down", 80, 100)
+        pbSEPlay("GUI storage pick up", 80, 100)
         shiftClothesColor(10)
         ret = true
       when 1 #PREVIOUS
-        pbSEPlay("GUI storage put down", 80, 100)
+        pbSEPlay("GUI storage pick up", 80, 100)
         shiftClothesColor(-10)
         ret = true
       when 2 #Reset
-        pbSEPlay("GUI storage put down", 80, 100)
+        pbSEPlay("GUI storage pick up", 80, 100)
         $Trainer.clothes_color = 0
         ret = false
       when 3 #Confirm
@@ -50,13 +50,13 @@ class ClothesShopPresenter < PokemonMartScreen
 
   # returns true if should stay in the menu
   def playerClothesActionsMenu(item)
-    cmd_wear = "Porter"
-    cmd_dye = "Teindre"
+    cmd_wear = "Wear"
+    cmd_dye = "Dye Kit"
     options = []
     options << cmd_wear
     options << cmd_dye  if $PokemonBag.pbHasItem?(:CLOTHESDYEKIT)
-    options << "Annuler"
-    choice = pbMessage("Qu'aimeriez-vous faire ?", options, -1)
+    options << "Cancel"
+    choice = pbMessage("What would you like to do?", options, -1)
 
     if options[choice] == cmd_wear
       putOnClothes(item,false)
@@ -77,11 +77,11 @@ class ClothesShopPresenter < PokemonMartScreen
     boolean_changes_detected = @adapter.player_changed_clothes?
     return true if !boolean_changes_detected
     pbPlayCancelSE
-    cmd_confirm = "Définir la tenue"
-    cmd_discard = "Annuler les modifications"
-    cmd_cancel = "Partir"
+    cmd_confirm = "Set outfit"
+    cmd_discard = "Discard changes"
+    cmd_cancel = "Cancel"
     options = [cmd_discard,cmd_confirm,cmd_cancel]
-    choice = pbMessage("Vous avez des modifications non enregistrées!",options,3)
+    choice = pbMessage("You have unsaved changes!",options,3)
     case options[choice]
     when cmd_confirm
       @adapter.putOnSelectedOutfit
@@ -120,7 +120,7 @@ class ClothesShopPresenter < PokemonMartScreen
           next if stay_in_menu
           return
         else
-          if pbConfirm(_INTL("Voulez-vous mettre {1}?", item.name))
+          if pbConfirm(_INTL("Would you like to put on the {1}?", item.name))
             confirmPutClothes(item)
             return
           end
@@ -131,28 +131,28 @@ class ClothesShopPresenter < PokemonMartScreen
       itemname = @adapter.getDisplayName(item)
       price = @adapter.getPrice(item)
       if !price.is_a?(Integer)
-        pbDisplayPaused(_INTL("Vous possédez déjà cet item!"))
-        if pbConfirm(_INTL("Voulez-vous mettre {1}?", item.name))
+        pbDisplayPaused(_INTL("You already own this item!"))
+        if pbConfirm(_INTL("Would you like to put on the {1}?", item.name))
           @adapter.putOnOutfit(item)
         end
         next
       end
       if @adapter.getMoney < price
-        pbDisplayPaused(_INTL("Vous n'avez pas assez d'argent."))
+        pbDisplayPaused(_INTL("You don't have enough money."))
         next
       end
 
-      if !pbConfirm(_INTL("Certainement. Vous voulez {1}. Ce sera {2}$. OK?",
+      if !pbConfirm(_INTL("Certainly. You want {1}. That will be ${2}. OK?",
                           itemname, price.to_s_formatted))
         next
       end
       if @adapter.getMoney < price
-        pbDisplayPaused(_INTL("Vous n'avez pas assez d'argent."))
+        pbDisplayPaused(_INTL("You don't have enough money."))
         next
       end
       @adapter.setMoney(@adapter.getMoney - price)
       @stock.compact!
-      pbDisplayPaused(_INTL("Et voilà ! Merci beaucoup!")) { pbSEPlay("Mart acheter un item") }
+      pbDisplayPaused(_INTL("Here you are! Thank you!")) { pbSEPlay("Mart buy item") }
       @adapter.addItem(item)
     end
     @scene.pbEndBuyScene

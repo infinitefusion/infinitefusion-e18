@@ -111,7 +111,7 @@ class PokemonRegionMap_Scene
       end
     end
     if !@map
-      pbMessage(_INTL("Les données de la carte sont introuvables."))
+      pbMessage(_INTL("The map data cannot be found."))
       return false
     end
     addBackgroundOrColoredPlane(@sprites,"background","mapbg",Color.new(0,0,0),@viewport)
@@ -221,7 +221,7 @@ class PokemonRegionMap_Scene
         break
       end
     end
-    currentname = pbMessageFreeText(_INTL("Définir le nom de ce point."),currentname,false,250) { pbUpdate }
+    currentname = pbMessageFreeText(_INTL("Set the name for this point."),currentname,false,250) { pbUpdate }
     if currentname
       if currentobj
         currentobj[2] = currentname
@@ -317,10 +317,10 @@ class PokemonRegionMap_Scene
       end
       if Input.trigger?(Input::BACK)
         if @editor && @changed
-          if pbConfirmMessage(_INTL("Enregistrer les modifications?")) { pbUpdate }
+          if pbConfirmMessage(_INTL("Save changes?")) { pbUpdate }
             pbSaveMapData
           end
-          if pbConfirmMessage(_INTL("Quitter la carte?")) { pbUpdate }
+          if pbConfirmMessage(_INTL("Exit from the map?")) { pbUpdate }
             break
           end
         else

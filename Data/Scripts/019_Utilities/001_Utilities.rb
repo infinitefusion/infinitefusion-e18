@@ -116,7 +116,7 @@ def getConstantName(mod,value)
   for c in mod.constants
     return c.to_s if mod.const_get(c.to_sym)==value
   end
-  raise _INTL("La valeur {1} n'est pas définie par une constante dans {2}",value,mod.name)
+  raise _INTL("Value {1} not defined by a constant in {2}",value,mod.name)
 end
 
 def getConstantNameOrValue(mod,value)
@@ -231,7 +231,7 @@ end
 def pbTrainerName(name = nil, outfit = 0)
   pbChangePlayer(0) if $Trainer.character_ID < 0
   if name.nil?
-    name = pbEnterPlayerName(_INTL("Entrez votre nom"), 0, Settings::MAX_PLAYER_NAME_SIZE)
+    name = pbEnterPlayerName(_INTL("Enter your name"), 0, Settings::MAX_PLAYER_NAME_SIZE)
     if name.nil? || name.empty?
       # player_metadata = GameData::Metadata.get_player($Trainer.character_ID)
       # trainer_type = (player_metadata) ? player_metadata[0] : nil
@@ -413,19 +413,19 @@ def pbMoveTutorAnnotations(move, movelist = nil)
   ret = []
   $Trainer.party.each_with_index do |pkmn, i|
     if pkmn.egg?
-      ret[i] = _INTL("INCAPABLE")
+      ret[i] = _INTL("NOT ABLE")
     elsif pkmn.hasMove?(move)
-      ret[i] = _INTL("APPRIS")
+      ret[i] = _INTL("LEARNED")
     else
       species = pkmn.species
       if movelist && movelist.any? { |j| j == species }
         # Checked data from movelist given in parameter
-        ret[i] = _INTL("CAPABLE")
+        ret[i] = _INTL("ABLE")
       elsif pkmn.compatible_with_move?(move)
         # Checked data from Pokémon's tutor moves in pokemon.txt
-        ret[i] = _INTL("CAPABLE")
+        ret[i] = _INTL("ABLE")
       else
-        ret[i] = _INTL("INCAPABLE")
+        ret[i] = _INTL("NOT ABLE")
       end
     end
   end
@@ -445,7 +445,7 @@ def pbMoveTutorChoose(move,movelist=nil,bymachine=false,oneusemachine=false,sele
     annot = pbMoveTutorAnnotations(move,movelist)
     scene = PokemonParty_Scene.new
     screen = PokemonPartyScreen.new(scene,$Trainer.party)
-    screen.pbStartScene(_INTL("Enseignez quel Pokémon?"),false,annot)
+    screen.pbStartScene(_INTL("Teach which Pokémon?"),false,annot)
     loop do
       chosen = screen.pbChoosePokemon
       break if chosen<0
@@ -454,13 +454,13 @@ def pbMoveTutorChoose(move,movelist=nil,bymachine=false,oneusemachine=false,sele
         pbSet(selectedPokemonVariable,pokemon)
       end
       if pokemon.egg?
-        pbMessage(_INTL("On ne peut pas apprendre d'attaque aux oeufs.")) { screen.pbUpdate }
+        pbMessage(_INTL("Eggs can't be taught any moves.")) { screen.pbUpdate }
       elsif pokemon.shadowPokemon?
-        pbMessage(_INTL("Les Pokémon Ombres ne peuvent apprendre aucune capacité.")) { screen.pbUpdate }
+        pbMessage(_INTL("Shadow Pokémon can't be taught any moves.")) { screen.pbUpdate }
       elsif movelist && !movelist.any? { |j| j==pokemon.species }
-        pbMessage(_INTL("{1} ne peut pas apprendre {2}.",pokemon.name,movename)) { screen.pbUpdate }
+        pbMessage(_INTL("{1} can't learn {2}.",pokemon.name,movename)) { screen.pbUpdate }
       elsif !pokemon.compatible_with_move?(move)
-        pbMessage(_INTL("{1} ne peut pas apprendre {2}.",pokemon.name,movename)) { screen.pbUpdate }
+        pbMessage(_INTL("{1} can't learn {2}.",pokemon.name,movename)) { screen.pbUpdate }
       else
         if pbLearnMove(pokemon,move,false,bymachine) { screen.pbUpdate }
           pokemon.add_first_move(move) if oneusemachine

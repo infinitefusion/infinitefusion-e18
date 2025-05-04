@@ -26,11 +26,11 @@ def pbVariablePokemonMart(stock,currencyVariable,currency_name="Points",speech=n
   cmdBuy  = -1
   cmdSell = -1
   cmdQuit = -1
-  commands[cmdBuy = commands.length]  = _INTL("Acheter")
-  commands[cmdSell = commands.length] = _INTL("Vendre") if !cantsell
-  commands[cmdQuit = commands.length] = _INTL("Quitter")
+  commands[cmdBuy = commands.length]  = _INTL("Buy")
+  commands[cmdSell = commands.length] = _INTL("Sell") if !cantsell
+  commands[cmdQuit = commands.length] = _INTL("Quit")
   cmd = pbMessage(
-    speech ? speech : _INTL("Bienvenue ! Que puis-je faire pour vous ?"),
+    speech ? speech : _INTL("Welcome! How may I serve you?"),
     commands,cmdQuit+1)
   loop do
     if cmdBuy>=0 && cmd==cmdBuy
@@ -43,10 +43,10 @@ def pbVariablePokemonMart(stock,currencyVariable,currency_name="Points",speech=n
       screen = PokemonMartScreen.new(scene,stock,adapter)
       screen.pbSellScreen
     else
-      pbMessage(_INTL("N'hésitez pas à revenir!"))
+      pbMessage(_INTL("Please come again!"))
       break
     end
-    cmd = pbMessage(_INTL("Y a-t-il autre chose dont vous avez besoin ?"),
+    cmd = pbMessage(_INTL("Is there anything else I can help you with?"),
                     commands,cmdQuit+1)
   end
   $game_temp.clear_mart_prices

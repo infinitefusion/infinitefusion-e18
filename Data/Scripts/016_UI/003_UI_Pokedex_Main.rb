@@ -357,7 +357,7 @@ class PokemonPokedex_Scene
       if $Trainer.seen?(nationalSpecies)
         if !filter_owned || $Trainer.owned?(nationalSpecies)
           species = GameData::Species.get(nationalSpecies)
-          dexlist.push([species.id_number,species.name,0,0,i+1,0])
+          dexlist.push([species.id_number,species.real_name,0,0,i+1,0])
         end
       end
     end
@@ -426,12 +426,12 @@ class PokemonPokedex_Scene
     ]
     textpos.push([GameData::Species.get(iconspecies).name,112,46,2,base,shadow]) if iconspecies
     if @searchResults
-      textpos.push([_INTL("Résultats"),112,302,2,base,shadow])
+      textpos.push([_INTL("Search results"),112,302,2,base,shadow])
       textpos.push([@dexlist.length.to_s,112,334,2,base,shadow])
     else
-      textpos.push([_INTL("Vu:"),42,302,0,base,shadow])
+      textpos.push([_INTL("Seen:"),42,302,0,base,shadow])
       textpos.push([$Trainer.pokedex.seen_count(pbGetPokedexRegion).to_s,182,302,1,base,shadow])
-      textpos.push([_INTL("Capturé:"),42,334,0,base,shadow])
+      textpos.push([_INTL("Owned:"),42,334,0,base,shadow])
       textpos.push([$Trainer.pokedex.owned_count(pbGetPokedexRegion).to_s,182,334,1,base,shadow])
     end
     # Draw all text
@@ -475,17 +475,17 @@ class PokemonPokedex_Scene
     shadow = Color.new(72,72,72)
     # Write various bits of text
     textpos = [
-       [_INTL("Mode de recherche"),Graphics.width/2,-2,2,base,shadow],
-       [_INTL("Ordre"),136,52,2,base,shadow],
-       [_INTL("Nom"),58,110,2,base,shadow],
+       [_INTL("Search Mode"),Graphics.width/2,-2,2,base,shadow],
+       [_INTL("Order"),136,52,2,base,shadow],
+       [_INTL("Name"),58,110,2,base,shadow],
        [_INTL("Type"),58,162,2,base,shadow],
-       [_INTL("Taille"),58,214,2,base,shadow],
-       [_INTL("Poids"),58,266,2,base,shadow],
-       [_INTL("Couleur"),326,110,2,base,shadow],
-       [_INTL("Forme"),454,162,2,base,shadow],
+       [_INTL("Height"),58,214,2,base,shadow],
+       [_INTL("Weight"),58,266,2,base,shadow],
+       [_INTL("Color"),326,110,2,base,shadow],
+       [_INTL("Shape"),454,162,2,base,shadow],
        [_INTL("Reset"),80,338,2,base,shadow,1],
-       [_INTL("Appliquer"),Graphics.width/2,338,2,base,shadow,1],
-       [_INTL("Annuler"),Graphics.width-80,338,2,base,shadow,1]
+       [_INTL("Start"),Graphics.width/2,338,2,base,shadow,1],
+       [_INTL("Cancel"),Graphics.width-80,338,2,base,shadow,1]
     ]
     # Write order, name and color parameters
     textpos.push([@orderCommands[params[0]],344,58,2,base,shadow,1])
@@ -547,12 +547,12 @@ class PokemonPokedex_Scene
     shadow = Color.new(72,72,72)
     # Write various bits of text
     textpos = [
-       [_INTL("Mode de Recherche"),Graphics.width/2,-2,2,base,shadow],
+       [_INTL("Search Mode"),Graphics.width/2,-2,2,base,shadow],
        [_INTL("OK"),80,338,2,base,shadow,1],
-       [_INTL("Annuler"),Graphics.width-80,338,2,base,shadow,1]
+       [_INTL("Cancel"),Graphics.width-80,338,2,base,shadow,1]
     ]
-    title = [_INTL("Ordre"),_INTL("Nom"),_INTL("Type"),_INTL("Taille"),
-             _INTL("Poids"),_INTL("Couleur"),_INTL("Forme")][mode]
+    title = [_INTL("Order"),_INTL("Name"),_INTL("Type"),_INTL("Height"),
+             _INTL("Weight"),_INTL("Color"),_INTL("Shape")][mode]
     textpos.push([title,102,(mode==6) ? 58 : 52,0,base,shadow])
     case mode
     when 0   # Order
@@ -1028,12 +1028,12 @@ class PokemonPokedex_Scene
     oldsprites = pbFadeOutAndHide(@sprites)
     params = @searchParams.clone
     @orderCommands = []
-    @orderCommands[MODENUMERICAL] = _INTL("Numéro")
-    @orderCommands[MODEATOZ]      = _INTL("A à Z")
-    @orderCommands[MODEHEAVIEST]  = _INTL("Plus Lourd")
-    @orderCommands[MODELIGHTEST]  = _INTL("Plus Léger")
-    @orderCommands[MODETALLEST]   = _INTL("Plus Grand")
-    @orderCommands[MODESMALLEST]  = _INTL("Plus Petit")
+    @orderCommands[MODENUMERICAL] = _INTL("Numerical")
+    @orderCommands[MODEATOZ]      = _INTL("A to Z")
+    @orderCommands[MODEHEAVIEST]  = _INTL("Heaviest")
+    @orderCommands[MODELIGHTEST]  = _INTL("Lightest")
+    @orderCommands[MODETALLEST]   = _INTL("Tallest")
+    @orderCommands[MODESMALLEST]  = _INTL("Smallest")
     @nameCommands = [_INTL("A"),_INTL("B"),_INTL("C"),_INTL("D"),_INTL("E"),
                     _INTL("F"),_INTL("G"),_INTL("H"),_INTL("I"),_INTL("J"),
                     _INTL("K"),_INTL("L"),_INTL("M"),_INTL("N"),_INTL("O"),
@@ -1154,7 +1154,7 @@ class PokemonPokedex_Scene
         when 8   # Start search (filter)
           dexlist = pbSearchDexList(params)
           if dexlist.length==0
-            pbMessage(_INTL("Aucun Pokémon n'a été trouvé."))
+            pbMessage(_INTL("No matching Pokémon were found."))
           else
             @dexlist = dexlist
             @sprites["pokedex"].commands = @dexlist

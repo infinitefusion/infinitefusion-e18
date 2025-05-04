@@ -14,7 +14,7 @@ class PokeBattle_Battler
     end
     # Check the stat stage
     if statStageAtMax?(stat)
-      @battle.pbDisplay(_INTL("La stat {2} de {1} n'ira pas plus haut!",
+      @battle.pbDisplay(_INTL("{1}'s {2} won't go any higher!",
          pbThis, GameData::Stat.get(stat).name)) if showFailMsg
       return false
     end
@@ -52,9 +52,9 @@ class PokeBattle_Battler
     # Stat up animation and message
     @battle.pbCommonAnimation("StatUp",self) if showAnim
     arrStatTexts = [
-       _INTL("La stat {2} de {1} augmente!",pbThis,GameData::Stat.get(stat).name),
-       _INTL("La stat {2} de {1} a beaucoup augmenté!",pbThis,GameData::Stat.get(stat).name),
-       _INTL("La stat {2} de {1} a augmenté de façon drastique!",pbThis,GameData::Stat.get(stat).name)]
+       _INTL("{1}'s {2} rose!",pbThis,GameData::Stat.get(stat).name),
+       _INTL("{1}'s {2} rose sharply!",pbThis,GameData::Stat.get(stat).name),
+       _INTL("{1}'s {2} rose drastically!",pbThis,GameData::Stat.get(stat).name)]
     @battle.pbDisplay(arrStatTexts[[increment-1,2].min])
     # Trigger abilities upon stat gain
     if abilityActive?
@@ -75,14 +75,14 @@ class PokeBattle_Battler
     @battle.pbCommonAnimation("StatUp",self) if showAnim
     if user.index==@index
       arrStatTexts = [
-         _INTL("La stat {3} de {1} est augmenté grâce à {2}!",pbThis,cause,GameData::Stat.get(stat).name),
-         _INTL("La stat {3} de {1} est beaucoup augmenté grâce à {2}!",pbThis,cause,GameData::Stat.get(stat).name),
-         _INTL("La stat {3} de {1} est considérablement augmenté grâce à {2}!",pbThis,cause,GameData::Stat.get(stat).name)]
+         _INTL("{1}'s {2} raised its {3}!",pbThis,cause,GameData::Stat.get(stat).name),
+         _INTL("{1}'s {2} sharply raised its {3}!",pbThis,cause,GameData::Stat.get(stat).name),
+         _INTL("{1}'s {2} drastically raised its {3}!",pbThis,cause,GameData::Stat.get(stat).name)]
     else
       arrStatTexts = [
-         _INTL("La stat {4} de {3} est augmenté par {2} de {1}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name),
-         _INTL("La stat {4} de {3} est beaucoup augmenté par {2} de {1}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name),
-         _INTL("La stat {4} de {3} est considérablement augmenté par {2} de {1}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name)]
+         _INTL("{1}'s {2} raised {3}'s {4}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name),
+         _INTL("{1}'s {2} sharply raised {3}'s {4}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name),
+         _INTL("{1}'s {2} drastically raised {3}'s {4}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name)]
     end
     @battle.pbDisplay(arrStatTexts[[increment-1,2].min])
     # Trigger abilities upon stat gain
@@ -122,12 +122,12 @@ class PokeBattle_Battler
     end
     if !user || user.index!=@index   # Not self-inflicted
       if @effects[PBEffects::Substitute]>0 && !(move && move.ignoresSubstitute?(user))
-        @battle.pbDisplay(_INTL("{1} est protégé par son Clonage!",pbThis)) if showFailMsg
+        @battle.pbDisplay(_INTL("{1} is protected by its substitute!",pbThis)) if showFailMsg
         return false
       end
       if pbOwnSide.effects[PBEffects::Mist]>0 &&
          !(user && user.hasActiveAbility?(:INFILTRATOR))
-        @battle.pbDisplay(_INTL("{1} est protégé par Brume!",pbThis)) if showFailMsg
+        @battle.pbDisplay(_INTL("{1} is protected by Mist!",pbThis)) if showFailMsg
         return false
       end
       if abilityActive?
@@ -146,7 +146,7 @@ class PokeBattle_Battler
     end
     # Check the stat stage
     if statStageAtMin?(stat)
-      @battle.pbDisplay(_INTL("La stat {2} de {1} descendra pas plus bas!",
+      @battle.pbDisplay(_INTL("{1}'s {2} won't go any lower!",
          pbThis, GameData::Stat.get(stat).name)) if showFailMsg
       return false
     end
@@ -184,9 +184,9 @@ class PokeBattle_Battler
     # Stat down animation and message
     @battle.pbCommonAnimation("StatDown",self) if showAnim
     arrStatTexts = [
-       _INTL("La stat {2} de {1} diminue!",pbThis,GameData::Stat.get(stat).name),
-       _INTL("La stat {2} de {1} a durement diminué!",pbThis,GameData::Stat.get(stat).name),
-       _INTL("La stat {2} de {1} a gravement diminué!",pbThis,GameData::Stat.get(stat).name)]
+       _INTL("{1}'s {2} fell!",pbThis,GameData::Stat.get(stat).name),
+       _INTL("{1}'s {2} harshly fell!",pbThis,GameData::Stat.get(stat).name),
+       _INTL("{1}'s {2} severely fell!",pbThis,GameData::Stat.get(stat).name)]
     @battle.pbDisplay(arrStatTexts[[increment-1,2].min])
     # Trigger abilities upon stat loss
     if abilityActive?
@@ -207,14 +207,14 @@ class PokeBattle_Battler
     @battle.pbCommonAnimation("StatDown",self) if showAnim
     if user.index==@index
       arrStatTexts = [
-         _INTL("La stat {3} de {1} est abaissé à cause de {2}!",pbThis,cause,GameData::Stat.get(stat).name),
-         _INTL("La stat {3} de {1} est beaucoup abaissé à cause de {2}!",pbThis,cause,GameData::Stat.get(stat).name),
-         _INTL("La stat {3} de {1} est sévèrement abaissé à cause de {2}!",pbThis,cause,GameData::Stat.get(stat).name)]
+         _INTL("{1}'s {2} lowered its {3}!",pbThis,cause,GameData::Stat.get(stat).name),
+         _INTL("{1}'s {2} harshly lowered its {3}!",pbThis,cause,GameData::Stat.get(stat).name),
+         _INTL("{1}'s {2} severely lowered its {3}!",pbThis,cause,GameData::Stat.get(stat).name)]
     else
       arrStatTexts = [
-         _INTL("La stat {4} de {3} est abaissé par {2} de {1}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name),
-         _INTL("La stat {4} de {3} est beaucoup abaissé par {2} de {1}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name),
-         _INTL("La stat {4} de {3} est sévèrement abaissé par {2} de {1}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name)]
+         _INTL("{1}'s {2} lowered {3}'s {4}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name),
+         _INTL("{1}'s {2} harshly lowered {3}'s {4}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name),
+         _INTL("{1}'s {2} severely lowered {3}'s {4}!",user.pbThis,cause,pbThis(true),GameData::Stat.get(stat).name)]
     end
     @battle.pbDisplay(arrStatTexts[[increment-1,2].min])
     # Trigger abilities upon stat loss
@@ -244,9 +244,9 @@ class PokeBattle_Battler
     # NOTE: Substitute intentially blocks Intimidate even if self has Contrary.
     if @effects[PBEffects::Substitute]>0
       if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-        @battle.pbDisplay(_INTL("{1} est protégé par son Clonage",pbThis))
+        @battle.pbDisplay(_INTL("{1} is protected by its substitute!",pbThis))
       else
-        @battle.pbDisplay(_INTL("le Clonage de {1} l'a protégé de {3} lancé par {2}!",
+        @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
            pbThis,user.pbThis(true),user.abilityName))
       end
       return false
@@ -259,14 +259,14 @@ class PokeBattle_Battler
     #       Intimidate ability by name).
     if !hasActiveAbility?(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
-        @battle.pbDisplay(_INTL("{1} est protégé contre {3} lancé par {2} par Brume!",
+        @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
            pbThis,user.pbThis(true),user.abilityName))
         return false
       end
       if abilityActive?
         if BattleHandlers.triggerStatLossImmunityAbility(self.ability,self,:ATTACK,@battle,false) ||
            BattleHandlers.triggerStatLossImmunityAbilityNonIgnorable(self.ability,self,:ATTACK,@battle,false)
-          @battle.pbDisplay(_INTL("{2} de {1} a empêché {4} lancé par {3} de fonctionner!",
+          @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
              pbThis,abilityName,user.pbThis(true),user.abilityName))
           return false
         end
@@ -274,7 +274,7 @@ class PokeBattle_Battler
       eachAlly do |b|
         next if !b.abilityActive?
         if BattleHandlers.triggerStatLossImmunityAllyAbility(b.ability,b,self,:ATTACK,@battle,false)
-          @battle.pbDisplay(_INTL("{1} est protégé par {3} de {2} grâce au {5} de {4}!",
+          @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by {4}'s {5}!",
              pbThis,user.pbThis(true),user.abilityName,b.pbThis(true),b.abilityName))
           return false
         end

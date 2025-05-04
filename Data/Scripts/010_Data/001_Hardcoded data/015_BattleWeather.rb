@@ -29,53 +29,53 @@ end
 
 GameData::BattleWeather.register({
   :id   => :None,
-  :name => _INTL("Aucun")
+  :name => _INTL("None")
 })
 
 GameData::BattleWeather.register({
   :id        => :Sun,
-  :name      => _INTL("Soleil"),
+  :name      => _INTL("Sun"),
   :animation => "Sun"
 })
 
 GameData::BattleWeather.register({
   :id        => :Rain,
-  :name      => _INTL("Pluie"),
+  :name      => _INTL("Rain"),
   :animation => "Rain"
 })
 
 GameData::BattleWeather.register({
   :id        => :Sandstorm,
-  :name      => _INTL("Tempête de sable"),
+  :name      => _INTL("Sandstorm"),
   :animation => "Sandstorm"
 })
 
 GameData::BattleWeather.register({
   :id        => :Hail,
-  :name      => _INTL("Grêle"),
+  :name      => _INTL("Hail"),
   :animation => "Hail"
 })
 
 GameData::BattleWeather.register({
   :id        => :HarshSun,
-  :name      => _INTL("Soleil ardent"),
+  :name      => _INTL("Harsh Sun"),
   :animation => "HarshSun"
 })
 
 GameData::BattleWeather.register({
   :id        => :HeavyRain,
-  :name      => _INTL("Forte pluie"),
+  :name      => _INTL("Heavy Rain"),
   :animation => "HeavyRain"
 })
 
 GameData::BattleWeather.register({
   :id        => :StrongWinds,
-  :name      => _INTL("Vents forts"),
+  :name      => _INTL("Strong Winds"),
   :animation => "StrongWinds"
 })
 
 GameData::BattleWeather.register({
   :id        => :ShadowSky,
-  :name      => _INTL("Ciel d'ombre"),
+  :name      => _INTL("Shadow Sky"),
   :animation => "ShadowSky"
 })

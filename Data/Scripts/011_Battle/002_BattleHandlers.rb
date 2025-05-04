@@ -491,9 +491,9 @@ def pbBattleConfusionBerry(battler,battle,item,forced,flavor,confuseMsg)
   if amt>0
     if forced
       PBDebug.log("[Item triggered] Forced consuming of #{itemName}")
-      battle.pbDisplay(_INTL("Les PV de {1} ont été restaurés.",battler.pbThis))
+      battle.pbDisplay(_INTL("{1}'s HP was restored.",battler.pbThis))
     else
-      battle.pbDisplay(_INTL("{1} a restauré sa santé en utilisant {2}!",battler.pbThis,itemName))
+      battle.pbDisplay(_INTL("{1} restored its health using its {2}!",battler.pbThis,itemName))
     end
   end
   flavor_stat = [:ATTACK, :DEFENSE, :SPEED, :SPECIAL_ATTACK, :SPECIAL_DEFENSE][flavor]
@@ -532,9 +532,9 @@ def pbBattleMoveImmunityStatAbility(user,target,move,moveType,immuneType,stat,in
     end
   else
     if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-      battle.pbDisplay(_INTL("Cela n'affecte pas {1}...",target.pbThis(true)))
+      battle.pbDisplay(_INTL("It doesn't affect {1}...",target.pbThis(true)))
     else
-      battle.pbDisplay(_INTL("{1}'s {2} a rendu {3} inefficace!",
+      battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
          target.pbThis,target.abilityName,move.name))
     end
   end
@@ -550,15 +550,15 @@ def pbBattleMoveImmunityHealAbility(user,target,move,moveType,immuneType,battle)
   battle.pbShowAbilitySplash(target)
   if target.canHeal? && target.pbRecoverHP(target.totalhp/4)>0
     if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-      battle.pbDisplay(_INTL("Les PV de {1} ont été restaurés.",target.pbThis))
+      battle.pbDisplay(_INTL("{1}'s HP was restored.",target.pbThis))
     else
-      battle.pbDisplay(_INTL("{1}'s {2} a restauré ses PV.",target.pbThis,target.abilityName))
+      battle.pbDisplay(_INTL("{1}'s {2} restored its HP.",target.pbThis,target.abilityName))
     end
   else
     if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-      battle.pbDisplay(_INTL("Cela n'affecte pas {1}...",target.pbThis(true)))
+      battle.pbDisplay(_INTL("It doesn't affect {1}...",target.pbThis(true)))
     else
-      battle.pbDisplay(_INTL("{1}'s {2} a rendu {3} inefficace!",
+      battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
          target.pbThis,target.abilityName,move.name))
     end
   end
@@ -591,7 +591,7 @@ def pbBattleWeatherAbility(weather,battler,battle,ignorePrimal=false)
   return if battle.field.weather==weather
   battle.pbShowAbilitySplash(battler)
   if !PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-    battle.pbDisplay(_INTL("{1} a activé {2}!",battler.pbThis,battler.abilityName))
+    battle.pbDisplay(_INTL("{1}'s {2} activated!",battler.pbThis,battler.abilityName))
   end
   fixedDuration = false
   fixedDuration = true if Settings::FIXED_DURATION_WEATHER_FROM_ABILITY &&

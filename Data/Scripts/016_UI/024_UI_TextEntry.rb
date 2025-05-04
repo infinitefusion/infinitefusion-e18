@@ -103,12 +103,12 @@ class PokemonEntryScene
     end
     if minlength==0
       @sprites["helpwindow"]=Window_UnformattedTextPokemon.newWithSize(
-         _INTL("Saisissez du texte à l'aide du clavier.\nAppuyez sur Entrée pour confirmer."),
+         _INTL("Enter text using the keyboard. Press\nEnter to confirm, or Esc to cancel."),
          32,Graphics.height-96,Graphics.width-64,96,@viewport
       )
     else
       @sprites["helpwindow"]=Window_UnformattedTextPokemon.newWithSize(
-         _INTL("Saisissez du texte à l'aide du clavier.\nAppuyez sur Entrée pour confirmer."),
+         _INTL("Enter text using the keyboard.\nPress Enter to confirm."),
          32,Graphics.height-96,Graphics.width-64,96,@viewport
       )
     end

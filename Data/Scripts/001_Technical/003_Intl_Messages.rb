@@ -1,49 +1,47 @@
 def pbAddScriptTexts(items,script)
-  script.force_encoding(Encoding::UTF_8)
-  script.scan(/(?:_I)\s*\(\s*\"((?:[^\\\"]*\\\"?)*[^\"]*)\"/) do |s|
-    string = s[0]
-    string.gsub!(/\\\"/, "\"")
-    string.gsub!(/\\\\/, "\\")
+  script.scan(/(?:_I)\s*\(\s*\"((?:[^\\\"]*\\\"?)*[^\"]*)\"/) { |s|
+    string=s[0]
+    string.gsub!(/\\\"/,"\"")
+    string.gsub!(/\\\\/,"\\")
     items.push(string)
-  end
+  }
 end
 
 def pbAddRgssScriptTexts(items,script)
-  script.force_encoding(Encoding::UTF_8)
-  script.scan(/(?:_INTL|_ISPRINTF)\s*\(\s*\"((?:[^\\\"]*\\\"?)*[^\"]*)\"/) do |s|
-    string = s[0]
-    string.gsub!(/\\r/, "\r")
-    string.gsub!(/\\n/, "\n")
-    string.gsub!(/\\1/, "\1")
-    string.gsub!(/\\\"/, "\"")
-    string.gsub!(/\\\\/, "\\")
+  script.scan(/(?:_INTL|_ISPRINTF)\s*\(\s*\"((?:[^\\\"]*\\\"?)*[^\"]*)\"/) { |s|
+    string=s[0]
+    string.gsub!(/\\r/,"\r")
+    string.gsub!(/\\n/,"\n")
+    string.gsub!(/\\1/,"\1")
+    string.gsub!(/\\\"/,"\"")
+    string.gsub!(/\\\\/,"\\")
     items.push(string)
-  end
+  }
 end
+
 def pbSetTextMessages
   Graphics.update
   begin
-    t = System.uptime
-    texts = []
-    # Get script texts from Scripts.rxdata
-    $RGSS_SCRIPTS.each do |script|
-      if System.uptime - t >= 5
-        t += 5
+    t = Time.now.to_i
+    texts=[]
+    for script in $RGSS_SCRIPTS
+      if Time.now.to_i - t >= 5
+        t = Time.now.to_i
         Graphics.update
       end
-      scr = Zlib::Inflate.inflate(script[2])
-      pbAddRgssScriptTexts(texts, scr)
+      scr=Zlib::Inflate.inflate(script[2])
+      pbAddRgssScriptTexts(texts,scr)
     end
-    # If Scripts.rxdata only has 1 section, scripts have been extracted. Get
-    # script texts from .rb files in Data/Scripts
-    if $RGSS_SCRIPTS.length == 1
-      Dir.all("Data/Scripts").each do |script_file|
-        if System.uptime - t >= 5
-          t += 5
-          Graphics.update
-        end
-        File.open(script_file, "rb") do |f|
-          pbAddRgssScriptTexts(texts, f.read)
+    if safeExists?("Data/PluginScripts.rxdata")
+      plugin_scripts = load_data("Data/PluginScripts.rxdata")
+      for plugin in plugin_scripts
+        for script in plugin[2]
+          if Time.now.to_i - t >= 5
+            t = Time.now.to_i
+            Graphics.update
+          end
+          scr = Zlib::Inflate.inflate(script[1]).force_encoding(Encoding::UTF_8)
+          pbAddRgssScriptTexts(texts,scr)
         end
       end
     end

@@ -7,7 +7,7 @@ class PokeBattle_Battle
     move = battler.moves[idxMove]
     return false unless move
     if move.pp==0 && move.total_pp>0 && !sleepTalk
-      pbDisplayPaused(_INTL("Il ne reste plus de PP pour cette attaque!")) if showMessages
+      pbDisplayPaused(_INTL("There's no PP left for this move!")) if showMessages
       return false
     end
     if battler.effects[PBEffects::Encore]>0
@@ -50,7 +50,7 @@ class PokeBattle_Battle
       return true if singleBattle?
       if pbOwnedByPlayer?(idxBattler)
         if showMessages
-          pbDisplayPaused(_INTL("{1} doit utiliser {2}!",battler.name,encoreMove.name))
+          pbDisplayPaused(_INTL("{1} has to use {2}!",battler.name,encoreMove.name))
         end
         return pbChooseTarget(battler,encoreMove)
       end
@@ -58,7 +58,7 @@ class PokeBattle_Battle
     end
     # Struggle
     if pbOwnedByPlayer?(idxBattler) && showMessages
-      pbDisplayPaused(_INTL("{1} n'a plus aucune capacités!",battler.name))
+      pbDisplayPaused(_INTL("{1} has no moves left!",battler.name))
     end
     @choices[idxBattler][0] = :UseMove    # "Use move"
     @choices[idxBattler][1] = -1          # Index of move to be used

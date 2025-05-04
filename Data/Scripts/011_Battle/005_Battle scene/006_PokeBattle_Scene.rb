@@ -196,7 +196,7 @@ class PokeBattle_Scene
   end
 
   def pbDisplayConfirmMessage(msg)
-    return pbShowCommands(msg,[_INTL("Oui"),_INTL("Non")],1)==0
+    return pbShowCommands(msg,[_INTL("Yes"),_INTL("No")],1)==0
   end
 
   def pbShowCommands(msg,commands,defaultValue)

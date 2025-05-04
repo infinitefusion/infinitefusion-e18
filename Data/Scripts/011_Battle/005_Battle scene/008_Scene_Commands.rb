@@ -11,11 +11,11 @@ class PokeBattle_Scene
   def pbCommandMenu(idxBattler,firstAction)
     shadowTrainer = (GameData::Type.exists?(:SHADOW) && @battle.trainerBattle?)
     cmds = [
-       _INTL("Que fera\n{1}?",@battle.battlers[idxBattler].name),
-       _INTL("Combat"),
-       _INTL("Sac"),
+       _INTL("What will\n{1} do?",@battle.battlers[idxBattler].name),
+       _INTL("Fight"),
+       _INTL("Bag"),
        _INTL("Pokémon"),
-       (shadowTrainer) ? _INTL("Appel") : (firstAction) ? _INTL("Fuir") : _INTL("Annuler")
+       (shadowTrainer) ? _INTL("Call") : (firstAction) ? _INTL("Run") : _INTL("Cancel")
     ]
     ret = pbCommandMenuEx(idxBattler,cmds,(shadowTrainer) ? 2 : (firstAction) ? 0 : 1)
     ret = 4 if ret==3 && shadowTrainer   # Convert "Run" to "Call"
@@ -155,11 +155,11 @@ class PokeBattle_Scene
     # Start party screen
     scene = PokemonParty_Scene.new
     switchScreen = PokemonPartyScreen.new(scene,modParty)
-    switchScreen.pbStartScene(_INTL("Choisissez un Pokémon."),@battle.pbNumPositions(0,0))
+    switchScreen.pbStartScene(_INTL("Choose a Pokémon."),@battle.pbNumPositions(0,0))
     # Loop while in party screen
     loop do
       # Select a Pokémon
-      scene.pbSetHelpText(_INTL("Choisissez un Pokémon."))
+      scene.pbSetHelpText(_INTL("Choose a Pokémon."))
       idxParty = switchScreen.pbChoosePokemon
       if idxParty<0
         next if !canCancel
@@ -169,10 +169,10 @@ class PokeBattle_Scene
       cmdSwitch  = -1
       cmdSummary = -1
       commands = []
-      commands[cmdSwitch  = commands.length] = _INTL("Envoyer") if modParty[idxParty].able?
-      commands[cmdSummary = commands.length] = _INTL("Résumé")
-      commands[commands.length]              = _INTL("Annuler")
-      command = scene.pbShowCommands(_INTL("Faire quoi avec {1}?",modParty[idxParty].name),commands)
+      commands[cmdSwitch  = commands.length] = _INTL("Switch In") if modParty[idxParty].able?
+      commands[cmdSummary = commands.length] = _INTL("Summary")
+      commands[commands.length]              = _INTL("Cancel")
+      command = scene.pbShowCommands(_INTL("Do what with {1}?",modParty[idxParty].name),commands)
       if cmdSwitch>=0 && command==cmdSwitch        # Switch In
         idxPartyRet = -1
         partyPos.each_with_index do |pos,i|
@@ -220,9 +220,9 @@ class PokeBattle_Scene
       useType = item.battle_use
       cmdUse = -1
       commands = []
-      commands[cmdUse = commands.length] = _INTL("Utiliser") if useType && useType!=0
-      commands[commands.length]          = _INTL("Annuler")
-      command = itemScene.pbShowCommands(_INTL("{1} est sélectionné.",itemName),commands)
+      commands[cmdUse = commands.length] = _INTL("Use") if useType && useType!=0
+      commands[commands.length]          = _INTL("Cancel")
+      command = itemScene.pbShowCommands(_INTL("{1} is selected.",itemName),commands)
       next unless cmdUse>=0 && command==cmdUse   # Use
       # Use types:
       # 0 = not usable in battle
@@ -260,12 +260,12 @@ class PokeBattle_Scene
         # Start party screen
         pkmnScene = PokemonParty_Scene.new
         pkmnScreen = PokemonPartyScreen.new(pkmnScene,modParty)
-        pkmnScreen.pbStartScene(_INTL("Utiliser sur quel Pokémon?"),@battle.pbNumPositions(0,0))
+        pkmnScreen.pbStartScene(_INTL("Use on which Pokémon?"),@battle.pbNumPositions(0,0))
         idxParty = -1
         # Loop while in party screen
         loop do
           # Select a Pokémon
-          pkmnScene.pbSetHelpText(_INTL("Utiliser sur quel Pokémon?"))
+          pkmnScene.pbSetHelpText(_INTL("Use on which Pokémon?"))
           idxParty = pkmnScreen.pbChoosePokemon
           break if idxParty<0
           idxPartyRet = -1
@@ -279,7 +279,7 @@ class PokeBattle_Scene
           next if !pkmn || pkmn.egg?
           idxMove = -1
           if useType==2 || useType==7   # Use on Pokémon's move
-            idxMove = pkmnScreen.pbChooseMove(pkmn,_INTL("Restaurer quel move?"))
+            idxMove = pkmnScreen.pbChooseMove(pkmn,_INTL("Restore which move?"))
             next if idxMove<0
           end
           break if yield item.id, useType, idxPartyRet, idxMove, pkmnScene

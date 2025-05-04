@@ -51,24 +51,24 @@ TYPE_EXPERTS_APPEARANCES = {
 
 TYPE_EXPERT_TRAINERS = {
   :QMARK => ["name", "loseText"],
-  :ELECTRIC => ["Ray", "Quelle tournure choquante des événements!"],
-  :BUG => ["Bea", "Je m'en vais d'ici!"],
-  :FAIRY => ["Luna", "Tu m'as éclipsé!"],
-  :DRAGON => ["Draco", "Je vais réduire mes plans."],
-  :FIGHTING => ["Floyd", "Je dois jeter l'éponge."],
-  :GROUND => ["Pedro", "Je suis enseveli sous cette perte."],
-  :FIRE => ["Blaze", "Je suppose que je me suis épuisé."],
-  :GRASS => ["Ivy", "Tu m'as vraiment fait rapetisser!"],
-  :ICE => ["Crystal", "Je patine sur une glace mince !"],
-  :ROCK => ["Slate", "On dirait que j’ai touché le fond…"],
-  :WATER => ["Marina", "Tu as vraiment fait sensation!"],
-  :FLYING => ["Gale", "Je suppose que je suis cloué au sol pour le moment.."],
-  :DARK => ["Raven", "Je vais retourner dans l’ombre"],
-  :STEEL => ["Silvia", "Je suppose que j'étais un peu rouillé..."],
-  :PSYCHIC => ["Carl", "Je ne pouvais pas prévoir cette défaite."],
-  :GHOST => ["Evangeline", "Je me sens disparaître dans les airs!"],
-  :POISON => ["Marie", "J'ai goûté à ma propre médecine!"],
-  :NORMAL => ["Tim", "C'était tout sauf normal!"],
+  :ELECTRIC => ["Ray", "What a shocking turn of events!"],
+  :BUG => ["Bea", "I’m bugging out of here!"],
+  :FAIRY => ["Luna", "You outshined me!"],
+  :DRAGON => ["Draco", "I shall scale back my plans."],
+  :FIGHTING => ["Floyd", "I have to throw in the towel."],
+  :GROUND => ["Pedro", "I’m buried under this loss."],
+  :FIRE => ["Blaze", "I guess I got burned out."],
+  :GRASS => ["Ivy", "ou really cut me down to size!"],
+  :ICE => ["Crystal", "I’m skating on thin ice!"],
+  :ROCK => ["Slate", "Looks like I’ve hit rock bottom..."],
+  :WATER => ["Marina", "You really made a splash!"],
+  :FLYING => ["Gale", "I guess I’m grounded for now."],
+  :DARK => ["Raven", "I’ll slip back into the shadows"],
+  :STEEL => ["Silvia", "I guess I was a bit rusty..."],
+  :PSYCHIC => ["Carl", "I could not foresee this defeat."],
+  :GHOST => ["Evangeline", "I can feel myself disappearing into thin air!"],
+  :POISON => ["Marie", "I got a taste of my own medicine!"],
+  :NORMAL => ["Tim", "This was anything but normal!"],
 }
 
 TYPE_EXPERT_REWARDS = {
@@ -97,15 +97,15 @@ TOTAL_NB_TYPE_EXPERTS = 12
 def type_expert_battle(type_id)
   type = GameData::Type.get(type_id)
   pbCallBub(2, @event_id)
-  pbMessage("Ah! Tu sens l'énergie ici? Cet endroit est idéal pour les Pokémon de type #{type.real_name}!")
+  pbMessage("Ah! Can you feel the energy in here? This place is great for #{type.real_name}-Pokémon!")
   pbCallBub(2, @event_id)
-  pbMessage("Je suis ce qu'on pourrait appeler un expert en Pokémon de type #{type.real_name}. J'ai grandi avec eux toute ma vie.")
+  pbMessage("I'm what you could call an expert on #{type.real_name}-Pokémon. I've grown with them for all of my life.")
   pbCallBub(2, @event_id)
-  pbMessage("Je te donnerai ma \\C[5]Tenue Spéciale\\C[0] si tu peux vaincre mon équipe en utilisant seulement les Pokémon de type #{type.real_name}. ")
+  pbMessage("I'll give you my \\C[5]special outfit\\C[0] if you can defeat my team using only #{type.real_name}-type Pokémon. ")
   pbCallBub(2, @event_id)
-  if pbConfirmMessage("Tu penses que pouvoir y arriver?")
+  if pbConfirmMessage("Do you think you can handle that?")
     pbCallBub(2, @event_id)
-    pbMessage("Choisissez votre équipe! N'oubliez pas, seulement les Pokémon de type #{type.real_name} sont autorisés!")
+    pbMessage("Select your team! Remember, only #{type.real_name}-type Pokémon are allowed!")
 
     gym_randomizer_index = GYM_TYPES_CLASSIC.index(type_id)
     echoln gym_randomizer_index
@@ -122,16 +122,16 @@ def type_expert_battle(type_id)
       if pbTrainerBattle(trainer_class, trainer_name, lose_text, false, 0, false)
         pbSet(VAR_TYPE_EXPERTS_BEATEN,pbGet(VAR_TYPE_EXPERTS_BEATEN)+1)
         pbCallBub(2, @event_id)
-        pbMessage("Waouh! Tu m'as battu dans ma propre spécialité! ")
+        pbMessage("Woah! You beat me at my own specialty! ")
         pbCallBub(2, @event_id)
-        pbMessage("C'est un véritable témoignage de votre maîtrise des types de Pokémon!")
+        pbMessage("It's a true testament to your mastery of Pokémon typings!")
         pbCallBub(2, @event_id)
-        pbMessage("Eh bien, je tiens parole. Tu pourras avoir cette tenue très spéciale!")
+        pbMessage("Well then, I'll keep my word. You can have this very special outfit!")
         for clothes in TYPE_EXPERT_REWARDS[type_id]
           obtainClothes(clothes)
         end
         pbCallBub(2, @event_id)
-        pbMessage("Lorsque vous le portez, vous pouvez parfois trouver des objets liés au type #{type.real_name} après les combats!")
+        pbMessage("When you wear it, you can sometimes find #{type.real_name}-type related items after battles!")
         show_nb_type_experts_defeated()
         PokemonSelection.restore
         $game_switches[Settings::OVERRIDE_BATTLE_LEVEL_SWITCH]=false
@@ -141,7 +141,7 @@ def type_expert_battle(type_id)
       end
     else
       pbCallBub(2, @event_id)
-      pbMessage("N'oubliez pas que vous n'êtes autorisé à utiliser que au Pokémon #{type.real_name}!")
+      pbMessage("Remember, you're only allowed to use #{type.real_name}-type Pokémon!")
     end
   end
   PokemonSelection.restore
@@ -154,5 +154,5 @@ end
 def show_nb_type_experts_defeated()
   pbMEPlay("Register phone")
   pbCallBub(3)
-  Kernel.pbMessage("Type experts vaincus: #{pbGet(VAR_TYPE_EXPERTS_BEATEN)}/#{TOTAL_NB_TYPE_EXPERTS}")
+  Kernel.pbMessage("Type experts defeated: #{pbGet(VAR_TYPE_EXPERTS_BEATEN)}/#{TOTAL_NB_TYPE_EXPERTS}")
 end

@@ -1,6 +1,6 @@
 class ClothesShopView < PokemonMart_Scene
 
-  def initialize(currency_name = "Argent")
+  def initialize(currency_name = "Money")
     @currency_name = currency_name
   end
 
@@ -75,7 +75,7 @@ class ClothesShopView < PokemonMart_Scene
           text = @adapter.getDescription(item)
         end
       else
-        text = _INTL("Quitter.")
+        text = _INTL("Quit.")
       end
       @sprites["itemtextwindow"].text = text
       itemwindow.refresh
@@ -97,7 +97,7 @@ class ClothesShopView < PokemonMart_Scene
       end
       @adapter.updateTrainerPreview(itemwindow.item, @sprites["trainerPreview"])
     else
-      description = _INTL("Quitter.")
+      description = _INTL("Quit.")
     end
     @sprites["itemtextwindow"].text = description
   end

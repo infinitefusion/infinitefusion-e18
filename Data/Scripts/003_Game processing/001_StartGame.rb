@@ -17,7 +17,7 @@ module Game
     GameData.load_all
     map_file = format('Data/Map%03d.rxdata', $data_system.start_map_id)
     if $data_system.start_map_id == 0 || !pbRgssExists?(map_file)
-      raise _INTL("Aucune position de départ n'a été définie dans l'éditeur de carte.")
+      raise _INTL('No starting position was set in the map editor.')
     end
   end
 
@@ -216,13 +216,13 @@ module Game
         $MapFactory.setup($game_map.map_id)
       rescue Errno::ENOENT
         if $DEBUG
-          pbMessage(_INTL("La carte {1} n'a pas été trouvée.", $game_map.map_id))
+          pbMessage(_INTL('Map {1} was not found.', $game_map.map_id))
           map = pbWarpToMapList
           exit unless map
           $MapFactory.setup(map[0])
           $game_player.moveto(map[1], map[2])
         else
-          raise _INTL("La carte n'a pas été trouvée. Le jeu ne peut pas continuer.")
+          raise _INTL('The map was not found. The game cannot continue.')
         end
       end
       $game_player.center($game_player.x, $game_player.y)
@@ -230,7 +230,7 @@ module Game
       $MapFactory.setMapChanged($game_map.map_id)
     end
     if $game_map.events.nil?
-      raise _INTL('La carte est corrompue. Le jeu ne peut pas continuer.')
+      raise _INTL('The map is corrupt. The game cannot continue.')
     end
     $PokemonEncounters = PokemonEncounters.new
     $PokemonEncounters.setup($game_map.map_id)

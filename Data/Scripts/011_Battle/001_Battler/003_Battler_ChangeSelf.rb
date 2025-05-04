@@ -8,9 +8,9 @@ class PokeBattle_Battler
     amt = 1 if amt<1 && !fainted?
     oldHP = @hp
     self.hp -= amt
-    PBDebug.log("[PV changé] #{pbThis} a perdu #{amt} PV (#{oldHP}=>#{@hp})") if amt>0
-    raise _INTL("PV inférieur à 0") if @hp<0
-    raise _INTL("PV supérieur au PV total") if @hp>@totalhp
+    PBDebug.log("[HP change] #{pbThis} lost #{amt} HP (#{oldHP}=>#{@hp})") if amt>0
+    raise _INTL("HP less than 0") if @hp<0
+    raise _INTL("HP greater than total HP") if @hp>@totalhp
     @battle.scene.pbHPChanged(self,oldHP,anim) if anyAnim && amt>0
     @tookDamage = true if amt>0 && registerDamage
     return amt
@@ -22,9 +22,9 @@ class PokeBattle_Battler
     amt = 1 if amt<1 && @hp<@totalhp
     oldHP = @hp
     self.hp += amt
-    PBDebug.log("[PV changé] #{pbThis} a gagné #{amt} PV (#{oldHP}=>#{@hp})") if amt>0
-    raise _INTL("PV inférieur à 0") if @hp<0
-    raise _INTL("PV supérieur au PV total") if @hp>@totalhp
+    PBDebug.log("[HP change] #{pbThis} gained #{amt} HP (#{oldHP}=>#{@hp})") if amt>0
+    raise _INTL("HP less than 0") if @hp<0
+    raise _INTL("HP greater than total HP") if @hp>@totalhp
     @battle.scene.pbHPChanged(self,oldHP,anim) if anyAnim && amt>0
     return amt
   end
@@ -33,11 +33,11 @@ class PokeBattle_Battler
     if target.hasActiveAbility?(:LIQUIDOOZE, true)
       @battle.pbShowAbilitySplash(target)
       pbReduceHP(amt)
-      @battle.pbDisplay(_INTL("{1} a aspiré le liquide qui suinte!",pbThis))
+      @battle.pbDisplay(_INTL("{1} sucked up the liquid ooze!",pbThis))
       @battle.pbHideAbilitySplash(target)
       pbItemHPHealCheck
     else
-      msg = _INTL("{1} a eu son énergie drainée!",target.pbThis) if nil_or_empty?(msg)
+      msg = _INTL("{1} had its energy drained!",target.pbThis) if nil_or_empty?(msg)
       @battle.pbDisplay(msg)
       if canHeal?
         amt = (amt*1.3).floor if hasActiveItem?(:BIGROOT)
@@ -52,7 +52,7 @@ class PokeBattle_Battler
       return
     end
     return if @fainted   # Has already fainted properly
-    @battle.pbDisplayBrief(_INTL("{1} s'est évanoui!",pbThis)) if showMessage
+    @battle.pbDisplayBrief(_INTL("{1} fainted!",pbThis)) if showMessage
     updateSpirits()
     PBDebug.log("[Pokémon fainted] #{pbThis} (#{@index})") if !showMessage
     @battle.scene.pbFaintBattler(self)
@@ -151,7 +151,7 @@ class PokeBattle_Battler
     @battle.scene.pbChangePokemon(self,@pokemon)
     @battle.scene.pbRefreshOne(@index)
     @battle.pbDisplay(msg) if msg && msg!=""
-    PBDebug.log("[Form changed] #{pbThis} est passé de #{oldForm} a #{newForm}")
+    PBDebug.log("[Form changed] #{pbThis} changed from form #{oldForm} to form #{newForm}")
     @battle.pbSetSeen(self)
   end
 
@@ -159,7 +159,7 @@ class PokeBattle_Battler
     return if fainted? || @effects[PBEffects::Transform]
     # Shaymin - reverts if frozen
     if isSpecies?(:SHAYMIN) && frozen?
-      pbChangeForm(0,_INTL("{1} c'est transformé!",pbThis))
+      pbChangeForm(0,_INTL("{1} transformed!",pbThis))
     end
   end
 
@@ -169,7 +169,7 @@ class PokeBattle_Battler
     if isSpecies?(:KELDEO)
       newForm = 0
       newForm = 1 if pbHasMove?(:SECRETSWORD)
-      pbChangeForm(newForm,_INTL("{1} c'est transformé!",pbThis))
+      pbChangeForm(newForm,_INTL("{1} transformed!",pbThis))
     end
   end
 
@@ -187,10 +187,10 @@ class PokeBattle_Battler
         if @form!=newForm
           @battle.pbShowAbilitySplash(self,true)
           @battle.pbHideAbilitySplash(self)
-          pbChangeForm(newForm,_INTL("{1} c'est transformé!",pbThis))
+          pbChangeForm(newForm,_INTL("{1} transformed!",pbThis))
         end
       else
-        pbChangeForm(0,_INTL("{1} c'est transformé!",pbThis))
+        pbChangeForm(0,_INTL("{1} transformed!",pbThis))
       end
     end
     # Cherrim - Flower Gift
@@ -201,10 +201,10 @@ class PokeBattle_Battler
         if @form!=newForm
           @battle.pbShowAbilitySplash(self,true)
           @battle.pbHideAbilitySplash(self)
-          pbChangeForm(newForm,_INTL("{1} c'est transformé!",pbThis))
+          pbChangeForm(newForm,_INTL("{1} transformed!",pbThis))
         end
       else
-        pbChangeForm(0,_INTL("{1} c'est transformé!",pbThis))
+        pbChangeForm(0,_INTL("{1} transformed!",pbThis))
       end
     end
   end
@@ -222,12 +222,12 @@ class PokeBattle_Battler
         if @form!=1
           @battle.pbShowAbilitySplash(self,true)
           @battle.pbHideAbilitySplash(self)
-          pbChangeForm(1,_INTL("{1} a été déclenché!",abilityName))
+          pbChangeForm(1,_INTL("{1} triggered!",abilityName))
         end
       elsif @form!=0
         @battle.pbShowAbilitySplash(self,true)
         @battle.pbHideAbilitySplash(self)
-        pbChangeForm(0,_INTL("{1} a été déclenché!",abilityName))
+        pbChangeForm(0,_INTL("{1} triggered!",abilityName))
       end
     end
     # Minior - Shields Down
@@ -237,14 +237,14 @@ class PokeBattle_Battler
         if @form!=newForm
           @battle.pbShowAbilitySplash(self,true)
           @battle.pbHideAbilitySplash(self)
-          pbChangeForm(newForm,_INTL("{1} a été désactivé!",abilityName))
+          pbChangeForm(newForm,_INTL("{1} deactivated!",abilityName))
         elsif !endOfRound
-          @battle.pbDisplay(_INTL("{1} a été désactivé!",abilityName))
+          @battle.pbDisplay(_INTL("{1} deactivated!",abilityName))
         end
       elsif @form<7   # Turn into Core form
         @battle.pbShowAbilitySplash(self,true)
         @battle.pbHideAbilitySplash(self)
-        pbChangeForm(@form+7,_INTL("{1} a été activé!",abilityName))
+        pbChangeForm(@form+7,_INTL("{1} activated!",abilityName))
       end
     end
     # Wishiwashi - Schooling
@@ -253,29 +253,29 @@ class PokeBattle_Battler
         if @form!=1
           @battle.pbShowAbilitySplash(self,true)
           @battle.pbHideAbilitySplash(self)
-          pbChangeForm(1,_INTL("{1} a formé un banc!",pbThis))
+          pbChangeForm(1,_INTL("{1} formed a school!",pbThis))
         end
       elsif @form!=0
         @battle.pbShowAbilitySplash(self,true)
         @battle.pbHideAbilitySplash(self)
-        pbChangeForm(0,_INTL("{1} le banc s'est dissipé!",pbThis))
+        pbChangeForm(0,_INTL("{1} stopped schooling!",pbThis))
       end
     end
     # Zygarde - Power Construct
     if isSpecies?(:ZYGARDE) && self.ability == :POWERCONSTRUCT && endOfRound
       if @hp<=@totalhp/2 && @form<2   # Turn into Complete Forme
         newForm = @form+2
-        @battle.pbDisplay(_INTL("Vous sentez la présence de plusieurs!"))
+        @battle.pbDisplay(_INTL("You sense the presence of many!"))
         @battle.pbShowAbilitySplash(self,true)
         @battle.pbHideAbilitySplash(self)
-        pbChangeForm(newForm,_INTL("{1} transformé dans sa forme complète!",pbThis))
+        pbChangeForm(newForm,_INTL("{1} transformed into its Complete Forme!",pbThis))
       end
     end
   end
 
   def pbTransform(target)
     if target.is_a?(Integer)
-      @battle.pbDisplay(_INTL("Mais ça a échoué..."))
+      @battle.pbDisplay(_INTL("But it failed..."))
       return
     end
     oldAbil = @ability_id
@@ -304,7 +304,7 @@ class PokeBattle_Battler
     @effects[PBEffects::DisableMove]  = nil
     @effects[PBEffects::WeightChange] = target.effects[PBEffects::WeightChange]
     @battle.scene.pbRefreshOne(@index)
-    @battle.pbDisplay(_INTL("{1} a été transformé en {2}!",pbThis,target.pbThis(true)))
+    @battle.pbDisplay(_INTL("{1} transformed into {2}!",pbThis,target.pbThis(true)))
     pbOnAbilityChanged(oldAbil)
   end
 

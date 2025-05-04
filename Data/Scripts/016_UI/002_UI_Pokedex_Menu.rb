@@ -47,7 +47,7 @@ class PokemonPokedexMenu_Scene
     @sprites["background"] = IconSprite.new(0,0,@viewport)
     @sprites["background"].setBitmap(_INTL("Graphics/Pictures/Pokedex/bg_menu"))
     @sprites["headings"]=Window_AdvancedTextPokemon.newWithSize(
-       _INTL("<c3=F8F8F8,C02028>  VU<r>OBTENUE</c3>"),286,136,208,64,@viewport)
+       _INTL("<c3=F8F8F8,C02028>SEEN<r>OBTAINED</c3>"),286,136,208,64,@viewport)
     @sprites["headings"].windowskin  = nil
     @sprites["commands"] = Window_DexesList.new(commands,commands2,Graphics.width-84)
     @sprites["commands"].x      = 40
@@ -96,7 +96,7 @@ class PokemonPokedexMenuScreen
     dexnames = Settings.pokedex_names
     $Trainer.pokedex.accessible_dexes.each do |dex|
       if dexnames[dex].nil?
-        commands.push(_INTL("Pokédex National"))
+        commands.push(_INTL("Full Pokédex"))
       elsif dexnames[dex].is_a?(Array)
         commands.push(dexnames[dex][0])
       else
@@ -107,9 +107,9 @@ class PokemonPokedexMenuScreen
                       pbGetRegionalDexLength(dex)])
     end
 
-    commands.push(_INTL("Pokémon Possédé"))
+    commands.push(_INTL("Owned Pokémon"))
 
-    commands.push(_INTL("Quitter"))
+    commands.push(_INTL("Exit"))
     @scene.pbStartScene(commands,commands2)
     loop do
       cmd = @scene.pbScene

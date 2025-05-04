@@ -153,13 +153,13 @@ class PokeBattle_BattlePalace < PokeBattle_Battle
     battler.effects[PBEffects::Pinch] = true
     case nature
     when :QUIET, :BASHFUL, :NAIVE, :QUIRKY, :HARDY, :DOCILE, :SERIOUS
-      pbDisplay(_INTL("{1} est impatient d'en savoir plus!", battler.pbThis))
+      pbDisplay(_INTL("{1} is eager for more!", battler.pbThis))
     when :CAREFUL, :RASH, :LAX, :SASSY, :MILD, :TIMID
-      pbDisplay(_INTL("{1} commença à grogner profondément!", battler.pbThis))
+      pbDisplay(_INTL("{1} began growling deeply!", battler.pbThis))
     when :GENTLE, :ADAMANT, :HASTY, :LONELY, :RELAXED, :NAUGHTY
-      pbDisplay(_INTL("Une lueur apparaît dans les yeux de {1}!", battler.pbThis(true)))
+      pbDisplay(_INTL("A glint appears in {1}'s eyes!", battler.pbThis(true)))
     when :JOLLY, :BOLD, :BRAVE, :CALM, :IMPISH, :MODEST
-      pbDisplay(_INTL("{1} se met en position!", battler.pbThis))
+      pbDisplay(_INTL("{1} is getting into position!", battler.pbThis))
     end
   end
 

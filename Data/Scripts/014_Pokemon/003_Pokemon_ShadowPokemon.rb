@@ -69,7 +69,7 @@ class Pokemon
       # No Shadow moveset defined; just use Shadow Rush
       @shadow_moves[0] = :SHADOWRUSH
     else
-      raise _INTL("On s'attendait à ce que les move de Shadow ou Shadow Rush soient définis, mais ils ne l'ont pas été.")
+      raise _INTL("Expected Shadow moves or Shadow Rush to be defined, but they weren't.")
     end
     # Record this Pokémon's original moves
     @moves.each_with_index { |m, i| @shadow_moves[MAX_MOVES + i] = m.id }
@@ -133,7 +133,7 @@ class Pokemon
   def check_ready_to_purify
     return if !shadowPokemon?
     update_shadow_moves
-    pbMessage(_INTL("{1} peut maintenant être purifié!", self.name)) if self.heart_gauge == 0
+    pbMessage(_INTL("{1} can now be purified!", self.name)) if self.heart_gauge == 0
   end
 
   def add_evs(added_evs)

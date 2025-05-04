@@ -99,7 +99,7 @@ class PokeBattle_Battle
 
   def pbItemMenu(idxBattler,firstAction)
     if !@internalBattle
-      pbDisplay(_INTL("Les Objets ne peut pas être utilisé ici."))
+      pbDisplay(_INTL("Items can't be used here."))
       return false
     end
     ret = false
@@ -207,7 +207,7 @@ class PokeBattle_Battle
         cmd = pbCommandMenu(idxBattler,actioned.length==1)
         # If being Sky Dropped, can't do anything except use a move
         if cmd>0 && @battlers[idxBattler].effects[PBEffects::SkyDrop]>=0
-          pbDisplay(_INTL("Chute Libre ne lâchera pas {1}!",@battlers[idxBattler].pbThis(true)))
+          pbDisplay(_INTL("Sky Drop won't let {1} go!",@battlers[idxBattler].pbThis(true)))
           next
         end
         case cmd

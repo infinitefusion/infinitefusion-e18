@@ -292,7 +292,7 @@ module Settings
 
   # The name of the person who created the Pokémon storage system.
   def self.storage_creator_name
-    return _INTL("Leo")
+    return _INTL("Bill")
   end
 
   # The number of boxes in Pokémon storage.
@@ -303,14 +303,14 @@ module Settings
   # The names of each pocket of the Bag. Ignore the first entry ("").
   def self.bag_pocket_names
     return ["",
-            _INTL("Objets"),
-            _INTL("Soins"),
+            _INTL("Items"),
+            _INTL("Medicine"),
             _INTL("Poké Balls"),
-            _INTL("CT & CS"),
-            _INTL("Baies"),
+            _INTL("TMs & HMs"),
+            _INTL("Berries"),
             _INTL("Mail"),
-            _INTL("Objets de Combats"),
-            _INTL("Objets Clé")
+            _INTL("Battle Items"),
+            _INTL("Key Items")
     ]
   end
 
@@ -537,8 +537,8 @@ module Settings
   # file in the Data folder. Edit only if you have 2 or more languages to choose
   # from.
   LANGUAGES = [
-      ["French", "french.dat"],
-      ["English", "english.dat"]
+    #  ["English", "english.dat"],
+    #  ["Deutsch", "deutsch.dat"]
   ]
 
 

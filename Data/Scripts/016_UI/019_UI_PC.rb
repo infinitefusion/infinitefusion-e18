@@ -7,11 +7,11 @@ class TrainerPC
   end
 
   def name
-    return _INTL("PC de {1}",$Trainer.name)
+    return _INTL("{1}'s PC",$Trainer.name)
   end
 
   def access
-    pbMessage(_INTL("\\se[PC access]A accédé au PC de {1} .",$Trainer.name))
+    pbMessage(_INTL("\\se[PC access]Accessed {1}'s PC.",$Trainer.name))
     pbTrainerPCMenu
   end
 end
@@ -25,7 +25,7 @@ class StorageSystemPC
   end
 
   def name
-    return "Stockage de Pokemon"
+    return "Pokemon Storage"
     #if $Trainer.seen_storage_creator
     #  return _INTL("{1}'s PC",pbGetStorageCreator)
     #else
@@ -34,23 +34,23 @@ class StorageSystemPC
   end
 
   def access
-    pbMessage(_INTL("\\se[PC access]Le système de stockage des Pokémon a été ouvert.."))
+    pbMessage(_INTL("\\se[PC access]The Pokémon Storage System was opened."))
     command = 0
     loop do
       command = pbShowCommandsWithHelp(nil,
-         [_INTL("Organiser / fusionner"),
-         _INTL("Retirer un Pokémon"),
-         _INTL("Déposer un Pokémon"),
-         _INTL("Eteindre le PC")],
-         [_INTL("Organisez les Pokémon dans les boîtes et dans votre équipe."),
-         _INTL("Déplacez les Pokémon stockés dans les boîtes vers votre équipe."),
-         _INTL("Stockez les Pokémon de votre équipe dans des boîtes."),
-         _INTL("Retour au menu précédent.")],-1,command
+         [_INTL("Organize / Fuse"),
+         _INTL("Withdraw Pokémon"),
+         _INTL("Deposit Pokémon"),
+         _INTL("See ya!")],
+         [_INTL("Organize the Pokémon in Boxes and in your party."),
+         _INTL("Move Pokémon stored in Boxes to your party."),
+         _INTL("Store Pokémon in your party in Boxes."),
+         _INTL("Return to the previous menu.")],-1,command
       )
       if command>=0 && command<3
         if command==1   # Withdraw
           if $PokemonStorage.party_full?
-            pbMessage(_INTL("Votre équipe est complète!"))
+            pbMessage(_INTL("Your party is full!"))
             next
           end
         elsif command==2   # Deposit
@@ -59,7 +59,7 @@ class StorageSystemPC
             count += 1 if p && !p.egg? && p.hp>0
           end
           if count<=1
-            pbMessage(_INTL("Impossible de déposer le dernier Pokémon!"))
+            pbMessage(_INTL("Can't deposit the last Pokémon!"))
             next
           end
         end
@@ -90,7 +90,7 @@ module PokemonPCList
     for pc in @@pclist
       commands.push(pc.name) if pc.shouldShow?
     end
-    commands.push(_INTL("Se Déconnecter"))
+    commands.push(_INTL("Log Off"))
     return commands
   end
 
@@ -116,14 +116,14 @@ def pbPCItemStorage
   command = 0
   loop do
     command = pbShowCommandsWithHelp(nil,
-       [_INTL("Retirer l'Objet"),
-       _INTL("Déposer un Objet"),
-       _INTL("Jeter l'Objet"),
-       _INTL("Sortir")],
-       [_INTL("Retirer des Objets du PC."),
-       _INTL("Stocker des Objets dans le PC.."),
-       _INTL("Jeter les Objets stockés dans le PC."),
-       _INTL("Retourner au menu précédent.")],-1,command
+       [_INTL("Withdraw Item"),
+       _INTL("Deposit Item"),
+       _INTL("Toss Item"),
+       _INTL("Exit")],
+       [_INTL("Take out items from the PC."),
+       _INTL("Store items in the PC."),
+       _INTL("Throw away items stored in the PC."),
+       _INTL("Go back to the previous menu.")],-1,command
     )
     case command
     when 0   # Withdraw Item
@@ -131,7 +131,7 @@ def pbPCItemStorage
         $PokemonGlobal.pcItemStorage = PCItemStorage.new
       end
       if $PokemonGlobal.pcItemStorage.empty?
-        pbMessage(_INTL("Il n'y a pas d'Objets."))
+        pbMessage(_INTL("There are no items."))
       else
         pbFadeOutIn {
           scene = WithdrawItemScene.new
@@ -150,7 +150,7 @@ def pbPCItemStorage
         $PokemonGlobal.pcItemStorage = PCItemStorage.new
       end
       if $PokemonGlobal.pcItemStorage.empty?
-        pbMessage(_INTL("Il n'y a pas d'Objets."))
+        pbMessage(_INTL("There are no items."))
       else
         pbFadeOutIn {
           scene = TossItemScene.new
@@ -166,7 +166,7 @@ end
 
 def pbPCMailbox
   if !$PokemonGlobal.mailbox || $PokemonGlobal.mailbox.length==0
-    pbMessage(_INTL("Il n'y a pas de courrier ici."))
+    pbMessage(_INTL("There's no Mail here."))
   else
     loop do
       command = 0
@@ -174,16 +174,16 @@ def pbPCMailbox
       for mail in $PokemonGlobal.mailbox
         commands.push(mail.sender)
       end
-      commands.push(_INTL("Annuler"))
+      commands.push(_INTL("Cancel"))
       command = pbShowCommands(nil,commands,-1,command)
       if command>=0 && command<$PokemonGlobal.mailbox.length
         mailIndex = command
-        commandMail = pbMessage(_INTL("Que voulez-vous faire du courrier de {1} ?",
+        commandMail = pbMessage(_INTL("What do you want to do with {1}'s Mail?",
            $PokemonGlobal.mailbox[mailIndex].sender),[
-           _INTL("Lire"),
-           _INTL("Déplacer dans le sac"),
-           _INTL("Donner"),
-           _INTL("Annuler")
+           _INTL("Read"),
+           _INTL("Move to Bag"),
+           _INTL("Give"),
+           _INTL("Cancel")
            ],-1)
         case commandMail
         when 0   # Read
@@ -191,12 +191,12 @@ def pbPCMailbox
             pbDisplayMail($PokemonGlobal.mailbox[mailIndex])
           }
         when 1   # Move to Bag
-          if pbConfirmMessage(_INTL("Le message sera perdu. Cela vous convient-il?"))
+          if pbConfirmMessage(_INTL("The message will be lost. Is that OK?"))
             if $PokemonBag.pbStoreItem($PokemonGlobal.mailbox[mailIndex].item)
-              pbMessage(_INTL("Le courrier a été remis dans le sac avec son message effacé."))
+              pbMessage(_INTL("The Mail was returned to the Bag with its message erased."))
               $PokemonGlobal.mailbox.delete_at(mailIndex)
             else
-              pbMessage(_INTL("Le sac est plein."))
+              pbMessage(_INTL("The Bag is full."))
             end
           end
         when 2   # Give
@@ -216,10 +216,10 @@ end
 def pbTrainerPCMenu
   command = 0
   loop do
-    command = pbMessage(_INTL("Que voulez-vous faire?"),[
-       _INTL("Stockage des Objets"),
-       _INTL("Mail"),
-       _INTL("Éteindre")
+    command = pbMessage(_INTL("What do you want to do?"),[
+       _INTL("Item Storage"),
+       _INTL("Mailbox"),
+       _INTL("Turn Off")
        ],-1,nil,command)
     case command
     when 0 then pbPCItemStorage
@@ -230,9 +230,9 @@ def pbTrainerPCMenu
 end
 
 def pbTrainerPC
-  pbMessage(_INTL("\\se[PC open]{1} a démarré le PC.",$Trainer.name))
+  pbMessage(_INTL("\\se[PC open]{1} booted up the PC.",$Trainer.name))
   pbTrainerPCMenu
-  pbSEPlay("PC fermé")
+  pbSEPlay("PC close")
 end
 
 def checkPorygonEncounter
@@ -240,8 +240,8 @@ def checkPorygonEncounter
   if $PokemonGlobal.stepcount % porygon_chance == 0
     pbSEPlay("Paralyze3")
     pbWait(12)
-    pbMessage(_INTL("Hein ? Le PC a glitch pendant une seconde lors du démarrage."))
-    pbMessage(_INTL("Quelque chose s'est introduit dans le PC?"))
+    pbMessage(_INTL("Huh? The PC glitched for a second while it booted."))
+    pbMessage(_INTL("Did something make its way into the PC?"))
     pbWait(8)
     pbAddPokemonSilent(:PORYGON,1)
     $PokemonGlobal.stepcount += 1
@@ -250,16 +250,16 @@ def checkPorygonEncounter
 end
 
 def pbPokeCenterPC
-  pbMessage(_INTL("\\se[PC open]{1} a démarré le PC.",$Trainer.name))
+  pbMessage(_INTL("\\se[PC open]{1} booted up the PC.",$Trainer.name))
   checkPorygonEncounter()
   command = 0
   loop do
     commands = PokemonPCList.getCommandList
-    command = pbMessage(_INTL("Quel est le PC auquel il faut accéder ?"),commands,
+    command = pbMessage(_INTL("Which PC should be accessed?"),commands,
        commands.length,nil,command)
     break if !PokemonPCList.callCommand(command)
   end
-  pbSEPlay("PC fermé")
+  pbSEPlay("PC close")
 end
 
 def pbGetStorageCreator

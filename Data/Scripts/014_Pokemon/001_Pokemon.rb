@@ -127,34 +127,34 @@ class Pokemon
   S_CHANCE_VALIDATOR = 16
 
   def print_all_attributes
-    echoln("Sprite Corps: #{@spriteform_body}")
-    echoln("Sprite Tête: #{@spriteform_head}")
-    echoln("Espèce: #{@species}")
-    echoln("Forme Forcée: #{@forced_form}")
-    echoln("Forme par l'Heure: #{@time_form_set}")
-    echoln("Expérience: #{@exp}")
-    echoln("EXP de la Tête Fusionnée: #{@exp_when_fused_head}")
-    echoln("EXP du Corps Fusionnée: #{@exp_when_fused_body}")
-    echoln("EXP Gagnée Depuis Fusion: #{@exp_gained_since_fused}")
-    echoln("Chapeau: #{@hat}")
-    echoln("Chapeau X: #{@hat_x}")
-    echoln("Chapeau Y: #{@hat_y}")
+    echoln("Spriteform Body: #{@spriteform_body}")
+    echoln("Spriteform Head: #{@spriteform_head}")
+    echoln("Species: #{@species}")
+    echoln("Forced Form: #{@forced_form}")
+    echoln("Time Form Set: #{@time_form_set}")
+    echoln("Experience: #{@exp}")
+    echoln("EXP When Fused Head: #{@exp_when_fused_head}")
+    echoln("EXP When Fused Body: #{@exp_when_fused_body}")
+    echoln("EXP Gained Since Fused: #{@exp_gained_since_fused}")
+    echoln("Hat: #{@hat}")
+    echoln("Hat X: #{@hat_x}")
+    echoln("Hat Y: #{@hat_y}")
     echoln("Steps to Hatch: #{@steps_to_hatch}")
-    echoln("PV: #{@hp}")
-    echoln("Statut: #{@status}")
-    echoln("Compteur de Statut: #{@statusCount}")
-    echoln("Brillance: #{@glitter}")
-    echoln("Tête Chromatique: #{@head_shiny}")
-    echoln("Corps Chromatique: #{@body_shiny}")
-    echoln("Chromatique Debug: #{@debug_shiny}")
-    echoln("Chromatique Naturel: #{@natural_shiny}")
+    echoln("HP: #{@hp}")
+    echoln("Status: #{@status}")
+    echoln("Status Count: #{@statusCount}")
+    echoln("Glitter: #{@glitter}")
+    echoln("Head Shiny: #{@head_shiny}")
+    echoln("Body Shiny: #{@body_shiny}")
+    echoln("Debug Shiny: #{@debug_shiny}")
+    echoln("Natural Shiny: #{@natural_shiny}")
 
-    echoln("Talents Calculée: #{@ability}")
-    echoln("Liste des Talents: #{getAbilityList()}")
+    echoln("Calculated ability: #{@ability}")
+    echoln("Abilities hash: #{getAbilityList()}")
 
-    echoln("Index du Talent: #{@ability_index}")
-    echoln("Index du Talent Corps: #{@body_original_ability_index}")
-    echoln("Index du Talent Tête: #{@head_original_ability_index}")
+    echoln("Ability Index: #{@ability_index}")
+    echoln("Body Original Ability Index: #{@body_original_ability_index}")
+    echoln("Head Original Ability Index: #{@head_original_ability_index}")
 
     move1, move2, move3, move4 = "", "", "", ""
 
@@ -163,28 +163,28 @@ class Pokemon
     move3 = @moves[2].id if @moves[2]
     move4 = @moves[3].id if @moves[3]
 
-    echoln("Attaques: #{move1} #{move2} #{move3} #{move4}")
-    echoln("Premières Attaques: #{@first_moves}")
-    echoln("Rubbans: #{@ribbons}")
-    echoln("Sang-Froid: #{@cool}, Beauté: #{@beauty}, Grâce: #{@cute}, Intelligence: #{@smart}, Robustesse: #{@tough}, Éclat: #{@sheen}")
+    echoln("Moves: #{move1} #{move2} #{move3} #{move4}")
+    echoln("First Moves: #{@first_moves}")
+    echoln("Ribbons: #{@ribbons}")
+    echoln("Cool: #{@cool}, Beauty: #{@beauty}, Cute: #{@cute}, Smart: #{@smart}, Tough: #{@tough}, Sheen: #{@sheen}")
     echoln("Pokerus: #{@pokerus}")
-    echoln("Bonheur: #{@happiness}")
+    echoln("Happiness: #{@happiness}")
     echoln("Poke Ball: #{@poke_ball}")
-    echoln("Marquages: #{@markings}")
+    echoln("Markings: #{@markings}")
     echoln("IV: #{@iv}")
-    echoln("IV Maxé: #{@ivMaxed}")
+    echoln("IV Maxed: #{@ivMaxed}")
     echoln("EV: #{@ev}")
-    echoln("PV Total: #{@totalhp}, Attaque: #{@attack}, Défense: #{@defense}, Att. Spé: #{@spatk}, Déf. Spé: #{@spdef}, Vitesse: #{@speed}")
-    echoln("Propriétaire: #{@owner}")
-    echoln("Méthode d'Obtention: #{@obtain_method}")
-    echoln("Lieu d'Obtention: #{@obtain_map}")
-    echoln("Obtention: #{@obtain_text}")
-    echoln("Niveau d'Obtention: #{@obtain_level}")
-    echoln("Lieu d'Eclosion: #{@hatched_map}")
-    echoln("Fusionné: #{@fused}")
-    echoln("ID Personnel: #{@personalID}")
-    echoln("Type de Puissance Cachée: #{@hiddenPowerType}")
-    echoln("Taille: #{sprite_scale}")
+    echoln("Total HP: #{@totalhp}, Attack: #{@attack}, Defense: #{@defense}, Sp. Attack: #{@spatk}, Sp. Defense: #{@spdef}, Speed: #{@speed}")
+    echoln("Owner: #{@owner}")
+    echoln("Obtain Method: #{@obtain_method}")
+    echoln("Obtain Map: #{@obtain_map}")
+    echoln("Obtain Text: #{@obtain_text}")
+    echoln("Obtain Level: #{@obtain_level}")
+    echoln("Hatched Map: #{@hatched_map}")
+    echoln("Fused: #{@fused}")
+    echoln("Personal ID: #{@personalID}")
+    echoln("Hidden Power Type: #{@hiddenPowerType}")
+    echoln("Scale: #{sprite_scale}")
 
     # Add other attribute print statements here
   end
@@ -199,7 +199,7 @@ class Pokemon
 
   def inspect
     str = super.chop
-    str << format(" %s Lv.%s>", @species, @level.to_s || "???")
+    str << format(' %s Lv.%s>', @species, @level.to_s || '???')
     return str
   end
 
@@ -241,6 +241,7 @@ class Pokemon
     @sprite_scale = scale
   end
 
+
   def size_category()
     @size_category = :AVERAGE if !@size_category
     return @size_category
@@ -249,13 +250,13 @@ class Pokemon
   def size_category=(category)
     @size_category = category
   end
-
   # @param check_species [Integer, Symbol, String] id of the species to check for
   # @return [Boolean] whether this Pokémon is of the specified species
   def isSpecies?(check_species)
     return @species == check_species || (GameData::Species.exists?(check_species) &&
-                                         @species == GameData::Species.get(check_species).species)
+      @species == GameData::Species.get(check_species).species)
   end
+
 
   def hasBodyOf?(check_species)
     if !self.isFusion?
@@ -298,18 +299,6 @@ class Pokemon
     return !@natural_shiny || @debug_shiny
   end
 
-  def bodyShiny=(value)
-    @shiny = value
-    @body_shiny = value
-    @head_shiny = false
-  end
-
-  def headShiny=(value)
-    @shiny = value
-    @body_shiny = false
-    @head_shiny = value
-  end
-
   def bodyShiny?
     return @body_shiny
   end
@@ -318,9 +307,11 @@ class Pokemon
     return @head_shiny
   end
 
+
   def isFusionOf(check_species)
     return hasBodyOf?(check_species) || hasHeadOf?(check_species)
   end
+
 
   def dexNum
     return species_data.id_number
@@ -347,6 +338,7 @@ class Pokemon
   end
 
   def changeFormSpecies(oldForm, newForm)
+
     is_already_old_form = self.isFusionOf(oldForm) #A 466
     is_already_new_form = self.isFusionOf(newForm) #P
 
@@ -426,7 +418,7 @@ class Pokemon
   # @param value [Integer] new level (between 1 and the maximum level)
   def level=(value)
     if value < 1 || value > GameData::GrowthRate.max_level
-      raise ArgumentError.new(_INTL("Le numéro de niveau ({1}) n'est pas valide.", value))
+      raise ArgumentError.new(_INTL("The level number ({1}) is invalid.", value))
     end
     @exp = growth_rate.minimum_exp_for_level(value)
     @level = value
@@ -483,7 +475,7 @@ class Pokemon
     return if !able?
     new_status = GameData::Status.try_get(value)
     if !new_status
-      raise ArgumentError, _INTL("A tenté de définir {1} comme un statut Pokémon", value.class.name)
+      raise ArgumentError, _INTL('Attempted to set {1} as Pokémon status', value.class.name)
     end
     @status = new_status.id
   end
@@ -591,11 +583,11 @@ class Pokemon
     if !@gender
       gender_ratio = species_data.gender_ratio
       case gender_ratio
-      when :AlwaysMale
+      when :AlwaysMale then
         @gender = 0
-      when :AlwaysFemale
+      when :AlwaysFemale then
         @gender = 1
-      when :Genderless
+      when :Genderless then
         @gender = 2
       else
         female_chance = GameData::GenderRatio.get(gender_ratio).female_chance
@@ -614,27 +606,27 @@ class Pokemon
 
   # Makes this Pokémon male.
   def makeMale
-    self.gender = 0
+    self.gender = 0;
   end
 
   # Makes this Pokémon female.
   def makeFemale
-    self.gender = 1
+    self.gender = 1;
   end
 
   # @return [Boolean] whether this Pokémon is male
   def male?
-    return self.gender == 0
+    return self.gender == 0;
   end
 
   # @return [Boolean] whether this Pokémon is female
   def female?
-    return self.gender == 1
+    return self.gender == 1;
   end
 
   # @return [Boolean] whether this Pokémon is genderless
   def genderless?
-    return self.gender == 2
+    return self.gender == 2;
   end
 
   # @return [Boolean] whether this Pokémon species is restricted to only ever being one
@@ -660,6 +652,7 @@ class Pokemon
         @shiny = true
         @natural_shiny = true
       end
+
     end
     if @shiny && Settings::SHINY_POKEMON_CHANCE != S_CHANCE_VALIDATOR
       @debug_shiny = true
@@ -835,7 +828,7 @@ class Pokemon
   # @param mail [Mail, nil] mail to be held by this Pokémon
   def mail=(mail)
     if !mail.nil? && !mail.is_a?(Mail)
-      raise ArgumentError, _INTL("Valeur non valide donnée {1}", mail.inspect)
+      raise ArgumentError, _INTL('Invalid value {1} given', mail.inspect)
     end
     @mail = mail
   end
@@ -890,6 +883,7 @@ class Pokemon
     @learned_moves = [] if !@learned_moves
     @learned_moves << move unless @learned_moves.include?(move)
   end
+
 
   # Silently learns the given move. Will erase the first known move if it has to.
   # @param move_id [Symbol, String, Integer] ID of the move to learn
@@ -974,8 +968,8 @@ class Pokemon
 
   def pokemon_can_learn_move(species_data, move_data)
     return species_data.tutor_moves.include?(move_data.id) ||
-             species_data.moves.include?(move_data.id) ||
-             species_data.egg_moves.include?(move_data.id)
+      species_data.moves.include?(move_data.id) ||
+      species_data.egg_moves.include?(move_data.id)
   end
 
   def can_relearn_move?
@@ -1115,7 +1109,7 @@ class Pokemon
   # @param trainer [Player, NPCTrainer] the trainer to compare to the original trainer
   # @return [Boolean] whether the given trainer is not this Pokémon's original trainer
   def foreign?(trainer)
-    return @owner.id != trainer.id # || @owner.name != trainer.name
+    return @owner.id != trainer.id# || @owner.name != trainer.name
   end
 
   def always_disobey(value)
@@ -1171,12 +1165,12 @@ class Pokemon
 
   # @return [Integer] the height of this Pokémon in metres
   def height
-    return species_data.height / 10
+    return species_data.height/10
   end
 
   # @return [Integer] the weight of this Pokémon in kilograms
   def weight
-    return species_data.weight / 10
+    return species_data.weight/10
   end
 
   # @return [Hash<Integer>] the EV yield of this Pokémon (a hash with six key/value pairs)
@@ -1218,7 +1212,7 @@ class Pokemon
     when "revivalherb"
       gain = [-15, -15, -20][happiness_range]
     else
-      raise _INTL("Méthode inconnue pour changer le bonheur: {1}", method.to_s)
+      raise _INTL("Unknown happiness-changing method: {1}", method.to_s)
     end
     if gain > 0
       gain += 1 if @obtain_map == $game_map.map_id
@@ -1239,11 +1233,11 @@ class Pokemon
 
     choices = [
       #_INTL("Evolve both!"),
-      _INTL("Évoluer la tête!"),
-      _INTL("Évoluer le corps!"),
-      _INTL("Ne pas évoluer"),
+      _INTL("Evolve head!"),
+      _INTL("Evolve body!"),
+      _INTL("Don't evolve")
     ]
-    choice = pbMessage(_INTL("Les deux moitiés de {1} sont prêtes à évoluer!", self.name), choices, 0)
+    choice = pbMessage(_INTL('Both halves of {1} are ready to evolve!', self.name), choices, 0)
     # if choice == 0  #EVOLVE BOTH
     #   newspecies = getFusionSpecies(body_evolution,head_evolution)
     if choice == 0 #EVOLVE HEAD
@@ -1257,6 +1251,7 @@ class Pokemon
   end
 
   def check_evolution_on_level_up
+
     if @species_data.is_a?(GameData::FusedSpecies)
       body = self.species_data.body_pokemon
       head = self.species_data.head_pokemon
@@ -1275,9 +1270,10 @@ class Pokemon
     end
 
     return check_evolution_internal { |pkmn, new_species, method, parameter|
-             success = GameData::Evolution.get(method).call_level_up(pkmn, parameter)
-             next (success) ? new_species : nil
-           }
+      success = GameData::Evolution.get(method).call_level_up(pkmn, parameter)
+      next (success) ? new_species : nil
+    }
+
   end
 
   # Checks whether this Pokemon can evolve because of using an item on it.
@@ -1285,9 +1281,9 @@ class Pokemon
   # @return [Symbol, nil] the ID of the species to evolve into
   def check_evolution_on_use_item(item_used)
     return check_evolution_internal { |pkmn, new_species, method, parameter|
-             success = GameData::Evolution.get(method).call_use_item(pkmn, parameter, item_used)
-             next (success) ? new_species : nil
-           }
+      success = GameData::Evolution.get(method).call_use_item(pkmn, parameter, item_used)
+      next (success) ? new_species : nil
+    }
   end
 
   # Checks whether this Pokemon can evolve because of being traded.
@@ -1295,9 +1291,9 @@ class Pokemon
   # @return [Symbol, nil] the ID of the species to evolve into
   def check_evolution_on_trade(other_pkmn)
     return check_evolution_internal { |pkmn, new_species, method, parameter|
-             success = GameData::Evolution.get(method).call_on_trade(pkmn, parameter, other_pkmn)
-             next (success) ? new_species : nil
-           }
+      success = GameData::Evolution.get(method).call_on_trade(pkmn, parameter, other_pkmn)
+      next (success) ? new_species : nil
+    }
   end
 
   # Called after this Pokémon evolves, to remove its held item (if the evolution
@@ -1336,29 +1332,30 @@ class Pokemon
     if @species == :PUMPKABOO
       case @size_category
       when :SMALL
-        return { :HP => 44, :ATTACK => 66, :DEFENSE => 70, :SPECIAL_ATTACK => 44, :SPECIAL_DEFENSE => 55, :SPEED => 56 }
+        return { :HP => 44, :ATTACK => 66, :DEFENSE => 70, :SPECIAL_ATTACK => 44, :SPECIAL_DEFENSE => 55, :SPEED => 56}
       when :AVERAGE
         return nil
       when :LARGE
-        return { :HP => 54, :ATTACK => 66, :DEFENSE => 70, :SPECIAL_ATTACK => 44, :SPECIAL_DEFENSE => 55, :SPEED => 46 }
+        return { :HP => 54, :ATTACK => 66, :DEFENSE => 70, :SPECIAL_ATTACK => 44, :SPECIAL_DEFENSE => 55, :SPEED => 46}
       when :SUPER
-        return { :HP => 59, :ATTACK => 66, :DEFENSE => 70, :SPECIAL_ATTACK => 44, :SPECIAL_DEFENSE => 55, :SPEED => 41 }
+        return { :HP => 59, :ATTACK => 66, :DEFENSE => 70, :SPECIAL_ATTACK => 44, :SPECIAL_DEFENSE => 55, :SPEED => 41}
       end
     end
     if @species == :GOURGEIST
       case @size_category
       when :SMALL
-        return { :HP => 55, :ATTACK => 85, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 99 }
+        return { :HP => 55, :ATTACK => 85, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 99}
       when :AVERAGE
         return nil
       when :LARGE
-        return { :HP => 75, :ATTACK => 95, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 69 }
+        return { :HP => 75, :ATTACK => 95, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 69}
       when :SUPER
-        return { :HP => 85, :ATTACK => 100, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 54 }
+        return { :HP => 85, :ATTACK => 100, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 54}
       end
     end
     return nil
   end
+
 
   # @return [Hash<Integer>] this Pokémon's base stats, a hash with six key/value pairs
   def baseStats
@@ -1425,7 +1422,7 @@ class Pokemon
   # Recalculates this Pokémon's stats.
   def calc_stats
     base_stats = self.baseStats
-    this_level = self.level
+      this_level = self.level
     this_IV = self.calcIV
 
     if $game_switches[SWITCH_NO_LEVELS_MODE]
@@ -1498,15 +1495,15 @@ class Pokemon
     elsif @size_category == :AVERAGE
       return 1
     elsif @size_category == :LARGE
-      return 1 + (1.0 / 3) #"Large Size"
+      return 1 + (1.0 /3) #"Large Size"
     elsif @size_category == :SUPER
-      return 1 + (2.0 / 3)      #"Super Size"
+      return 1 + (2.0 /3)      #"Super Size"
     end
     return 1
   end
 
   def determine_size_category
-    return :AVERAGE if !(Kernel.isPartPokemon(self, :PUMPKABOO) || Kernel.isPartPokemon(self, :GOURGEIST))
+    return :AVERAGE if !(Kernel.isPartPokemon(self,:PUMPKABOO) || Kernel.isPartPokemon(self,:GOURGEIST))
     size_roll = rand(100) # Random number between 0-99
     if size_roll < 10
       return :SMALL
@@ -1570,7 +1567,7 @@ class Pokemon
     elsif owner.is_a?(Player) || owner.is_a?(NPCTrainer)
       @owner = Owner.new_from_trainer(owner)
     else
-      @owner = Owner.new(0, "", 2, 2)
+      @owner = Owner.new(0, '', 2, 2)
     end
     @obtain_method = 0 # Met
     @obtain_method = 4 if $game_switches && $game_switches[Settings::FATEFUL_ENCOUNTER_SWITCH]
@@ -1591,7 +1588,7 @@ class Pokemon
     @hat_x = 0
     @hat_y = 0
     @size_category = determine_size_category()
-    @sprite_scale = determine_scale()
+    @sprite_scale=determine_scale()
     echoln @sprite_scale
     calc_stats
     if @form == 0 && recheck_form
@@ -1604,5 +1601,6 @@ class Pokemon
   end
 
   def totalIv()
+
   end
 end

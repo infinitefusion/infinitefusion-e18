@@ -3,8 +3,8 @@ def pbAddPokemonID(pokemon, level = nil, seeform = true, dontRandomize = false)
   dontRandomize = true if $game_switches[SWITCH_CHOOSING_STARTER] #when choosing starters
 
   if pbBoxesFull?
-    Kernel.pbMessage(_INTL("Il n'y a plus de place pour les Pokémon!\1"))
-    Kernel.pbMessage(_INTL("Les boîtes Pokémon sont pleines et ne peuvent plus en accepter!"))
+    Kernel.pbMessage(_INTL("There's no more room for Pokémon!\1"))
+    Kernel.pbMessage(_INTL("The Pokémon Boxes are full and can't accept any more!"))
     return false
   end
 
@@ -17,7 +17,7 @@ def pbAddPokemonID(pokemon, level = nil, seeform = true, dontRandomize = false)
   end
 
   speciesname = PBSpecies.getName(pokemon.species)
-  Kernel.pbMessage(_INTL("{1} a obtenue {2}!\\se[itemlevel]\1", $Trainer.name, speciesname))
+  Kernel.pbMessage(_INTL("{1} obtained {2}!\\se[itemlevel]\1", $Trainer.name, speciesname))
   pbNicknameAndStore(pokemon)
   pbSeenForm(pokemon) if seeform
   return true
@@ -27,8 +27,8 @@ def pbAddPokemonID(pokemon_id, level = 1, see_form = true, skip_randomize = fals
   return false if !pokemon_id
   skip_randomize = true if $game_switches[SWITCH_CHOOSING_STARTER] #when choosing starters
   if pbBoxesFull?
-    pbMessage(_INTL("Il n'y a plus de place pour les Pokémon!\1"))
-    pbMessage(_INTL("Les boîtes Pokémon sont pleines et ne peuvent plus en accepter!"))
+    pbMessage(_INTL("There's no more room for Pokémon!\1"))
+    pbMessage(_INTL("The Pokémon Boxes are full and can't accept any more!"))
     return false
   end
   if pokemon_id.is_a?(Integer) && level.is_a?(Integer)
@@ -41,7 +41,7 @@ def pbAddPokemonID(pokemon_id, level = 1, see_form = true, skip_randomize = fals
     tryRandomizeGiftPokemon(pokemon, skip_randomize)
   end
 
-  pbMessage(_INTL("{1} a obtenue {2}!\\me[Pkmn get]\\wtnp[80]\1", $Trainer.name, species_name))
+  pbMessage(_INTL("{1} obtained {2}!\\me[Pkmn get]\\wtnp[80]\1", $Trainer.name, species_name))
   pbNicknameAndStore(pokemon)
   $Trainer.pokedex.register(pokemon) if see_form
   return true
@@ -154,6 +154,7 @@ end
 
 
 def addShinyStarsToGraphicsArray(imageArray, xPos, yPos, shinyBody, shinyHead, debugShiny, srcx = nil, srcy = nil, width = nil, height = nil, showSecondStarUnder = false, showSecondStarAbove = false, showSecondStarAfter = false, centraliseStar = false)
+  # for having custom stars on debug and better moving options 
   color = nil
   if !(shinyBody && shinyHead)
     if debugShiny
@@ -435,11 +436,7 @@ end
 
 def Kernel.getRoamingMap(roamingArrayPos)
   curmap = $PokemonGlobal.roamPosition[roamingArrayPos]
-  if Settings::LANGUAGES.length >= 2 && Settings::LANGUAGES[$PokemonSystem.language][1] == "french.dat"
-    mapinfos = load_data("Data/MapInfosFR.rxdata")
-  else
-    mapinfos = load_data("Data/MapInfos.rxdata")
-  end
+  mapinfos = $RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
   text = mapinfos[curmap].name #,(curmap==$game_map.map_id) ? _INTL("(this map)") : "")
   return text
 end
@@ -504,9 +501,9 @@ end
 
 def get_difficulty_text
   if $game_switches[SWITCH_GAME_DIFFICULTY_EASY]
-    return "Facile"
+    return "Easy"
   elsif $game_switches[SWITCH_GAME_DIFFICULTY_HARD]
-    return "Difficile"
+    return "Hard"
   else
     return "Normal"
   end

@@ -3,23 +3,23 @@ def oricorioEventPickFlower(flower_color)
   quest_progression = pbGet(VAR_ORICORIO_FLOWERS)
   if flower_color == :PINK
     if !$game_switches[SWITCH_ORICORIO_QUEST_PINK]
-      pbMessage(_INTL("Ouah ! Un Pokémon a sauté hors de la fleur!"))
+      pbMessage(_INTL("Woah! A Pokémon jumped out of the flower!"))
       pbWildBattle(:FOMANTIS, 10)
     end
     $game_switches[SWITCH_ORICORIO_QUEST_PINK] = true
-    pbMessage(_INTL("C'est une fleur avec du nectar rose."))
+    pbMessage(_INTL("It's a flower with pink nectar."))
     pbSEPlay("MiningAllFound")
-    pbMessage(_INTL("{1} a cueilli quelques fleurs roses.", $Trainer.name))
+    pbMessage(_INTL("{1} picked some of the pink flowers.", $Trainer.name))
   elsif flower_color == :RED && quest_progression == 1
     $game_switches[SWITCH_ORICORIO_QUEST_RED] = true
-    pbMessage(_INTL("C'est une fleur avec du nectar rouge."))
+    pbMessage(_INTL("It's a flower with red nectar."))
     pbSEPlay("MiningAllFound")
-    pbMessage(_INTL("{1} a cueilli quelques fleurs rouges.", $Trainer.name))
+    pbMessage(_INTL("{1} picked some of the red flowers.", $Trainer.name))
   elsif flower_color == :BLUE && quest_progression == 2
     $game_switches[SWITCH_ORICORIO_QUEST_BLUE] = true
-    pbMessage(_INTL("C'est une fleur au nectar bleu."))
+    pbMessage(_INTL("It's a flower with blue nectar."))
     pbSEPlay("MiningAllFound")
-    pbMessage(_INTL("{1} a cueilli quelques fleurs bleues.", $Trainer.name))
+    pbMessage(_INTL("{1} picked some of the blue flowers.", $Trainer.name))
   end
 
 end
@@ -30,7 +30,7 @@ def changeOricorioFlower(form = 1)
       obtainHat(HAT_FLOWER)
       $PokemonGlobal.stepcount += 1
     else
-      pbMessage(_INTL("Ouah ! Un Pokémon a sauté hors de la fleur!"))
+      pbMessage(_INTL("Woah! A Pokémon jumped out of the flower!"))
       pbWildBattle(:FOMANTIS, 10)
       $PokemonGlobal.stepcount += 1
     end
@@ -39,20 +39,20 @@ def changeOricorioFlower(form = 1)
   message = ""
   form_name = ""
   if form == 1
-    message = "C'est une fleur au nectar rouge. "
+    message = "It's a flower with red nectar. "
     form_name = "Baile"
   elsif form == 2
-    message = "C'est une fleur au nectar jaune. "
+    message = "It's a flower with yellow nectar. "
     form_name = "Pom-pom"
   elsif form == 3
-    message = "C'est une fleur au nectar rose. "
+    message = "It's a flower with pink nectar. "
     form_name = "Pa'u"
   elsif form == 4
-    message = "C'est une fleur au nectar bleu. "
+    message = "It's a flower with blue nectar. "
     form_name = "Sensu"
   end
 
-  message = message + "Le montrer a quel Pokemon?"
+  message = message + "Show it to a Pokémon?"
   if pbConfirmMessage(message)
     pbChoosePokemon(1, 2,
                     proc { |poke|
@@ -65,10 +65,10 @@ def changeOricorioFlower(form = 1)
     if (pbGet(1) != -1)
       poke = $Trainer.party[pbGet(1)]
       if changeOricorioForm(poke, form)
-        pbMessage(_INTL("{1} passé à au style {2}", poke.name, form_name))
+        pbMessage(_INTL("{1} switched to the {2} style", poke.name, form_name))
         pbSet(1, poke.name)
       else
-        pbMessage(_INTL("{1} est resté le même...", poke.name, form_name))
+        pbMessage(_INTL("{1} remained the same...", poke.name, form_name))
       end
     end
   end
@@ -377,7 +377,7 @@ def Kernel.setRocketPassword(variableNum)
 end
 
 def obtainBadgeMessage(badgeName)
-  Kernel.pbMessage(_INTL("\\me[Badge get]{1} a obtenu le {2}!", $Trainer.name, badgeName))
+  Kernel.pbMessage(_INTL("\\me[Badge get]{1} obtained the {2}!", $Trainer.name, badgeName))
 end
 
 KANTO_OUTDOOR_MAPS = [
@@ -709,8 +709,8 @@ def regirock_steel_move_boulder()
 end
 
 def displayRandomizerErrorMessage()
-  Kernel.pbMessage(_INTL("Le générateur de randomisation a rencontré une erreur. Vous devriez essayer de re-randomiser votre jeu dès que possible."))
-  Kernel.pbMessage(_INTL("Vous pouvez le faire au dernier étage des Centres Pokémon."))
+  Kernel.pbMessage(_INTL("The randomizer has encountered an error. You should try to re-randomize your game as soon as possible."))
+  Kernel.pbMessage(_INTL("You can do this on the top floor of Pokémon Centers."))
 end
 
 # ex:Game_Event.new
@@ -761,7 +761,7 @@ def give_date_specific_hats()
   if (current_date.day == 24 || current_date.day == 25) && current_date.month == 12
     if !$Trainer.unlocked_hats.include?(HAT_SANTA)
       pbCallBub(2, @event_id, true)
-      pbMessage("Bonjour! Nous offrons aujourd'hui un chapeau spécial pour les fêtes. Profitez-en!")
+      pbMessage("Hi! We're giving out a special hat today for the holidays season. Enjoy!")
       obtainHat(HAT_SANTA)
     end
   end
@@ -770,7 +770,7 @@ def give_date_specific_hats()
   if (current_date.day == 1 && current_date.month == 4)
     if !$Trainer.unlocked_hats.include?(HAT_CLOWN)
       pbCallBub(2, @event_id, true)
-      pbMessage("Bonjour! Nous offrons aujourd'hui un chapeau spécial pour les fêtes. Profitez-en!")
+      pbMessage("Hi! We're giving out this fun accessory for this special day. Enjoy!")
       obtainHat(HAT_CLOWN)
     end
   end
@@ -881,17 +881,17 @@ def getNextLunarFeatherHint()
   nb_feathers = pbGet(VAR_LUNAR_FEATHERS)
   case nb_feathers
   when 0
-    return "Trouvez la première plume dans l'habitation la plus septentrionale du port des couchers de soleil exquis..."
+    return "Find the first feather in the northernmost dwelling in the port of exquisite sunsets..."
   when 1
-    return "Au milieu d'une pépinière pour jeunes Pokémon, la deuxième plume se cache, entourée d'innocence."
+    return "Amidst a nursery for Pokémon youngsters, the second feather hides, surrounded by innocence."
   when 2
-    return "Trouvez le prochain dans l'auberge où l'eau rencontre le repos"
+    return "Find the next one in the inn where water meets rest"
   when 3
-    return "Trouvez le prochain à l'intérieur de la maison solitaire de la ville au bord de la civilisation."
+    return "Find the next one inside the lone house in the city at the edge of civilization."
   when 4
-    return "La dernière plume repose dans le refuge des Pokémon orphelins..."
+    return "The final feather lies back in the refuge for orphaned Pokémon..."
   else
-    return "Allonge-toi dans le lit... Apporte-moi les plumes..."
+    return "Lie in the bed... Bring me the feathers..."
   end
 end
 
@@ -942,8 +942,8 @@ def promptCaughtPokemonAction(pokemon)
   return pbStorePokemon(pokemon) if !$Trainer.party_full?
   return promptKeepOrRelease(pokemon) if isOnPinkanIsland() && !$game_switches[SWITCH_PINKAN_FINISHED]
   while !pickedOption
-    command = pbMessage(_INTL("\\ts[]Votre équipe est complète!"),
-                        [_INTL("Ajoutez à votre groupe"), _INTL("Stocker sur PC"),], 2)
+    command = pbMessage(_INTL("\\ts[]Your team is full!"),
+                        [_INTL("Add to your party"), _INTL("Store to PC"),], 2)
     echoln ("command " + command.to_s)
     case command
     when 0 # SWAP
@@ -964,8 +964,8 @@ end
 def promptKeepOrRelease(pokemon)
   pickedOption = false
   while !pickedOption
-    command = pbMessage(_INTL("\\ts[]Votre équipe est complète!"),
-                        [_INTL("Libérer un membre du groupe"), _INTL("Libérez ce #{pokemon.name}"),], 2)
+    command = pbMessage(_INTL("\\ts[]Your team is full!"),
+                        [_INTL("Release a party member"), _INTL("Release this #{pokemon.name}"),], 2)
     echoln ("command " + command.to_s)
     case command
     when 0 # SWAP
@@ -1006,7 +1006,7 @@ def swapReleaseCaughtPokemon(caughtPokemon)
   index = pbGet(1)
   return false if index == -1
   releasedPokemon = $Trainer.party[index]
-  pbMessage("#{releasedPokemon.name} a été relacher.")
+  pbMessage("#{releasedPokemon.name} was released.")
   pbRemovePokemonAt(index)
   pbStorePokemon(caughtPokemon)
 
@@ -1065,7 +1065,7 @@ def exportFusedPokemonForShowdown(pokemon)
     nameLine = _INTL("{1} ({2})", pokemon.name, species_name)
   end
 
-  abilityLine = _INTL("Talent: {1}", pokemon.ability.name)
+  abilityLine = _INTL("Ability: {1}", pokemon.ability.name)
   levelLine = _INTL("Level: {1}", pokemon.level)
 
   fusionLine = ""
@@ -1524,7 +1524,7 @@ def getHiddenPowerName(pokemon)
 
   echoln hiddenPowerType
   if Settings::TRIPLE_TYPES.include?(hiddenPowerType)
-    return "Normal"
+    return "Neutral"
   end
   return PBTypes.getName(hiddenPowerType)
 end
@@ -1540,14 +1540,14 @@ end
 # Rewards given by hotel questman after a certain nb. of completed quests
 #
 QUEST_REWARDS = [
-  QuestReward.new(1, :HM08, 1, "Cette CS te permettra d’éclairer les grottes sombres et t’aidera à progresser dans ton aventure!"),
-  QuestReward.new(5, :AMULETCOIN, 1, "Cet objet te permet de doubler les gains d’argent en combat si le Pokémon qui le tient y a participé!"),
-  QuestReward.new(10, :LANTERN, 1, "Cela te permettra d’éclairer les grottes sans utiliser de CS ! Pratique, non?"),
-  QuestReward.new(15, :LINKINGCORD, 3, "Ce câble étrange déclenche l’évolution des Pokémon qui évoluent normalement par échange. Je sais que tu en feras bon usage!"),
-  QuestReward.new(20, :SLEEPINGBAG, 1, "Cet objet pratique te permet de dormir où tu veux. Plus besoin d’hôtels!"),
-  QuestReward.new(30, :MISTSTONE, 1, "Cette pierre rare peut faire évoluer n’importe quel Pokémon, peu importe son niveau ou sa méthode d’évolution. Utilise-la avec sagesse!", true),
-  QuestReward.new(50, :GSBALL, 1, "Cette mystérieuse Ball serait la clé pour invoquer le protecteur de la Forêt de Jade. C’est une relique précieuse."),
-  QuestReward.new(60, :MASTERBALL, 1, "Cette Ball rare peut attraper n’importe quel Pokémon. Ne la gâche pas!", true),
+  QuestReward.new(1, :HM08, 1, "This HM will allow you to illuminate dark caves and should help you to progress in your journey!"),
+  QuestReward.new(5, :AMULETCOIN, 1, "This item will allows you to get twice the money in a battle if the Pokémon holding it took part in it!"),
+  QuestReward.new(10, :LANTERN, 1, "This will allow you to illuminate caves without having to use a HM! Practical, isn't it?"),
+  QuestReward.new(15, :LINKINGCORD, 3, "This strange cable triggers the evolution of Pokémon that typically evolve via trade. I know you'll put it to good use!"),
+  QuestReward.new(20, :SLEEPINGBAG, 1, "This handy item will allow you to sleep anywhere you want. You won't even need hotels anymore!"),
+  QuestReward.new(30, :MISTSTONE, 1, "This rare stone can evolve any Pokémon, regardless of their level or evolution method. Use it wisely!", true),
+  QuestReward.new(50, :GSBALL, 1, "This mysterious ball is rumored to be the key to call upon the protector of Ilex Forest.  It's a precious relic."),
+  QuestReward.new(60, :MASTERBALL, 1, "This rare ball can catch any Pokémon. Don't waste it!", true),
 ]
 
 def turnEventTowardsEvent(turning, turnedTowards)
@@ -1723,9 +1723,9 @@ end
 def purchaseDyeKitMenu(hats_kit_price=0,clothes_kit_price=0)
 
   commands = []
-  command_hats = "Kit de Teinture Chapeaux (#{hats_kit_price}$)"
-  command_clothes = "Kit de teinture Vêtements (#{clothes_kit_price}$)"
-  command_cancel = "Annuler"
+  command_hats = "Hats Dye Kit ($#{hats_kit_price})"
+  command_clothes = "Clothes Dye Kit ($#{clothes_kit_price})"
+  command_cancel = "Cancel"
 
   commands << command_hats if !$PokemonBag.pbHasItem?(:HATSDYEKIT)
   commands << command_clothes if !$PokemonBag.pbHasItem?(:CLOTHESDYEKIT)
@@ -1733,48 +1733,48 @@ def purchaseDyeKitMenu(hats_kit_price=0,clothes_kit_price=0)
 
   if commands.length <= 1
     pbCallBub(2,@event_id)
-    pbMessage("\\C[1]Les Kits de Teinture\\C[0] permettent de teindre les vêtements de toutes sortes de couleurs !")
+    pbMessage("\\C[1]Dye Kits\\C[0] can be used to dye clothes all sorts of colours!")
 
-pbCallBub(2,@event_id)
-pbMessage("Tu peux les utiliser à tout moment lorsque tu changes de tenue.")
-return
-end
-pbCallBub(2,@event_id)
-pbMessage("\\GBienvenue ! Es-tu intéressé par la teinture de tes tenues en différentes couleurs ?")
-
-pbCallBub(2,@event_id)
-pbMessage("Je fabrique de pratiques \\C[1]Kits de Teinture\\C[0] grâce à la peinture de mon Queulorior, et ils te permettent de teindre tes tenues dans la couleur de ton choix !")
-
-pbCallBub(2,@event_id)
-pbMessage("\\GEn plus, ils sont réutilisables, alors tu peux en profiter à volonté ! Ça t'intéresse ?")
-
-choice = optionsMenu(commands,commands.length)
-case commands[choice]
-when command_hats
-  if $Trainer.money < hats_kit_price
     pbCallBub(2,@event_id)
-    pbMessage("Oh, tu n'as pas assez d'argent...")
+    pbMessage("You can use them at any time when you change clothes.")
     return
   end
-  pbMessage("\\G\\PN a acheté un Kit de Teinture.")
-  $Trainer.money -= hats_kit_price
-  pbSEPlay("SlotsCoin")
-  Kernel.pbReceiveItem(:HATSDYEKIT)
   pbCallBub(2,@event_id)
-  pbMessage("\\GEt voilà ! Amuse-toi bien à teindre tes chapeaux !")
-when command_clothes
-  if $Trainer.money < clothes_kit_price
+  pbMessage("\\GWelcome! Are you interested in dyeing your outfits different colours?")
+
+  pbCallBub(2,@event_id)
+  pbMessage("I make handy \\C[1]Dye Kits\\C[0] from my Smeargle's paint that can be used to dye your outfits any color you want!")
+
+  pbCallBub(2,@event_id)
+  pbMessage("\\GWhat's more is that it's reusable so you can go completely wild with it if you want! Are you interested?")
+
+  choice = optionsMenu(commands,commands.length)
+  case commands[choice]
+  when command_hats
+    if $Trainer.money < hats_kit_price
+      pbCallBub(2,@event_id)
+      pbMessage("Oh, you don't have enough money...")
+      return
+    end
+    pbMessage("\\G\\PN purchased the dye kit.")
+    $Trainer.money -= hats_kit_price
+    pbSEPlay("SlotsCoin")
+    Kernel.pbReceiveItem(:HATSDYEKIT)
     pbCallBub(2,@event_id)
-    pbMessage("Oh, tu n'as pas assez d'argent...")
-    return
+    pbMessage("\\GHere you go! Have fun dyeing your hats!")
+  when command_clothes
+    if $Trainer.money < clothes_kit_price
+      pbCallBub(2,@event_id)
+      pbMessage("Oh, you don't have enough money...")
+      return
+    end
+    pbMessage("\\G\\PN purchased the dye kit.")
+    $Trainer.money -= clothes_kit_price
+    pbSEPlay("SlotsCoin")
+    Kernel.pbReceiveItem(:CLOTHESDYEKIT)
+    pbCallBub(2,@event_id)
+    pbMessage("\\GHere you go! Have fun dyeing your clothes!")
   end
-  pbMessage("\\G\\PN a acheté un Kit de Teinture.")
-  $Trainer.money -= clothes_kit_price
-  pbSEPlay("SlotsCoin")
-  Kernel.pbReceiveItem(:CLOTHESDYEKIT)
   pbCallBub(2,@event_id)
-  pbMessage("\\GEt voilà ! Amuse-toi bien à teindre tes vêtements !")
-end
-pbCallBub(2,@event_id)
-pbMessage("Tu peux utiliser les \\C[1]Kits de Teinture\\C[0] à tout moment lorsque tu changes de tenue.")
+  pbMessage("You can use \\C[1]Dye Kits\\C[0] at any time when you change clothes.")
 end

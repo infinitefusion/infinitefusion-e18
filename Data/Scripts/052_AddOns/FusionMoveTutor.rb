@@ -33,35 +33,35 @@ end
 
 def showRandomRareMoveConditionExample(legendary = false)
   example = legendary ? getlegendaryConditionExample : getRegularConditionExample
-  text = "Par exemple : " + example
+  text = "For example, " + example
   pbMessage(text)
 end
 
 def getRegularConditionExample()
   list = [
-    "une fusion de Sandslash de type Électrik pourra apprendre l'attaque Électrikipik.",
-    "tout Pokémon de type Vol et Combat pourra apprendre l'attaque Flying Press.",
-    "l'attaque OsOmbre ne peut être apprise que par des fusions de Ossatueur de type Spectre.",
-    "tout Pokémon de type Spectre et Plante pourra apprendre l'attaque Halloween.",
-    "l'attaque Maléfice Sylvain ne peut être apprise que par des Pokémon de type Spectre/Plante.",
-    "une fusion de type Plante d’un Pokémon piquant comme Voltali pourra apprendre l'attaque Pico-Défense.",
-    "seule une fusion de type Sol de Tadmorv ou Grotadmorv pourra apprendre l'attaque Amass'Sable.",
-    "toute fusion de type Glace pouvant déjà apprendre Pince-Masse pourra aussi apprendre Marteau de Glace.",
-    "seules les fusions de type Eau d’un Pokémon ninja comme Ninjask ou Zoroark pourront apprendre l'attaque Sheauriken.",
+    "a Sandslash fusion which has the electric type will be able to learn the move Zing Zap.",
+    "any Pokémon that is both Flying and Fighting type will be able to learn the move Flying Press.",
+    "the move Shadow Bone can only be learned by ghost-type Marowak fusions.",
+    "any Pokémon that is both Ghost and Grass type will be able to learn the move Trick or Treat.",
+    "the move Forest's Curse can only be learned by Ghost/Grass typed Pokémon.",
+    "a grass-type fusion of a spiky Pokémon such as Jolteon will be able to learn the move Spiky Shield.",
+    "only a ground-type fusion of Grimer or Muk will be able to learn the move Shore Up.",
+    "any ice-type fusion that can already learn the move Crabhammer will also be able to learn the move Ice Hammer.",
+    "only water-type fusions of a ninja-like Pokémon such as Ninjask or Zoroark will be able to learn the move Water Shuriken.",
   ]
   return list.sample
 end
 
 def getlegendaryConditionExample()
   list = [
-    "toute fusion de Motisma pouvant déjà apprendre Poing-Éclair pourra aussi apprendre Plasma Punch.",
-    "seule une fusion de type Électrik d’un Pokémon légendaire de type Glace pourra apprendre Éclair Gelé.",
-    "seule une fusion de type Feu d’un Pokémon légendaire de type Glace pourra apprendre Feu Glacé.",
-    "tout Pokémon de type Vol et Ténèbres pourra apprendre l'attaque Mort'Ailes.",
-    "une fusion de type Sol d’un Pokémon piquant comme Noacier pourra apprendre l'attaque Myria-Flèches.",
-    "tout Pokémon de type Acier pouvant déjà apprendre Torgnoles pourra aussi apprendre Écrous d'Poing.",
-    "tout Pokémon de type Fée et Roche pourra apprendre l'attaque Orage Adamantin.",
-    "tout Pokémon de type Eau pouvant déjà apprendre Éruption pourra aussi apprendre Jet de Vapeur.",
+    "any Rotom fusion that can already learn the move Thunder Punch can also be taught the move Plasma Fists.",
+    "only an Electric-type fusion of a legendary Ice-type Pokémon will be able to learn the move Freeze Shock.",
+    "only a Fire-type fusion of a legendary Ice-type Pokémon will be able to learn the move Ice Burn.",
+    "any Pokémon that is both Flying and Dark type will be able to learn the move Oblivion Wing.",
+    "a ground-type fusion of a spiky Pokémon such as Ferrothorn will be able to learn the move Thousand Arrows.",
+    "any steel-type Pokémon that can already learn the move Double Slap will be able to learn Double Iron Bash.",
+    "any Pokémon that is both Fairy and Rock type will be able to learn the move Diamond Storm.",
+    "any water-type Pokémon that can already learn the move Eruption can also be taught the move Steam Eruption",
   ]
   return list.sample
 end

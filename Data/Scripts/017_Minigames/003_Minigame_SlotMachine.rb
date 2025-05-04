@@ -287,10 +287,10 @@ class SlotMachineScene
       @sprites["window1"].bitmap.clear if @sprites["window1"].bitmap
       @sprites["window2"].bitmap.clear if @sprites["window2"].bitmap
       if @sprites["credit"].score == Settings::MAX_COINS
-        pbMessage(_INTL("Vous avez {1} pièces.", Settings::MAX_COINS.to_s_formatted))
+        pbMessage(_INTL("You've got {1} Coins.", Settings::MAX_COINS.to_s_formatted))
         break
       elsif $Trainer.coins==0
-        pbMessage(_INTL("Vous n'avez plus de pièces.\nGame over!"))
+        pbMessage(_INTL("You've run out of Coins.\nGame over!"))
         break
       elsif @gameRunning   # Reels are spinning
         @sprites["window1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/stop"))
@@ -389,11 +389,11 @@ end
 
 def pbSlotMachine(difficulty=1)
   if GameData::Item.exists?(:COINCASE) && !$PokemonBag.pbHasItem?(:COINCASE)
-    pbMessage(_INTL("C'est une machine à sous."))
+    pbMessage(_INTL("It's a Slot Machine."))
   elsif $Trainer.coins == 0
-    pbMessage(_INTL("Vous n'avez pas de pièces pour jouer!"))
+    pbMessage(_INTL("You don't have any Coins to play!"))
   elsif $Trainer.coins == Settings::MAX_COINS
-    pbMessage(_INTL("Votre porte-monnaie est plein!"))
+    pbMessage(_INTL("Your Coin Case is full!"))
   else
     pbFadeOutIn {
       scene = SlotMachineScene.new

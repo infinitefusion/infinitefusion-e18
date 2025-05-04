@@ -73,7 +73,7 @@ class HairStyleSelectionMenuView
   end
 
   def init_labels()
-    Kernel.pbDisplayText("Confirmer", (CONFIRM_X+CURSOR_X_MARGIN), CONFIRM_Y)
+    Kernel.pbDisplayText("Confirm", (CONFIRM_X+CURSOR_X_MARGIN), CONFIRM_Y)
   end
 
 

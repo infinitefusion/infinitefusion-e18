@@ -327,12 +327,12 @@ class PokemonPokedexInfo_Scene
     textpos = [
       [_INTL("{1}{2} {3}", indexText, " ", species_data.name),
        246, 36, 0, Color.new(248, 248, 248), Color.new(0, 0, 0)],
-       [_INTL("Taille"), 314, 152, 0, base, shadow],
-       [_INTL("Poids"), 314, 184, 0, base, shadow]
+       [_INTL("Height"), 314, 152, 0, base, shadow],
+       [_INTL("Weight"), 314, 184, 0, base, shadow]
      ]
      if $Trainer.owned?(@species)
        # Write the category
-       textpos.push([_INTL("Pokémon {1}", species_data.category), 246, 68, 0, base, shadow])
+       textpos.push([_INTL("{1} Pokémon", species_data.category), 246, 68, 0, base, shadow])
        # Write the height and weight
        height = species_data.height
       weight = species_data.weight
@@ -377,7 +377,7 @@ class PokemonPokedexInfo_Scene
       # Write the height and weight
       if System.user_language[3..4] == "US" # If the user is in the United States
         textpos.push([_INTL("???'??\""), 460, 152, 1, base, shadow])
-        textpos.push([_INTL("????.? kg."), 494, 184, 1, base, shadow])
+        textpos.push([_INTL("????.? lbs."), 494, 184, 1, base, shadow])
       else
         textpos.push([_INTL("????.? m"), 470, 152, 1, base, shadow])
         textpos.push([_INTL("????.? kg"), 482, 184, 1, base, shadow])
@@ -407,7 +407,7 @@ class PokemonPokedexInfo_Scene
           entryText = @randomEntryText
           shadowColor = shadow
         else
-          entryText = "Aucune description personnalisée n'est disponible pour ce Pokémon. Veuillez soumettre une description pour ce Pokémon sur le Discord du jeu."
+          entryText = "No custom Pokédex entry available for this Pokémon. Please consider submitting an entry for this Pokémon on the game's Discord."
           shadowColor = shadow
         end
       end
@@ -616,10 +616,10 @@ class PokemonPokedexInfo_Scene
       pbDrawImagePositions(overlay, [
         [sprintf("Graphics/Pictures/Pokedex/overlay_areanone"), 108, 188]
       ])
-      textpos.push([_INTL("Zone inconnue"), Graphics.width / 2, Graphics.height / 2 - 6, 2, base, shadow])
+      textpos.push([_INTL("Area unknown"), Graphics.width / 2, Graphics.height / 2 - 6, 2, base, shadow])
     end
     textpos.push([pbGetMessage(MessageTypes::RegionNames, @region), 414, 38, 2, base, shadow])
-    textpos.push([_INTL("La zone de {1}", GameData::Species.get(@species).name),
+    textpos.push([_INTL("{1}'s area", GameData::Species.get(@species).name),
                   Graphics.width / 2, 346, 2, base, shadow])
     pbDrawTextPositions(overlay, textpos)
   end

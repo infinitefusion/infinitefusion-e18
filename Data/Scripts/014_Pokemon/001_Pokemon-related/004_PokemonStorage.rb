@@ -62,7 +62,7 @@ class PokemonStorage
   def initialize(maxBoxes = Settings::NUM_STORAGE_BOXES, maxPokemon = PokemonBox::BOX_SIZE)
     @boxes = []
     for i in 0...maxBoxes
-      @boxes[i] = PokemonBox.new(_INTL("Boite {1}",i+1),maxPokemon)
+      @boxes[i] = PokemonBox.new(_INTL("Box {1}",i+1),maxPokemon)
       @boxes[i].background = i % BASICWALLPAPERQTY
     end
     @currentBox = 0
@@ -278,14 +278,14 @@ class RegionalStorage
 
   def getCurrentStorage
     if !$game_map
-      raise _INTL("Le joueur n'est pas sur une carte, la région n'a donc pas pu être déterminée.")
+      raise _INTL("The player is not on a map, so the region could not be determined.")
     end
     if @lastmap!=$game_map.map_id
       @rgnmap = pbGetCurrentRegion   # may access file IO, so caching result
       @lastmap = $game_map.map_id
     end
     if @rgnmap<0
-      raise _INTL("La carte actuelle n'a pas de région définie. Veuillez définir le paramètre de métadonnées MapPosition pour cette carte.")
+      raise _INTL("The current map has no region set. Please set the MapPosition metadata setting for this map.")
     end
     if !@storages[@rgnmap]
       @storages[@rgnmap] = PokemonStorage.new

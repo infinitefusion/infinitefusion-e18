@@ -204,14 +204,14 @@ module GameData
 
     # @return [String] the translated Pokédex category of this species
     def category
-      #return @real_category
-      return pbGetMessage(MessageTypes::Kinds, @id_number)
+      return @real_category
+      #return pbGetMessage(MessageTypes::Kinds, @id_number)
     end
 
     # @return [String] the translated Pokédex entry of this species
     def pokedex_entry
-      #return @real_pokedex_entry
-      return pbGetMessage(MessageTypes::Entries, @id_number)
+      return @real_pokedex_entry
+      #return pbGetMessage(MessageTypes::Entries, @id_number)
     end
 
     def is_fusion

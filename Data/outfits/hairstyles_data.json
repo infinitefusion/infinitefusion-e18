@@ -1,48 +1,48 @@
 [
     {
         "id": "afro",
-        "name": "Afro Touffu",
-        "description": "Une coupe afro dense et volumineuse, impossible à ignorer. Parfait pour affirmer son style !",
+        "name": "Afro",
+        "description": "A full, fluffy afro that’s big, bold, and impossible to ignore, perfect for making a statement!",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "bald",
-        "name": "Chauve",
-        "description": "Un look entièrement chauve. Pas de cheveux, pas de souci, juste un crâne pur et assumé !",
+        "name": "Bald",
+        "description": "A completely bald look - no hair, no fuss, just pure, unadulterated scalp!",
         "done": "yes",
         "price": 500,
         "tags": "no-hair"
     },
     {
         "id": "bfro",
-        "name": "Afro Décoiffé",
-        "description": "Un afro aplati et légèrement en bataille, donnant un style unique et facile à entretenir.",
+        "name": "Messy Afro",
+        "description": "A flattened afro with an unkempt, rounded shape, offering a low-maintenance yet distinctive look.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "bob",
-        "name": "Carré Élégant",
-        "description": "Une coupe au carré net et moderne, avec des cheveux à hauteur du menton qui encadrent parfaitement le visage.",
+        "name": "Bob Cut",
+        "description": "A sleek bob cut with chin-length hair that frames the face with a sharp, modern edge.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "bowlcut",
-        "name": "Coupe au Bol",
-        "description": "Une coupe classique et symétrique où les cheveux sont taillés uniformément tout autour de la tête.",
+        "name": "Bowl Cut",
+        "description": "A classic bowl cut with evenly trimmed hair all around, offering a neat and straightforward look.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "brock",
-        "name": "Pics Courts/Droits",
-        "description": "Des pointes courtes soigneusement arrangées pour un look à la fois strict et impressionnant. Popularisée par Pierre, le Champion d'Arène de Kanto.",
+        "name": "Short, Neat Spikes",
+        "description": "Neatly arranged spikes that look intimidating and disciplined. The style was popularized by Gym Leader Brock.",
         "len": 109,
         "done": "yes",
         "price": 2000,
@@ -51,8 +51,8 @@
     },
     {
         "id": "bugsy",
-        "name": "Frange Carrée",
-        "description": "Une coupe mi-longue avec une frange carrée désordonnée. On la retrouve souvent chez les jeunes Chasseurs d’Insectes.",
+        "name": "Square-Cut Bangs",
+        "description": "Medium-length hair with messy square-cut bangs. This cut is usually seen on young Bug Catchers.",
         "len": 95,
         "done": "yes",
         "price": 2000,
@@ -62,15 +62,15 @@
     {
         "id": "buzzcut",
         "name": "Buzz Cut",
-        "description": "Une coupe rasée nette et soignée, idéale pour un style épuré et sans entretien.",
+        "description": "A clean, close-cropped buzz cut for a sharp and low-maintenance appearance.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "clair",
-        "name": "Queue de Cheval/Frange",
-        "description": "Une longue chevelure attachée en une queue de cheval volumineuse. Ce style a été popularisé par Sandra, la Championne de Johto.",
+        "name": "Ponytail Spiky Bangs",
+        "description": "Long, beautiful bushy hair tied in a thick ponytail. The style was popularized by Gym Leader Clair.",
         "len": 99,
         "done": "yes",
         "price": 2000,
@@ -79,8 +79,8 @@
     },
     {
         "id": "cornrows",
-        "name": "Tresses Serrées",
-        "description": "Des tresses plaquées le long du cuir chevelu, créant un motif élégant et soigné.",
+        "name": "Cornrows",
+        "description": "Neatly braided cornrows that run close to the scalp that create a sleek and intricate pattern.",
         "done": "yes",
         "price": 500,
         "tags": "default"
@@ -95,8 +95,8 @@
     },
     {
         "id": "elm",
-        "name": "Cheveux Plaqués",
-        "description": "Des cheveux courts soigneusement coiffés en arrière pour un look sérieux et professionnel. Popularisé par le Professeur Orme",
+        "name": "Neat Backwave",
+        "description": "Short, combed back to hair that give a tidy and professional appearance. This style was popularized by Professor Elm.",
         "done": "yes",
         "price": 500,
         "tags": "goldenrod,",
@@ -104,16 +104,16 @@
     },
     {
         "id": "emo",
-        "name": "Frange Emo",
-        "description": "Une coupe stylisée avec des mèches longues et inclinées pour un look dramatique et rebelle.",
+        "name": "Emo Bangs",
+        "description": "A styled haircut with long, angled layers and sweeping bangs for a dramatic and edgy look.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "erika",
-        "name": "Cheveux Bandana",
-        "description": "Une coupe mi-longue avec des cheveux droits encadrant un bandana gris. Popularisée par Erika, la Championne de Céladopole.",
+        "name": "Bandana Straight Hair",
+        "description": "Medium-length hair that falls straight down around a gray bandana. The style was popularized by Gym Leader Erika.",
         "len": 113,
         "done": "yes",
         "price": 2000,
@@ -122,16 +122,16 @@
     },
     {
         "id": "fade",
-        "name": "Coupe Dégradée",
-        "description": "Une coupe progressivement plus courts, se fondant parfaitement avec des cheveux plus longs sur le dessus.",
+        "name": "Fade Haircut",
+        "description": "A fade haircut with gradually shorted sides and back, blending seamlessly into longer hair on top.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "falkner",
-        "name": "Frange Tombante",
-        "description": "Une frange mi-longue qui flotte élégamment au vent. Popularisée par Albert, le Champion de Mauville.",
+        "name": "Droopy Bangs",
+        "description": "Medium-length bangs that flow beautifully in the wind. This style was popularized by Gym Leader Falkner.",
         "len": 104,
         "done": "yes",
         "price": 2000,
@@ -140,21 +140,21 @@
     },
     {
         "id": "fusionnerd",
-        "name": "Frange Balayée",
-        "description": "Une coupe audacieuse et asymétrique où les mèches forment une vague stylée.",
+        "name": "Side-Swept Fringe",
+        "description": "A bold, asymmetrical hairstyle where strands fuse into a stylish wave.",
         "price": 1000
     },
     {
         "id": "gardevoir",
-        "name": "Frange Gardienne",
-        "description": "Une frange soignée qui couvre un oeil, inspirée du charme élégant de Gardevoir.",
+        "name": "Guardian Fringe",
+        "description": "A neat fringe that covers one eye that is styled to look like a Gardevoir.",
         "price": 3000,
         "howToGet": "saffron boutique"
     },
     {
         "id": "gary",
-        "name": "Pics Rebelles",
-        "description": "Des mèches en pointe qui dégagent une attitude sûre d’elle et un brin insolente. Populaire chez les jeunes dresseurs de Kanto.",
+        "name": "Front Spikes",
+        "description": "Spikes that give an air of smugness and youthful rebellion. The style is popular with fledgling trainers in Kanto.",
         "len": 114,
         "done": "yes",
         "price": 500,
@@ -163,15 +163,15 @@
     },
     {
         "id": "glitzerset",
-        "name": "Baie Palma",
-        "description": "Une coupe mignonne inspirée d'une Baie Palma!",
+        "name": "Pomeg Cut",
+        "description": "A cute cut that is styled like a Pomeg berry!",
         "price": 2000,
         "tags": "kin"
     },
     {
         "id": "happinysuit",
-        "name": "Queue de Cheval Bouclée",
-        "description": "Une adorable queue de cheval bouclée, inspirée du style de Ptiravi. Parfait pour les fans de bébés Pokémon !",
+        "name": "Playhouse Ponytail",
+        "description": "A cute curly ponytail styled just like a Happiny. A wonderfully charming style for any fans of Baby Pokémon.",
         "len": 108,
         "price": 3000,
         "tags": "long, tied, smooth, pokemon,",
@@ -179,8 +179,8 @@
     },
     {
         "id": "HexManiac",
-        "name": "Mèche Sauvage",
-        "description": "Une chevelure indomptable donnant l’impression d’être possédée. Populaire chez les Mystimaniacs.",
+        "name": "Wild Locks",
+        "description": "This wild mane of flowing locks is untamable, as if it was haunted. This style is popular with Hex Maniacs.",
         "len": 107,
         "done": "yes",
         "price": 500,
@@ -189,46 +189,45 @@
     },
     {
         "id": "highbun",
-        "name": "Chignon Élégante",
-        "description": "Un Chignon rappelant la fourrure de Lockpin",
+        "name": "High-bun",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "highpony",
-        "name": "Queue Haute Élégante",
-        "description": "Une queue de cheval haute rappelant la fourrure de Lockpin",
+        "name": "Ponytail",
+        "description": "A high ponytail reminiscent of Lopunny's fur",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "hilda",
-        "name": "Queue Haute",
-        "description": "Une queue-de-cheval volumineuse qui montre que vous êtes prête pour l’aventure. Très populaire parmi les nouveaux dresseurs d’Unys!",
+        "name": "High-pony",
+        "description": "A voluminous high ponytail that shows you're ready for adventure. It's popular with new trainers in Unova!",
         "price": 1500,
         "tags": "unova,"
     },
     {
         "id": "hime",
-        "name": "Coupe Hime",
-        "description": "Une coupe traditionnelle japonaise avec des cheveux raides, une frange droite et deux longues mèches latérales.",
+        "name": "Hime",
+        "description": "Straight, shoulder-length hair with blunt bangs and long side strands.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "ho-oh",
-        "name": "Crête Phénix",
-        "description": "Une coupe flamboyante avec une queue-de-cheval haute et courbée, évoquant les plumes majestueuses d’Ho-Oh.",
+        "name": "Phoenix Crest",
+        "description": "A bold, fiery style featuring a high, curved ponytail resembling the sweeping feathers of Ho-Oh.",
         "price": 5000,
         "howToGet": "saffron boutique"
     },
     {
         "id": "janine",
-        "name": "Queue de Cheval Épineuse",
-        "description": "Des cheveux plaqués et attachés en une queue de cheval hérissée. Popularisée par Janine, la fille de Koga.",
+        "name": "Spiky Ponytail",
+        "description": "Slicked back hair tied in a tight spiky ponytail. The style was popularized by Gym Leader Koga's daughter, Janine.",
         "len": 114,
         "done": "yes",
         "price": 2000,
@@ -237,21 +236,21 @@
     },
     {
         "id": "jessie",
-        "name": "Vague Rocket",
-        "description": "Un style dramatique et élégant avec des cheveux ultra-longs balayés en arrière, formant une vague haute défiant la gravité.",
+        "name": "Rocket Wave",
+        "description": "A dramatic, sleek style with ultra-long hair swept back into a high, gravity-defying wave.",
         "price": 2000
     },
     {
         "id": "kris",
-        "name": "Couettes Rebelles",
-        "description": "Des couettes pleines de ressort qui semblent défier la gravité elle-même.",
+        "name": "Springy Pigtails",
+        "description": "Springy pigtails that somehow defy gravity.",
         "price": 1500,
         "tags": "johto,"
     },
     {
         "id": "kurt",
-        "name": "Cheveux Raides Gominés",
-        "description": "Des cheveux mi-longs soigneusement plaqués en arrière. Popularisée par Fargas, le célèbre artisan des PokéBalls.",
+        "name": "Slicked-Back Straight",
+        "description": "Slicked-back medium-length straight hair, in a very traditional cut. The style was popularized by Gym Leader Kurt.",
         "len": 114,
         "done": "yes",
         "price": 2000,
@@ -260,16 +259,16 @@
     },
     {
         "id": "lady",
-        "name": "Ondulations Élégantes",
-        "description": "Une coiffure sophistiquée aux ondulations délicates, parfaite pour un style raffiné.",
+        "name": "Elegant Waves",
+        "description": "A sophisticated hairstyle with medium-length hair styled into elegant waves.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "lance",
-        "name": "Pics Sauvages",
-        "description": "Des mèches hérissées vers le ciel. Un choix audacieux ! Popularisé par Peter, le Maître de la Ligue.",
+        "name": "Wild Upwards Spikes",
+        "description": "Upwards-facing wild spikes. Very bold! The style was popularized by Elite Four Lance.",
         "len": 85,
         "price": 2000,
         "tags": "short, untied, spiky, ",
@@ -277,16 +276,16 @@
     },
     {
         "id": "lass",
-        "name": "Couettes Gonflées",
-        "description": "Des cheveux mi-longs attachés en deux couettes moelleuses, pour un look joyeux et pétillant.",
+        "name": "Puffy Pigtails",
+        "description": "Medium-length hair styled into two puffy pigtails, giving a cheerful and youthful look.",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "leaf",
-        "name": "Mèches Désordonnées",
-        "description": "Une coupe mi-longue et ébouriffée, souvent disciplinée par le port constant d’une casquette.",
+        "name": "Shaggy Hair Bangs",
+        "description": "Shoulder length shaggy hair that's been kept in check by constantly wearing a hat.",
         "len": 82,
         "done": "yes",
         "price": 500,
@@ -295,8 +294,8 @@
     },
     {
         "id": "lenora",
-        "name": "Carré Asymétrique",
-        "description": "Un carré lisse avec une frange balayée sur le côté. Popularisée par Aloé, la Championne d’Ogoesse.",
+        "name": "Side-Swept Bob",
+        "description": "A smooth bob with side-swept bangs. The style was popularized by the Unovan Gym Leader Lenora.",
         "done": "yes",
         "price": 1500,
         "tags": "unova,",
@@ -304,8 +303,8 @@
     },
     {
         "id": "lowbraids",
-        "name": "Tresses Basses",
-        "description": "Des cheveux longs attachés en tresses basses reposant sur les épaules. Un style mignon et pratique pour les dresseurs en voyage.",
+        "name": "Low Braids w/ Bangs",
+        "description": "Long flowing hair tied in low braids, laid over the shoulders. It's a cute, easy style for traveling trainers.",
         "len": 110,
         "done": "yes",
         "price": 500,
@@ -313,16 +312,16 @@
     },
     {
         "id": "lowpony",
-        "name": "Queue Basse Élégante",
-        "description": "Une queue de cheval basse rappelant la fourrure de Lockpin",
+        "name": "Low-pony",
+        "description": "A low ponytail reminiscent of Lopunny's fur",
         "done": "yes",
         "price": 500,
         "tags": "default,"
     },
     {
         "id": "lucy",
-        "name": "Boucles Volumineuses",
-        "description": "De longues boucles pleines de volume qui encadrent délicatement le visage et descendent jusqu’aux épaules.",
+        "name": "Voluminous Curls",
+        "description": "Long, wavy hair with a distinctive side part, featuring large curls that frame the face and flow down the shoulders.",
         "done": "yes",
         "price": 1500,
         "tags": "hoenn,",
@@ -330,30 +329,30 @@
     },
     {
         "id": "lunarbob",
-        "name": "Coupe Lunaire",
-        "description": "Une coupe au carré en forme de croissant de lune, avec une silhouette lisse et incurvée.",
+        "name": "Lunar Cut",
+        "description": "A bob cut shaped like a crescent moon, with a sleek, curved silhouette.",
         "price": 5000,
         "tags": "special",
         "howToGet": "quest? cresselia outfit"
     },
     {
         "id": "lycanrocshorthair",
-        "name": "Coupe Lupine",
-        "description": "Une coupe élégante rappelant la crinière d'un Lougaroc",
+        "name": "Lupine Cut",
+        "description": "A sleek cut that is reminiscent of a Lycanroc's mane",
         "price": 3000,
         "tags": "special"
     },
     {
         "id": "lyra",
-        "name": "Couettes Enjouées",
-        "description": "Des couettes rebondissantes qui dégagent une énergie insouciante et pleine de vie",
+        "name": "Peppy Pigtails",
+        "description": "Bouncy pigtails with a playful charm that gives off a carefree vibes.",
         "price": 1500,
         "tags": "johto,"
     },
     {
         "id": "mawile",
-        "name": "Queue Crocs de Mysdibule",
-        "description": "Une coiffure unique avec une queue de cheval ornée d’accessoires ressemblant aux mâchoires de Mysdibule.",
+        "name": "Long Teethed Ponytail",
+        "description": "A unique style of ponytail adorned with acessories that look just like the teethed antenna of a Mawile.",
         "len": 103,
         "done": "yes",
         "price": 5000,
@@ -362,8 +361,8 @@
     },
     {
         "id": "may",
-        "name": "Frange Latérale Dégradée",
-        "description": "Des cheveux mi-longs et bruns, avec une frange et des mèches balayées sur le côté. Très prisé par les jeunes dresseurs de Hoenn.",
+        "name": "Layered Side Fringe",
+        "description": "Medium-length brown hair with a fringe and side-swept bangs. This style is popular with fledgling trainers in Hoenn.",
         "done": "yes",
         "price": 1500,
         "tags": "hoenn,",
@@ -371,24 +370,24 @@
     },
     {
         "id": "mikufairy",
-        "name": "Doubles Queues Flottantes",
-        "description": "Une coiffure féerique avec deux longues queues de cheval ondulantes, donnant un air enchanteur.",
+        "name": "Flowing Twin Tails",
+        "description": "Long hair styled into voluminous twin tails with delicate, flowing strands that give off a magical and ethereal appearance.",
         "done": "yes",
         "price": 2000,
         "tags": "goldenrod,"
     },
     {
         "id": "mikutwintails",
-        "name": "Doubles Queues Hautes",
-        "description": "De longues couettes attachées bien hautes, avec une frange droite sur le côté pour un style pétillant et joueur.",
+        "name": "High Twin Tails",
+        "description": "Long hair styled into high, puffy twin tails with straight, side-swept bangs that give off a vibrant and playful look.",
         "done": "yes",
         "price": 2000,
         "tags": "goldenrod,"
     },
     {
         "id": "miror",
-        "name": "Afro Bicolore",
-        "description": "Un grand afro arborant un motif en zigzag de deux couleurs différentes. Un choix audacieux, digne des Dresseurs les plus disco!",
+        "name": "Two-Toned Afro",
+        "description": "An large two-toned afro with a zigzag pattern. A very bold choice, only for the most disco of trainers.",
         "len": 103,
         "done": "yes",
         "price": 5000,
@@ -396,8 +395,8 @@
     },
     {
         "id": "mistyGSC",
-        "name": "Cheveux Mi-longs Hérissés",
-        "description": "Une coupe mi-longue en bataille, parfaite pour un look dynamique. Popularisée par Ondine, la Championne d'Azuria.",
+        "name": "Spiky Medium Hair",
+        "description": "Medium-length hair that looks beautiful and youthful. The style was popularized by Gym Leader Misty.",
         "len": 100,
         "done": "yes",
         "price": 2000,
@@ -406,8 +405,8 @@
     },
     {
         "id": "mistyRBY",
-        "name": "Couette Épineuse sur le Côté",
-        "description": "Des cheveux courts hérissés avec une couette relevée sur le côté. Popularisée par Ondine, la Championne de Kanto.",
+        "name": "Spiky Side Pigtail",
+        "description": "Short, spiky hair with a spiky side ponytail. The style was popularized by Gym Leader Misty.",
         "len": 92,
         "done": "yes",
         "price": 2000,
@@ -416,8 +415,8 @@
     },
     {
         "id": "mohawk",
-        "name": "Crête Courte",
-        "description": "Une coupe punk avec une crête courte et le reste des cheveux rasé. Un style apprécié des motards et des rebelles.",
+        "name": "Short Mohawk",
+        "description": "A short mohawk with the rest of the head shaved to a buzz cut. It's a style popular with punks and bikers.",
         "len": 106,
         "done": "yes",
         "price": 500,
@@ -426,8 +425,8 @@
     },
     {
         "id": "nate",
-        "name": "Mèches Courtes et Décoiffées",
-        "description": "Des pointes courtes et ébouriffées qui se marient bien avec une casquette. Très populaire parmi les jeunes dresseurs d'Unys.",
+        "name": "Short, Shaggy spikes",
+        "description": "Short, shaggy spikes that go well with visor-type hats. The style is popular with fledgling trainers in Unova.",
         "len": 110,
         "done": "yes",
         "price": 1500,
@@ -436,8 +435,8 @@
     },
     {
         "id": "nhair",
-        "name": "Queue de Cheval Sauvage",
-        "description": "Une queue de cheval basse et décontractée, donnant une allure mystérieuse. Courante chez les dresseurs d'Unys.",
+        "name": "Shaggy Ponytail",
+        "description": "A long, low ponytail that gives off a mysterious air. The style is popular with trainers in Unova.",
         "len": 98,
         "done": "yes",
         "price": 1500,
@@ -446,8 +445,8 @@
     },
     {
         "id": "officeworkerF",
-        "name": "Cheveux Longs Jusqu'à la Taille",
-        "description": "Une chevelure descendant jusqu’à la taille. Très apprécié par les dresseurs exerçant dans le monde des affaires.",
+        "name": "Waist-Length Hair",
+        "description": "Long, flowing waist-length hair with short, chunky bangs. It's popular with a lot of trainers with corporate jobs.",
         "len": 114,
         "done": "yes",
         "price": 500,
@@ -456,8 +455,8 @@
     },
     {
         "id": "painter",
-        "name": "Mèches sur le Côté",
-        "description": "Des cheveux courts avec des mèches douces et légères encadrant le visage, souvent portés par les artistes.",
+        "name": "Soft Side Bangs",
+        "description": "Short hair with soft, fluffy bangs parted to the sides, often worn by sensitive souls such as artists.",
         "len": 102,
         "done": "yes",
         "price": 500,
@@ -465,16 +464,16 @@
     },
     {
         "id": "pigtails",
-        "name": "Couettes Ludiques",
-        "description": "Des couettes hautes et rebondies, nouées avec des rubans pour un style jeune et dynamique.",
+        "name": "Pigtails",
+        "description": "High, bouncy pigtails tied with ribbons, adding a fun and youthful touch to your look.",
         "done": "yes",
         "price": 500,
         "tags": "default,"
     },
     {
         "id": "pixie",
-        "name": "Coupe Pixie",
-        "description": "Une coupe avec des côtés taillés de près et un peu de longueur sur le dessus pour un look aérien et moderne.",
+        "name": "Pixie Cut",
+        "description": "A short, playful pixie cut with closely cropped sides and a bit of length on top for a modern, airy look.",
         "done": "yes",
         "price": 500,
         "tags": "default,"
@@ -487,8 +486,8 @@
     },
     {
         "id": "red",
-        "name": "Cheveux Courts",
-        "description": "Des cheveux courts et hérissés, aplatis par le port constant d’une casquette.",
+        "name": "Short Hat Hair",
+        "description": "Short spiky hair that's been flattened by constantly wearing a hat.",
         "len": 67,
         "done": "yes",
         "price": 500,
@@ -497,16 +496,16 @@
     },
     {
         "id": "richboy",
-        "name": "Plaquée sur le Côté",
-        "description": "Une coupe soignée avec une raie marquée et les cheveux plaqués, pour une allure raffinée et impeccable.",
+        "name": "Combover",
+        "description": "A sleek, neatly styled combover with a side part that creates a polished and refined appearance.",
         "done": "yes",
         "price": 500,
         "tags": "default,"
     },
     {
         "id": "rosa",
-        "name": "Chignons avec Longues Couettes",
-        "description": "Une coiffure originale avec deux grands chignons latéraux se prolongeant en longues couettes. Très populaire chez les jeunes dresseurs d’Unys.",
+        "name": "Long Pigtails Buns",
+        "description": "An eye-catching hairdo with two large side buns that continue into long pigtails. It's popular with fledgling trainers in Unova",
         "len": 127,
         "done": "yes",
         "price": 1500,
@@ -515,8 +514,8 @@
     },
     {
         "id": "roseradeF",
-        "name": "Coiffure Roserade (M)",
-        "description": "Des cheveux mi-longs en piques, inspirés de la fleur de tête de Roserade.",
+        "name": "Roserade (Medium)",
+        "description": "Medium-length spiky hair that's styled to resemble a Roserade's head flower.",
         "len": 76,
         "done": "yes",
         "price": 500,
@@ -525,8 +524,8 @@
     },
     {
         "id": "roseradeM",
-        "name": "Coiffure Roserade (C)",
-        "description": "Des cheveux courts et hérissés, reprenant le style iconique de la fleur de Roserade.",
+        "name": "Roserade (Short)",
+        "description": "Short, spiky hair that's styled to resemble a Roserade's head flower.",
         "len": 69,
         "done": "yes",
         "price": 500,
@@ -535,30 +534,27 @@
     },
     {
         "id": "sabrinaGSC",
-        "name": "Coupe Clairvoyante",
-        "description": "Une coupe mi-longue avec une frange distincte qui encadre le visage. Ce style a été popularisé par la Championne Sabrina.",
+        "name": "Clairvoyant Cut",
+        "description": "A medium-length cut with a distinct parted fringe that frames the face.The style was popularized by the Gym Leader Sabrina.",
         "price": 2000
     },
     {
         "id": "sabrinaRBY",
-        "name": "Mèches Télékinétiques",
-        "description": "Une coiffure mystérieuse, comme si elle flottait sous l’influence d’une force invisible."
+        "name": "Telekinetic Tresses"
     },
     {
         "id": "sada",
-        "name": "Coupe Paradoxe",
-        "description": "Un style énigmatique qui semble venir d’une autre époque... ou d’un autre monde.",
+        "name": "Paradox Cut",
         "tags": "paldea,"
     },
     {
         "id": "samurai",
-        "name": "Samurai",
-        "description": "Une coiffure tirée des plus grands samouraïs, cette coiffure montre un signe de respect dans la ville de Rosalia."
+        "name": "Samurai"
     },
     {
         "id": "short1",
-        "name": "Frange Droite sur le Côté",
-        "description": "Des cheveux lisses et courts encadrant le visage, parfaits pour un look frais et dynamique.",
+        "name": "Straight Side Bangs",
+        "description": "Short, smooth hair that frames the face nicely and gives a trainer a youthful appearance.",
         "len": 89,
         "done": "yes",
         "price": 500,
@@ -566,8 +562,8 @@
     },
     {
         "id": "shortcut",
-        "name": "Frange Droite",
-        "description": "Une frange droite et nette encadrant le visage, donnant un air juvénile et charmant.",
+        "name": "Square-Cut Bangs",
+        "description": "Very short hair with square-cut bangs framing the face, giving a trainer a youthful, charming appearance.",
         "len": 105,
         "done": "yes",
         "price": 500,
@@ -575,26 +571,26 @@
     },
     {
         "id": "shortspike",
-        "name": "Pics Courts",
+        "name": "Short Spikes",
         "done": "yes",
         "price": 500,
         "tags": "default,"
     },
     {
         "id": "sonia",
-        "name": "Queue Latérale",
-        "description": "Une élégante queue-de-cheval portée sur le côté, popularisée par une assistante de recherche de Galar."
+        "name": "High Side Pony",
+        "description": "An elegant ponytail worn to the side that was popularized by a Galarian research assistant."
     },
     {
         "id": "SpecialLatias",
-        "name": "Bob Éon",
-        "description": "Un bob avec des couches et de longues boucles tournées vers l'extérieur, dégageant un charme doux et mystérieux.",
+        "name": "Eon Bob",
+        "description": "A layered bob with long, outward curls, exuding a gentle and mysterious charm.",
         "price": 5000
     },
     {
         "id": "vetf",
-        "name": "Carré du Vétéran",
-        "description": "Une coupe courte et pratique avec un carré structuré et quelques couches discrètes, pour un style sérieux et pragmatique.",
+        "name": "Veteran Bob",
+        "description": "Short, practical hair styled into a neat bob with subtle layers, giving a no-nonsense look.",
         "done": "yes",
         "price": 500,
         "tags": "crimson",
@@ -602,16 +598,15 @@
     },
     {
         "id": "wavy",
-        "name": "Cheveux Ondulés",
-        "description": "Des cheveux mi-longs aux ondulations naturelles, pour une apparence douce et élégante.",
+        "name": "Wavy Hair",
         "done": "yes",
         "price": 500,
         "tags": "default,"
     },
     {
         "id": "whitney",
-        "name": "Couettes Basses Hérissées",
-        "description": "Des couettes basses et légèrement en bataille, donnant une allure espiègle. Popularisée par Blanche, la Championne de Doublonville.",
+        "name": "Spiky Low Pigtails",
+        "description": "Low pigtails that give a youthful look to the wearer. The style was popularized by Gym Leader Whitney.",
         "len": 102,
         "done": "yes",
         "price": 500,

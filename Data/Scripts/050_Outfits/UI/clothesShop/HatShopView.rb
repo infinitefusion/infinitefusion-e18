@@ -2,7 +2,7 @@
 
 class HatShopView < ClothesShopView
 
-  def initialize(currency_name = "Argent")
+  def initialize(currency_name = "Money")
     @currency_name = currency_name
   end
 
@@ -97,7 +97,7 @@ class HatShopView < ClothesShopView
       @adapter.updateTrainerPreview(itemwindow.item, @sprites["trainerPreview"])
       displayLayerIcons(item)
     else
-      description = _INTL("Quitter.")
+      description = _INTL("Quit.")
     end
     @sprites["itemtextwindow"].text = description
   end

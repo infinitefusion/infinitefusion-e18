@@ -105,10 +105,10 @@ class PokemonEggHatch_Scene
     pbBGMStop()
     pbMEPlay("Evolution success")
     @pokemon.name = nil
-    pbMessage(_INTL("\\se[]{1} a éclos de l'oeuf!\\wt[80]", @pokemon.name)) { update }
+    pbMessage(_INTL("\\se[]{1} hatched from the Egg!\\wt[80]", @pokemon.name)) { update }
     if pbConfirmMessage(
-        _INTL("Voulez-vous renommer le {1} nouvellement éclos ??", @pokemon.name)) { update }
-      nickname = pbEnterPokemonName(_INTL("Surnom de {1}?", @pokemon.name),
+        _INTL("Would you like to nickname the newly hatched {1}?", @pokemon.name)) { update }
+      nickname = pbEnterPokemonName(_INTL("{1}'s nickname?", @pokemon.name),
                                   0, Pokemon::MAX_NAME_SIZE, "", @pokemon, true)
       @pokemon.name = nickname
       @nicknamed = true
@@ -117,7 +117,7 @@ class PokemonEggHatch_Scene
     if !$Trainer.pokedex.owned?(@pokemon.species)
       $Trainer.pokedex.register(@pokemon)
       $Trainer.pokedex.set_owned(@pokemon.species)
-      pbMessage(_INTL("Les données de {1} ont été ajoutées au Pokédex", @pokemon.name))
+      pbMessage(_INTL("{1}'s data was added to the Pokédex", @pokemon.name))
       pbShowPokedex(@pokemon.species)
     end
     nb_eggs_hatched = pbGet(VAR_NB_EGGS_HATCHED)
@@ -220,9 +220,9 @@ def pbHatch(pokemon)
     pbMessage(_INTL("Huh?\1"))
     pbMessage(_INTL("...\1"))
     pbMessage(_INTL("... .... .....\1"))
-    pbMessage(_INTL("{1} a éclos de l'oeuf!", speciesname))
-    if pbConfirmMessage(_INTL("Voulez-vous renommer le {1} nouvellement éclos ??", speciesname))
-      nickname = pbEnterPokemonName(_INTL("Le surnom de {1}?", speciesname),
+    pbMessage(_INTL("{1} hatched from the Egg!", speciesname))
+    if pbConfirmMessage(_INTL("Would you like to nickname the newly hatched {1}?", speciesname))
+      nickname = pbEnterPokemonName(_INTL("{1}'s nickname?", speciesname),
                                     0, Pokemon::MAX_NAME_SIZE, "", pokemon)
       pokemon.name = nickname
     end

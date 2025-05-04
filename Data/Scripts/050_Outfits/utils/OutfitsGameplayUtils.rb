@@ -6,16 +6,16 @@ def obtainNewClothes(outfit_id)
   return obtainClothes(outfit_id)
 end
 
-def obtainHat(outfit_id, secondary=false)
-  echoln "Vous avez obtenu un nouveau chapeau: " + outfit_id
+def obtainHat(outfit_id,secondary=false)
+  echoln "obtained new hat: " + outfit_id
   outfit = get_hat_by_id(outfit_id)
   if !outfit
-    pbMessage(_INTL("Le chapeau #{outfit_id} n'est pas valide."))
+    pbMessage(_INTL("The hat #{outfit_id} is invalid."))
     return
   end
   $Trainer.unlocked_hats << outfit_id if !$Trainer.unlocked_hats.include?(outfit_id)
   obtainOutfitMessage(outfit)
-  if pbConfirmMessage("Voulez-vous le mettre tout de suite ?")
+  if pbConfirmMessage("Would you like to put it on right now?")
     putOnHat(outfit_id, false, false) if !secondary
     putOnHat(outfit_id, false, true) if secondary
     return true
@@ -24,16 +24,16 @@ def obtainHat(outfit_id, secondary=false)
 end
 
 def obtainClothes(outfit_id)
-  echoln "Vous avez obtenu un nouveau vêtement: " + outfit_id
+  echoln "obtained new clothes: " + outfit_id
   outfit = get_clothes_by_id(outfit_id)
   if !outfit
-    pbMessage(_INTL("Le vêtement #{outfit_id} n'est pas valide."))
+    pbMessage(_INTL("The clothes #{outfit_id} are invalid."))
     return
   end
   return if !outfit
   $Trainer.unlocked_clothes << outfit_id if !$Trainer.unlocked_clothes.include?(outfit_id)
   obtainOutfitMessage(outfit)
-  if pbConfirmMessage("Voulez-vous le mettre tout de suite ?")
+  if pbConfirmMessage("Would you like to put it on right now?")
     putOnClothes(outfit_id)
     return true
   end
@@ -45,7 +45,7 @@ def obtainNewHairstyle(full_outfit_id)
   hairstyle_id = split_outfit_id[1]
   hairstyle = get_hair_by_id(hairstyle_id)
   musical_effect = "Key item get"
-  pbMessage(_INTL("\\me[{1}]Votre coiffure a été modifiée en \\c[1]{2}\\c[0] \\wtnp[30]", musical_effect, hairstyle.name))
+  pbMessage(_INTL("\\me[{1}]Your hairstyle was changed to \\c[1]{2}\\c[0] hairstyle!\\wtnp[30]", musical_effect, hairstyle.name))
   return true
 end
 
@@ -141,14 +141,14 @@ end
 def obtainOutfitMessage(outfit)
   pictureViewport = showOutfitPicture(outfit)
   musical_effect = "Key item get"
-  pbMessage(_INTL("\\me[{1}]Vous avez obtenu \\c[1]{2}\\c[0]!\\wtnp[30]", musical_effect, outfit.name))
+  pbMessage(_INTL("\\me[{1}]You obtained a \\c[1]{2}\\c[0]!\\wtnp[30]", musical_effect, outfit.name))
   pictureViewport.dispose if pictureViewport
 end
 
 def putOnOutfitMessage(outfit)
   playOutfitChangeAnimation()
   outfitName = outfit.name == "" ? outfit.id : outfit.name
-  pbMessage(_INTL("Vous avez mis \\c[1]{1}\\c[0]!\\wtnp[30]", outfitName))
+  pbMessage(_INTL("You put on the \\c[1]{1}\\c[0]!\\wtnp[30]", outfitName))
 end
 
 def refreshPlayerOutfit()
@@ -161,6 +161,8 @@ def findLastHairVersion(hairId)
   last_version = 0
   possible_versions.each { |version|
     hair_id = getFullHairId(hairId, version)
+    echoln hair_id
+    echoln pbResolveBitmap(getOverworldHairFilename(hair_id))
     if pbResolveBitmap(getOverworldHairFilename(hair_id))
       last_version = version
     else

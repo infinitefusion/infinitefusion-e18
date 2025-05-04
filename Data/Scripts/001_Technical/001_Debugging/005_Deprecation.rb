@@ -8,13 +8,13 @@ module Deprecation
   # @param removal_version [String] version the method is removed in
   # @param alternative [String] preferred alternative method
   def warn_method(method_name, removal_version = nil, alternative = nil)
-    text = _INTL('AVERTISSEMENT: utilisation de la méthode obsolète "{1}" ou de son alias.', method_name)
+    text = _INTL('WARN: usage of deprecated method "{1}" or its alias.', method_name)
     unless removal_version.nil?
-      text += _INTL("\nLa méthode est censée être"\
-                    " supprimé dans Essentials {1}.", removal_version)
+      text += _INTL("\nThe method is slated to be"\
+                    " removed in Essentials {1}.", removal_version)
     end
     unless alternative.nil?
-      text += _INTL("\nUtilise \"{1}\" plutôt.", alternative)
+      text += _INTL("\nUse \"{1}\" instead.", alternative)
     end
     echoln text
   end

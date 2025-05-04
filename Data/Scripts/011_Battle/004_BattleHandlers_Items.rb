@@ -48,7 +48,7 @@ BattleHandlers::WeightCalcItem.add(:FLOATSTONE,
 BattleHandlers::HPHealItem.add(:AGUAVBERRY,
   proc { |item,battler,battle,forced|
     next pbBattleConfusionBerry(battler,battle,item,forced,4,
-       _INTL("Pour {1}, le {2} était trop amer!",battler.pbThis(true),GameData::Item.get(item).name))
+       _INTL("For {1}, the {2} was too bitter!",battler.pbThis(true),GameData::Item.get(item).name))
   }
 )
 
@@ -67,9 +67,9 @@ BattleHandlers::HPHealItem.add(:BERRYJUICE,
     battle.pbCommonAnimation("UseItem",battler) if !forced
     battler.pbRecoverHP(20)
     if forced
-      battle.pbDisplay(_INTL("Les PV de {1} ont été restaurés.",battler.pbThis))
+      battle.pbDisplay(_INTL("{1}'s HP was restored.",battler.pbThis))
     else
-      battle.pbDisplay(_INTL("{1} a restauré sa santé en utilisant {2}!",battler.pbThis,itemName))
+      battle.pbDisplay(_INTL("{1} restored its health using its {2}!",battler.pbThis,itemName))
     end
     next true
   }
@@ -78,7 +78,7 @@ BattleHandlers::HPHealItem.add(:BERRYJUICE,
 BattleHandlers::HPHealItem.add(:FIGYBERRY,
   proc { |item,battler,battle,forced|
     next pbBattleConfusionBerry(battler,battle,item,forced,0,
-       _INTL("Pour {1}, le {2} était trop épicé!",battler.pbThis(true),GameData::Item.get(item).name))
+       _INTL("For {1}, the {2} was too spicy!",battler.pbThis(true),GameData::Item.get(item).name))
   }
 )
 
@@ -91,7 +91,7 @@ BattleHandlers::HPHealItem.add(:GANLONBERRY,
 BattleHandlers::HPHealItem.add(:IAPAPABERRY,
   proc { |item,battler,battle,forced|
     next pbBattleConfusionBerry(battler,battle,item,forced,1,
-       _INTL("Pour {1}, le {2} était trop acide!",battler.pbThis(true),GameData::Item.get(item).name))
+       _INTL("For {1}, the {2} was too sour!",battler.pbThis(true),GameData::Item.get(item).name))
   }
 )
 
@@ -103,9 +103,9 @@ BattleHandlers::HPHealItem.add(:LANSATBERRY,
     battler.effects[PBEffects::FocusEnergy] = 2
     itemName = GameData::Item.get(item).name
     if forced
-      battle.pbDisplay(_INTL("{1} a été motiver par {2}!",battler.pbThis,itemName))
+      battle.pbDisplay(_INTL("{1} got pumped from the {2}!",battler.pbThis,itemName))
     else
-      battle.pbDisplay(_INTL("{1} a utilisé son {2} pour le motiver!",battler.pbThis,itemName))
+      battle.pbDisplay(_INTL("{1} used its {2} to get pumped!",battler.pbThis,itemName))
     end
     next true
   }
@@ -120,7 +120,7 @@ BattleHandlers::HPHealItem.add(:LIECHIBERRY,
 BattleHandlers::HPHealItem.add(:MAGOBERRY,
   proc { |item,battler,battle,forced|
     next pbBattleConfusionBerry(battler,battle,item,forced,2,
-       _INTL("Pour {1}, le {2} était trop sucré!",battler.pbThis(true),GameData::Item.get(item).name))
+       _INTL("For {1}, the {2} was too sweet!",battler.pbThis(true),GameData::Item.get(item).name))
   }
 )
 
@@ -133,9 +133,9 @@ BattleHandlers::HPHealItem.add(:MICLEBERRY,
     itemName = GameData::Item.get(item).name
     if forced
       PBDebug.log("[Item triggered] Forced consuming of #{itemName}")
-      battle.pbDisplay(_INTL("{1} a amélioré la précision de sa prochaine attaque!",battler.pbThis))
+      battle.pbDisplay(_INTL("{1} boosted the accuracy of its next move!",battler.pbThis))
     else
-      battle.pbDisplay(_INTL("{1} a amélioré la précision de sa prochaine attaque en utilisant {2}!",
+      battle.pbDisplay(_INTL("{1} boosted the accuracy of its next move using its {2}!",
          battler.pbThis,itemName))
     end
     next true
@@ -151,9 +151,9 @@ BattleHandlers::HPHealItem.add(:ORANBERRY,
     itemName = GameData::Item.get(item).name
     if forced
       PBDebug.log("[Item triggered] Forced consuming of #{itemName}")
-      battle.pbDisplay(_INTL("Les PV de {1} ont été restaurés.",battler.pbThis))
+      battle.pbDisplay(_INTL("{1}'s HP was restored.",battler.pbThis))
     else
-      battle.pbDisplay(_INTL("{1} restauré un peu de PV en utilisant {2}!",battler.pbThis,itemName))
+      battle.pbDisplay(_INTL("{1} restored a little HP using its {2}!",battler.pbThis,itemName))
     end
     next true
   }
@@ -180,9 +180,9 @@ BattleHandlers::HPHealItem.add(:SITRUSBERRY,
     itemName = GameData::Item.get(item).name
     if forced
       PBDebug.log("[Item triggered] Forced consuming of #{itemName}")
-      battle.pbDisplay(_INTL("Les PV de {1} ont été restaurés.",battler.pbThis))
+      battle.pbDisplay(_INTL("{1}'s HP was restored.",battler.pbThis))
     else
-      battle.pbDisplay(_INTL("{1} a restauré sa santé en utilisant {2}!",battler.pbThis,itemName))
+      battle.pbDisplay(_INTL("{1} restored its health using its {2}!",battler.pbThis,itemName))
     end
     next true
   }
@@ -201,7 +201,7 @@ BattleHandlers::HPHealItem.add(:STARFBERRY,
 BattleHandlers::HPHealItem.add(:WIKIBERRY,
   proc { |item,battler,battle,forced|
     next pbBattleConfusionBerry(battler,battle,item,forced,3,
-       _INTL("Pour {1}, le {2} était trop sec!",battler.pbThis(true),GameData::Item.get(item).name))
+       _INTL("For {1}, the {2} was too dry!",battler.pbThis(true),GameData::Item.get(item).name))
   }
 )
 
@@ -217,7 +217,7 @@ BattleHandlers::StatusCureItem.add(:ASPEARBERRY,
     PBDebug.log("[Item triggered] #{battler.pbThis}'s #{itemName}") if forced
     battle.pbCommonAnimation("EatBerry",battler) if !forced
     battler.pbCureStatus(forced)
-    battle.pbDisplay(_INTL("{1}'s {2} l'a décongelé!",battler.pbThis,itemName)) if !forced
+    battle.pbDisplay(_INTL("{1}'s {2} defrosted it!",battler.pbThis,itemName)) if !forced
     next true
   }
 )
@@ -230,7 +230,7 @@ BattleHandlers::StatusCureItem.add(:CHERIBERRY,
     PBDebug.log("[Item triggered] #{battler.pbThis}'s #{itemName}") if forced
     battle.pbCommonAnimation("EatBerry",battler) if !forced
     battler.pbCureStatus(forced)
-    battle.pbDisplay(_INTL("{1}'s {2} a guéri sa paralysie!",battler.pbThis,itemName)) if !forced
+    battle.pbDisplay(_INTL("{1}'s {2} cured its paralysis!",battler.pbThis,itemName)) if !forced
     next true
   }
 )
@@ -243,7 +243,7 @@ BattleHandlers::StatusCureItem.add(:CHESTOBERRY,
     PBDebug.log("[Item triggered] #{battler.pbThis}'s #{itemName}") if forced
     battle.pbCommonAnimation("EatBerry",battler) if !forced
     battler.pbCureStatus(forced)
-    battle.pbDisplay(_INTL("{1}'s {2} l'a réveillé!",battler.pbThis,itemName)) if !forced
+    battle.pbDisplay(_INTL("{1}'s {2} woke it up!",battler.pbThis,itemName)) if !forced
     next true
   }
 )
@@ -261,22 +261,22 @@ BattleHandlers::StatusCureItem.add(:LUMBERRY,
     battler.pbCureStatus(forced)
     battler.pbCureConfusion
     if forced
-      battle.pbDisplay(_INTL("{1} sorti de sa confusion.",battler.pbThis)) if oldConfusion
+      battle.pbDisplay(_INTL("{1} snapped out of its confusion.",battler.pbThis)) if oldConfusion
     else
       case oldStatus
       when :SLEEP
-        battle.pbDisplay(_INTL("{1}'s {2} l'a réveillé!",battler.pbThis,itemName))
+        battle.pbDisplay(_INTL("{1}'s {2} woke it up!",battler.pbThis,itemName))
       when :POISON
-        battle.pbDisplay(_INTL("{1}'s {2} a guéri de son empoisonnement !!",battler.pbThis,itemName))
+        battle.pbDisplay(_INTL("{1}'s {2} cured its poisoning!",battler.pbThis,itemName))
       when :BURN
-        battle.pbDisplay(_INTL("{1}'s {2} a soigné sa brûlure!",battler.pbThis,itemName))
+        battle.pbDisplay(_INTL("{1}'s {2} healed its burn!",battler.pbThis,itemName))
       when :PARALYSIS
-        battle.pbDisplay(_INTL("{1}'s {2} a guéri sa paralysie!",battler.pbThis,itemName))
+        battle.pbDisplay(_INTL("{1}'s {2} cured its paralysis!",battler.pbThis,itemName))
       when :FROZEN
-        battle.pbDisplay(_INTL("{1}'s {2} l'a décongelé!",battler.pbThis,itemName))
+        battle.pbDisplay(_INTL("{1}'s {2} defrosted it!",battler.pbThis,itemName))
       end
       if oldConfusion
-        battle.pbDisplay(_INTL("{1}'s {2} l'a sorti de sa confusion!",battler.pbThis,itemName))
+        battle.pbDisplay(_INTL("{1}'s {2} snapped it out of its confusion!",battler.pbThis,itemName))
       end
     end
     next true
@@ -296,23 +296,23 @@ BattleHandlers::StatusCureItem.add(:MENTALHERB,
     battle.pbCommonAnimation("UseItem",battler) if !forced
     if battler.effects[PBEffects::Attract]>=0
       if forced
-        battle.pbDisplay(_INTL("{1} a surmonté son engouement.",battler.pbThis))
+        battle.pbDisplay(_INTL("{1} got over its infatuation.",battler.pbThis))
       else
-        battle.pbDisplay(_INTL("{1} a guéri son statut d'engouement en utilisant {2}!",
+        battle.pbDisplay(_INTL("{1} cured its infatuation status using its {2}!",
            battler.pbThis,itemName))
       end
       battler.pbCureAttract
     end
-    battle.pbDisplay(_INTL("La provocation de {1} s'est estompée!",battler.pbThis)) if battler.effects[PBEffects::Taunt]>0
+    battle.pbDisplay(_INTL("{1}'s taunt wore off!",battler.pbThis)) if battler.effects[PBEffects::Taunt]>0
     battler.effects[PBEffects::Taunt]      = 0
-    battle.pbDisplay(_INTL("Le encore de {1} s'est terminé!",battler.pbThis)) if battler.effects[PBEffects::Encore]>0
+    battle.pbDisplay(_INTL("{1}'s encore ended!",battler.pbThis)) if battler.effects[PBEffects::Encore]>0
     battler.effects[PBEffects::Encore]     = 0
     battler.effects[PBEffects::EncoreMove] = nil
-    battle.pbDisplay(_INTL("Le tourment de {1} s'est estompé!",battler.pbThis)) if battler.effects[PBEffects::Torment]
+    battle.pbDisplay(_INTL("{1}'s torment wore off!",battler.pbThis)) if battler.effects[PBEffects::Torment]
     battler.effects[PBEffects::Torment]    = false
-    battle.pbDisplay(_INTL("{1} n'est plus désactivé!",battler.pbThis)) if battler.effects[PBEffects::Disable]>0
+    battle.pbDisplay(_INTL("{1} is no longer disabled!",battler.pbThis)) if battler.effects[PBEffects::Disable]>0
     battler.effects[PBEffects::Disable]    = 0
-    battle.pbDisplay(_INTL("Le Heal Block de {1} s'est estompé!",battler.pbThis)) if battler.effects[PBEffects::HealBlock]>0
+    battle.pbDisplay(_INTL("{1}'s Heal Block wore off!",battler.pbThis)) if battler.effects[PBEffects::HealBlock]>0
     battler.effects[PBEffects::HealBlock]  = 0
     next true
   }
@@ -326,7 +326,7 @@ BattleHandlers::StatusCureItem.add(:PECHABERRY,
     PBDebug.log("[Item triggered] #{battler.pbThis}'s #{itemName}") if forced
     battle.pbCommonAnimation("EatBerry",battler) if !forced
     battler.pbCureStatus(forced)
-    battle.pbDisplay(_INTL("{1}'s {2} a guéri de son empoisonnement!",battler.pbThis,itemName)) if !forced
+    battle.pbDisplay(_INTL("{1}'s {2} cured its poisoning!",battler.pbThis,itemName)) if !forced
     next true
   }
 )
@@ -340,9 +340,9 @@ BattleHandlers::StatusCureItem.add(:PERSIMBERRY,
     battle.pbCommonAnimation("EatBerry",battler) if !forced
     battler.pbCureConfusion
     if forced
-      battle.pbDisplay(_INTL("{1} est sorti de sa confusion..",battler.pbThis))
+      battle.pbDisplay(_INTL("{1} snapped out of its confusion.",battler.pbThis))
     else
-      battle.pbDisplay(_INTL("{1}'s {2} a sorti de sa confusion!",battler.pbThis,
+      battle.pbDisplay(_INTL("{1}'s {2} snapped it out of its confusion!",battler.pbThis,
          itemName))
     end
     next true
@@ -357,7 +357,7 @@ BattleHandlers::StatusCureItem.add(:RAWSTBERRY,
     PBDebug.log("[Item triggered] #{battler.pbThis}'s #{itemName}") if forced
     battle.pbCommonAnimation("EatBerry",battler) if !forced
     battler.pbCureStatus(forced)
-    battle.pbDisplay(_INTL("{1}'s {2} a guéri sa brûlure!",battler.pbThis,itemName)) if !forced
+    battle.pbDisplay(_INTL("{1}'s {2} healed its burn!",battler.pbThis,itemName)) if !forced
     next true
   }
 )
@@ -394,7 +394,7 @@ BattleHandlers::PriorityBracketChangeItem.add(:QUICKCLAW,
 BattleHandlers::PriorityBracketUseItem.add(:CUSTAPBERRY,
   proc { |item,battler,battle|
     battle.pbCommonAnimation("EatBerry",battler)
-    battle.pbDisplay(_INTL("{1}'s {2} l'a laissé bouger en premier!",battler.pbThis,battler.itemName))
+    battle.pbDisplay(_INTL("{1}'s {2} let it move first!",battler.pbThis,battler.itemName))
     battler.pbConsumeItem
   }
 )
@@ -402,7 +402,7 @@ BattleHandlers::PriorityBracketUseItem.add(:CUSTAPBERRY,
 BattleHandlers::PriorityBracketUseItem.add(:QUICKCLAW,
   proc { |item,battler,battle|
     battle.pbCommonAnimation("UseItem",battler)
-    battle.pbDisplay(_INTL("{1}'s {2} l'a laissé bouger en premier!",battler.pbThis,battler.itemName))
+    battle.pbDisplay(_INTL("{1}'s {2} let it move first!",battler.pbThis,battler.itemName))
   }
 )
 
@@ -1040,7 +1040,7 @@ BattleHandlers::TargetItemOnHit.add(:JABOCABERRY,
     battle.pbCommonAnimation("EatBerry",target)
     battle.scene.pbDamageAnimation(user)
     user.pbReduceHP(user.totalhp/8,false)
-    battle.pbDisplay(_INTL("{1} a consommé {2} et blessé {3}!",target.pbThis,
+    battle.pbDisplay(_INTL("{1} consumed its {2} and hurt {3}!",target.pbThis,
        target.itemName,user.pbThis(true)))
     target.pbHeldItemTriggered(item)
   }
@@ -1090,7 +1090,7 @@ BattleHandlers::TargetItemOnHit.add(:ROCKYHELMET,
     next if !user.takesIndirectDamage?
     battle.scene.pbDamageAnimation(user)
     user.pbReduceHP(user.totalhp/6,false)
-    battle.pbDisplay(_INTL("{1} a été blessé par {2}!",user.pbThis,target.itemName))
+    battle.pbDisplay(_INTL("{1} was hurt by the {2}!",user.pbThis,target.itemName))
   }
 )
 
@@ -1102,7 +1102,7 @@ BattleHandlers::TargetItemOnHit.add(:ROWAPBERRY,
     battle.pbCommonAnimation("EatBerry",target)
     battle.scene.pbDamageAnimation(user)
     user.pbReduceHP(user.totalhp/8,false)
-    battle.pbDisplay(_INTL("{1} a consommé {2} et blessé {3}!",target.pbThis,
+    battle.pbDisplay(_INTL("{1} consumed its {2} and hurt {3}!",target.pbThis,
        target.itemName,user.pbThis(true)))
     target.pbHeldItemTriggered(item)
   }
@@ -1131,7 +1131,7 @@ BattleHandlers::TargetItemOnHit.add(:STICKYBARB,
         target.setInitialItem(nil)
       end
     end
-    battle.pbDisplay(_INTL("{1}'s {2} a été transféré à {3}!",
+    battle.pbDisplay(_INTL("{1}'s {2} was transferred to {3}!",
        target.pbThis,user.itemName,user.pbThis(true)))
   }
 )
@@ -1170,9 +1170,9 @@ BattleHandlers::TargetItemOnHitPositiveBerry.add(:ENIGMABERRY,
     battle.pbCommonAnimation("EatBerry",battler) if !forced
     battler.pbRecoverHP(battler.totalhp/4)
     if forced
-      battle.pbDisplay(_INTL("Les PV de {1} ont été restaurés.",battler.pbThis))
+      battle.pbDisplay(_INTL("{1}'s HP was restored.",battler.pbThis))
     else
-      battle.pbDisplay(_INTL("{1} a restauré sa santé en utilisant {2}!",battler.pbThis,
+      battle.pbDisplay(_INTL("{1} restored its health using its {2}!",battler.pbThis,
          itemName))
     end
     next true
@@ -1216,7 +1216,7 @@ BattleHandlers::TargetItemAfterMoveUse.add(:EJECTBUTTON,
     next if battle.pbAllFainted?(battler.idxOpposingSide)
     next if !battle.pbCanChooseNonActive?(battler.index)
     battle.pbCommonAnimation("UseItem",battler)
-    battle.pbDisplay(_INTL("{1} est remplacé par le {2}!",battler.pbThis,battler.itemName))
+    battle.pbDisplay(_INTL("{1} is switched out with the {2}!",battler.pbThis,battler.itemName))
     battler.pbConsumeItem(true,false)
     newPkmn = battle.pbGetReplacementPokemonIndex(battler.index)   # Owner chooses
     next if newPkmn<0
@@ -1232,11 +1232,11 @@ BattleHandlers::TargetItemAfterMoveUse.add(:REDCARD,
     newPkmn = battle.pbGetReplacementPokemonIndex(user.index,true)   # Random
     next if newPkmn<0
     battle.pbCommonAnimation("UseItem",battler)
-    battle.pbDisplay(_INTL("{1} a tenu {2} contre {3}!",
+    battle.pbDisplay(_INTL("{1} held up its {2} against {3}!",
        battler.pbThis,battler.itemName,user.pbThis(true)))
     battler.pbConsumeItem
     battle.pbRecallAndReplace(user.index, newPkmn, true)
-    battle.pbDisplay(_INTL("{1} a été traîné dehors!",user.pbThis))
+    battle.pbDisplay(_INTL("{1} was dragged out!",user.pbThis))
     battle.pbClearChoice(user.index)   # Replacement Pokémon does nothing this round
     switched.push(user.index)
   }
@@ -1258,7 +1258,7 @@ BattleHandlers::UserItemAfterMoveUse.add(:LIFEORB,
     next if !hitBattler
     PBDebug.log("[Item triggered] #{user.pbThis}'s #{user.itemName} (recoil)")
     user.pbReduceHP(user.totalhp/10)
-    battle.pbDisplay(_INTL("{1} a perdu une partie de ses PV !",user.pbThis))
+    battle.pbDisplay(_INTL("{1} lost some of its HP!",user.pbThis))
     user.pbItemHPHealCheck
     user.pbFaint if user.fainted?
   }
@@ -1271,7 +1271,7 @@ BattleHandlers::UserItemAfterMoveUse.add(:SHELLBELL,
     targets.each { |b| totalDamage += b.damageState.totalHPLost }
     next if totalDamage<=0
     user.pbRecoverHP(totalDamage/8)
-    battle.pbDisplay(_INTL("{1} restauré un peu de PV en utilisant {2}!",
+    battle.pbDisplay(_INTL("{1} restored a little HP using its {2}!",
        user.pbThis,user.itemName))
   }
 )
@@ -1300,9 +1300,9 @@ BattleHandlers::EndOfMoveItem.add(:LEPPABERRY,
     battler.moves[choice].pp = pkmnMove.pp
     moveName = pkmnMove.name
     if forced
-      battle.pbDisplay(_INTL("{1} a restauré les PP de {2}..",battler.pbThis,moveName))
+      battle.pbDisplay(_INTL("{1} restored its {2}'s PP.",battler.pbThis,moveName))
     else
-      battle.pbDisplay(_INTL("{2} de {1} a restauré les PP de {3}!",battler.pbThis,itemName,moveName))
+      battle.pbDisplay(_INTL("{1}'s {2} restored its {3}'s PP!",battler.pbThis,itemName,moveName))
     end
     next true
   }
@@ -1325,9 +1325,9 @@ BattleHandlers::EndOfMoveStatRestoreItem.add(:WHITEHERB,
     PBDebug.log("[Item triggered] #{battler.pbThis}'s #{itemName}") if forced
     battle.pbCommonAnimation("UseItem",battler) if !forced
     if forced
-      battle.pbDisplay(_INTL("Le statut de {1} est revenu à la normale!",battler.pbThis))
+      battle.pbDisplay(_INTL("{1}'s status returned to normal!",battler.pbThis))
     else
-      battle.pbDisplay(_INTL("{1} a ramené son statut à la normale en utilisant {2}!",
+      battle.pbDisplay(_INTL("{1} returned its status to normal using its {2}!",
          battler.pbThis,itemName))
     end
     next true
@@ -1482,13 +1482,13 @@ BattleHandlers::EORHealingItem.add(:BLACKSLUDGE,
       next if !battler.canHeal?
       battle.pbCommonAnimation("UseItem",battler)
       battler.pbRecoverHP(battler.totalhp/16)
-      battle.pbDisplay(_INTL("{1} restauré un peu de PV en utilisant {2}!",
+      battle.pbDisplay(_INTL("{1} restored a little HP using its {2}!",
          battler.pbThis,battler.itemName))
     elsif battler.takesIndirectDamage?
       oldHP = battler.hp
       battle.pbCommonAnimation("UseItem",battler)
       battler.pbReduceHP(battler.totalhp/8)
-      battle.pbDisplay(_INTL("{1} est blessé par {2}!",battler.pbThis,battler.itemName))
+      battle.pbDisplay(_INTL("{1} is hurt by its {2}!",battler.pbThis,battler.itemName))
       battler.pbItemHPHealCheck
       battler.pbAbilitiesOnDamageTaken(oldHP)
       battler.pbFaint if battler.fainted?
@@ -1501,7 +1501,7 @@ BattleHandlers::EORHealingItem.add(:LEFTOVERS,
     next if !battler.canHeal?
     battle.pbCommonAnimation("UseItem",battler)
     battler.pbRecoverHP(battler.totalhp/16)
-    battle.pbDisplay(_INTL("{1} a restauré un peu de PV en utilisant {2}!",
+    battle.pbDisplay(_INTL("{1} restored a little HP using its {2}!",
        battler.pbThis,battler.itemName))
   }
 )
@@ -1513,7 +1513,7 @@ BattleHandlers::EORHealingItem.add(:LEFTOVERS,
 BattleHandlers::EOREffectItem.add(:FLAMEORB,
   proc { |item,battler,battle|
     next if !battler.pbCanBurn?(nil,false)
-    battler.pbBurn(nil,_INTL("{1} a été brûlé par {2}!",battler.pbThis,battler.itemName))
+    battler.pbBurn(nil,_INTL("{1} was burned by the {2}!",battler.pbThis,battler.itemName))
   }
 )
 
@@ -1523,7 +1523,7 @@ BattleHandlers::EOREffectItem.add(:STICKYBARB,
     oldHP = battler.hp
     battle.scene.pbDamageAnimation(battler)
     battler.pbReduceHP(battler.totalhp/8,false)
-    battle.pbDisplay(_INTL("{1} est blessé par {2}!",battler.pbThis,battler.itemName))
+    battle.pbDisplay(_INTL("{1} is hurt by its {2}!",battler.pbThis,battler.itemName))
     battler.pbItemHPHealCheck
     battler.pbAbilitiesOnDamageTaken(oldHP)
     battler.pbFaint if battler.fainted?
@@ -1533,7 +1533,7 @@ BattleHandlers::EOREffectItem.add(:STICKYBARB,
 BattleHandlers::EOREffectItem.add(:TOXICORB,
   proc { |item,battler,battle|
     next if !battler.pbCanPoison?(nil,false)
-    battler.pbPoison(nil,_INTL("{1} a été gravement empoisonné par {2}!",
+    battler.pbPoison(nil,_INTL("{1} was badly poisoned by the {2}!",
        battler.pbThis,battler.itemName),true)
   }
 )
@@ -1561,7 +1561,7 @@ BattleHandlers::CertainSwitchingUserItem.add(:SHEDSHELL,
 
 BattleHandlers::ItemOnSwitchIn.add(:AIRBALLOON,
   proc { |item,battler,battle|
-    battle.pbDisplay(_INTL("{1} flotte dans l'air avec son {2}!",
+    battle.pbDisplay(_INTL("{1} floats in the air with its {2}!",
        battler.pbThis,battler.itemName))
   }
 )

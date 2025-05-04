@@ -11,7 +11,7 @@ def pbPhoneRegisterNPC(ident,name,mapid,showmessage=true)
     phonenum = [true,ident,name,mapid]
     $PokemonGlobal.phoneNumbers.push(phonenum)
   end
-  pbMessage(_INTL("\\me[Register phone]Enregistré {1} dans le Pokégear.",name)) if showmessage
+  pbMessage(_INTL("\\me[Register phone]Registered {1} in the Pokégear.",name)) if showmessage
 end
 
 def pbPhoneRegister(event,trainertype,trainername)
@@ -45,7 +45,7 @@ def pbPhoneRegisterBattle(message,event,trainertype,trainername,maxbattles)
   trainertype = GameData::TrainerType.get(trainertype).id
   contact = pbFindPhoneTrainer(trainertype,trainername)
   return if contact && contact[0]              # Existing contact and is visible
-  message = _INTL("Laisse-moi t'inscrire.") if !message
+  message = _INTL("Let me register you.") if !message
   return if !pbConfirmMessage(message)
   displayname = _INTL("{1} {2}", GameData::TrainerType.get(trainertype).name,
      pbGetMessageFromHash(MessageTypes::TrainerNames,trainername))
@@ -55,7 +55,7 @@ def pbPhoneRegisterBattle(message,event,trainertype,trainername,maxbattles)
     pbPhoneRegister(event,trainertype,trainername)
     pbPhoneIncrement(trainertype,trainername,maxbattles)
   end
-  pbMessage(_INTL("\\me[Register phone]Enregistré {1} dans le Pokégear.",displayname))
+  pbMessage(_INTL("\\me[Register phone]Registered {1} in the Pokégear.",displayname))
 end
 
 #===============================================================================
@@ -182,13 +182,13 @@ def pbCallTrainer(trtype,trname)
   # Special NPC contacts
   if trainer.length!=8
     if !pbCommonEvent(trtype)
-      pbMessage(_INTL("Les messages de {1} ne sont pas définis.\nImpossible d'appeler l'événement commun {2}.",trainer[2],trtype))
+      pbMessage(_INTL("{1}'s messages not defined.\nCouldn't call common event {2}.",trainer[2],trtype))
     end
     return
   end
   # Trainer contacts
   if $game_map.map_id==trainer[6]
-    pbMessage(_INTL("Le dresseur est à proximité.\nParlez au dresseur en personne!"))
+    pbMessage(_INTL("The Trainer is close by.\nTalk to the Trainer in person!"))
     return
   end
   caller_map_metadata = GameData::MapMetadata.try_get(trainer[6])
@@ -196,7 +196,7 @@ def pbCallTrainer(trtype,trname)
   if !caller_map_metadata || !caller_map_metadata.town_map_position ||
      !this_map_metadata || !this_map_metadata.town_map_position ||
      caller_map_metadata.town_map_position[0] != this_map_metadata.town_map_position[0]
-    pbMessage(_INTL("Le dresseur est hors de portée."))
+    pbMessage(_INTL("The Trainer is out of range."))
     return   # Can't call if in different region
   end
   call = pbPhoneGenerateCall(trainer)

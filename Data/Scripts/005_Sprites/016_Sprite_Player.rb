@@ -16,6 +16,7 @@ class Sprite_Player < Sprite_Character
 
     @current_bitmap = nil
     @previous_action =nil
+    echoln "init playa"
     getClothedPlayerSprite(true)
   end
 

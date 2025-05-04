@@ -2,11 +2,7 @@ module SwitchFinder
 
   def self.search_switch_trigger(switch_id)
     results = []
-    if Settings::LANGUAGES.length >= 2 && Settings::LANGUAGES[$PokemonSystem.language][1] == "french.dat"
-      mapinfos = load_data("Data/MapInfosFR.rxdata")
-    else
-      mapinfos = load_data("Data/MapInfos.rxdata")
-    end
+    mapinfos = $RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
     mapinfos.each_key do |map_id|
       map = load_data(sprintf("Data/Map%03d.rxdata", map_id))
       map.events.each_value do |event|
@@ -33,11 +29,8 @@ module SwitchFinder
     results = []
 
     # Load map info based on RPG Maker version
-    if Settings::LANGUAGES.length >= 2 && Settings::LANGUAGES[$PokemonSystem.language][1] == "french.dat"
-      mapinfos = load_data("Data/MapInfosFR.rxdata")
-    else
-      mapinfos = load_data("Data/MapInfos.rxdata")
-    end
+    mapinfos = $RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
+
     # Iterate over each map
     mapinfos.each_key do |map_id|
       map = load_data(sprintf("Data/Map%03d.rxdata", map_id))

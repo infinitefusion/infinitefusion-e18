@@ -545,7 +545,7 @@ class PokemonEvolutionScene
     @pokemon.play_cry
     if !reversing
       pbMessageDisplay(@sprites["msgwindow"],
-         _INTL("\\se[]Quoi ? {1} évolue!\\^",@pokemon.name)) { pbUpdate }
+         _INTL("\\se[]What? {1} is evolving!\\^",@pokemon.name)) { pbUpdate }
       pbMessageWaitForInput(@sprites["msgwindow"],50,true) { pbUpdate }
     end
     pbPlayDecisionSE
@@ -571,7 +571,7 @@ class PokemonEvolutionScene
     pbFlashInOut(canceled,oldstate,oldstate2)
     if canceled
       pbMessageDisplay(@sprites["msgwindow"],
-         _INTL("Huh? {1} a cessé d'évoluer!",@pokemon.name)) { pbUpdate }
+      _INTL("Huh? {1} stopped evolving!",@pokemon.name)) { pbUpdate }
     else
       pbEvolutionSuccess(reversing)
     end
@@ -595,11 +595,11 @@ class PokemonEvolutionScene
     newspeciesname = GameData::Species.get(@newspecies).name
     if !reversing
       pbMessageDisplay(@sprites["msgwindow"],
-                       _INTL("\\se[]Félicitations ! Votre {1} est devenu {2}!\\wt[80]",
+                       _INTL("\\se[]Congratulations! Your {1} evolved into {2}!\\wt[80]",
                              @pokemon.name,newspeciesname)) { pbUpdate }
     else
       pbMessageDisplay(@sprites["msgwindow"],
-                       _INTL("\\se[]{1} a été transformé en {2}!\\wt[80]",
+                       _INTL("\\se[]{1} has been turned into {2}!\\wt[80]",
                              @pokemon.name,newspeciesname)) { pbUpdate }
     end
 
@@ -625,7 +625,7 @@ class PokemonEvolutionScene
       $Trainer.pokedex.register(@pokemon)
       $Trainer.pokedex.set_owned(@newspecies)
       Kernel.pbMessageDisplay(@sprites["msgwindow"],
-                               _INTL("Les données de {1} ont été ajoutées au Pokédex", newspeciesname))
+      _INTL("{1}'s data was added to the Pokédex", newspeciesname))
       @scene.pbShowPokedex(@newspecies, @pokemon.headShiny?, @pokemon.bodyShiny?)
     end
 

@@ -222,40 +222,40 @@ end
 def Kernel.sumGameStats()
   stringStats = ""
 
-  stringStats << "Tu as vu " << $Trainer.pokedexSeen.to_s << " Pokémon"
-  stringStats << "\nTu as attrapé " << $Trainer.pokedexOwned.to_s << " Pokémon"
+  stringStats << "Seen " << $Trainer.pokedexSeen.to_s << " Pokémon"
+  stringStats << "\nCaught " << $Trainer.pokedexOwned.to_s << " Pokémon"
 
-  stringStats << "\nTu as vaincu le Conseil4 " << $game_variables[VAR_STAT_NB_ELITE_FOUR].to_s << " fois"
-  stringStats << "\nTu as fusionné " << $game_variables[VAR_STAT_NB_FUSIONS].to_s << " Pokémon"
+  stringStats << "\nBeat the Elite Four " << $game_variables[VAR_STAT_NB_ELITE_FOUR].to_s << " times"
+  stringStats << "\nFused " << $game_variables[VAR_STAT_NB_FUSIONS].to_s << " Pokémon"
 
-  stringStats << "\nTu as refait un combat contre " << $game_variables[VAR_STAT_LEADER_REMATCH].to_s << " Champions d'Arène"
-  stringStats << "\nTu as fait " << $PokemonGlobal.stepcount.to_s << " pas"
-  stringStats << "\nTu as visité " << countVisitedMaps.to_s << " zones différentes"
-  stringStats << "\nTu as utilisé " << $game_variables[VAR_STAT_RARE_CANDY] << " Super Bonbon"
+  stringStats << "\nRematched " << $game_variables[VAR_STAT_LEADER_REMATCH].to_s << " Gym Leaders"
+  stringStats << "\nTook " << $PokemonGlobal.stepcount.to_s << " steps"
+  stringStats << "\nVisited " << countVisitedMaps.to_s << " different areas"
+  stringStats << "\nUsed " << $game_variables[VAR_STAT_RARE_CANDY] << " Rare Candies"
 
   if $game_switches[910]
-    stringStats << "\nTu as effectué " << $game_variables[VAR_STAT_NB_WONDERTRADES].to_s << " Échanges Miracles"
+    stringStats << "\nMade " << $game_variables[VAR_STAT_NB_WONDERTRADES].to_s << " Wonder Trades"
   end
 
-  stringStats << "\nTu as donné " << $game_variables[VAR_STAT_CLOWN_TIP_TOTAL].to_s << "$ aux clowns"
-  stringStats << "\nTu as détruit " << $game_variables[VAR_STAT_NB_SANDCASTLES].to_s << " châteaux de sable"
-  stringStats << "\nTu as signalé " << $game_variables[VAR_NB_CRIMES_REPORTED].to_s << " crimes" if $game_variables[VAR_NB_CRIMES_REPORTED] > 0
+  stringStats << "\nTipped $" << $game_variables[VAR_STAT_CLOWN_TIP_TOTAL].to_s << " to clowns"
+  stringStats << "\nDestroyed " << $game_variables[VAR_STAT_NB_SANDCASTLES].to_s << " sandcastles"
+  stringStats << "\nReported " << $game_variables[VAR_NB_CRIMES_REPORTED].to_s << " crimes" if $game_variables[VAR_NB_CRIMES_REPORTED] > 0
 
 
   if $game_variables[VAR_STAT_GAMBLER_WINS] > 0 || $game_variables[VAR_STAT_GAMBLER_LOSSES] > 0
-    stringStats << "\nTu as gagné " << $game_variables[VAR_STAT_GAMBLER_WINS].to_s << "$ contre les parieurs"
-    stringStats << "\nTu as perdu " << $game_variables[VAR_STAT_GAMBLER_LOSSES].to_s << "$ contre les parieurs"
+    stringStats << "\nWon $" << $game_variables[VAR_STAT_GAMBLER_WINS].to_s << " against gamblers"
+    stringStats << "\nLost $" << $game_variables[VAR_STAT_GAMBLER_LOSSES].to_s << " against gamblers"
   end
-  stringStats << "\nTu as dépensé " << $game_variables[VAR_STAT_HOTELS_SPENT].to_s << "$ dans des hôtels"
+  stringStats << "\nSpent $" << $game_variables[VAR_STAT_HOTELS_SPENT].to_s << " at hotels"
 
-  stringStats << "\nTu as accepté " << $game_variables[VAR_STAT_QUESTS_ACCEPTED].to_s << " quêtes"
-  stringStats << "\nTu as complété " << $game_variables[VAR_STAT_QUESTS_COMPLETED].to_s << " quêtes"
-  stringStats << "\nTu as découvert " << $game_variables[VAR_STAT_NB_SECRETS].to_s << " secrets"
+  stringStats << "\nAccepted " << $game_variables[VAR_STAT_QUESTS_ACCEPTED].to_s << " quests"
+  stringStats << "\nCompleted " << $game_variables[VAR_STAT_QUESTS_COMPLETED].to_s << " quests"
+  stringStats << "\nDiscovered " << $game_variables[VAR_STAT_NB_SECRETS].to_s << " secrets"
 
   if $game_switches[912]
-    stringStats << "\nTu es mort " << $game_variables[191].to_s << " fois dans l'aventure de Pikachu"
+    stringStats << "\nDied " << $game_variables[191].to_s << " times in Pikachu's adventure"
     if $game_variables[193] >= 1
-      stringStats << "\nTu as collecté " << $game_variables[194].to_s << " pièces avec Pikachu"
+      stringStats << "\nCollected " << $game_variables[194].to_s << " coins with Pikachu"
     end
   end
   return stringStats
@@ -345,7 +345,7 @@ def Kernel.pbShuffleTrainers(bst_range = 50, customsOnly = false, customsList = 
     i += 1
     if i % 2 == 0
       n = (i.to_f / trainers.length) * 100
-      Kernel.pbMessageNoSound(_INTL("\\ts[]Mélange des dresseurs en cours...\\n {1}%\\^", sprintf('%.2f', n), PBSpecies.maxValue))
+      Kernel.pbMessageNoSound(_INTL("\\ts[]Shuffling trainers...\\n {1}%\\^", sprintf('%.2f', n), PBSpecies.maxValue))
     end
   end
   $PokemonGlobal.randomTrainersHash = randomTrainersHash
@@ -376,23 +376,23 @@ def Kernel.pbShuffleTrainersCustom(bst_range = 50)
   randomTrainersHash = Hash.new
   bst_range = pbGet(VAR_RANDOMIZER_TRAINER_BST)
 
-  Kernel.pbMessage(_INTL("Analyse du dossier des sprites personnalisés"))
+  Kernel.pbMessage(_INTL("Parsing custom sprites folder"))
   customsList = getCustomSpeciesList(true, true)
-  Kernel.pbMessage(_INTL("{1} sprites trouvés", customsList.length.to_s))
+  Kernel.pbMessage(_INTL("{1} sprites found", customsList.length.to_s))
 
   if customsList.length == 0
-    Kernel.pbMessage(_INTL("Pour utiliser des sprites personnalisés, veuillez placer les sprites correctement nommés dans le dossier /CustomBattlers. Consultez readMe.txt pour plus d'informations"))
-    Kernel.pbMessage(_INTL("Les dresseurs de Pokémon incluront des sprites générés automatiquement."))
+    Kernel.pbMessage(_INTL("To use custom sprites, please place correctly named sprites in the /CustomBattlers folder. See readMe.txt for more information"))
+    Kernel.pbMessage(_INTL("Trainer Pokémon will include auto-generated sprites."))
     return Kernel.pbShuffleTrainers(bst_range)
   elsif customsList.length < 200
-    if Kernel.pbConfirmMessage(_INTL("Trop peu de sprites personnalisés ont été trouvés. Cela entraînera une très faible variété de Pokémon pour les dresseurs. Souhaitez-vous désactiver l'option Sprites personnalisés uniquement ?"))
-      Kernel.pbMessage(_INTL("Les dresseurs de Pokémon incluront des sprites générés automatiquement."))
+    if Kernel.pbConfirmMessage(_INTL("Too few custom sprites were found. This will result in a very low Pokémon variety for trainers. Would you like to disable the Custom Sprites only option?"))
+      Kernel.pbMessage(_INTL("Trainer Pokémon will include auto-generated sprites."))
       return Kernel.pbShuffleTrainers(bst_range) ##use regular shuffle if not enough sprites
     end
-    if Kernel.pbConfirmMessage(_INTL("Cela entraînera une très faible variété de Pokémon pour les dresseurs. Continuez quand même?"))
+    if Kernel.pbConfirmMessage(_INTL("This will result in a very low Pokémon variety for trainers. Continue anyway?"))
       bst_range = 999
     else
-      Kernel.pbMessage(_INTL("Les dresseurs de Pokémon incluront des sprites générés automatiquement."))
+      Kernel.pbMessage(_INTL("Trainer Pokémon will include auto-generated sprites."))
       return Kernel.pbShuffleTrainers(bst_range) ##use regular shuffle if not enough sprites
     end
   end

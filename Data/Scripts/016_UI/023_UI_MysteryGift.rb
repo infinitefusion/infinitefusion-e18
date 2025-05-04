@@ -17,25 +17,25 @@ end
 def pbEditMysteryGift(type,item,id=0,giftname="")
   begin
     if type==0   # Pokémon
-      commands=[_INTL("Cadeau Mystère"),
-                _INTL("Endroit lointain")]
+      commands=[_INTL("Mystery Gift"),
+                _INTL("Faraway place")]
       commands.push(item.obtain_text) if item.obtain_text && !item.obtain_text.empty?
       commands.push(_INTL("[Custom]"))
       loop do
         command=pbMessage(
-           _INTL("Choisissez une phrase indiquant où le Pokémon cadeau a été obtenu."),commands,-1)
+           _INTL("Choose a phrase to be where the gift Pokémon was obtained from."),commands,-1)
         if command<0
-          return nil if pbConfirmMessage(_INTL("Arrêtez de modifier ce cadeau?"))
+          return nil if pbConfirmMessage(_INTL("Stop editing this gift?"))
         elsif command<commands.length-1
           item.obtain_text = commands[command]
           break
         elsif command==commands.length-1
-          obtainname=pbMessageFreeText(_INTL("Entrez une phrase."),"",false,30)
+          obtainname=pbMessageFreeText(_INTL("Enter a phrase."),"",false,30)
           if obtainname!=""
             item.obtain_text = obtainname
             break
           end
-          return nil if pbConfirmMessage(_INTL("Arrêtez de modifier ce cadeau?"))
+          return nil if pbConfirmMessage(_INTL("Stop editing this gift?"))
         end
       end
     elsif type>0   # Item
@@ -44,10 +44,10 @@ def pbEditMysteryGift(type,item,id=0,giftname="")
       params.setDefaultValue(type)
       params.setCancelValue(0)
       loop do
-        newtype=pbMessageChooseNumber(_INTL("Choisissez une quantité de {1}.",
+        newtype=pbMessageChooseNumber(_INTL("Choose a quantity of {1}.",
            GameData::Item.get(item).name),params)
         if newtype==0
-          return nil if pbConfirmMessage(_INTL("Arrêtez de modifier ce cadeau?"))
+          return nil if pbConfirmMessage(_INTL("Stop editing this gift?"))
         else
           type=newtype
           break
@@ -67,12 +67,12 @@ def pbEditMysteryGift(type,item,id=0,giftname="")
       params.setDefaultValue(id)
       params.setCancelValue(0)
       loop do
-        newid=pbMessageChooseNumber(_INTL("Choisissez un identifiant unique pour ce cadeau."),params)
+        newid=pbMessageChooseNumber(_INTL("Choose a unique ID for this gift."),params)
         if newid==0
-          return nil if pbConfirmMessage(_INTL("Arrêtez de modifier ce cadeau?"))
+          return nil if pbConfirmMessage(_INTL("Stop editing this gift?"))
         else
           if idlist.include?(newid)
-            pbMessage(_INTL("Cet identifiant est déjà utilisé par un cadeau mystère."))
+            pbMessage(_INTL("That ID is already used by a Mystery Gift."))
           else
             id=newid
             break
@@ -81,16 +81,16 @@ def pbEditMysteryGift(type,item,id=0,giftname="")
       end
     end
     loop do
-      newgiftname=pbMessageFreeText(_INTL("Entrez un nom pour le cadeau."),giftname,false,250)
+      newgiftname=pbMessageFreeText(_INTL("Enter a name for the gift."),giftname,false,250)
       if newgiftname!=""
         giftname=newgiftname
         break
       end
-      return nil if pbConfirmMessage(_INTL("Arrêtez de modifier ce cadeau?"))
+      return nil if pbConfirmMessage(_INTL("Stop editing this gift?"))
     end
     return [id,type,item,giftname]
   rescue
-    pbMessage(_INTL("Impossible de modifier le cadeau."))
+    pbMessage(_INTL("Couldn't edit the gift."))
     return nil
   end
 end
@@ -98,7 +98,7 @@ end
 def pbCreateMysteryGift(type,item)
   gift=pbEditMysteryGift(type,item)
   if !gift
-    pbMessage(_INTL("A pas créé de cadeau."))
+    pbMessage(_INTL("Didn't create a gift."))
   else
     begin
       if safeExists?("MysteryGiftMaster.txt")
@@ -110,9 +110,9 @@ def pbCreateMysteryGift(type,item)
       end
       string=pbMysteryGiftEncrypt(master)
       File.open("MysteryGiftMaster.txt","wb") { |f| f.write(string) }
-      pbMessage(_INTL("Le cadeau a été enregistré dans MysteryGiftMaster.txt."))
+      pbMessage(_INTL("The gift was saved to MysteryGiftMaster.txt."))
     rescue
-      pbMessage(_INTL("Impossible d'enregistrer le cadeau dans MysteryGiftMaster.txt."))
+      pbMessage(_INTL("Couldn't save the gift to MysteryGiftMaster.txt."))
     end
   end
 end
@@ -123,26 +123,26 @@ end
 #===============================================================================
 def pbManageMysteryGifts
   if !safeExists?("MysteryGiftMaster.txt")
-    pbMessage(_INTL("Il n'y a pas de cadeaux mystères définis."))
+    pbMessage(_INTL("There are no Mystery Gifts defined."))
     return
   end
   # Load all gifts from the Master file.
   master=IO.read("MysteryGiftMaster.txt")
   master=pbMysteryGiftDecrypt(master)
   if !master || !master.is_a?(Array) || master.length==0
-    pbMessage(_INTL("Il n'y a pas de cadeaux mystères définis."))
+    pbMessage(_INTL("There are no Mystery Gifts defined."))
     return
   end
   # Download all gifts from online
   msgwindow=pbCreateMessageWindow
-  pbMessageDisplay(msgwindow,_INTL("Recherche de cadeau en ligne...\\wtnp[0]"))
+  pbMessageDisplay(msgwindow,_INTL("Searching for online gifts...\\wtnp[0]"))
   online = pbDownloadToString(MysteryGift::URL)
   pbDisposeMessageWindow(msgwindow)
   if nil_or_empty?(online)
-    pbMessage(_INTL("Pas de cadeaux mystères en ligne trouvés.\\wtnp[20]"))
+    pbMessage(_INTL("No online Mystery Gifts found.\\wtnp[20]"))
     online=[]
   else
-    pbMessage(_INTL("Cadeaux mystères en ligne trouvés.\\wtnp[20]"))
+    pbMessage(_INTL("Online Mystery Gifts found.\\wtnp[20]"))
     online=pbMysteryGiftDecrypt(online)
     t=[]
     online.each { |gift| t.push(gift[0]) }
@@ -152,7 +152,7 @@ def pbManageMysteryGifts
   command=0
   loop do
     commands=pbRefreshMGCommands(master,online)
-    command=pbMessage(_INTL("\\ts[]Gérer les cadeaux mystères (X=online)."),commands,-1,nil,command)
+    command=pbMessage(_INTL("\\ts[]Manage Mystery Gifts (X=online)."),commands,-1,nil,command)
     # Gift chosen
     if command==-1 || command==commands.length-1   # Cancel
       break
@@ -164,21 +164,21 @@ def pbManageMysteryGifts
         end
         string=pbMysteryGiftEncrypt(newfile)
         File.open("MysteryGift.txt","wb") { |f| f.write(string) }
-        pbMessage(_INTL("Les cadeaux ont été enregistrés dans MysteryGift.txt."))
-        pbMessage(_INTL("Téléchargez MysteryGift.txt sur Internet."))
+        pbMessage(_INTL("The gifts were saved to MysteryGift.txt."))
+        pbMessage(_INTL("Upload MysteryGift.txt to the Internet."))
       rescue
-        pbMessage(_INTL("Impossible d'enregistrer les cadeaux dans MysteryGift.txt."))
+        pbMessage(_INTL("Couldn't save the gifts to MysteryGift.txt."))
       end
     elsif command>=0 && command<commands.length-2   # A gift
       cmd=0
       loop do
         commands=pbRefreshMGCommands(master,online)
         gift=master[command]
-        cmds=[_INTL("Activer/désactiver"),
-              _INTL("Modifier"),
-              _INTL("Recevoir"),
-              _INTL("Supprimer"),
-              _INTL("Annuler")]
+        cmds=[_INTL("Toggle on/offline"),
+              _INTL("Edit"),
+              _INTL("Receive"),
+              _INTL("Delete"),
+              _INTL("Cancel")]
         cmd=pbMessage("\\ts[]"+commands[command],cmds,-1,nil,cmd)
         if cmd==-1 || cmd==cmds.length-1
           break
@@ -196,7 +196,7 @@ def pbManageMysteryGifts
           master[command]=newgift if newgift
         elsif cmd==2   # Receive
           if !$Trainer
-            pbMessage(_INTL("Aucun fichier de sauvegarde n'est chargé. Impossible de recevoir des cadeaux."))
+            pbMessage(_INTL("There is no save file loaded. Cannot receive any gifts."))
             next
           end
           replaced=false
@@ -208,7 +208,7 @@ def pbManageMysteryGifts
           $Trainer.mystery_gifts.push(gift) if !replaced
           pbReceiveMysteryGift(gift[0])
         elsif cmd==3   # Delete
-          if pbConfirmMessage(_INTL("Etes-vous sûr de vouloir supprimer ce cadeau?"))
+          if pbConfirmMessage(_INTL("Are you sure you want to delete this gift?"))
             master[command]=nil
             master.compact!
           end
@@ -231,8 +231,8 @@ def pbRefreshMGCommands(master, online)
     ontext = ["[  ]", "[X]"][(online.include?(gift[0])) ? 1 : 0]
     commands.push(_INTL("{1} {2}: {3} ({4})", ontext, gift[0], gift[3], itemname))
   end
-  commands.push(_INTL("Exporter la sélection vers un fichier"))
-  commands.push(_INTL("Annuler"))
+  commands.push(_INTL("Export selected to file"))
+  commands.push(_INTL("Cancel"))
   return commands
 end
 
@@ -247,10 +247,10 @@ def pbDownloadMysteryGift(trainer)
   addBackgroundPlane(sprites,"background","mysteryGiftbg",viewport)
   pbFadeInAndShow(sprites)
   sprites["msgwindow"]=pbCreateMessageWindow
-  pbMessageDisplay(sprites["msgwindow"],_INTL("À la recherche d'un cadeau.\nVeuillez patienter...\\wtnp[0]"))
+  pbMessageDisplay(sprites["msgwindow"],_INTL("Searching for a gift.\nPlease wait...\\wtnp[0]"))
   string = pbDownloadToString(MysteryGift::URL)
   if nil_or_empty?(string)
-    pbMessageDisplay(sprites["msgwindow"],_INTL("Aucun nouveau cadeau n'est disponible."))
+    pbMessageDisplay(sprites["msgwindow"],_INTL("No new gifts are available."))
   else
     online=pbMysteryGiftDecrypt(string)
     pending=[]
@@ -262,13 +262,13 @@ def pbDownloadMysteryGift(trainer)
       pending.push(gift) if notgot
     end
     if pending.length==0
-      pbMessageDisplay(sprites["msgwindow"],_INTL("Aucun nouveau cadeau n'est disponible."))
+      pbMessageDisplay(sprites["msgwindow"],_INTL("No new gifts are available."))
     else
       loop do
         commands=[]
         for gift in pending; commands.push(gift[3]); end
         commands.push(_INTL("Cancel"))
-        pbMessageDisplay(sprites["msgwindow"],_INTL("Choisissez le cadeau que vous souhaitez recevoir.\\wtnp[0]"))
+        pbMessageDisplay(sprites["msgwindow"],_INTL("Choose the gift you want to receive.\\wtnp[0]"))
         command=pbShowCommands(sprites["msgwindow"],commands,-1)
         if command==-1 || command==commands.length-1
           break
@@ -302,8 +302,8 @@ def pbDownloadMysteryGift(trainer)
             pbUpdateSceneMap
           end
           sprites["msgwindow"].visible=true
-          pbMessageDisplay(sprites["msgwindow"],_INTL("Le cadeau a été reçu!")) { sprite.update }
-          pbMessageDisplay(sprites["msgwindow"],_INTL("Veuillez récupérer votre cadeau auprès du livreur dans n'importe quel Poké Mart.")) { sprite.update }
+          pbMessageDisplay(sprites["msgwindow"],_INTL("The gift has been received!")) { sprite.update }
+          pbMessageDisplay(sprites["msgwindow"],_INTL("Please pick up your gift from the deliveryman in any Poké Mart.")) { sprite.update }
           trainer.mystery_gifts.push(gift)
           pending[command]=nil; pending.compact!
           opacityDiff = 16*20/Graphics.frame_rate
@@ -317,7 +317,7 @@ def pbDownloadMysteryGift(trainer)
           sprite.dispose
         end
         if pending.length==0
-          pbMessageDisplay(sprites["msgwindow"],_INTL("Aucun nouveau cadeau n'est disponible."))
+          pbMessageDisplay(sprites["msgwindow"],_INTL("No new gifts are available."))
           break
         end
       end
@@ -371,7 +371,7 @@ def pbReceiveMysteryGift(id)
     end
   end
   if index==-1
-    pbMessage(_INTL("Impossible de trouver un cadeau mystère non réclamé avec un ID{1}.",id))
+    pbMessage(_INTL("Couldn't find an unclaimed Mystery Gift with ID {1}.",id))
     return false
   end
   gift=$Trainer.mystery_gifts[index]
@@ -390,7 +390,7 @@ def pbReceiveMysteryGift(id)
       gift[2].obtain_level=gift[2].level
     end
     if pbAddPokemonSilent(gift[2])
-      pbMessage(_INTL("\\me[Pkmn get]{1} a reçu {2}!",$Trainer.name,gift[2].name))
+      pbMessage(_INTL("\\me[Pkmn get]{1} received {2}!",$Trainer.name,gift[2].name))
       $Trainer.mystery_gifts[index]=[id]
       return true
     end
@@ -402,16 +402,16 @@ def pbReceiveMysteryGift(id)
       itm = GameData::Item.get(item)
       itemname=(qty>1) ? itm.name_plural : itm.name
       if item == :LEFTOVERS
-        pbMessage(_INTL("\\me[Item get]Vous avez obtenu quelque \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
+        pbMessage(_INTL("\\me[Item get]You obtained some \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
       elsif itm.is_machine?   # TM or HM
-        pbMessage(_INTL("\\me[Item get]Vous avez obtenu \\c[1]{1} {2}\\c[0]!\\wtnp[30]",itemname,
+        pbMessage(_INTL("\\me[Item get]You obtained \\c[1]{1} {2}\\c[0]!\\wtnp[30]",itemname,
            GameData::Move.get(itm.move).name))
       elsif qty>1
-        pbMessage(_INTL("\\me[Item get]Vous avez obtenu {1} \\c[1]{2}\\c[0]!\\wtnp[30]",qty,itemname))
+        pbMessage(_INTL("\\me[Item get]You obtained {1} \\c[1]{2}\\c[0]!\\wtnp[30]",qty,itemname))
       elsif itemname.starts_with_vowel?
-        pbMessage(_INTL("\\me[Item get]Vous avez obtenu \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
+        pbMessage(_INTL("\\me[Item get]You obtained an \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
       else
-        pbMessage(_INTL("\\me[Item get]Vous avez obtenu  \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
+        pbMessage(_INTL("\\me[Item get]You obtained a \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
       end
       $Trainer.mystery_gifts[index]=[id]
       return true

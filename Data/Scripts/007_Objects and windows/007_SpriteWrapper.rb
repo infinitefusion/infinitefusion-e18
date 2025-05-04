@@ -240,19 +240,19 @@ class AnimatedSprite < SpriteWrapper
     @realframes = 0
     @frameskip = [1, frameskip].max
     @frameskip *= Graphics.frame_rate / 20
-    raise _INTL("La largeur du frame est de 0") if framewidth == 0
-    raise _INTL("La hauteur du frame est de 0") if frameheight == 0
+    raise _INTL("Frame width is 0") if framewidth == 0
+    raise _INTL("Frame height is 0") if frameheight == 0
     begin
       @animbitmap = AnimatedBitmap.new(animname).deanimate
     rescue
       @animbitmap = Bitmap.new(framewidth, frameheight)
     end
     if @animbitmap.width % framewidth != 0
-      raise _INTL("La largeur du bitmap ({1}) n'est pas un multiple de la largeur des frames ({2}) [Bitmap={3}]",
+      raise _INTL("Bitmap's width ({1}) is not a multiple of frame width ({2}) [Bitmap={3}]",
                   @animbitmap.width, framewidth, animname)
     end
     if @animbitmap.height % frameheight != 0
-      raise _INTL("La hauteur du bitmap ({1}) n'est pas un multiple de la hauteur des frames ({2}) [Bitmap={3}]",
+      raise _INTL("Bitmap's height ({1}) is not a multiple of frame height ({2}) [Bitmap={3}]",
                   @animbitmap.height, frameheight, animname)
     end
     @framecount = framecount
@@ -279,7 +279,7 @@ class AnimatedSprite < SpriteWrapper
       @animbitmap = Bitmap.new(framecount * 4, 32)
     end
     if @animbitmap.width % framecount != 0
-      raise _INTL("La largeur du bitmap ({1}) n'est pas un multiple du nombre d'images ({2}) [Bitmap={3}]",
+      raise _INTL("Bitmap's width ({1}) is not a multiple of frame count ({2}) [Bitmap={3}]",
                   @animbitmap.width, framewidth, animname)
     end
     @framecount = framecount

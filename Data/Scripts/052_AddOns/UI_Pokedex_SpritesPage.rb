@@ -1,4 +1,4 @@
-class PokemonPokedexInfo_Scene < Bitmap
+class PokemonPokedexInfo_Scene < Bitmap # need it for applied hue
   #todo add indicator to show which one is the main sprite -
   # also maybe add an indicator in main list for when a sprite has available alts
 
@@ -154,9 +154,7 @@ class PokemonPokedexInfo_Scene < Bitmap
     previous_index = @selected_index == 0 ? @available.size - 1 : @selected_index - 1
     next_index = @selected_index == @available.size - 1 ? 0 : @selected_index + 1
 
-    echoln "selected sprite:"
     get_pif_sprite(@available[@selected_index]).dump_info()
-
     @sprites["bgSelected_previous"].visible = true if is_main_sprite(previous_index) && @available.size > 2
     @sprites["bgSelected_center"].visible = true if is_main_sprite(@selected_index)
     @sprites["bgSelected_next"].visible = true if is_main_sprite(next_index) && @available.size > 1
@@ -364,15 +362,15 @@ class PokemonPokedexInfo_Scene < Bitmap
     if @available.length > 1
       if is_main_sprite()
         if brief
-          pbMessage("Ce sprite sera le sprite affiché")
+          pbMessage("This sprite will remain the displayed sprite")
           return true
         else
-          pbMessage("Ce sprite est déjà le sprite affiché")
+          pbMessage("This sprite is already the displayed sprite")
         end
       else
-        message = "Souhaitez-vous utiliser ce sprite à la place du sprite actuel?"
+        message = 'Would you like to use this sprite instead of the current sprite?'
         if pbConfirmMessage(_INTL(message))
-          # Vérifier que @sprites["selectedSprite"] et son bitmap existent
+          # reset shiny sprite for having the new one
           if @sprites["selectedSprite"] && @sprites["selectedSprite"].bitmap
             if @pokemon
               @sprites["selectedSprite"].bitmap.hue_clear(@pokemon.id_number, "")
@@ -389,7 +387,7 @@ class PokemonPokedexInfo_Scene < Bitmap
         end
       end
     else
-      pbMessage("C'est le seul sprite disponible pour ce Pokémon!")
+      pbMessage("This is the only sprite available for this Pokémon!")
     end
     return false
   end

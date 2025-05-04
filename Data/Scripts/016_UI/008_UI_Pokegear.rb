@@ -130,7 +130,7 @@ class PokemonPokegearScreen
     cmdJukebox = -1
     commands[cmdMap = commands.length]     = ["map",_INTL("Map")]
     if $PokemonGlobal.phoneNumbers && $PokemonGlobal.phoneNumbers.length>0
-      commands[cmdPhone = commands.length] = ["phone",_INTL("Téléphone")]
+      commands[cmdPhone = commands.length] = ["phone",_INTL("Phone")]
     end
     commands[cmdJukebox = commands.length] = ["jukebox",_INTL("Jukebox")]
     @scene.pbStartScene(commands)

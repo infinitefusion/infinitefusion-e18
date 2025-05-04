@@ -51,7 +51,7 @@ class PokeBattle_FakeBattler
   end
 
   def pbThis(lowerCase=false)
-    return (lowerCase) ? _INTL("Le {1} sauvage",name) : _INTL("Le {1} sauvage",name)
+    return (lowerCase) ? _INTL("the wild {1}",name) : _INTL("The wild {1}",name)
   end
 
   def opposes?(i)
@@ -92,7 +92,7 @@ class SafariDataBox < SpriteWrapper
     shadow = Color.new(184,184,184)
     textpos = []
     textpos.push([_INTL("Safari Balls"),30,2,false,base,shadow])
-    textpos.push([_INTL("Reste: {1}",@battle.ballCount),30,32,false,base,shadow])
+    textpos.push([_INTL("Left: {1}",@battle.ballCount),30,32,false,base,shadow])
     pbDrawTextPositions(self.bitmap,textpos)
   end
 
@@ -251,11 +251,11 @@ class PokeBattle_Scene
 
   def pbSafariCommandMenu(index)
     pbCommandMenuEx(index,[
-       _INTL("Qu'est-ce \n{1} va lancer?",@battle.pbPlayer.name),
+       _INTL("What will\n{1} throw?",@battle.pbPlayer.name),
        _INTL("Ball"),
-       _INTL("Appat"),
-       _INTL("Pierre"),
-       _INTL("Fuir")
+       _INTL("Bait"),
+       _INTL("Rock"),
+       _INTL("Run")
     ],3)
   end
 
@@ -428,7 +428,7 @@ class PokeBattle_SafariZone
       pkmn = @party2[0]
       self.pbPlayer.pokedex.register(pkmn)
       @scene.pbStartBattle(self)
-      pbDisplayPaused(_INTL("Un {1} sauvage est apparu!",pkmn.name))
+      pbDisplayPaused(_INTL("Wild {1} appeared!",pkmn.name))
       @scene.pbSafariStart
       weather_data = GameData::BattleWeather.try_get(@weather)
       @scene.pbCommonAnimation(weather_data.animation) if weather_data
@@ -443,7 +443,7 @@ class PokeBattle_SafariZone
         case cmd
         when 0   # Ball
           if pbBoxesFull?
-            pbDisplay(_INTL("Les boîtes sont pleines! Tu ne peux plus attraper de Pokémon!"))
+            pbDisplay(_INTL("The boxes are full! You can't catch any more Pokémon!"))
             next
           end
           @ballCount -= 1
@@ -457,18 +457,18 @@ class PokeBattle_SafariZone
             end
           end
         when 1   # Bait
-          pbDisplayBrief(_INTL("{1} a jeté un appât sur {2}!",self.pbPlayer.name,pkmn.name))
+          pbDisplayBrief(_INTL("{1} threw some bait at the {2}!",self.pbPlayer.name,pkmn.name))
           @scene.pbThrowBait
           catchFactor  /= 2 if pbRandom(100)<90   # Harder to catch
           escapeFactor /= 2                       # Less likely to escape
         when 2   # Rock
-          pbDisplayBrief(_INTL("{1} a jeté une pierre sur {2}!",self.pbPlayer.name,pkmn.name))
+          pbDisplayBrief(_INTL("{1} threw a rock at the {2}!",self.pbPlayer.name,pkmn.name))
           @scene.pbThrowRock
           catchFactor  *= 2                       # Easier to catch
           escapeFactor *= 2 if pbRandom(100)<90   # More likely to escape
         when 3   # Run
           pbSEPlay("Battle flee")
-          pbDisplayPaused(_INTL("Tu t'en es sorti sain et sauf!"))
+          pbDisplayPaused(_INTL("You got away safely!"))
           @decision = 3
         end
         catchFactor  = [[catchFactor,3].max,20].min
@@ -476,18 +476,18 @@ class PokeBattle_SafariZone
         # End of round
         if @decision==0
           if @ballCount<=0
-            pbDisplay(_INTL("PA : Vous n'avez plus de Safari Balls! Fin de la partie!"))
+            pbDisplay(_INTL("PA: You have no Safari Balls left! Game over!"))
             @decision = 2
           elsif can_escape(pkmn, escapeFactor)
             pbSEPlay("Battle flee")
-            pbDisplay(_INTL("{1} s'est enfui!",pkmn.name))
+            pbDisplay(_INTL("{1} fled!",pkmn.name))
             @decision = 3
           elsif cmd==1   # Bait
-            pbDisplay(_INTL("{1} mange!",pkmn.name))
+            pbDisplay(_INTL("{1} is eating!",pkmn.name))
           elsif cmd==2   # Rock
-            pbDisplay(_INTL("{1} est en colère!",pkmn.name))
+            pbDisplay(_INTL("{1} is angry!",pkmn.name))
           else
-            pbDisplay(_INTL("{1} regarde attentivement!",pkmn.name))
+            pbDisplay(_INTL("{1} is watching carefully!",pkmn.name))
           end
           # Weather continues
           weather_data = GameData::BattleWeather.try_get(@weather)

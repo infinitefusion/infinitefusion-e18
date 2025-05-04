@@ -32,7 +32,7 @@ class PokeBattle_Battler
       # Rage
       if target.effects[PBEffects::Rage] && !target.fainted?
         if target.pbCanRaiseStatStage?(:ATTACK,target)
-          @battle.pbDisplay(_INTL("La rage de {1} grandit!",target.pbThis))
+          @battle.pbDisplay(_INTL("{1}'s rage is building!",target.pbThis))
           target.pbRaiseStatStage(:ATTACK,1,target)
         end
       end
@@ -55,7 +55,7 @@ class PokeBattle_Battler
       # Grudge
       if target.effects[PBEffects::Grudge] && target.fainted?
         move.pp = 0
-        @battle.pbDisplay(_INTL("{1}'s {2} a perdu tous ses PP à cause de la rancune!",
+        @battle.pbDisplay(_INTL("{1}'s {2} lost all of its PP due to the grudge!",
            user.pbThis,move.name))
       end
       # Destiny Bond (recording that it should apply)
@@ -89,7 +89,7 @@ class PokeBattle_Battler
     #       to trigger at the same time as Grudge).
     if user.effects[PBEffects::DestinyBondTarget]>=0 && !user.fainted?
       dbName = @battle.battlers[user.effects[PBEffects::DestinyBondTarget]].pbThis
-      @battle.pbDisplay(_INTL("{1} a emmené son ennemi avec lui!",dbName))
+      @battle.pbDisplay(_INTL("{1} took its attacker down with it!",dbName))
       user.pbReduceHP(user.hp,false)
       user.pbItemHPHealCheck
       user.pbFaint
@@ -109,10 +109,10 @@ class PokeBattle_Battler
         targets.each { |b| numFainted += 1 if b.damageState.fainted }
         if numFainted>0 && user.form==1
           @battle.battleBond[user.index&1][user.pokemonIndex] = true
-          @battle.pbDisplay(_INTL("{1} est devenu complètement chargé en raison de son lien avec son dresseur!",user.pbThis))
+          @battle.pbDisplay(_INTL("{1} became fully charged due to its bond with its Trainer!",user.pbThis))
           @battle.pbShowAbilitySplash(user,true)
           @battle.pbHideAbilitySplash(user)
-          user.pbChangeForm(2,_INTL("{1} se transforme!",user.pbThis))
+          user.pbChangeForm(2,_INTL("{1} became Ash-Greninja!",user.pbThis))
         end
       end
     end

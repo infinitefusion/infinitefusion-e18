@@ -38,22 +38,22 @@ class PokeBattle_Battle
   def pbCall(idxBattler)
     battler = @battlers[idxBattler]
     trainerName = pbGetOwnerName(idxBattler)
-    pbDisplay(_INTL("{1} a appelé {2}!",trainerName,battler.pbThis(true)))
+    pbDisplay(_INTL("{1} called {2}!",trainerName,battler.pbThis(true)))
     pbDisplay(_INTL("{1}!",battler.name))
     if battler.shadowPokemon?
       if battler.inHyperMode?
         battler.pokemon.hyper_mode = false
         battler.pokemon.adjustHeart(-300)
-        pbDisplay(_INTL("{1} est revenu à la raison grâce à l'appel du Dresseur!",battler.pbThis))
+        pbDisplay(_INTL("{1} came to its senses from the Trainer's call!",battler.pbThis))
       else
-        pbDisplay(_INTL("Mais rien ne s'est passé!"))
+        pbDisplay(_INTL("But nothing happened!"))
       end
     elsif battler.status == :SLEEP
       battler.pbCureStatus
     elsif battler.pbCanRaiseStatStage?(:ACCURACY,battler)
       battler.pbRaiseStatStage(:ACCURACY,1,battler)
     else
-      pbDisplay(_INTL("Mais rien ne s'est passé!"))
+      pbDisplay(_INTL("But nothing happened!"))
     end
   end
 
@@ -76,7 +76,7 @@ class PokeBattle_Battle
 #    if pbGetOwnerFromBattlerIndex(idxBattler).trainer_type == :BUGCATCHER
 #      return _INTL("Mega Net")
 #    end
-    return _INTL("Méga-Anneau")
+    return _INTL("Mega Ring")
   end
 
   def pbCanMegaEvolve?(idxBattler)
@@ -135,9 +135,9 @@ class PokeBattle_Battle
     # Mega Evolve
     case battler.pokemon.megaMessage
     when 1   # Rayquaza
-      pbDisplay(_INTL("le souhait de {1} a fait atteindre {2}!",trainerName,battler.pbThis))
+      pbDisplay(_INTL("{1}'s fervent wish has reached {2}!",trainerName,battler.pbThis))
     else
-      pbDisplay(_INTL("{1}'s {2} réagit à{3}'s {4}!",
+      pbDisplay(_INTL("{1}'s {2} is reacting to {3}'s {4}!",
          battler.pbThis,battler.itemName,trainerName,pbGetMegaRingName(idxBattler)))
     end
     pbCommonAnimation("MegaEvolution",battler)
@@ -149,7 +149,7 @@ class PokeBattle_Battle
     pbCommonAnimation("MegaEvolution2",battler)
     megaName = battler.pokemon.megaName
     megaName = _INTL("Mega {1}", battler.pokemon.speciesName) if nil_or_empty?(megaName)
-    pbDisplay(_INTL("{1} a Mega évolué en {2}!",battler.pbThis,megaName))
+    pbDisplay(_INTL("{1} has Mega Evolved into {2}!",battler.pbThis,megaName))
     side  = battler.idxOwnSide
     owner = pbGetOwnerIndexFromBattlerIndex(idxBattler)
     @megaEvolution[side][owner] = -2
@@ -183,6 +183,6 @@ class PokeBattle_Battle
     elsif battler.isSpecies?(:GROUDON)
       pbCommonAnimation("PrimalGroudon2",battler)
     end
-    pbDisplay(_INTL("Invertion primitive de {1}!\nIl est revenu à sa forme primitive!",battler.pbThis))
+    pbDisplay(_INTL("{1}'s Primal Reversion!\nIt reverted to its primal form!",battler.pbThis))
   end
 end

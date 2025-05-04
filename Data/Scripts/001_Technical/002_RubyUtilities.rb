@@ -73,12 +73,12 @@ class Numeric
   end
 
   def to_word
-    ret = [_INTL("zero"), _INTL("un"), _INTL("deux"), _INTL("trois"),
-           _INTL("quatre"), _INTL("cinq"), _INTL("six"), _INTL("sept"),
-           _INTL("huit"), _INTL("neuf"), _INTL("dix"), _INTL("onze"),
-           _INTL("douze"), _INTL("treize"), _INTL("quatorze"), _INTL("quinze"),
-           _INTL("seize"), _INTL("dix-sept"), _INTL("dix-huit"), _INTL("dix-neuf"),
-           _INTL("vingt")]
+    ret = [_INTL("zero"), _INTL("one"), _INTL("two"), _INTL("three"),
+           _INTL("four"), _INTL("five"), _INTL("six"), _INTL("seven"),
+           _INTL("eight"), _INTL("nine"), _INTL("ten"), _INTL("eleven"),
+           _INTL("twelve"), _INTL("thirteen"), _INTL("fourteen"), _INTL("fifteen"),
+           _INTL("sixteen"), _INTL("seventeen"), _INTL("eighteen"), _INTL("nineteen"),
+           _INTL("twenty")]
     return ret[self] if self.is_a?(Integer) && self >= 0 && self <= ret.length
     return self.to_s
   end

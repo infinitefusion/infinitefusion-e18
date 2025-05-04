@@ -104,7 +104,7 @@ module GameData
     def self.sprite_bitmap(species, form = 0, gender = 0, shiny = false, shadow = false, back = false, egg = false)
       return self.egg_sprite_bitmap(species, form) if egg
       return self.back_sprite_bitmap(species, form, gender, shiny, shadow) if back
-      return self.front_sprite_bitmap(species, shiny)
+      return self.front_sprite_bitmap(species, shiny,)
     end
 
     def self.sprite_bitmap_from_pokemon(pkmn, back = false, species = nil)

@@ -45,22 +45,22 @@ module GameData
 
     def self.editor_properties
       return [
-         ["Home",             MapCoordsFacingProperty, _INTL("ID de la carte et coordonnées X et Y de l'endroit où le joueur se rend si aucun Centre Pokémon n'a été entré après une perte.")],
-         ["WildBattleBGM",    BGMProperty,             _INTL("BGM par défaut pour les combats de Pokémon sauvages.")],
-         ["TrainerBattleBGM", BGMProperty,             _INTL("BGM par défaut pour les combats des dresseurs.")],
-         ["WildVictoryME",    MEProperty,              _INTL("ME par défaut joué après avoir remporté un combat de Pokémon sauvage.")],
-         ["TrainerVictoryME", MEProperty,              _INTL("ME par défaut joué après avoir remporté un combat de dresseur.")],
-         ["WildCaptureME",    MEProperty,              _INTL("ME par défaut joué après avoir attrapé un Pokémon.")],
-         ["SurfBGM",          BGMProperty,             _INTL("BGM jouée pendant le surf.")],
-         ["BicycleBGM",       BGMProperty,             _INTL("BGM jouée sur un vélo.")],
-         ["PlayerA",          PlayerProperty,          _INTL("Spécifie le joueur A.")],
-         ["PlayerB",          PlayerProperty,          _INTL("Spécifie le joueur B.")],
-         ["PlayerC",          PlayerProperty,          _INTL("Spécifie le joueur C.")],
-         ["PlayerD",          PlayerProperty,          _INTL("Spécifie le joueur D.")],
-         ["PlayerE",          PlayerProperty,          _INTL("Spécifie le joueur E.")],
-         ["PlayerF",          PlayerProperty,          _INTL("Spécifie le joueur F.")],
-         ["PlayerG",          PlayerProperty,          _INTL("Spécifie le joueur G.")],
-         ["PlayerH",          PlayerProperty,          _INTL("Spécifie le joueur H.")]
+         ["Home",             MapCoordsFacingProperty, _INTL("Map ID and X and Y coordinates of where the player goes if no Pokémon Center was entered after a loss.")],
+         ["WildBattleBGM",    BGMProperty,             _INTL("Default BGM for wild Pokémon battles.")],
+         ["TrainerBattleBGM", BGMProperty,             _INTL("Default BGM for Trainer battles.")],
+         ["WildVictoryME",    MEProperty,              _INTL("Default ME played after winning a wild Pokémon battle.")],
+         ["TrainerVictoryME", MEProperty,              _INTL("Default ME played after winning a Trainer battle.")],
+         ["WildCaptureME",    MEProperty,              _INTL("Default ME played after catching a Pokémon.")],
+         ["SurfBGM",          BGMProperty,             _INTL("BGM played while surfing.")],
+         ["BicycleBGM",       BGMProperty,             _INTL("BGM played while on a bicycle.")],
+         ["PlayerA",          PlayerProperty,          _INTL("Specifies player A.")],
+         ["PlayerB",          PlayerProperty,          _INTL("Specifies player B.")],
+         ["PlayerC",          PlayerProperty,          _INTL("Specifies player C.")],
+         ["PlayerD",          PlayerProperty,          _INTL("Specifies player D.")],
+         ["PlayerE",          PlayerProperty,          _INTL("Specifies player E.")],
+         ["PlayerF",          PlayerProperty,          _INTL("Specifies player F.")],
+         ["PlayerG",          PlayerProperty,          _INTL("Specifies player G.")],
+         ["PlayerH",          PlayerProperty,          _INTL("Specifies player H.")]
       ]
     end
 

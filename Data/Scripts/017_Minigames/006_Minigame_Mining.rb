@@ -505,7 +505,7 @@ class MiningGameScene
 
   def pbMain
     pbSEPlay("Mining ping")
-    pbMessage(_INTL("Quelque chose a cogné dans le mur!\n{1} l'a confirmé!",@items.length))
+    pbMessage(_INTL("Something pinged in the wall!\n{1} confirmed!",@items.length))
     loop do
       update
       Graphics.update
@@ -525,7 +525,7 @@ class MiningGameScene
              Graphics.width,collapseFraction*i,Color.new(0,0,0))
           Graphics.update
         end
-        pbMessage(_INTL("Le mur s'est effondré!"))
+        pbMessage(_INTL("The wall collapsed!"))
         break
       end
       foundall=true
@@ -537,7 +537,7 @@ class MiningGameScene
         @sprites["cursor"].visible=false
         pbWait(Graphics.frame_rate*3/4)
         pbSEPlay("Mining found all")
-        pbMessage(_INTL("Tout a été déterré!"))
+        pbMessage(_INTL("Everything was dug up!"))
         break
       end
       # Input
@@ -570,7 +570,7 @@ class MiningGameScene
       elsif Input.trigger?(Input::USE)   # Hit
         pbHit
       elsif Input.trigger?(Input::BACK)   # Quit
-        break if pbConfirmMessage(_INTL("Etes-vous sûr de vouloir abandonner?"))
+        break if pbConfirmMessage(_INTL("Are you sure you want to give up?"))
       end
     end
     pbGiveItems
@@ -580,10 +580,10 @@ class MiningGameScene
     if @itemswon.length>0
       for i in @itemswon
         if $PokemonBag.pbStoreItem(i)
-          pbMessage(_INTL("Un {1} a été obtenu.\\se[Mining item get]\\wtnp[30]",
+          pbMessage(_INTL("One {1} was obtained.\\se[Mining item get]\\wtnp[30]",
              GameData::Item.get(i).name))
         else
-          pbMessage(_INTL("Un {1} a été trouvé, mais vous n'avez pas de place pour lui.",
+          pbMessage(_INTL("One {1} was found, but you have no room for it.",
              GameData::Item.get(i).name))
         end
       end

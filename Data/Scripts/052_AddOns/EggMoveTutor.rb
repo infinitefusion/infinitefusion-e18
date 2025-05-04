@@ -17,13 +17,13 @@ class MoveRelearnerScreen
     loop do
       move = @scene.pbChooseMove
       if move
-        if @scene.pbConfirm(_INTL("A appris {1}?", GameData::Move.get(move).name))
+        if @scene.pbConfirm(_INTL("Teach {1}?", GameData::Move.get(move).name))
           if pbLearnMove(pkmn, move)
             @scene.pbEndScene
             return true
           end
         end
-      elsif @scene.pbConfirm(_INTL("Arrêtez d'essayer d'enseigner un nouveau move à {1}?", pkmn.name))
+      elsif @scene.pbConfirm(_INTL("Give up trying to teach a new move to {1}?", pkmn.name))
         @scene.pbEndScene
         return false
       end

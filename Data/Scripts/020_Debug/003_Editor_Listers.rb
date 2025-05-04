@@ -161,7 +161,7 @@ class GraphicsLister
     @commands.length.times do |i|
       @index = i if @commands[i]==@selection
     end
-    pbMessage(_INTL("Il n'y a pas de fichiers.")) if @commands.length==0
+    pbMessage(_INTL("There are no files.")) if @commands.length==0
     return @commands
   end
 
@@ -237,7 +237,7 @@ class MusicFileLister
     @commands.length.times do |i|
       @index = i if @commands[i]==@setting
     end
-    pbMessage(_INTL("Il n'y a pas de fichiers.")) if @commands.length==0
+    pbMessage(_INTL("There are no files.")) if @commands.length==0
     return @commands
   end
 

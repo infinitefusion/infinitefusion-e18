@@ -39,7 +39,7 @@ def pbMoveToMailbox(pokemon)
 end
 
 def pbStoreMail(pkmn,item,message,poke1=nil,poke2=nil,poke3=nil)
-  raise _INTL("Pokémon a déjà du courrier") if pkmn.mail
+  raise _INTL("Pokémon already has mail") if pkmn.mail
   pkmn.mail = Mail.new(item, message, $Trainer.name, poke1, poke2, poke3)
 end
 
@@ -109,7 +109,7 @@ end
 def pbWriteMail(item,pkmn,pkmnid,scene)
   message = ""
   loop do
-    message = pbMessageFreeText(_INTL("Veuillez saisir un message (max. 250 caractères)."),
+    message = pbMessageFreeText(_INTL("Please enter a message (max. 250 characters)."),
        "",false,250,Graphics.width) { scene.pbUpdate }
     if message!=""
       # Store mail if a message was written
@@ -129,6 +129,6 @@ def pbWriteMail(item,pkmn,pkmnid,scene)
       pbStoreMail(pkmn,item,message,poke1,poke2,poke3)
       return true
     end
-    return false if scene.pbConfirm(_INTL("Arrêtez de donner le courrier Pokémon?"))
+    return false if scene.pbConfirm(_INTL("Stop giving the Pokémon Mail?"))
   end
 end

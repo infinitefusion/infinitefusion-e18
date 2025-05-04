@@ -82,7 +82,7 @@ class PokeBattle_Battler
         choice = choices[@battle.pbRandom(choices.length)]
         @battle.pbShowAbilitySplash(self)
         self.ability = choice.ability
-        @battle.pbDisplay(_INTL("{1} a tracé {2}'s {3}!",pbThis,choice.pbThis(true),choice.abilityName))
+        @battle.pbDisplay(_INTL("{1} traced {2}'s {3}!",pbThis,choice.pbThis(true),choice.abilityName))
         @battle.pbHideAbilitySplash(self)
         if !onSwitchIn && (unstoppableAbility? || abilityActive?)
           BattleHandlers.triggerAbilityOnSwitchIn(self.ability,self,@battle)
@@ -109,7 +109,7 @@ class PokeBattle_Battler
       @effects[PBEffects::Illusion] = nil
       if !@effects[PBEffects::Transform]
         @battle.scene.pbChangePokemon(self, @pokemon)
-        @battle.pbDisplay(_INTL("{1}'s {2} s'est estompé!", pbThis, GameData::Ability.get(oldAbil).name))
+        @battle.pbDisplay(_INTL("{1}'s {2} wore off!", pbThis, GameData::Ability.get(oldAbil).name))
         @battle.pbSetSeen(self)
       end
     end
@@ -174,10 +174,10 @@ class PokeBattle_Battler
       next if unlosableItem?(b.item)
       @battle.pbShowAbilitySplash(b)
       if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-        @battle.pbDisplay(_INTL("{1} a partagé {2} avec {3}!",
+        @battle.pbDisplay(_INTL("{1} shared its {2} with {3}!",
            b.pbThis,b.itemName,pbThis(true)))
       else
-        @battle.pbDisplay(_INTL("{1}'s {2} le laisse partager {3} avec {4}!",
+        @battle.pbDisplay(_INTL("{1}'s {2} let it share its {3} with {4}!",
            b.pbThis,b.abilityName,b.itemName,pbThis(true)))
       end
       self.item = b.item
@@ -197,9 +197,9 @@ class PokeBattle_Battler
       @battle.pbShowAbilitySplash(self)
       pbRecoverHP(@totalhp / 3)
       if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
-        @battle.pbDisplay(_INTL("Les PV de {1} ont été restaurés.", pbThis))
+        @battle.pbDisplay(_INTL("{1}'s HP was restored.", pbThis))
       else
-        @battle.pbDisplay(_INTL("{1}'s {2} a restauré ses PV.", pbThis, abilityName))
+        @battle.pbDisplay(_INTL("{1}'s {2} restored its HP.", pbThis, abilityName))
       end
       @battle.pbHideAbilitySplash(self)
     end

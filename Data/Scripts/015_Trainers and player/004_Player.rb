@@ -279,7 +279,7 @@ class Player < Trainer
     outfit_preview = PictureWindow.new(filepath)
     outfit_preview.x = Graphics.width/4
     musicEffect= "Key item get"
-    pbMessage(_INTL("{1} a obtenue \\C[{2}]{3}\\C[0]!\\me[{4}]",$Trainer.name,color,name,musicEffect))
+    pbMessage(_INTL("{1} obtained \\C[{2}]{3}\\C[0]!\\me[{4}]",$Trainer.name,color,name,musicEffect))
     outfit_preview.dispose
   end
 

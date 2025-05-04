@@ -42,23 +42,23 @@ class PokeBattle_Battle
     # Fleeing from trainer battles
     if trainerBattle?
       if $DEBUG && Input.press?(Input::CTRL)
-        if pbDisplayConfirm(_INTL("Considérez cette bataille comme une victoire?"))
+        if pbDisplayConfirm(_INTL("Treat this battle as a win?"))
           @decision = 1
           return 1
-        elsif pbDisplayConfirm(_INTL("Considérez cette bataille comme une perte?"))
+        elsif pbDisplayConfirm(_INTL("Treat this battle as a loss?"))
           @decision = 2
           return 1
         end
       elsif @internalBattle
-        if pbDisplayConfirm(_INTL("Souhaitez-vous abandonner le match et quitter maintenant?"))
+        if pbDisplayConfirm(_INTL("Would you like to forfeit the match and quit now?"))
           pbSEPlay("Battle flee")
-          pbDisplay(_INTL("{1} a perdu le match!",self.pbPlayer.name))
+          pbDisplay(_INTL("{1} forfeited the match!",self.pbPlayer.name))
           @decision = 2
           return 1
         end
-      elsif pbDisplayConfirm(_INTL("Souhaitez-vous abandonner le match et quitter maintenant?"))
+      elsif pbDisplayConfirm(_INTL("Would you like to forfeit the match and quit now?"))
         pbSEPlay("Battle flee")
-        pbDisplay(_INTL("{1} a perdu le match!",self.pbPlayer.name))
+        pbDisplay(_INTL("{1} forfeited the match!",self.pbPlayer.name))
         @decision = 3
         return 1
       end
@@ -67,18 +67,18 @@ class PokeBattle_Battle
     # Fleeing from wild battles
     if $DEBUG && Input.press?(Input::CTRL)
       pbSEPlay("Battle flee")
-      pbDisplayPaused(_INTL("Tu t'es enfui!"))
+      pbDisplayPaused(_INTL("You got away safely!"))
       @decision = 3
       return 1
     end
     if !@canRun
-      pbDisplayPaused(_INTL("Tu ne peux pas t'échapper!"))
+      pbDisplayPaused(_INTL("You can't escape!"))
       return 0
     end
     if !duringBattle
       if battler.pbHasType?(:GHOST) && Settings::MORE_TYPE_EFFECTS
         pbSEPlay("Battle flee")
-        pbDisplayPaused(_INTL("Tu t'es enfui!"))
+        pbDisplayPaused(_INTL("You got away safely!"))
         @decision = 3
         return 1
       end
@@ -88,7 +88,7 @@ class PokeBattle_Battle
           pbShowAbilitySplash(battler,true)
           pbHideAbilitySplash(battler)
           pbSEPlay("Battle flee")
-          pbDisplayPaused(_INTL("Tu t'es enfui!"))
+          pbDisplayPaused(_INTL("You got away safely!"))
           @decision = 3
           return 1
         end
@@ -97,7 +97,7 @@ class PokeBattle_Battle
       if battler.itemActive?
         if BattleHandlers.triggerRunFromBattleItem(battler.item,battler)
           pbSEPlay("Battle flee")
-          pbDisplayPaused(_INTL("{1} s'est enfui en utilisant {2}!",
+          pbDisplayPaused(_INTL("{1} fled using its {2}!",
              battler.pbThis,battler.itemName))
           @decision = 3
           return 1
@@ -108,21 +108,21 @@ class PokeBattle_Battle
          battler.effects[PBEffects::MeanLook]>=0 ||
          battler.effects[PBEffects::Ingrain] ||
          @field.effects[PBEffects::FairyLock]>0
-        pbDisplayPaused(_INTL("Tu ne peux pas t'échapper!"))
+        pbDisplayPaused(_INTL("You can't escape!"))
         return 0
       end
       # Trapping abilities/items
       eachOtherSideBattler(idxBattler) do |b|
         next if !b.abilityActive?
         if BattleHandlers.triggerTrappingTargetAbility(b.ability,battler,b,self)
-          pbDisplayPaused(_INTL("{1} empêche la fuite avec {2}!",b.pbThis,b.abilityName))
+          pbDisplayPaused(_INTL("{1} prevents escape with {2}!",b.pbThis,b.abilityName))
           return 0
         end
       end
       eachOtherSideBattler(idxBattler) do |b|
         next if !b.itemActive?
         if BattleHandlers.triggerTrappingTargetItem(b.item,battler,b,self)
-          pbDisplayPaused(_INTL("{1} empêche la fuite avec {2}!",b.pbThis,b.itemName))
+          pbDisplayPaused(_INTL("{1} prevents escape with {2}!",b.pbThis,b.itemName))
           return 0
         end
       end
@@ -146,11 +146,11 @@ class PokeBattle_Battle
     end
     if rate>=256 || @battleAI.pbAIRandom(256)<rate
       pbSEPlay("Battle flee")
-      pbDisplayPaused(_INTL("Tu t'es enfui!"))
+      pbDisplayPaused(_INTL("You got away safely!"))
       @decision = 3
       return 1
     end
-    pbDisplayPaused(_INTL("Tu ne pouvais pas t'échapper!"))
+    pbDisplayPaused(_INTL("You couldn't get away!"))
     return -1
   end
 end

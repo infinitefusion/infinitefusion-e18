@@ -315,7 +315,7 @@ def pbUseKeyItem
     real_items.push(itm) if $PokemonBag.pbHasItem?(itm)
   end
   if real_items.length == 0 && real_moves.length == 0
-    pbMessage(_INTL("Un Objet dans le sac peut être enregistré sur cette touche pour une utilisation instantanée."))
+    pbMessage(_INTL("An item in the Bag can be registered to this key for instant use."))
   else
     $game_temp.in_menu = true
     $game_map.update

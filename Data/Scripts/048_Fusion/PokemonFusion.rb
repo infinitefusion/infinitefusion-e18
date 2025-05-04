@@ -817,7 +817,7 @@ class PokemonFusionScene
     pbBGMStop()
     pbPlayCry(@pokemon)
     Kernel.pbMessageDisplay(@sprites["msgwindow"],
-                            _INTL("Les Pokémon sont en train d'être fusionnés!", @pokemon1.name))
+    _INTL("The Pokémon are being fused!", @pokemon1.name))
 
     Kernel.pbMessageWaitForInput(@sprites["msgwindow"], 100, true)
     pbPlayDecisionSE()
@@ -848,7 +848,7 @@ class PokemonFusionScene
       pbPlayCancelSE()
       # Kernel.pbMessageDisplay(@sprites["msgwindow"],
       @pbEndScreen
-      _INTL("Hein ? La fusion a été annulée!")
+      _INTL("Huh? The fusion was cancelled!")
     else
       frames = pbCryFrameLength(@newspecies)
       pbBGMStop()
@@ -868,7 +868,7 @@ class PokemonFusionScene
       drawSpriteCredits(@fusion_pif_sprite, @viewport)
       pbBGMPlay(pbGetWildVictoryME)
       Kernel.pbMessageDisplay(@sprites["msgwindow"],
-                              _INTL("\\se[]Félicitations ! Vos Pokémon ont été fusionnés en {2}!\\wt[80]", @pokemon1.name, newspeciesname))
+                              _INTL("\\se[]Congratulations! Your Pokémon were fused into {2}!\\wt[80]", @pokemon1.name, newspeciesname))
 
       #exp
       @pokemon1.exp_when_fused_head = @pokemon2.exp
@@ -889,9 +889,8 @@ class PokemonFusionScene
         $Trainer.pokedex.set_seen(newSpecies)
         $Trainer.pokedex.set_owned(newSpecies)
         Kernel.pbMessageDisplay(@sprites["msgwindow"],
-                                _INTL("Les données de {1} ont été ajoutées au Pokédex", newspeciesname))
-        #@scene.pbShowPokedex(@newspecies)
-        @scene.pbShowPokedex(@newspecies, @pokemon1.head_shiny, @pokemon1.body_shiny)
+                                _INTL("{1}'s data was added to the Pokédex", newspeciesname))
+        @scene.pbShowPokedex(@newspecies)
       end
       overlay.dispose
       #first check if hidden ability
@@ -971,7 +970,7 @@ def drawSpriteCredits(pif_sprite, viewport)
   label_shadow_color = Color.new(27, 169, 40)
 
   #label_shadow_color = Color.new(33, 209, 50)
-  text = _INTL("Sprite par {1}", author_name)
+  text = _INTL("Sprite by {1}", author_name)
   textpos = [[text, x, y, 2, label_base_color, label_shadow_color]]
   pbDrawTextPositions(overlay, textpos)
 end
@@ -1033,7 +1032,7 @@ def setFusionMoves(fusedPoke, poke2, selected2ndOption = false)
   bodySpeciesName = GameData::Species.get(bodySpecies).real_name
   headSpeciesName = GameData::Species.get(headSpecies).real_name
 
-  choice = Kernel.pbMessage("Que faire avec les movesets?", [_INTL("Combiner les movesets"), _INTL("Conserver le moveset de {1}", bodySpeciesName), _INTL("Conserver le moveset de {1}", headSpeciesName)], 0)
+  choice = Kernel.pbMessage("What to do with the moveset?", [_INTL("Combine movesets"), _INTL("Keep {1}'s moveset", bodySpeciesName), _INTL("Keep {1}'s moveset", headSpeciesName)], 0)
   if choice == 1
     if selected2ndOption
       fusedPoke.moves = poke2.moves
@@ -1120,7 +1119,7 @@ def pbChooseNature(species1_nature, species2_nature)
   nature1 = GameData::Nature.get(species1_nature)
   nature2 = GameData::Nature.get(species2_nature)
 
-  if (Kernel.pbMessage("Choisi la Nature.", [_INTL("{1}", nature1.real_name), _INTL("{1}", nature2.real_name)], 2)) == 0
+  if (Kernel.pbMessage("Choose a nature.", [_INTL("{1}", nature1.real_name), _INTL("{1}", nature2.real_name)], 2)) == 0
     return nature1.id_number
   else
     return nature2.id_number

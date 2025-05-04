@@ -60,8 +60,8 @@ class AutosaveOptionsScene < PokemonOption_Scene
       @sprites["option"][i] = (@PokemonOptions[i].get || 0)
     end
     @sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
-      _INTL("Paramètres d'enregistrement automatique"),0,0,Graphics.width,64,@viewport)
-    @sprites["textbox"].text=_INTL("Personnaliser les paramètres de sauvegarde automatique")
+      _INTL("Autosave settings"),0,0,Graphics.width,64,@viewport)
+    @sprites["textbox"].text=_INTL("Customize the autosave settings")
 
 
     pbFadeInAndShow(@sprites) { pbUpdate }
@@ -74,28 +74,28 @@ class AutosaveOptionsScene < PokemonOption_Scene
 
   def pbGetOptions(inloadscreen = false)
     options = [
-      EnumOption.new(_INTL("Lors de la guérison"), [_INTL("On"), _INTL("Off")],
+      EnumOption.new(_INTL("When healing"), [_INTL("On"), _INTL("Off")],
                      proc { $game_variables[AUTOSAVE_HEALING_VAR]},
                      proc { |value|
                        $game_variables[AUTOSAVE_HEALING_VAR]=value
                      },
                      "Autosave when healing at a Pokémon Center"
       ),
-      EnumOption.new(_INTL("Lors de la capture de Pokémon"), [_INTL("On"), _INTL("Off")],
+      EnumOption.new(_INTL("When catching Pokémon"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[AUTOSAVE_CATCH_SWITCH] ? 0 : 1 },
                      proc { |value|
                        $game_switches[AUTOSAVE_CATCH_SWITCH] = value == 0
                      },
                      "Autosave everytime a new Pokémon is caught"
       ),
-      EnumOption.new(_INTL("Après les combats de"), [_INTL("On"), _INTL("Off")],
+      EnumOption.new(_INTL("After trainer battles"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[AUTOSAVE_WIN_SWITCH] ? 0 : 1 },
                      proc { |value|
                        $game_switches[AUTOSAVE_WIN_SWITCH] = value == 0
                      },
                      "Autosave after each trainer battle"
       ),
-      EnumOption.new(_INTL("Tous les x pas"), [_INTL("On"), _INTL("Off")],
+      EnumOption.new(_INTL("Every x steps"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[AUTOSAVE_STEPS_SWITCH] ? 0 : 1 },
                      proc { |value|
                        if !$game_switches[AUTOSAVE_STEPS_SWITCH] && value == 0
@@ -118,9 +118,9 @@ class AutosaveOptionsScene < PokemonOption_Scene
     params.setRange(20,999999)
     params.setInitialValue(pbGet(AUTOSAVE_STEPS_VAR))
     params.setCancelValue(0)
-    val = Kernel.pbMessageChooseNumber(_INTL("Sauvegarde automatique toutes les combiens de pas?"),params)
+    val = Kernel.pbMessageChooseNumber(_INTL("Autosave every how many steps?"),params)
     if val < 200
-      Kernel.pbMessage("Avertissement: le choix d'un nombre réduit de pas peut diminuer les performances.")
+      Kernel.pbMessage("Warning: Choosing a low number of steps may decrease performance.")
     end
     if val == 0
       val = 1

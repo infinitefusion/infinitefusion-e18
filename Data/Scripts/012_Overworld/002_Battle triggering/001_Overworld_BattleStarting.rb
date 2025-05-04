@@ -56,7 +56,7 @@ class PokemonTemp
     when "outcome", "outcomevar"  then rules["outcomeVar"]     = var
     when "nopartner"              then rules["noPartner"]      = true
     else
-      raise _INTL("La Rgle de Combat \"{1}\" n'existe pas.", rule)
+      raise _INTL("Battle rule \"{1}\" does not exist.", rule)
     end
   end
 end
@@ -79,7 +79,7 @@ def setBattleRule(*args)
       $PokemonTemp.recordBattleRule(arg)
     end
   end
-  raise _INTL("L'argument {1} attendait une variable mais n'en a pas eu.",r) if r
+  raise _INTL("Argument {1} expected a variable after it but didn't have one.",r) if r
 end
 
 def pbNewBattleScene
@@ -254,7 +254,7 @@ def pbWildBattleCore(*args)
   canLose    = $PokemonTemp.battleRules["canLose"] || false
   # Skip battle if the player has no able Pokémon, or if holding Ctrl in Debug mode
   if $Trainer.able_pokemon_count == 0 || ($DEBUG && Input.press?(Input::CTRL))
-    pbMessage(_INTL("PASSE LE COMBAT...")) if $Trainer.pokemon_count > 0
+    pbMessage(_INTL("SKIPPING BATTLE...")) if $Trainer.pokemon_count > 0
     pbSet(outcomeVar,1)   # Treat it as a win
     $PokemonTemp.clearBattleRules
     $PokemonGlobal.nextBattleBGM       = nil
@@ -287,7 +287,7 @@ def pbWildBattleCore(*args)
       sp = arg
     end
   end
-  raise _INTL("Attendait à un niveau après avoir reçu {1}, mais aucun n'a été trouvé.",sp) if sp
+  raise _INTL("Expected a level after being given {1}, but one wasn't found.",sp) if sp
   # Calculate who the trainers and their party are
   playerTrainers    = [$Trainer]
   playerParty       = $Trainer.party
@@ -444,8 +444,8 @@ def pbTrainerBattleCore(*args)
   canLose    = $PokemonTemp.battleRules["canLose"] || false
   # Skip battle if the player has no able Pokémon, or if holding Ctrl in Debug mode
   if $Trainer.able_pokemon_count == 0 || ($DEBUG && Input.press?(Input::CTRL))
-    pbMessage(_INTL("SAUTER LE COMBAT...")) if $DEBUG
-    pbMessage(_INTL("APRES AVOIR GAGNÉ...")) if $DEBUG && $Trainer.able_pokemon_count > 0
+    pbMessage(_INTL("SKIPPING BATTLE...")) if $DEBUG
+    pbMessage(_INTL("AFTER WINNING...")) if $DEBUG && $Trainer.able_pokemon_count > 0
     pbSet(outcomeVar,($Trainer.able_pokemon_count == 0) ? 0 : 1)   # Treat it as undecided/a win
     $PokemonTemp.clearBattleRules
     $PokemonGlobal.nextBattleBGM       = nil
@@ -500,7 +500,7 @@ def pbTrainerBattleCore(*args)
       foeEndSpeeches.push(arg[3] || trainer.lose_text)
       foeItems.push(trainer.items)
     else
-      raise _INTL("NPCTrainer attendu ou tableau de données de dresseur, obtenu {1}.", arg)
+      raise _INTL("Expected NPCTrainer or array of trainer data, got {1}.", arg)
     end
   end
   # Calculate who the player trainer(s) and their party are

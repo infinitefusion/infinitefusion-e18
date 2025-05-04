@@ -147,17 +147,6 @@ KitsuneKouta<s>xLeD
 Lisa Anthony<s>
 and everyone else who helped out
 
-The French Team who makes the vf:
-Anthony<s>(leader of this project)
-Fragzzh<s>(dev support)
-Orgality<s>(graphic designer)
-Pokebio<s>(helper)
-Vaiga2140<s>(helper)
-Rayzek<s>(helper)
-Ravens<s>(beta tester)
-Thortue<s>(beta tester)
-
-
 "mkxp-z" by:
 Roza
 Based on MKXP by Ancurio et al.
@@ -186,7 +175,7 @@ _END_
   def main
     endCredits() if $PokemonSystem.on_mobile
     #-------------------------------
-    # Animated Background Setup 
+    # Animated Background Setup
     #-------------------------------
     @counter = 0.0   # Counts time elapsed since the background image changed
     @bg_index = 0

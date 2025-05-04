@@ -484,7 +484,7 @@ module PluginManager
     Compiler.pbCompilerEachPreppedLine(filename) { |line, line_no|
       # split line up into property name and values
       if !line[/^\s*(\w+)\s*=\s*(.*)$/]
-        raise _INTL("Mauvaise syntaxe de ligne (syntaxe attendue comme XXX=YYY)\r\n{1}", FileLineData.linereport)
+        raise _INTL("Bad line syntax (expected syntax like XXX=YYY)\r\n{1}", FileLineData.linereport)
       end
       property = $~[1].upcase
       data = $~[2].split(',')

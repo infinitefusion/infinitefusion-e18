@@ -223,13 +223,13 @@ def pbIsWeekday(wdayVariable, *arg)
   end
   if wdayVariable > 0
     $game_variables[wdayVariable] = [
-      _INTL("Dimanche"),
-      _INTL("Lundi"),
-      _INTL("Mardi"),
-      _INTL("Mercredi"),
-      _INTL("Jeudi"),
-      _INTL("Vendredi"),
-      _INTL("Samedi")][wday]
+      _INTL("Sunday"),
+      _INTL("Monday"),
+      _INTL("Tuesday"),
+      _INTL("Wednesday"),
+      _INTL("Thursday"),
+      _INTL("Friday"),
+      _INTL("Saturday")][wday]
     $game_map.need_refresh = true if $game_map
   end
   return ret
@@ -253,30 +253,30 @@ def pbIsMonth(monVariable, *arg)
 end
 
 def pbGetMonthName(month)
-  return [_INTL("Janvier"),
-          _INTL("Février"),
-          _INTL("Mars"),
-          _INTL("Avril"),
-          _INTL("Mai"),
-          _INTL("Juin"),
-          _INTL("Juillet"),
-          _INTL("Aout"),
-          _INTL("Septembre"),
-          _INTL("Octobre"),
-          _INTL("Novembre"),
-          _INTL("Decembre")][month - 1]
+  return [_INTL("January"),
+          _INTL("February"),
+          _INTL("March"),
+          _INTL("April"),
+          _INTL("May"),
+          _INTL("June"),
+          _INTL("July"),
+          _INTL("August"),
+          _INTL("September"),
+          _INTL("October"),
+          _INTL("November"),
+          _INTL("December")][month - 1]
 end
 
 def pbGetAbbrevMonthName(month)
   return ["",
           _INTL("Jan."),
-          _INTL("Fev."),
+          _INTL("Feb."),
           _INTL("Mar."),
-          _INTL("Avr."),
-          _INTL("Mai"),
+          _INTL("Apr."),
+          _INTL("May"),
           _INTL("Jun."),
           _INTL("Jul."),
-          _INTL("Aou."),
+          _INTL("Aug."),
           _INTL("Sep."),
           _INTL("Oct."),
           _INTL("Nov."),
@@ -298,10 +298,10 @@ def pbIsSeason(seasonVariable, *arg)
   end
   if seasonVariable > 0
     $game_variables[seasonVariable] = [
-      _INTL("Printemps"),
-      _INTL("Été"),
-      _INTL("Automne"),
-      _INTL("Hiver")][thisseason]
+      _INTL("Spring"),
+      _INTL("Summer"),
+      _INTL("Autumn"),
+      _INTL("Winter")][thisseason]
     $game_map.need_refresh = true if $game_map
   end
   return ret
@@ -333,8 +333,8 @@ end
 # Apr, Aug, Dec
 
 def pbGetSeasonName(season)
-  return [_INTL("Printemps"),
-          _INTL("Été"),
-          _INTL("Automne"),
-          _INTL("Hiver")][season]
+  return [_INTL("Spring"),
+          _INTL("Summer"),
+          _INTL("Autumn"),
+          _INTL("Winter")][season]
 end

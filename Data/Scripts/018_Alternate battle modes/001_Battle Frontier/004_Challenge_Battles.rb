@@ -40,8 +40,8 @@ end
 def pbOrganizedBattleEx(opponent, challengedata, endspeech, endspeechwin)
   # Skip battle if holding Ctrl in Debug mode
   if Input.press?(Input::CTRL) && $DEBUG
-    pbMessage(_INTL("SAUTER LE COMBAT..."))
-    pbMessage(_INTL("APRES AVOIR GAGNÉ..."))
+    pbMessage(_INTL("SKIPPING BATTLE..."))
+    pbMessage(_INTL("AFTER WINNING..."))
     pbMessage(endspeech || "...")
     $PokemonTemp.lastbattle = nil
     pbMEStop
@@ -135,7 +135,7 @@ def pbDebugPlayBattle
   params.setRange(0, 500)
   params.setInitialValue(0)
   params.setCancelValue(-1)
-  num = pbMessageChooseNumber(_INTL("Choisissez un combat."), params)
+  num = pbMessageChooseNumber(_INTL("Choose a battle."), params)
   if num >= 0
     pbPlayBattleFromFile(sprintf("Battles/Battle%03d.dat", num))
   end

@@ -33,7 +33,7 @@ class PokeBattle_RealBattlePeer
     if storedBox<0
       # NOTE: Poké Balls can't be used if storage is full, so you shouldn't ever
       #       see this message.
-      pbDisplayPaused(_INTL("Peux plus en attraper..."))
+      pbDisplayPaused(_INTL("Can't catch any more..."))
       return oldCurBox
     end
     return storedBox

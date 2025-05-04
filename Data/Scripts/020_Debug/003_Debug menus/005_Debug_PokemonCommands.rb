@@ -949,28 +949,20 @@ PokemonDebugMenuCommands.register("setshininess", {
     loop do
       msg = [_INTL("Is shiny."), _INTL("Is normal (not shiny).")][pkmn.shiny? ? 0 : 1]
       cmd = screen.pbShowCommands(msg, [
-           _INTL("Make natural shiny"),
-		       _INTL("Make debug shiny"),
+           _INTL("Make shiny"),
            _INTL("Make normal"),
            _INTL("Reset")], cmd)
       break if cmd < 0
       case cmd
-      when 0   # Make natural shiny
-        pkmn.shiny = true
-        pkmn.debug_shiny=false
-		pkmn.natural_shiny=true
-      when 1   # Make debug shiny
+      when 0   # Make shiny
         pkmn.shiny = true
         pkmn.debug_shiny=true
-		pkmn.natural_shiny=false
-      when 2   # Make normal
+      when 1   # Make normal
         pkmn.shiny = false
         pkmn.debug_shiny=false
-		pkmn.natural_shiny=false
-      when 3   # Reset
+      when 2   # Reset
         pkmn.shiny = nil
         pkmn.debug_shiny=nil
-		pkmn.natural_shiny=nil
       end
       screen.pbRefreshSingle(pkmnid)
     end

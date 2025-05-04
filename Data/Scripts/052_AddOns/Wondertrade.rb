@@ -62,7 +62,7 @@ def pbWonderTrade(lvl, except = [], except2 = [], premiumWonderTrade = true)
                                (poke.level >= lvl) && !(except.include?(poke.species)) # None under "lvl", no exceptions.
                            })
   poke = $Trainer.party[pbGet(1)]
-  if !pbConfirmMessage(_INTL("Échanger {1} ?",poke.name))
+  if !pbConfirmMessage(_INTL("Trade {1} away?",poke.name))
     return
   end
 

@@ -36,14 +36,14 @@ class PokemonPhoneScene
       end
     end
     if @trainers.length==0
-      pbMessage(_INTL("Il n'y a pas de numéros de téléphone enregistrés."))
+      pbMessage(_INTL("There are no phone numbers stored."))
       return
     end
     @sprites = {}
     @viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z = 99999
     @sprites["list"] = Window_PhoneList.newEmpty(152,32,Graphics.width-142,Graphics.height-80,@viewport)
-    @sprites["header"] = Window_UnformattedTextPokemon.newWithSize(_INTL("Téléphone"),
+    @sprites["header"] = Window_UnformattedTextPokemon.newWithSize(_INTL("Phone"),
        2,-18,128,64,@viewport)
     @sprites["header"].baseColor   = Color.new(248,248,248)
     @sprites["header"].shadowColor = Color.new(0,0,0)
@@ -93,9 +93,9 @@ class PokemonPhoneScene
         rematchcount += 1 if trainer[3]
       end
     end
-    infotext = _INTL("Inscrit<br>")
+    infotext = _INTL("Registered<br>")
     infotext += _INTL(" <r>{1}<br>",@sprites["list"].commands.length)
-    infotext += _INTL("En attente d'une revanche<r>{1}",rematchcount)
+    infotext += _INTL("Waiting for a rematch<r>{1}",rematchcount)
     @sprites["info"].text = infotext
     pbFadeInAndShow(@sprites)
     pbActivateWindow(@sprites,"list") {

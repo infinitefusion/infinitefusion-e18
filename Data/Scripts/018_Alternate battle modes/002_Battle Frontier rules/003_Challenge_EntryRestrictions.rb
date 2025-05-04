@@ -141,7 +141,7 @@ class NicknameClause
   end
 
   def errorMessage
-    return _INTL("Pas de surnoms identiques.")
+    return _INTL("No identical nicknames.")
   end
 end
 
@@ -250,7 +250,7 @@ class SameSpeciesClause
   end
 
   def errorMessage
-    return _INTL("Les Pokémon doit être de la même espèce.")
+    return _INTL("Pokémon must be the same species.")
   end
 end
 
@@ -269,7 +269,7 @@ class SpeciesClause
   end
 
   def errorMessage
-    return _INTL("Les Pokémon ne peuvent pas être de la même espèce.")
+    return _INTL("Pokémon can't be the same species.")
   end
 end
 
@@ -320,7 +320,7 @@ class TotalLevelRestriction
   end
 
   def errorMessage
-    return _INTL("Les niveaux combinés dépassent {1}.", @level)
+    return _INTL("The combined levels exceed {1}.", @level)
   end
 end
 
@@ -374,7 +374,7 @@ class ItemClause
   end
 
   def errorMessage
-    return _INTL("Aucun élément de retenue identique.")
+    return _INTL("No identical hold items.")
   end
 end
 

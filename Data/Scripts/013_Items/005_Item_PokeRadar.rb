@@ -19,7 +19,7 @@ def pbCanUsePokeRadar?
   #   return false
   # end
   if $PokemonEncounters.encounter_type == nil
-    pbMessage(_INTL("Je ne peux pas l'utiliser ici."))
+    pbMessage(_INTL("Can't use that here."))
     return false
   end
   # Can't use Radar if map has no grass-based encounters (ignoring Bug Contest)
@@ -36,7 +36,7 @@ def pbCanUsePokeRadar?
   return true if $DEBUG && Input.press?(Input::CTRL)
   # Can't use Radar if it isn't fully charged
   if $PokemonGlobal.pokeradarBattery && $PokemonGlobal.pokeradarBattery > 0
-    pbMessage(_INTL("La batterie est vide! \nPour la recharger, vous devez faire encore {1} pas.",
+    pbMessage(_INTL("The battery has run dry!\nFor it to recharge, you need to walk another {1} steps.",
                     $PokemonGlobal.pokeradarBattery))
     return false
   end
@@ -192,7 +192,7 @@ def pbPokeRadarHighlightGrass(showmessage = true)
   end
   if grasses.length == 0
     # No shaking grass found, break the chain
-    pbMessage(_INTL("Rien ne s'est passé...")) if showmessage
+    pbMessage(_INTL("Nothing happened...")) if showmessage
     pbPokeRadarCancel
   else
     # Show grass rustling animations

@@ -49,7 +49,7 @@ class PokeBattle_BattleArena < PokeBattle_Battle
 
   def pbCanSwitchLax?(idxBattler,_idxParty,partyScene=nil)
     if partyScene
-      partyScene.pbDisplay(_INTL("{1} ne peut pas être changé!",@battlers[idxBattler].pbThis))
+      partyScene.pbDisplay(_INTL("{1} can't be switched out!",@battlers[idxBattler].pbThis))
     end
     return false
   end
@@ -177,7 +177,7 @@ class PokeBattle_BattleArena < PokeBattle_Battle
     ratings2.each { |val| points[1] += val }
     # Make judgment
     if points[0] == points[1]
-      pbDisplay(_INTL("{1} a égalé l'adversaire\n{2} dans une décision de l'arbitre!",
+      pbDisplay(_INTL("{1} tied the opponent\n{2} in a referee's decision!",
          @battlers[0].name, @battlers[1].name))
       # NOTE: Pokémon doesn't really lose HP, but the effect is mostly the
       #       same.
@@ -186,12 +186,12 @@ class PokeBattle_BattleArena < PokeBattle_Battle
       @battlers[1].hp = 0
       @battlers[1].pbFaint(false)
     elsif points[0] > points[1]
-      pbDisplay(_INTL("{1} a vaincu l'adversaire\n{2} par décision de l'arbitre!",
+      pbDisplay(_INTL("{1} defeated the opponent\n{2} in a referee's decision!",
          @battlers[0].name, @battlers[1].name))
       @battlers[1].hp = 0
       @battlers[1].pbFaint(false)
     else
-      pbDisplay(_INTL("{1} perdu contre l'adversaire\n{2} par décision de l'arbitre!",
+      pbDisplay(_INTL("{1} lost to the opponent\n{2} in a referee's decision!",
          @battlers[0].name, @battlers[1].name))
       @battlers[0].hp = 0
       @battlers[0].pbFaint(false)
@@ -240,11 +240,11 @@ class PokeBattle_Scene
        [battler1.name,64,-6,2,Color.new(248,0,0),Color.new(208,208,200)],
        [_INTL("VS"),144,-6,2,Color.new(72,72,72),Color.new(208,208,200)],
        [battler2.name,224,-6,2,Color.new(72,72,72),Color.new(208,208,200)],
-       [_INTL("Esprit"),144,42,2,Color.new(72,72,72),Color.new(208,208,200)],
-       [_INTL("Compétence"),144,74,2,Color.new(72,72,72),Color.new(208,208,200)],
-       [_INTL("Corps"),144,106,2,Color.new(72,72,72),Color.new(208,208,200)],
+       [_INTL("Mind"),144,42,2,Color.new(72,72,72),Color.new(208,208,200)],
+       [_INTL("Skill"),144,74,2,Color.new(72,72,72),Color.new(208,208,200)],
+       [_INTL("Body"),144,106,2,Color.new(72,72,72),Color.new(208,208,200)],
        [sprintf("%d",total1),64,154,2,Color.new(72,72,72),Color.new(208,208,200)],
-       [_INTL("Jugement"),144,154,2,Color.new(72,72,72),Color.new(208,208,200)],
+       [_INTL("Judgment"),144,154,2,Color.new(72,72,72),Color.new(208,208,200)],
        [sprintf("%d",total2),224,154,2,Color.new(72,72,72),Color.new(208,208,200)]
     ]
     pbDrawTextPositions(window.contents,textpos)
@@ -261,7 +261,7 @@ class PokeBattle_Scene
   end
 
   def pbBattleArenaBattlers(battler1,battler2)
-    pbMessage(_INTL("ARBITRE: {1} VS {2}!\nCommencer à vous battre!\\wtnp[20]",
+    pbMessage(_INTL("REFEREE: {1} VS {2}!\nCommence battling!\\wtnp[20]",
        battler1.name,battler2.name)) { pbBattleArenaUpdate }
   end
 
@@ -273,7 +273,7 @@ class PokeBattle_Scene
       msgwindow = pbCreateMessageWindow
       dimmingvp = Viewport.new(0,0,Graphics.width,Graphics.height-msgwindow.height)
       pbMessageDisplay(msgwindow,
-         _INTL("ARBITRE: C'est tout! Nous allons maintenant passer au jugement pour déterminer le gagnant!\\wtnp[20]")) {
+         _INTL("REFEREE: That's it! We will now go to judging to determine the winner!\\wtnp[20]")) {
          pbBattleArenaUpdate; dimmingvp.update }
       dimmingvp.z = 99999
       infowindow = SpriteWindow_Base.new(80,0,320,224)
@@ -299,15 +299,15 @@ class PokeBattle_Scene
       end
       updateJudgment(infowindow,1,battler1,battler2,ratings1,ratings2)
       pbMessageDisplay(msgwindow,
-         _INTL("ARBITRE: Jugement catégorie 1, Esprit!\nLe Pokémon montrant le plus de cran!\\wtnp[40]")) {
+         _INTL("REFEREE: Judging category 1, Mind!\nThe Pokémon showing the most guts!\\wtnp[40]")) {
          pbBattleArenaUpdate; dimmingvp.update; infowindow.update }
       updateJudgment(infowindow,2,battler1,battler2,ratings1,ratings2)
       pbMessageDisplay(msgwindow,
-         _INTL("ARBITRE: Jugement de la catégorie 2, Compétence!\nLe Pokémon qui utilise les meilleures attaques!\\wtnp[40]")) {
+         _INTL("REFEREE: Judging category 2, Skill!\nThe Pokémon using moves the best!\\wtnp[40]")) {
          pbBattleArenaUpdate; dimmingvp.update; infowindow.update }
       updateJudgment(infowindow,3,battler1,battler2,ratings1,ratings2)
       pbMessageDisplay(msgwindow,
-         _INTL("ARBITRE: Jugement catégorie 3, Corps!\nLe Pokémon avec le plus de vitalité!\\wtnp[40]")) {
+         _INTL("REFEREE: Judging category 3, Body!\nThe Pokémon with the most vitality!\\wtnp[40]")) {
          pbBattleArenaUpdate; dimmingvp.update; infowindow.update }
       total1 = 0
       total2 = 0
@@ -317,16 +317,16 @@ class PokeBattle_Scene
       end
       if total1==total2
         pbMessageDisplay(msgwindow,
-           _INTL("ARBITRE: Jugement: {1} à {2} !\nNous avons un match nul!\\wtnp[40]",total1,total2)) {
+           _INTL("REFEREE: Judgment: {1} to {2}!\nWe have a draw!\\wtnp[40]",total1,total2)) {
           pbBattleArenaUpdate; dimmingvp.update; infowindow.update }
       elsif total1>total2
         pbMessageDisplay(msgwindow,
-           _INTL("ARBITRE: Jugement: {1} à {2} !\nLe gagnant est {4}!\\wtnp[40]",
+           _INTL("REFEREE: Judgment: {1} to {2}!\nThe winner is {3}'s {4}!\\wtnp[40]",
            total1,total2,@battle.pbGetOwnerName(battler1.index),battler1.name)) {
            pbBattleArenaUpdate; dimmingvp.update; infowindow.update }
       else
         pbMessageDisplay(msgwindow,
-           _INTL("ARBITRE: Jugement: {1} à {2} !\nLe gagnant est {3}!\\wtnp[40]",
+           _INTL("REFEREE: Judgment: {1} to {2}!\nThe winner is {3}!\\wtnp[40]",
            total1,total2,battler2.name)) {
            pbBattleArenaUpdate; dimmingvp.update; infowindow.update }
       end

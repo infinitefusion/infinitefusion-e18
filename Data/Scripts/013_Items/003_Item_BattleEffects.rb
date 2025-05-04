@@ -3,7 +3,7 @@
 #===============================================================================
 ItemHandlers::CanUseInBattle.add(:GUARDSPEC,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !battler || battler.pbOwnSide.effects[PBEffects::Mist]>0
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -12,12 +12,12 @@ ItemHandlers::CanUseInBattle.add(:GUARDSPEC,proc { |item,pokemon,battler,move,fi
 ItemHandlers::CanUseInBattle.add(:POKEDOLL,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !battle.wildBattle?
     if showMessages
-      scene.pbDisplay(_INTL("Les mots de Oak ont fait écho... Il y a un temps et un lieu pour tout! Mais pas maintenant."))
+      scene.pbDisplay(_INTL("Oak's words echoed... There's a time and place for everything! But not now."))
     end
     next false
   end
   if !battle.canRun
-    scene.pbDisplay(_INTL("Tu ne peux pas t'échapper!")) if showMessages
+    scene.pbDisplay(_INTL("You can't escape!")) if showMessages
     next false
   end
   next true
@@ -28,23 +28,23 @@ ItemHandlers::CanUseInBattle.copy(:POKEDOLL,:FLUFFYTAIL,:POKETOY)
 ItemHandlers::CanUseInBattle.addIf(proc { |item| GameData::Item.get(item).is_poke_ball? },   # Poké Balls
   proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
     if battle.pbPlayer.party_full? && $PokemonStorage.full?
-      scene.pbDisplay(_INTL("Il n'y a plus de place dans le PC!")) if showMessages
+      scene.pbDisplay(_INTL("There is no room left in the PC!")) if showMessages
       next false
     end
     # NOTE: Using a Poké Ball consumes all your actions for the round. The code
     #       below is one half of making this happen; the other half is in def
     #       pbItemUsesAllActions?.
     if !firstAction
-      scene.pbDisplay(_INTL("Il est impossible de viser sans être concentré!")) if showMessages
+      scene.pbDisplay(_INTL("It's impossible to aim without being focused!")) if showMessages
       next false
     end
     if battler.semiInvulnerable?
-      scene.pbDisplay(_INTL("Ce n'est pas bon! Il est impossible de viser un Pokémon qui n'est pas en vue!")) if showMessages
+      scene.pbDisplay(_INTL("It's no good! It's impossible to aim at a Pokémon that's not in sight!")) if showMessages
       next false
     end
 
     if $game_switches[SWITCH_SILVERBOSS_BATTLE]
-      scene.pbDisplay(_INTL("Ce n'est pas bon! C'est trop agité pour viser!")) if showMessages
+      scene.pbDisplay(_INTL("It's no good! It's too agitated to aim!")) if showMessages
       next false
     end
 
@@ -56,15 +56,15 @@ ItemHandlers::CanUseInBattle.addIf(proc { |item| GameData::Item.get(item).is_pok
     if battle.pbOpposingBattlerCount>1 && !(GameData::Item.get(item).is_snag_ball? && battle.trainerBattle?)
       if battle.pbOpposingBattlerCount==2
         if $game_switches[SWITCH_SILVERBOSS_BATTLE]
-          scene.pbDisplay(_INTL("Ce n'est pas bon! Il est encore trop agité pour viser!")) if showMessages
+          scene.pbDisplay(_INTL("It's no good! It's still too agitated to aim!")) if showMessages
         else
-          scene.pbDisplay(_INTL("C'est pas bon! C'est impossible de viser quand il y a deux Pokémon!")) if showMessages
+          scene.pbDisplay(_INTL("It's no good! It's impossible to aim when there are two Pokémon!")) if showMessages
         end
       else
         if $game_switches[SWITCH_SILVERBOSS_BATTLE]
-          scene.pbDisplay(_INTL("Ce n'est pas bon! C'est encore trop agité pour viser!")) if showMessages
+          scene.pbDisplay(_INTL("It's no good! It's still too agitated to aim!")) if showMessages
         else
-          scene.pbDisplay(_INTL("Ce n'est pas bon! Il est impossible de viser quand il y a plus d'un Pokémon!")) if showMessages
+          scene.pbDisplay(_INTL("It's no good! It's impossible to aim when there are more than one Pokémon!")) if showMessages
         end
       end
       next false
@@ -75,7 +75,7 @@ ItemHandlers::CanUseInBattle.addIf(proc { |item| GameData::Item.get(item).is_pok
 
 ItemHandlers::CanUseInBattle.add(:POTION,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !pokemon.able? || pokemon.hp==pokemon.totalhp
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -95,7 +95,7 @@ ItemHandlers::CanUseInBattle.copy(:AWAKENING,:CHESTOBERRY)
 
 ItemHandlers::CanUseInBattle.add(:BLUEFLUTE,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if battler && battler.hasActiveAbility?(:SOUNDPROOF)
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next pbBattleItemCanCureStatus?(:SLEEP, pokemon, scene, showMessages)
@@ -129,7 +129,7 @@ ItemHandlers::CanUseInBattle.add(:FULLHEAL,proc { |item,pokemon,battler,move,fir
   if !pokemon.able? ||
      (pokemon.status == :NONE &&
      (!battler || battler.effects[PBEffects::Confusion]==0))
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -144,7 +144,7 @@ ItemHandlers::CanUseInBattle.add(:FULLRESTORE,proc { |item,pokemon,battler,move,
   if !pokemon.able? ||
      (pokemon.hp == pokemon.totalhp && pokemon.status == :NONE &&
      (!battler || battler.effects[PBEffects::Confusion]==0))
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -152,7 +152,7 @@ ItemHandlers::CanUseInBattle.add(:FULLRESTORE,proc { |item,pokemon,battler,move,
 
 ItemHandlers::CanUseInBattle.add(:REVIVE,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if pokemon.able? || pokemon.egg?
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -164,7 +164,7 @@ ItemHandlers::CanUseInBattle.add(:ETHER,proc { |item,pokemon,battler,move,firstA
   if !pokemon.able? || move<0 ||
      pokemon.moves[move].total_pp<=0 ||
      pokemon.moves[move].pp==pokemon.moves[move].total_pp
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -174,7 +174,7 @@ ItemHandlers::CanUseInBattle.copy(:ETHER,:MAXETHER,:LEPPABERRY)
 
 ItemHandlers::CanUseInBattle.add(:ELIXIR,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !pokemon.able?
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   canRestore = false
@@ -185,7 +185,7 @@ ItemHandlers::CanUseInBattle.add(:ELIXIR,proc { |item,pokemon,battler,move,first
     break
   end
   if !canRestore
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -196,7 +196,7 @@ ItemHandlers::CanUseInBattle.copy(:ELIXIR,:MAXELIXIR)
 ItemHandlers::CanUseInBattle.add(:REDFLUTE,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !battler || battler.effects[PBEffects::Attract]<0 ||
      battler.hasActiveAbility?(:SOUNDPROOF)
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -204,7 +204,7 @@ ItemHandlers::CanUseInBattle.add(:REDFLUTE,proc { |item,pokemon,battler,move,fir
 
 ItemHandlers::CanUseInBattle.add(:PERSIMBERRY,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !battler || battler.effects[PBEffects::Confusion]==0
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -213,7 +213,7 @@ ItemHandlers::CanUseInBattle.add(:PERSIMBERRY,proc { |item,pokemon,battler,move,
 ItemHandlers::CanUseInBattle.add(:YELLOWFLUTE,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !battler || battler.effects[PBEffects::Confusion]==0 ||
      battler.hasActiveAbility?(:SOUNDPROOF)
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -259,7 +259,7 @@ ItemHandlers::CanUseInBattle.copy(:XACCURACY,:XACCURACY2,:XACCURACY3,:XACCURACY6
 
 ItemHandlers::CanUseInBattle.add(:DIREHIT,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !battler || battler.effects[PBEffects::FocusEnergy]>=1
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -267,7 +267,7 @@ ItemHandlers::CanUseInBattle.add(:DIREHIT,proc { |item,pokemon,battler,move,firs
 
 ItemHandlers::CanUseInBattle.add(:DIREHIT2,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !battler || battler.effects[PBEffects::FocusEnergy]>=2
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -275,7 +275,7 @@ ItemHandlers::CanUseInBattle.add(:DIREHIT2,proc { |item,pokemon,battler,move,fir
 
 ItemHandlers::CanUseInBattle.add(:DIREHIT3,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
   if !battler || battler.effects[PBEffects::FocusEnergy]>=3
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -289,7 +289,7 @@ ItemHandlers::CanUseInBattle.add(:POKEFLUTE,proc { |item,pokemon,battler,move,fi
     break
   end
   if !anyAsleep
-    scene.pbDisplay(_INTL("Cela n'aura aucun effet.")) if showMessages
+    scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
   next true
@@ -301,13 +301,13 @@ ItemHandlers::CanUseInBattle.add(:POKEFLUTE,proc { |item,pokemon,battler,move,fi
 #===============================================================================
 ItemHandlers::UseInBattle.add(:GUARDSPEC,proc { |item,battler,battle|
   battler.pbOwnSide.effects[PBEffects::Mist] = 5
-  battle.pbDisplay(_INTL("{1} est devenu enveloppé de brume!",battler.pbTeam))
+  battle.pbDisplay(_INTL("{1} became shrouded in mist!",battler.pbTeam))
   battler.pokemon.changeHappiness("battleitem")
 })
 
 ItemHandlers::UseInBattle.add(:POKEDOLL,proc { |item,battler,battle|
   battle.decision = 3
-  battle.pbDisplayPaused(_INTL("Tu t'en es sorti sain et sauf!"))
+  battle.pbDisplayPaused(_INTL("You got away safely!"))
 })
 
 ItemHandlers::UseInBattle.copy(:POKEDOLL,:FLUFFYTAIL,:POKETOY)
@@ -317,7 +317,7 @@ ItemHandlers::UseInBattle.add(:POKEFLUTE,proc { |item,battler,battle|
     next if b.status != :SLEEP || b.hasActiveAbility?(:SOUNDPROOF)
     b.pbCureStatus(false)
   end
-  battle.pbDisplay(_INTL("Tous les Pokémon ont été réveillés par la mélodie !"))
+  battle.pbDisplay(_INTL("All Pokémon were roused by the tune!"))
 })
 
 ItemHandlers::UseInBattle.addIf(proc { |item| GameData::Item.get(item).is_poke_ball? },   # Poké Balls
@@ -378,7 +378,7 @@ ItemHandlers::BattleUseOnPokemon.add(:AWAKENING,proc { |item,pokemon,battler,cho
   battler.pbCureStatus(false) if battler
   name = (battler) ? battler.pbThis : pokemon.name
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} s'est réveillé.",name))
+  scene.pbDisplay(_INTL("{1} woke up.",name))
 })
 
 ItemHandlers::BattleUseOnPokemon.copy(:AWAKENING,:CHESTOBERRY,:BLUEFLUTE)
@@ -388,7 +388,7 @@ ItemHandlers::BattleUseOnPokemon.add(:ANTIDOTE,proc { |item,pokemon,battler,choi
   battler.pbCureStatus(false) if battler
   name = (battler) ? battler.pbThis : pokemon.name
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} a été guéri de son empoisonnement.",name))
+  scene.pbDisplay(_INTL("{1} was cured of its poisoning.",name))
 })
 
 ItemHandlers::BattleUseOnPokemon.copy(:ANTIDOTE,:PECHABERRY)
@@ -398,7 +398,7 @@ ItemHandlers::BattleUseOnPokemon.add(:BURNHEAL,proc { |item,pokemon,battler,choi
   battler.pbCureStatus(false) if battler
   name = (battler) ? battler.pbThis : pokemon.name
   scene.pbRefresh
-  scene.pbDisplay(_INTL("La brûlure de {1} a été guérie.",name))
+  scene.pbDisplay(_INTL("{1}'s burn was healed.",name))
 })
 
 ItemHandlers::BattleUseOnPokemon.copy(:BURNHEAL,:RAWSTBERRY)
@@ -408,7 +408,7 @@ ItemHandlers::BattleUseOnPokemon.add(:PARALYZEHEAL,proc { |item,pokemon,battler,
   battler.pbCureStatus(false) if battler
   name = (battler) ? battler.pbThis : pokemon.name
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} a été guéri de la paralysie.",name))
+  scene.pbDisplay(_INTL("{1} was cured of paralysis.",name))
 })
 
 ItemHandlers::BattleUseOnPokemon.copy(:PARALYZEHEAL,:PARLYZHEAL,:CHERIBERRY)
@@ -418,7 +418,7 @@ ItemHandlers::BattleUseOnPokemon.add(:ICEHEAL,proc { |item,pokemon,battler,choic
   battler.pbCureStatus(false) if battler
   name = (battler) ? battler.pbThis : pokemon.name
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} a été décongelé.",name))
+  scene.pbDisplay(_INTL("{1} was thawed out.",name))
 })
 
 ItemHandlers::BattleUseOnPokemon.copy(:ICEHEAL,:ASPEARBERRY)
@@ -429,7 +429,7 @@ ItemHandlers::BattleUseOnPokemon.add(:FULLHEAL,proc { |item,pokemon,battler,choi
   battler.pbCureConfusion if battler
   name = (battler) ? battler.pbThis : pokemon.name
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} est en bonne santé.",name))
+  scene.pbDisplay(_INTL("{1} became healthy.",name))
 })
 
 ItemHandlers::BattleUseOnPokemon.copy(:FULLHEAL,
@@ -446,7 +446,7 @@ ItemHandlers::BattleUseOnPokemon.add(:FULLRESTORE,proc { |item,pokemon,battler,c
     pbBattleHPItem(pokemon,battler,pokemon.totalhp,scene)
   else
     scene.pbRefresh
-    scene.pbDisplay(_INTL("{1} est en bonne santé.",name))
+    scene.pbDisplay(_INTL("{1} became healthy.",name))
   end
 })
 
@@ -455,14 +455,14 @@ ItemHandlers::BattleUseOnPokemon.add(:REVIVE,proc { |item,pokemon,battler,choice
   pokemon.hp = 1 if pokemon.hp<=0
   pokemon.heal_status
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} s'est remis de son évanouissement!",pokemon.name))
+  scene.pbDisplay(_INTL("{1} recovered from fainting!",pokemon.name))
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:MAXREVIVE,proc { |item,pokemon,battler,choices,scene|
   pokemon.heal_HP
   pokemon.heal_status
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} s'est remis de son évanouissement!",pokemon.name))
+  scene.pbDisplay(_INTL("{1} recovered from fainting!",pokemon.name))
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:ENERGYPOWDER,proc { |item,pokemon,battler,choices,scene|
@@ -484,7 +484,7 @@ ItemHandlers::BattleUseOnPokemon.add(:HEALPOWDER,proc { |item,pokemon,battler,ch
   pokemon.changeHappiness("powder")
   name = (battler) ? battler.pbThis : pokemon.name
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} est en bonne santé.",name))
+  scene.pbDisplay(_INTL("{1} became healthy.",name))
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:REVIVALHERB,proc { |item,pokemon,battler,choices,scene|
@@ -492,13 +492,13 @@ ItemHandlers::BattleUseOnPokemon.add(:REVIVALHERB,proc { |item,pokemon,battler,c
   pokemon.heal_status
   pokemon.changeHappiness("revivalherb")
   scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} s'est remis de son évanouissement!",pokemon.name))
+  scene.pbDisplay(_INTL("{1} recovered from fainting!",pokemon.name))
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:ETHER,proc { |item,pokemon,battler,choices,scene|
   idxMove = choices[3]
   pbBattleRestorePP(pokemon,battler,idxMove,10)
-  scene.pbDisplay(_INTL("Les PP a été restauré."))
+  scene.pbDisplay(_INTL("PP was restored."))
 })
 
 ItemHandlers::BattleUseOnPokemon.copy(:ETHER,:LEPPABERRY)
@@ -506,21 +506,21 @@ ItemHandlers::BattleUseOnPokemon.copy(:ETHER,:LEPPABERRY)
 ItemHandlers::BattleUseOnPokemon.add(:MAXETHER,proc { |item,pokemon,battler,choices,scene|
   idxMove = choices[3]
   pbBattleRestorePP(pokemon,battler,idxMove,pokemon.moves[idxMove].total_pp)
-  scene.pbDisplay(_INTL("Les PP a été restauré."))
+  scene.pbDisplay(_INTL("PP was restored."))
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:ELIXIR,proc { |item,pokemon,battler,choices,scene|
   for i in 0...pokemon.moves.length
     pbBattleRestorePP(pokemon,battler,i,10)
   end
-  scene.pbDisplay(_INTL("Les PP a été restauré."))
+  scene.pbDisplay(_INTL("PP was restored."))
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:MAXELIXIR,proc { |item,pokemon,battler,choices,scene|
   for i in 0...pokemon.moves.length
     pbBattleRestorePP(pokemon,battler,i,pokemon.moves[i].total_pp)
   end
-  scene.pbDisplay(_INTL("Les PP a été restauré."))
+  scene.pbDisplay(_INTL("PP was restored."))
 })
 
 #===============================================================================
@@ -530,12 +530,12 @@ ItemHandlers::BattleUseOnPokemon.add(:MAXELIXIR,proc { |item,pokemon,battler,cho
 
 ItemHandlers::BattleUseOnBattler.add(:REDFLUTE,proc { |item,battler,scene|
   battler.pbCureAttract
-  scene.pbDisplay(_INTL("{1} a surmonté son engouement.",battler.pbThis))
+  scene.pbDisplay(_INTL("{1} got over its infatuation.",battler.pbThis))
 })
 
 ItemHandlers::BattleUseOnBattler.add(:YELLOWFLUTE,proc { |item,battler,scene|
   battler.pbCureConfusion
-  scene.pbDisplay(_INTL("{1} sort de sa confusion.",battler.pbThis))
+  scene.pbDisplay(_INTL("{1} snapped out of its confusion.",battler.pbThis))
 })
 
 ItemHandlers::BattleUseOnBattler.copy(:YELLOWFLUTE,:PERSIMBERRY)
@@ -678,18 +678,18 @@ ItemHandlers::BattleUseOnBattler.add(:XACCURACY6,proc { |item,battler,scene|
 
 ItemHandlers::BattleUseOnBattler.add(:DIREHIT,proc { |item,battler,scene|
   battler.effects[PBEffects::FocusEnergy] = 2
-  scene.pbDisplay(_INTL("{1} est en train de se gonfler!",battler.pbThis))
+  scene.pbDisplay(_INTL("{1} is getting pumped!",battler.pbThis))
   battler.pokemon.changeHappiness("battleitem")
 })
 
 ItemHandlers::BattleUseOnBattler.add(:DIREHIT2,proc { |item,battler,scene|
   battler.effects[PBEffects::FocusEnergy] = 2
-  scene.pbDisplay(_INTL("{1} est en train de se gonfler!",battler.pbThis))
+  scene.pbDisplay(_INTL("{1} is getting pumped!",battler.pbThis))
   battler.pokemon.changeHappiness("battleitem")
 })
 
 ItemHandlers::BattleUseOnBattler.add(:DIREHIT3,proc { |item,battler,scene|
   battler.effects[PBEffects::FocusEnergy] = 3
-  scene.pbDisplay(_INTL("{1} est en train de se gonfler!",battler.pbThis))
+  scene.pbDisplay(_INTL("{1} is getting pumped!",battler.pbThis))
   battler.pokemon.changeHappiness("battleitem")
 })

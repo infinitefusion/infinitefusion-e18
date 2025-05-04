@@ -3,7 +3,7 @@ class HatsMartAdapter < OutfitsMartAdapter
   attr_accessor :worn_clothes2
 
   DEFAULT_NAME = "[unknown]"
-  DEFAULT_DESCRIPTION = "Un chapeau que les dresseurs peuvent porter."
+  DEFAULT_DESCRIPTION = "A headgear that trainers can wear."
 
   def initialize(stock = nil, isShop = nil, isSecondaryHat = false)
     super(stock,isShop,isSecondaryHat)
@@ -166,7 +166,7 @@ class HatsMartAdapter < OutfitsMartAdapter
     @worn_clothes2 = $Trainer.hat2
 
     playOutfitChangeAnimation()
-    pbMessage(_INTL("Vous avez mis le chapeau!\\wtnp[30]"))
+    pbMessage(_INTL("You put on the hat(s)!\\wtnp[30]"))
   end
 
   def putOnOutfit(item)
@@ -190,7 +190,7 @@ class HatsMartAdapter < OutfitsMartAdapter
   def getSpecialItemCaption(specialType)
     case specialType
     when :REMOVE_HAT
-      return "Enlever le chapeau"
+      return "Remove hat"
     end
     return nil
   end
@@ -212,8 +212,8 @@ class HatsMartAdapter < OutfitsMartAdapter
   end
 
   def getSpecialItemDescription(specialType)
-    hair_situation = !$Trainer.hair || getSimplifiedHairIdFromFullID($Trainer.hair) == HAIR_BALD ? "votre crâne luisant" : "vos magnifiques cheveux"
-    return "Sortez sans chapeau et montrez #{hair_situation}!"
+    hair_situation = !$Trainer.hair || getSimplifiedHairIdFromFullID($Trainer.hair) == HAIR_BALD ? "bald head" : "fabulous hair"
+    return "Go without a hat and show off your #{hair_situation}!"
   end
 
   def doSpecialItemAction(specialType,item=nil)

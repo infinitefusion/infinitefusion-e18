@@ -55,7 +55,7 @@ end
 GameData::Target.register({
   :id               => :None,
   :id_number        => 1,
-  :name             => _INTL("Aucun")
+  :name             => _INTL("None")
 })
 
 GameData::Target.register({
@@ -68,7 +68,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :NearAlly,
   :id_number        => 100,
-  :name             => _INTL("Allié"),
+  :name             => _INTL("Near Ally"),
   :num_targets      => 1
 })
 
@@ -76,7 +76,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :UserOrNearAlly,
   :id_number        => 200,
-  :name             => _INTL("User ou Allié"),
+  :name             => _INTL("User or Near Ally"),
   :num_targets      => 1
 })
 
@@ -84,7 +84,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :UserAndAllies,
   :id_number        => 5,
-  :name             => _INTL("User et Allié"),
+  :name             => _INTL("User and Allies"),
   :num_targets      => 2,
   :long_range       => true
 })
@@ -93,7 +93,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :NearFoe,
   :id_number        => 400,
-  :name             => _INTL("Ennemi Proche"),
+  :name             => _INTL("Near Foe"),
   :num_targets      => 1,
   :targets_foe      => true
 })
@@ -102,7 +102,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :RandomNearFoe,
   :id_number        => 2,
-  :name             => _INTL("Random Ennemi Proche"),
+  :name             => _INTL("Random Near Foe"),
   :num_targets      => 1,
   :targets_foe      => true
 })
@@ -110,7 +110,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :AllNearFoes,
   :id_number        => 4,
-  :name             => _INTL("Tout Ennemi Proche"),
+  :name             => _INTL("All Near Foes"),
   :num_targets      => 2,
   :targets_foe      => true
 })
@@ -119,7 +119,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :Foe,
   :id_number        => 9,
-  :name             => _INTL("Ennemi"),
+  :name             => _INTL("Foe"),
   :num_targets      => 1,
   :targets_foe      => true,
   :long_range       => true
@@ -129,7 +129,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :AllFoes,
   :id_number        => 6,
-  :name             => _INTL("Tout Ennemi"),
+  :name             => _INTL("All Foes"),
   :num_targets      => 2,
   :targets_foe      => true,
   :long_range       => true
@@ -138,7 +138,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :NearOther,
   :id_number        => 0,
-  :name             => _INTL("Autre Proche"),
+  :name             => _INTL("Near Other"),
   :num_targets      => 1,
   :targets_foe      => true
 })
@@ -146,7 +146,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :AllNearOthers,
   :id_number        => 8,
-  :name             => _INTL("Tout les autres proches"),
+  :name             => _INTL("All Near Others"),
   :num_targets      => 2,
   :targets_foe      => true
 })
@@ -155,7 +155,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :Other,
   :id_number        => 3,
-  :name             => _INTL("Autre"),
+  :name             => _INTL("Other"),
   :num_targets      => 1,
   :targets_foe      => true,
   :long_range       => true
@@ -165,7 +165,7 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :AllBattlers,
   :id_number        => 7,
-  :name             => _INTL("Tous les combattants"),
+  :name             => _INTL("All Battlers"),
   :num_targets      => 2,
   :targets_foe      => true,
   :targets_all      => true,
@@ -175,20 +175,20 @@ GameData::Target.register({
 GameData::Target.register({
   :id               => :UserSide,
   :id_number        => 40,
-  :name             => _INTL("Côté User")
+  :name             => _INTL("User Side")
 })
 
 # Entry hazards
 GameData::Target.register({
   :id               => :FoeSide,
   :id_number        => 80,
-  :name             => _INTL("Côté ennemi"),
+  :name             => _INTL("Foe Side"),
   :affects_foe_side => true
 })
 
 GameData::Target.register({
   :id               => :BothSides,
   :id_number        => 20,
-  :name             => _INTL("Des deux côtés"),
+  :name             => _INTL("Both Sides"),
   :affects_foe_side => true
 })
