@@ -868,7 +868,7 @@ class PokemonFusionScene
       drawSpriteCredits(@fusion_pif_sprite, @viewport)
       pbBGMPlay(pbGetWildVictoryME)
       Kernel.pbMessageDisplay(@sprites["msgwindow"],
-                              _INTL("\\se[]Congratulations! Your Pokémon were fused into {2}!\\wt[80]", @pokemon1.name, newspeciesname))
+      _INTL("\\se[]Congratulations! Your Pokémon were fused into {2}!\\wt[80]", @pokemon1.name, newspeciesname))
 
       #exp
       @pokemon1.exp_when_fused_head = @pokemon2.exp
@@ -889,8 +889,9 @@ class PokemonFusionScene
         $Trainer.pokedex.set_seen(newSpecies)
         $Trainer.pokedex.set_owned(newSpecies)
         Kernel.pbMessageDisplay(@sprites["msgwindow"],
-                                _INTL("{1}'s data was added to the Pokédex", newspeciesname))
-        @scene.pbShowPokedex(@newspecies)
+        _INTL("{1}'s data was added to the Pokédex", newspeciesname))
+        # @scene.pbShowPokedex(@newspecies)
+        @scene.pbShowPokedex(@newspecies, @pokemon1.head_shiny, @pokemon1.body_shiny)
       end
       overlay.dispose
       #first check if hidden ability
