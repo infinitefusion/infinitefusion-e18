@@ -46,7 +46,6 @@ def pbLoadPokemonBitmap(pokemon, species, back = false)
 end
 
 def getEggBitmapPath(pokemon)
-  return "Graphics/Battlers/Eggs/000" if $PokemonSystem.use_custom_eggs
   bitmapFileName = sprintf("Graphics/Battlers/Eggs/%s", getConstantName(PBSpecies, pokemon.species)) rescue nil
   if !pbResolveBitmap(bitmapFileName)
     if pokemon.species >= NUM_ZAPMOLCUNO

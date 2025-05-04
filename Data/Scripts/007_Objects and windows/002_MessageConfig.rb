@@ -207,7 +207,7 @@ def pbPositionFaceWindow(facewindow,msgwindow)
   end
 end
 
-def pbPositionNearMsgWindow(cmdwindow,msgwindow,side, x_offset=nil,y_offset=nil)
+def pbPositionNearMsgWindow(cmdwindow,msgwindow,side)
   return if !cmdwindow
   if msgwindow
     height=[cmdwindow.height,Graphics.height-msgwindow.height].min
@@ -234,10 +234,6 @@ def pbPositionNearMsgWindow(cmdwindow,msgwindow,side, x_offset=nil,y_offset=nil)
     cmdwindow.x=0
     cmdwindow.y=0
   end
-  cmdwindow.x+= x_offset if x_offset
-  cmdwindow.y+= y_offset if y_offset
-
-
 end
 
 # internal function

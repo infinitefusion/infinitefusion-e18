@@ -739,6 +739,7 @@ module Compiler
 
 
   def main
+    #return
     return if !$DEBUG
     begin
       dataFiles = [
@@ -792,10 +793,9 @@ module Compiler
       mustCompile |= import_new_maps
       # If no PBS file, create one and fill it, then recompile
       if !safeIsDirectory?("PBS")
-        return
-        # Dir.mkdir("PBS") rescue nil
-        # write_all
-        # mustCompile = true
+        Dir.mkdir("PBS") rescue nil
+        write_all
+        mustCompile = true
       end
       # Check data files and PBS files, and recompile if any PBS file was edited
       # more recently than the data files were last created

@@ -1,4 +1,4 @@
-# todo: make the flower disappear from the tileset somehow?
+#todo: make the flower disappear from the tileset somehow?
 def oricorioEventPickFlower(flower_color)
   quest_progression = pbGet(VAR_ORICORIO_FLOWERS)
   if flower_color == :PINK
@@ -138,7 +138,7 @@ def getFossilsGuyTeam(level)
   team = []
   team << Pokemon.new(base_poke, level)
 
-  # Mt. Moon fossil
+  #Mt. Moon fossil
   if $game_switches[SWITCH_PICKED_HELIC_FOSSIL]
     fossils << :KABUTO if level < fossils_evolution_level_1
     fossils << :KABUTOPS if level >= fossils_evolution_level_1
@@ -147,7 +147,7 @@ def getFossilsGuyTeam(level)
     fossils << :OMASTAR if level >= fossils_evolution_level_1
   end
 
-  # S.S. Anne fossil
+  #S.S. Anne fossil
   if $game_switches[SWITCH_PICKED_LILEEP_FOSSIL]
     fossils << :ANORITH if level < fossils_evolution_level_1
     fossils << :ARMALDO if level >= fossils_evolution_level_1
@@ -156,7 +156,7 @@ def getFossilsGuyTeam(level)
     fossils << :LILEEP if level < fossils_evolution_level_1
     fossils << :CRADILY if level >= fossils_evolution_level_1
   end
-  # Celadon fossil
+  #Celadon fossil
   if $game_switches[SWITCH_PICKED_ARMOR_FOSSIL]
     fossils << :CRANIDOS if level < fossils_evolution_level_2
     fossils << :RAMPARDOS if level >= fossils_evolution_level_2
@@ -207,10 +207,10 @@ end
 def setDifficulty(index)
   $Trainer.selected_difficulty = index
   case index
-  when 0 # EASY
+  when 0 #EASY
     $game_switches[SWITCH_GAME_DIFFICULTY_EASY] = true
     $game_switches[SWITCH_GAME_DIFFICULTY_HARD] = false
-  when 1 # NORMAL
+  when 1 #NORMAL
     $game_switches[SWITCH_GAME_DIFFICULTY_EASY] = false
     $game_switches[SWITCH_GAME_DIFFICULTY_HARD] = false
   when 2 # HARD
@@ -219,7 +219,7 @@ def setDifficulty(index)
   end
 end
 
-# Old menu for changing difficulty - unused
+#Old menu for changing difficulty - unused
 def change_game_difficulty(down_only = false)
   message = "The game is currently on " + get_difficulty_text() + " difficulty."
   pbMessage(message)
@@ -357,10 +357,10 @@ def getGenericPokemonCryText(pokemonSpecies)
   case pokemonSpecies
   when 25
     return "Pika!"
-  when 16, 17, 18, 21, 22, 144, 145, 146, 227, 417, 418, 372 # birds
+  when 16, 17, 18, 21, 22, 144, 145, 146, 227, 417, 418, 372 #birds
     return "Squawk!"
   when 163, 164
-    return "Hoot!" # owl
+    return "Hoot!" #owl
   else
     return "Guaugh!"
   end
@@ -381,159 +381,159 @@ def obtainBadgeMessage(badgeName)
 end
 
 KANTO_OUTDOOR_MAPS = [
-  78, # Route 1
-  185, # Secret Garden
-  86, # Route 2
-  90, # Route 2 (north)
-  655, # Hidden Forest
-  40, # Viridian River
-  490, # Route 3
-  106, # Route 4
-  12, # Route 5
-  16, # Route 6
+  78, #Route 1
+  185, #Secret Garden
+  86, #Route 2
+  90, #Route 2 (north)
+  655, #Hidden Forest
+  40, #Viridian River
+  490, #Route 3
+  106, #Route 4
+  12, #Route 5
+  16, #Route 6
   413, # Route 7
   409, # Route 8
-  351, # Route 9 (east)
-  495, # Route 9 (west)
-  154, # Route 10
-  155, # Route 11
-  159, # Route 12
-  440, # Route 14
-  444, # Route 15
-  712, # Creepy house
-  438, # Route 16
-  146, # Route 17
-  517, # Route 18
-  437, # Route 13
+  351, #Route 9 (east)
+  495, #Route 9 (west)
+  154, #Route 10
+  155, #Route 11
+  159, #Route 12
+  440, #Route 14
+  444, #Route 15
+  712, #Creepy house
+  438, #Route 16
+  146, #Route 17
+  517, #Route 18
+  437, #Route 13
   57, # Route 19
-  227, # Route 19 (underwater)
-  56, # Route 19 (surf race)
-  58, # Route 20
-  480, # Route 20 underwater 1
-  228, # Route 20 underwater 2
-  171, # Route 22
-  8, # Route 24
-  9, # Route 25
-  143, # Route 23
-  145, # Route 26
-  147, # Route 27
-  58, # Route 21
-  # CITIES
-  42, # Pallet Town
-  79, # Viridian City
-  1, # Cerulean City
-  387, # Cerulean City (race)
-  19, # Vermillion City
-  36, # S.S. Anne deck
-  95, # Celadon city
-  436, # Celadon city dept store (roof)
-  472, # Fuchsia city
-  50, # Lavender town
-  108, # Saffron city
-  98, # Cinnabar island
-  167, # Crimson city
-  303, # indigo plateau
-  380, # Pewter city
-  827, # Mt. Moon summit
+  227, #Route 19 (underwater)
+  56, #Route 19 (surf race)
+  58, #Route 20
+  480, #Route 20 underwater 1
+  228, #Route 20 underwater 2
+  171, #Route 22
+  8, #Route 24
+  9, #Route 25
+  143, #Route 23
+  145, #Route 26
+  147, #Route 27
+  58, #Route 21
+  #CITIES
+  42, #Pallet Town
+  79, #Viridian City
+  1, #Cerulean City
+  387, #Cerulean City (race)
+  19, #Vermillion City
+  36, #S.S. Anne deck
+  95, #Celadon city
+  436, #Celadon city dept store (roof)
+  472, #Fuchsia city
+  50, #Lavender town
+  108, #Saffron city
+  98, #Cinnabar island
+  167, #Crimson city
+  303, #indigo plateau
+  380, #Pewter city
+  827, #Mt. Moon summit
   #
   # DUNGEONS
   #
-  102, # Mt. Moon
-  103, # Mt. Moon
-  105, # Mt. Moon
-  496, # Mt Moon
-  104, # Mt. Moon
-  494, # Mt. Moon Square
-  140, # Diglett cave
-  398, # Diglett cave
-  399, # Diglett cave
-  349, # Rock tunnel
-  350, # Rock tunnel
-  512, # Rock tunnel (outdoor)
-  445, # Safari Zone 1
-  484, # Safari Zone 2
-  485, # Safari Zone 3
-  486, # Safari Zone 4
-  487, # Safari Zone 5
-  491, # Viridian Forest
-  529, # Mt. Silver entrance
-  777, # Mt. Silver outdoor 1
-  781, # Mt. Silver outdoor 2
-  782, # Mt. Silver
-  783, # Mt. Silver summit
-  400, # Pokemon Tower
-  401, # Pokemon Tower
-  402, # Pokemon Tower
-  403, # Pokemon Tower
-  467, # Pokemon Tower
-  468, # Pokemon Tower
-  469, # Pokemon Tower
+  102, #Mt. Moon
+  103, #Mt. Moon
+  105, #Mt. Moon
+  496, #Mt Moon
+  104, #Mt. Moon
+  494, #Mt. Moon Square
+  140, #Diglett cave
+  398, #Diglett cave
+  399, #Diglett cave
+  349, #Rock tunnel
+  350, #Rock tunnel
+  512, #Rock tunnel (outdoor)
+  445, #Safari Zone 1
+  484, #Safari Zone 2
+  485, #Safari Zone 3
+  486, #Safari Zone 4
+  487, #Safari Zone 5
+  491, #Viridian Forest
+  529, #Mt. Silver entrance
+  777, #Mt. Silver outdoor 1
+  781, #Mt. Silver outdoor 2
+  782, #Mt. Silver
+  783, #Mt. Silver summit
+  400, #Pokemon Tower
+  401, #Pokemon Tower
+  402, #Pokemon Tower
+  403, #Pokemon Tower
+  467, #Pokemon Tower
+  468, #Pokemon Tower
+  469, #Pokemon Tower
 
 ]
 KANTO_DARKNESS_STAGE_1 = [
-  50, # Lavender town
+  50, #Lavender town
   409, # Route 8
-  351, # Route 9 (east)
-  495, # Route 9 (west)
-  154, # Route 10
-  108, # Saffron city
-  1, # Cerulean City
-  387, # Cerulean City (race)
-  106, # Route 4
-  8, # Route 24
-  9, # Route 25
-  400, # Pokemon Tower
-  401, # Pokemon Tower
-  402, # Pokemon Tower
-  403, # Pokemon Tower
-  467, # Pokemon Tower
-  468, # Pokemon Tower
-  469, # Pokemon Tower
-  159, # Route 12
-  349, # Rock tunnel
-  350, # Rock tunnel
-  512, # Rock tunnel (outdoor)
-  12, # Route 5
+  351, #Route 9 (east)
+  495, #Route 9 (west)
+  154, #Route 10
+  108, #Saffron city
+  1, #Cerulean City
+  387, #Cerulean City (race)
+  106, #Route 4
+  8, #Route 24
+  9, #Route 25
+  400, #Pokemon Tower
+  401, #Pokemon Tower
+  402, #Pokemon Tower
+  403, #Pokemon Tower
+  467, #Pokemon Tower
+  468, #Pokemon Tower
+  469, #Pokemon Tower
+  159, #Route 12
+  349, #Rock tunnel
+  350, #Rock tunnel
+  512, #Rock tunnel (outdoor)
+  12, #Route 5
 
 ]
 KANTO_DARKNESS_STAGE_2 = [
-  95, # Celadon city
-  436, # Celadon city dept store (roof)
-  143, # Route 23
-  167, # Crimson city
+  95, #Celadon city
+  436, #Celadon city dept store (roof)
+  143, #Route 23
+  167, #Crimson city
   413, # Route 7
-  438, # Route 16
-  146, # Route 17
-  106, # Route 4
-  19, # Vermillion City
-  36, # S.S. Anne deck
-  16, # Route 6
-  437, # Route 13
-  155, # Route 11
-  140, # Diglett cave
-  398, # Diglett cave
-  399, # Diglett cave
+  438, #Route 16
+  146, #Route 17
+  106, #Route 4
+  19, #Vermillion City
+  36, #S.S. Anne deck
+  16, #Route 6
+  437, #Route 13
+  155, #Route 11
+  140, #Diglett cave
+  398, #Diglett cave
+  399, #Diglett cave
 ]
 KANTO_DARKNESS_STAGE_3 = [
-  472, # Fuchsia city
-  445, # Safari Zone 1
-  484, # Safari Zone 2
-  485, # Safari Zone 3
-  486, # Safari Zone 4
-  487, # Safari Zone 5
-  444, # Route 15
-  440, # Route 14
-  712, # Creepy house
-  517, # Route 18
+  472, #Fuchsia city
+  445, #Safari Zone 1
+  484, #Safari Zone 2
+  485, #Safari Zone 3
+  486, #Safari Zone 4
+  487, #Safari Zone 5
+  444, #Route 15
+  440, #Route 14
+  712, #Creepy house
+  517, #Route 18
   57, # Route 19
-  227, # Route 19 (underwater)
-  56, # Route 19 (surf race)
-  58, # Route 20
-  480, # Route 20 underwater 1
-  228, # Route 20 underwater 2
-  98, # Cinnabar island
-  58, # Route 21
-  827, # Mt. Moon summit
+  227, #Route 19 (underwater)
+  56, #Route 19 (surf race)
+  58, #Route 20
+  480, #Route 20 underwater 1
+  228, #Route 20 underwater 2
+  98, #Cinnabar island
+  58, #Route 21
+  827, #Mt. Moon summit
 ]
 KANTO_DARKNESS_STAGE_4 = KANTO_OUTDOOR_MAPS
 
@@ -576,36 +576,36 @@ def isInMtMoon()
 end
 
 def getMtMoonDirection()
-  maps_east = [380, # Pewter city
-               490, # Route 3
-               303, # indigo plateau
-               145, # Route 26
-               147, # Route 27
+  maps_east = [380, #Pewter city
+               490, #Route 3
+               303, #indigo plateau
+               145, #Route 26
+               147, #Route 27
   ]
   maps_south = [
-    8, # Route 24
-    9, # Route 25
-    143, # Route 23
-    167, # Crimson city
+    8, #Route 24
+    9, #Route 25
+    143, #Route 23
+    167, #Crimson city
   ]
   maps_west = [
-    106, # route 4
-    1, # cerulean
-    495, # route 9
-    351, # route 9
-    10 # cerulean cape
+    106, #route 4
+    1, #cerulean
+    495, #route 9
+    351, #route 9
+    10 #cerulean cape
   ]
   return 2 if maps_south.include?($game_map.map_id)
   return 4 if maps_west.include?($game_map.map_id)
   return 6 if maps_east.include?($game_map.map_id)
-  return 8 # north (most maps)
+  return 8 #north (most maps)
 end
 
 def has_species_or_fusion?(species, form = -1)
   return $Trainer.pokemon_party.any? { |p| p && p.isSpecies?(species) || p.isFusionOf(species) }
 end
 
-# Solution: position of boulders [[x,y],[x,y],etc.]
+#Solution: position of boulders [[x,y],[x,y],etc.]
 def validate_regirock_ice_puzzle(solution)
   for boulder_position in solution
     x = boulder_position[0]
@@ -654,11 +654,11 @@ def validate_regirock_steel_puzzle()
 end
 
 def registeel_ice_press_switch(letter)
-  order = pbGet(VAR_REGI_PUZZLE_SWITCH_PRESSED)
-  solution = "ssBSBGG" # GGSBBss"
+  order = pbGet(1)
+  solution = "ssBSBGG" #GGSBBss"
   registeel_ice_reset_switches() if !order.is_a?(String)
   order << letter
-  pbSet(VAR_REGI_PUZZLE_SWITCH_PRESSED, order)
+  pbSet(1, order)
   if order == solution
     echoln "OK"
     pbSEPlay("Evolution start", nil, 130)
@@ -674,7 +674,7 @@ def registeel_ice_reset_switches()
     pbSetSelfSwitch(switch_id, "A", false)
     echoln "reset" + switch_id.to_s
   end
-  pbSet(VAR_REGI_PUZZLE_SWITCH_PRESSED, "")
+  pbSet(1, "")
 end
 
 def regirock_steel_move_boulder()
@@ -713,7 +713,7 @@ def displayRandomizerErrorMessage()
   Kernel.pbMessage(_INTL("You can do this on the top floor of Pokémon Centers."))
 end
 
-# ex:Game_Event.new
+#ex:Game_Event.new
 # forced_sprites = {"1.133" => "a"}
 # setForcedAltSprites(forced_sprites)
 #
@@ -740,14 +740,14 @@ def setupStartingOutfit()
   if gender == GENDER_FEMALE
     $Trainer.unlock_clothes(DEFAULT_OUTFIT_FEMALE, true)
     $Trainer.unlock_hat(DEFAULT_OUTFIT_FEMALE, true)
-    $Trainer.hair = "3_" + DEFAULT_OUTFIT_FEMALE if !$Trainer.hair # when migrating old savefiles
+    $Trainer.hair = "3_" + DEFAULT_OUTFIT_FEMALE if !$Trainer.hair #when migrating old savefiles
 
   elsif gender == GENDER_MALE
     $Trainer.unlock_clothes(DEFAULT_OUTFIT_MALE, true)
     $Trainer.unlock_hat(DEFAULT_OUTFIT_MALE, true)
 
     echoln $Trainer.hair
-    $Trainer.hair = ("3_" + DEFAULT_OUTFIT_MALE) if !$Trainer.hair # when migrating old savefiles
+    $Trainer.hair = ("3_" + DEFAULT_OUTFIT_MALE) if !$Trainer.hair #when migrating old savefiles
     echoln $Trainer.hair
   end
   $Trainer.unlock_hair(DEFAULT_OUTFIT_MALE, true)
@@ -757,21 +757,11 @@ end
 
 def give_date_specific_hats()
   current_date = Time.new
-  # Christmas
   if (current_date.day == 24 || current_date.day == 25) && current_date.month == 12
     if !$Trainer.unlocked_hats.include?(HAT_SANTA)
-      pbCallBub(2, @event_id, true)
+      pbCallBub(2,@event_id,true)
       pbMessage("Hi! We're giving out a special hat today for the holidays season. Enjoy!")
       obtainHat(HAT_SANTA)
-    end
-  end
-
-  # April's fool
-  if (current_date.day == 1 && current_date.month == 4)
-    if !$Trainer.unlocked_hats.include?(HAT_CLOWN)
-      pbCallBub(2, @event_id, true)
-      pbMessage("Hi! We're giving out this fun accessory for this special day. Enjoy!")
-      obtainHat(HAT_CLOWN)
     end
   end
 end
@@ -861,6 +851,7 @@ def replaceFusionSpecies(pokemon, speciesToChange, newSpecies)
   echoln currentBody
   echoln currentHead
 
+
   return if !should_update_body && !should_update_head
 
   newSpeciesBody = should_update_body ? newSpecies : currentBody
@@ -906,35 +897,26 @@ end
 #@formatter:off
 def get_constellation_variable(pokemon)
   case pokemon
-  when :IVYSAUR;
-    return VAR_CONSTELLATION_IVYSAUR
-  when :WARTORTLE;
-    return VAR_CONSTELLATION_WARTORTLE
-  when :ARCANINE;
-    return VAR_CONSTELLATION_ARCANINE
-  when :MACHOKE;
-    return VAR_CONSTELLATION_MACHOKE
-  when :RAPIDASH;
-    return VAR_CONSTELLATION_RAPIDASH
-  when :GYARADOS;
-    return VAR_CONSTELLATION_GYARADOS
-  when :ARTICUNO;
-    return VAR_CONSTELLATION_ARTICUNO
-  when :MEW;
-    return VAR_CONSTELLATION_MEW
-    # when :POLITOED;   return  VAR_CONSTELLATION_POLITOED
-    # when :URSARING;   return  VAR_CONSTELLATION_URSARING
-    # when :LUGIA;      return  VAR_CONSTELLATION_LUGIA
-    # when :HOOH;       return  VAR_CONSTELLATION_HOOH
-    # when :CELEBI;     return  VAR_CONSTELLATION_CELEBI
-    # when :SLAKING;    return  VAR_CONSTELLATION_SLAKING
-    # when :JIRACHI;    return  VAR_CONSTELLATION_JIRACHI
-    # when :TYRANTRUM;  return  VAR_CONSTELLATION_TYRANTRUM
-    # when :SHARPEDO;   return  VAR_CONSTELLATION_SHARPEDO
-    # when :ARCEUS;     return  VAR_CONSTELLATION_ARCEUS
+  when :IVYSAUR;    return  VAR_CONSTELLATION_IVYSAUR
+  when :WARTORTLE;  return  VAR_CONSTELLATION_WARTORTLE
+  when :ARCANINE;   return  VAR_CONSTELLATION_ARCANINE
+  when :MACHOKE;    return  VAR_CONSTELLATION_MACHOKE
+  when :RAPIDASH;   return  VAR_CONSTELLATION_RAPIDASH
+  when :GYARADOS;   return  VAR_CONSTELLATION_GYARADOS
+  when :ARTICUNO;   return  VAR_CONSTELLATION_ARTICUNO
+  when :MEW;        return  VAR_CONSTELLATION_MEW
+  # when :POLITOED;   return  VAR_CONSTELLATION_POLITOED
+  # when :URSARING;   return  VAR_CONSTELLATION_URSARING
+  # when :LUGIA;      return  VAR_CONSTELLATION_LUGIA
+  # when :HOOH;       return  VAR_CONSTELLATION_HOOH
+  # when :CELEBI;     return  VAR_CONSTELLATION_CELEBI
+  # when :SLAKING;    return  VAR_CONSTELLATION_SLAKING
+  # when :JIRACHI;    return  VAR_CONSTELLATION_JIRACHI
+  # when :TYRANTRUM;  return  VAR_CONSTELLATION_TYRANTRUM
+  # when :SHARPEDO;   return  VAR_CONSTELLATION_SHARPEDO
+  # when :ARCEUS;     return  VAR_CONSTELLATION_ARCEUS
   end
 end
-
 #@formatter:on
 
 def promptCaughtPokemonAction(pokemon)
@@ -946,13 +928,13 @@ def promptCaughtPokemonAction(pokemon)
                         [_INTL("Add to your party"), _INTL("Store to PC"),], 2)
     echoln ("command " + command.to_s)
     case command
-    when 0 # SWAP
+    when 0 #SWAP
       if swapCaughtPokemon(pokemon)
         echoln pickedOption
         pickedOption = true
       end
     else
-      # STORE
+      #STORE
       pbStorePokemon(pokemon)
       echoln pickedOption
       pickedOption = true
@@ -968,7 +950,7 @@ def promptKeepOrRelease(pokemon)
                         [_INTL("Release a party member"), _INTL("Release this #{pokemon.name}"),], 2)
     echoln ("command " + command.to_s)
     case command
-    when 0 # SWAP
+    when 0 #SWAP
       if swapReleaseCaughtPokemon(pokemon)
         pickedOption = true
       end
@@ -978,7 +960,7 @@ def promptKeepOrRelease(pokemon)
   end
 end
 
-# def pbChoosePokemon(variableNumber, nameVarNumber, ableProc = nil, allowIneligible = false)
+#def pbChoosePokemon(variableNumber, nameVarNumber, ableProc = nil, allowIneligible = false)
 def swapCaughtPokemon(caughtPokemon)
   pbChoosePokemon(1, 2,
                   proc { |poke|
@@ -1026,7 +1008,7 @@ end
 
 def clear_all_images()
   for i in 1..99
-    # echoln i.to_s + " : " + $game_screen.pictures[i].name
+    #echoln i.to_s + " : " + $game_screen.pictures[i].name
     $game_screen.pictures[i].erase
   end
 end
@@ -1169,14 +1151,14 @@ def obtainStarter(starterIndex = 0)
   return GameData::Species.get(starter)
 end
 
-# body0
+#body0
 # head 1
 def setRivalStarter(starterIndex1, starterIndex2)
   starter1 = obtainStarter(starterIndex1)
   starter2 = obtainStarter(starterIndex2)
 
   ensureRandomHashInitialized()
-  if $game_switches[SWITCH_RANDOM_WILD_TO_FUSION] # if fused starters, only take index 1
+  if $game_switches[SWITCH_RANDOM_WILD_TO_FUSION] #if fused starters, only take index 1
     starter = obtainStarter(starterIndex1)
   else
     starter_body = starter1.id_number
@@ -1202,7 +1184,7 @@ def ensureRandomHashInitialized()
   end
 end
 
-# Get difficulty for displaying in-game
+#Get difficulty for displaying in-game
 def getDisplayDifficulty
   if $game_switches[SWITCH_GAME_DIFFICULTY_EASY] || $Trainer.lowest_difficulty <= 0
     return getDisplayDifficultyFromIndex(0)
@@ -1232,7 +1214,7 @@ def getGameModeFromIndex(index)
   return ""
 end
 
-# time in seconds
+#time in seconds
 def idleHatEvent(hatId, time, switchToActivate = nil)
   map = $game_map.map_id
   i = 0
@@ -1248,7 +1230,7 @@ def idleHatEvent(hatId, time, switchToActivate = nil)
   obtainHat(hatId)
 end
 
-# Necessary dor setting the various events within the pokemart map, uses the numbers as wondertrade
+#Necessary dor setting the various events within the pokemart map, uses the numbers as wondertrade
 def get_city_numerical_id(city_sym)
   current_city_numerical = {
     :PEWTER => 1,
@@ -1279,7 +1261,7 @@ end
 
 POKEMART_MAP_ID = 357
 POKEMART_DOOR_POS = [12, 12]
-# city -> Symbol
+#city -> Symbol
 def enter_pokemart(city)
   pbSet(VAR_CURRENT_MART, city)
   pbSet(VAR_CURRENT_CITY_NUMERICAL_ID, get_city_numerical_id(city))
@@ -1300,17 +1282,17 @@ def exit_pokemart()
     :CERULEAN => [1, 19, 22],
     :VERMILLION => [19, 32, 13],
     :LAVENDER => [50, 20, 23],
-    :CELADON => [95, 18, 15], # not a real pokemart
+    :CELADON => [95, 18, 15], #not a real pokemart
     :FUCHSIA => [472, 7, 17],
     :SAFFRON => [108, 53, 24],
     :CINNABAR => [98, 30, 30],
     :CRIMSON => [167, 21, 36],
-    :GOLDENROD => [237, 36, 33], # not a real pokemart
+    :GOLDENROD => [237, 36, 33], #not a real pokemart
     :AZALEA => [278, 34, 17],
     :AZALEA_FLOODED => [338, 34, 17],
     :VIOLET => [230, 20, 31],
     :BLACKTHORN => [329, 16, 36],
-    :MAHOGANY => [631, 19, 19], # not a real pokemart
+    :MAHOGANY => [631, 19, 19], #not a real pokemart
     :ECRUTEAK => [359, 46, 38],
     :OLIVINE => [138, 33, 23],
     :CIANWOOD => [709.8, 46],
@@ -1416,7 +1398,7 @@ def get_mart_exclusive_items(city)
   return items_list
 end
 
-def calculate_pokemon_weight(pokemon, nerf = 0)
+def calculate_pokemon_weight(pokemon,nerf=0)
 
   base_weight = pokemon.weight
   ivs = []
@@ -1444,25 +1426,25 @@ def calculate_pokemon_weight(pokemon, nerf = 0)
 
   # Cap the weight between min and max values
   weight = [[weight, min_weight].max, max_weight].min
-  weight -= nerf if weight - nerf > min_weight
+  weight -= nerf if weight- nerf > min_weight
   return weight.round(2) # Round to 2 decimal places
 end
 
-# nerf: remove x kg from each generated pokemon
-def generate_weight_contest_entries(species, level, resultsVariable, nerf = 0)
-  # echoln "Generating Pokemon"
-  pokemon1 = pbGenerateWildPokemon(species, level) # Pokemon.new(species,level)
-  pokemon2 = pbGenerateWildPokemon(species, level) # Pokemon.new(species,level)
+#nerf: remove x kg from each generated pokemon
+def generate_weight_contest_entries(species, level, resultsVariable,nerf=0)
+  #echoln "Generating Pokemon"
+  pokemon1 = pbGenerateWildPokemon(species, level) #Pokemon.new(species,level)
+  pokemon2 = pbGenerateWildPokemon(species, level) #Pokemon.new(species,level)
   new_weights = []
-  new_weights << calculate_pokemon_weight(pokemon1, nerf)
-  new_weights << calculate_pokemon_weight(pokemon2, nerf)
+  new_weights << calculate_pokemon_weight(pokemon1,nerf)
+  new_weights << calculate_pokemon_weight(pokemon2,nerf)
   echoln new_weights
   echoln "(nerfed by -#{nerf})"
   pbSet(resultsVariable, new_weights.max)
 
 end
 
-# todo: implement
+#todo: implement
 def getMappedKeyFor(internalKey)
 
   keybinding_fileName = "keybindings.mkxp1"
@@ -1470,10 +1452,10 @@ def getMappedKeyFor(internalKey)
 
   parse_keybindings(path)
 
-  # echoln Keybindings.new(path).bindings
+  #echoln Keybindings.new(path).bindings
 end
 
-# if need to play animation from event route
+#if need to play animation from event route
 def playAnimation(animationId, x, y)
   return if !$scene.is_a?(Scene_Map)
   $scene.spriteset.addUserAnimation(animationId, x, y, true)
@@ -1488,7 +1470,7 @@ def playCry(pokemonSpeciesSymbol)
   GameData::Species.play_cry_from_species(species)
 end
 
-# chance: out of 100
+#chance: out of 100
 def lilypadEncounter(pokemon, minLevel, maxLevel, chance = 10)
   minLevel, maxLevel = [minLevel, maxLevel].minmax
   level = rand(minLevel..maxLevel)
@@ -1511,6 +1493,8 @@ def isPlayerFemale()
   return pbGet(VAR_TRAINER_GENDER) == GENDER_FEMALE
 end
 
+
+
 def optionsMenu(options = [], cmdIfCancel = -1, startingOption = 0)
   cmdIfCancel = -1 if !cmdIfCancel
   result = pbShowCommands(nil, options, cmdIfCancel, startingOption)
@@ -1529,7 +1513,7 @@ def getHiddenPowerName(pokemon)
   return PBTypes.getName(hiddenPowerType)
 end
 
-# Returns if the current map is an outdoor map
+#Returns if the current map is an outdoor map
 def isOutdoor()
   current_map = $game_map.map_id
   map_metadata = GameData::MapMetadata.try_get(current_map)
@@ -1545,12 +1529,13 @@ QUEST_REWARDS = [
   QuestReward.new(10, :LANTERN, 1, "This will allow you to illuminate caves without having to use a HM! Practical, isn't it?"),
   QuestReward.new(15, :LINKINGCORD, 3, "This strange cable triggers the evolution of Pokémon that typically evolve via trade. I know you'll put it to good use!"),
   QuestReward.new(20, :SLEEPINGBAG, 1, "This handy item will allow you to sleep anywhere you want. You won't even need hotels anymore!"),
-  QuestReward.new(30, :MISTSTONE, 1, "This rare stone can evolve any Pokémon, regardless of their level or evolution method. Use it wisely!", true),
-  QuestReward.new(50, :GSBALL, 1, "This mysterious ball is rumored to be the key to call upon the protector of Ilex Forest.  It's a precious relic."),
-  QuestReward.new(60, :MASTERBALL, 1, "This rare ball can catch any Pokémon. Don't waste it!", true),
+  QuestReward.new(30, :MISTSTONE, 1, "This rare stone can evolve any Pokémon, regardless of their level or evolution method. Use it wisely!",true),
+  QuestReward.new(45, :MASTERBALL, 1, "This rare ball can catch any Pokémon. Don't waste it!",true),
+  QuestReward.new(60, :GSBALL, 1, "This mysterious ball is rumored to be the key to call upon the protector of Ilex Forest.  It's a precious relic."),
 ]
 
-def turnEventTowardsEvent(turning, turnedTowards)
+
+def turnEventTowardsEvent(turning,turnedTowards)
   event_x = turnedTowards.x
   event_y = turnedTowards.y
   if turning.x < event_x
@@ -1578,7 +1563,8 @@ def turnPlayerTowardsEvent(event)
   end
 end
 
-def displaySpriteWindowWithMessage(pif_sprite, message = "", x = 0, y = 0, z = 0)
+
+def displaySpriteWindowWithMessage(pif_sprite, message = "", x = 0, y = 0,z=0)
   spriteLoader = BattleSpriteLoader.new
   sprite_bitmap = spriteLoader.load_pif_sprite_directly(pif_sprite)
   pictureWindow = PictureWindow.new(sprite_bitmap.bitmap)
@@ -1600,181 +1586,57 @@ def select_any_pokemon()
   return pbChooseList(commands, 0, nil, 1)
 end
 
-SWITCH_SS_ANNE_DEPARTED = 88
-SWITCH_SNORLAX_GONE_ROUTE_12 = 110
+
+SWITCH_SS_ANNE_DEPARTED=88
+SWITCH_SNORLAX_GONE_ROUTE_12=110
 SWITCH_TELEPORT_NPC = 122
-SWITCH_GOT_DIVE = 317
-SWITCH_GOT_ROCK_CLIMB = 661
-SWITCH_GOT_WATERFALL = 388
+SWITCH_GOT_DIVE=317
+SWITCH_GOT_ROCK_CLIMB=661
+SWITCH_GOT_WATERFALL=388
 
 def fixMissedHMs()
-  # Flash
+  #Flash
   if $PokemonBag.pbQuantity(:HM08) < 1 && $PokemonGlobal.questRewardsObtained.include?(:HM08)
     pbReceiveItem(:HM08)
   end
 
-  # Cut
+  #Cut
   if $PokemonBag.pbQuantity(:HM01) < 1 && $game_switches[SWITCH_SS_ANNE_DEPARTED]
     pbReceiveItem(:HM01)
   end
 
-  # Strength
+  #Strength
   if $PokemonBag.pbQuantity(:HM04) < 1 && $game_switches[SWITCH_SNORLAX_GONE_ROUTE_12]
     pbReceiveItem(:HM04)
   end
 
-  # Surf
-  if $PokemonBag.pbQuantity(:HM03) < 1 && $game_self_switches[[107, 1, "A"]]
+  #Surf
+  if $PokemonBag.pbQuantity(:HM03) < 1 &&  $game_self_switches[[107, 1, "A"]]
     pbReceiveItem(:HM03)
   end
 
-  # Teleport
+  #Teleport
   if $PokemonBag.pbQuantity(:HM07) < 1 && $game_switches[SWITCH_TELEPORT_NPC]
     pbReceiveItem(:HM07)
   end
 
-  # Fly
-  if $PokemonBag.pbQuantity(:HM02) < 1 && $game_self_switches[[439, 1, "B"]]
+  #Fly
+  if $PokemonBag.pbQuantity(:HM02) < 1 &&  $game_self_switches[[439, 1, "B"]]
     pbReceiveItem(:HM02)
   end
 
-  # Waterfall
-  if $PokemonBag.pbQuantity(:HM05) < 1 && $game_switches[SWITCH_GOT_WATERFALL]
+  #Waterfall
+  if $PokemonBag.pbQuantity(:HM05) < 1 &&  $game_switches[SWITCH_GOT_WATERFALL]
     pbReceiveItem(:HM05)
   end
 
-  # Dive
-  if $PokemonBag.pbQuantity(:HM06) < 1 && $game_switches[SWITCH_GOT_DIVE]
+  #Dive
+  if $PokemonBag.pbQuantity(:HM06) < 1 &&  $game_switches[SWITCH_GOT_DIVE]
     pbReceiveItem(:HM06)
   end
 
-  # Rock Climb
-  if $PokemonBag.pbQuantity(:HM10) < 1 && $game_switches[SWITCH_GOT_ROCK_CLIMB]
+  #Rock Climb
+  if $PokemonBag.pbQuantity(:HM10) < 1 &&  $game_switches[SWITCH_GOT_ROCK_CLIMB]
     pbReceiveItem(:HM10)
   end
-end
-
-def fixFinishedRocketQuests()
-  fix_broken_TR_quests()
-
-  var_tr_missions_cerulean = 288
-
-  switch_tr_mission_cerulean_4 = 1116
-  switch_tr_mission_celadon_1 = 1084
-  switch_tr_mission_celadon_2 = 1086
-  switch_tr_mission_celadon_3 = 1088
-  switch_tr_mission_celadon_4 = 1110
-  switch_pinkan_done = 1119
-
-  nb_cerulean_missions = pbGet(var_tr_missions_cerulean)
-
-  finishTRQuest("tr_cerulean_1", :SUCCESS, true) if nb_cerulean_missions >= 1 && !pbCompletedQuest?("tr_cerulean_1")
-  echoln pbCompletedQuest?("tr_cerulean_1")
-  finishTRQuest("tr_cerulean_2", :SUCCESS, true) if nb_cerulean_missions >= 2 && !pbCompletedQuest?("tr_cerulean_2")
-  finishTRQuest("tr_cerulean_3", :SUCCESS, true) if nb_cerulean_missions >= 3 && !pbCompletedQuest?("tr_cerulean_3")
-  finishTRQuest("tr_cerulean_4", :SUCCESS, true) if $game_switches[switch_tr_mission_cerulean_4] && !pbCompletedQuest?("tr_cerulean_4")
-
-  finishTRQuest("tr_celadon_1", :SUCCESS, true) if $game_switches[switch_tr_mission_celadon_1] && !pbCompletedQuest?("tr_celadon_1")
-  finishTRQuest("tr_celadon_2", :SUCCESS, true) if $game_switches[switch_tr_mission_celadon_2] && !pbCompletedQuest?("tr_celadon_2")
-  finishTRQuest("tr_celadon_3", :SUCCESS, true) if $game_switches[switch_tr_mission_celadon_3] && !pbCompletedQuest?("tr_celadon_3")
-  finishTRQuest("tr_celadon_4", :SUCCESS, true) if $game_switches[switch_tr_mission_celadon_4] && !pbCompletedQuest?("tr_celadon_4")
-
-  finishTRQuest("tr_pinkan", :SUCCESS, true) if $game_switches[switch_pinkan_done] && !pbCompletedQuest?("tr_pinkan")
-end
-
-def fix_broken_TR_quests()
-  for trainer_quest in $Trainer.quests
-    if trainer_quest.id == 0 # tr quests were all set to ID 0 instead of their real ID in v 6.4.0
-      for rocket_quest_id in TR_QUESTS.keys
-        rocket_quest = TR_QUESTS[rocket_quest_id]
-        next if !rocket_quest
-        if trainer_quest.name == rocket_quest.name
-          trainer_quest.id = rocket_quest_id
-        end
-      end
-    end
-  end
-end
-
-def failAllIncompleteRocketQuests()
-  for trainer_quest in $Trainer.quests
-    finishTRQuest("tr_cerulean_1", :FAILURE) if trainer_quest.id == "tr_cerulean_1" && !pbCompletedQuest?("tr_cerulean_1")
-    finishTRQuest("tr_cerulean_2", :FAILURE) if trainer_quest.id == "tr_cerulean_2" && !pbCompletedQuest?("tr_cerulean_2")
-    finishTRQuest("tr_cerulean_3", :FAILURE) if trainer_quest.id == "tr_cerulean_3" && !pbCompletedQuest?("tr_cerulean_3")
-    finishTRQuest("tr_cerulean_4", :FAILURE) if trainer_quest.id == "tr_cerulean_4" && !pbCompletedQuest?("tr_cerulean_4")
-
-    finishTRQuest("tr_celadon_1", :FAILURE) if trainer_quest.id == "tr_celadon_1" && !pbCompletedQuest?("tr_celadon_1")
-    finishTRQuest("tr_celadon_2", :FAILURE) if trainer_quest.id == "tr_celadon_2" && !pbCompletedQuest?("tr_celadon_2")
-    finishTRQuest("tr_celadon_3", :FAILURE) if trainer_quest.id == "tr_celadon_3" && !pbCompletedQuest?("tr_celadon_3")
-    finishTRQuest("tr_celadon_4", :FAILURE) if trainer_quest.id == "tr_celadon_4" && !pbCompletedQuest?("tr_celadon_4")
-  end
-end
-
-def qmarkMaskCheck()
-  if $Trainer.seen_qmarks_sprite
-    unless hasHat?(HAT_QMARKS)
-      obtainHat(HAT_QMARKS)
-      obtainClothes(CLOTHES_GLITCH)
-    end
-  end
-end
-
-
-def purchaseDyeKitMenu(hats_kit_price=0,clothes_kit_price=0)
-
-  commands = []
-  command_hats = "Hats Dye Kit ($#{hats_kit_price})"
-  command_clothes = "Clothes Dye Kit ($#{clothes_kit_price})"
-  command_cancel = "Cancel"
-
-  commands << command_hats if !$PokemonBag.pbHasItem?(:HATSDYEKIT)
-  commands << command_clothes if !$PokemonBag.pbHasItem?(:CLOTHESDYEKIT)
-  commands << command_cancel
-
-  if commands.length <= 1
-    pbCallBub(2,@event_id)
-    pbMessage("\\C[1]Dye Kits\\C[0] can be used to dye clothes all sorts of colours!")
-
-    pbCallBub(2,@event_id)
-    pbMessage("You can use them at any time when you change clothes.")
-    return
-  end
-  pbCallBub(2,@event_id)
-  pbMessage("\\GWelcome! Are you interested in dyeing your outfits different colours?")
-
-  pbCallBub(2,@event_id)
-  pbMessage("I make handy \\C[1]Dye Kits\\C[0] from my Smeargle's paint that can be used to dye your outfits any color you want!")
-
-  pbCallBub(2,@event_id)
-  pbMessage("\\GWhat's more is that it's reusable so you can go completely wild with it if you want! Are you interested?")
-
-  choice = optionsMenu(commands,commands.length)
-  case commands[choice]
-  when command_hats
-    if $Trainer.money < hats_kit_price
-      pbCallBub(2,@event_id)
-      pbMessage("Oh, you don't have enough money...")
-      return
-    end
-    pbMessage("\\G\\PN purchased the dye kit.")
-    $Trainer.money -= hats_kit_price
-    pbSEPlay("SlotsCoin")
-    Kernel.pbReceiveItem(:HATSDYEKIT)
-    pbCallBub(2,@event_id)
-    pbMessage("\\GHere you go! Have fun dyeing your hats!")
-  when command_clothes
-    if $Trainer.money < clothes_kit_price
-      pbCallBub(2,@event_id)
-      pbMessage("Oh, you don't have enough money...")
-      return
-    end
-    pbMessage("\\G\\PN purchased the dye kit.")
-    $Trainer.money -= clothes_kit_price
-    pbSEPlay("SlotsCoin")
-    Kernel.pbReceiveItem(:CLOTHESDYEKIT)
-    pbCallBub(2,@event_id)
-    pbMessage("\\GHere you go! Have fun dyeing your clothes!")
-  end
-  pbCallBub(2,@event_id)
-  pbMessage("You can use \\C[1]Dye Kits\\C[0] at any time when you change clothes.")
 end

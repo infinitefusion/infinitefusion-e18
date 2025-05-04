@@ -1,35 +1,14 @@
 class OutfitsMartAdapter < PokemonMartAdapter
   attr_accessor :worn_clothes
-  attr_accessor :is_secondary_hat
-  attr_accessor :items
 
   WORN_ITEM_BASE_COLOR = MessageConfig::BLUE_TEXT_MAIN_COLOR
   WORN_ITEM_SHADOW_COLOR = MessageConfig::BLUE_TEXT_SHADOW_COLOR
 
-  def initialize(stock = [], isShop = true, isSecondaryHat = false)
-    @is_secondary_hat = isSecondaryHat
+  def initialize(stock = [], isShop = true)
     @items = stock
     @worn_clothes = get_current_clothes()
     @isShop = isShop
     @version = nil
-    $Trainer.dyed_hats = {} if !$Trainer.dyed_hats
-    $Trainer.dyed_clothes = {} if !$Trainer.dyed_clothes
-  end
-
-  def getDisplayName(item)
-    return getName(item) if !item.name
-    name = item.name
-    name = "* #{name}" if is_wearing_clothes(item.id)
-    return name
-  end
-
-  def is_wearing_clothes(outfit_id)
-    return outfit_id == @worn_clothes
-  end
-
-  def player_changed_clothes?()
-    return false
-    #implement in inheriting classes
   end
 
   def toggleText()

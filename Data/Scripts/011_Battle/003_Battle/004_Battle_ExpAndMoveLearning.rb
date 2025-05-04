@@ -261,9 +261,7 @@ class PokeBattle_Battle
     return if pkmn.moves.any? { |m| m && m.id == newMove }
     # Pokémon has space for the new move; just learn it
     if pkmn.moves.length < Pokemon::MAX_MOVES
-      move = Pokemon::Move.new(newMove)
-      pkmn.moves.push(move)
-      pkmn.add_learned_move(move)
+      pkmn.moves.push(Pokemon::Move.new(newMove))
       pbDisplay(_INTL("{1} learned {2}!", pkmnName, moveName)) { pbSEPlay("Pkmn move learnt") }
       if battler
         battler.moves.push(PokeBattle_Move.from_pokemon_move(self, pkmn.moves.last))
@@ -281,9 +279,7 @@ class PokeBattle_Battle
         if forgetMove >= 0
           oldMoveName = pkmn.moves[forgetMove].name
           pkmn.moves[forgetMove] = Pokemon::Move.new(newMove) # Replaces current/total PP
-          pkmn.add_learned_move(newMove)
           battler.moves[forgetMove] = PokeBattle_Move.from_pokemon_move(self, pkmn.moves[forgetMove]) if battler
-
           pbDisplayPaused(_INTL("1, 2, and... ... ... Ta-da!"))
           pbDisplayPaused(_INTL("{1} forgot how to use {2}. And...", pkmnName, oldMoveName))
           pbDisplay(_INTL("{1} learned {2}!", pkmnName, moveName)) { pbSEPlay("Pkmn move learnt") }

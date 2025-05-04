@@ -3,7 +3,7 @@ class Sprite_Wearable < RPG::Sprite
   attr_accessor :action
   attr_accessor :sprite
 
-  def initialize(player_sprite, filename, action, viewport, relative_z=0)
+  def initialize(player_sprite, filename, action, viewport)
     @player_sprite = player_sprite
     @viewport = viewport
     @sprite = Sprite.new(@viewport)
@@ -15,7 +15,7 @@ class Sprite_Wearable < RPG::Sprite
     @frameWidth = 80  #@sprite.width
     @frameHeight = 80 #@sprite.height / 4
     @sprite.z = 0
-    @relative_z=relative_z #relative to player
+    @relative_z=0 #relative to player
     echoln(_INTL("init had at z = {1}, player sprite at {2}",@sprite.z,@player_sprite.z))
 
     #Unused position offset
@@ -165,6 +165,55 @@ class Sprite_Wearable < RPG::Sprite
   def disposed?
     @disposed
   end
+
+  # def getCurrentSpriteOffset()
+  #   direction = @character.direction
+  #   current_frame = @character.pattern
+  #   case @character_name
+  #   when "run"
+  #     if direction == DIRECTION_DOWN
+  #       return Outfit_Offsets::RUN_OFFSETS_DOWN[current_frame]
+  #     elsif direction == DIRECTION_LEFT
+  #       return Outfit_Offsets::RUN_OFFSETS_LEFT[current_frame]
+  #     elsif direction == DIRECTION_RIGHT
+  #       return Outfit_Offsets::RUN_OFFSETS_RIGHT[current_frame]
+  #     elsif direction == DIRECTION_UP
+  #       return Outfit_Offsets::RUN_OFFSETS_UP[current_frame]
+  #     end
+  #   when "surf"
+  #     #when "dive"
+  #     if direction == DIRECTION_DOWN
+  #       return Outfit_Offsets::SURF_OFFSETS_DOWN[current_frame]
+  #     elsif direction == DIRECTION_LEFT
+  #       return Outfit_Offsets::SURF_OFFSETS_LEFT[current_frame]
+  #     elsif direction == DIRECTION_RIGHT
+  #       return Outfit_Offsets::SURF_OFFSETS_RIGHT[current_frame]
+  #     elsif direction == DIRECTION_UP
+  #       return Outfit_Offsets::SURF_OFFSETS_UP[current_frame]
+  #     end
+  #   when "dive"
+  #     if direction == DIRECTION_DOWN
+  #       return Outfit_Offsets::DIVE_OFFSETS_DOWN[current_frame]
+  #     elsif direction == DIRECTION_LEFT
+  #       return Outfit_Offsets::DIVE_OFFSETS_LEFT[current_frame]
+  #     elsif direction == DIRECTION_RIGHT
+  #       return Outfit_Offsets::DIVE_OFFSETS_RIGHT[current_frame]
+  #     elsif direction == DIRECTION_UP
+  #       return Outfit_Offsets::DIVE_OFFSETS_UP[current_frame]
+  #     end
+  #   when "bike"
+  #     if direction == DIRECTION_DOWN
+  #       return Outfit_Offsets::BIKE_OFFSETS_DOWN[current_frame]
+  #     elsif direction == DIRECTION_LEFT
+  #       return Outfit_Offsets::BIKE_OFFSETS_LEFT[current_frame]
+  #     elsif direction == DIRECTION_RIGHT
+  #       return Outfit_Offsets::BIKE_OFFSETS_RIGHT[current_frame]
+  #     elsif direction == DIRECTION_UP
+  #       return Outfit_Offsets::BIKE_OFFSETS_UP[current_frame]
+  #     end
+  #   end
+  #   return Outfit_Offsets::BASE_OFFSET[current_frame]
+  # end
 
 
 end

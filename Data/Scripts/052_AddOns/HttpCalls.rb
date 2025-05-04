@@ -43,7 +43,6 @@ def download_file(url, saveLocation)
       return saveLocation
     else
       echoln _INTL("Failed to download file {1}", url)
-      echoln caller
     end
     return nil
   rescue MKXPError, Errno::ENOENT => error
@@ -73,7 +72,6 @@ def fetch_sprite_from_web(url, destinationPath)
       return true
     end
     echoln "Failed to download #{url}"
-    echoln caller
     return false
   rescue MKXPError => e
     echoln "MKXPError: #{e.message}"
@@ -87,7 +85,8 @@ def fetch_sprite_from_web(url, destinationPath)
 end
 
 def download_spritesheet(pif_sprite, dest)
-  return nil if requestRateExceeded?(Settings::CUSTOMSPRITES_RATE_LOG_FILE,Settings::CUSTOMSPRITES_ENTRIES_RATE_TIME_WINDOW,Settings::CUSTOMSPRITES_RATE_MAX_NB_REQUESTS)
+  #return nil if requestRateExceeded?(Settings::CUSTOMSPRITES_RATE_LOG_FILE,Settings::CUSTOMSPRITES_ENTRIES_RATE_TIME_WINDOW,Settings::CUSTOMSPRITES_RATE_MAX_NB_REQUESTS)
+  return nil if requestRateExceeded?(Settings::CUSTOMSPRITES_RATE_LOG_FILE, 60, 15)
   case pif_sprite.type
   when :AUTOGEN
     return
@@ -421,8 +420,8 @@ def requestRateExceeded?(logFile, timeWindow, maxRequests, update_log_file = tru
   # Write the updated log back to the file
   if update_log_file
     File.write(logFile, request_timestamps.join("\n"))
+    echoln "Rate limiting: Current: #{request_timestamps.size}, Max: #{maxRequests}"
   end
-  echoln "Rate limiting: Current: #{request_timestamps.size}, Max: #{maxRequests}"
   rateLimitExceeded = request_timestamps.size > maxRequests
   return rateLimitExceeded
 end

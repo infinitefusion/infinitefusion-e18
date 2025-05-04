@@ -18,8 +18,6 @@ def genericOutfitsShopMenu(stock = [], itemType = nil, versions = false, isShop=
   end
 end
 
-
-
 def getPresenter(itemType, view, stock, adapter, versions)
   case itemType
   when :HAIR
@@ -29,12 +27,12 @@ def getPresenter(itemType, view, stock, adapter, versions)
   end
 end
 
-def getAdapter(itemType, stock, isShop, is_secondary=false)
+def getAdapter(itemType, stock, isShop)
   case itemType
   when :CLOTHES
     return ClothesMartAdapter.new(stock, isShop)
   when :HAT
-    return HatsMartAdapter.new(stock, isShop,is_secondary)
+    return HatsMartAdapter.new(stock, isShop)
   when :HAIR
     return HairMartAdapter.new(stock, isShop)
   end
@@ -73,37 +71,11 @@ def hairShop(outfits_list = [],free=false, customMessage=nil)
   genericOutfitsShopMenu(stock, :HAIR, true,!free,customMessage)
 end
 
-def switchHatsPosition()
-  hat1 = $Trainer.hat
-  hat2 = $Trainer.hat2
-  hat1_color = $Trainer.hat_color
-  hat2_color = $Trainer.hat2_color
-
-  $Trainer.hat = hat2
-  $Trainer.hat2 = hat1
-  $Trainer.hat_color = hat1_color
-  $Trainer.hat_color = hat2_color
-
-  pbSEPlay("GUI naming tab swap start")
-end
-
-SWAP_HAT_POSITIONS_CAPTION = "Switch hats position"
-
-#is_secondary only used for hats
-def openSelectOutfitMenu(stock = [], itemType =nil, is_secondary=false)
-  adapter = getAdapter(itemType, stock, false, is_secondary)
-  view = getView(itemType)
+def openSelectOutfitMenu(stock = [], itemType)
+  adapter = getAdapter(itemType, stock, false)
+  view = ClothesShopView.new()
   presenter = ClothesShopPresenter.new(view, stock, adapter)
   presenter.pbBuyScreen
-end
-
-def getView(itemType)
-  case itemType
-  when :HAT
-    return HatShopView.new
-  else
-    return ClothesShopView.new
-  end
 end
 
 def changeClothesMenu()
@@ -115,14 +87,14 @@ def changeClothesMenu()
   openSelectOutfitMenu(stock, :CLOTHES)
 end
 
-def changeHatMenu(is_secondary_hat = false)
+def changeHatMenu()
   stock = []
   $Trainer.unlocked_hats.each { |outfit_id|
     outfit = get_hat_by_id(outfit_id)
     stock << outfit if outfit
   }
   stock << :REMOVE_HAT
-  openSelectOutfitMenu(stock, :HAT, is_secondary_hat)
+  openSelectOutfitMenu(stock, :HAT)
 end
 
 def changeOutfit()
@@ -143,4 +115,7 @@ def changeOutfit()
       break
     end
   end
+
+
+
 end

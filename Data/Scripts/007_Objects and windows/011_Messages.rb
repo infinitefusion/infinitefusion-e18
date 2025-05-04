@@ -909,7 +909,7 @@ def pbMessageChooseNumber(message, params, &block)
 end
 
 
-def pbShowCommands(msgwindow, commands = nil, cmdIfCancel = 0, defaultCmd = 0, x_offset=nil, y_offset=nil)
+def pbShowCommands(msgwindow, commands = nil, cmdIfCancel = 0, defaultCmd = 0)
   return 0 if !commands
   $PokemonTemp.speechbubble_arrow.visible =false if $PokemonTemp.speechbubble_arrow && !$PokemonTemp.speechbubble_arrow.disposed?
   if defaultCmd == 0 && ($game_variables && $game_variables[VAR_COMMAND_WINDOW_INDEX] != 0)
@@ -919,7 +919,7 @@ def pbShowCommands(msgwindow, commands = nil, cmdIfCancel = 0, defaultCmd = 0, x
   cmdwindow.z = 99999
   cmdwindow.visible = true
   cmdwindow.resizeToFit(cmdwindow.commands)
-  pbPositionNearMsgWindow(cmdwindow, msgwindow, :right, x_offset, y_offset)
+  pbPositionNearMsgWindow(cmdwindow, msgwindow, :right)
   cmdwindow.index = defaultCmd
   command = 0
   loop do

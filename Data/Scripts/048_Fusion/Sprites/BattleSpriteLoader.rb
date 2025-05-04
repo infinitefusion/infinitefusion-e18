@@ -68,7 +68,7 @@ class BattleSpriteLoader
   def obtain_fusion_pif_sprite(head_id,body_id)
     substitution_id = get_sprite_substitution_id_for_fusion(head_id, body_id)
     pif_sprite = $PokemonGlobal.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
-    #pif_sprite.dump_info if pif_sprite
+    pif_sprite.dump_info if pif_sprite
     if !pif_sprite
       pif_sprite = select_new_pif_fusion_sprite(head_id, body_id)
       local_path = check_for_local_sprite(pif_sprite)
@@ -119,7 +119,6 @@ class BattleSpriteLoader
       new_extractor = get_sprite_extractor_instance(:AUTOGEN)
       return new_extractor.load_sprite(pif_sprite)
     else
-      $Trainer.seen_qmarks_sprite=true if $Trainer
       #If autogen or base sprite aren't able to load a sprite then we have nothing else to load -> show a ? instead.
       return AnimatedBitmap.new(Settings::DEFAULT_SPRITE_PATH)
     end
@@ -199,7 +198,6 @@ class BattleSpriteLoader
     return PIFSprite.new(:BASE, dex_number, nil, random_alt)
   end
 
-  #todo refactor by using get_triple_fusion_components()
   def getSpecialSpriteName(dexNum)
     base_path = "Graphics/Battlers/special/"
     case dexNum

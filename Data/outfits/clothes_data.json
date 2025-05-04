@@ -108,12 +108,6 @@
         "howToGet": "type trainer"
     },
     {
-        "id": "butler",
-        "name": "Butler Uniform",
-        "price": 5000,
-        "tags": "special,"
-    },
-    {
         "id": "BusinessSuit",
         "name": "Business Suit",
         "description": "A classy, professional-looking business suit.",
@@ -136,7 +130,7 @@
         "description": "A mysterious long black cloak or dress, worn over black leggings.",
         "len": 65,
         "done": "yes",
-        "price": 6500,
+        "price": 10000,
         "tags": "lavender,",
         "howToGet": "city exclusive outfit"
     },
@@ -188,23 +182,12 @@
         "howToGet": "found at sky pillar"
     },
     {
-        "id": "Eri",
-        "name": "Caph Squad Captain",
-        "tags": "paldea,"
-    },
-    {
         "id": "fantasyadventurersoutfit",
         "name": "Traveller Outfit",
         "done": "yes",
         "price": 0,
         "tags": "special,",
         "howToGet": "Given by exotic pokemon quest npc after completing all the quests"
-    },
-    {
-        "id": "fauxwrap",
-        "name": "Faux Wrap Dress",
-        "price": 3500,
-        "tags": "ecruteak"
     },
     {
         "id": "fighting",
@@ -238,31 +221,12 @@
         "howToGet": "city-exclusive outfit"
     },
     {
-        "id": "flying",
-        "name": "Flying Outfit",
-        "description": "An aerodynamic outfit for gliding through the air.  It captures the essence of Flying-type Pokémon.",
-        "price": 10000,
-        "tags": "type-flying,special"
-    },
-    {
         "id": "fusionnerd",
         "name": "Fusion Outfit",
         "done": "yes",
         "price": 0,
         "tags": "pokemon-fused,special,",
         "howToGet": "cinnabar lab after fusing 100 times"
-    },
-    {
-        "id": "ghostoutfit",
-        "name": "Ghost Outfit",
-        "tags": "type-ghost,special",
-        "howToGet": "type trainer"
-    },
-    {
-        "id": "glitzerset",
-        "name": "Glitzer",
-        "price": 2550,
-        "tags": "special,"
     },
     {
         "id": "gothhoodie",
@@ -341,17 +305,9 @@
         "howToGet": "city-exclusive outfit"
     },
     {
-        "id": "kris",
-        "name": "Crystal Classic",
-        "description": "A popular Johtonian outfit worn by aspiring female trainers.",
-        "price": 4000,
-        "tags": "johto",
-        "howToGet": "regional"
-    },
-    {
         "id": "lady",
-        "name": "Elegant Dress",
-        "description": "An elegant summer dress with a ribbon at the waist, radiating a sense of grace and sophistication.",
+        "name": "Summer Dress",
+        "description": "An elegant white dress with a ribbon at the waist, radiating a sense of grace and sophistication.",
         "done": "yes",
         "price": 1500,
         "tags": "cerulean",
@@ -382,7 +338,6 @@
         "len": 74,
         "done": "yes",
         "price": 0,
-        "tags": "special,",
         "howToGet": "starting outfit"
     },
     {
@@ -415,12 +370,6 @@
         "name": "Lycanroc Coat",
         "price": 18000,
         "tags": "pokemon-rockruff,pokemon-lycanroc_d,pokemon-lycanroc_n,"
-    },
-    {
-        "id": "maid",
-        "name": "Maid Uniform",
-        "price": 5000,
-        "tags": "special,"
     },
     {
         "id": "marshweater",
@@ -602,20 +551,6 @@
         "tags": "pokemon-budew,pokemon-roserade,pokemon-roselia,celadon"
     },
     {
-        "id": "sada",
-        "name": "Primitive Clothes (F)",
-        "price": 10000,
-        "tags": "special",
-        "howToGet": "fossil guy final"
-    },
-    {
-        "id": "sado",
-        "name": "Primitive Clothes (M)",
-        "price": 10000,
-        "tags": "special",
-        "howToGet": "fossil guy final"
-    },
-    {
         "id": "sandshrewoutfit",
         "name": "Sandshrew Outfit",
         "description": "A pants and cape set designed with a texture mimicking Sandshrew's hide that allows you to easily blend in with desert environments.",
@@ -693,12 +628,6 @@
         "done": "yes",
         "price": 1500,
         "tags": "default"
-    },
-    {
-        "id": "trevenantforestkingcloak",
-        "name": "Forest King Cloak",
-        "price": 25000,
-        "tags": "pokemon-phantump,pokemon-trevenant,"
     },
     {
         "id": "urbanelectric",

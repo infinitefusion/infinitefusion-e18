@@ -10,13 +10,9 @@ class Player < Trainer
   attr_accessor :skin_tone
   attr_accessor :clothes
   attr_accessor :hat
-  attr_accessor :hat2
-
   attr_accessor :hair
   attr_accessor :hair_color
   attr_accessor :hat_color
-  attr_accessor :hat2_color
-
   attr_accessor :clothes_color
   attr_accessor :unlocked_clothes
   attr_accessor :unlocked_hats
@@ -26,22 +22,15 @@ class Player < Trainer
   attr_accessor :dyed_hats
   attr_accessor :dyed_clothes
 
-  attr_accessor :favorite_hat
-  attr_accessor :favorite_hat2
-
-  attr_accessor :favorite_clothes
 
   attr_accessor :last_worn_outfit
   attr_accessor :last_worn_hat
-  attr_accessor :last_worn_hat2
 
   attr_accessor :surfing_pokemon
 
 
   attr_accessor :card_background
   attr_accessor :unlocked_card_backgrounds
-
-  attr_accessor :seen_qmarks_sprite
 
 
   # @return [Array<Boolean>] the player's Gym Badges (true if owned)
@@ -97,22 +86,8 @@ class Player < Trainer
   end
 
 
-  def last_worn_hat(is_secondary=false)
-    return is_secondary ? @last_worn_hat2 : @last_worn_hat
-  end
-
-
-  def set_last_worn_hat(value, is_secondary=false)
-    if is_secondary
-      @last_worn_hat = value
-    else
-      @last_worn_hat = value
-    end
-  end
-
-
-  def last_worn_hat2
-    return @last_worn_hat2
+  def last_worn_hat
+    return @last_worn_hat
   end
 
   # Sets the player's coins amount. It can not exceed {Settings::MAX_COINS}.
@@ -126,55 +101,11 @@ class Player < Trainer
     @outfit=value
   end
 
-  def favorite_hat(is_secondary=false)
-    return is_secondary ?  @favorite_hat2 : @favorite_hat
-  end
-
-
-  #todo change to set_favorite_hat(value,is_secondary=false)
-  def set_favorite_hat(value,is_secondary=false)
-    if is_secondary
-      @favorite_hat=value
-    else
-      @favorite_hat2=value
-    end
-  end
-
-  def hat_color(is_secondary=false)
-    return is_secondary ? @hat2_color : @hat_color
-  end
-  def hat(is_secondary=false)
-    return is_secondary ? @hat2 : @hat
-  end
-
-  def set_hat(value, is_secondary=false)
-    if value.is_a?(Symbol)
-      value = HATS[value].id
-    end
-    if is_secondary
-      @hat2= value
-    else
-      @hat=value
-    end
-    refreshPlayerOutfit()
-  end
-
-
-  #todo : refactor to always use set_hat instead
   def hat=(value)
     if value.is_a?(Symbol)
       value = HATS[value].id
     end
     @hat=value
-    refreshPlayerOutfit()
-  end
-
-  #todo : refactor to always use set_hat instead
-  def hat2=(value)
-    if value.is_a?(Symbol)
-      value = HATS[value].id
-    end
-    @hat2=value
     refreshPlayerOutfit()
   end
 
@@ -195,40 +126,23 @@ class Player < Trainer
   end
 
   def clothes_color=(value)
+    echoln value
+    echoln @clothes
+    echoln $Trainer.dyed_clothes
+    echoln caller
+
     @clothes_color=value
     $Trainer.dyed_clothes= {} if !$Trainer.dyed_clothes
     $Trainer.dyed_clothes[@clothes] = value if value
     refreshPlayerOutfit()
   end
-
-  def set_hat_color(value, is_secondary=false)
-    if is_secondary
-      @hat2_color=value
-    else
-      @hat_color=value
-    end
-    $Trainer.dyed_hats= {} if !$Trainer.dyed_hats
-    worn_hat = is_secondary ? @hat2 : @hat
-    $Trainer.dyed_hats[worn_hat] = value if value
-    refreshPlayerOutfit()
-  end
-
-
   def hat_color=(value)
     @hat_color=value
-    $Trainer.dyed_hats= {} if !$Trainer.dyed_hats
-    worn_hat = @hat
-    $Trainer.dyed_hats[worn_hat] = value if value
+    $Trainer.dyed_hats= {} if ! $Trainer.dyed_hats
+    $Trainer.dyed_hats[@hat] = value if value
     refreshPlayerOutfit()
   end
 
-  def hat2_color=(value)
-    @hat2_color=value
-    $Trainer.dyed_hats= {} if !$Trainer.dyed_hats
-    worn_hat = @hat2
-    $Trainer.dyed_hats[worn_hat] = value if value
-    refreshPlayerOutfit()
-  end
 
   def unlock_clothes(outfitID,silent=false)
     update_global_clothes_list()
@@ -350,8 +264,6 @@ class Player < Trainer
     @character_ID          = -1
     @outfit                = 0
     @hat                   = 0
-    @hat2                  = 0
-
     @hair                  = 0
     @clothes               = 0
     @hair_color            = 0
@@ -374,18 +286,12 @@ class Player < Trainer
     @surfing_pokemon = nil
     @last_worn_outfit = nil
     @last_worn_hat = nil
-    @last_worn_hat2 = nil
 
     @dyed_hats = {}
     @dyed_clothes = {}
 
-    @favorite_hat = nil
-    @favorite_hat2 =nil
-    @favorite_clothes = nil
 
     @card_background = Settings::DEFAULT_TRAINER_CARD_BG
     @unlocked_card_backgrounds = [@card_background]
-
-    @seen_qmarks_sprite = false
   end
 end

@@ -244,7 +244,6 @@ module GameData
         if prefix[-1] == suffix[0]
           prefix = prefix[0..-2]
         end
-        suffix = suffix.capitalize if prefix.end_with?(" ")
         return prefix + suffix
 
       rescue

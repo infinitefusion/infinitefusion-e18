@@ -141,7 +141,7 @@ def showLoadingScreen
      picture = Sprite.new(@viewport)
      picture.bitmap = pbBitmap(intro_frames_path)
      picture.visible=true
-     Graphics.update
+     pbWait(Graphics.frame_rate / 20)
      picture.dispose
 end
 

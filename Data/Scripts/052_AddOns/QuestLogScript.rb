@@ -92,7 +92,7 @@ QUESTS = {
   #Cerulean hotel
   3 => Quest.new(3, "Playing Cupid", "A boy in Cerulean City wants you bring a love letter to a Pokémon Breeder named Maude. She's probably somewhere in one of the routes near Cerulean City", QuestBranchHotels, "BW (18)", "Cerulean City", HotelQuestColor),
   4 => Quest.new(4, "Fishing for Sole", "A fisherman wants you to fish up an old boot. Hook it up with the old rod in any body of water.", QuestBranchHotels, "BW (71)", "Cerulean City", HotelQuestColor),
-  5 => Quest.new(5, "Johto Pokémon", "A traveler in the PokéMart wants you to show him a Pokémon native to the Johto region.", QuestBranchHotels, "traveler_johto", "Cerulean City", HotelQuestColor),
+  5 => Quest.new(5, "Johto Pokémon", "An traveler in the PokéMart wants you to show him a Pokémon native to the Johto region.", QuestBranchHotels, "traveler_johto", "Cerulean City", HotelQuestColor),
   "cerulean_2" => Quest.new(5, "Type Experts", "Defeat all of the Type Experts scattered around the Kanto region (#{pbGet(VAR_TYPE_EXPERTS_BEATEN)}/#{TOTAL_NB_TYPE_EXPERTS})", QuestBranchHotels, "expert-normal", "Cerulean City", HotelQuestColor),
 
   #Route 24
@@ -267,10 +267,6 @@ end
 def pbSetQuest(id, completed)
   $Trainer.quests = [] if $Trainer.quests.class == NilClass
   for q in $Trainer.quests
-    echoln id
-    echoln q.id
-    echoln q.completed
-    echoln "----"
     q.completed = completed if q.id == id
   end
 end
@@ -332,16 +328,12 @@ class Questlog
     @box = 0
     @completed = []
     @ongoing = []
-
-
-    fix_broken_TR_quests()
     for q in $Trainer.quests
       @ongoing << q if !q.completed && @ongoing.include?(q)
       @completed << q if q.completed && @completed.include?(q)
     end
 
     for q in $Trainer.quests
-      echoln "#{q.id}: #{q.completed}"
       @ongoing << q if !q.completed
       @completed << q if q.completed
     end
@@ -384,7 +376,6 @@ class Questlog
     pbUpdate
   end
 
-
   def pbUpdate
     @frame = 0
     loop do
@@ -394,13 +385,13 @@ class Questlog
       if @scene == 0
         break if Input.trigger?(Input::B)
         pbList(@sel_one) if Input.trigger?(Input::C)
-        pbSwitch(:DOWN) if Input.press?(Input::DOWN)
+        pbSwitch(:DOWN) if Input.trigger?(Input::DOWN)
         pbSwitch(:UP) if Input.trigger?(Input::UP)
       end
       if @scene == 1
         pbMain if Input.trigger?(Input::B)
-        pbMove(:DOWN) if Input.press?(Input::DOWN)
-        pbMove(:UP) if Input.press?(Input::UP)
+        pbMove(:DOWN) if Input.trigger?(Input::DOWN)
+        pbMove(:UP) if Input.trigger?(Input::UP)
         pbLoad(0) if Input.trigger?(Input::C)
         pbArrows
       end
@@ -649,6 +640,7 @@ class Questlog
   end
 
   def pbMove(dir)
+    pbWait(1)
     if dir == :DOWN
       return if @sel_two == @ongoing.size - 1 && @mode == 0
       return if @sel_two == @completed.size - 1 && @mode == 1
@@ -751,11 +743,10 @@ class Questlog
         end
       end
     end
-    pbWait(4)
   end
 
   def pbList(id)
-    pbWait(2)
+    pbWait(1)
     @sel_two = 0
     @page = 0
     @scene = 1

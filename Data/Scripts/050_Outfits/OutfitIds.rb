@@ -10,16 +10,7 @@ CLOTHES_ADVENTURER = "fantasyadventurersoutfit"
 CLOTHES_EMERALD = "emeraldSPE"
 CLOTHES_PIKACHU_ONESIE = "pikaonesie"
 
-CLOTHES_GLITCH = "glitzerset"
 CLOTHES_BREEDER="PKMBreeder"
-
-CLOTHES_FOSSIL_M ="sado"
-CLOTHES_FOSSIL_F ="sada"
-
-CLOTHES_TREVENANT= "trevenantforestkingcloak"
-
-CLOTHES_WAITRESS = "maid"
-CLOTHES_WAITER = "butler"
 
 CLOTHES_LASS_YELLOW ="lass"
 CLOTHES_LASS_BLUE ="lass2"
@@ -57,12 +48,7 @@ HAT_SLOWKING_SHELL = "slowking"
 HAT_ZOROARK = "banefulfoxmask"
 HAT_FROG = "froghat"
 HAT_SANTA = "santa"
-HAT_QMARKS = "glitzerset"
-HAT_SUDOWOODO = "sudowoodohorns"
 
-HAT_TREVENANT="trevenantforestkingcrown"
-
-HAT_CLOWN = "clownnose"
 
 HAT_BREEDER_1="breedervisor"
 HAT_BREEDER_2="breederbandana"
@@ -72,7 +58,6 @@ HAT_BREEDER_3="egg"
 
 HAT_BREEDEROUTFIT="PKMBreeder"
 
-HAT_WAITRESS = "maid"
 
 FUSION_HAT = "fusionnerd"
 FUSION_OUTFIT = "fusionnerd"
@@ -81,9 +66,6 @@ HAT_ASH = "ash"
 HAT_BIANCA = "bianca"
 HAT_CLEFAIRY = "clefairyearheadband"
 HAT_FLOWER = "mikufairy"
-
-HAT_SKITTY_TV = "skittyTV"
-HAT_TVHEAD = "tvhead"
 
 
 HAT_CARDBOARD_BOX = "box"
@@ -123,7 +105,7 @@ HAIR_SURGE = "surge"  #does not exist yet
 HAIR_ERIKA = "erika"
 HAIR_KOGA = "koga"  #does not exist yet
 HAIR_JANINE = "janine"
-HAIR_SABRINA = "sabrinaGSC"
+HAIR_SABRINA = "sabrina" #does not exist yet
 HAIR_BLAINE = "blaine" #does not exist yet
 HAIR_GIOVANNI = "giovanni" #does not exist yet
 HAIR_WHITNEY = "whitney"
@@ -134,10 +116,3 @@ HAIR_CHUCK = "chuck" #does not exist yet
 HAIR_PRYCE = "pryce" #does not exist yet
 HAIR_MORTY = "morty" #does not exist yet
 HAIR_JASMINE = "jasmine" #does not exist yet
-
-HAIR_HOOH = "ho-oh"
-HAIR_CRESSELIA = "lunarbob"
-HAIR_LYCANROC="lycanrocshorthair"
-HAIR_HAPPINY="happinysuit"
-HAIR_LATIAS="SpecialLatias"
-HAIR_GARDEVOIR="gardevoir"

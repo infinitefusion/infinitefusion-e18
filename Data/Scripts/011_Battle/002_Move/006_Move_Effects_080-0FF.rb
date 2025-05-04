@@ -3226,8 +3226,10 @@ class PokeBattle_Move_0F1 < PokeBattle_Move
     # removed target.item == target.initialItem, this may cause bugs.
     if @battle.wildBattle? && target.opposes? && !user.initialItem
       user.setInitialItem(target.item)
+      target.pbRemoveItem
+    else
+      target.pbRemoveItem(false)
     end
-    target.pbRemoveItem(false)
     @battle.pbDisplay(_INTL("{1} stole {2}'s {3}!",user.pbThis,target.pbThis(true),itemName))
     user.pbHeldItemTriggerCheck
   end

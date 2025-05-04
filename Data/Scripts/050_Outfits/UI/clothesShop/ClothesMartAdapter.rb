@@ -1,5 +1,4 @@
 class ClothesMartAdapter < OutfitsMartAdapter
-
   DEFAULT_NAME = "[unknown]"
   DEFAULT_DESCRIPTION = "A piece of clothing that trainers can wear."
   def toggleEvent(item)
@@ -15,9 +14,12 @@ class ClothesMartAdapter < OutfitsMartAdapter
   end
 
   def getName(item)
-    name= item.id
-    name = "* #{name}" if is_wearing_clothes(item.id)
-    return name
+    return item.id
+  end
+
+  def getDisplayName(item)
+    return getName(item) if !item.name
+    return item.name
   end
 
   def getDescription(item)
@@ -40,11 +42,11 @@ class ClothesMartAdapter < OutfitsMartAdapter
     previewWindow.updatePreview()
   end
 
-  def get_dye_color(item_id)
+  def get_dye_color(item)
     return 0 if isShop?
     $Trainer.dyed_clothes= {} if ! $Trainer.dyed_clothes
-    if $Trainer.dyed_clothes.include?(item_id)
-      return $Trainer.dyed_clothes[item_id]
+    if $Trainer.dyed_clothes.include?(item.id)
+      return $Trainer.dyed_clothes[item.id]
     end
     return 0
   end
@@ -77,18 +79,9 @@ class ClothesMartAdapter < OutfitsMartAdapter
     return $Trainer.clothes
   end
 
-  def player_changed_clothes?()
-    $Trainer.clothes != @worn_clothes
-  end
-
-  def putOnSelectedOutfit()
-    putOnClothes($Trainer.clothes)
-    @worn_clothes = $Trainer.clothes
-  end
-
   def putOnOutfit(item)
-    putOnClothes(item.id) if item
-    @worn_clothes = item.id if item
+    putOnClothes(item.id)
+    @worn_clothes = item.id
   end
 
   def reset_player_clothes()

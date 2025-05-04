@@ -66,15 +66,9 @@ def setHairColor(hue_shift)
   refreshPlayerOutfit()
 end
 
-def shiftHatColor(incr,secondary_hat=false)
-  if secondary_hat
-    $Trainer.hat2_color = 0 if !$Trainer.hat2_color
-    $Trainer.hat2_color += incr
-  else
-    $Trainer.hat_color = 0 if !$Trainer.hat_color
-    $Trainer.hat_color += incr
-  end
-
+def shiftHatColor(incr)
+  $Trainer.hat_color = 0 if !$Trainer.hat_color
+  $Trainer.hat_color += incr
   refreshPlayerOutfit()
 end
 
@@ -87,7 +81,6 @@ end
 def shiftHairColor(incr)
   $Trainer.hair_color = 0 if !$Trainer.hair_color
   $Trainer.hair_color += incr
-  echoln "Hair color: #{$Trainer.hair_color}"
   refreshPlayerOutfit()
 end
 
@@ -121,13 +114,8 @@ def getEasterEggHeldItem()
   return "secrets/MAGIKARP" if [394,471,189,].include?(map) #Fishing huts
   return "secrets/AZUREFLUTE" if [694,].include?(map) && $PokemonBag.pbQuantity(:AZUREFLUTE)>=1 #Ice Mountain peak
   return "secrets/BIGSODA" if [436,].include?(map) && $PokemonBag.pbQuantity(:SODAPOP)>=1 #Celadon dept. store top
-  return "secrets/EGG" if [13,406,214,].include?(map) #Day care
+  return "secrets/EGG" if [13,406,214,].include?(map) #Celadon Café
   return "secrets/STICK" if [266,].include?(map) #Ilex forest
-  return "secrets/BANANA" if [600,].include?(map) #Bond Bridge
-  return "secrets/BERRY" if [619,620,].include?(map) #Berry forest
-  return "secrets/COIN" if [357].include?(map) #Pokemart
-  return "secrets/LATTE" if [406].include?(map) #Celadon Café
-
   return nil
 end
 
@@ -140,35 +128,28 @@ def getCurrentPokeball(allowEasterEgg=true)
 end
 
 def generate_front_trainer_sprite_bitmap_from_appearance(trainerAppearance)
+  echoln caller
   echoln trainerAppearance.hat
-  return generate_front_trainer_sprite_bitmap(false,nil,trainerAppearance.clothes,trainerAppearance.hat,trainerAppearance.hat2,
+  return generate_front_trainer_sprite_bitmap(false,nil,trainerAppearance.clothes,trainerAppearance.hat,
                                               trainerAppearance.hair,trainerAppearance.skin_color,
-                                              trainerAppearance.hair_color,trainerAppearance.hat_color,trainerAppearance.clothes_color,
-                                              trainerAppearance.hat2_color)
+                                              trainerAppearance.hair_color,trainerAppearance.hat_color,trainerAppearance.clothes_color)
 end
 
-def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,
-                                         clothes_id = nil, hat_id = nil, hat2_id=nil, hair_id = nil,
-                                         skin_tone_id = nil, hair_color = nil, hat_color = nil, clothes_color = nil,
-                                         hat2_color = nil)
-
+def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil, clothes_id = nil, hat_id = nil, hair_id = nil,
+                                         skin_tone_id = nil, hair_color = nil, hat_color = nil, clothes_color = nil)
+  echoln hat_id
   clothes_id = $Trainer.clothes if !clothes_id
   hat_id = $Trainer.hat if !hat_id
-  hat2_id = $Trainer.hat2 if !hat2_id
-
   hair_id = $Trainer.hair if !hair_id
   skin_tone_id = $Trainer.skin_tone if !skin_tone_id
   hair_color = $Trainer.hair_color if !hair_color
   hat_color = $Trainer.hat_color if !hat_color
-  hat2_color = $Trainer.hat2_color if !hat2_color
   clothes_color = $Trainer.clothes_color if !clothes_color
 
   hairFilename = getTrainerSpriteHairFilename(hair_id) #_INTL(Settings::PLAYER_GRAPHICS_FOLDER + Settings::PLAYER_HAIR_FOLDER + "/hair_trainer_{1}", $Trainer.hair)
   outfitFilename = getTrainerSpriteOutfitFilename(clothes_id) #_INTL(Settings::PLAYER_GRAPHICS_FOLDER + Settings::PLAYER_CLOTHES_FOLDER + "/clothes_trainer_{1}", $Trainer.clothes)
 
-  hatFilename = getTrainerSpriteHatFilename(hat_id)
-  hat2Filename = getTrainerSpriteHatFilename(hat2_id)
-
+  hatFilename = getTrainerSpriteHatFilename(hat_id) # _INTL(Settings::PLAYER_GRAPHICS_FOLDER + Settings::PLAYER_HAT_FOLDER + "/hat_trainer_{1}", $Trainer.hat)
   pokeball = getCurrentPokeball(allowEasterEgg) if !pokeball
   ballFilename = getTrainerSpriteBallFilename(pokeball) if pokeball
 
@@ -176,13 +157,10 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,
 
   hair_color_shift = hair_color
   hat_color_shift = hat_color
-  hat2_color_shift = hat2_color
   clothes_color_shift = clothes_color
 
   hair_color_shift = 0 if !hair_color_shift
   hat_color_shift = 0 if !hat_color_shift
-  hat2_color_shift = 0 if !hat2_color_shift
-
   clothes_color_shift = 0 if !clothes_color_shift
 
   baseBitmap = AnimatedBitmap.new(baseFilePath) if pbResolveBitmap(baseFilePath)
@@ -198,8 +176,7 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,
   outfitBitmap = AnimatedBitmap.new(outfitFilename, clothes_color_shift) if pbResolveBitmap(outfitFilename) #pb
   hairBitmapWrapper = AnimatedBitmap.new(hairFilename, hair_color_shift) if pbResolveBitmap(hairFilename)
 
-  hatBitmap = AnimatedBitmap.new(hatFilename, hat_color_shift) if pbResolveBitmap(hatFilename)
-  hat2Bitmap = AnimatedBitmap.new(hat2Filename, hat2_color_shift) if pbResolveBitmap(hat2Filename)
+  hatBitmap = AnimatedBitmap.new(hatFilename, hat_color_shift) if pbResolveBitmap(hatFilename) #pbLoadOutfitBitmap(hatFilename) if pbResolveBitmap(hatFilename)
 
   baseBitmap.bitmap = baseBitmap.bitmap.clone
   if outfitBitmap
@@ -210,7 +187,6 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,
     baseBitmap.bitmap.blt(0, 0, outfitBitmap.bitmap, outfitBitmap.bitmap.rect)
   end
   baseBitmap.bitmap.blt(0, 0, hairBitmapWrapper.bitmap, hairBitmapWrapper.bitmap.rect) if hairBitmapWrapper
-  baseBitmap.bitmap.blt(0, 0, hat2Bitmap.bitmap, hat2Bitmap.bitmap.rect) if hat2Bitmap
   baseBitmap.bitmap.blt(0, 0, hatBitmap.bitmap, hatBitmap.bitmap.rect) if hatBitmap
   baseBitmap.bitmap.blt(44, 42, ballBitmap, ballBitmap.rect) if ballBitmap
 
@@ -219,6 +195,7 @@ end
 
 def generateNPCClothedBitmapStatic(trainerAppearance,action = "walk")
   baseBitmapFilename = getBaseOverworldSpriteFilename(action, trainerAppearance.skin_color)
+
   baseSprite = AnimatedBitmap.new(baseBitmapFilename)
 
   baseBitmap = baseSprite.bitmap.clone # nekkid sprite
@@ -238,33 +215,9 @@ def generateNPCClothedBitmapStatic(trainerAppearance,action = "walk")
   hair_color_shift = trainerAppearance.hair_color || 0
   hairBitmap = AnimatedBitmap.new(hairFilename, hair_color_shift).bitmap if pbResolveBitmap(hairFilename)
   baseBitmap.blt(0, 0, hairBitmap, hairBitmap.rect)
-
-  #Hat
   hat_color_shift = trainerAppearance.hat_color || 0
-  hat2_color_shift = trainerAppearance.hat2_color || 0
-
   hatFilename = getOverworldHatFilename(trainerAppearance.hat)
-  hat2Filename = getOverworldHatFilename(trainerAppearance.hat2)
-
   hatBitmapWrapper = AnimatedBitmap.new(hatFilename, hat_color_shift) if pbResolveBitmap(hatFilename)
-  hat2BitmapWrapper = AnimatedBitmap.new(hat2Filename, hat2_color_shift) if pbResolveBitmap(hat2Filename)
-
-
-  if hat2BitmapWrapper
-    frame_count = 4 # Assuming 4 frames for hair animation; adjust as needed
-    hat2_frame_bitmap = duplicateHatForFrames(hat2BitmapWrapper.bitmap, frame_count)
-
-    frame_width = baseSprite.bitmap.width / frame_count # Calculate frame width
-
-    frame_count.times do |i|
-      # Calculate offset for each frame
-      frame_offset = [i * frame_width, 0]
-      # Adjust Y offset if frame index is odd
-      frame_offset[1] -= 2 if i.odd?
-      positionHat(baseBitmap, hat2_frame_bitmap, frame_offset, i, frame_width)
-    end
-  end
-
   if hatBitmapWrapper
     frame_count = 4 # Assuming 4 frames for hair animation; adjust as needed
     hat_frame_bitmap = duplicateHatForFrames(hatBitmapWrapper.bitmap, frame_count)
@@ -279,11 +232,9 @@ def generateNPCClothedBitmapStatic(trainerAppearance,action = "walk")
       positionHat(baseBitmap, hat_frame_bitmap, frame_offset, i, frame_width)
     end
   end
-
   return baseBitmap
 end
 
-#for continue screen
 def generateClothedBitmapStatic(trainer, action = "walk")
   baseBitmapFilename = getBaseOverworldSpriteFilename(action, trainer.skin_tone)
   if !pbResolveBitmap(baseBitmapFilename)
@@ -297,13 +248,10 @@ def generateClothedBitmapStatic(trainer, action = "walk")
   outfitFilename = getOverworldOutfitFilename(Settings::PLAYER_TEMP_OUTFIT_FALLBACK) if !pbResolveBitmap(outfitFilename)
   hairFilename = getOverworldHairFilename(trainer.hair)
   hatFilename = getOverworldHatFilename(trainer.hat)
-  hat2Filename = getOverworldHatFilename(trainer.hat2)
 
   # Use default values if color shifts are not set
   hair_color_shift = trainer.hair_color || 0
   hat_color_shift = trainer.hat_color || 0
-  hat2_color_shift = trainer.hat2_color || 0
-
   clothes_color_shift = trainer.clothes_color || 0
 
   # Use fallback outfit if the specified outfit cannot be resolved
@@ -315,7 +263,6 @@ def generateClothedBitmapStatic(trainer, action = "walk")
   outfitBitmap = AnimatedBitmap.new(outfitFilename, clothes_color_shift)
   hairBitmapWrapper = AnimatedBitmap.new(hairFilename, hair_color_shift) if pbResolveBitmap(hairFilename)
   hatBitmapWrapper = AnimatedBitmap.new(hatFilename, hat_color_shift) if pbResolveBitmap(hatFilename)
-  hat2BitmapWrapper = AnimatedBitmap.new(hat2Filename, hat2_color_shift) if pbResolveBitmap(hat2Filename)
 
   # Blit the outfit onto the base sprite
   baseBitmap.blt(0, 0, outfitBitmap.bitmap, outfitBitmap.bitmap.rect) if outfitBitmap
@@ -323,20 +270,13 @@ def generateClothedBitmapStatic(trainer, action = "walk")
   current_offset = [0, 0] # Replace this with getCurrentSpriteOffset() if needed
   positionHair(baseBitmap, hairBitmapWrapper.bitmap, current_offset) if hairBitmapWrapper
 
-  frame_count = 4
-  frame_width = baseSprite.bitmap.width / frame_count # Calculate frame width
-  if hat2BitmapWrapper
-    hat2_frame_bitmap = duplicateHatForFrames(hat2BitmapWrapper.bitmap, frame_count)
-    frame_count.times do |i|
-      # Calculate offset for each frame
-      frame_offset = [i * frame_width, 0]
-      # Adjust Y offset if frame index is odd
-      frame_offset[1] -= 2 if i.odd?
-      positionHat(baseBitmap, hat2_frame_bitmap, frame_offset, i, frame_width)
-    end
-  end
+  # Handle the hat - duplicate it for each frame if necessary
   if hatBitmapWrapper
+    frame_count = 4 # Assuming 4 frames for hair animation; adjust as needed
     hat_frame_bitmap = duplicateHatForFrames(hatBitmapWrapper.bitmap, frame_count)
+
+    frame_width = baseSprite.bitmap.width / frame_count # Calculate frame width
+
     frame_count.times do |i|
       # Calculate offset for each frame
       frame_offset = [i * frame_width, 0]

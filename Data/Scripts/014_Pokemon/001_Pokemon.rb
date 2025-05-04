@@ -54,10 +54,6 @@ class Pokemon
 
   # @return [Array<Pokemon::Move>] the moves known by this Pokémon
   attr_accessor :moves
-
-  # @return [Array<Pokemon::Move>] All the moves ever learned by this Pokémon
-  attr_accessor :learned_moves
-
   # @return [Array<Integer>] the IDs of moves known by this Pokémon when it was obtained
   attr_accessor :first_moves
   # @return [Array<Symbol>] an array of ribbons owned by this Pokémon
@@ -345,10 +341,7 @@ class Pokemon
     #reverse the fusion if it's a meloA and meloP fusion
     # There's probably a smarter way to do this but laziness lol
     if is_already_old_form && is_already_new_form
-      body_id = self.species_data.get_body_species()
-      body_species = GameData::Species.get(body_id)
-
-      if body_species == oldForm
+      if self.species_data.get_body_species() == oldForm
         changeSpeciesSpecific(self, getFusedPokemonIdFromSymbols(newForm, oldForm))
       else
         changeSpeciesSpecific(self, getFusedPokemonIdFromSymbols(oldForm, newForm))
@@ -872,18 +865,9 @@ class Pokemon
     first_move_index = knowable_moves.length - MAX_MOVES
     first_move_index = 0 if first_move_index < 0
     for i in first_move_index...knowable_moves.length
-      move = Pokemon::Move.new(knowable_moves[i])
-      @moves.push(move)
-      @learned_moves = [] if !@learned_moves
-      @learned_moves << move if !@learned_moves.include?(move)
+      @moves.push(Pokemon::Move.new(knowable_moves[i]))
     end
   end
-
-  def add_learned_move(move)
-    @learned_moves = [] if !@learned_moves
-    @learned_moves << move unless @learned_moves.include?(move)
-  end
-
 
   # Silently learns the given move. Will erase the first known move if it has to.
   # @param move_id [Symbol, String, Integer] ID of the move to learn
@@ -897,14 +881,10 @@ class Pokemon
       @moves.delete_at(i)
       return
     end
-    move = Pokemon::Move.new(move_data.id)
     # Move is not already known; learn it
-    @moves.push(move)
+    @moves.push(Pokemon::Move.new(move_data.id))
     # Delete the first known move if self now knows more moves than it should
     @moves.shift if numMoves > MAX_MOVES
-    @learned_moves = [] if !@learned_moves
-    @learned_moves << move if !@learned_moves.include?(move)
-    echoln @learned_moves
   end
 
   # Deletes the given move from the Pokémon.
@@ -1350,7 +1330,7 @@ class Pokemon
       when :LARGE
         return { :HP => 75, :ATTACK => 95, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 69}
       when :SUPER
-        return { :HP => 85, :ATTACK => 100, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 54}
+        return { :HP => 85, :ATTACK => 10, :DEFENSE => 122, :SPECIAL_ATTACK => 58, :SPECIAL_DEFENSE => 75, :SPEED => 54}
       end
     end
     return nil
@@ -1538,7 +1518,6 @@ class Pokemon
     @item = nil
     @mail = nil
     @moves = []
-    @learned_moves = []
     reset_moves if withMoves
     @first_moves = []
     @ribbons = []

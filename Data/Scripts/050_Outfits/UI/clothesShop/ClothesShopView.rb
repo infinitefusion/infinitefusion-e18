@@ -8,9 +8,9 @@ class ClothesShopView < PokemonMart_Scene
     super(buying, stock, adapter)
     @sprites["icon"].visible = false
     if @adapter.isShop?
-      @sprites["background"].setBitmap("Graphics/Pictures/Outfits/martScreenOutfit")
+      @sprites["background"].setBitmap("Graphics/Pictures/martScreenOutfit")
     else
-      @sprites["background"].setBitmap("Graphics/Pictures/Outfits/changeOutfitScreen")
+      @sprites["background"].setBitmap("Graphics/Pictures/changeOutfitScreen")
     end
 
     preview_y = @adapter.isShop? ? 80 : 0
@@ -21,23 +21,6 @@ class ClothesShopView < PokemonMart_Scene
 
     Kernel.pbDisplayText(@adapter.toggleText, 80, 200, 99999) if @adapter.toggleText
 
-  end
-
-  def select_specific_item(scroll_to_item_id,go_to_end_of_list_if_nil=false)
-    itemwindow = @sprites["itemwindow"]
-    if !scroll_to_item_id && go_to_end_of_list_if_nil
-      itemwindow.index=@adapter.items.length-1
-      itemwindow.refresh
-    end
-    i=0
-    for item in @adapter.items
-      next if !item.is_a?(Outfit)
-      if item.id == scroll_to_item_id
-        itemwindow.index=i
-        itemwindow.refresh
-      end
-      i+=1
-    end
   end
 
   def scroll_map
@@ -53,11 +36,14 @@ class ClothesShopView < PokemonMart_Scene
     pbScrollMap(DIRECTION_LEFT, 7, 6)
     pbScrollMap(DIRECTION_DOWN, 5, 6)
     $game_player.turn_generic(@initial_direction)
+    #$scene.reset_map(true)
+    #pbRefreshSceneMap
+    # $scene.reset_map(false)
   end
 
   def refreshStock(adapter)
     @adapter = adapter
-    @sprites["itemwindow"].dispose if !@sprites
+    @sprites["itemwindow"].dispose
     @sprites["itemwindow"] = Window_PokemonMart.new(@stock, BuyAdapter.new(adapter),
                                                     Graphics.width - 316 - 16, 12, 330 + 16, Graphics.height - 126)
   end
@@ -67,6 +53,9 @@ class ClothesShopView < PokemonMart_Scene
       @subscene.pbRefresh
     else
       itemwindow = @sprites["itemwindow"]
+      #@sprites["icon"].item = itemwindow.item
+      #@sprites["icon"].item = itemwindow.item
+
       item = itemwindow.item
       if itemwindow.item
         if itemwindow.item.is_a?(Symbol)
@@ -102,11 +91,6 @@ class ClothesShopView < PokemonMart_Scene
     @sprites["itemtextwindow"].text = description
   end
 
-  def updatePreviewWindow
-    itemwindow= @sprites["itemwindow"]
-    @adapter.updateTrainerPreview(itemwindow.item, @sprites["trainerPreview"])
-  end
-
   def pbChooseBuyItem
     itemwindow = @sprites["itemwindow"]
     refreshStock(@adapter) if !itemwindow
@@ -126,9 +110,9 @@ class ClothesShopView < PokemonMart_Scene
           #@adapter.switchVersion(itemwindow.item, -1)
           #updateTrainerPreview()
         end
-
-        if Input.trigger?(Input::AUX2) || Input.trigger?(Input::SHIFT) #R button
-          switchItemVersion(itemwindow)
+        if Input.trigger?(Input::AUX2) #R button
+          @adapter.switchVersion(itemwindow.item, 1)
+          updateTrainerPreview()
         end
         if Input.trigger?(Input::SPECIAL) #R button
           @adapter.toggleEvent(itemwindow.item)
@@ -140,8 +124,8 @@ class ClothesShopView < PokemonMart_Scene
           return nil
         elsif Input.trigger?(Input::USE)
           if itemwindow.item.is_a?(Symbol)
-            ret = onSpecialActionTrigger(itemwindow)
-            return ret if ret
+            @adapter.doSpecialItemAction(itemwindow.item)
+            updateTrainerPreview()
           elsif itemwindow.index < @stock.length
             pbRefresh
             return @stock[itemwindow.index]
@@ -151,28 +135,6 @@ class ClothesShopView < PokemonMart_Scene
         end
       end
     }
-  end
-
-  def onSpecialActionTrigger(itemwindow)
-    @adapter.doSpecialItemAction(itemwindow.item)
-    updateTrainerPreview()
-    return nil
-  end
-  def onItemClick(itemwindow)
-    if itemwindow.item.is_a?(Symbol)
-      @adapter.doSpecialItemAction(itemwindow.item)
-      updateTrainerPreview()
-    elsif itemwindow.index < @stock.length
-      pbRefresh
-      return @stock[itemwindow.index]
-    else
-      return nil
-    end
-  end
-
-  def switchItemVersion(itemwindow)
-    @adapter.switchVersion(itemwindow.item, 1)
-    updateTrainerPreview()
   end
 
   def update

@@ -46,14 +46,7 @@
 def onLoadExistingGame()
   migrateOldSavesToCharacterCustomization()
   clear_all_images()
-  loadDateSpecificChanges()
-end
 
-def loadDateSpecificChanges()
-  current_date = Time.new
-  if (current_date.day == 1 && current_date.month == 4)
-    $Trainer.hat2=HAT_CLOWN if $Trainer.unlocked_hats.include?(HAT_CLOWN)
-  end
 end
 
 def onStartingNewGame() end
@@ -386,22 +379,9 @@ class PokemonLoadScreen
   def check_for_spritepack_update()
     $updated_spritesheets = [] if !$updated_spritesheets
     if new_spritepack_was_released()
-      pbFadeOutIn() {
-        return if !downloadAllowed?()
-        should_update = pbConfirmMessage("A new spritepack was released. Would you like to let the game update your game's sprites automatically?")
-        if should_update
-          updateCreditsFile()
-          updateOnlineCustomSpritesFile()
-          reset_updated_spritesheets_cache()
-          spritesLoader = BattleSpriteLoader.new
-          spritesLoader.clear_sprites_cache(:CUSTOM)
-          spritesLoader.clear_sprites_cache(:BASE)
-
-          $updated_spritesheets = []
-          pbMessage("Data files updated. New sprites will now be downloaded as you play!")
-        end
-    }
-      end
+      reset_updated_spritesheets_cache()
+      $updated_spritesheets = []
+    end
   end
 
   def reset_updated_spritesheets_cache()
@@ -446,7 +426,9 @@ class PokemonLoadScreen
 
   def pbStartLoadScreen
     updateHttpSettingsFile
+    updateCreditsFile
     updateCustomDexFile
+    updateOnlineCustomSpritesFile
     newer_version = find_newer_available_version
     if newer_version
       pbMessage(_INTL("Version {1} is now available! Please use the game's installer to download the newest version. Check the Discord for more information.", newer_version))
@@ -462,7 +444,6 @@ class PokemonLoadScreen
       pbMessage(_INTL("{1} new custom sprites were imported into the game", $game_temp.nb_imported_sprites.to_s))
     end
     checkEnableSpritesDownload
-
     $game_temp.nb_imported_sprites = nil
     copyKeybindings()
     save_file_list = SaveData::AUTO_SLOTS + SaveData::MANUAL_SLOTS
@@ -526,11 +507,11 @@ class PokemonLoadScreen
           @scene.pbEndScene
           Game.load(@save_data)
           $game_switches[SWITCH_V5_1] = true
-          check_for_spritepack_update()
           ensureCorrectDifficulty()
           setGameMode()
           initialize_alt_sprite_substitutions()
           $PokemonGlobal.autogen_sprites_cache = {}
+          check_for_spritepack_update()
           preload_party(@save_data[:player])
           return
         when cmd_new_game
@@ -810,7 +791,6 @@ module Game
   end
 
   def self.backup_savefile(save_path, slot)
-    begin
     backup_dir = File.join(File.dirname(save_path), "backups")
     Dir.mkdir(backup_dir) if !Dir.exist?(backup_dir)
 
@@ -838,10 +818,6 @@ module Game
         echoln excess_backups
         excess_backups.each { |old_backup| File.delete(old_backup) }
       end
-    end
-    rescue => e
-      echoln ("There was an error while creating a backup savefile.")
-      echoln("Error: #{e.message}")
     end
   end
 

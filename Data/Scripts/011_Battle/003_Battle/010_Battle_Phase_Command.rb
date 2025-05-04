@@ -219,10 +219,7 @@ class PokeBattle_Battle
             break
           end
         when 2    # Pokémon
-          if pbPartyMenu(idxBattler)
-            @scene.setLastCommandIndex(idxBattler,0)
-            break
-          end
+          break if pbPartyMenu(idxBattler)
         when 3    # Run
           # NOTE: "Run" is only an available option for the first battler the
           #       player chooses an action for in a round. Attempting to run
