@@ -969,9 +969,12 @@ def drawSpriteCredits(pif_sprite, viewport)
   label_base_color = Color.new(98, 231, 110)
   label_shadow_color = Color.new(27, 169, 40)
 
-  #label_shadow_color = Color.new(33, 209, 50)
-  text = _INTL("Sprite by {1}", author_name)
-  textpos = [[text, x, y, 2, label_base_color, label_shadow_color]]
+  split_name = splitSpriteCredits(_INTL("Sprite by {1}", author_name), overlay, overlay.width - 20)
+  line_height = overlay.text_size(author_name).height
+  textpos = split_name.each_with_index.map { |name, index|
+    y = 240 - ((split_name.length - (index + 1)) * line_height)
+    [name, x, y, 2, label_base_color, label_shadow_color]
+  }
   pbDrawTextPositions(overlay, textpos)
 end
 

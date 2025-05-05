@@ -508,3 +508,58 @@ def new_spritepack_was_released()
   end
   return false
 end
+
+def splitSpriteCredits(name, bitmap, max_width)
+  name_full_width = bitmap.text_size(name).width
+  # use original name if can fit on one line
+  return [ name ] if name_full_width <= max_width
+
+  temp_string = name
+  name_split = []
+
+  # split name by collab separator " & " nearest to max width
+  start_pos = temp_string.index(' & ')
+  temp_pos = nil
+  while start_pos && (bitmap.text_size(temp_string).width > max_width)
+    substring_width = bitmap.text_size(temp_string[0, start_pos]).width
+    if substring_width > max_width
+      name_split << temp_string[0, temp_pos].strip
+      temp_string = temp_string[(temp_pos + 1)..].strip
+      start_pos = temp_string.index(' & ')
+      temp_pos = nil
+      next
+    end
+
+    temp_pos = start_pos
+    start_pos = temp_string.index(' & ', start_pos + 1)
+  end
+
+  # append remainder of " & " split if within max width
+  if temp_pos != nil
+    name_split << temp_string[0, temp_pos].strip
+    temp_string = temp_string[(temp_pos + 1)..].strip
+  end
+
+  # split remaining string by space
+  temp_pos = nil
+  if (bitmap.text_size(temp_string).width > max_width) && (start_pos = temp_string.index(' '))
+    while start_pos && (bitmap.text_size(temp_string).width > max_width)
+      substring_width = bitmap.text_size(temp_string[0, start_pos]).width
+      if substring_width > max_width
+        name_split << temp_string[0, temp_pos].strip
+        temp_string = temp_string[(temp_pos + 1)..].strip
+        start_pos = temp_string.index(' ')
+        temp_pos = nil
+        next
+      end
+
+      temp_pos = start_pos
+      start_pos = temp_string.index(' ', start_pos + 1)
+    end
+  end
+
+  # append remaining text, even if too long for screen
+  name_split << temp_string if temp_string != ''
+
+  return name_split
+end

@@ -227,63 +227,6 @@ class PokemonPokedexInfo_Scene
     update_selected
   end
 
-  def splitSpriteCredits(name)
-    max_width = @creditsOverlay.width - 20
-    name_full_width = @creditsOverlay.text_size(name).width
-    # use original name if can fit on one line
-    return [ name ] if name_full_width <= max_width
-
-    temp_string = name
-    name_split = []
-
-    # split name by collab separator " & " up to screen width
-    start_pos = temp_string.index(' & ')
-    temp_pos = nil
-    while start_pos && (@creditsOverlay.text_size(temp_string).width > max_width)
-      substring_width = @creditsOverlay.text_size(temp_string[0, start_pos]).width
-      if substring_width > max_width
-        name_split << temp_string[0, temp_pos].strip
-        temp_string = temp_string[(temp_pos + 1)..].strip
-        start_pos = temp_string.index(' & ')
-        temp_pos = nil
-        next
-      end
-
-      temp_pos = start_pos
-      start_pos = temp_string.index(' & ', start_pos + 1)
-    end
-
-    # append remainder of " & " split if within max width
-    if temp_pos != nil
-      name_split << temp_string[0, temp_pos].strip
-      temp_string = temp_string[(temp_pos + 1)..].strip
-    end
-
-    # split remaining string by space
-    temp_pos = nil
-    if (@creditsOverlay.text_size(temp_string).width > max_width) && (start_pos = temp_string.index(' '))
-      while start_pos && (@creditsOverlay.text_size(temp_string).width > max_width)
-        substring_width = @creditsOverlay.text_size(temp_string[0, start_pos]).width
-        if substring_width > max_width
-          name_split << temp_string[0, temp_pos].strip
-          temp_string = temp_string[(temp_pos + 1)..].strip
-          start_pos = temp_string.index(' ')
-          temp_pos = nil
-          next
-        end
-
-        temp_pos = start_pos
-        start_pos = temp_string.index(' ', start_pos + 1)
-      end
-    end
-
-    # append remaining text, even if too long for screen
-    name_split << temp_string if temp_string != ''
-
-    longest_line_width = name_split.map { |n| @creditsOverlay.text_size(n).width }.max
-    return name_split
-  end
-
   def showSpriteCredits(filename, generated_sprite = false)
     @creditsOverlay.dispose
 
@@ -299,16 +242,15 @@ class PokemonPokedexInfo_Scene
     discord_name = "Imported sprite" if @selected_pif_sprite.local_path
     author_name = File.basename(discord_name, '#*')
 
+    x = Graphics.width / 2
     label_base_color = Color.new(248, 248, 248)
     label_shadow_color = Color.new(104, 104, 104)
     @creditsOverlay = BitmapSprite.new(Graphics.width, Graphics.height, @viewport).bitmap
-    split_name = splitSpriteCredits(author_name)
+    split_name = splitSpriteCredits(author_name, @creditsOverlay, @creditsOverlay.width - 20)
     line_height = @creditsOverlay.text_size(author_name).height
     textpos = split_name.each_with_index.map { |name, index|
-      text_width = @creditsOverlay.text_size(name).width
-      x = (Graphics.width - text_width) / 2
       y = (Graphics.height - 60) + (line_height * ((index + 1) - ((split_name.length.to_f + 1) / 2)))
-      [name, x, y, 0, label_base_color, label_shadow_color]
+      [name, x, y, 2, label_base_color, label_shadow_color]
     }
     pbDrawTextPositions(@creditsOverlay, textpos)
   end
