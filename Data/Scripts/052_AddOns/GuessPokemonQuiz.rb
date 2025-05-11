@@ -251,15 +251,34 @@ class FusionQuiz
     return player_answer == answer_pokemon_name
   end
 
-  def get_random_pokemon_from_same_egg_group(pokemon, previous_choices)
+  def get_random_pokemon_from_same_egg_group(pokemon, amount_required)
+    pokemon = ::GameData::Species.get(pokemon)
     egg_groups = getPokemonEggGroups(pokemon)
-    while true
-      new_pokemon = rand(1, NB_POKEMON) + 1
+
+    # Get a list all pokemon in the same egg group
+    matching_egg_group = []
+    for num in 1..NB_POKEMON
+      next if pokemon.id_number == num
+      next if matching_egg_group.include?(num)
+      new_pokemon = ::GameData::Species.get(num)
       new_pokemon_egg_groups = getPokemonEggGroups(new_pokemon)
-      if (egg_groups & new_pokemon_egg_groups).any? && !previous_choices.include?(new_pokemon)
-        return new_pokemon
+      matching_egg_group << num if (egg_groups & new_pokemon_egg_groups).any?
+    end
+
+    # Select random pokemon from the list
+    matching_egg_group.shuffle!
+    choices = []
+    for index in 1..amount_required
+      if matching_egg_group[index].nil?
+        # If there's not enough pokemon in the list (e.g. for Ditto), get anything
+        new_pokemon = rand(1..NB_POKEMON) until !choices.include?(new_pokemon) && new_pokemon != pokemon.id_number
+        choices << new_pokemon
+      else
+        choices << matching_egg_group[index]
       end
     end
+
+    return choices
   end
 
   def prompt_pick_answer_regular(prompt_message, real_answer, should_new_choices)
@@ -271,9 +290,7 @@ class FusionQuiz
   def generate_new_choices(real_answer)
     choices = []
     choices << real_answer
-    choices << get_random_pokemon_from_same_egg_group(real_answer, choices)
-    choices << get_random_pokemon_from_same_egg_group(real_answer, choices)
-    choices << get_random_pokemon_from_same_egg_group(real_answer, choices)
+    choices.push(*get_random_pokemon_from_same_egg_group(real_answer, 3))
 
     commands = []
     choices.each do |dex_num, i|
