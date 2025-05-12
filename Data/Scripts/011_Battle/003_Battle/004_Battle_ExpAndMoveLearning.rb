@@ -190,6 +190,15 @@ class PokeBattle_Battle
     end
     tempExp1 = pkmn.exp
     battler = pbFindBattler(idxParty)
+
+    if pkmn.isFusion?
+      if pkmn.exp_gained_since_fused == nil
+        pkmn.exp_gained_since_fused = expGained
+      else
+        pkmn.exp_gained_since_fused += expGained
+      end
+    end
+
     loop do
       # For each level gained in turn...
       # EXP Bar animation
@@ -198,16 +207,6 @@ class PokeBattle_Battle
       tempExp2 = (levelMaxExp < expFinal) ? levelMaxExp : expFinal
       pkmn.exp = tempExp2
 
-
-
-      if pkmn.isFusion?
-        if pkmn.exp_gained_since_fused == nil
-          pkmn.exp_gained_since_fused = expGained
-        else
-          pkmn.exp_gained_since_fused += expGained
-        end
-
-      end
       @scene.pbEXPBar(battler, levelMinExp, levelMaxExp, tempExp1, tempExp2) if !dontAnimate
 
 
