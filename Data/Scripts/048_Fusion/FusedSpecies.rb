@@ -168,7 +168,7 @@ module GameData
     end
 
     def calculate_moveset
-      return combine_arrays(@body_pokemon.moves, @head_pokemon.moves)
+      return combine_moves(@body_pokemon.moves, @head_pokemon.moves)
     end
 
     def calculate_egg_moves
@@ -397,6 +397,25 @@ module GameData
 
     def combine_arrays(array1, array2)
       return array1 + array2
+    end
+
+    def combine_moves(array1, array2)
+      # Sort the moves while preserving the order between moves learnt in the same level
+      return array1 if array2.empty?
+      return array2 if array1.empty?
+      output = []
+      i = 0
+      array2.each do |b|
+        while i < array1.length
+          a = array1[i]
+          break if a[0] > b[0]
+          output.push(a)
+          i += 1
+        end
+        output.push(b) unless output.include?(b)
+      end
+      output += array1.slice(i) if i < array1.length
+      return output
     end
 
   end
