@@ -968,8 +968,9 @@ class Pokemon
 
   def pokemon_can_learn_move(species_data, move_data)
     return species_data.tutor_moves.include?(move_data.id) ||
-      species_data.moves.include?(move_data.id) ||
-      species_data.egg_moves.include?(move_data.id)
+      species_data.moves.any? { |move| move[1] == move_data.id } ||
+      species_data.egg_moves.include?(move_data.id) ||
+      GameData::Species.get(species_data.get_baby_species()).egg_moves.include?(move_data.id)
   end
 
   def can_relearn_move?
