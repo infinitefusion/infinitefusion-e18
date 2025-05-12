@@ -88,12 +88,7 @@ def pbGetRandomItem(item_id)
   return nil if item_id == nil
   item = GameData::Item.get(item_id)
   return item if !($game_switches[SWITCH_RANDOM_ITEMS] || $game_switches[SWITCH_RANDOM_TMS])
-  if $game_switches[SWITCH_RANDOM_ITEMS_MAPPED]
-    return getMappedRandomItem(item)
-  # elsif $game_switches[SWITCH_RANDOM_ITEMS_DYNAMIC]
-  #   return getDynamicRandomItem(item)
-  end
-  return item
+  return getMappedRandomItem(item)
 end
 
 def pbGetRandomHeldItem()
