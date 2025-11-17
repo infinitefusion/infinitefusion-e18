@@ -1,5 +1,5 @@
 ##########		CREDITS	         ###############
-Pok?mon Infinite Fusion: Hoenn
+Pok?mon Infinite Fusion & Pok?mon Infinite Fusion: Hoenn
 Game made by Chardub
 
 *This is NOT an official Pokemon game. The author of this game is not 
@@ -139,6 +139,13 @@ Gen 4 Legendary trio eggs by calicorn
 Nintendo
 GameFreak
 
+###########################################################
+###	French translation  #
+###########################################################
+anthonygourmand
+locpic_
+blood.wolf58 (Willi)
+ragzzh
 
 #######################################################################
 The following ressources were also used 
