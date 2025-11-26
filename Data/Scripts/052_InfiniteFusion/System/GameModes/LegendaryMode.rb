@@ -123,10 +123,12 @@ def getNewLegendaryFusionForGymType(original_species, nb_retries = 0)
 
   legendary_species = LEGENDARIES_LIST.sample
 
-  if pokemon_to_be_replaced.species == head_species.species
-    head_species_id = legendary_species
-  else
-    body_species_id = legendary_species
+  if !pokemon_to_be_replaced.nil?
+    if pokemon_to_be_replaced.species == head_species.species
+	  head_species_id = legendary_species
+	else
+      body_species_id = legendary_species
+	end
   end
   echoln "picked #{head_species_id}/#{body_species_id}"
   echoln "custom sprite exists: #{customSpriteExists(body_species_id, head_species_id)}"
