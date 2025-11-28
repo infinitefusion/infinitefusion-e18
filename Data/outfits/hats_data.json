@@ -1,5 +1,11 @@
 [
     {
+        "id": "absolhat",
+        "name": "Absol Cap",
+        "price": 5000,
+        "tags": "pokemon-absol,"
+    },
+    {
         "id": "aerodactylSkull",
         "name": "Aerodactyl Skull",
         "description": "An Aerodactyl skull that perfectly fits over a trainer's.",
@@ -8,6 +14,20 @@
         "price": 15000,
         "tags": "hat,pokemon-aerodactyl,type-fossil",
         "howToGet": "random drop from rock smash? "
+    },
+    {
+        "id": "aquaclip",
+        "name": "Aqua Clip",
+        "price": 3000,
+        "tags": "hairclip"
+    },
+    {
+        "id": "aronmask",
+        "name": "Aron Mask",
+        "description": "A heavy, steel mask shaped like the head of an Aron.",
+        "done": "yes",
+        "price": 6500,
+        "tags": "mask,pokemon-aron,pokemon-lairon,pokemon-aggron"
     },
     {
         "id": "ash",
@@ -50,6 +70,13 @@
         "howToGet": "regional set"
     },
     {
+        "id": "BirthdayCake",
+        "name": "Birthday Cake",
+        "description": "A tasty birthday cake full of frosting! Wear it on your head a statement.",
+        "price": 4000,
+        "tags": "hat,"
+    },
+    {
         "id": "blaineGlasses",
         "name": "Fake Mustache",
         "description": "Small, round sunglasses with a fake mustache attached.",
@@ -68,6 +95,13 @@
         "price": 500,
         "tags": "mask,",
         "howToGet": "randomly found in trash cans"
+    },
+    {
+        "id": "brawlyshades",
+        "name": "Brawl Shades",
+        "description": "Sporty shades that were popularized by a certain Gym Leader from the Hoenn region.",
+        "price": 4000,
+        "tags": "glasses,hoenn,"
     },
     {
         "id": "breederbandana",
@@ -90,6 +124,12 @@
         "howToGet": "reward for hatching x number of eggs? for getting every baby mon?"
     },
     {
+        "id": "breloomcap",
+        "name": "Breloom Cap",
+        "price": 8000,
+        "tags": "pokemon-shroomish,pokemon-breloom"
+    },
+    {
         "id": "brendanORAS",
         "name": "Sporty Cap",
         "description": "A black bandana and white beanie combo. It's popular with fledgling trainers in Hoenn.",
@@ -101,6 +141,14 @@
     },
     {
         "id": "brendanRSE",
+        "name": "Ruby Cap",
+        "description": "A red bandana and white beanie combo. It's popular with fledgling trainers in Hoenn.",
+        "price": 3500,
+        "tags": "hat, headband,trainer,hoenn,",
+        "howToGet": "regional set"
+    },
+    {
+        "id": "brendanE",
         "name": "Emerald Cap",
         "description": "A green bandana and white beanie combo. It's popular with fledgling trainers in Hoenn.",
         "done": "yes",
@@ -119,6 +167,13 @@
         "howToGet": "gym reward"
     },
     {
+        "id": "bruxishcrown",
+        "name": "Flower Lure",
+        "description": "A crown ressembling the flower-shaped lure from a Bruxish.",
+        "price": 5000,
+        "tags": "hairclip,headband,pokemon-bruxish,"
+    },
+    {
         "id": "bugantenna",
         "name": "Bug Antennas",
         "description": "Long antennas that make you look like you're a Bug-Type Pokémon.",
@@ -129,11 +184,17 @@
         "howToGet": "type trainer"
     },
     {
+        "id": "cafe",
+        "name": "Sturdy Beret",
+        "price": 500,
+        "tags": "vermillion,"
+    },
+    {
         "id": "calem",
         "name": "Red Cap & Sunglasses",
-        "description": "A red cap adorned with sunglasses. It's popular with fledgling trainers in Kalos.",
+        "description": "A fashionable red cap adorned with sunglasses. It's popular with fledgling trainers in Kalos.",
         "done": "yes",
-        "len": 81,
+        "len": 93,
         "price": 3500,
         "tags": "hat,trainer,kalos,",
         "howToGet": "regional set"
@@ -142,6 +203,7 @@
         "id": "carbink",
         "name": "Carbink Headband",
         "description": "A cute, rock-solid headband resembling Carbink.",
+        "done": "yes",
         "price": 5000,
         "tags": "hat,pokemon-carbink"
     },
@@ -154,6 +216,13 @@
         "price": 18000,
         "tags": "mask,trainer",
         "howToGet": "gym reward"
+    },
+    {
+        "id": "clay",
+        "name": "White Cowboy Hat",
+        "description": "A large cowboy hat popularized by the Unovan gym leader Clay.",
+        "price": 7500,
+        "tags": "hat,unova"
     },
     {
         "id": "clairbow",
@@ -174,6 +243,12 @@
         "price": 2000,
         "tags": "headband,pokemon-clefairy,pokemon-cleffa,pokemon-clefable",
         "howToGet": "gym reward"
+    },
+    {
+        "id": "clownnose",
+        "name": "Clown Nose",
+        "price": 15000,
+        "tags": "mask,special,"
     },
     {
         "id": "cloak",
@@ -250,6 +325,19 @@
         "howToGet": "type trainer"
     },
     {
+        "id": "diancie",
+        "name": "Jewel Crown",
+        "description": "A regal looking crown inspired by the jewels on a Diancie.",
+        "price": 50000,
+        "tags": "hat,pokemon-diancie"
+    },
+    {
+        "id": "dragonitehorns",
+        "name": "Dragonite Horns",
+        "price": 4500,
+        "tags": "hat,pokemon-dratini,pokemon-dragonair,pokemon-dragonite,"
+    },
+    {
         "id": "drifloon",
         "name": "Drifloon Hat",
         "description": "A purple rubber hat that is shaped like a Drifloon.",
@@ -278,6 +366,29 @@
         "price": 0,
         "tags": "nest,",
         "howToGet": "stay idle in celadon"
+    },
+    {
+        "id": "eeveeears",
+        "name": "Eevee Ears",
+        "tags": "hairband,pokemon-eevee,"
+    },
+    {
+        "id": "electrivireheadset",
+        "name": "Electivire Headset",
+        "price": 10000,
+        "tags": "hat,pokemon-elekid,pokemon-electabuzz,pokemon-electivire,"
+    },
+    {
+        "id": "elioSM",
+        "name": "Grey Cap",
+        "price": 1500,
+        "tags": "hat,alola,"
+    },
+    {
+        "id": "elioUSUM",
+        "name": "Bicolor Hat",
+        "price": 1500,
+        "tags": "hat,alola,"
     },
     {
         "id": "egg",
@@ -333,9 +444,30 @@
         "id": "firefigther",
         "name": "Firefighter Hat",
         "description": "A safety helmet made for brave heroes who put their lives on the line every day.",
+        "done": "yes",
         "price": 0,
         "tags": "hat, cinnabar,",
         "howToGet": "type trainer"
+    },
+    {
+        "id": "flameclip",
+        "name": "Flame Clip",
+        "price": 3000,
+        "tags": "hairclip,"
+    },
+    {
+        "id": "flannerybeanie",
+        "name": "Flaming Beanie",
+        "description": "A snug black beanie with bright, flickering flame patterns licking the sides.",
+        "price": 12000,
+        "tags": "hat,weather-cold,"
+    },
+    {
+        "id": "FlareonHat",
+        "name": "Flareon Hood",
+        "description": "An oversized hood featuring large fluffy fur and long ears, resembling a Flareon.",
+        "price": 8000,
+        "tags": "hat,weather-cold,pokemon-flareon,"
     },
     {
         "id": "froghat",
@@ -365,6 +497,22 @@
         "price": 18000,
         "tags": "hat,trainer",
         "howToGet": "gym reward"
+    },
+    {
+        "id": "glitzerset",
+        "name": "Glitched Mask",
+        "description": "An odd mask that makes you look like you just stepped out of a corrupted save file. ",
+        "done": "yes",
+        "price": 10000,
+        "tags": "mask,special,",
+        "howToGet": "Obtained by defeating a Pokemon without a sprite"
+    },
+    {
+        "id": "glaliehelmet",
+        "name": "Glalie Helmet",
+        "description": "A sturdy helmet made of compacted ice that looks like a Glalie!",
+        "price": 8000,
+        "tags": "hat,pokemon-snorunt,pokemon-glalie,pokemon-froslass,"
     },
     {
         "id": "glasses",
@@ -416,7 +564,7 @@
         "howToGet": "regional set"
     },
     {
-        "id": "goldfortuft",
+        "id": "gold2",
         "name": "Gold & Black Cap (hair)",
         "description": "A black and yellow cap, worn backwards. It's popular with fledgling trainers in Johto.",
         "done": "yes",
@@ -426,14 +574,45 @@
         "howToGet": "regional set"
     },
     {
+        "id": "grassexpert",
+        "name": "Flower Crown",
+        "description": "A delicate crown woven from vibrant wildflowers. It gives off a fresh, natural vibe.",
+        "done": "yes",
+        "price": 5000,
+        "tags": "hat,headband,weather-warm,"
+    },
+    {
         "id": "halo",
         "name": "Halo",
         "description": "A golden ring that mysteriously floats above the wearer's head.",
         "done": "yes",
         "len": 63,
         "price": 10000,
-        "tags": "floating,",
+        "tags": "floating,pokemon-shedinja",
         "howToGet": "reward for beating the ilex forest shedinja encounter? reward for showing a shedinja to someone?"
+    },
+    {
+        "id": "haxorushelmet",
+        "name": "Jaw Helmet",
+        "description": "A fearsome helmet crafted in the shape of a Haxorus's jaw. It is sure to intimidate your enemies! ",
+        "price": 8000,
+        "tags": "pokemon-axew,pokemon-fraxure,pokemon-haxorus,"
+    },
+    {
+        "id": "hawluchamask",
+        "name": "Lucha Mask",
+        "description": "A Lucha Libre mask that looks like the one worm by a Hawlucha.",
+        "done": "yes",
+        "price": 5000,
+        "tags": "pokemon-hawlucha,mask,"
+    },
+    {
+        "id": "headlacecovering",
+        "name": "Lace Covering",
+        "description": "A delicate see-through lace covering that is worn over the head.",
+        "done": "yes",
+        "price": 1500,
+        "tags": "hat,vermillion"
     },
     {
         "id": "headparas",
@@ -499,6 +678,22 @@
         "tags": "hat,celadon,"
     },
     {
+        "id": "hilda",
+        "name": "Pink & White Cap",
+        "description": "A sleek pink and white cap with a refined design, popular with fledgling trainers in Unova.",
+        "done": "yes",
+        "price": 2000,
+        "tags": "hat,trainer,unova,"
+    },
+    {
+        "id": "hilda2",
+        "name": "Pink & White Cap (hair)",
+        "description": "A sleek pink and white cap with a refined design. Outfitted for the \"High-pony\" hairstyle.",
+        "done": "yes",
+        "price": 2000,
+        "tags": "hat,trainer,unova,"
+    },
+    {
         "id": "hilbert",
         "name": "Dark Red & Black Cap",
         "description": "A brimmed cap with a Poké Ball logo on the front. It's popular with fledgling trainers in Unova.",
@@ -509,12 +704,18 @@
         "howToGet": "regional set"
     },
     {
+        "id": "idolf",
+        "name": "Heart Headband",
+        "price": 4500,
+        "tags": "headband,goldenrod"
+    },
+    {
         "id": "karateHeadband",
         "name": "Karate Bandana",
         "description": "A red headband tied tightly around the forehead. It’s worn by trainers who strive for discipline and strength.",
         "done": "yes",
         "price": 6000,
-        "tags": "headband,saffron,",
+        "tags": "headband,saffron,pokemon-luvdisc,",
         "howToGet": "type trainer"
     },
     {
@@ -590,6 +791,7 @@
         "id": "ludicolosombrero",
         "name": "Ludicolo Sombrero",
         "description": "A festive Sombrero that is often worn during fiestas.",
+        "done": "yes",
         "len": 53,
         "price": 18000,
         "tags": "hat,pokemon-lotad,pokemon-lombre,pokemon-ludicolo,weather-warm,"
@@ -608,6 +810,7 @@
         "id": "lycanrochooddown",
         "name": "Lycanroc Hood (down)",
         "description": "A fluffy hood. Down for those who want a little sun.",
+        "done": "yes",
         "price": 12000,
         "tags": "pokemon-rockruff,pokemon-lycanroc_d,pokemon-lycanroc_n,"
     },
@@ -615,6 +818,7 @@
         "id": "lycanrochoodup",
         "name": "Lycanroc Hood (up)",
         "description": "A fluffy hood. Up for those who shy away from the sun",
+        "done": "yes",
         "price": 12000,
         "tags": "pokemon-rockruff,pokemon-lycanroc_d,pokemon-lycanroc_n,"
     },
@@ -627,6 +831,12 @@
         "price": 2000,
         "tags": "hat,trainer,johto,",
         "howToGet": "regional set"
+    },
+    {
+        "id": "maid",
+        "name": "Frilly Headdress",
+        "price": 1500,
+        "tags": "hat,"
     },
     {
         "id": "magicap",
@@ -678,6 +888,14 @@
         "howToGet": "regional set"
     },
     {
+        "id": "mayE",
+        "name": "Green Bandana",
+        "description": "A green bandana worn as a hat. It's popular with fledgling trainers in Hoenn.",
+        "price": 2000,
+        "tags": "hairclip, headband,trainer,hoenn,",
+        "howToGet": "regional set"
+    },
+    {
         "id": "mikufairy",
         "name": "Fairy Flower",
         "description": "A flower hairclip that is similar to the one worn by a famous singer.",
@@ -708,11 +926,11 @@
         "howToGet": "regional set"
     },
     {
-        "id": "nateforhair",
+        "id": "nate2",
         "name": "Red Visor (for hair)",
-        "description": "A red visor with a black and white Poké Ball on the front. It's popular with fledgling trainers in Unova.",
+        "description": "A red visor with a black and white Poké Ball on the front. Outfitted for the \"Short, Shaggy spikes\" hairstyle.",
         "done": "yes",
-        "len": 105,
+        "len": 110,
         "price": 2000,
         "tags": "hat,trainer,unova,",
         "howToGet": "regional set"
@@ -728,13 +946,34 @@
         "howToGet": "left behind by the zoroark in berry forest? regional set"
     },
     {
+        "id": "ninetalesalolahat",
+        "name": "Ice Fox Hat",
+        "price": 7500,
+        "tags": "hat,pokemon-alolan_vulpix,pokemon-alolan_ninetales,weather-cold"
+    },
+    {
+        "id": "nursejoy",
+        "name": "Blank Nurse Cap",
+        "description": "A white hat that decidedly does not violite the Geneva Convention. It's usually worn by nurses",
+        "price": 25000,
+        "tags": "hat,pokemon-happiny,pokemon-chansey,pokemon-blissey",
+        "howToGet": "quest in a broken down pokecenter, gotta help heal up a bunch of mons that are in critical condition (give potions etc to npc mons)? "
+    },
+    {
         "id": "nursejoyhat",
         "name": "Nurse Cap",
         "description": "A white hat bearing a red cross that violates the Geneva Convention. It's usually worn by nurses.",
         "len": 97,
         "price": 25000,
         "tags": "hat,pokemon-happiny,pokemon-chansey,pokemon-blissey",
-        "howToGet": "quest in a broken down pokecenter, gotta help heal up a bunch of mons that are in critical condition (give potions etc to npc mons)? "
+        "howToGet": ";"
+    },
+    {
+        "id": "nya",
+        "name": "Kitten Headband",
+        "description": "A cute headband that ressembles the ears of a Skitty.",
+        "price": 3500,
+        "tags": "headband, pokemon-skitty, pokemon-delcatty,"
     },
     {
         "id": "ogremaskblue",
@@ -771,6 +1010,20 @@
         "price": 10000,
         "tags": "mask,",
         "howToGet": "Goldenrod tunnel exclusive"
+    },
+    {
+        "id": "omanyte",
+        "name": "Spiral Shell Beanie",
+        "description": "A spiral-shaped beanie that is reminescent of the shell of an extinct Pokémon.",
+        "price": 8000,
+        "tags": "hat, pokemon-omanyte,pokemon-omastar"
+    },
+    {
+        "id": "orange",
+        "name": "Oran Berry",
+        "description": "Just an oran berry that's balanced on your head. Simplicity at its best!",
+        "price": 1000,
+        "tags": "hat,"
     },
     {
         "id": "parashroom",
@@ -813,7 +1066,7 @@
     },
     {
         "id": "pikhatchuf",
-        "name": "Head Pikachu",
+        "name": "Head Pikachu (F)",
         "description": "A female Pikachu that has taken a liking to perching atop a trainer's head.",
         "done": "yes",
         "len": 75,
@@ -823,7 +1076,7 @@
     },
     {
         "id": "pikhatchum",
-        "name": "Head Pikachu",
+        "name": "Head Pikachu (M)",
         "description": "A male Pikachu that has taken a liking to perching atop a trainer's head.",
         "done": "yes",
         "len": 73,
@@ -876,6 +1129,13 @@
         "howToGet": "gym reward"
     },
     {
+        "id": "pumpkaboohelmet",
+        "name": "Pumpkaboo Helmet",
+        "description": "A hollowed out pumpkin that looks like a Pumpkaboo!",
+        "price": 1031,
+        "tags": "pokemon-pumpkaboo,pokemon-gourgeist,"
+    },
+    {
         "id": "Ramos",
         "name": "Green Flat cap",
         "description": "A green flat cap that was popularized by a certain Gym Leader from Kalos.",
@@ -921,6 +1181,13 @@
         "tags": "hat,trainer,sinnoh"
     },
     {
+        "id": "rayquazatiara",
+        "name": "Sky Tiara",
+        "description": "A glorious tiara modeled after a ruler of the skies. It looks rare and expensive!",
+        "price": 45000,
+        "tags": "headband,pokemon-rayquaza"
+    },
+    {
         "id": "rocketcap",
         "name": "Team Rocket Cap",
         "description": "A black cap that all Team Rocket Grunts must wear as part of their uniform.",
@@ -932,13 +1199,20 @@
     },
     {
         "id": "rosa",
-        "name": "Red & White Visor",
-        "description": "A light red and white visor. It's popular with fledgling trainers in Unova.",
+        "name": "Pink & White Visor",
+        "description": "A pink and white visor. It's popular with fledgling trainers in Unova.",
         "done": "yes",
-        "len": 75,
+        "len": 70,
         "price": 2000,
         "tags": "hat,trainer,unova,",
         "howToGet": "regional set"
+    },
+    {
+        "id": "rosa2",
+        "name": "Pink & White Visor (hair)",
+        "description": "A pink and white visor. Outfitted for the \"Long Pigtails Buns\" hairstyle.",
+        "price": 2000,
+        "tags": "hat,trainer,unova,"
     },
     {
         "id": "roseradeF",
@@ -957,6 +1231,14 @@
         "len": 37,
         "price": 4500,
         "tags": "glasses,mask,pokemon-budew,pokemon-roselia,pokemon-roserade,celadon"
+    },
+    {
+        "id": "sableyemask",
+        "name": "Sableye Mask",
+        "description": "A creepy, gem-eyed disguise that lets you channel your inner trickster.",
+        "done": "yes",
+        "price": 4500,
+        "tags": "mask,pokemon-sableye"
     },
     {
         "id": "sabrinasballs",
@@ -981,8 +1263,33 @@
         "id": "santa",
         "name": "Festive Hat",
         "description": "A warm, snug stocking cap worn during a festive holiday season.",
+        "done": "yes",
         "price": 25000,
-        "tags": "hat,"
+        "tags": "hat,pokemon-delibird,"
+    },
+    {
+        "id": "scribbles1",
+        "name": "Mask Scribbles",
+        "description": "Markings in the shape of a mask drawn on your face by a mischievous Jigglypuff!",
+        "tags": "special,mask,"
+    },
+    {
+        "id": "scribbles2",
+        "name": "Moustache Scribbles",
+        "description": "Markings in the shape of a moustache drawn on your face by a mischievous Jigglypuff!",
+        "tags": "special,mask,"
+    },
+    {
+        "id": "scribbles3",
+        "name": "Circle Scribbles",
+        "description": "Markings in the shape of a circle drawn on your face by a mischievous Jigglypuff!",
+        "tags": "special,mask,"
+    },
+    {
+        "id": "scribbles4",
+        "name": "Swirly Scribbles",
+        "description": "Markings in the shape of a swirl drawn on your face by a mischievous Jigglypuff!",
+        "tags": "special,mask,"
     },
     {
         "id": "seacaptain",
@@ -995,6 +1302,13 @@
         "howToGet": "lying around in the ss anne capt cabin"
     },
     {
+        "id": "seedothelmet",
+        "name": "Acorn Helmet",
+        "description": "A sturdy helmet that resembles a Seedot's head.",
+        "price": 4000,
+        "tags": "hat,pokemon-seedot,pokemon-nuzleaf,pokemon-shiftry,"
+    },
+    {
         "id": "seleneSM",
         "name": "Pompom Beanie",
         "description": "A beanie with a flower-shaped pompom. It's popular with fledgling trainers in Alola.",
@@ -1005,14 +1319,34 @@
         "howToGet": "trainer clothing store?"
     },
     {
+        "id": "seleneUSUM",
+        "name": "Alolan Sunhat",
+        "description": "A sun hat adorned with flowes. It's popular with fledgling trainers in Alola.",
+        "price": 2000,
+        "tags": "hat, weather-warm,alola,"
+    },
+    {
         "id": "serena",
         "name": "Red Hat w/ Glasses",
-        "description": "A red hat topped with white sunglasses. It's popular with fledgling trainers in Kalos.",
+        "description": "A fashionable hat topped with sunglasses. It's popular with fledgling trainers in Kalos.",
         "done": "yes",
-        "len": 86,
+        "len": 88,
         "price": 2000,
         "tags": "hat,trainer,kalos,",
         "howToGet": "trainer clothing store?"
+    },
+    {
+        "id": "silphscope",
+        "name": "Silph Scope",
+        "description": "A scope that makes unseeable Pokémon visible. It is made by Silph Co.",
+        "price": 0,
+        "tags": "heaband,special"
+    },
+    {
+        "id": "simpleheadband",
+        "name": "Headband",
+        "price": 500,
+        "tags": "headband,default,"
     },
     {
         "id": "skierF",
@@ -1022,6 +1356,14 @@
         "len": 44,
         "price": 3500,
         "tags": "hat,weather-cold,blackthorn,mahogany"
+    },
+    {
+        "id": "skittyTV",
+        "name": "Skitty TV",
+        "description": "A wearable TV themed like a Skitty. Use it to watch your battle replays!",
+        "price": 5000,
+        "tags": "hat,",
+        "howToGet": "goldenrod radio tower"
     },
     {
         "id": "sleepmask",
@@ -1034,6 +1376,13 @@
         "howToGet": "Sleep at hotel"
     },
     {
+        "id": "slurpuffcake",
+        "name": "Slurpuff Cake",
+        "description": "Wearing this tasty cake on top of your head makes it so that you never have to stop eating it!",
+        "price": 5000,
+        "tags": "hat,pokemon-slurpuff,pokemon-swirlix,"
+    },
+    {
         "id": "slowking",
         "name": "Slowking Shell",
         "description": "A Shellder that has latched onto your head, forcing you to evolve into a king.",
@@ -1041,6 +1390,13 @@
         "len": 78,
         "price": 15000,
         "tags": "hat,pokemon-slowbro,pokemon-slowking,pokemon-shellder"
+    },
+    {
+        "id": "sneaselfeather",
+        "name": "Sharp Feather",
+        "description": "A feather worn on the head that ressembles the ear of a Sneasel.",
+        "price": 4000,
+        "tags": "pokemon-sneasel,pokemon-weavile,"
     },
     {
         "id": "snorlaxhat",
@@ -1058,6 +1414,18 @@
         "len": 54,
         "price": 12000,
         "tags": "hat,pokemon-snorunt,weather-cold,"
+    },
+    {
+        "id": "Spheal",
+        "name": "Head Spheal",
+        "price": 0,
+        "tags": "nest,"
+    },
+    {
+        "id": "Sphealwintercap",
+        "name": "Spheal Toque",
+        "price": 6000,
+        "tags": "hat,weather-cold,pokemon-spheal,pokemon-sealio,pokemon-walrein,"
     },
     {
         "id": "splicer",
@@ -1089,7 +1457,7 @@
     },
     {
         "id": "surgeglasses",
-        "name": "Sunglasses",
+        "name": "Shock Shades",
         "description": "Shockingly cool sunglasses.",
         "done": "yes",
         "len": 27,
@@ -1108,6 +1476,13 @@
         "howToGet": "stay idle on mt. moon summit"
     },
     {
+        "id": "sudowoodohorns",
+        "name": "Sudowoodo Horn",
+        "description": "A branching horn made out of rock that appears to have fallen off a Sudowoodo.",
+        "price": 5000,
+        "tags": "pokemon-bonsly,pokemon-sudowoodo,hairclip,headband,"
+    },
+    {
         "id": "sylveonbow",
         "name": "Sylveon Hair Bow",
         "description": "A cute, pink hair bow that ressembles a Sylveon's.",
@@ -1115,6 +1490,13 @@
         "len": 50,
         "price": 12000,
         "tags": "hairclip,pokemon-sylveon"
+    },
+    {
+        "id": "tentacruel",
+        "name": "Head Tentacruel",
+        "description": "A tiny Tentacruel that picked your head as a resting spot. Watch out for those tentacles!",
+        "price": 6000,
+        "tags": "hat,special"
     },
     {
         "id": "tophat",
@@ -1133,12 +1515,27 @@
         "tags": "hat,"
     },
     {
+        "id": "trevenantforestkingcrown",
+        "name": "Forest King Crown",
+        "price": 15000,
+        "tags": "hat,pokemon-phantump,pokemon-trevenant,",
+        "howToGet": "Ilex forest at night"
+    },
+    {
         "id": "triangularsunglasses",
         "name": "Triangle Shades",
         "description": "Cool sunglasses shaped like triangles.",
         "done": "yes",
         "price": 2500,
         "tags": "glasses,violet,"
+    },
+    {
+        "id": "tvhead",
+        "name": "TV Head",
+        "description": "A TV worn as a helmet that could probably be used to watch replays of your battles... If only it worked!",
+        "done": "yes",
+        "price": 4500,
+        "tags": "hat,"
     },
     {
         "id": "veteranM",
@@ -1160,9 +1557,16 @@
         "howToGet": "trainer clothing store?"
     },
     {
+        "id": "voltorbitembarrette",
+        "name": "Pokéball Barrette",
+        "price": 1500,
+        "tags": "hariclip,pokemon-voltorb,pokemon-electrode,"
+    },
+    {
         "id": "waterdress",
         "name": "Straw Hat",
         "description": "A simple hat made out of straw that is typically worn by bug-catchers.",
+        "done": "yes",
         "price": 1500,
         "tags": "hat,pewter,",
         "howToGet": "trainer clothing store?"
@@ -1174,6 +1578,12 @@
         "done": "yes",
         "price": 6500,
         "tags": "hat,fuchsia,"
+    },
+    {
+        "id": "winona",
+        "name": "Feathered Cap",
+        "price": 18000,
+        "tags": "hat,"
     },
     {
         "id": "wooperclips",

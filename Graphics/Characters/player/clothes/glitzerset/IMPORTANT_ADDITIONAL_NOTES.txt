@@ -1,0 +1,5 @@
+IMPORTANT:
+- The items are named this way to note they are a set but in game it'd be good to clarify what all three are
+Outfit - "Glitzer" (due to being based on the "Glitzer Popping" exploit)
+Hair - "Pomeg Cut" (Pomeg berries are related to the exploit)
+Hat - "Decamark" (also related)

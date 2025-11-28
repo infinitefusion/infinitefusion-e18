@@ -1,0 +1,1 @@
+wine "$(dirname "$0")/InfiniteFusion.exe"

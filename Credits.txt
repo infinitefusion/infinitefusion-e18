@@ -1,4 +1,5 @@
 ##########		CREDITS	         ###############
+Pok?mon Infinite Fusion & Pok?mon Infinite Fusion: Hoenn
 Game made by Chardub
 
 *This is NOT an official Pokemon game. The author of this game is not 
@@ -12,19 +13,29 @@ Chardub
 ##############################
 ##	Maps		    		##
 ##############################	
-Chardub, Kiwikelly
-
-Some of the maps were based on work by:
-BenGames,Films, and More! (Pokemon Adventures in Kanto) http://www.pokecommunity.com/showthread.php?t=303850
-Zeak6464 (Kanto Map pack) http://www.pokecommunity.com/showthread.php?t=345591
+Chardub, Kiwikelly, Payapon
 
 #################################
 #	Story / Dialogues	#
 #################################
 Chardub
 Kiwikelly
-The story and dialogues were based off Pokémon Red and Blue, as well as
-Pokémon Gold and Silver. Both games are made by Game Freak.
+The story and dialogues were based off Pok?mon Ruby, Sapphire and Emerald, as well as Pok?mon
+Omega Ruby and Alpha Sapphire, which are all made by Game Freak.
+
+##############################
+##	Music		    							##
+##############################	
+Pory
+
+##############################
+## Animation									##
+#############################
+-- Intro cinematic animation --
+Kiwikelly
+
+
+
 
 ###########################################################
 ###	Fusion Sprites										###
@@ -35,46 +46,76 @@ Generated Sprites
 Pokefusion 2 (version 4.5+)
 http://japeal.com/pkm
 
-Pokefusion (version 4.0-4.4)
-http://pokefusion.japeal.com/
-
-Alexonsager (version 3.x and below) 
-http://pokemon.alexonsager.net/
-
 Special thanks to Aegide and Reizod for helping to rip the sprites from the website
 and to the owners of the respective fusion websites for accepting to share
 their sprites.
 
-Intro cinamatic
+Custom sprites
 #####################
-Kiwikelly
-
+Individual sprite credits can be found in Data/SPRITE_CREDS file for full, up to date credits
 
 Custom sprites collecting and handling
 Kiwikelly, Payapon, Thornsoflight
 
-Discord custom sprites coordination
+Discord custom sprites coordination 
+--- Sprite Managers ---
 avianAnnihilator<s>Blaquaza
-BéBoutton<s>CaBiNE
+BBoutton<s>CaBiNE
 CoramSun<s>hero.drawing
-Howls<s>Ignus
+Howlingstarr<s>Ignus
 Kiwi<s>Maelmc
 Milchik the Miltank<s>Payapon
 Pix<s>Rosemagwin
-Thornsoflight
+Thornsoflight<s>FauxBlue
 
-Custom fusion sprites
-#####################
-Check the Data/SPRITE_CREDS file for full, up to date credits
+### Spriter application reviews (Klefki)
+007z3lda<s>barkey<s>the_cardinals
+doodledoo<s>grafaiguy<s>gummy.frog
+holgast<s>ignust<s>jcobe800
+markusknight<s>monolithyk<s>stickieanimates
+takopus<s>_woofa_<s>yumatei
+
+### Sprites quality assurance (Chansey)
+dodoowner_<s>fauxblue<s>fioretovi
+<greystorm101<s>.payapon<s>smasllcutekitty
+odditylad<s>midnightender6<s>toadettexmushina
+
+### Spriting process checking (Swablu)
+cataylor_01<s>pikahunter07<s>say_4732
+justvince.<s>
+
+### Abandoned sprites harvesting (Zigzagoon)
+_testrun_<s>greystorm101<s>.izik
+mystora<s>reddevil85<s>riberna
+chespining<s>togepimax
 
 
-Triple fusion sprites
-########################
-Legendary birds fusion sprite by Universez
-Legendary beasts fusion sprite by Milchik
-Weather trio fusion sprite by magnuzone
-Creation and Tao trio trio fusion sprite by mammuth89
 
+
+###################################
+###	Game quality assurance					###
+###################################
+### Tech support and bugs reporting management 
+sapphire_chuu<s>megaman.
+ymirbot<s>
+
+### Tech support and bugs reporting(Porygon)
+sapphire_chu<s>ernesto_gaming<s>xiaoanemo
+kitsuwren<s>lunarcharlotte<s>megaman.
+casinoluck<s>ymirbot
+
+
+
+###################################
+###	Custom Pok?dex entries					###
+###################################
+### Pok?dex entries quality control (Unown)
+luvischlo<s>char_latte3412<s>strawbearycandy
+bobosmith01<s>griddle<s>.izik
+knilk<s>lordjoostmeister<s>.realthree
+wigglypon<s>wildheartrazorfangs<s>ziggaway
+
+### Individual Pok?dex entries credits can be found in Data/pokedex/dex.json 
 
 ###########################################################
 ####		Pokemon Essentials			 ###
@@ -98,14 +139,19 @@ Gen 4 Legendary trio eggs by calicorn
 Nintendo
 GameFreak
 
+###########################################################
+###	French translation  #
+###########################################################
+anthonygourmand
+locpic_
+blood.wolf58 (Willi)
+ragzzh
 
 #######################################################################
 The following ressources were also used 
 with their respective authors' consent
 #######################################################################
 ### Sprites ###
-
-
 	Overworld Sprites:
 		Custom graphics:
 		Kiwikelly, Knuckles, UnworthyPie
@@ -116,7 +162,10 @@ with their respective authors' consent
 		SailorVicious (Prof. Elm OW sprite) 	https://www.deviantart.com/sailorvicious
 		OceansLugiaSpirit (Koga OW sprite)  	http://oceanslugiaspirit.deviantart.com/
 		Wolfang62: https://www.deviantart.com/wolfang62/art/Wimpod-Sprite-Overworld-836704744
-
+		zender1752 (Sabrina OW sprite)	https://www.deviantart.com/zender1752/art/Pokemon-Anime-Delia-Ketchum-Overworld-sprite-840038766
+		wesleyfg (Hoenn overworld NPCs) https://www.deviantart.com/wesleyfg/art/Hoenn-People-OW-in-BW-style-274475232
+		Wergan https://www.deviantart.com/wergan/art/Pokemon-Random-characters-002-959395621
+		TooManyLuigis, Mortedes, Billla,WolfPP: Golurk overworld sprite https://www.deviantart.com/wolfang62/art/Golurk-Sprite-Overworld-834611476
 	Battle sprites: 
 		Custom graphics:
 		Kiwikelly, UnworthyPie
@@ -124,6 +173,9 @@ with their respective authors' consent
 		Free use graphics:
 		luckygirl88  (Misty VS sprite) 		http://luckygirl88.deviantart.com/art/Pokemon-BW-Misty-Sprite-Sheet-268364830
 		Lorelei VS sprite by Nalty 		http://nalty.deviantart.com/art/Lorelei-VS-Sprite-177184960
+		x-5-4-5-2 (Sabrina sprite) 		https://www.deviantart.com/x-5-4-5-2/art/Game-Sabrina-204548703
+		
+		Zender1752 	(overworld mom sprite) 	https://www.deviantart.com/zender1752/art/Pokemon-Anime-Delia-Ketchum-Overworld-sprite-840038766
 		
 ### Custom tileset graphics ###
 Kiwikelly
@@ -173,7 +225,7 @@ audreyeyeyeye https://www.deviantart.com/audreyeyeyeye/art/Pokemon-Type-Icons-FR
 
 
 ### Other graphics			
-Region map: Kiwikelly
+Hoenn map: shivanking (Deviantart)
 Move animations:
 
 	Augmented Reborn Animations Project

@@ -12,7 +12,7 @@
         "name": "Bald",
         "description": "A completely bald look - no hair, no fuss, just pure, unadulterated scalp!",
         "done": "yes",
-        "price": 0,
+        "price": 500,
         "tags": "no-hair"
     },
     {
@@ -38,6 +38,13 @@
         "done": "yes",
         "price": 500,
         "tags": "default"
+    },
+    {
+        "id": "brendan",
+        "name": "Ruby Spikes",
+        "description": "Short hair with sharp, upward spikes at the front and crown. This style is popular with fledgling trainers in Hoenn.",
+        "price": 500,
+        "tags": "hoenn"
     },
     {
         "id": "brock",
@@ -87,10 +94,18 @@
     },
     {
         "id": "dancer",
+        "name": "Dancer",
         "done": "yes",
         "price": 500,
         "tags": "fuchsia",
         "howToGet": "fuchsia specialty"
+    },
+    {
+        "id": "eeveetail",
+        "name": "Eevee Tail",
+        "description": "A puffy ponytail that looks just like the tail of an Eevee.",
+        "price": 3000,
+        "howToGet": "saffron boutique"
     },
     {
         "id": "elm",
@@ -139,7 +154,16 @@
     },
     {
         "id": "fusionnerd",
+        "name": "Side-Swept Fringe",
+        "description": "A bold, asymmetrical hairstyle where strands fuse into a stylish wave.",
         "price": 1000
+    },
+    {
+        "id": "gardevoir",
+        "name": "Guardian Fringe",
+        "description": "A neat fringe that covers one eye that is styled to look like a Gardevoir.",
+        "price": 3000,
+        "howToGet": "saffron boutique"
     },
     {
         "id": "gary",
@@ -152,11 +176,18 @@
         "howToGet": "garys mom in their house (lol)?"
     },
     {
+        "id": "glitzerset",
+        "name": "Pomeg Cut",
+        "description": "A cute cut that is styled like a Pomeg berry!",
+        "price": 2000,
+        "tags": "kin"
+    },
+    {
         "id": "happinysuit",
-        "name": "Curled Happiny Ponytail",
+        "name": "Playhouse Ponytail",
         "description": "A cute curly ponytail styled just like a Happiny. A wonderfully charming style for any fans of Baby Pokémon.",
         "len": 108,
-        "price": 5000,
+        "price": 3000,
         "tags": "long, tied, smooth, pokemon,",
         "howToGet": "quest?"
     },
@@ -172,17 +203,25 @@
     },
     {
         "id": "highbun",
+        "name": "High-bun",
         "done": "yes",
         "price": 500,
         "tags": "default"
     },
     {
         "id": "highpony",
-        "name": "High-pony",
+        "name": "Ponytail",
         "description": "A high ponytail reminiscent of Lopunny's fur",
         "done": "yes",
         "price": 500,
         "tags": "default"
+    },
+    {
+        "id": "hilda",
+        "name": "High-pony",
+        "description": "A voluminous high ponytail that shows you're ready for adventure. It's popular with new trainers in Unova!",
+        "price": 1500,
+        "tags": "unova,"
     },
     {
         "id": "hime",
@@ -194,7 +233,17 @@
     },
     {
         "id": "ho-oh",
-        "price": 5000
+        "name": "Phoenix Crest",
+        "description": "A bold, fiery style featuring a high, curved ponytail resembling the sweeping feathers of Ho-Oh.",
+        "price": 5000,
+        "howToGet": "saffron boutique"
+    },
+    {
+        "id": "idolf",
+        "name": "Demi Bob",
+        "description": "A soft, short bob with a glamorous edge.",
+        "price": 500,
+        "tags": "saffron"
     },
     {
         "id": "janine",
@@ -207,7 +256,17 @@
         "howToGet": "fuchsia city salon"
     },
     {
-        "id": "jessie"
+        "id": "jessie",
+        "name": "Rocket Wave",
+        "description": "A dramatic, sleek style with ultra-long hair swept back into a high, gravity-defying wave.",
+        "price": 2000
+    },
+    {
+        "id": "kris",
+        "name": "Springy Pigtails",
+        "description": "Springy pigtails that somehow defy gravity.",
+        "price": 1500,
+        "tags": "johto,"
     },
     {
         "id": "kurt",
@@ -255,6 +314,14 @@
         "howToGet": "start"
     },
     {
+        "id": "leafeonbob",
+        "name": "Verdant Bob",
+        "description": "A peculiar hairstyle that's meant to resembles the leaves of a Leafeon.",
+        "done": "yes",
+        "price": 3000,
+        "tags": "pokemon,"
+    },
+    {
         "id": "lenora",
         "name": "Side-Swept Bob",
         "description": "A smooth bob with side-swept bangs. The style was popularized by the Unovan Gym Leader Lenora.",
@@ -293,11 +360,26 @@
         "id": "lunarbob",
         "name": "Lunar Cut",
         "description": "A bob cut shaped like a crescent moon, with a sleek, curved silhouette.",
+        "done": "yes",
         "price": 5000,
+        "tags": "special",
         "howToGet": "quest? cresselia outfit"
     },
     {
-        "id": "lycanrocshorthair"
+        "id": "lycanrocshorthair",
+        "name": "Lupine Cut",
+        "description": "A sleek cut that is reminiscent of a Lycanroc's mane",
+        "done": "yes",
+        "price": 3000,
+        "tags": "special"
+    },
+    {
+        "id": "lyra",
+        "name": "Peppy Pigtails",
+        "description": "Bouncy pigtails with a playful charm that gives off a carefree vibes.",
+        "done": "yes",
+        "price": 1500,
+        "tags": "johto,"
     },
     {
         "id": "mawile",
@@ -311,7 +393,7 @@
     },
     {
         "id": "may",
-        "name": "Layered Side Fringe",
+        "name": "Sapphire Side Tails",
         "description": "Medium-length brown hair with a fringe and side-swept bangs. This style is popular with fledgling trainers in Hoenn.",
         "done": "yes",
         "price": 1500,
@@ -374,6 +456,14 @@
         "howToGet": "Celadon City special"
     },
     {
+        "id": "mullet",
+        "name": "Mullet",
+        "description": "Business in the front, party in the back!",
+        "done": "yes",
+        "price": 500,
+        "tags": "vermillion"
+    },
+    {
         "id": "nate",
         "name": "Short, Shaggy spikes",
         "description": "Short, shaggy spikes that go well with visor-type hats. The style is popular with fledgling trainers in Unova.",
@@ -394,6 +484,20 @@
         "howToGet": "protag special - unlocked after quest, show a Pokemon from unova"
     },
     {
+        "id": "nursejoy",
+        "name": "Joyful Puffs",
+        "description": "Neatly coiled twin buns perched high on each side, radiating care and warmth.",
+        "price": 5000,
+        "tags": "special"
+    },
+    {
+        "id": "nursejoyalt",
+        "name": "Side Joyful Puff",
+        "description": "A single coiled bun perched high on one side, radiating care and warmth.",
+        "price": 5000,
+        "tags": "special"
+    },
+    {
         "id": "officeworkerF",
         "name": "Waist-Length Hair",
         "description": "Long, flowing waist-length hair with short, chunky bangs. It's popular with a lot of trainers with corporate jobs.",
@@ -402,6 +506,13 @@
         "price": 500,
         "tags": "long, untied, smooth,saffron,",
         "howToGet": "Saffron city special"
+    },
+    {
+        "id": "oricoriopuffs",
+        "name": "Pom-Pom Puffs",
+        "description": "Big, bubbly twin puffs bursting with cheer!",
+        "price": 500,
+        "tags": "special"
     },
     {
         "id": "painter",
@@ -429,10 +540,19 @@
         "tags": "default,"
     },
     {
-        "id": "pompadourdelinquentoutfit",
+        "id": "pompadour",
         "name": "Pompadour",
+        "description": "A dramatic, swept-back hairstyle with towering volume at the front.",
         "price": 2000,
         "tags": "violet,"
+    },
+    {
+        "id": "punktails",
+        "name": "Punk Tails",
+        "description": "High, wild twin ponytails bursting with volume and rebellion.",
+        "done": "yes",
+        "price": 500,
+        "tags": "celadon"
     },
     {
         "id": "red",
@@ -483,7 +603,23 @@
         "howToGet": "Celadon special"
     },
     {
-        "id": "samurai"
+        "id": "sabrinaGSC",
+        "name": "Clairvoyant Cut",
+        "description": "A medium-length cut with a distinct parted fringe that frames the face.The style was popularized by the Gym Leader Sabrina.",
+        "price": 2000
+    },
+    {
+        "id": "sabrinaRBY",
+        "name": "Telekinetic Tresses"
+    },
+    {
+        "id": "sada",
+        "name": "Paradox Cut",
+        "tags": "paldea,"
+    },
+    {
+        "id": "samurai",
+        "name": "Samurai"
     },
     {
         "id": "short1",
@@ -493,6 +629,12 @@
         "done": "yes",
         "price": 500,
         "tags": "short, untied, smooth,cinnabar,"
+    },
+    {
+        "id": "shortbeard",
+        "name": "Short Beard",
+        "description": "Either you miraculously got the ability to grow beard as a child, or you got creative with glue and salon floor clippings.",
+        "price": 500
     },
     {
         "id": "shortcut",
@@ -505,12 +647,21 @@
     },
     {
         "id": "shortspike",
+        "name": "Short Spikes",
         "done": "yes",
         "price": 500,
         "tags": "default,"
     },
     {
-        "id": "SpecialLatias"
+        "id": "sonia",
+        "name": "High Side Pony",
+        "description": "An elegant ponytail worn to the side that was popularized by a Galarian research assistant."
+    },
+    {
+        "id": "SpecialLatias",
+        "name": "Eon Bob",
+        "description": "A layered bob with long, outward curls, exuding a gentle and mysterious charm.",
+        "price": 5000
     },
     {
         "id": "vetf",

@@ -1,0 +1,3 @@
+[submodule "Data/Scripts"]
+	path = Data/Scripts
+	url = https://github.com/infinitefusion/scripts.git
