@@ -631,12 +631,6 @@
         "tags": "short, untied, smooth,cinnabar,"
     },
     {
-        "id": "shortbeard",
-        "name": "Short Beard",
-        "description": "Either you miraculously got the ability to grow beard as a child, or you got creative with glue and salon floor clippings.",
-        "price": 500
-    },
-    {
         "id": "shortcut",
         "name": "Square-Cut Bangs",
         "description": "Very short hair with square-cut bangs framing the face, giving a trainer a youthful, charming appearance.",

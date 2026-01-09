@@ -90,6 +90,10 @@
         "howToGet": "city exclusive outfit"
     },
     {
+        "id": "brendanRS",
+        "name": "Ruby Runner"
+    },
+    {
         "id": "bughakama",
         "name": "Bug Hakama Dress",
         "description": "A traditionnal looking hakama dress, that captures the essence of bug-type Pokémon, complete with a bug-catching net!",
@@ -203,13 +207,14 @@
         "id": "Eri",
         "name": "Caph Squad Captain",
         "obtainable": "yes",
+        "price": 8000,
         "tags": "paldea,"
     },
     {
         "id": "fantasyadventurersoutfit",
         "name": "Traveller Outfit",
         "obtainable": "yes",
-        "price": 0,
+        "price": 25000,
         "tags": "special,",
         "howToGet": "Given by exotic pokemon quest npc after completing all the quests"
     },
@@ -264,13 +269,14 @@
         "id": "fusionnerd",
         "name": "Fusion Outfit",
         "obtainable": "yes",
-        "price": 0,
+        "price": 8000,
         "tags": "pokemon-fused,special,",
         "howToGet": "cinnabar lab after fusing 100 times"
     },
     {
         "id": "ghostoutfit",
         "name": "Ghost Outfit",
+        "price": 10000,
         "tags": "type-ghost,special",
         "howToGet": "type trainer"
     },
@@ -361,7 +367,8 @@
     {
         "id": "idolf",
         "name": "Idol Dress",
-        "price": 7500
+        "price": 7500,
+        "tags": "goldenrod"
     },
     {
         "id": "indigoicebeams",
@@ -481,6 +488,11 @@
         "tags": "pokemon-mudkip,pokemon-marshtomp,pokemon-swampert,"
     },
     {
+        "id": "mayRS",
+        "name": "Sapphire Strider",
+        "description": "A sporty, travel-ready outfit that evokes the spirit of a fledgling Hoenn trainer."
+    },
+    {
         "id": "mikufairyf",
         "name": "Fairy Outfit (F)",
         "description": "A whimsical pastel sweater and skirt that capture the essence of the Fairy type.",
@@ -590,6 +602,14 @@
         "howToGet": "city-exclusive outfit"
     },
     {
+        "id": "policeuniform",
+        "name": "Police Uniform",
+        "description": "The official uniform worn by the Kanto and Johto Police Department.",
+        "price": 0,
+        "tags": "special,",
+        "howToGet": "pinkan island quest (police side)"
+    },
+    {
         "id": "Ramos",
         "name": "Gardener Outfit",
         "description": "An outfit worn by gardeners. It was popularized by a certain Gym Leader from the Kalos region.",
@@ -597,6 +617,13 @@
         "price": 4500,
         "tags": "kalos,",
         "howToGet": "regional set"
+    },
+    {
+        "id": "rangeruniform",
+        "name": "Ranger Uniform",
+        "description": "The uniform worn by those who dedicate their lives to protecting nature.",
+        "price": 2000,
+        "tags": "mahogany"
     },
     {
         "id": "red",
@@ -716,12 +743,20 @@
     {
         "id": "RocketJames",
         "name": "White Rocket Uniform (M)",
+        "price": 0,
         "tags": "special"
     },
     {
         "id": "RocketJessie",
         "name": "White Rocket Uniform (F)",
+        "price": 0,
         "tags": "special"
+    },
+    {
+        "id": "sludgeM",
+        "name": "Sludge Drip",
+        "price": 4500,
+        "tags": "cinnabar"
     },
     {
         "id": "splicer",
@@ -759,12 +794,30 @@
         "howToGet": "type trainer (steel)"
     },
     {
+        "id": "streetwear",
+        "name": "Street Wear",
+        "price": 1200,
+        "tags": "blackthorn,"
+    },
+    {
         "id": "summerdress",
         "name": "Summer Dress",
         "description": "A light, breezy summer dress, perfect for strolls in sunny fields or along the beach.",
         "obtainable": "yes",
         "price": 1500,
         "tags": "default"
+    },
+    {
+        "id": "teamaquaF",
+        "name": "Aqua Uniform (F)",
+        "price": 6000,
+        "tags": "special"
+    },
+    {
+        "id": "teamaquaM",
+        "name": "Aqua Uniform (M)",
+        "price": 6000,
+        "tags": "special"
     },
     {
         "id": "trevenantforestkingcloak",
