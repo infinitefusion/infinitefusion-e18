@@ -778,10 +778,10 @@
         "tags": "headband,"
     },
     {
-        "id": ".realthree",
-        "name": "headgoomy",
-        "description": "Head Goomy",
-        "done": "This Goomy has taken a liking to sitting on your head and somehow never falls off.",
+        "author": ".realthree",
+        "id": "headgoomy",
+        "name": "Head Goomy",
+        "description": "This Goomy has taken a liking to sitting on your head and somehow never falls off.",
         "price": 0,
         "tags": "nest,"
     },
