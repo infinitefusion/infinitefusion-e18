@@ -1,0 +1,17 @@
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] ============================================================
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] Testing Win32API HTTP availability...
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] ============================================================
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] [OK] Win32API is available (class exists: constant)
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] [OK] WinINet.dll functions loaded successfully
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] Attempting HTTP request via Win32API...
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] [OK] WinINet session initialized (handle: 1)
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] [OK] URL opened successfully (handle: 3)
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] [OK] HTTP request successful! Read 513 bytes
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] Response preview: <!doctype html><html lang="en"><head><title>Example Domain</title><meta name="viewport" content="widt...
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] ============================================================
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] SUMMARY
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] ============================================================
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] Win32API:      YES
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] WinINet.dll:   YES
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] HTTP Requests: POSSIBLE
+[2026-01-12 13:51:22] [WIN32-HTTP-TEST] [T28] ============================================================
