@@ -1,0 +1,120 @@
+#cerulean city
+MapPosition = 0,40,6
+
+#pallet town
+MapPosition = 0,31,13
+
+#saffron
+MapPosition = 0,39,9
+
+#vermillion
+MapPosition = 0,39,11
+
+#fuchsia
+MapPosition = 0,36,15
+
+#mahogany
+MapPosition = 0,15,7
+
+lavender
+MapPosition = 0,43,9
+
+#viridian city
+MapPosition = 0,31,10
+
+#violet
+MapPosition = 1,14,10
+
+#celadon
+MapPosition = 0,37,9
+
+#new bark
+MapPosition = 1,20,14
+
+#olivine
+MapPosition = 1,7,10
+
+#goldenrod
+MapPosition = 1,9,13
+
+#azaela
+MapPosition = 1,11,16
+
+#cherrygrove
+MapPosition = 1,16,14
+
+#blackthorn
+MapPosition = 1,20,7
+
+#ecruteak
+MapPosition = 1,11,7
+
+
+#safari
+MapPosition = 0,36,17
+
+
+#seafoam
+MapPosition = 0,34,17
+
+#pewter
+MapPosition = 0,33,27
+
+#cinnabar
+MapPosition = 0,31,17
+
+#crimson
+MapPosition = 0,42,1
+
+
+#knot island
+MapPosition = 2,30,33
+
+#boon island
+MapPosition = 2,37,25
+
+#kin island
+MapPosition = 2,43,25
+
+#chrono island
+MapPosition = 2,48,30
+
+
+#power plant
+MapPosition = 0,43,7
+
+
+#mt ember
+MapPosition = 2,33,25
+
+#deep ocean
+MapPosition = 2,37,28
+
+#mt. moon
+MapPosition = 0,35,5
+
+
+#ruins of alph
+MapPosition = 1,12,11
+
+#league
+MapPosition = 0,27,8
+
+#mt silver
+MapPosition = 0,24,10
+
+#water labyrinth
+MapPosition = 2,44,29
+
+#lake of rage
+MapPosition = 1,15,4
+
+#ice mtns
+MapPosition = 1,20,6
+
+
+#hoenn
+MapPosition = 2,11,39
+
+#unova
+MapPosition = 2,51,18

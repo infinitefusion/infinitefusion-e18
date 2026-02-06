@@ -1,0 +1,2443 @@
+﻿# See the documentation on the wiki to learn how to edit this file.
+#-------------------------------
+[000]
+Home = 3,7,5,8
+WildBattleBGM = Pokemon HeartGold and SoulSilver - Wild Pokemon Battle (Kanto)
+TrainerBattleBGM = Pokemon HeartGold and SoulSilver - Trainer Battle (Kanto)
+SurfBGM = Surfing (Kanto) - Remastered.mp3
+BicycleBGM = SSANNE.ogg
+PlayerA = POKEMONTRAINER_Red,walk,bike,surf,run,dive,fish,fishsurf
+PlayerB = POKEMONTRAINER_Red,players/trchar001,players/girl_bike,players/girl_surf_offset,players/girl_run,players/girl_dive_offset,players/girl_fish_offset,players/girl_fishsurf_offset
+PlayerC = POKEMONTRAINER_Red,trchar003,girl_bike,girl_surf_offset,girl_run,girl_dive_offset,girl_fish_offset,girl_fishsurf_offset
+PlayerD = POKEMONTRAINER_Red,trchar004,girl_bike,girl_surf_offset,girl_run,girl_dive_offset,girl_fish_offset,girl_fishsurf_offset
+PlayerE = POKEMONTRAINER_Red,trchar005,girl_bike,girl_surf_offset,girl_run,girl_dive_offset,girl_fish_offset,girl_fishsurf_offset
+PlayerF = POKEMONTRAINER_Red,trchar006,girl_bike,girl_surf_offset,girl_run,girl_dive_offset,girl_fish_offset,girl_fishsurf_offset
+PlayerG = POKEMONTRAINER_Red,trchar007,girl_bike,girl_surf_offset,,girl_dive_offset,girl_fish_offset,girl_fishsurf_offset
+PlayerH = POKEMONTRAINER_Red,trchar008,girl_bike,girl_surf_offset,girl_run,girl_dive_offset,girl_fish_offset,girl_fishsurf_offset
+#-------------------------------
+[001]
+# Cerulean City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 1,18,15
+MapPosition = 0,40,6
+BattleBack = Bridge
+#-------------------------------
+[002]
+# PokeMart
+Outdoor = false
+ShowArea = true
+MapPosition = 0,40,6
+#-------------------------------
+[003]
+# \PN's House
+HealingSpot = 2,8,8
+MapPosition = 0,31,13
+BattleBack = IndoorB
+#-------------------------------
+[004]
+# Cerulean City Gym
+ShowArea = false
+MapPosition = 0,40,6
+#-------------------------------
+[005]
+# Cerulean City
+Outdoor = false
+ShowArea = false
+MapPosition = 0,40,6
+#-------------------------------
+[006]
+# Team Rocket HQ
+MapPosition = 0,40,6
+#-------------------------------
+[007]
+# Bike Shop
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 0,40,6
+MapSize = 2,11
+#-------------------------------
+[008]
+# Route 24
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,40,4
+BattleBack = 
+Environment = Grass
+#-------------------------------
+[009]
+# Route 25
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 8,17,11
+Weather = Rain,100
+MapPosition = 0,41,3
+Environment = Grass
+#-------------------------------
+[010]
+# Cerulean Cape
+Outdoor = true
+ShowArea = true
+Bicycle = true
+Weather = Rain,15
+MapPosition = 0,43,3
+Environment = Sand
+#-------------------------------
+[011]
+# Bill's Lighthouse
+Outdoor = false
+MapPosition = 0,43,3
+#-------------------------------
+[012]
+# Route 5
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,39,7
+Environment = Grass
+#-------------------------------
+[013]
+# Day Care Center
+MapPosition = 0,39,7
+#-------------------------------
+[014]
+# Underground
+Bicycle = true
+MapPosition = 0,39,9
+#-------------------------------
+[015]
+# Northern Gate
+Bicycle = true
+MapPosition = 0,39,9
+#-------------------------------
+[016]
+# Route 6
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,39,10
+#-------------------------------
+[017]
+# S.S. Anne
+Outdoor = false
+ShowArea = false
+Bicycle = false
+MapPosition = 0,39,11
+#-------------------------------
+[018]
+# Southern Gate
+Bicycle = true
+MapPosition = 0,39,9
+#-------------------------------
+[019]
+# Vermillion City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 19,22,7
+MapPosition = 0,39,11
+DiveMap = 231
+#-------------------------------
+[020]
+# Pokemon Center
+MapPosition = 0,39,11
+#-------------------------------
+[021]
+# PokeMart
+Outdoor = false
+ShowArea = true
+MapPosition = 0,39,11
+MapSize = 1,11
+#-------------------------------
+[023]
+# Vermillion City
+Outdoor = false
+ShowArea = false
+MapPosition = 0,39,11
+#-------------------------------
+[024]
+# Vermillion City Gym
+HealingSpot = 23,11,15
+MapPosition = 0,39,11
+#-------------------------------
+[025]
+# Pokémon Fan Club
+MapPosition = 0,39,11
+#-------------------------------
+[026]
+# Harbour
+Outdoor = false
+MapPosition = 0,39,11
+#-------------------------------
+[027]
+# S.S. Anne
+Outdoor = false
+ShowArea = true
+MapPosition = 0,39,11
+#-------------------------------
+[028]
+# S.S. Anne
+Outdoor = false
+ShowArea = false
+MapPosition = 0,39,11
+BattleBack = IndoorA
+#-------------------------------
+[029]
+# S.S. Anne
+Bicycle = false
+MapPosition = 0,39,11
+#-------------------------------
+[030]
+# S.S. Anne
+MapPosition = 0,39,11
+#-------------------------------
+[031]
+# S.S. Anne
+Outdoor = false
+ShowArea = false
+MapPosition = 0,39,11
+MapSize = 2,1101
+#-------------------------------
+[032]
+# S.S. Anne
+Outdoor = false
+MapPosition = 0,39,11
+#-------------------------------
+[034]
+# SS.Anne
+Outdoor = false
+Bicycle = false
+MapPosition = 0,39,11
+BattleBack = IndoorA
+#-------------------------------
+[035]
+# Captain's Room
+Outdoor = false
+ShowArea = true
+MapPosition = 0,39,11
+#-------------------------------
+[036]
+# SS. Anne
+Outdoor = true
+HealingSpot = 35,17,7
+MapPosition = 0,39,11
+#-------------------------------
+[037]
+# Vermillion City
+MapPosition = 0,39,11
+BattleBack = EliteA
+#-------------------------------
+[038]
+# Trainer House
+MapPosition = 0,39,11
+#-------------------------------
+[039]
+# Trainer House
+Outdoor = true
+ShowArea = true
+MapPosition = 0,39,11
+MapSize = 2,11
+#-------------------------------
+[040]
+# Viridian River
+Outdoor = true
+ShowArea = true
+BicycleAlways = false
+MapPosition = 0,39,9
+Environment = MovingWater
+#-------------------------------
+[041]
+# Goldenrod Waterway
+Outdoor = true
+#-------------------------------
+[042]
+# Pallet Town
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 42,12,10
+MapPosition = 0,31,13
+#-------------------------------
+[044]
+# Fuchisa City -old
+Outdoor = true
+ShowArea = true
+MapPosition = 0,36,15
+MapSize = 2,11
+#-------------------------------
+[045]
+# Team Rocket Hideout
+Outdoor = false
+MapPosition = 0,37,9
+#-------------------------------
+[046]
+# Pinkan Hollow
+ShowArea = true
+MapPosition = 0,31,10
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[047]
+# Mt. Mortar
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,13,7
+DarkMap = true
+BattleBack = CaveDark
+MapSize = 2,11
+Environment = Cave
+#-------------------------------
+[049]
+# Mahogany Town
+Bicycle = true
+MapPosition = 0,15,7
+#-------------------------------
+[050]
+# Lavender Town
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 50,19,15
+Weather = Rain,10
+MapPosition = 0,43,9
+DarkMap = false
+BattleBack = City
+#-------------------------------
+[051]
+# Pinkan Island
+Outdoor = true
+ShowArea = true
+MapPosition = 0,31,10
+#-------------------------------
+[052]
+# Seafoam Islands.old
+Outdoor = false
+ShowArea = true
+MapPosition = 0,34,17
+BattleBack = CaveIce
+MapSize = 1,
+Environment = Cave
+#-------------------------------
+[053]
+# Seafoam Islands B2
+MapPosition = 0,34,17
+BattleBack = CaveIce
+Environment = Cave
+#-------------------------------
+[054]
+# Seafoam Islands B3
+MapPosition = 0,34,17
+BattleBack = CaveIce
+Environment = Cave
+#-------------------------------
+[055]
+# Seafoam Islands B4
+MapPosition = 0,34,17
+BattleBack = CaveIce
+Environment = Cave
+#-------------------------------
+[056]
+# Surf Race
+MapPosition = 0,36,16
+BattleBack = EliteA
+#-------------------------------
+[057]
+# Route 19
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,36,16
+Environment = MovingWater
+#-------------------------------
+[058]
+# Route 20
+Outdoor = true
+ShowArea = true
+MapPosition = 0,36,17
+DiveMap = 228
+Environment = MovingWater
+#-------------------------------
+[059]
+# Route 21
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,31,15
+DiveMap = 229
+BattleBack = 
+Environment = MovingWater
+#-------------------------------
+[060]
+# PokeMart
+MapPosition = 0,36,15
+#-------------------------------
+[061]
+# Vermillion City Gym
+MapPosition = 0,39,11
+BattleBack = EliteB
+#-------------------------------
+[062]
+# Celadon City
+MapPosition = 0,37,9
+#-------------------------------
+[063]
+# Celadon City
+ShowArea = true
+MapPosition = 0,37,9
+BattleBack = MountainEve
+#-------------------------------
+[064]
+# Celadon City
+MapPosition = 0,37,9
+BattleBack = EliteC
+#-------------------------------
+[065]
+# Pokemon Center
+Outdoor = false
+ShowArea = false
+#-------------------------------
+[066]
+# Eastern Gate
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 0,39,9
+#-------------------------------
+[072]
+# Celadon Sewers
+Outdoor = false
+ShowArea = false
+MapPosition = 0,37,9
+Environment = Cave
+#-------------------------------
+[074]
+# Area 1
+Outdoor = false
+Bicycle = true
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Grass
+#-------------------------------
+[075]
+# Area 2
+Outdoor = false
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Grass
+#-------------------------------
+[078]
+# Route 1
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,31,12
+#-------------------------------
+[079]
+# Viridian City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 79,30,36
+MapPosition = 0,31,10
+#-------------------------------
+[082]
+# Area 3
+Outdoor = false
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Grass
+#-------------------------------
+[086]
+# Route 2
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,31,8
+Environment = Grass
+#-------------------------------
+[088]
+# Gate
+Bicycle = true
+MapPosition = 0,31,8
+#-------------------------------
+[089]
+# Gate
+Bicycle = true
+MapPosition = 0,31,8
+#-------------------------------
+[090]
+# Route 2
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,31,8
+#-------------------------------
+[091]
+# Pewter City
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 0,31,5
+#-------------------------------
+[093]
+# Pewter City
+#-------------------------------
+[094]
+# Soaring
+Outdoor = true
+#-------------------------------
+[095]
+# Celadon City
+Outdoor = true
+ShowArea = true
+HealingSpot = 95,56,11
+MapPosition = 0,37,9
+#-------------------------------
+[098]
+# Cinnabar Island
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 98,20,27
+MapPosition = 0,31,17
+MapSize = 1,1
+#-------------------------------
+[099]
+# Route 41
+Outdoor = true
+ShowArea = true
+MapPosition = 0,6,12
+BattleBack = Volcano
+#-------------------------------
+[101]
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 101,61,12
+MapPosition = 0,33,5
+Environment = Grass
+#-------------------------------
+[102]
+# Mt. Moon
+ShowArea = true
+Bicycle = true
+MapPosition = 0,35,5
+Environment = Cave
+#-------------------------------
+[103]
+# Mt. Moon B1F
+Bicycle = true
+MapPosition = 0,35,5
+Environment = Cave
+#-------------------------------
+[104]
+# Mt. Moon
+Bicycle = true
+MapPosition = 0,35,5
+Environment = Cave
+#-------------------------------
+[105]
+# Mt. Moon B2F
+Bicycle = true
+MapPosition = 0,35,5
+Environment = Cave
+#-------------------------------
+[106]
+# Route 4
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,37,5
+Environment = Grass
+#-------------------------------
+[107]
+# Area 4
+Outdoor = false
+MapPosition = 0,36,17
+SafariMap = true
+#-------------------------------
+[108]
+# Saffron City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 122,10,8
+MapPosition = 0,39,9
+#-------------------------------
+[111]
+# Saffron Hotel
+Outdoor = false
+ShowArea = false
+MapPosition = 0,39,9
+#-------------------------------
+[118]
+# debug
+Outdoor = true
+#-------------------------------
+[119]
+# PokeMart
+Outdoor = false
+ShowArea = false
+MapPosition = 0,42,1
+#-------------------------------
+[121]
+# Silph Co.
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[122]
+# Pokemon Center
+MapPosition = 0,39,9
+#-------------------------------
+[125]
+# Cinnabar Island
+ShowArea = true
+MapPosition = 0,31,17
+#-------------------------------
+[129]
+# Pokémon Trade Center
+ShowArea = true
+#-------------------------------
+[130]
+# Pokemon Center
+ShowArea = false
+HealingSpot = 98,40,32
+MapPosition = 0,31,17
+#-------------------------------
+[131]
+# 9F --old--
+ShowArea = true
+#-------------------------------
+[132]
+Outdoor = true
+ShowArea = true
+#-------------------------------
+[133]
+# Rocket Mart
+Outdoor = false
+MapPosition = 0,39,9
+#-------------------------------
+[134]
+# Johto
+Outdoor = true
+ShowArea = true
+#-------------------------------
+[135]
+# Cinnabar Hotel
+Outdoor = false
+MapPosition = 0,31,17
+#-------------------------------
+[136]
+# Cinnabar Hotel
+Outdoor = false
+MapPosition = 0,31,17
+#-------------------------------
+[137]
+# New Bark Town
+Outdoor = true
+ShowArea = true
+Bicycle = true
+Weather = Rain,5
+MapPosition = 1,20,14
+#-------------------------------
+[138]
+# Olivine City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,7,10
+#-------------------------------
+[140]
+# Diglett's Cave
+ShowArea = true
+Bicycle = true
+MapPosition = 0,33,9
+Environment = Cave
+#-------------------------------
+[141]
+# Saffron City
+Outdoor = false
+ShowArea = false
+MapPosition = 0,39,9
+#-------------------------------
+[142]
+# Pokémon Tower B1
+ShowArea = true
+MapPosition = 0,43,9
+#-------------------------------
+[143]
+# Route 23
+Outdoor = true
+ShowArea = true
+MapPosition = 0,43,2
+BattleBack = Mountain
+Environment = Rock
+#-------------------------------
+[144]
+# Power Plant
+ShowArea = true
+MapPosition = 0,43,7
+BattleBack = PowerPlant
+#-------------------------------
+[145]
+# Route 26
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,29,12
+Environment = Grass
+#-------------------------------
+[146]
+# Route 17
+Outdoor = true
+ShowArea = true
+Bicycle = true
+BicycleAlways = true
+MapPosition = 0,34,12
+MapSize = 0,
+Environment = Grass
+#-------------------------------
+[147]
+# Route 27
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,27,12
+BattleBack = 
+Environment = Grass
+#-------------------------------
+[149]
+# Flooded Cave
+ShowArea = true
+#-------------------------------
+[151]
+# Saffron Boutique
+Outdoor = false
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[152]
+# Saffron City Gym
+Outdoor = false
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[153]
+# Saffron City
+Outdoor = false
+ShowArea = false
+MapPosition = 0,39,9
+#-------------------------------
+[154]
+# Route 10
+Outdoor = true
+ShowArea = true
+HealingSpot = 154,28,11
+MapPosition = 0,43,8
+Environment = Grass
+#-------------------------------
+[155]
+# Route 11
+Outdoor = true
+ShowArea = true
+MapPosition = 0,42,11
+Environment = Grass
+#-------------------------------
+[156]
+# Saffron City
+MapPosition = 0,39,9
+#-------------------------------
+[158]
+# Gate
+Bicycle = true
+MapPosition = 0,42,11
+#-------------------------------
+[159]
+# Route 12
+Outdoor = true
+ShowArea = true
+MapPosition = 0,43,11
+DiveMap = 162
+Environment = Grass
+#-------------------------------
+[160]
+# Messages
+Outdoor = true
+ShowArea = true
+#-------------------------------
+[161]
+# Lighthouse
+Outdoor = true
+ShowArea = true
+MapPosition = 0,39,11
+#-------------------------------
+[162]
+# Underwater
+Outdoor = true
+ShowArea = true
+MapPosition = 0,43,11
+Environment = Underwater
+#-------------------------------
+[163]
+MapPosition = 0,39,9
+#-------------------------------
+[164]
+Outdoor = false
+ShowArea = false
+MapPosition = 0,39,9
+#-------------------------------
+[167]
+# Crimson City
+Outdoor = true
+ShowArea = true
+HealingSpot = 167,36,26
+MapPosition = 0,42,1
+#-------------------------------
+[168]
+# Crimson City
+Outdoor = false
+ShowArea = false
+MapPosition = 0,42,1
+#-------------------------------
+[169]
+# Crimson City
+Outdoor = false
+ShowArea = false
+MapPosition = 0,42,1
+DiveMap = 369
+#-------------------------------
+[170]
+# Crimson City
+Outdoor = false
+ShowArea = false
+MapPosition = 0,42,1
+#-------------------------------
+[171]
+# Route 22
+Outdoor = true
+ShowArea = true
+MapPosition = 0,29,10
+Environment = Grass
+#-------------------------------
+[172]
+Outdoor = true
+ShowArea = true
+Weather = Rain,10
+#-------------------------------
+[173]
+# Pokémon Mansion
+Outdoor = false
+ShowArea = true
+Bicycle = false
+MapPosition = 0,31,17
+BattleBack = Volcano
+#-------------------------------
+[174]
+# Pokémon Mansion
+Outdoor = false
+ShowArea = false
+MapPosition = 0,31,17
+BattleBack = Volcano
+#-------------------------------
+[175]
+# COMMON
+Outdoor = true
+ShowArea = true
+#-------------------------------
+[176]
+# Crimson Hotel
+Outdoor = false
+ShowArea = false
+MapPosition = 0,42,1
+#-------------------------------
+[177]
+# Crimson Hotel
+Outdoor = false
+ShowArea = false
+MapPosition = 0,42,1
+#-------------------------------
+[178]
+# Bill's garden
+Outdoor = true
+ShowArea = true
+MapPosition = 0,43,3
+Environment = Grass
+#-------------------------------
+[181]
+# Pokémon Mansion
+ShowArea = true
+MapPosition = 0,31,17
+#-------------------------------
+[185]
+# Secret Garden
+Outdoor = true
+ShowArea = true
+MapPosition = 0,32,12
+Environment = Grass
+#-------------------------------
+[188]
+# PokeMart
+ShowArea = false
+MapPosition = 0,31,17
+#-------------------------------
+[189]
+# Cinnabar Island
+ShowArea = true
+MapPosition = 0,31,17
+#-------------------------------
+[194]
+# Saffron City
+Outdoor = false
+MapPosition = 0,39,9
+#-------------------------------
+[197]
+# Power Plant
+Outdoor = false
+MapPosition = 0,43,7
+BattleBack = PowerPlant
+#-------------------------------
+[198]
+# Power Plant
+Outdoor = false
+MapPosition = 0,43,7
+BattleBack = PowerPlant
+#-------------------------------
+[218]
+MapPosition = 2,33,25
+BattleBack = Volcano
+#-------------------------------
+[220]
+# Underwater
+Environment = Underwater
+#-------------------------------
+[229]
+# Underwater
+Weather = Rain,100
+#-------------------------------
+[230]
+# Violet City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,14,10
+#-------------------------------
+[234]
+Outdoor = false
+ShowArea = true
+Bicycle = true
+DarkMap = true
+Environment = Cave
+#-------------------------------
+[235]
+# Ruins of Alph
+Outdoor = false
+MapPosition = 1,12,11
+Environment = Cave
+#-------------------------------
+[237]
+# Goldenrod City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,9,13
+#-------------------------------
+[239]
+# Pokémon Center
+HealingSpot = 237,24,38
+MapPosition = 1,9,13
+#-------------------------------
+[248]
+# Train Station
+MapPosition = 1,9,13
+#-------------------------------
+[254]
+# Route 35
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,10,10
+Environment = Grass
+#-------------------------------
+[255]
+# Gate
+Bicycle = true
+MapPosition = 1,10,10
+#-------------------------------
+[258]
+# Tohjo Falls
+Outdoor = false
+ShowArea = true
+MapPosition = 0,22,14
+Environment = Cave
+#-------------------------------
+[261]
+# Route 31
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,15,10
+Environment = Grass
+#-------------------------------
+[262]
+# Route 30
+Outdoor = true
+ShowArea = true
+MapPosition = 1,16,12
+Environment = Grass
+#-------------------------------
+[263]
+# Gate
+Bicycle = true
+MapPosition = 1,16,12
+#-------------------------------
+[264]
+# Pokémon Center
+HealingSpot = 230,49,43
+MapPosition = 1,14,10
+#-------------------------------
+[265]
+# Route 34
+Outdoor = true
+ShowArea = true
+MapPosition = 1,10,15
+Environment = Grass
+#-------------------------------
+[266]
+# Ilex Forest
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,10,16
+BattleBack = Forest
+Environment = Forest
+#-------------------------------
+[267]
+# Route 36
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,11,9
+Environment = Grass
+#-------------------------------
+[272]
+# Sprout Tower
+Outdoor = false
+ShowArea = true
+MapPosition = 1,14,9
+#-------------------------------
+[278]
+# Azalea Town
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,11,16
+#-------------------------------
+[283]
+# Slowpoke Well
+Outdoor = false
+ShowArea = true
+MapPosition = 1,12,16
+Environment = Cave
+#-------------------------------
+[284]
+# Route 33
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,13,16
+Environment = Grass
+#-------------------------------
+[285]
+# Union Cave
+Outdoor = false
+ShowArea = true
+Bicycle = true
+MapPosition = 1,13,15
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[286]
+# Union Cave B1
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 1,13,15
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[287]
+# Union Cave B2
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 1,13,15
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[288]
+# Route 32
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,13,13
+Environment = Grass
+#-------------------------------
+[295]
+# Intro
+SnapEdges = true
+#-------------------------------
+[300]
+# National Park
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,10,9
+BattleBack = Field
+Environment = Grass
+#-------------------------------
+[303]
+# Indigo Plateau
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 303,15,7
+MapPosition = 0,27,8
+Environment = Rock
+#-------------------------------
+[304]
+# Victory Road
+Outdoor = false
+ShowArea = true
+MapPosition = 0,27,9
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[306]
+# Victory Road
+Outdoor = false
+MapPosition = 0,27,9
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[307]
+# Victory Road
+Outdoor = false
+ShowArea = false
+MapPosition = 0,27,9
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[310]
+# Cherrygrove City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,16,14
+#-------------------------------
+[311]
+# Route 29
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,17,14
+Environment = Grass
+#-------------------------------
+[312]
+# Route 46
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,18,13
+Environment = Grass
+#-------------------------------
+[322]
+# Cerulean Cave
+Outdoor = false
+ShowArea = true
+Bicycle = true
+MapPosition = 0,39,5
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[323]
+# Cerulean Cave
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 0,39,5
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[324]
+# Cerulean Cave
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 0,39,5
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[325]
+# Prof. Elm Lab.
+Outdoor = false
+ShowArea = true
+MapPosition = 1,20,14
+#-------------------------------
+[329]
+# Blackthorn City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,20,7
+BattleBack = Mountain
+#-------------------------------
+[330]
+# Pokémon Center
+Outdoor = false
+HealingSpot = 329,29,40
+MapPosition = 1,20,7
+#-------------------------------
+[335]
+# Dragon's Den
+Outdoor = false
+ShowArea = true
+Bicycle = false
+MapPosition = 1,19,6
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[342]
+# Ruins of Alph
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,12,11
+Environment = Rock
+#-------------------------------
+[345]
+# Chamber A
+Outdoor = false
+ShowArea = true
+MapPosition = 1,12,11
+#-------------------------------
+[346]
+# Ruins of Alph
+Outdoor = false
+MapPosition = 1,12,11
+Environment = Cave
+#-------------------------------
+[347]
+# Chamber B
+Outdoor = false
+ShowArea = true
+MapPosition = 1,12,11
+#-------------------------------
+[348]
+# Chamber C
+Outdoor = false
+ShowArea = true
+MapPosition = 1,12,11
+#-------------------------------
+[349]
+# Rock Tunnel
+ShowArea = true
+MapPosition = 0,43,6
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[350]
+# Rock Tunnel
+MapPosition = 0,43,6
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[351]
+# Route 9
+Outdoor = true
+ShowArea = true
+MapPosition = 0,42,6
+Environment = Rock
+#-------------------------------
+[352]
+# Chamber D
+Outdoor = false
+ShowArea = true
+MapPosition = 1,12,11
+#-------------------------------
+[353]
+# Chamber E
+Outdoor = false
+ShowArea = true
+MapPosition = 1,12,11
+#-------------------------------
+[354]
+# Ruins of Alph
+Outdoor = false
+MapPosition = 1,12,11
+#-------------------------------
+[356]
+# Debug Island
+Outdoor = true
+#-------------------------------
+[357]
+# PokéMart
+Outdoor = false
+ShowArea = true
+#-------------------------------
+[359]
+# Ecruteak City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,11,7
+#-------------------------------
+[360]
+# Pokémon School
+MapPosition = 1,14,10
+DarkMap = false
+#-------------------------------
+[363]
+# Violet City Gym
+Outdoor = false
+MapPosition = 1,14,10
+#-------------------------------
+[364]
+# Dark Cave
+Outdoor = false
+ShowArea = true
+MapPosition = 1,16,10
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[365]
+# Cherrygrove City_UNUSED
+MapPosition = 1,16,14
+#-------------------------------
+[366]
+# Cherrygrove City
+MapPosition = 1,16,14
+#-------------------------------
+[368]
+# Pokémon Center
+HealingSpot = 310,41,9
+MapPosition = 1,16,14
+#-------------------------------
+[369]
+# Pewter Valley
+ShowArea = true
+BattleBack = Underwater
+Environment = Rock
+#-------------------------------
+[372]
+# Celadon Sewers
+Outdoor = false
+ShowArea = false
+MapPosition = 0,37,9
+DiveMap = 382
+BattleBack = Beach
+#-------------------------------
+[375]
+# Trainer House
+Outdoor = false
+BattleBack = IndoorC
+#-------------------------------
+[376]
+# Hall of Origin
+Outdoor = true
+ShowArea = true
+BattleBack = Mountain
+#-------------------------------
+[377]
+# Blackthorn City Gym
+Bicycle = true
+MapPosition = 1,20,7
+#-------------------------------
+[378]
+# Mewtwo Intro
+BattleBack = SecuredRoom
+#-------------------------------
+[380]
+# Pewter City
+Outdoor = true
+ShowArea = true
+HealingSpot = 380,33,27
+MapPosition = 0,31,5
+#-------------------------------
+[383]
+# Gate
+Bicycle = true
+MapPosition = 0,40,6
+#-------------------------------
+[387]
+# Cerulean City
+Outdoor = true
+Bicycle = true
+BicycleAlways = true
+MapPosition = 0,40,6
+#-------------------------------
+[396]
+# Underground Gate
+Bicycle = true
+MapPosition = 0,39,10
+#-------------------------------
+[397]
+# Underground Gate
+Bicycle = true
+MapPosition = 0,39,7
+#-------------------------------
+[398]
+# Diglett's Cave
+Bicycle = true
+MapPosition = 0,41,11
+Environment = Cave
+#-------------------------------
+[399]
+# Diglett's Cave
+Bicycle = true
+MapPosition = 0,31,6
+#-------------------------------
+[400]
+# Pokémon Tower
+ShowArea = true
+MapPosition = 0,43,9
+BattleBack = Tower
+Environment = Graveyard
+#-------------------------------
+[401]
+# Pokemon Tower F2
+MapPosition = 0,43,9
+BattleBack = Tower
+Environment = Graveyard
+#-------------------------------
+[402]
+# Pokemon Tower F3
+MapPosition = 0,43,9
+BattleBack = Tower
+Environment = Graveyard
+#-------------------------------
+[403]
+# Pokemon Tower F4
+MapPosition = 0,43,9
+BattleBack = Tower
+Environment = Graveyard
+#-------------------------------
+[409]
+# Route 8
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,42,9
+Environment = Grass
+#-------------------------------
+[410]
+# Underground Gate
+Bicycle = true
+MapPosition = 0,42,9
+#-------------------------------
+[411]
+# Underground
+Bicycle = true
+MapPosition = 0,40,9
+#-------------------------------
+[412]
+# Gate (East)
+Bicycle = true
+MapPosition = 0,39,9
+#-------------------------------
+[413]
+# Route 7
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,38,9
+Environment = Grass
+#-------------------------------
+[415]
+# Western Gate
+Bicycle = true
+MapPosition = 0,39,9
+#-------------------------------
+[417]
+# Gate
+Bicycle = true
+MapPosition = 0,43,9
+#-------------------------------
+[423]
+# Cyberspace
+ShowArea = false
+BattleBack = Cyber
+Environment = UltraSpace
+#-------------------------------
+[425]
+# Underground Gate
+Bicycle = true
+MapPosition = 0,38,9
+#-------------------------------
+[426]
+# Blackthorn City Gym
+Outdoor = false
+ShowArea = true
+MapPosition = 1,20,7
+#-------------------------------
+[428]
+# Ranger Cabin
+Outdoor = true
+ShowArea = true
+#-------------------------------
+[431]
+# Celadon Sewers
+MapPosition = 0,37,9
+BattleBack = SecuredRoom
+#-------------------------------
+[436]
+# Celadon Dpt. Store
+Outdoor = true
+MapPosition = 0,36,9
+BattleBack = Bridge
+#-------------------------------
+[437]
+# Route 13
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,42,13
+DiveMap = 220
+Environment = StillWater
+#-------------------------------
+[438]
+# Route 16
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,45,10
+Environment = Grass
+#-------------------------------
+[440]
+# Route 14
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,41,14
+BattleBack = Swamp
+Environment = Grass
+#-------------------------------
+[444]
+# Route 15
+Outdoor = true
+ShowArea = true
+MapPosition = 0,39,15
+BattleBack = Swamp
+Environment = Grass
+#-------------------------------
+[445]
+# Area 1
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Grass
+#-------------------------------
+[446]
+# Celadon Sewers
+MapPosition = 0,37,9
+BattleBack = SecuredRoom
+#-------------------------------
+[467]
+# Pokemon Tower F5
+MapPosition = 0,43,9
+BattleBack = Tower
+Environment = Graveyard
+#-------------------------------
+[468]
+# Pokemon Tower F6
+MapPosition = 0,43,9
+BattleBack = Tower
+Environment = Graveyard
+#-------------------------------
+[469]
+# Pokemon Tower F7
+MapPosition = 0,43,9
+Dungeon = false
+BattleBack = Tower
+Environment = Graveyard
+#-------------------------------
+[472]
+# Fuchsia City
+Outdoor = true
+ShowArea = true
+Bicycle = true
+HealingSpot = 472,27,30
+MapPosition = 0,36,15
+MapSize = 1,1
+#-------------------------------
+[473]
+# Safari Zone Gate
+MapPosition = 0,36,17
+#-------------------------------
+[474]
+# Gate
+Bicycle = true
+MapPosition = 0,36,15
+#-------------------------------
+[483]
+# Gate
+Bicycle = true
+MapPosition = 0,36,15
+#-------------------------------
+[484]
+# Area 2
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Grass
+#-------------------------------
+[485]
+# Area 3
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Grass
+#-------------------------------
+[486]
+# Area 4
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Grass
+#-------------------------------
+[487]
+# Area 5
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Sand
+#-------------------------------
+[488]
+# Area 5
+Outdoor = false
+ShowArea = false
+Bicycle = false
+MapPosition = 0,36,17
+SafariMap = true
+Environment = Rock
+#-------------------------------
+[489]
+# Seafoam Islands.old
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,34,17
+SafariMap = true
+#-------------------------------
+[490]
+# Route 3
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,33,5
+Environment = Grass
+#-------------------------------
+[491]
+# Viridian Forest
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,31,7
+BattleBack = Forest
+Environment = Forest
+#-------------------------------
+[492]
+# Gate
+Bicycle = true
+MapPosition = 0,36,15
+#-------------------------------
+[494]
+# Mt. Moon Square
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,35,5
+Environment = Grass
+#-------------------------------
+[495]
+# Route 9
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,41,6
+Environment = Rock
+#-------------------------------
+[496]
+# Mt. Moon
+ShowArea = true
+Bicycle = true
+MapPosition = 0,35,5
+#-------------------------------
+[511]
+# Gate
+Bicycle = true
+MapPosition = 0,31,7
+#-------------------------------
+[512]
+# Rock Tunnel
+Outdoor = true
+MapPosition = 0,43,6
+#-------------------------------
+[517]
+# Route 18
+Outdoor = true
+ShowArea = true
+MapPosition = 0,35,15
+BattleBack = Field
+Environment = Grass
+#-------------------------------
+[518]
+# Gate
+Bicycle = true
+MapPosition = 0,35,15
+#-------------------------------
+[519]
+# Azalea Town
+Outdoor = false
+Weather = Storm,100
+MapPosition = 1,11,16
+#-------------------------------
+[523]
+# Waterfall Cave
+Outdoor = false
+ShowArea = false
+MapPosition = 0,42,1
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[526]
+# Knot Island
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,30,33
+#-------------------------------
+[528]
+# Treasure Beach
+Outdoor = true
+ShowArea = true
+Bicycle = true
+Weather = Rain,10
+MapPosition = 2,30,35
+BattleBack = Beach
+Environment = Sand
+#-------------------------------
+[529]
+# Mt. Silver
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,24,10
+BattleBack = Field
+Environment = Rock
+#-------------------------------
+[531]
+# Pinkan Forest
+Outdoor = true
+ShowArea = true
+MapPosition = 0,31,10
+BattleBack = Forest
+#-------------------------------
+[532]
+# Pokémon Center
+HealingSpot = 526,27,12
+MapPosition = 0,24,10
+#-------------------------------
+[559]
+# Kindle Road
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,33,31
+DiveMap = 609
+Environment = Sand
+#-------------------------------
+[560]
+# Underwater
+MapPosition = 2,33,31
+DarkMap = false
+BattleBack = Underwater
+#-------------------------------
+[561]
+# Mt. Ember
+Outdoor = true
+ShowArea = true
+Bicycle = true
+Weather = Sunny,100
+MapPosition = 2,33,25
+Environment = Volcano
+#-------------------------------
+[562]
+# Boon Island
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,37,25
+#-------------------------------
+[563]
+# Kin Island
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,43,25
+#-------------------------------
+[564]
+# Brine Road
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,37,27
+Environment = MovingWater
+#-------------------------------
+[566]
+# Resort Gorgeous
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,46,27
+Environment = MovingWater
+#-------------------------------
+[567]
+# Pokémon Center
+HealingSpot = 563,31,36
+MapPosition = 2,43,25
+#-------------------------------
+[568]
+# Pokémon Center
+HealingSpot = 562,26,46
+MapPosition = 2,37,25
+#-------------------------------
+[569]
+# Ruby Chamber
+ShowArea = true
+MapPosition = 2,33,25
+BattleBack = Lava
+Environment = Volcano
+#-------------------------------
+[570]
+# Deep Sea
+Outdoor = true
+MapPosition = 2,37,28
+DiveMap = 560
+Environment = MovingWater
+#-------------------------------
+[573]
+ShowArea = true
+Environment = Graveyard
+#-------------------------------
+[577]
+# Pokémon Center
+HealingSpot = 359,38,38
+MapPosition = 1,11,7
+#-------------------------------
+[580]
+# Route 42
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,13,7
+Environment = Grass
+#-------------------------------
+[585]
+# Bell Tower
+ShowArea = true
+MapPosition = 1,11,6
+#-------------------------------
+[586]
+# Route 37
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,11,8
+Environment = Grass
+#-------------------------------
+[588]
+# Sapphire Cave
+ShowArea = true
+MapPosition = 2,37,28
+Environment = Underwater
+#-------------------------------
+[589]
+# Sinjoh ruins
+Outdoor = false
+ShowArea = true
+Weather = Snow,100
+MapPosition = 1,26,3
+Environment = Snow
+#-------------------------------
+[594]
+# Water Labyrinth
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,44,29
+DiveMap = 606
+Environment = MovingWater
+#-------------------------------
+[596]
+# Sky Pillar
+Outdoor = false
+ShowArea = true
+Bicycle = true
+MapPosition = 2,11,39
+Environment = Cave
+#-------------------------------
+[597]
+# Sky Pillar
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 2,11,39
+Environment = Cave
+#-------------------------------
+[600]
+# Bond bridge
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,41,22
+Environment = Grass
+#-------------------------------
+[601]
+Outdoor = false
+ShowArea = true
+MapPosition = 2,44,29
+Environment = Cave
+#-------------------------------
+[603]
+# Chrono Island
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 2,48,30
+#-------------------------------
+[604]
+# Pokémon Center
+Outdoor = false
+HealingSpot = 603,36,14
+MapPosition = 2,48,30
+#-------------------------------
+[606]
+# Underwater
+MapPosition = 2,44,29
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[608]
+# Ember Spa
+Outdoor = false
+ShowArea = true
+MapPosition = 2,33,29
+#-------------------------------
+[619]
+# Berry Forest
+ShowArea = true
+Bicycle = true
+MapPosition = 2,40,22
+BattleBack = ForestEve
+Environment = Forest
+#-------------------------------
+[621]
+# P2 Laboratory
+ShowArea = true
+Bicycle = true
+MapPosition = 2,51,18
+#-------------------------------
+[631]
+# Mahogany Town
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,15,7
+#-------------------------------
+[632]
+# Pokémon Center
+HealingSpot = 631,29,26
+MapPosition = 0,15,7
+#-------------------------------
+[633]
+# Sky Pillar
+ShowArea = true
+Bicycle = true
+MapPosition = 2,11,39
+BattleBack = IndoorB
+Environment = Cave
+#-------------------------------
+[634]
+# Sky Pillar
+Bicycle = true
+MapPosition = 2,11,39
+BattleBack = IndoorB
+Environment = Cave
+#-------------------------------
+[635]
+# Route 43
+Outdoor = true
+ShowArea = true
+MapPosition = 1,15,6
+Environment = Grass
+#-------------------------------
+[638]
+# Lake of Rage
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,15,4
+Environment = StillWater
+#-------------------------------
+[639]
+# Sky Pillar
+Bicycle = true
+MapPosition = 2,11,39
+BattleBack = IndoorB
+Environment = Cave
+#-------------------------------
+[640]
+# Sky Pillar
+Bicycle = true
+MapPosition = 2,11,39
+BattleBack = IndoorB
+Environment = Cave
+#-------------------------------
+[641]
+# Sky Pillar
+Bicycle = true
+MapPosition = 2,11,39
+BattleBack = IndoorB
+Environment = Cave
+#-------------------------------
+[645]
+# Lake of Rage
+Outdoor = false
+ShowArea = false
+Bicycle = true
+MapPosition = 1,15,4
+Environment = Snow
+#-------------------------------
+[646]
+# Lake of Rage
+HealingSpot = 638,35,38
+MapPosition = 1,15,4
+#-------------------------------
+[655]
+# Hidden Forest
+Outdoor = true
+ShowArea = true
+MapPosition = 1,33,9
+BattleBack = Forest
+Environment = Forest
+#-------------------------------
+[660]
+# 2F
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[661]
+# 3F
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[662]
+# 4F
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[663]
+# 5F
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[664]
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[665]
+# 7F
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[666]
+# 8F
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[667]
+# 9F
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[668]
+# 10F
+ShowArea = true
+MapPosition = 0,39,9
+#-------------------------------
+[670]
+# Ice Mountains
+Outdoor = true
+ShowArea = true
+Bicycle = true
+Weather = Snow,100
+MapPosition = 1,20,6
+BattleBack = Snow
+Environment = Snow
+#-------------------------------
+[678]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = false
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[679]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = false
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[680]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = false
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[681]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = false
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[682]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = true
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[683]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = true
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[684]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = true
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[685]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = true
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[686]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = true
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[687]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = true
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[688]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = true
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[689]
+# Underwater
+MapPosition = 2,37,28
+DarkMap = true
+BattleBack = Underwater
+Environment = Underwater
+#-------------------------------
+[692]
+# Route 44
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,17,7
+MapSize = 3,
+Environment = Grass
+#-------------------------------
+[693]
+# Ice Cavern
+MapPosition = 1,20,6
+BattleBack = CaveIce
+#-------------------------------
+[698]
+# Ice Cavern
+MapPosition = 1,20,6
+BattleBack = CaveIce
+#-------------------------------
+[699]
+# Mt. Moon
+Bicycle = true
+MapPosition = 0,35,5
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[709]
+# Cianwood City
+Outdoor = true
+ShowArea = true
+#-------------------------------
+[714]
+# Creepy House
+Outdoor = false
+ShowArea = false
+MapPosition = 0,39,15
+DarkMap = true
+BattleBack = CaveDark
+Environment = Graveyard
+#-------------------------------
+[717]
+# Area 5
+Outdoor = false
+MapPosition = 0,36,17
+SafariMap = true
+#-------------------------------
+[730]
+# Route 38
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,8,7
+#-------------------------------
+[752]
+# Mt. Ember
+ShowArea = true
+MapPosition = 2,33,25
+BattleBack = Volcano
+Environment = Volcano
+#-------------------------------
+[753]
+# Mt. Ember
+MapPosition = 2,33,25
+BattleBack = Volcano
+Environment = Volcano
+#-------------------------------
+[754]
+# Mt. Ember
+MapPosition = 2,33,25
+BattleBack = Volcano
+Environment = Volcano
+#-------------------------------
+[755]
+# Mt. Ember
+MapPosition = 2,33,25
+BattleBack = Volcano
+Environment = Volcano
+#-------------------------------
+[756]
+# Mt. Ember
+MapPosition = 2,33,25
+BattleBack = Volcano
+Environment = Volcano
+#-------------------------------
+[762]
+# Offshore Road
+Outdoor = true
+ShowArea = true
+MapPosition = 2,31,21
+#-------------------------------
+[767]
+# Mt. Moon
+ShowArea = false
+Bicycle = true
+MapPosition = 0,35,5
+DarkMap = true
+Environment = Cave
+#-------------------------------
+[769]
+# Route 40
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,6,11
+#-------------------------------
+[774]
+# Mt. Ember
+MapPosition = 2,33,25
+BattleBack = Volcano
+Environment = Volcano
+#-------------------------------
+[776]
+# Mt. Silver
+Outdoor = false
+ShowArea = true
+MapPosition = 0,24,10
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[777]
+# Mt. Silver
+Outdoor = true
+ShowArea = false
+MapPosition = 0,24,10
+BattleBack = Mountain
+#-------------------------------
+[778]
+# Mt Silver
+Outdoor = false
+ShowArea = false
+MapPosition = 0,24,10
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[779]
+# Mt Silver
+Outdoor = false
+ShowArea = false
+MapPosition = 0,24,10
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[780]
+# Mt. Silver
+Outdoor = false
+ShowArea = false
+MapPosition = 0,24,10
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[781]
+# Mt. Silver
+Outdoor = true
+ShowArea = false
+Weather = Snow,100
+MapPosition = 0,24,10
+BattleBack = Snow
+Environment = Snow
+#-------------------------------
+[782]
+# Mt. Silver
+Outdoor = false
+ShowArea = false
+MapPosition = 0,24,10
+DarkMap = false
+BattleBack = Cave
+Environment = Cave
+#-------------------------------
+[783]
+# Mt. Silver Summit
+Outdoor = true
+ShowArea = true
+MapPosition = 0,24,10
+BattleBack = Peak
+#-------------------------------
+[800]
+# Rock Tunnel
+MapPosition = 0,43,6
+DarkMap = true
+BattleBack = CaveDark
+Environment = Cave
+#-------------------------------
+[808]
+# Seafoam Islands B1
+Outdoor = false
+ShowArea = true
+MapPosition = 0,34,17
+BattleBack = CaveIce
+MapSize = 1,
+Environment = Cave
+#-------------------------------
+[810]
+# Sealed Chamber
+ShowArea = true
+MapPosition = 2,44,29
+Environment = Cave
+#-------------------------------
+[811]
+# Submerged Temple
+ShowArea = true
+MapPosition = 2,44,29
+#-------------------------------
+[813]
+# Sealed Chamber
+Outdoor = false
+ShowArea = true
+MapPosition = 2,44,29
+DiveMap = 811
+Environment = Cave
+#-------------------------------
+[814]
+# Sealed Chamber
+ShowArea = true
+MapPosition = 2,44,29
+Environment = Cave
+#-------------------------------
+[819]
+# Halfmoon Island
+ShowArea = true
+#-------------------------------
+[821]
+# Newmoon Island
+ShowArea = true
+#-------------------------------
+[823]
+# Fullmoon Island
+ShowArea = true
+#-------------------------------
+[826]
+# Oricorio Clearing
+Outdoor = true
+MapPosition = 2,30,35
+#-------------------------------
+[827]
+# Mt. Moon Summit
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 0,35,5
+BattleBack = Mountain
+Environment = Rock
+#-------------------------------
+[836]
+# Route 39
+Outdoor = true
+ShowArea = true
+Bicycle = true
+MapPosition = 1,7,7
+MapSize = 0,
