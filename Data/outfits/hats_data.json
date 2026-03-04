@@ -22,6 +22,24 @@
         "tags": "hairclip"
     },
     {
+        "author": ".payapon",
+        "id": "aquaORAS",
+        "name": "Aqua Bandana",
+        "description": "A dark bandana that's part of the Team Aqua uniform!",
+        "price": 20000,
+        "tags": "headband",
+        "regiontags": "hoenn"
+    },
+    {
+        "author": ".payapon",
+        "id": "aquaRSE",
+        "name": "Worn Aqua Bandana",
+        "description": "A tight bandana that was part of the Team Aqua uniform a long time ago. It feels a bit nostalgic.",
+        "price": 20000,
+        "tags": "headband",
+        "regiontags": "hoenn"
+    },
+    {
         "id": "aronmask",
         "name": "Aron Mask",
         "description": "A heavy, steel mask shaped like the head of an Aron.",
@@ -52,7 +70,8 @@
         "name": "Beret",
         "description": "It's a quirky beret. It's commonly used in Pokémon Contest.",
         "price": 500,
-        "tags": "hat"
+        "tags": "hat",
+        "storelocation": "rustboro"
     },
     {
         "id": "bianca",
@@ -77,14 +96,16 @@
         "name": "Big Barrette",
         "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon contests.",
         "price": 400,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "storelocation": "rustboro"
     },
     {
         "id": "blacktie",
         "name": "Black Tie",
         "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
         "price": 400,
-        "tags": "neckwear"
+        "tags": "neckwear",
+        "storelocation": "rustboro"
     },
     {
         "id": "blaineGlasses",
@@ -113,14 +134,15 @@
         "name": "Bow Tie",
         "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
         "price": 300,
-        "tags": "neckwear"
+        "tags": "neckwear",
+        "storelocation": "rustboro"
     },
     {
         "id": "box",
         "name": "Cardboard Box",
         "description": "A cardboard box with a smily face scrawled across the front.",
         "price": 500,
-        "tags": "mask",
+        "tags": "mask, special",
         "notes": "randomly found in trash cans"
     },
     {
@@ -211,7 +233,7 @@
         "name": "Sturdy Beret",
         "price": 500,
         "tags": "hat",
-        "storelocation": "vermillion"
+        "storelocation": "vermillion, rustboro"
     },
     {
         "id": "calem",
@@ -227,7 +249,8 @@
         "name": "Candy",
         "description": "It's a cute clip. It's commonly used as an accessory in Pokémon contests.",
         "price": 200,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "storelocation": "rustboro"
     },
     {
         "id": "carbink",
@@ -299,6 +322,7 @@
         "description": "A rootin' tootin' 10 gallon hat from the wild west of the Orre region.",
         "price": 8000,
         "tags": "hat",
+        "storelocation": "fallarbor",
         "notes": "todo: sell at the moo moo ranch"
     },
     {
@@ -400,7 +424,8 @@
         "name": "Dressy Tie",
         "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
         "price": 600,
-        "tags": "neckwear"
+        "tags": "neckwear",
+        "storelocation": "rustboro"
     },
     {
         "id": "drifloon",
@@ -431,9 +456,10 @@
     {
         "id": "eeveeears",
         "name": "Eevee Ears",
-        "price": 4500,
+        "price": 2500,
         "tags": "hairband",
-        "pokemontags": "eevee,"
+        "pokemontags": "eevee,",
+        "storelocation": "rustboro"
     },
     {
         "id": "electrivireheadset",
@@ -735,7 +761,8 @@
         "name": "Green Barrette",
         "description": "It's a quirky barrette. It's commonly used as an accessory in Pokémon contests.",
         "price": 250,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "storelocation": "rustboro"
     },
     {
         "id": "halo",
@@ -745,6 +772,15 @@
         "tags": "floating",
         "pokemontags": "shedinja",
         "notes": "reward for beating the ilex forest shedinja encounter? reward for showing a shedinja to someone?"
+    },
+    {
+        "author": "gummy.frog",
+        "id": "harmony",
+        "name": "Striped Trilby A",
+        "description": "A fashionable hat from Kalos. It's popular with trainers who participate in the Z-A Royale.",
+        "price": 2000,
+        "tags": "hat",
+        "regiontags": "kalos"
     },
     {
         "id": "harmonyscarf",
@@ -774,7 +810,8 @@
         "name": "Simple Headband",
         "description": "It's a cute headband. It's commonly used as an accessory in Pokémon contests.",
         "price": 400,
-        "tags": "headband"
+        "tags": "headband",
+        "storelocation": "default"
     },
     {
         "author": ".realthree",
@@ -790,7 +827,7 @@
         "description": "A delicate see-through lace covering that is worn over the head.",
         "price": 1500,
         "tags": "hat",
-        "storelocation": "vermillion,"
+        "storelocation": "vermillion"
     },
     {
         "id": "headparas",
@@ -806,7 +843,7 @@
         "description": "A pair of sleek headphones for trainers who prefer to listen to their own music on their adventure!",
         "price": 6000,
         "tags": "headband",
-        "storelocation": "saffron,"
+        "storelocation": "saffron"
     },
     {
         "author": ".realthree",
@@ -836,7 +873,7 @@
         "description": "A deep, rich headscarf offering a refined look.",
         "price": 1000,
         "tags": "hat",
-        "storelocation": "celadon,"
+        "storelocation": "celadon"
     },
     {
         "id": "hijablight",
@@ -844,7 +881,7 @@
         "description": "A soft, light-colored headscarf for a fresh touch.",
         "price": 1000,
         "tags": "hat",
-        "storelocation": "celadon,"
+        "storelocation": "celadon"
     },
     {
         "id": "hijabwhite",
@@ -852,7 +889,7 @@
         "description": "A classic white headscarf with a clean, sophisticated look.",
         "price": 1000,
         "tags": "hat",
-        "storelocation": "celadon,"
+        "storelocation": "celadon"
     },
     {
         "id": "hilda",
@@ -1049,6 +1086,24 @@
         "notes": "Fishing contest"
     },
     {
+        "author": ".payapon",
+        "id": "magmaORAS",
+        "name": "Magma Hood",
+        "description": "A heavy hood that's part of the Team Magma uniform!",
+        "price": 20000,
+        "tags": "hat",
+        "regiontags": "hoenn"
+    },
+    {
+        "author": ".payapon",
+        "id": "magmaRSE",
+        "name": "Old Magma Hood",
+        "description": "A heavy hood that was part of the Team Magma uniform a long time ago. It feels a bit nostalgic.",
+        "price": 20000,
+        "tags": "hat",
+        "regiontags": "hoenn"
+    },
+    {
         "id": "magnemitepin",
         "name": "Magnemite Hairclips",
         "description": "Hair clips that resemble Magnemites. They were popularized by an influencer in Paldea.",
@@ -1091,6 +1146,15 @@
         "tags": "hairclip, headband,trainer",
         "regiontags": "hoenn",
         "notes": "regional set"
+    },
+    {
+        "author": "gummy.frog",
+        "id": "meowthglasses",
+        "name": "Meowth-Eye Glasses",
+        "description": "Glasses that invoke the gaze of a scheming Meowth. Popular with office workers and librarians.",
+        "price": 3000,
+        "tags": "glasses",
+        "pokemontags": "meowth,persian,"
     },
     {
         "id": "mikufairy",
@@ -1149,6 +1213,15 @@
         "price": 7500,
         "tags": "hat,weather-cold",
         "pokemontags": "alolan_vulpix,alolan_ninetales,"
+    },
+    {
+        "author": "mystora",
+        "id": "noibat",
+        "name": "Noibat Cap",
+        "description": "A cap that is shaped to resemble a Noibat!",
+        "price": 8000,
+        "tags": "hat",
+        "pokemontags": "noibat,noivern"
     },
     {
         "id": "nursejoy",
@@ -1233,6 +1306,15 @@
         "notes": "viridian forest mushroom rare drop"
     },
     {
+        "author": "gummy.frog",
+        "id": "paxton",
+        "name": "Striped Trilby Z",
+        "description": "A fashionable hat from Kalos, popular with trainers who participate in the Z-A Royale.",
+        "price": 4000,
+        "tags": "hat",
+        "regiontags": "kalos"
+    },
+    {
         "id": "pidgey",
         "name": "Pidgey Nest",
         "description": "A Pidgey which has decided to build a nest atop a trainer's head.",
@@ -1293,10 +1375,10 @@
     {
         "author": ".realthree",
         "id": "professorhat",
-        "name": "Professor Hat",
-        "description": "It's a quirky cap. It's commonly used in Pokémon Contests.",
+        "name": "Academic Cap",
+        "description": "A classic square-topped cap with a dangling tassel, often worn by those celebrating their academic achievements.",
         "price": 450,
-        "tags": "hat"
+        "tags": "hat, special"
     },
     {
         "id": "PKMBreeder",
@@ -1759,7 +1841,8 @@
         "name": "Striped Tie",
         "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
         "price": 800,
-        "tags": "neckwear"
+        "tags": "neckwear",
+        "storelocation": "rustboro"
     },
     {
         "id": "surgeglasses",
@@ -1854,6 +1937,16 @@
         "tags": "hat"
     },
     {
+        "author": "chromaerym",
+        "id": "tyruntmask",
+        "name": "Tyrunt Mask",
+        "description": "A big Tyrunt shaped mask that gives you an urge to bite.",
+        "price": 3500,
+        "tags": "mask",
+        "pokemontags": "tyrunt,tyrantrum,",
+        "notes": "Obtained from Rock Smash"
+    },
+    {
         "id": "veteranM",
         "name": "Black Flat Cap",
         "description": "A black flat cap, often worn by Veteran trainers.",
@@ -1883,7 +1976,7 @@
         "description": "A simple hat made out of straw that is typically worn by bug-catchers.",
         "price": 1500,
         "tags": "hat",
-        "storelocation": "pewter,",
+        "storelocation": "pewter,rustboro",
         "notes": "trainer clothing store?"
     },
     {
@@ -1948,7 +2041,7 @@
         "description": "A wide-brimmed straw hat. It's popular with fledgling trainers in Kanto.",
         "price": 2500,
         "tags": "hat,trainer",
-        "storelocation": "pewter,",
+        "storelocation": "pewter,rustboro",
         "notes": "trainer clothing store?"
     },
     {
@@ -1957,7 +2050,7 @@
         "description": "A cool cap worn by the younger generation. Must be worn backwards to be hip.",
         "price": 1500,
         "tags": "hat",
-        "storelocation": "pewter,",
+        "storelocation": "pewter,rustboro",
         "notes": "city exclusive"
     },
     {

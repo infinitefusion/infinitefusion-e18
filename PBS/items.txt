@@ -743,6 +743,7 @@
 697,MUSHROOMSPORES,Mossy Spores,Mossy Spores,1,50,"Delicate spores harvested from a large mushroom in Petalburg Woods. It might have some use...",2,0,0,
 698,FIELDSLEEPINGBAG,Field Sleeping Bag,Field Sleeping Bags,8,0,"A handy field sleeping bag that can be used to nap anywhere.",2,0,6,
 699,EXPCANDY,Exp. Candy,Exp. Candies,2,10000,"A candy that is packed with energy. If consumed, it grants a Pokémon a small number of Exp. Points. ",1,0,0,
+700,SEAWEED,Seaweed,Seaweeds,1,100,"A bunch of seaweed that's common in the Hoenn region.",1,1,0,
 
 
 

@@ -244,7 +244,7 @@
         "description": "A sleeveless dress adorned with a vibrant floral pattern.",
         "obtainable": "yes",
         "price": 3500,
-        "storelocation": "celadon",
+        "storelocation": "celadon, rustboro",
         "notes": "city-exclusive outfit"
     },
     {
@@ -365,6 +365,7 @@
     {
         "id": "iceoutfit",
         "name": "Ice Outfit",
+        "description": "A cool winter gear with a chill vibe that captures the essence of ice-type Pokemon.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "type-ice"
@@ -435,6 +436,7 @@
         "obtainable": "yes",
         "price": 0,
         "tags": "special",
+        "regiontags": "kanto",
         "notes": "starting outfit"
     },
     {
@@ -444,6 +446,7 @@
         "obtainable": "yes",
         "price": 2000,
         "tags": "default",
+        "storelocation": "rustboro",
         "notes": "default outfit in shops"
     },
     {
@@ -495,8 +498,9 @@
         "name": "Marshweater",
         "description": "A comfortable sweater designed to look like a Marshtomp.",
         "obtainable": "yes",
-        "price": 15000,
-        "pokemontags": "mudkip,marshtomp,swampert,"
+        "price": 3500,
+        "pokemontags": "mudkip,marshtomp,swampert,",
+        "storelocation": "rustboro"
     },
     {
         "id": "mayRS",
@@ -541,6 +545,7 @@
         "description": "A classy, professional-looking pink business suit and pencil skirt.",
         "obtainable": "yes",
         "price": 3000,
+        "storelocation": "rustboro",
         "notes": "found in silph. co"
     },
     {
@@ -549,6 +554,7 @@
         "description": "A sharp white button-up shirt with a tie that offers a polished and professional look.",
         "obtainable": "yes",
         "price": 3000,
+        "storelocation": "rustboro",
         "notes": "found in silph. co"
     },
     {
@@ -567,6 +573,7 @@
         "obtainable": "yes",
         "price": 0,
         "pokemontags": "pichu,pikachu,raichu,",
+        "storelocation": "rustboro",
         "notes": "starting outfit?"
     },
     {
@@ -575,6 +582,7 @@
         "description": "A cozy onesie designed to look like Pikachu.",
         "obtainable": "yes",
         "price": 4000,
+        "storelocation": "rustboro",
         "notes": "bill"
     },
     {
@@ -618,6 +626,22 @@
         "notes": "pinkan island quest (police side)"
     },
     {
+        "author": "malxire",
+        "id": "psyshamanm",
+        "name": "Psychic outfit (M)",
+        "description": "a traditional outfit of shamans it captures the essence of Psychic-type pokemon",
+        "price": 10000,
+        "tags": "type-psychic"
+    },
+    {
+        "author": "malxire",
+        "id": "psyshamanf",
+        "name": "Psychic outfit (F)",
+        "description": "a traditional outfit of healers it captures the essence of Psychic-type pokemon",
+        "price": 10000,
+        "tags": "type-psychic"
+    },
+    {
         "id": "Ramos",
         "name": "Gardener Outfit",
         "description": "An outfit worn by gardeners. It was popularized by a certain Gym Leader from the Kalos region.",
@@ -647,7 +671,7 @@
         "description": "A sharp, white suit that screams luxury and confidence for trainers who likes to win in style.",
         "obtainable": "yes",
         "price": 3500,
-        "storelocation": "goldenrod",
+        "storelocation": "goldenrod, mauville",
         "notes": "city-exclusive outfit"
     },
     {
@@ -656,7 +680,7 @@
         "description": "A sharp, dark suit that screams luxury and confidence for trainers who likes to win in style.",
         "obtainable": "yes",
         "price": 3500,
-        "storelocation": "goldenrod",
+        "storelocation": "goldenrod, mauville",
         "notes": "city-exclusive outfit"
     },
     {
@@ -800,7 +824,7 @@
         "id": "streetwear",
         "name": "Street Wear",
         "price": 1200,
-        "storelocation": "blackthorn,"
+        "storelocation": "blackthorn, mauville"
     },
     {
         "id": "summerdress",
@@ -848,7 +872,7 @@
     },
     {
         "id": "waterdress",
-        "name": "Water Dress",
+        "name": "Ocean Dress",
         "description": "A stylish dress that captures the essence of Water-type Pokémon.",
         "obtainable": "yes",
         "price": 10000,
@@ -856,12 +880,20 @@
         "notes": "type trainer"
     },
     {
+        "author": "ohok3441",
+        "id": "waterneutral",
+        "name": "Ocean Robes",
+        "description": "A set of robes themed after the beach. The pearls are made of recycled plastic.",
+        "price": 10000,
+        "tags": "type-water, special"
+    },
+    {
         "id": "yellowSPEoutfit",
         "name": "Yellow Qipao",
         "description": "A yellow qipao worn over pants. It's popular with fledgling trainers in Kanto.",
         "obtainable": "yes",
         "price": 3000,
-        "storelocation": "pewter"
+        "storelocation": "pewter, rustboro"
     },
     {
         "id": "youngster",
@@ -869,7 +901,7 @@
         "description": "An orange tank top and shorts that's often worn by youngsters around the region.",
         "obtainable": "yes",
         "price": 1500,
-        "storelocation": "pewter",
+        "storelocation": "pewter, rustboro",
         "notes": "city-exclusive outfit"
     }
 ]
