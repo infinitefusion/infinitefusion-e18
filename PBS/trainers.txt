@@ -5000,8 +5000,11 @@ Pokemon = B99H488,30 	#kingler torkoal
 Pokemon = B110H219,30 	#magcargo weezing
 Pokemon = B123H430,30 	#scyther oricorio
 Pokemon = B358H126,30 	#rotom magmar
+
 [TYPE_EXPERT_GRASS,Basil]	#TBD
-Pokemon = SWINUB,30 
+Pokemon = ODDISH/BUTTERFREE,30 
+Pokemon = BELLSPROUT/PONYTA,30 
+Pokemon = ROSELIA/VOLTORB,30 
 
 [TYPE_EXPERT_ICE,Crystal]	#seafoam islands (40-45)
 Pokemon = B215H165,30 	#sneasel / seadra
@@ -5041,9 +5044,12 @@ Pokemon = B212H131,30		#scizor lapras
 Pokemon = B110H82,30		#weezing magneton
 
 [TYPE_EXPERT_PSYCHIC,Carl]	#TBD
-Pokemon = SWINUB,30
+Pokemon = PARASECT/HYPNO,30
+Pokemon = UMBREON/EXEGGUTOR,30
+Pokemon = NINETALES/KADABRA,30
+Pokemon = MRMIME/POLIWRATH,30
 
-[TYPE_EXPERT_GHOST,Evangeline]	#TBD
+[TYPE_EXPERT_GHOST,Evangeline]	#Route 15
 Pokemon = MISMAGIUS/BUTTERFREE,30,
 	Ability = TINTEDLENS
 Pokemon = HAUNTER/FORRETRESS,30,
