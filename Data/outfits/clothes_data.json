@@ -81,6 +81,158 @@
         "notes": "city exclusive outfit"
     },
     {
+        "author": "malxire",
+        "id": "basicgrass",
+        "name": "Grass Shirt",
+        "description": "A green shirt with a leaf logo ",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicfire",
+        "name": "Fire Shirt",
+        "description": "A red shirt with a flame logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicwater",
+        "name": "Water Shirt",
+        "description": "A blue shirt with a water drop logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicbug",
+        "name": "Bug Shirt",
+        "description": "A lime green shirt with a bug head logo ",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicnormal",
+        "name": "Normal Shirt",
+        "description": "A grey shirt with a rather plain logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicrock",
+        "name": "Rock Shirt",
+        "description": "A light brown shirt with a cragy rock logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicground",
+        "name": "Ground Shirt",
+        "description": "A brown shirt with a plate logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicsteel",
+        "name": "Steel Shirt",
+        "description": "A silver shirt with a industrial logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicpsy",
+        "name": "Psychic Shirt",
+        "description": "A pink shirt with a third eye logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicposion",
+        "name": "Poison Shirt",
+        "description": "A violet shirt with a skull and bones logo ",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicice",
+        "name": "Ice Shirt",
+        "description": "A cyan shirt with a snowflake logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicghost",
+        "name": "Ghost Shirt",
+        "description": "A purple shirt with a spirit logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicflying",
+        "name": "Flying Shirt",
+        "description": "A ligth blue shirt with a wing logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicfight",
+        "name": "Figth Shirt",
+        "description": "A orange shirt with a fist logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicfairy",
+        "name": "Fairy Shirt",
+        "description": "A light pink shirt with a pixie shirt",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicelectric",
+        "name": "Electric Shirt",
+        "description": "A yellow shirt with a lighting logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicdragon",
+        "name": "Dragon Shirt",
+        "description": "A royal blue shirt with a dragon head logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "malxire",
+        "id": "basicdark",
+        "name": "Dark Shirt",
+        "description": "A black shirt with a new moon logo",
+        "price": 500,
+        "tags": "special"
+    },
+    {
+        "author": "chromaerym",
+        "id": "blackjacket",
+        "name": "Black Jacket",
+        "description": "A black jacket imported from Kalos, ideal for biking.",
+        "price": 4000,
+        "storelocation": "fuchsia, mauville"
+    },
+    {
         "id": "brendanRS",
         "name": "Ruby Runner"
     },
@@ -524,6 +676,14 @@
         "price": 10000,
         "tags": "type-fairy,special",
         "notes": "type trainer (fairy)"
+    },
+    {
+        "author": "gummy.frog",
+        "id": "moddress",
+        "name": "Mod Dress",
+        "description": "A retro dress from several decades ago. Its square design and go-go boots made it popular with young trainers looking to match their Pokemon.",
+        "price": 3200,
+        "storelocation": "vermillion, mauville"
     },
     {
         "id": "normal",
