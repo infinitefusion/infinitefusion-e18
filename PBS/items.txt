@@ -744,6 +744,11 @@
 698,FIELDSLEEPINGBAG,Field Sleeping Bag,Field Sleeping Bags,8,0,"A handy field sleeping bag that can be used to nap anywhere.",2,0,6,
 699,EXPCANDY,Exp. Candy,Exp. Candies,2,10000,"A candy that is packed with energy. If consumed, it grants a Pokémon a small number of Exp. Points. ",1,0,0,
 700,SEAWEED,Seaweed,Seaweeds,1,100,"A bunch of seaweed that's common in the Hoenn region.",1,1,0,
+701,ROSELIBERRY,Resoli Berry, Resoli Berries,5,20,"Weakens a supereffective Fairy-type attack against the holding Pokémon.",0,0,5,
+702,SPRAYCAN,Spray Can,Spray Can,8,0,"A can of colored spray paint that can be used to paint on walls.",2,0,6,
+703,SPAWNER,Spawner, Spawners,8,0,"Debug tool for spawning Pokémon.",2,0,6,
+704,PRESENT,Present,Presents,1,50,"A small gift box that contains coins.",2,0,0,
+
 
 
 
