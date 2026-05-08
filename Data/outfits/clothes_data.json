@@ -1,108 +1,101 @@
 [
     {
+        "author": "gummy.frog",
         "id": "activeblueF",
         "name": "Blue Activewear (F)",
         "description": "A feminine, blue, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "obtainable": "yes",
         "price": 3500,
         "storelocation": "goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "triathlon quest?"
     },
     {
+        "author": "gummy.frog",
         "id": "activeblueM",
         "name": "Blue Activewear (M)",
         "description": "A masculine, blue, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "obtainable": "yes",
         "price": 3500,
         "storelocation": "goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "triathlon quest?"
     },
     {
+        "author": "gummy.frog",
         "id": "activegreenF",
         "name": "Green Activewear (F)",
         "description": "A feminine, green, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "obtainable": "yes",
         "price": 3500,
         "storelocation": "goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "triathlon quest?"
     },
     {
+        "author": "gummy.frog",
         "id": "activegreenM",
         "name": "Green Activewear (M)",
         "description": "A masculine, green, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "obtainable": "yes",
         "price": 3500,
         "storelocation": "goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "triathlon quest?"
     },
     {
+        "author": "gummy.frog",
         "id": "activeredF",
         "name": "Red Activewear (F)",
         "description": "A feminine, red, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "obtainable": "yes",
         "price": 3500,
         "storelocation": "goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "triathlon quest?"
     },
     {
+        "author": "gummy.frog",
         "id": "activeredM",
         "name": "Red Activewear (M)",
         "description": "A masculine, red, sporty outfit that's easy to move in. The perfect outfit for an athlete.",
         "obtainable": "yes",
         "price": 3500,
         "storelocation": "goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "triathlon quest?"
     },
     {
+        "author": "monolithyk",
         "id": "adventurer_f",
         "name": "Adventurer Gear (F)",
         "description": "A rugged feminine outfit, perfect for adventuring out into the wilderness.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "cool, clever",
         "storelocation": "fuchsia",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city exclusive outfit / pokechallenges"
     },
     {
+        "author": "monolithyk",
         "id": "adventurer_m",
         "name": "Adventurer Gear (M)",
         "description": "A rugged masculine outfit, perfect for adventuring out into the wilderness.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "cool, clever",
         "storelocation": "fuchsia",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city exclusive outfit / pokechallenges"
-    },
-    {
-        "id": "bikertraineroutfit",
-        "name": "Biker Outfit",
-        "description": "A rugged outfit made of leather and jeans. It's often worn by bikers. ",
-        "obtainable": "yes",
-        "price": 4500,
-        "storelocation": "celadon",
-        "notes": "city exclusive outfit"
-    },
-    {
-        "author": "malxire",
-        "id": "basicgrass",
-        "name": "Grass Shirt",
-        "description": "A green shirt with a leaf logo ",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicfire",
-        "name": "Fire Shirt",
-        "description": "A red shirt with a flame logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicwater",
-        "name": "Water Shirt",
-        "description": "A blue shirt with a water drop logo",
-        "price": 500,
-        "tags": "special"
     },
     {
         "author": "malxire",
@@ -110,111 +103,9 @@
         "name": "Bug Shirt",
         "description": "A lime green shirt with a bug head logo ",
         "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicnormal",
-        "name": "Normal Shirt",
-        "description": "A grey shirt with a rather plain logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicrock",
-        "name": "Rock Shirt",
-        "description": "A light brown shirt with a cragy rock logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicground",
-        "name": "Ground Shirt",
-        "description": "A brown shirt with a plate logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicsteel",
-        "name": "Steel Shirt",
-        "description": "A silver shirt with a industrial logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicpsy",
-        "name": "Psychic Shirt",
-        "description": "A pink shirt with a third eye logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicposion",
-        "name": "Poison Shirt",
-        "description": "A violet shirt with a skull and bones logo ",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicice",
-        "name": "Ice Shirt",
-        "description": "A cyan shirt with a snowflake logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicghost",
-        "name": "Ghost Shirt",
-        "description": "A purple shirt with a spirit logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicflying",
-        "name": "Flying Shirt",
-        "description": "A ligth blue shirt with a wing logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicfight",
-        "name": "Figth Shirt",
-        "description": "A orange shirt with a fist logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicfairy",
-        "name": "Fairy Shirt",
-        "description": "A light pink shirt with a pixie shirt",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicelectric",
-        "name": "Electric Shirt",
-        "description": "A yellow shirt with a lighting logo",
-        "price": 500,
-        "tags": "special"
-    },
-    {
-        "author": "malxire",
-        "id": "basicdragon",
-        "name": "Dragon Shirt",
-        "description": "A royal blue shirt with a dragon head logo",
-        "price": 500,
-        "tags": "special"
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
         "author": "malxire",
@@ -222,7 +113,182 @@
         "name": "Dark Shirt",
         "description": "A black shirt with a new moon logo",
         "price": 500,
-        "tags": "special"
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicdragon",
+        "name": "Dragon Shirt",
+        "description": "A royal blue shirt with a dragon head logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicelectric",
+        "name": "Electric Shirt",
+        "description": "A yellow shirt with a lighting logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicfairy",
+        "name": "Fairy Shirt",
+        "description": "A light pink shirt with a pixie shirt",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicfight",
+        "name": "Fight Shirt",
+        "description": "A orange shirt with a fist logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicfire",
+        "name": "Fire Shirt",
+        "description": "A red shirt with a flame logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicflying",
+        "name": "Flying Shirt",
+        "description": "A ligth blue shirt with a wing logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicghost",
+        "name": "Ghost Shirt",
+        "description": "A purple shirt with a spirit logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicgrass",
+        "name": "Grass Shirt",
+        "description": "A green shirt with a leaf logo ",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicground",
+        "name": "Ground Shirt",
+        "description": "A brown shirt with a plate logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicice",
+        "name": "Ice Shirt",
+        "description": "A cyan shirt with a snowflake logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicnormal",
+        "name": "Normal Shirt",
+        "description": "A grey shirt with a rather plain logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicpoison",
+        "name": "Poison Shirt",
+        "description": "A violet shirt with a skull and bones logo ",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicpsychic",
+        "name": "Psychic Shirt",
+        "description": "A pink shirt with a third eye logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicrock",
+        "name": "Rock Shirt",
+        "description": "A light brown shirt with a cragy rock logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicsteel",
+        "name": "Steel Shirt",
+        "description": "A silver shirt with a industrial logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "malxire",
+        "id": "basicwater",
+        "name": "Water Shirt",
+        "description": "A blue shirt with a water drop logo",
+        "price": 500,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
+    },
+    {
+        "author": "volvonovic",
+        "id": "bikertraineroutfit",
+        "name": "Biker Outfit",
+        "description": "A rugged outfit made of leather and jeans. It's often worn by bikers. ",
+        "obtainable": "yes",
+        "price": 4500,
+        "contestcondition": "tough",
+        "storelocation": "celadon",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
+        "notes": "city exclusive outfit"
     },
     {
         "author": "chromaerym",
@@ -230,62 +296,94 @@
         "name": "Black Jacket",
         "description": "A black jacket imported from Kalos, ideal for biking.",
         "price": 4000,
-        "storelocation": "fuchsia, mauville"
+        "contestcondition": "cool",
+        "storelocation": "fuchsia, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "author": ".payapon",
         "id": "brendanRS",
-        "name": "Ruby Runner"
+        "name": "Ruby Runner",
+        "description": "A sporty, travel-ready outfit that evokes the spirit of a fledgling Hoenn Trainer.",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
+        "author": ".realthree",
         "id": "bughakama",
         "name": "Bug Hakama Dress",
-        "description": "A traditionnal looking hakama dress, that captures the essence of bug-type Pokémon, complete with a bug-catching net!",
+        "description": "A traditional looking hakama dress, that captures the essence of bug-type Pokémon, complete with a bug-catching net!",
         "obtainable": "yes",
         "price": 10000,
         "tags": "special",
+        "contestcondition": "clever, beautiful",
         "storelocation": "azalea",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
+        "author": ".realthree",
         "id": "bughakamapants",
         "name": "Bug Hakama Pants",
-        "description": "A traditionnal looking pair of hakama pants that capture the essence of bug-type Pokémon, complete with a bug-catching net!",
+        "description": "A traditinnal looking pair of hakama pants that capture the essence of bug-type Pokémon, complete with a bug-catching net!",
         "obtainable": "yes",
         "price": 10000,
         "tags": "special",
+        "contestcondition": "clever, beautiful",
         "storelocation": "azalea",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
-        "id": "butler",
-        "name": "Butler Uniform",
-        "obtainable": "yes",
-        "price": 5000,
-        "tags": "special"
-    },
-    {
+        "author": "matpal6",
         "id": "BusinessSuit",
         "name": "Business Suit",
         "description": "A classy, professional-looking business suit.",
         "obtainable": "yes",
         "price": 6000,
-        "storelocation": "saffron"
+        "contestcondition": "clever",
+        "storelocation": "saffron",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon & Game Freak",
+        "id": "butler",
+        "name": "Butler Uniform",
+        "description": "A classy, practical uniform suitable for any butler out there.",
+        "obtainable": "yes",
+        "price": 5000,
+        "tags": "special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "author": "lunabups",
         "id": "cardigandress",
         "name": "Cardigan Dress",
         "description": "A brown cardigan worn over a white shirt with a skirt for a clean and professional appearance.",
         "obtainable": "yes",
         "price": 2000,
-        "storelocation": "default"
+        "contestcondition": "clever",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "nakamagic",
         "id": "cloak",
         "name": "Black Cloak Dress",
         "description": "A mysterious long black cloak or dress, worn over black leggings.",
         "obtainable": "yes",
         "price": 6500,
+        "contestcondition": "clever",
         "storelocation": "lavender",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city exclusive outfit"
     },
     {
@@ -294,127 +392,196 @@
         "name": "Corrosive Suit",
         "description": "This menacing suit is literally dripping with style. It seems it was handmade in Kalos.",
         "price": 8000,
-        "storelocation": "fuchsia"
+        "contestcondition": "cool",
+        "storelocation": "fuchsia",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "chromaerym",
         "id": "cresseliadress",
         "name": "Lunar Dress",
         "description": "A whimsical dress that is inspired by the legendary Pokémon Cresselia.",
         "obtainable": "yes",
         "price": 25000,
-        "pokemontags": "cresselia"
+        "contestcondition": "cool, tough",
+        "pokemontags": "cresselia",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "ohok3441",
         "id": "darkoutfit",
         "name": "Dark Outfit",
         "description": "A sinister outfit for those who thrive in the darkness. It captures the essence of Dark-type Pokémon.",
         "obtainable": "yes",
         "price": 10000,
-        "tags": "type-dark,special"
+        "tags": "type-dark,special",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "plasticshark",
         "id": "deadlypoisondanger",
         "name": "Poison Outfit",
         "description": "A noxious-looking outfit for those who handle deadly poisons. It captures the essence of Poison-type Pokémon.",
         "obtainable": "yes",
         "price": 10000,
-        "tags": "type-poison,special"
+        "tags": "type-poison,special",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "dabouiw",
         "id": "delinquentoutfit",
         "name": "Delinquent Outfit",
+        "description": "A school uniform turned rebellious, perfect for anyone who wants to show off their wild side.",
         "obtainable": "yes",
         "price": 8000,
+        "contestcondition": "tough",
         "storelocation": "violet,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city exclusive outfit"
     },
     {
+        "author": "malxire",
         "id": "dragonconqueror",
         "name": "Dragon Outfit",
         "description": "The extravagant outfit of a conquerer. It captures the essence of Dragon-type Pokémon.",
         "obtainable": "yes",
         "price": 10000,
-        "tags": "type-dragon,special"
+        "tags": "type-dragon,special",
+        "contestcondition": "tough, cool",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "ohok3441",
         "id": "electriccasual",
         "name": "Electric Outfit",
         "description": "A casual outfit themed around the Electric type.",
         "obtainable": "yes",
         "price": 10000,
-        "tags": "type-electric,special"
+        "tags": "type-electric,special",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "coridiant",
         "id": "emeraldSPE",
         "name": "Emerald Gear",
         "description": "A floaty jacket inspired by the color scheme of Spinarak.",
         "obtainable": "yes",
         "price": 6000,
+        "contestcondition": "cool",
         "pokemontags": "spinarak,ariados,",
         "storelocation": "azalea",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "found at sky pillar"
     },
     {
+        "author": "xenophaclius",
         "id": "Eri",
         "name": "Caph Squad Captain",
+        "description": "A fierce-looking outfit worn by the captain of the Caph Squad, otherwise known as Team Star.",
         "obtainable": "yes",
         "price": 8000,
-        "regiontags": "paldea,"
+        "contestcondition": "cool",
+        "regiontags": "paldea,",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": "sueterregorampa",
         "id": "fantasyadventurersoutfit",
         "name": "Traveller Outfit",
+        "description": "The outfit of a traveler who came from a far-away land.",
         "obtainable": "yes",
         "price": 25000,
         "tags": "special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Given by exotic pokemon quest npc after completing all the quests"
     },
     {
+        "author": "weaselsheep",
         "id": "fauxwrap",
         "name": "Faux Wrap Dress",
+        "description": "An elegant, lightweight dress perfect for a day on the beach or a walk through flower fields.",
         "obtainable": "yes",
         "price": 3500,
-        "storelocation": "ecruteak"
+        "contestcondition": "clever, cool",
+        "storelocation": "ecruteak",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "malxire",
         "id": "fighting",
         "name": "Fighting Outfit",
         "description": "A sportsy outfit that is liked by those who practice martial arts. It captures the essence of Fighting-type Pokémon.",
         "obtainable": "yes",
-        "tags": "type-fighting,special"
+        "price": 10000,
+        "tags": "type-fighting,special",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "malxire",
         "id": "fire",
         "name": "Fire Outfit",
         "description": "A fire-proof outfit that captures the essence of fire-type Pokémon.",
         "obtainable": "yes",
-        "tags": "type-fire,special"
+        "price": 10000,
+        "tags": "type-fire,special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "lunabups",
         "id": "floraldress",
         "name": "Floral Dress",
         "description": "A sleeveless dress adorned with a vibrant floral pattern.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "cool",
         "storelocation": "celadon, rustboro",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "sakebishi",
         "id": "flowerjumper",
         "name": "Flower Jumper",
         "description": "A jumper suit with a beautiful floral pattern.",
         "obtainable": "yes",
         "price": 4000,
+        "contestcondition": "cute",
         "storelocation": "celadon",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "malxire",
         "id": "flying",
         "name": "Flying Outfit",
         "description": "An aerodynamic outfit for gliding through the air.  It captures the essence of Flying-type Pokémon.",
         "obtainable": "yes",
         "price": 10000,
-        "tags": "type-flying,special"
+        "tags": "type-flying,special",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "chromaerym",
@@ -422,259 +589,410 @@
         "name": "Frosted ski outfit",
         "description": "A comfortable and well insulated ski outfit reminiscent of an ice type moth.",
         "price": 9500,
-        "storelocation": "mahogany"
+        "contestcondition": "cool, clever",
+        "storelocation": "mahogany",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "ohok3441",
         "id": "fusionnerd",
         "name": "Fusion Outfit",
+        "description": "A cool, scientific outfit inspired by Pokémon fusion.",
         "obtainable": "yes",
         "price": 8000,
         "tags": "special",
+        "contestcondition": "beautiful",
         "pokemontags": "fused",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "cinnabar lab after fusing 100 times"
     },
     {
+        "author": "ohok3441",
         "id": "ghostoutfit",
         "name": "Ghost Outfit",
+        "description": "A tattered, disheveled ensemble. It captures the essence of Ghost-type Pokémon.",
         "price": 10000,
         "tags": "type-ghost,special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
+        "author": "ohok3441",
         "id": "glitzerset",
         "name": "Bad Egg Outfit",
+        "description": "You shouldn't have this.",
         "obtainable": "yes",
         "price": 2550,
-        "tags": "special"
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
+        "author": "stickieanimates",
         "id": "gothhoodie",
         "name": "Goth Hoodie",
         "description": "A dark, oversized hoodie with a skull emblem, paired with ripped leggings for expressing your inner rebel.",
         "obtainable": "yes",
         "price": 3500,
-        "storelocation": "lavender"
+        "contestcondition": "cool",
+        "storelocation": "lavender",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "gummy.frog",
         "id": "grassexpert",
         "name": "Grass Outfit",
+        "description": "A charming outfit that resembles a beautiful flower found deep in the forest. It captures the essence of Grass-Type Pokémon.",
         "price": 10000,
         "tags": "type-grass,special",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "typetrainer"
     },
     {
+        "author": "malxire",
         "id": "groundcowboy",
         "name": "Ground Outfit",
         "description": "A rugged cowboy outfit with earthy tones that captures the essence of the Ground type.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "type-ground",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
+        "author": "malxire",
         "id": "gymwear",
         "name": "Gymwear",
         "description": "Form fitting gym clothes that accentuate a trainer's rippling musculature.",
         "obtainable": "yes",
         "price": 15000,
+        "contestcondition": "tough",
         "pokemontags": "machop,machoke,machamp,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "type trainer"
     },
     {
+        "author": "rosemagwin",
         "id": "happinysuit",
         "name": "Happiny Costume",
         "description": "A pink outfit with white eggs, made to ressemble a Happiny costume.",
         "obtainable": "yes",
         "price": 15000,
-        "pokemontags": "happiny,chansey,blissey"
+        "contestcondition": "cute",
+        "pokemontags": "happiny,chansey,blissey",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "gummy.frog",
+        "id": "harmony",
+        "name": "Royale Outfit A",
+        "description": "A stylish outfit from Kalos. It has a vibrant logo on the back associated with the Z-A Royale.",
+        "price": 4000,
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
+        "notes": "regional set"
+    },
+    {
+        "author": "xenophaclius",
         "id": "HexManiac",
         "name": "Hex Maniac Dress",
         "description": "A dark purple vintage dress. It's often worn by Hex Maniacs.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "beautiful",
         "storelocation": "lavender",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "apixelperfectionist",
         "id": "ho-oh",
         "name": "Rainbow Outfit",
         "description": "A vibrant, colorfoul outfit inspired by the legendary Pokémon Ho-Oh.",
         "obtainable": "yes",
         "price": 25000,
+        "contestcondition": "cool",
         "pokemontags": "hooh",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "saffron boutique exclusive"
     },
     {
+        "author": "blackbosom",
         "id": "hoodie",
         "name": "Hoodie",
         "description": "A cozy hoodie, perfect for a laid-back trainer who likes to keep things casual.",
         "obtainable": "yes",
         "price": 2000,
-        "tags": "default"
+        "tags": "default",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
+        "author": "dabouiw",
         "id": "iceoutfit",
         "name": "Ice Outfit",
         "description": "A cool winter gear with a chill vibe that captures the essence of ice-type Pokemon.",
         "obtainable": "yes",
         "price": 10000,
-        "tags": "type-ice"
+        "tags": "type-ice",
+        "contestcondition": "beautiful, clever",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "gummy.frog",
         "id": "idolf",
         "name": "Idol Dress",
+        "description": "A cute, poofy, and sparkly dress typically worn on-stage by idols.",
         "price": 7500,
-        "storelocation": "goldenrod"
+        "contestcondition": "cute, beautiful",
+        "storelocation": "goldenrod",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "malxire",
         "id": "indigoicebeams",
         "name": "Hockey Jersey",
         "description": "An outfit themed around the Indigo Ice Beams hockey team. Go Indigos!",
         "obtainable": "yes",
         "price": 4500,
+        "contestcondition": "cool",
         "storelocation": "mahogany",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "gummy.frog",
+        "id": "jovi",
+        "name": "Quirky Turtleneck Dress",
+        "description": "A white turtleneck dress paired with unique turquoise bottoms that are a pair of pants and a pair of shoes at the same time. How quirky!",
+        "price": 3000,
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
+        "notes": "potentially acquired in an orre-related quest"
+    },
+    {
+        "author": "malxire",
         "id": "klara",
         "name": "Toxic Idol Coat",
         "description": "A stylish puffy coat that was popularized by a poison-type Gym leader from Galar.",
         "obtainable": "yes",
         "price": 8000,
-        "regiontags": "galar"
+        "contestcondition": "beautiful",
+        "regiontags": "galar",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": ".payapon & Gregarlink10",
         "id": "kris",
         "name": "Crystal Classic",
         "description": "A popular Johtonian outfit worn by aspiring female trainers.",
         "obtainable": "yes",
         "price": 4000,
         "regiontags": "johto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional"
     },
     {
+        "author": "blackbosom",
         "id": "lady",
         "name": "Elegant Dress",
         "description": "An elegant summer dress with a ribbon at the waist, radiating a sense of grace and sophistication.",
         "obtainable": "yes",
         "price": 1500,
+        "contestcondition": "beautiful",
         "storelocation": "cerulean",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "blackbosom",
         "id": "lass",
         "name": "Yellow School Dress",
         "description": "A yellow blouse with puffed sleeves and a black skirt, styled as a traditional school uniform.",
         "obtainable": "yes",
         "price": 1500,
+        "contestcondition": "cute",
         "storelocation": "pewter",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Overworld",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "blackbosom",
         "id": "lass2",
         "name": "Blue School Dress",
         "description": "A white blouse with puffed sleeves and a blue skirt, styled as a traditional school uniform.",
         "obtainable": "yes",
         "price": 1500,
+        "contestcondition": "cute",
         "storelocation": "cerulean",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Overworld",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "kiwikelly & Game Freak",
         "id": "leaf",
         "name": "Tank Top & Skirt",
         "description": "Your favourite blue tank and red skirt that you always wear on adventures!",
         "obtainable": "yes",
-        "price": 0,
+        "price": 1000,
         "tags": "special",
         "regiontags": "kanto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "starting outfit"
     },
     {
+        "author": "malxire",
         "id": "longshirtskirt",
         "name": "Long Shirt & Skirt",
         "description": "A casual long shirt that's colored like a Pokéball, worn with a black frilled skirt.",
         "obtainable": "yes",
         "price": 2000,
         "tags": "default",
+        "contestcondition": "cute",
         "storelocation": "rustboro",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All), Store (City)",
         "notes": "default outfit in shops"
     },
     {
+        "author": "coridiant",
         "id": "luluskirt",
         "name": "Red Pinafore",
         "description": "A bright red pinafore worn over a white shirt.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "cute",
         "storelocation": "vermillion",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "cristata",
         "id": "lycanrochooddown",
         "name": "Lycanroc Coat (Hooded)",
+        "description": "An elaborate, wild ensemble inspired by Lycanroc. This version has the hood up.",
         "obtainable": "yes",
         "price": 18000,
-        "pokemontags": "rockruff,lycanroc_d,lycanroc_n,"
+        "contestcondition": "tough",
+        "pokemontags": "rockruff,lycanroc_d,lycanroc_n,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "cristata",
         "id": "lycanrochoodup",
         "name": "Lycanroc Coat",
+        "description": "An elaborate, wild ensemble inspired by Lycanroc. This version has the hood down.",
         "obtainable": "yes",
         "price": 18000,
-        "pokemontags": "rockruff,lycanroc_d,lycanroc_n,"
+        "contestcondition": "tough",
+        "pokemontags": "rockruff,lycanroc_d,lycanroc_n,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "malxire",
         "id": "magmaRSE",
         "name": "Magma Uniform",
         "description": "The official uniform of Team Magma.",
         "price": 15000,
-        "tags": "special"
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
         "author": "gummy.frog",
         "id": "magmarsef",
         "name": "Magma Uniform (F)",
         "description": "The official uniform of Team Magma.",
-        "tags": "special"
+        "price": 15000,
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "maid",
         "name": "Maid Uniform",
+        "description": "An elegant, yet practical uniform suitable for any aspiring maid.",
         "obtainable": "yes",
         "price": 5000,
-        "tags": "special"
+        "tags": "special",
+        "contestcondition": "cute, beautiful",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "shocktopus1717",
         "id": "marshweater",
         "name": "Marshweater",
         "description": "A comfortable sweater designed to look like a Marshtomp.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "tough, cute",
         "pokemontags": "mudkip,marshtomp,swampert,",
-        "storelocation": "rustboro"
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
     },
     {
+        "author": ".payapon",
         "id": "mayRS",
         "name": "Sapphire Strider",
-        "description": "A sporty, travel-ready outfit that evokes the spirit of a fledgling Hoenn trainer."
+        "description": "A sporty, travel-ready outfit that evokes the spirit of a fledgling Hoenn trainer.",
+        "price": 2000,
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
+        "author": "blackbosom",
         "id": "mikufairyf",
         "name": "Fairy Outfit (F)",
         "description": "A whimsical pastel sweater and skirt that capture the essence of the Fairy type.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "type-fairy,special",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer (fairy)"
     },
     {
+        "author": "blackbosom",
         "id": "mikufairym",
         "name": "Fairy Outfit (M)",
         "description": "A light pastel sweater and tailored pants that capture the essence of the Fairy type.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "type-fairy,special",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer (fairy)"
     },
     {
@@ -683,115 +1001,224 @@
         "name": "Mod Dress",
         "description": "A retro dress from several decades ago. Its square design and go-go boots made it popular with young trainers looking to match their Pokemon.",
         "price": 3200,
-        "storelocation": "vermillion, mauville"
+        "contestcondition": "cool, beautiful",
+        "storelocation": "vermillion, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "author": "gummy.frog",
+        "id": "naranja",
+        "name": "Naranja Academy Outfit",
+        "description": "The summer uniform worn by students of the prestigious Naranja Academy in Paldea.",
+        "price": 5000,
+        "tags": "special",
+        "regiontags": "paldea",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set"
+    },
+    {
+        "author": "busilisk",
         "id": "normal",
         "name": "Normal Outfit",
         "description": "A brown jacket with a scarf that capture the essence of the Normal-type.",
         "obtainable": "yes",
         "price": 10000,
-        "tags": "type-normal,special"
+        "tags": "type-normal,special",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "gummy.frog",
         "id": "nursejoy",
         "name": "Nurse Uniform",
+        "description": "Pink nurse scrubs worn by Nurse Joy.",
         "price": 18000,
-        "tags": "special"
+        "tags": "special",
+        "contestcondition": "cute, clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "gummy.frog",
         "id": "officeworkerf",
         "name": "Office Worker (F)",
         "description": "A classy, professional-looking pink business suit and pencil skirt.",
         "obtainable": "yes",
         "price": 3000,
+        "contestcondition": "clever",
         "storelocation": "rustboro",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "found in silph. co"
     },
     {
+        "author": "blackbosom",
         "id": "officeworkerm",
         "name": "Office Worker (M)",
         "description": "A sharp white button-up shirt with a tie that offers a polished and professional look.",
         "obtainable": "yes",
         "price": 3000,
+        "contestcondition": "clever",
         "storelocation": "rustboro",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "found in silph. co"
     },
     {
+        "author": "zephyr.txt",
+        "id": "overallbulbasaur",
+        "name": "Bulbasaur Overalls",
+        "description": "A set of overalls themed after a familiar green starter from the Kanto region.",
+        "price": 500,
+        "contestcondition": "cute",
+        "regiontags": "kanto",
+        "pokemontags": "bulbasaur, ivysaur, venusaur",
+        "obtainmethodkanto": "Store (Regional Set), Fashion Designer",
+        "obtainmethodhoenn": "Store (Regional Set), Fashion Designer",
+        "notes": "regional set, saffron city, or if player chooses corresponding starter"
+    },
+    {
+        "author": "zephyr.txt",
+        "id": "overallcharmander",
+        "name": "Charmander Overalls",
+        "description": "A set of overalls themed after a familiar orange starter from the Kanto region.",
+        "price": 500,
+        "contestcondition": "cool",
+        "regiontags": "kanto",
+        "pokemontags": "charmander, charmeleon, charizard",
+        "obtainmethodkanto": "Store (Regional Set), Fashion Designer",
+        "obtainmethodhoenn": "Store (Regional Set), Fashion Designer",
+        "notes": "regional set, saffron city, or if player chooses corresponding starter"
+    },
+    {
+        "author": "zephyr.txt",
+        "id": "overallsquirtle",
+        "name": "Squirtle Overalls",
+        "description": "A set of overalls themed after a familiar blue starter from the Kanto region.",
+        "price": 500,
+        "contestcondition": "clever",
+        "regiontags": "kanto",
+        "pokemontags": "squirtle, wartortle, blastoise",
+        "obtainmethodkanto": "Store (Regional Set), Fashion Designer",
+        "obtainmethodhoenn": "Store (Regional Set), Fashion Designer",
+        "notes": "regional set, saffron city, or if player chooses corresponding starter"
+    },
+    {
+        "author": "worm9766",
         "id": "pajamas",
         "name": "Pink Pyjamas",
         "description": "Comfy pink pyjamas with a Poké Ball logo on the shirt.",
         "obtainable": "yes",
         "price": 2000,
+        "contestcondition": "cute",
         "storelocation": "default",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "starting outfit?"
     },
     {
+        "author": "gummy.frog",
+        "id": "paxton",
+        "name": "Royale Outfit Z",
+        "description": "A comfortable outfit from Kalos. It has a vibrant logo on the back associated with the Z-A Royale.",
+        "price": 5000,
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
+        "notes": "regional set"
+    },
+    {
+        "author": "kiwikelly",
         "id": "pikajamas",
         "name": "Pikachu Pyjamas",
         "description": "Comfy blue pyjamas with a Pikachu print.",
         "obtainable": "yes",
         "price": 0,
+        "contestcondition": "cute",
         "pokemontags": "pichu,pikachu,raichu,",
         "storelocation": "rustboro",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)",
         "notes": "starting outfit?"
     },
     {
+        "author": "djoing",
         "id": "pikaonesie",
         "name": "Pikachu Onesie",
         "description": "A cozy onesie designed to look like Pikachu.",
         "obtainable": "yes",
         "price": 4000,
+        "contestcondition": "cute",
         "storelocation": "rustboro",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "bill"
     },
     {
+        "author": "jarviselrey",
         "id": "PKMBreeder",
         "name": "Breeder Outfit",
+        "description": "A comfortable outfit commonly worn by Pokémon Breeders.",
         "obtainable": "yes",
         "price": 15000,
         "tags": "special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Quest"
     },
     {
+        "author": "malxire",
         "id": "poison",
         "name": "Venomous Vest (M)",
+        "description": "A striking, brightly colored outfit that is designed to warn those with weak hearts to stay away from you.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "cool, tough",
         "storelocation": "azalea,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "ohok3441",
         "id": "poison2",
         "name": "Poison Outfit",
+        "description": "A comfortable outfit with bright, striking colors inspired by poison-type Pokemon.",
         "obtainable": "yes",
         "price": 15000,
+        "contestcondition": "cool, tough",
         "storelocation": "fuchsia,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
+        "author": "malxire",
         "id": "poisonf",
         "name": "Venomous Vest (F)",
+        "description": "A striking, brightly colored outfit that is designed to warn those with weak hearts to stay away from you.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "cool, tough",
         "storelocation": "azalea,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": ".realthree",
         "id": "policeuniform",
         "name": "Police Uniform",
         "description": "The official uniform worn by the Kanto and Johto Police Department.",
-        "price": 0,
+        "price": 3000,
         "tags": "special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "pinkan island quest (police side)"
-    },
-    {
-        "author": "malxire",
-        "id": "psyshamanm",
-        "name": "Psychic outfit (M)",
-        "description": "a traditional outfit of shamans it captures the essence of Psychic-type pokemon",
-        "price": 10000,
-        "tags": "type-psychic"
     },
     {
         "author": "malxire",
@@ -799,244 +1226,408 @@
         "name": "Psychic outfit (F)",
         "description": "a traditional outfit of healers it captures the essence of Psychic-type pokemon",
         "price": 10000,
-        "tags": "type-psychic"
+        "tags": "type-psychic",
+        "contestcondition": "clever, tough",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "malxire",
+        "id": "psyshamanm",
+        "name": "Psychic outfit (M)",
+        "description": "a traditional outfit of shamans it captures the essence of Psychic-type pokemon",
+        "price": 10000,
+        "tags": "type-psychic",
+        "contestcondition": "clever, tough",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "author": "xenophacilus",
         "id": "Ramos",
         "name": "Gardener Outfit",
         "description": "An outfit worn by gardeners. It was popularized by a certain Gym Leader from the Kalos region.",
         "obtainable": "yes",
         "price": 4500,
+        "contestcondition": "clever",
         "regiontags": "kalos,",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": ".realthree",
         "id": "rangeruniform",
         "name": "Ranger Uniform",
         "description": "The uniform worn by those who dedicate their lives to protecting nature.",
         "price": 2000,
-        "storelocation": "mahogany"
+        "storelocation": "mahogany",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "kiwikelly & Game Freak",
         "id": "red",
         "name": "Red jacket and Jeans",
         "description": "Your favourite red jacket and jeans that you always wear on adventures!",
         "obtainable": "yes",
-        "price": 0,
+        "price": 1500,
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "starting outfit"
     },
     {
+        "author": "blackbosom",
         "id": "richboy",
         "name": "Luxury Suit (Light)",
         "description": "A sharp, white suit that screams luxury and confidence for trainers who likes to win in style.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "beautiful",
         "storelocation": "goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "blackbosom",
         "id": "richboy2",
         "name": "Luxury Suit (Dark)",
         "description": "A sharp, dark suit that screams luxury and confidence for trainers who likes to win in style.",
         "obtainable": "yes",
         "price": 3500,
+        "contestcondition": "beautiful",
         "storelocation": "goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "city-exclusive outfit"
     },
     {
+        "author": "kiwikelly",
         "id": "rocketf",
         "name": "Team Rocket Uniform (F)",
         "description": "The feminine version of the Team Rocket uniform every Grunt wears.",
         "obtainable": "yes",
         "price": 0,
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "nugget bridge recruiter"
     },
     {
+        "author": "kobold_hijinks",
+        "id": "RocketJames",
+        "name": "White Rocket Uniform (M)",
+        "description": "A white variant of the Team Rocket uniform that every Grunt wears. Right...?",
+        "price": 0,
+        "tags": "special",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "author": "kobold_hijinks",
+        "id": "RocketJessie",
+        "name": "White Rocket Uniform (F)",
+        "description": "A white variant of the Team Rocket uniform that every Grunt wears. Right...?",
+        "price": 0,
+        "tags": "special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "author": "kiwikelly",
         "id": "rocketm",
         "name": "Team Rocket Uniform (M)",
         "description": "The masculine version of the Team Rocket uniform every Grunt wears.",
         "obtainable": "yes",
         "price": 0,
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "nugget bridge recruiter"
     },
     {
+        "author": "xenophacilus",
         "id": "roseradeF",
         "name": "Roserade Suit (F)",
         "description": "A feminine green suit resembling a Roserade.",
         "obtainable": "yes",
         "price": 12000,
+        "contestcondition": "clever, beautiful",
         "pokemontags": "budew,roserade,roselia",
-        "storelocation": "celadon"
+        "storelocation": "celadon",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "xenophacilus",
         "id": "roseradeM",
         "name": "Roserade Suit (M)",
         "description": "A masculine green suit resembling a Roserade.",
         "obtainable": "yes",
         "price": 12000,
+        "contestcondition": "clever, beautiful",
         "pokemontags": "budew,roserade,roselia",
-        "storelocation": "celadon"
+        "storelocation": "celadon",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "malxire",
         "id": "sada",
         "name": "Primitive Clothes (F)",
+        "description": "An outfit inspired by styles that were popular thousands of years ago. Just wearing it makes you feel like you've gone back to the prehistoric age.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "fossil guy final"
     },
     {
+        "author": "malxire",
         "id": "sado",
         "name": "Primitive Clothes (M)",
+        "description": "An outfit inspired by styles that were popular thousands of years ago. Just wearing it makes you feel like you've gone back to the prehistoric age.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "fossil guy final"
     },
     {
+        "author": "ciellecreator",
         "id": "sandshrewoutfit",
         "name": "Sandshrew Outfit",
         "description": "A pants and cape set designed with a texture mimicking Sandshrew's hide that allows you to easily blend in with desert environments.",
         "obtainable": "yes",
         "price": 12000,
-        "pokemontags": "sandshrew,sandslash,"
+        "contestcondition": "cool",
+        "pokemontags": "sandshrew,sandslash,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "quarases",
         "id": "slowsuit",
         "name": "Slow Suit",
         "description": "The ultimate chill costume, complete with a giant shell chomping on your tail.",
         "obtainable": "yes",
         "price": 12000,
-        "pokemontags": "slowpoke,slowbro,slowking"
+        "contestcondition": "cute",
+        "pokemontags": "slowpoke,slowbro,slowking",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "duskrd",
+        "id": "sludgeM",
+        "name": "Sludge Drip",
+        "description": "A sporty outfit inspired by the colors of Alolan Muk and Grimer.",
+        "price": 4500,
+        "contestcondition": "cool",
+        "pokemontags": "alolan_grimer, alolan_muk, grimer, muk",
+        "storelocation": "cinnabar",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "author": "mfwr",
         "id": "SnowCoatFemale",
         "name": "Blue Snow Coat (F)",
         "description": "A warm blue coat, red skirt, leggins and boots, perfect for cold weather.",
         "obtainable": "yes",
         "price": 5000,
+        "contestcondition": "clever, cute",
         "storelocation": "mahogany,crimson,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "given by npc at the gap at the ice mountains, or sold at a lil stand there?"
     },
     {
+        "author": "mfwr",
         "id": "SnowCoatMale",
         "name": "Red Snow Coat (M)",
         "description": "A warm red coat, jeans and boots, perfect for cold weather.",
         "obtainable": "yes",
         "price": 5000,
+        "contestcondition": "clever, cool",
         "storelocation": "mahogany,crimson,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "given by npc at the gap at the ice mountains, or sold at a lil stand there?"
     },
     {
-        "id": "RocketJames",
-        "name": "White Rocket Uniform (M)",
-        "price": 0,
-        "tags": "special"
-    },
-    {
-        "id": "RocketJessie",
-        "name": "White Rocket Uniform (F)",
-        "price": 0,
-        "tags": "special"
-    },
-    {
-        "id": "sludgeM",
-        "name": "Sludge Drip",
-        "price": 4500,
-        "storelocation": "cinnabar"
-    },
-    {
+        "author": "ohok3441",
         "id": "splicer",
         "name": "Splicer Outfit",
+        "description": "A comfortable, warm outfit inspired by the look and feel of DNA splicers.",
         "obtainable": "yes",
         "price": 10000,
-        "pokemontags": "fused"
+        "contestcondition": "clever",
+        "pokemontags": "fused",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "voxposs",
         "id": "startfit1",
         "name": "Black Shirt & Jeans",
         "description": "Black jeans and a black shirt with a Poké Ball on the front.",
         "obtainable": "yes",
         "price": 2000,
         "tags": "default",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)",
         "notes": "starting outfit?"
     },
     {
+        "author": "_evermore",
         "id": "steelworkerF",
         "name": "Steel Outfit (F)",
         "description": "A sturdy jumpsuit giving off a strong, industrial vibe that captures the essence of the Steel type.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "type-steel,special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer (steel)"
     },
     {
+        "author": "_evermore",
         "id": "steelworkerM",
         "name": "Steel Outfit (M)",
         "description": "A rugged jumpsuit giving off a strong, industrial vibe that captures the essence of the Steel type.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "type-steel,special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer (steel)"
     },
     {
         "author": "dabouiw",
         "id": "streetwear",
         "name": "Street Wear",
+        "description": "An edgy, elaborate ensemble. It combines style and practically to create a unique vibe only seen on city streets.",
         "price": 1200,
-        "storelocation": "blackthorn, mauville"
+        "contestcondition": "tough, cool",
+        "storelocation": "blackthorn, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "author": "worm9766",
         "id": "summerdress",
         "name": "Summer Dress",
         "description": "A light, breezy summer dress, perfect for strolls in sunny fields or along the beach.",
         "obtainable": "yes",
         "price": 1500,
-        "tags": "default"
+        "tags": "default",
+        "contestcondition": "cute, beautiful",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
+        "author": "dabouiw",
         "id": "teamaquaF",
         "name": "Aqua Uniform (F)",
+        "description": "The standard-issue uniform typically worn by Team Aqua grunts.",
         "price": 6000,
-        "tags": "special"
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
+        "author": "dabouiw",
         "id": "teamaquaM",
         "name": "Aqua Uniform (M)",
+        "description": "The standard-issue uniform typically worn by Team Aqua grunts.",
         "price": 6000,
-        "tags": "special"
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
+        "author": "gummy.frog",
+        "id": "torchic",
+        "name": "Fiery Torchic Outfit",
+        "description": "An outfit inspired by Torchic.",
+        "price": 5000,
+        "tags": "special",
+        "contestcondition": "cool",
+        "regiontags": "hoenn",
+        "pokemontags": "torchic, combusken, blaziken",
+        "storelocation": "saffron",
+        "obtainmethodkanto": "Store (Regional Set), Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set), Fashion Designer",
+        "notes": "PIF1: saffron boutique, PIF2: start torchic or show boutique owner torchic fusion"
+    },
+    {
+        "author": "ohok3441",
         "id": "trevenantforestkingcloak",
         "name": "Forest King Cloak",
+        "description": "This cloak makes you feel one with the forests when you put it on. It resembles Trevenant.",
         "obtainable": "yes",
         "price": 25000,
-        "pokemontags": "phantump,trevenant,"
+        "pokemontags": "phantump,trevenant,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "ohok3441",
         "id": "urbanelectric",
         "name": "Electric Outfit",
+        "description": "An outfit that's shockingly comfortable, considering how stylish it is! It captures the essence of Electric-Type Pokémon.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "type-electric,special",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
+        "author": "gummy.frog",
+        "id": "uva",
+        "name": "Uva Academy Outfit",
+        "description": "The summer uniform worn by students of the prestigious Uva Academy in Paldea.",
+        "price": 5000,
+        "tags": "special",
+        "regiontags": "paldea",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set"
+    },
+    {
+        "author": "jarviselrey",
         "id": "VeteranM",
         "name": "Veteran Trenchcoat",
         "description": "A heavy black trenchcoat, often worn by Veteran trainers.",
         "obtainable": "yes",
         "price": 22000,
+        "contestcondition": "beautiful",
         "storelocation": "crimson",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "/pokechallenge50"
     },
     {
+        "author": "ohok3441",
         "id": "waterdress",
         "name": "Ocean Dress",
         "description": "A stylish dress that captures the essence of Water-type Pokémon.",
         "obtainable": "yes",
         "price": 10000,
         "tags": "type-water,special",
+        "contestcondition": "cute, cool",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
@@ -1045,23 +1636,33 @@
         "name": "Ocean Robes",
         "description": "A set of robes themed after the beach. The pearls are made of recycled plastic.",
         "price": 10000,
-        "tags": "type-water, special"
+        "tags": "type-water, special",
+        "contestcondition": "cute, cool",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "coridiant",
         "id": "yellowSPEoutfit",
         "name": "Yellow Qipao",
         "description": "A yellow qipao worn over pants. It's popular with fledgling trainers in Kanto.",
         "obtainable": "yes",
         "price": 3000,
-        "storelocation": "pewter, rustboro"
+        "storelocation": "pewter, rustboro",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "author": "blackbosom",
         "id": "youngster",
         "name": "Youngster Outfit",
         "description": "An orange tank top and shorts that's often worn by youngsters around the region.",
         "obtainable": "yes",
         "price": 1500,
+        "contestcondition": "cool",
         "storelocation": "pewter, rustboro",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "city-exclusive outfit"
     }
 ]

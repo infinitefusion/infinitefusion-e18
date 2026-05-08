@@ -1,25 +1,41 @@
 [
     {
+        "author": "ohok3441",
         "id": "absolhat",
         "name": "Absol Cap",
+        "description": "A hat that resembles the visage of Absol. Hopefully, wearing this won't be an omen...",
         "price": 5000,
         "tags": "hat",
-        "pokemontags": "absol,"
+        "contestcondition": "cool",
+        "pokemontags": "absol,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "undefined": "Fashion Designer"
     },
     {
+        "author": "digitaldragoon",
         "id": "aerodactylSkull",
         "name": "Aerodactyl Skull",
         "description": "An Aerodactyl skull that perfectly fits over a trainer's.",
         "price": 15000,
         "tags": "hat",
+        "contestcondition": "tough",
         "pokemontags": "aerodactyl",
-        "notes": "random drop from rock smash? "
+        "obtainmethodkanto": "Fashion Designer, Overworld",
+        "obtainmethodhoenn": "Fashion Designer, Overworld",
+        "notes": "random drop from rock smash? ",
+        "undefined": "Fashion Designer"
     },
     {
+        "author": "gummy.frog",
         "id": "aquaclip",
         "name": "Aqua Clip",
+        "description": "A hair clip in the shape of a tear drop, popular with water-type trainers.",
         "price": 3000,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".payapon",
@@ -28,7 +44,10 @@
         "description": "A dark bandana that's part of the Team Aqua uniform!",
         "price": 20000,
         "tags": "headband",
-        "regiontags": "hoenn"
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "undefined": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
@@ -37,228 +56,355 @@
         "description": "A tight bandana that was part of the Team Aqua uniform a long time ago. It feels a bit nostalgic.",
         "price": 20000,
         "tags": "headband",
-        "regiontags": "hoenn"
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "undefined": "Store (Regional Set)"
     },
     {
+        "author": "vincenzodc90",
         "id": "aronmask",
         "name": "Aron Mask",
         "description": "A heavy, steel mask shaped like the head of an Aron.",
         "price": 6500,
         "tags": "mask",
-        "pokemontags": "aron,lairon,aggron"
+        "contestcondition": "tough",
+        "pokemontags": "aron,lairon,aggron",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "undefined": "Fashion Designer"
     },
     {
+        "author": ".payapon",
         "id": "ash",
         "name": "Partner Cap",
         "description": "An iconic cap with a stylized green \"L\" on it. It feels a bit nostalgic for some reason.",
         "price": 8000,
         "tags": "hat,cap",
         "pokemontags": "pikachu",
-        "notes": "given at league gate"
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "notes": "given at league gate",
+        "undefined": "Fashion Designer"
     },
     {
+        "author": "coridiant",
         "id": "banefulfoxmask",
         "name": "Baneful Fox Mask",
         "description": "An eerie fox mask that ressembles how Zoroarks were depicted in ancient fables.",
         "price": 20000,
         "tags": "mask",
+        "contestcondition": "clever",
         "pokemontags": "zorua,zoroark",
-        "notes": "Found in berry forest"
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "notes": "Found in berry forest",
+        "undefined": "Fashion Designer"
     },
     {
+        "author": ".realthree",
         "id": "beret",
         "name": "Beret",
-        "description": "It's a quirky beret. It's commonly used in Pokémon Contest.",
+        "description": "It's a quirky beret. It's commonly used in Pokémon Contests.",
         "price": 500,
         "tags": "hat",
-        "storelocation": "rustboro"
+        "contestcondition": "cute",
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)",
+        "undefined": "Store (City)"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "bianca",
         "name": "Striped Beret",
         "description": "A green beret with a white stripe. It's popular with fledgling trainers in Unova.",
         "price": 3500,
         "tags": "hat,trainer",
+        "contestcondition": "cute",
         "regiontags": "unova",
-        "notes": "regional set"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set",
+        "undefined": "Store (Regional Set)"
     },
     {
+        "author": "blackbosom",
         "id": "biancaglasses",
         "name": "Red Glasses",
         "description": "A pair of half-rim glasses with a red frame that are popular in Unova.",
         "price": 1500,
         "tags": "glasses,trainer",
+        "contestcondition": "clever",
         "regiontags": "unova",
-        "notes": "regional set"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set",
+        "undefined": "Store (Regional Set)"
     },
     {
+        "author": ".realthree",
         "id": "bigbarrette",
         "name": "Big Barrette",
-        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
         "tags": "hairclip",
-        "storelocation": "rustboro"
+        "contestcondition": "cute",
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)",
+        "undefined": "Store (City)"
     },
     {
+        "author": ".realthree",
         "id": "blacktie",
         "name": "Black Tie",
-        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
         "tags": "neckwear",
-        "storelocation": "rustboro"
+        "contestcondition": "beautiful",
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)",
+        "undefined": "Store (City)"
     },
     {
+        "author": "matpal6",
         "id": "blaineGlasses",
         "name": "Fake Mustache",
         "description": "Small, round sunglasses with a fake mustache attached.",
         "price": 18000,
         "tags": "glasses,trainer",
+        "contestcondition": "clever, cool",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
+        "author": ".realthree",
         "id": "bluebarrette",
         "name": "Blue Barrette",
-        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon Contests.",
         "price": 300,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "blueflower",
         "name": "Blue Flower",
-        "description": "It's a cute flower. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute flower. It's commonly used as an accessory in Pokémon Contests.",
         "price": 200,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "cute, beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "bowtie",
         "name": "Bow Tie",
-        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon Contests.",
         "price": 300,
         "tags": "neckwear",
-        "storelocation": "rustboro"
+        "contestcondition": "beautiful",
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "author": "pokebio",
         "id": "box",
         "name": "Cardboard Box",
         "description": "A cardboard box with a smily face scrawled across the front.",
         "price": 500,
         "tags": "mask, special",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Overworld",
         "notes": "randomly found in trash cans"
     },
     {
+        "author": "malxire",
         "id": "brawlyshades",
         "name": "Brawl Shades",
         "description": "Sporty shades that were popularized by a certain Gym Leader from the Hoenn region.",
         "price": 4000,
         "tags": "glasses",
-        "regiontags": "hoenn"
+        "contestcondition": "cool",
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "breederbandana",
         "name": "Breeder Bandana",
         "description": "A red bandana with a white Poké Ball on the side. It's often worn by Pokémon Breeders.",
         "price": 15000,
         "tags": "hairclip",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "reward for hatching x number of eggs? for getting every baby mon?"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "breedervisor",
         "name": "Green Visor Hat",
         "description": "A green visor with a white . It's often worn by Pokémon Breeders.",
         "price": 9000,
         "tags": "headband",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "reward for hatching x number of eggs? for getting every baby mon?"
     },
     {
+        "author": "ohok3441",
         "id": "breloomcap",
         "name": "Breloom Cap",
+        "description": "A hat resembling the giant mushroom cap on a Breloom's head.",
         "price": 8000,
         "tags": "hat",
-        "pokemontags": "shroomish,breloom"
+        "contestcondition": "cute, clever",
+        "pokemontags": "shroomish,breloom",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
-        "id": "brendanORAS",
-        "name": "Sporty Cap",
-        "description": "A black bandana and white beanie combo. It's popular with fledgling trainers in Hoenn.",
-        "price": 3500,
-        "tags": "hat, headband,trainer",
-        "regiontags": "hoenn",
-        "notes": "regional set"
-    },
-    {
-        "id": "brendanRSE",
-        "name": "Ruby Cap",
-        "description": "A red bandana and white beanie combo. It's popular with fledgling trainers in Hoenn.",
-        "price": 3500,
-        "tags": "hat, headband,trainer",
-        "regiontags": "hoenn",
-        "notes": "regional set"
-    },
-    {
+        "author": ".payapon, tebited15, & Game Freak",
         "id": "brendanE",
         "name": "Emerald Cap",
         "description": "A green bandana and white beanie combo. It's popular with fledgling trainers in Hoenn.",
         "price": 3500,
         "tags": "hat, headband,trainer",
         "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": ".payapon",
+        "id": "brendanORAS",
+        "name": "Sporty Cap",
+        "description": "A black bandana and white beanie combo. It's popular with fledgling trainers in Hoenn.",
+        "price": 3500,
+        "tags": "hat, headband,trainer",
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set"
+    },
+    {
+        "author": ".payapon, hyo-oppa, zender1752, & Game Freak",
+        "id": "brendanRSE",
+        "name": "Ruby Cap",
+        "description": "A red bandana and white beanie combo. It's popular with fledgling trainers in Hoenn.",
+        "price": 3500,
+        "tags": "hat, headband,trainer",
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set"
+    },
+    {
+        "author": "malxire",
         "id": "brockpan",
         "name": "Drying Pan",
         "description": "A frying pan worn as a hat. It'll work in a pinch to keep the rain off your head!",
         "price": 18000,
         "tags": "hat",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
+        "author": "ohok3441",
         "id": "bruxishcrown",
         "name": "Flower Lure",
         "description": "A crown ressembling the flower-shaped lure from a Bruxish.",
         "price": 5000,
         "tags": "hairclip,headband",
-        "pokemontags": "bruxish,"
+        "contestcondition": "cool",
+        "pokemontags": "bruxish,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".realthree",
         "id": "bugantenna",
         "name": "Bug Antennas",
         "description": "Long antennas that make you look like you're a Bug-Type Pokémon.",
         "price": 3500,
         "tags": "headband",
+        "contestcondition": "beautiful",
         "storelocation": "azalea",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
-        "id": "cafe",
-        "name": "Sturdy Beret",
-        "price": 500,
-        "tags": "hat",
-        "storelocation": "vermillion, rustboro"
+        "author": "gummy.frog",
+        "id": "bunearyears",
+        "name": "Buneary Ears",
+        "description": "A replica of some cute, fuzzy buneary ears. Especially popular in the springtime.",
+        "price": 1200,
+        "tags": "accessory, hat, hairclip",
+        "contestcondition": "cute",
+        "pokemontags": "buneary, lopunny",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "nymphiaribbon._.",
+        "id": "cafe",
+        "name": "Sturdy Beret",
+        "description": "A hat similar to the one worn by Pokémon who work at a cafe in another region.",
+        "price": 500,
+        "tags": "hat",
+        "contestcondition": "beautiful, clever",
+        "storelocation": "vermillion, rustboro",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "author": ",payapon, tebited15, & Game Freak",
         "id": "calem",
         "name": "Red Cap & Sunglasses",
         "description": "A fashionable red cap adorned with sunglasses. It's popular with fledgling trainers in Kalos.",
         "price": 3500,
         "tags": "hat,trainer",
+        "contestcondition": "cute",
         "regiontags": "kalos",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": ".realthree",
         "id": "candy",
         "name": "Candy",
-        "description": "It's a cute clip. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute clip. It's commonly used as an accessory in Pokémon Contests.",
         "price": 200,
         "tags": "hairclip",
-        "storelocation": "rustboro"
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "author": "nymphiaribbon._.",
         "id": "carbink",
         "name": "Carbink Headband",
         "description": "A cute, rock-solid headband resembling Carbink.",
         "price": 5000,
         "tags": "hat",
-        "pokemontags": "carbink"
+        "contestcondition": "cute",
+        "pokemontags": "carbink",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": "weaselsheep",
@@ -266,297 +412,440 @@
         "name": "Chef Toque",
         "description": "A pleated hat, representing mastery in the kitchen. Smells like pie.",
         "price": 1500,
-        "tags": "accessory"
+        "tags": "accessory",
+        "contestcondition": "cute, tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "volvonovic",
         "id": "chuckmoustache",
         "name": "Eyebrows & Stache",
         "description": "A set of fake eyebrows and mustache resembling Chuck's iconic look.",
         "price": 18000,
         "tags": "mask,trainer",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
-        "id": "clay",
-        "name": "White Cowboy Hat",
-        "description": "A large cowboy hat popularized by the Unovan gym leader Clay.",
-        "price": 7500,
-        "tags": "hat",
-        "regiontags": "unova"
-    },
-    {
+        "author": "malxire",
         "id": "clairbow",
         "name": "Red String Hair Bow",
         "description": "A hair bow made out of a thick red cord.",
         "price": 18000,
         "tags": "hairclip,trainer",
+        "contestcondition": "cute, beautiful",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
+        "author": ".payapon & Game Freak",
+        "id": "clay",
+        "name": "White Cowboy Hat",
+        "description": "A large cowboy hat popularized by the Unovan gym leader Clay.",
+        "price": 7500,
+        "tags": "hat",
+        "contestcondition": "cool, tough",
+        "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "author": "volvonovic",
         "id": "clefairyearheadband",
         "name": "Clefairy Ears",
         "description": "A pink headband ressembling the ears and hair curl of a Clefairy.",
         "price": 500,
         "tags": "headband",
+        "contestcondition": "cute",
         "pokemontags": "clefairy,cleffa,clefable",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "gym reward"
     },
     {
-        "id": "clownnose",
-        "name": "Clown Nose",
-        "price": 15000,
-        "tags": "mask,special"
-    },
-    {
+        "author": "nakamagic",
         "id": "cloak",
         "name": "Cloak Hood",
         "description": "A dark and mysterious hood that hangs over the face.",
         "price": 4500,
         "tags": "hat",
+        "contestcondition": "cool",
         "storelocation": "lavender",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "city exclusive"
     },
     {
+        "author": "weaselsheep",
+        "id": "clownnose",
+        "name": "Clown Nose",
+        "description": "This bright red nose brings joy to all who see it.",
+        "price": 15000,
+        "tags": "mask,special",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Overworld"
+    },
+    {
+        "author": ".payapon",
         "id": "cowboy",
         "name": "Cowboy Hat",
         "description": "A rootin' tootin' 10 gallon hat from the wild west of the Orre region.",
         "price": 8000,
         "tags": "hat",
+        "contestcondition": "tough, cool",
         "storelocation": "fallarbor",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "todo: sell at the moo moo ranch"
     },
     {
+        "author": "enderwarlock",
         "id": "creepydittomask",
         "name": "Ditto Mask",
         "description": "A mask with the face of a Ditto.",
         "price": 12000,
         "tags": "mask",
+        "contestcondition": "tough",
         "pokemontags": "ditto",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "pokemon mansion"
     },
     {
+        "author": "chromaerym",
         "id": "cresseliatiara",
         "name": "Cresselia Tiara",
         "description": "An elegant tiara that shines when the moon is full. It is reminiscent of Cresselia.",
         "price": 25000,
         "tags": "headband",
-        "pokemontags": "cresselia"
+        "contestcondition": "beautiful",
+        "pokemontags": "cresselia",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".realthree",
         "id": "crimsonscarf",
         "name": "Crimson Scarf",
-        "description": "It's a cute scarf. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute scarf. It's commonly used as an accessory in Pokémon Contests.",
         "price": 600,
-        "tags": "neckwear"
+        "tags": "neckwear",
+        "contestcondition": "cool, beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "crown",
         "name": "Crown",
-        "description": "It's an elegant crown. It's commonly used in Pokémon Contests.",
+        "description": "It's an elegant crown. It can be used in Pokémon Contests.",
         "price": 500000,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "beautiful, cool",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "lunabups",
         "id": "cutecatears",
         "name": "Cat Ears",
         "description": "Hair clips shaped like small, cute cat ears.",
         "price": 9000,
         "tags": "hairclip",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "quest reward for showing some granny npc a meowth as inspo for a knitting project?"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "cynthiaaccessory",
         "name": "Umbreon Hair Clips",
         "description": "Hair clips shaped like small teardrops reminescent of Umbreon tails.",
         "price": 20000,
         "tags": "hairclip",
+        "contestcondition": "cute, clever",
         "pokemontags": "umbreon",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "given by cynthia after defeating her? quest given by a cynthia fan?"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "dawnDPP",
         "name": "White & Pink Beanie",
         "description": "A white beanie with a pink Poké Ball on the front. It's popular with fledgling trainers in Sinnoh.",
         "price": 3000,
         "tags": "hat,trainer",
         "regiontags": "sinnoh",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": ".realthree",
         "id": "decorativeribbon",
         "name": "Decorative Ribbon",
-        "description": "It's a cute ribbon. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute ribbon. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "designerheadphones",
         "name": "Designer Headphones",
         "description": "Stylish headphones with an electrifying design that adds a spark to your look.",
         "price": 30000,
         "tags": "hat",
-        "notes": "type trainer"
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "nymphiaribbon._.",
         "id": "diancie",
         "name": "Jewel Crown",
         "description": "A regal looking crown inspired by the jewels on a Diancie.",
         "price": 50000,
         "tags": "hat",
-        "pokemontags": "diancie"
+        "contestcondition": "beautiful",
+        "pokemontags": "diancie",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
-        "id": "whitedominomask",
-        "name": "White Domino Mask",
-        "description": "It's a cool mask. It's commonly used as an accessory in Pokémon contests.",
-        "price": 900,
-        "tags": "mask"
-    },
-    {
+        "author": "ohok3441",
         "id": "dragonitehorns",
         "name": "Dragonite Horns",
+        "description": "Horns that are modeled after the ones on a Dragonite's head.",
         "price": 4500,
         "tags": "accessory, headband",
-        "pokemontags": "dratini,dragonair,dragonite"
+        "contestcondition": "cool, beautiful",
+        "pokemontags": "dratini,dragonair,dragonite",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".realthree",
         "id": "dressytie",
         "name": "Dressy Tie",
-        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon Contests.",
         "price": 600,
         "tags": "neckwear",
-        "storelocation": "rustboro"
+        "contestcondition": "beautiful",
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "author": "holzycookie",
         "id": "drifloon",
         "name": "Drifloon Hat",
         "description": "A purple rubber hat that is shaped like a Drifloon.",
         "price": 10000,
         "tags": "hat",
+        "contestcondition": "cute",
         "pokemontags": "drifloon",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "power plant ow on friday"
     },
     {
+        "author": "mykoloth94",
         "id": "duskullmask",
         "name": "Duskull Mask",
         "description": "A skull mask resembling a Duskull's face.",
         "price": 15000,
         "tags": "mask",
+        "contestcondition": "cool",
         "pokemontags": "duskull",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "duskull grave"
     },
     {
+        "author": "chromaerym",
         "id": "eevee",
         "name": "Head Eevee",
         "description": "A Eevee that has taken a liking to perching atop a trainer's head.",
         "price": 0,
         "tags": "nest",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Nesting Pokémon",
+        "obtainmethodhoenn": "Nesting Pokémon",
         "notes": "stay idle in celadon"
     },
     {
+        "author": "nymphiaribbon._.",
         "id": "eeveeears",
         "name": "Eevee Ears",
+        "description": "Cute ears that look just like Eevee's.",
         "price": 2500,
         "tags": "hairband",
+        "contestcondition": "cute",
         "pokemontags": "eevee,",
-        "storelocation": "rustboro"
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Store (City), Fashion Designer"
     },
     {
-        "id": "electrivireheadset",
-        "name": "Electivire Headset",
-        "price": 10000,
-        "tags": "hat",
-        "pokemontags": "elekid,electabuzz,electivire,"
-    },
-    {
-        "id": "elioSM",
-        "name": "Grey Cap",
-        "price": 1500,
-        "tags": "hat",
-        "regiontags": "alola"
-    },
-    {
-        "id": "elioUSUM",
-        "name": "Bicolor Hat",
-        "price": 1500,
-        "tags": "hat",
-        "regiontags": "alola"
-    },
-    {
+        "author": "mykoloth94",
         "id": "egg",
         "name": "Nest Egg Hat",
         "description": "This egg cannot hatch, but it makes for a very stylish hat.",
         "price": 15000,
         "tags": "hat,special",
+        "contestcondition": "cute, clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "reward for hatching 50 eggs"
     },
     {
+        "author": "ohok3441",
+        "id": "electrivireheadset",
+        "name": "Electivire Headset",
+        "description": "A headset inspired by Electivire.",
+        "price": 10000,
+        "tags": "hat",
+        "contestcondition": "cool, tough",
+        "pokemontags": "elekid,electabuzz,electivire,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "author": ".payapon",
+        "id": "elioSM",
+        "name": "Grey Cap",
+        "description": "A grey cap that keeps the sun out of your face, but still looks stylish!",
+        "price": 1500,
+        "tags": "hat",
+        "regiontags": "alola",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "author": ".payapon",
+        "id": "elioUSUM",
+        "name": "Bicolor Hat",
+        "description": "A stylish red-and-black bucket hat, designed to keep the sun out of your face.",
+        "price": 1500,
+        "tags": "hat",
+        "regiontags": "alola",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "author": "coridiant",
         "id": "emeraldSPEgem",
         "name": "Emerald",
         "description": "A mysterious emerald placed on the wearer's forehead. It glimmers beautifully.",
         "price": 12000,
         "tags": "floating",
+        "contestcondition": "cool, beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "sky pillar"
     },
     {
+        "author": "xenophacilus",
         "id": "erikaHeadband",
         "name": "Red Headband",
         "description": "A beautiful red headband with a white Poké Ball on the side.",
         "price": 18000,
         "tags": "headband",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
+        "author": ".realthree",
         "id": "explorersscarf",
         "name": "Explorer's Scarf",
         "description": "It's a jaunty scarf commonly worn by explorers and rescue teams.",
         "price": 800,
-        "tags": "neckwear"
+        "tags": "neckwear",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "malxire",
         "id": "falknerscage",
         "name": "Bird Cage",
         "description": "A cage to contain a trainer's bird-brained ideas.",
         "price": 18000,
         "tags": "mask",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
+        "author": ".realthree",
         "id": "fedora",
-        "name": "Fedora",
+        "name": "Tiny Fedora",
         "description": "It's a cute fedora. It's commonly used in Pokémon Contests.",
         "price": 600,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "barthandelus_real",
         "id": "fez",
         "name": "Fez",
         "description": "A traditional hat from a faraway land that is adorned with a black tassel.",
         "price": 5000,
         "tags": "hat",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "found in safari zone"
     },
     {
+        "author": "malxire",
         "id": "firefigther",
         "name": "Firefighter Hat",
         "description": "A safety helmet made for brave heroes who put their lives on the line every day.",
-        "price": 0,
+        "price": 3000,
         "tags": "hat",
+        "contestcondition": "cool, tough",
         "storelocation": "cinnabar",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
+        "author": "gummy.frog",
         "id": "flameclip",
         "name": "Flame Clip",
-        "price": 3000,
-        "tags": "hairclip"
+        "description": "A hair clip in the shape of a bright flame. It's popular with fire-type trainers.",
+        "price": 1500,
+        "tags": "hairclip",
+        "contestcondition": "cute, cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "gummy.frog",
         "id": "flannerybeanie",
         "name": "Flaming Beanie",
         "description": "A snug black beanie with bright, flickering flame patterns licking the sides.",
         "price": 12000,
-        "tags": "hat,weather-cold"
+        "tags": "hat,weather-cold",
+        "contestcondition": "cool, tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "icytos",
@@ -565,21 +854,31 @@
         "description": "An oversized hood featuring large fluffy fur and long ears, resembling a Flareon.",
         "price": 8000,
         "tags": "hat,weather-cold",
-        "pokemontags": "flareon,"
+        "contestcondition": "cute",
+        "pokemontags": "flareon,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "id": "fluffybeard",
         "name": "Fluffy Beard",
-        "description": "It's an elegant fake beard. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant fake beard. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
-        "tags": "accessory"
+        "tags": "accessory",
+        "contestcondition": "beautiful, cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "pokebio",
         "id": "froghat",
         "name": "Frog Hat",
         "description": "A silly hat that ressembles a frog-like Pokémon.",
         "price": 8000,
         "tags": "hat",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "found in celadon city"
     },
     {
@@ -588,38 +887,57 @@
         "name": "Frosted Beanie",
         "description": "A warm beanie reminiscent of an ice type bug.",
         "price": 2700,
-        "tags": "hat,weather-cold"
+        "tags": "hat,weather-cold",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "chromaerym",
         "id": "frostedgoggles",
         "name": "Frosted Goggles",
+        "description": "A pair of goggles reminiscent of an ice-type bug.",
         "price": 700,
-        "tags": "hat,weather-cold"
+        "tags": "hat,weather-cold",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "ohok3441",
         "id": "fusionnerd",
         "name": "Fusion Glasses",
         "description": "A pair of highly sophisticated AR-glasses. They don't do anything, but they look cool!",
         "price": 30000,
         "tags": "glasses,special",
+        "contestcondition": "cool, clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "cinnabar lab after fusing 100 times"
     },
     {
-        "id": "takopus",
-        "name": "GastrodonHelmetEast",
-        "description": "Gastrodon Helmet (East)",
+        "author": "takopus",
+        "id": "GastrodonHelmetEast",
+        "name": "Gastrodon Helmet (East)",
+        "description": "A helmet resembling the head of a Gastrodon from the East.",
         "price": 10000,
         "tags": "hat",
-        "pokemontags": "shellos_e,gastrodon_e"
+        "contestcondition": "cool",
+        "pokemontags": "shellos_e,gastrodon_e",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
-        "id": "takopus",
-        "name": "GastrodonHelmetWest",
-        "description": "Gastrodon Helmet (West)",
+        "author": "takopus",
+        "id": "GastrodonHelmetWest",
+        "name": "Gastrodon Helmet (West)",
+        "description": "A helmet resembling the head of a Gastrodon from the West.",
         "price": 10000,
         "tags": "hat",
-        "pokemontags": "shellos_w,gastrodon_w"
+        "contestcondition": "cool",
+        "pokemontags": "shellos_w,gastrodon_w",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": ".realthree",
@@ -627,38 +945,69 @@
         "name": "Gentleman's Hat",
         "description": "It's an elegant top hat. It's commonly used in Pokémon Contests.",
         "price": 1200,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "germmask",
         "name": "Germ Mask",
-        "description": "It's a quirky mask. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a quirky mask. It's commonly used as an accessory in Pokémon Contests.",
         "price": 500,
-        "tags": "mask"
+        "tags": "mask",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "malxire",
         "id": "giovannifedora",
         "name": "Mobster Fedora",
         "description": "A stylish black fedora.",
         "price": 18000,
         "tags": "hat,trainer",
+        "contestcondition": "cool, beautiful",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
-        "id": "glitzerset",
-        "name": "Glitched Mask",
-        "description": "An odd mask that makes you look like you just stepped out of a corrupted save file. ",
-        "price": 10000,
-        "tags": "mask,special",
-        "notes": "Obtained by defeating a Pokemon without a sprite"
-    },
-    {
+        "author": "vincenzodc90",
         "id": "glaliehelmet",
         "name": "Glalie Helmet",
         "description": "A sturdy helmet made of compacted ice that looks like a Glalie!",
         "price": 8000,
         "tags": "hat",
-        "pokemontags": "snorunt,glalie,froslass,"
+        "contestcondition": "cool, tough",
+        "pokemontags": "snorunt,glalie,froslass,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "author": "lunaticmarkers",
+        "id": "glasses",
+        "name": "Round Glasses",
+        "description": "A pair of standard round glasses. The lenses are purely decorative.",
+        "price": 500,
+        "tags": "glasses,default",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)",
+        "notes": "default"
+    },
+    {
+        "author": "blackbosom",
+        "id": "glasses2",
+        "name": "Half-rim Glasses",
+        "description": "A pair of standard glasses that doesn't have a rim on the bottom. It's popular with Pokémon researchers.",
+        "price": 500,
+        "tags": "glasses,default",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)",
+        "notes": "default"
     },
     {
         "author": "mystora",
@@ -667,57 +1016,69 @@
         "description": "Pink horns that resemble those of a Gligar.",
         "price": 2000,
         "tags": "headband, accessory",
-        "pokemontags": "gligar,gliscor"
+        "contestcondition": "cute",
+        "pokemontags": "gligar,gliscor",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
-        "id": "glasses",
-        "name": "Round Glasses",
-        "description": "A pair of standard round glasses. The lenses are purely decorative.",
-        "price": 500,
-        "tags": "glasses,default",
-        "notes": "default"
+        "author": "ohok3441",
+        "id": "glitzerset",
+        "name": "Glitched Mask",
+        "description": "An odd mask that makes you look like you just stepped out of a corrupted save file. ",
+        "price": 10000,
+        "tags": "mask,special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Overworld",
+        "notes": "Obtained by defeating a Pokemon without a sprite"
     },
     {
-        "id": "glasses2",
-        "name": "Half-rim Glasses",
-        "description": "A pair of standard glasses that doesn't have a rim on the bottom. It's popular with Pokémon researchers.",
-        "price": 500,
-        "tags": "glasses,default",
-        "notes": "default"
-    },
-    {
+        "author": ".payapon, mid117, zender1752, & Game Freak",
         "id": "gloria",
         "name": "Pompom Beret",
         "description": "A dark green beret with a white pompom. It's popular with fledgling trainers in Galar.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "galar",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": "lunaticmarkers",
         "id": "goggles",
         "name": "Goggles",
         "description": "Stylish yellow goggles to wear as headband.",
         "price": 3500,
         "tags": "headband,glasses",
-        "storelocation": "cinnabar"
+        "contestcondition": "cool",
+        "storelocation": "cinnabar",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "gold",
         "name": "Gold & Black Cap",
         "description": "A black and yellow cap, worn backwards. It's popular with fledgling trainers in Johto.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "johto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "gold2",
         "name": "Gold & Black Cap (hair)",
         "description": "A black and yellow cap, worn backwards. It's popular with fledgling trainers in Johto.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "johto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
@@ -726,51 +1087,78 @@
         "name": "Googly Glasses",
         "description": "These fake plastic eyes fit over your face to deliver a goofy gaze.",
         "price": 350,
-        "tags": "glasses"
+        "tags": "glasses",
+        "contestcondition": "clever, cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "googlyspecs",
         "name": "Googly Specs",
-        "description": "It's a pair of quirky glasses. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a pair of quirky glasses. It's commonly used as an accessory in Pokémon Contests.",
         "price": 300,
-        "tags": "glasses"
+        "tags": "glasses",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "gorgeousflower",
         "name": "Gorgeous Flower",
-        "description": "It's an elegant flower. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant flower. It's commonly used as an accessory in Pokémon Contests.",
         "price": 200,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "gorgeousspecs",
         "name": "Gorgeous Specs",
-        "description": "It's a pair of elegant sunglasses. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a pair of elegant sunglasses. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
-        "tags": "glasses"
+        "tags": "glasses",
+        "contestcondition": "beautiful, cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "gummy.frog",
         "id": "grassexpert",
         "name": "Flower Crown",
         "description": "A delicate crown woven from vibrant wildflowers. It gives off a fresh, natural vibe.",
         "price": 5000,
-        "tags": "hat,headband,weather-warm"
+        "tags": "hat,headband,weather-warm",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
+        "author": ".realthree",
         "id": "greenbarrette",
         "name": "Green Barrette",
-        "description": "It's a quirky barrette. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a quirky barrette. It's commonly used as an accessory in Pokémon Contests.",
         "price": 250,
         "tags": "hairclip",
-        "storelocation": "rustboro"
+        "contestcondition": "cute",
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "author": "pokebio",
         "id": "halo",
         "name": "Halo",
         "description": "A golden ring that mysteriously floats above the wearer's head.",
         "price": 10000,
         "tags": "floating",
+        "contestcondition": "beautiful",
         "pokemontags": "shedinja",
+        "obtainmethodkanto": "Fashion Designer, Other NPC / Quest",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "reward for beating the ilex forest shedinja encounter? reward for showing a shedinja to someone?"
     },
     {
@@ -780,38 +1168,56 @@
         "description": "A fashionable hat from Kalos. It's popular with trainers who participate in the Z-A Royale.",
         "price": 2000,
         "tags": "hat",
-        "regiontags": "kalos"
+        "regiontags": "kalos",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": ".realthree",
         "id": "harmonyscarf",
         "name": "Harmony Scarf",
         "description": "It's a scarf with a mysterious pattern. Wearing it fills you with energy.",
         "price": 800,
-        "tags": "accessory"
+        "tags": "accessory",
+        "contestcondition": "cool, tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
-        "id": "haxorushelmet",
-        "name": "Jaw Helmet",
-        "description": "A fearsome helmet crafted in the shape of a Haxorus's jaw. It is sure to intimidate your enemies! ",
-        "price": 8000,
-        "tags": "hat",
-        "pokemontags": "axew,fraxure,haxorus,"
-    },
-    {
+        "author": "vincenzodc90",
         "id": "hawluchamask",
         "name": "Lucha Mask",
         "description": "A Lucha Libre mask that looks like the one worm by a Hawlucha.",
         "price": 5000,
         "tags": "mask",
-        "pokemontags": "hawlucha"
+        "contestcondition": "tough",
+        "pokemontags": "hawlucha",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "ohok3441",
+        "id": "haxorushelmet",
+        "name": "Jaw Helmet",
+        "description": "A fearsome helmet crafted in the shape of a Haxorus's jaw. It is sure to intimidate your enemies! ",
+        "price": 8000,
+        "tags": "hat",
+        "contestcondition": "tough",
+        "pokemontags": "axew,fraxure,haxorus,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "author": ".realthree",
         "id": "headband",
         "name": "Simple Headband",
-        "description": "It's a cute headband. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute headband. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
         "tags": "headband",
-        "storelocation": "default"
+        "contestcondition": "cute",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
@@ -819,31 +1225,46 @@
         "name": "Head Goomy",
         "description": "This Goomy has taken a liking to sitting on your head and somehow never falls off.",
         "price": 0,
-        "tags": "nest"
+        "tags": "nest",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Nesting Pokémon",
+        "obtainmethodhoenn": "Nesting Pokémon"
     },
     {
+        "author": ".realthree",
         "id": "headlacecovering",
         "name": "Lace Covering",
         "description": "A delicate see-through lace covering that is worn over the head.",
         "price": 1500,
         "tags": "hat",
-        "storelocation": "vermillion"
+        "contestcondition": "beautiful",
+        "storelocation": "vermillion",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".realthree",
         "id": "headparas",
         "name": "Head Paras",
         "description": "A Paras that has taken a liking to perching atop a trainer's head.",
         "price": 0,
         "tags": "nest",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Nesting Pokémon",
+        "obtainmethodhoenn": "Nesting Pokémon",
         "notes": "stay idle in safari zone"
     },
     {
+        "author": "blackbosom",
         "id": "headphones",
         "name": "Headphones",
         "description": "A pair of sleek headphones for trainers who prefer to listen to their own music on their adventure!",
         "price": 6000,
         "tags": "headband",
-        "storelocation": "saffron"
+        "contestcondition": "cool",
+        "storelocation": "saffron",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
@@ -851,70 +1272,103 @@
         "name": "Helmet",
         "description": "A hard helmet that's used to protect your head when doing construction work.",
         "price": 400,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "cool, tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "blackbosom",
         "id": "hijabblack",
         "name": "Black Hijab",
         "description": "A sleek black headscarf with a smooth, elegant finish.",
         "price": 1000,
-        "tags": "hat,default"
+        "tags": "hat,default",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
+        "author": "blackbosom",
         "id": "hijabbright",
         "name": "Bright Hijab",
         "description": "A vibrant headscarf in a bold color that stands out.",
         "price": 1000,
-        "tags": "hat,default"
+        "tags": "hat,default",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
+        "author": "blackbosom",
         "id": "hijabdark",
         "name": "Dark Hijab",
         "description": "A deep, rich headscarf offering a refined look.",
         "price": 1000,
         "tags": "hat",
-        "storelocation": "celadon"
+        "contestcondition": "beautiful",
+        "storelocation": "celadon",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "blackbosom",
         "id": "hijablight",
         "name": "Light Hijab",
         "description": "A soft, light-colored headscarf for a fresh touch.",
         "price": 1000,
         "tags": "hat",
-        "storelocation": "celadon"
+        "contestcondition": "beautiful",
+        "storelocation": "celadon",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "blackbosom",
         "id": "hijabwhite",
         "name": "White Hijab",
         "description": "A classic white headscarf with a clean, sophisticated look.",
         "price": 1000,
         "tags": "hat",
-        "storelocation": "celadon"
+        "contestcondition": "beautiful",
+        "storelocation": "celadon",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
-        "id": "hilda",
-        "name": "Pink & White Cap",
-        "description": "A sleek pink and white cap with a refined design, popular with fledgling trainers in Unova.",
-        "price": 2000,
-        "tags": "hat,trainer",
-        "regiontags": "unova"
-    },
-    {
-        "id": "hilda2",
-        "name": "Pink & White Cap (hair)",
-        "description": "A sleek pink and white cap with a refined design. Outfitted for the \"High-pony\" hairstyle.",
-        "price": 2000,
-        "tags": "hat,trainer",
-        "regiontags": "unova"
-    },
-    {
+        "author": ".payapon & Game Freak",
         "id": "hilbert",
         "name": "Dark Red & Black Cap",
         "description": "A brimmed cap with a Poké Ball logo on the front. It's popular with fledgling trainers in Unova.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
+    },
+    {
+        "author": ".payapon & Game Freak",
+        "id": "hilda",
+        "name": "Pink & White Cap",
+        "description": "A sleek pink and white cap with a refined design, popular with fledgling trainers in Unova.",
+        "price": 2000,
+        "tags": "hat,trainer",
+        "contestcondition": "beautiful",
+        "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "author": ".payapon & Game Freak",
+        "id": "hilda2",
+        "name": "Pink & White Cap (hair)",
+        "description": "A sleek pink and white cap with a refined design. Outfitted for the \"High-pony\" hairstyle.",
+        "price": 2000,
+        "tags": "hat,trainer",
+        "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".realthree",
@@ -922,14 +1376,22 @@
         "name": "Horned Helm",
         "description": "It's a cool helmet with horns. It's commonly used in Pokémon Contests.",
         "price": 800,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "cool, tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "gummy.frog",
         "id": "idolf",
         "name": "Heart Headband",
+        "description": "A cute headband worn by idols and their fans.",
         "price": 4500,
         "tags": "headband",
-        "storelocation": "goldenrod,"
+        "contestcondition": "cute",
+        "storelocation": "goldenrod,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
@@ -937,7 +1399,10 @@
         "name": "Jester's Cap",
         "description": "It's a quirky hat. It's commonly used in Pokémon Contests.",
         "price": 600,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "clever, cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "id": "karateHeadband",
@@ -945,32 +1410,46 @@
         "description": "A red headband tied tightly around the forehead. It’s worn by trainers who strive for discipline and strength.",
         "price": 6000,
         "tags": "hat",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
+        "author": "malxire",
         "id": "kogascarf",
-        "name": "Scarf",
+        "name": "Ninja Scarf",
         "description": "A billowing scarf that is often worn by ninjas and shinobis.",
         "price": 18000,
         "tags": "floating,trainer,neckwear",
+        "contestcondition": "tough, cool",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
+        "author": ".payapon",
         "id": "kris",
         "name": "Yellow Hat",
         "description": "A small round form fitting hat. It's popular with fledgling trainers in Johto.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "johto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": "malxire",
         "id": "kurtsentaihelmet",
         "name": "Ledian Helmet",
         "description": "A helmet ressembling a Ledian's head. It's worn by a team of super heroes in a popular kids' show.",
         "price": 25000,
         "tags": "mask",
+        "contestcondition": "cool, tough",
         "pokemontags": "ledian",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "gym reward"
     },
     {
@@ -979,111 +1458,152 @@
         "name": "Lace Cap",
         "description": "It's an elegant cap. It's commonly used in Pokémon Contests.",
         "price": 800,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "blackbosom",
         "id": "lady",
         "name": "Sun Hat",
         "description": "A pink, brimmed hat that is popular with ladies.",
         "price": 1500,
-        "tags": "hat,weather-warm,default"
+        "tags": "hat,weather-warm,default",
+        "contestcondition": "beautiful, cute",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
+        "author": ".realthree",
         "id": "laurelwreath",
         "name": "Laurel Wreath",
-        "description": "It's an elegant wreath. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant wreath. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
-        "tags": "accessory"
+        "tags": "accessory",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "kiwikelly, sadfrog, & Game Freak",
         "id": "leaf",
         "name": "White Boater Hat",
         "description": "Your iconic white hat. You and your sibling like to trade it sometimes.",
         "price": 400,
         "tags": "hat,trainer",
+        "regiontags": "kanto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "start"
     },
     {
         "author": ".realthree",
         "id": "lonelyflower",
         "name": "Lonely Flower",
-        "description": "It's an elegant flower. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant flower. It's commonly used as an accessory in Pokémon Contests.",
         "price": 500,
-        "tags": "accessory"
+        "tags": "accessory",
+        "contestcondition": "beautiful, cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "lucasDPP",
         "name": "Red Flat Cap",
         "description": "A flat cap with a Poké Ball logo on the side. It's popular with fledgling trainers in Sinnoh.",
         "price": 2000,
         "tags": "hat",
         "regiontags": "sinnoh",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "lucasPLA",
         "name": "Dark Red Flat Cap",
         "description": "A dark flat cap. It seems to have been worn in Hisui long ago.",
         "price": 2000,
         "tags": "hat",
         "regiontags": "sinnoh",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": "yanlu",
         "id": "ludicolosombrero",
         "name": "Ludicolo Sombrero",
         "description": "A festive Sombrero that is often worn during fiestas.",
         "price": 18000,
         "tags": "hat,weather-warm",
-        "pokemontags": "lotad,lombre,ludicolo,"
+        "contestcondition": "cool",
+        "pokemontags": "lotad,lombre,ludicolo,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "coridant",
         "id": "luluribbon",
         "name": "Big Red & White Bow",
         "description": "A large red and white head bow.",
         "price": 18000,
         "tags": "hairclip",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
+        "author": "cristata",
         "id": "lycanrochooddown",
         "name": "Lycanroc Hood (down)",
         "description": "A fluffy hood. Down for those who want a little sun.",
         "price": 12000,
         "tags": "hat",
-        "pokemontags": "rockruff,lycanroc_d,lycanroc_n,"
+        "contestcondition": "cool",
+        "pokemontags": "rockruff,lycanroc_d,lycanroc_n,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "cristata",
         "id": "lycanrochoodup",
         "name": "Lycanroc Hood (up)",
         "description": "A fluffy hood. Up for those who shy away from the sun",
         "price": 12000,
         "tags": "hat",
-        "pokemontags": "rockruff,lycanroc_d,lycanroc_n,"
+        "contestcondition": "cool",
+        "pokemontags": "rockruff,lycanroc_d,lycanroc_n,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "lyra",
         "name": "Round Hat w/ Bow",
         "description": "A large soft hat with a ribbon and bow. It's popular with fledgling trainers in Johto.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "johto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
-        "id": "maid",
-        "name": "Frilly Headdress",
-        "price": 1500,
-        "tags": "hat"
-    },
-    {
+        "author": "enderwarlock",
         "id": "magicap",
         "name": "Magikarp Balaclava",
         "description": "A balaclava made to look like a Magikarp.",
         "price": 15000,
         "tags": "hat",
+        "contestcondition": "cute",
         "pokemontags": "magikarp,",
-        "notes": "Fishing contest"
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "notes": "Fishing Contest"
     },
     {
         "author": ".payapon",
@@ -1092,7 +1612,9 @@
         "description": "A heavy hood that's part of the Team Magma uniform!",
         "price": 20000,
         "tags": "hat",
-        "regiontags": "hoenn"
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
@@ -1101,50 +1623,80 @@
         "description": "A heavy hood that was part of the Team Magma uniform a long time ago. It feels a bit nostalgic.",
         "price": 20000,
         "tags": "hat",
-        "regiontags": "hoenn"
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": "malxire",
         "id": "magnemitepin",
         "name": "Magnemite Hairclips",
         "description": "Hair clips that resemble Magnemites. They were popularized by an influencer in Paldea.",
         "price": 18000,
         "tags": "hairclip",
+        "contestcondition": "cool, clever",
         "pokemontags": "magnemite,magneton,magnezone,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "gym reward"
     },
     {
+        "author": ".payapon & Game Freak",
+        "id": "maid",
+        "name": "Frilly Headdress",
+        "description": "A frilly headband worn by handmaids and restaurant staff at certain cafes.",
+        "price": 1500,
+        "tags": "hat",
+        "contestcondition": "beautiful, cute",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "author": "shocktopus1717",
         "id": "marshk",
         "name": "Marshtomp Mask",
         "description": "A sleek mask that is inspired by a Marshtomp.",
         "price": 12000,
         "tags": "mask",
-        "pokemontags": "mudkip,marshtomp,swampert"
+        "contestcondition": "cool",
+        "pokemontags": "mudkip,marshtomp,swampert",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
-        "id": "mayORAS",
-        "name": "Bandana Headband",
-        "description": "A red bandana tied around the head with a bow. It's popular with fledgling trainers in Hoenn.",
-        "price": 2000,
-        "tags": "hairclip, headband,trainer",
-        "regiontags": "hoenn",
-        "notes": "regional set"
-    },
-    {
-        "id": "mayRSE",
-        "name": "Red Bandana",
-        "description": "A red bandana worn as a hat. It's popular with fledgling trainers in Hoenn.",
-        "price": 2000,
-        "tags": "hat,trainer",
-        "regiontags": "hoenn",
-        "notes": "regional set"
-    },
-    {
+        "author": ".payapon",
         "id": "mayE",
         "name": "Green Bandana",
         "description": "A green bandana worn as a hat. It's popular with fledgling trainers in Hoenn.",
         "price": 2000,
         "tags": "hairclip, headband,trainer",
         "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set"
+    },
+    {
+        "author": ".payapon",
+        "id": "mayORAS",
+        "name": "Bandana Headband",
+        "description": "A red bandana tied around the head with a bow. It's popular with fledgling trainers in Hoenn.",
+        "price": 2000,
+        "tags": "hairclip, headband,trainer",
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set"
+    },
+    {
+        "author": ".payapon, hyo-oppa, zender1752, & Game Freak",
+        "id": "mayRSE",
+        "name": "Red Bandana",
+        "description": "A red bandana worn as a hat. It's popular with fledgling trainers in Hoenn.",
+        "price": 2000,
+        "tags": "hat,trainer",
+        "regiontags": "hoenn",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
@@ -1154,65 +1706,95 @@
         "description": "Glasses that invoke the gaze of a scheming Meowth. Popular with office workers and librarians.",
         "price": 3000,
         "tags": "glasses",
-        "pokemontags": "meowth,persian,"
+        "contestcondition": "beautiful",
+        "pokemontags": "meowth,persian,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "blackbosom",
         "id": "mikufairy",
         "name": "Fairy Flower",
         "description": "A flower hairclip that is similar to the one worn by a famous singer.",
         "price": 3000,
         "tags": "hairclip,trainer,special",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "type trainer"
     },
     {
         "author": ".realthree",
         "id": "monocle",
         "name": "Monocle",
-        "description": "It's an elegant monocle. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant monocle. It's commonly used as an accessory in Pokémon Contests.",
         "price": 4500,
-        "tags": "glasses"
+        "tags": "glasses",
+        "contestcondition": "beautiful, clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "matpal6",
         "id": "mortyHeadband",
         "name": "Purple Headband",
         "description": "A purple headband with a spooky, ominous aura.",
         "price": 18000,
         "tags": "headband,trainer",
+        "contestcondition": "cool",
+        "regiontags": "johto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "gym reward"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "nate",
         "name": "Red Visor",
         "description": "A red visor with a black and white Poké Ball on the front. It's popular with fledgling trainers in Unova.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "nate2",
         "name": "Red Visor (for hair)",
         "description": "A red visor with a black and white Poké Ball on the front. Outfitted for the \"Short, Shaggy spikes\" hairstyle.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": "capwolfbane",
         "id": "nhat",
         "name": "Black & Gray Cap",
         "description": "A brimmed black and gray cap. It's popular with trainers in Unova.",
         "price": 2000,
         "tags": "hat,trainer",
+        "contestcondition": "tough",
         "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "left behind by the zoroark in berry forest? regional set"
     },
     {
         "id": "ninetalesalolahat",
         "name": "Ice Fox Hat",
+        "description": "A warm, knit cap that resembles a Ninetales from the Alola region.",
         "price": 7500,
         "tags": "hat,weather-cold",
-        "pokemontags": "alolan_vulpix,alolan_ninetales,"
+        "contestcondition": "beautiful, clever",
+        "regiontags": "alola",
+        "pokemontags": "alolan_vulpix,alolan_ninetales,",
+        "obtainmethodkanto": "Fashion Designer, Store (Regional Set)",
+        "obtainmethodhoenn": "Fashion Designer, Store (Regional Set)"
     },
     {
         "author": "mystora",
@@ -1221,15 +1803,22 @@
         "description": "A cap that is shaped to resemble a Noibat!",
         "price": 8000,
         "tags": "hat",
-        "pokemontags": "noibat,noivern"
+        "contestcondition": "cute, cool",
+        "pokemontags": "noibat,noivern",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "gummy.frog",
         "id": "nursejoy",
         "name": "Blank Nurse Cap",
-        "description": "A white hat that decidedly does not violate the Geneva Convention. It's usually worn by nurses",
+        "description": "A white hat that decidedly does not violate the Geneva Convention. It's usually worn by nurses.",
         "price": 25000,
         "tags": "hat",
+        "contestcondition": "cute, clever",
         "pokemontags": "happiny,chansey,blissey",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "quest in a broken down pokecenter, gotta help heal up a bunch of mons that are in critical condition (give potions etc to npc mons)? "
     },
     {
@@ -1238,71 +1827,106 @@
         "description": "A white hat bearing a non-red cross that no longer violates the Geneva Convention. It's usually worn by nurses.",
         "price": 25000,
         "tags": "hat",
+        "contestcondition": "cute, clever",
         "pokemontags": "happiny,chansey,blissey",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": ";"
     },
     {
+        "author": "nymphiaribbion._.",
         "id": "nya",
         "name": "Kitten Headband",
         "description": "A cute headband that ressembles the ears of a Skitty.",
         "price": 3500,
         "tags": "headband",
-        "pokemontags": "skitty, delcatty,"
+        "contestcondition": "cute",
+        "pokemontags": "skitty, delcatty,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "malxire",
         "id": "ogremaskblue",
         "name": "Wellspring Mask",
         "description": "A blue carved wooden mask patterned after the face of an ogre.",
         "price": 10000,
         "tags": "mask",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Goldenrod tunnel exclusive"
     },
     {
+        "author": "malxire",
         "id": "ogremaskgreen",
         "name": "Teal Mask",
         "description": "A green carved wooden mask patterned after the face of an ogre.",
         "price": 10000,
         "tags": "mask",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Goldenrod tunnel exclusive"
     },
     {
+        "author": "malxire",
         "id": "ogremaskgrey",
         "name": "Cornerstone Mask",
         "description": "A grey carved wooden mask patterned after the face of an ogre.",
         "price": 10000,
         "tags": "mask",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Goldenrod tunnel exclusive"
     },
     {
+        "author": "malxire",
         "id": "ogremaskred",
         "name": "Heartflame Mask",
         "description": "A red carved wooden mask patterned after the face of an ogre.",
         "price": 10000,
         "tags": "mask",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Goldenrod tunnel exclusive"
     },
     {
+        "author": ".payapon",
         "id": "omanyte",
         "name": "Spiral Shell Beanie",
         "description": "A spiral-shaped beanie that is reminescent of the shell of an extinct Pokémon.",
         "price": 8000,
         "tags": "hat",
-        "pokemontags": "omanyte,omastar"
+        "contestcondition": "cool",
+        "pokemontags": "omanyte,omastar",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "theheroicorange",
         "id": "orange",
         "name": "Oran Berry",
         "description": "Just an oran berry that's balanced on your head. Simplicity at its best!",
         "price": 1000,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Overworld"
     },
     {
+        "author": "pokebio",
         "id": "parashroom",
         "name": "Mushroom",
         "description": "A Tochukaso mushroom that normally grows on Paras and Parasect. Wear it. WEAR IT.",
         "price": 8000,
         "tags": "hat",
+        "contestcondition": "clever",
         "pokemontags": "paras,parasect,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "viridian forest mushroom rare drop"
     },
     {
@@ -1312,57 +1936,82 @@
         "description": "A fashionable hat from Kalos, popular with trainers who participate in the Z-A Royale.",
         "price": 4000,
         "tags": "hat",
-        "regiontags": "kalos"
+        "regiontags": "kalos",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": "mykoloth94",
         "id": "pidgey",
         "name": "Pidgey Nest",
         "description": "A Pidgey which has decided to build a nest atop a trainer's head.",
         "price": 0,
         "tags": "nest",
+        "contestcondition": "cute",
         "pokemontags": "pidgey",
+        "obtainmethodkanto": "Fashion Designer, Nesting Pokémon",
+        "obtainmethodhoenn": "Fashion Designer, Nesting Pokémon",
         "notes": "Stay idle on route 1"
     },
     {
+        "author": "kiwikelly",
         "id": "pikacap",
         "name": "Pikacap",
         "description": "A cute hat made to look like a Pikachu.",
         "price": 2000,
         "tags": "hat,default",
-        "pokemontags": "pikachu"
+        "contestcondition": "cute",
+        "pokemontags": "pikachu",
+        "obtainmethodkanto": "Fashion Designer, Store (All)",
+        "obtainmethodhoenn": "Fashion Designer, Store (All)"
     },
     {
+        "author": "djoing",
         "id": "pikaonesie",
         "name": "Pikachu Hood",
         "description": "A hood designed to look like Pikachu, complete with ears and a cheerful expression.",
         "price": 4000,
         "tags": "hat",
+        "contestcondition": "cute",
         "pokemontags": "pikachu",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "bill lighthouse"
     },
     {
+        "author": "chromaerym",
         "id": "pikhatchuf",
         "name": "Head Pikachu (F)",
         "description": "A female Pikachu that has taken a liking to perching atop a trainer's head.",
         "price": 0,
         "tags": "nest",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Nesting Pokémon",
+        "obtainmethodhoenn": "Nesting Pokémon",
         "notes": "stay idle in viridian forest"
     },
     {
+        "author": "chromaerym",
         "id": "pikhatchum",
         "name": "Head Pikachu (M)",
         "description": "A male Pikachu that has taken a liking to perching atop a trainer's head.",
         "price": 0,
         "tags": "nest",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Nesting Pokémon",
+        "obtainmethodhoenn": "Nesting Pokémon",
         "notes": "stay idle in viridian forest"
     },
     {
         "author": ".realthree",
         "id": "pinkbarrette",
         "name": "Pink Barrette",
-        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon Contests.",
         "price": 300,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
@@ -1370,40 +2019,47 @@
         "name": "Pirate Hat",
         "description": "It's a cool bicorn. It's commonly used in Pokémon Contests.",
         "price": 2000,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "cool, tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
-        "author": ".realthree",
-        "id": "professorhat",
-        "name": "Academic Cap",
-        "description": "A classic square-topped cap with a dangling tassel, often worn by those celebrating their academic achievements.",
-        "price": 450,
-        "tags": "hat, special"
-    },
-    {
+        "author": "jarviselrey",
         "id": "PKMBreeder",
         "name": "Loose Bandana",
         "description": "A bandana used by hardworking breeders. Looser fit.",
         "price": 15000,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "malxire",
         "id": "poison",
         "name": "Poison Hood (M)",
         "description": "A purple hood ressembling a Ekans. It is worn by trainers who have an affinity with the poison type.",
         "price": 2500,
         "tags": "hat",
+        "contestcondition": "cool",
         "pokemontags": "ekans,arbok",
-        "storelocation": "fuchsia"
+        "storelocation": "fuchsia",
+        "obtainmethodkanto": "Store (City), Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "malxire",
         "id": "poisonf",
         "name": "Poison Hood (F)",
         "description": "A purple hood ressembling a Seviper. It is worn by trainers who have an affinity with the poison type.",
         "price": 2500,
         "tags": "hat",
+        "contestcondition": "cool",
         "pokemontags": "ekans,arbok",
-        "storelocation": "fuchsia"
+        "storelocation": "fuchsia",
+        "obtainmethodkanto": "Store (City), Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": ".realthree",
@@ -1411,14 +2067,21 @@
         "name": "Police Cap",
         "description": "It’s a cap worn for serving on the force or impersonating an officer.",
         "price": 2000,
-        "tags": "hat,special"
+        "tags": "hat,special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon",
         "id": "postman",
         "name": "Postman Hat",
         "description": "A hat worn by someone who handles packages with care",
         "price": 8000,
         "tags": "hat",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "TR celadon quest"
     },
     {
@@ -1428,138 +2091,221 @@
         "description": "A cap reminiscent of the head of a Prinplup.",
         "price": 4500,
         "tags": "hat",
-        "pokemontags": "piplup,prinplup,empoleon,"
+        "contestcondition": "cool",
+        "pokemontags": "piplup,prinplup,empoleon,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".realthree",
+        "id": "professorhat",
+        "name": "Academic Cap",
+        "description": "A classic square-topped cap with a dangling tassel, often worn by those celebrating their academic achievements.",
+        "price": 450,
+        "tags": "hat, special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Overworld"
+    },
+    {
+        "author": "malxire",
         "id": "prycemask",
         "name": "Glalie Mask",
         "description": "A hockey mask resembling a Glalie, often worn by fans of the Indigo Ice Beams team.",
         "price": 18000,
         "tags": "mask,weather-cold",
+        "contestcondition": "cool, tough",
         "pokemontags": "glalie",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "gym reward"
     },
     {
+        "author": "ohok3441",
         "id": "pumpkaboohelmet",
         "name": "Pumpkaboo Helmet",
         "description": "A hollowed out pumpkin that looks like a Pumpkaboo!",
         "price": 1031,
         "tags": "hat",
-        "pokemontags": "pumpkaboo,gourgeist,"
+        "contestcondition": "cute",
+        "pokemontags": "pumpkaboo,gourgeist,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "gummy.frog",
+        "id": "purpleglasses",
+        "name": "Round Purple Glasses",
+        "description": "Large, old-fashioned glasses in a trendy purple color. Popular with studious types.",
+        "price": 1000,
+        "tags": "glasses, accessory, default",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
+        "author": "xenophacilus",
         "id": "Ramos",
         "name": "Green Flat cap",
         "description": "A green flat cap that was popularized by a certain Gym Leader from Kalos.",
         "price": 3500,
         "tags": "hat",
-        "regiontags": "kalos"
+        "contestcondition": "clever",
+        "regiontags": "kalos",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "ranger",
         "name": "Ranger Hat",
         "description": "A red fedora often worn by Pokémon Rangers to protect them from the harsh sunlight.",
         "price": 1500,
-        "tags": "hat,weather-warm,default"
+        "tags": "hat,weather-warm,default",
+        "contestcondition": "clever, tough",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
+        "author": "ohok3441",
+        "id": "rayquazatiara",
+        "name": "Sky Tiara",
+        "description": "A glorious tiara modeled after a ruler of the skies. It looks rare and expensive!",
+        "price": 45000,
+        "tags": "headband",
+        "contestcondition": "beautiful",
+        "pokemontags": "rayquaza",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "author": "kiwikelly",
         "id": "red",
         "name": "Red Cap",
         "description": "Your iconic red cap. You and your sibling like to trade it sometimes.",
         "price": 400,
         "tags": "hat",
+        "regiontags": "kanto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "start"
     },
     {
         "author": ".realthree",
         "id": "redbarrette",
         "name": "Red Barrette",
-        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
         "id": "redflower",
         "name": "Red Flower",
-        "description": "It's a cute flower. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute flower. It's commonly used as an accessory in Pokémon Contests.",
         "price": 200,
-        "tags": "accessory"
+        "tags": "accessory",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "monolithyk",
         "id": "registeelhelm",
         "name": "Steel Titan Helm",
         "description": "A steel helmet resembling a long lost legendary titan.",
         "price": 25000,
         "tags": "mask",
-        "pokemontags": "registeel"
+        "contestcondition": "tough",
+        "pokemontags": "registeel",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".payapon & zender1752",
         "id": "riley",
         "name": "Blue Fedora",
         "description": "A stylish blue fedora that ressembles the head feathers of a Honchkrow",
         "price": 2000,
         "tags": "hat,trainer",
-        "regiontags": "sinnoh"
+        "contestcondition": "cool",
+        "regiontags": "sinnoh",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
-        "id": "rayquazatiara",
-        "name": "Sky Tiara",
-        "description": "A glorious tiara modeled after a ruler of the skies. It looks rare and expensive!",
-        "price": 45000,
-        "tags": "headband",
-        "pokemontags": "rayquaza"
-    },
-    {
+        "author": "kingeroya",
         "id": "rocketcap",
         "name": "Team Rocket Cap",
         "description": "A black cap that all Team Rocket Grunts must wear as part of their uniform.",
-        "price": 0,
+        "price": 10000,
         "tags": "hat,trainer,special",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "nugget bridge recruiter"
     },
     {
-        "author": ".realthree",
-        "id": "rose",
-        "name": "Rose",
-        "description": "It's an elegant flower. It's commonly used as an accessory in Pokémon contests.",
-        "price": 300,
-        "tags": "accessory"
-    },
-    {
+        "author": ".payapon & Game Freak",
         "id": "rosa",
         "name": "Pink & White Visor",
         "description": "A pink and white visor. It's popular with fledgling trainers in Unova.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "rosa2",
         "name": "Pink & White Visor (hair)",
         "description": "A pink and white visor. Outfitted for the \"Long Pigtails Buns\" hairstyle.",
         "price": 2000,
         "tags": "hat,trainer",
-        "regiontags": "unova"
+        "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": ".realthree",
+        "id": "rose",
+        "name": "Rose",
+        "description": "It's an elegant flower. It's commonly used as an accessory in Pokémon Contests.",
+        "price": 300,
+        "tags": "accessory",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "author": "xenophacilus",
         "id": "roseradeF",
         "name": "Roserade Mask (F)",
         "description": "An eye mask ressembling a Roserade's.",
         "price": 4500,
         "tags": "glasses,mask",
+        "contestcondition": "beautiful",
         "pokemontags": "budew,roselia,roserade",
-        "storelocation": "celadon,"
+        "storelocation": "celadon,",
+        "obtainmethodkanto": "Store (City), Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "xenophacilus",
         "id": "roseradeM",
         "name": "Roserade Mask (M)",
         "description": "An eye mask ressembling a Roserade's.",
         "price": 4500,
         "tags": "glasses,mask",
+        "contestcondition": "beautiful",
         "pokemontags": "budew,roselia,roserade",
-        "storelocation": "celadon,"
+        "storelocation": "celadon,",
+        "obtainmethodkanto": "Store (City), Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": ".realthree",
@@ -1567,239 +2313,383 @@
         "name": "Round Button",
         "description": "It's a cute clip. It's commonly used in Pokémon Contests.",
         "price": 100,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "weaselsheep",
         "id": "sableyemask",
         "name": "Sableye Mask",
         "description": "A creepy, gem-eyed disguise that lets you channel your inner trickster.",
         "price": 4500,
         "tags": "mask",
-        "pokemontags": "sableye"
+        "contestcondition": "cool, tough",
+        "pokemontags": "sableye",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "malxire",
         "id": "sabrinasballs",
         "name": "Levitating Balls",
         "description": "A few Poké Balls that permanently levitate with psychokinetic energy.",
         "price": 18000,
         "tags": "floating,trainer",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "gym reward"
     },
     {
+        "author": "ciellecreator",
         "id": "sandshrewbeanie",
         "name": "Sandshrew Beanie",
         "description": "A cozy beanie fashioned after the rugged hide of a Sandshrew. ",
         "price": 8000,
         "tags": "hat,weather-cold",
-        "pokemontags": "sandshrew,sandslash"
+        "contestcondition": "tough",
+        "pokemontags": "sandshrew,sandslash",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".payapon",
         "id": "santa",
         "name": "Festive Hat",
         "description": "A warm, snug stocking cap worn during a festive holiday season.",
         "price": 25000,
         "tags": "hat",
-        "pokemontags": "delibird,"
+        "contestcondition": "cute",
+        "pokemontags": "delibird,",
+        "obtainmethodkanto": "Fashion Designer, Other NPC / Quest",
+        "obtainmethodhoenn": "Fashion Designer, Other NPC / Quest"
     },
     {
+        "author": ".payapon",
         "id": "scribbles1",
         "name": "Mask Scribbles",
         "description": "Markings in the shape of a mask drawn on your face by a mischievous Jigglypuff!",
         "price": 0,
-        "tags": "special,mask"
+        "tags": "special,mask",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon",
         "id": "scribbles2",
         "name": "Moustache Scribbles",
         "description": "Markings in the shape of a moustache drawn on your face by a mischievous Jigglypuff!",
         "price": 0,
-        "tags": "special,mask"
+        "tags": "special,mask",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon",
         "id": "scribbles3",
         "name": "Circle Scribbles",
         "description": "Markings in the shape of a circle drawn on your face by a mischievous Jigglypuff!",
         "price": 0,
-        "tags": "special,mask"
+        "tags": "special,mask",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon",
         "id": "scribbles4",
         "name": "Swirly Scribbles",
         "description": "Markings in the shape of a swirl drawn on your face by a mischievous Jigglypuff!",
         "price": 0,
-        "tags": "special,mask"
+        "tags": "special,mask",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "seacaptain",
         "name": "Captain's Hat",
         "description": "A white peaked cap often worn by ship captains.",
         "price": 16000,
         "tags": "hat",
+        "contestcondition": "tough, cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "lying around in the ss anne capt cabin"
     },
     {
+        "author": ".rayzard",
         "id": "seedothelmet",
         "name": "Acorn Helmet",
         "description": "A sturdy helmet that resembles a Seedot's head.",
         "price": 4000,
         "tags": "hat",
-        "pokemontags": "seedot,nuzleaf,shiftry,"
+        "contestcondition": "tough",
+        "pokemontags": "seedot,nuzleaf,shiftry,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".payapon",
         "id": "seleneSM",
         "name": "Pompom Beanie",
         "description": "A beanie with a flower-shaped pompom. It's popular with fledgling trainers in Alola.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "alola",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "trainer clothing store?"
     },
     {
+        "author": ".payapon & zender1752",
         "id": "seleneUSUM",
         "name": "Alolan Sunhat",
         "description": "A sun hat adorned with flowes. It's popular with fledgling trainers in Alola.",
         "price": 2000,
         "tags": "hat, weather-warm",
-        "regiontags": "alola"
+        "regiontags": "alola",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "author": ".payapon, tebited15, & Game Freak",
         "id": "serena",
         "name": "Red Hat w/ Glasses",
         "description": "A fashionable hat topped with sunglasses. It's popular with fledgling trainers in Kalos.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "kalos",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "trainer clothing store?"
     },
     {
+        "author": "aplastic",
+        "id": "sillyhat",
+        "name": "Propeller Hat",
+        "description": "A silly-looking multi-colored hat with a propeller on top.",
+        "price": 300,
+        "tags": "cap, hat",
+        "contestcondition": "clever, cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "author": ".payapon",
         "id": "silphscope",
         "name": "Silph Scope",
         "description": "A scope that makes unseeable Pokémon visible. It is made by Silph Co.",
         "price": 0,
-        "tags": "headband,special"
+        "tags": "headband,special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "simpleheadband",
         "name": "Headband",
+        "description": "A simple headband that keeps your hair out of your face.",
         "price": 500,
-        "tags": "headband,default"
+        "tags": "headband,default",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
+        "author": ".payapon & Game Freak",
         "id": "skierF",
         "name": "Pink Beanie",
         "description": "A warm, pink beanie that is often by skiers.",
         "price": 3500,
         "tags": "hat,weather-cold",
-        "storelocation": "blackthorn,mahogany,"
+        "contestcondition": "cool",
+        "storelocation": "blackthorn,mahogany,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "ohok3441",
         "id": "skittyTV",
         "name": "Skitty TV",
         "description": "A wearable TV themed like a Skitty. Use it to watch your battle replays!",
         "price": 5000,
         "tags": "hat",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "goldenrod radio tower"
     },
     {
+        "author": "worm9766",
         "id": "sleepmask",
         "name": "Mareep Sleep Mask",
         "description": "An eyemask resembling a Mareep's face.",
         "price": 8000,
         "tags": "mask",
+        "contestcondition": "cute",
+        "pokemontags": "mareep, flaafy, ampharos",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "Sleep at hotel"
     },
     {
-        "id": "slurpuffcake",
-        "name": "Slurpuff Cake",
-        "description": "Wearing this tasty cake on top of your head makes it so that you never have to stop eating it!",
-        "price": 5000,
-        "tags": "hat",
-        "pokemontags": "slurpuff,swirlix,"
-    },
-    {
+        "author": "quarases",
         "id": "slowking",
         "name": "Slowking Shell",
         "description": "A Shellder that has latched onto your head, forcing you to evolve into a king.",
         "price": 15000,
         "tags": "hat",
-        "pokemontags": "slowbro,slowking,shellder"
+        "contestcondition": "tough",
+        "pokemontags": "slowbro,slowking,shellder",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "author": "the.red.letter",
+        "id": "sludge",
+        "name": "Pile of Sludge",
+        "description": "A thick sludge that, astonishingly, sits perfectly atop your head!",
+        "price": 100,
+        "tags": "special, accessory, nest",
+        "contestcondition": "cool, tough",
+        "pokemontags": "grimer, muk",
+        "obtainmethodkanto": "Fashion Designer, Nesting Pokémon",
+        "obtainmethodhoenn": "Fashion Designer, Nesting Pokémon",
+        "notes": "obtained by having the player investigate a sewer pipe or a similar grimy place and pop back out with sludge atop their head!"
+    },
+    {
+        "author": "ohok3441",
+        "id": "slurpuffcake",
+        "name": "Slurpuff Cake",
+        "description": "Wearing this tasty cake on top of your head makes it so that you never have to stop eating it!",
+        "price": 5000,
+        "tags": "hat",
+        "contestcondition": "cute",
+        "pokemontags": "slurpuff,swirlix,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": ".realthree",
         "id": "smallbarrette",
         "name": "Small Barrette",
-        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a cute barrette. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "cute, beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
         "id": "smileyfacemask",
         "name": "Smiley-Face Mask",
-        "description": "It's a quirky mask. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's a quirky mask. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
-        "tags": "mask"
+        "tags": "mask",
+        "contestcondition": "cool, clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "ohok3441",
         "id": "sneaselfeather",
         "name": "Sharp Feather",
         "description": "A feather worn on the head that ressembles the ear of a Sneasel.",
         "price": 4000,
         "tags": "hairclip, weather-cold",
-        "pokemontags": "sneasel,weavile,"
+        "contestcondition": "cool",
+        "pokemontags": "sneasel,weavile,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "sakebishi",
         "id": "snorlaxhat",
         "name": "Snorlax Hat",
         "description": "A hat designed to look like Snorlax’s face, featuring its signature sleepy expression.",
         "price": 15000,
         "tags": "hat",
-        "pokemontags": "munchlax,snorlax,"
+        "contestcondition": "cute",
+        "pokemontags": "munchlax,snorlax,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "kiwikelly",
         "id": "snoruntcap",
         "name": "Snorunt Hat",
         "description": "A warm winter hat that is made to ressemble a Snorunt.",
         "price": 12000,
         "tags": "hat,weather-cold",
-        "pokemontags": "snorunt"
+        "contestcondition": "clever",
+        "pokemontags": "snorunt",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": ".realthree",
         "id": "snowcrystal",
         "name": "Snow Crystal",
-        "description": "It's an elegant clip. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant clip. It's commonly used as an accessory in Pokémon Contests.",
         "price": 1000,
-        "tags": "hairclip"
+        "tags": "hairclip",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
-        "id": "duskrd",
-        "name": "solosisbubble",
-        "description": "Solosis Bubble",
+        "author": "duskrd",
+        "id": "solosisbubble",
+        "name": "Solosis Bubble",
+        "description": "Have you ever wondered what it's like to be a Solosis? Now you can find out!",
         "price": 3000,
         "tags": "special",
-        "pokemontags": "solosis,duosion,reuniclus"
+        "contestcondition": "clever",
+        "pokemontags": "solosis,duosion,reuniclus",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "id": "spheal",
         "name": "Head Spheal",
+        "description": "A spheal has taken up residence on your head.",
         "price": 0,
-        "tags": "nest"
+        "tags": "nest",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Nesting Pokémon",
+        "obtainmethodhoenn": "Nesting Pokémon"
     },
     {
+        "author": ".rayzard",
         "id": "sphealwintercap",
         "name": "Spheal Toque",
+        "description": "A warm winter cap that looks like a spheal is taking a big bite out of your head.",
         "price": 6000,
         "tags": "hat,weather-cold",
-        "pokemontags": "spheal,sealio,walrein,"
+        "contestcondition": "cute",
+        "pokemontags": "spheal,sealio,walrein,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "ohok3441",
         "id": "splicer",
         "name": "Fusion Beret",
         "description": "A beret made to ressemble DNA Splicers.",
         "price": 18000,
         "tags": "hat",
-        "pokemontags": "fused,"
+        "contestcondition": "clever",
+        "pokemontags": "fused,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": "gummy.frog",
@@ -1807,81 +2697,119 @@
         "name": "Mysterious Sprout",
         "description": "Somehow, a little leaf has managed to sprout from your head.",
         "price": 800,
-        "tags": "hat,special"
+        "tags": "hat,special",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Overworld"
     },
     {
         "author": ".realthree",
         "id": "squareglasses",
         "name": "Square Glasses",
-        "description": "It's an elegant pair of glasses. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant pair of glasses. It's commonly used as an accessory in Pokémon Contests.",
         "price": 400,
-        "tags": "glasses"
+        "tags": "glasses",
+        "contestcondition": "cool, beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "knilk",
         "id": "squirtlesquadshades",
         "name": "Squad Shades",
         "description": "Cool shades worn by the leader of the Squirtle Squad!",
         "price": 8000,
         "tags": "glasses",
+        "contestcondition": "cool",
         "pokemontags": "squirtle,wartortle,blastoise,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "found at cerulean cape"
     },
     {
+        "author": "ohok3441",
         "id": "starmieclip",
         "name": "Starmie Hair Clip",
         "description": "A fashionable hair clip ressembling a Starmie with seaweed and corals.",
         "price": 18000,
         "tags": "hairclip",
+        "contestcondition": "beautiful",
         "pokemontags": "staryu,starmie",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "gym reward"
     },
     {
         "author": ".realthree",
         "id": "stripedtie",
         "name": "Striped Tie",
-        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon Contests.",
         "price": 800,
         "tags": "neckwear",
-        "storelocation": "rustboro"
+        "contestcondition": "beautiful",
+        "storelocation": "rustboro",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
-        "id": "surgeglasses",
-        "name": "Shock Shades",
-        "description": "Shockingly cool sunglasses.",
-        "price": 18000,
-        "tags": "glasses",
-        "notes": "gym reward"
-    },
-    {
-        "id": "swablu",
-        "name": "Head Swablu",
-        "description": "A cozy Swablu who decided to perch atop a trainer's head.",
-        "price": 0,
-        "tags": "nest",
-        "notes": "stay idle on mt. moon summit"
-    },
-    {
+        "author": "ohok3441",
         "id": "sudowoodohorns",
         "name": "Sudowoodo Horn",
         "description": "A branching horn made out of rock that appears to have fallen off a Sudowoodo.",
         "price": 5000,
         "tags": "hairclip,headband",
-        "pokemontags": "bonsly,sudowoodo"
+        "contestcondition": "clever",
+        "pokemontags": "bonsly,sudowoodo",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".payapon & Game Freak",
+        "id": "surgeglasses",
+        "name": "Shock Shades",
+        "description": "Shockingly cool sunglasses.",
+        "price": 18000,
+        "tags": "glasses",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable",
+        "notes": "gym reward"
+    },
+    {
+        "author": "volvonovic",
+        "id": "swablu",
+        "name": "Head Swablu",
+        "description": "A cozy Swablu who decided to perch atop a trainer's head.",
+        "price": 0,
+        "tags": "nest",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Nesting Pokémon",
+        "obtainmethodhoenn": "Nesting Pokémon",
+        "notes": "stay idle on mt. moon summit"
+    },
+    {
+        "author": "gummy,frog",
         "id": "sylveonbow",
         "name": "Sylveon Hair Bow",
         "description": "A cute, pink hair bow that ressembles a Sylveon's.",
         "price": 12000,
         "tags": "hairclip",
-        "pokemontags": "sylveon"
+        "contestcondition": "cute",
+        "pokemontags": "sylveon",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": ".payapon",
         "id": "tentacruel",
         "name": "Head Tentacruel",
         "description": "A tiny Tentacruel that picked your head as a resting spot. Watch out for those tentacles!",
         "price": 6000,
-        "tags": "hat,special"
+        "tags": "hat,special",
+        "contestcondition": "cool",
+        "pokemontags": "tentacruel, tentacool",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": ".realthree",
@@ -1889,52 +2817,91 @@
         "name": "Tiara",
         "description": "It's an elegant tiara. It's commonly used in Pokémon Contests.",
         "price": 1200,
-        "tags": "headband"
+        "tags": "headband",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
         "id": "tie",
         "name": "Tie",
-        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon contests.",
+        "description": "It's an elegant tie. It's commonly used as an accessory in Pokémon Contests.",
         "price": 800,
-        "tags": "neckwear"
+        "tags": "neckwear",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "matpal6",
         "id": "tophat",
         "name": "Red Top Hat",
         "description": "A dapper top hat with a red band.",
         "price": 10000,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "bucklin",
         "id": "tophatwhiteband",
         "name": "White Top Hat",
         "description": "A dapper top hat with a white band.",
         "price": 10000,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "ohok3441",
         "id": "trevenantforestkingcrown",
         "name": "Forest King Crown",
+        "description": "A crown that makes anyone who wears it feel like they are the king of the forest.",
         "price": 15000,
         "tags": "hat",
+        "contestcondition": "beautiful",
         "pokemontags": "phantump,trevenant,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "Ilex forest at night"
     },
     {
+        "author": "dabouiw",
         "id": "triangularsunglasses",
         "name": "Triangle Shades",
         "description": "Cool sunglasses shaped like triangles.",
         "price": 2500,
         "tags": "glasses",
-        "storelocation": "violet"
+        "contestcondition": "cool",
+        "storelocation": "violet",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon",
+        "id": "trumpet",
+        "name": "Trumpet",
+        "description": "Wear Hoenn's national instrument with pride! You can almost hear the faint sound of trumpets surrounding you.",
+        "price": 20000,
+        "tags": "special",
+        "contestcondition": "cool, clever",
+        "obtainmethodkanto": "Mystery Gift",
+        "obtainmethodhoenn": "Mystery Gift",
+        "notes": "oops all trumpets quest line"
+    },
+    {
+        "author": "ohok3441",
         "id": "tvhead",
         "name": "TV Head",
         "description": "A TV worn as a helmet that could probably be used to watch replays of your battles... If only it worked!",
         "price": 4500,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "cool, clever",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "chromaerym",
@@ -1943,58 +2910,110 @@
         "description": "A big Tyrunt shaped mask that gives you an urge to bite.",
         "price": 3500,
         "tags": "mask",
+        "contestcondition": "tough",
         "pokemontags": "tyrunt,tyrantrum,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "Obtained from Rock Smash"
     },
     {
+        "author": "jarvisreley",
         "id": "veteranM",
         "name": "Black Flat Cap",
         "description": "A black flat cap, often worn by Veteran trainers.",
         "price": 3500,
         "tags": "hat,trainer",
-        "storelocation": "crimson,"
+        "contestcondition": "cool",
+        "storelocation": "crimson,",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": ".payapon, hyo-opa, zender1752, & Game Freak",
         "id": "victor",
         "name": "Gray Knitted Hat",
         "description": "A gray knitted beanie. It's popular with fledgling trainers in Galar.",
         "price": 2000,
         "tags": "hat,trainer",
         "regiontags": "galar",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "trainer clothing store?"
     },
     {
+        "author": "ohok3441",
         "id": "voltorbitembarrette",
         "name": "Pokéball Barrette",
+        "description": "A stylish barette featuring a Pokéball design.",
         "price": 1500,
         "tags": "hairclip",
-        "pokemontags": "voltorb,electrode,"
+        "contestcondition": "cool",
+        "pokemontags": "voltorb,electrode,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
+        "author": "ohok3441",
+        "id": "wallacescarf",
+        "name": "Waterfall Scarf",
+        "description": "A silky see through scarf based around Wallace's outfit. It shimmers like a waterfall under sunlight.",
+        "price": 30000,
+        "tags": "special, trainer",
+        "contestcondition": "beautiful",
+        "regiontags": "hoenn",
+        "storelocation": "sootopolis",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (City), Store (Regional Set)",
+        "notes": "Wallace victory item"
+    },
+    {
+        "author": "ohok3441",
         "id": "waterdress",
         "name": "Straw Hat",
         "description": "A simple hat made out of straw that is typically worn by bug-catchers.",
         "price": 1500,
         "tags": "hat",
+        "contestcondition": "cute",
         "storelocation": "pewter,rustboro",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "trainer clothing store?"
     },
     {
+        "author": "malxire",
         "id": "western",
         "name": "Safari Hat",
         "description": "A hat worn by safari zone groundskeepers.",
         "price": 6500,
         "tags": "hat",
-        "storelocation": "fuchsia"
+        "contestcondition": "tough",
+        "storelocation": "fuchsia",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "chromaerym",
         "id": "whiscashbowlhat",
         "name": "Whiscash bowl hat",
+        "description": "An elegant hat that looks just like a Whishcash. ",
         "price": 4000,
         "tags": "hat",
+        "contestcondition": "beautiful",
         "pokemontags": "barboach,whiscash,",
-        "storelocation": "fallarbor,"
+        "storelocation": "fallarbor,",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Store (City), Fashion Designer"
+    },
+    {
+        "author": ".realthree",
+        "id": "whitedominomask",
+        "name": "White Domino Mask",
+        "description": "It's a cool mask. It's commonly used as an accessory in Pokémon Contests.",
+        "price": 900,
+        "tags": "mask",
+        "contestcondition": "beautiful, cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
@@ -2002,7 +3021,10 @@
         "name": "White Hand",
         "description": "This ghostly white hand doesn't seem to be visible to other people...",
         "price": 0,
-        "tags": "special"
+        "tags": "special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Other NPC / Quest",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".realthree",
@@ -2010,13 +3032,21 @@
         "name": "Windup Key",
         "description": "It's a quirky costume piece. It's commonly used in Pokémon Contests.",
         "price": 300,
-        "tags": "accessory,hairclip"
+        "tags": "accessory,hairclip",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "malxire",
         "id": "winona",
         "name": "Feathered Cap",
+        "description": "A cap just like the one Winona of Fortree Gym wears.",
         "price": 18000,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "cool, beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
         "author": ".realthree",
@@ -2024,33 +3054,48 @@
         "name": "Witchy Hat",
         "description": "It's a quirky hat. It's commonly used in Pokémon Contests.",
         "price": 1100,
-        "tags": "hat"
+        "tags": "hat",
+        "contestcondition": "clever, beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "gummy.frog",
         "id": "wooperclips",
         "name": "Wooper Hair Clips",
         "description": "Hair clips that resemble the purple gills of a Wooper.",
         "price": 8000,
         "tags": "hairclip",
-        "pokemontags": "wooper,",
+        "contestcondition": "cute",
+        "pokemontags": "wooper, quagsire",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "quest cerulean"
     },
     {
+        "author": "coridiant",
         "id": "yellowSPEhat",
         "name": "Straw Sun Hat",
         "description": "A wide-brimmed straw hat. It's popular with fledgling trainers in Kanto.",
         "price": 2500,
         "tags": "hat,trainer",
+        "contestcondition": "beautiful",
         "storelocation": "pewter,rustboro",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "trainer clothing store?"
     },
     {
+        "author": "blackbosom",
         "id": "youngster",
         "name": "Youngster Cap",
         "description": "A cool cap worn by the younger generation. Must be worn backwards to be hip.",
         "price": 1500,
         "tags": "hat",
+        "contestcondition": "cool",
         "storelocation": "pewter,rustboro",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "city exclusive"
     },
     {
@@ -2059,6 +3104,9 @@
         "name": "Head Zigzagoon",
         "description": "A Zigzagoon that has taken a liking to perching atop a trainer's head.",
         "price": 0,
-        "tags": "nest"
+        "tags": "nest",
+        "contestcondition": "cute",
+        "obtainmethodkanto": "Nesting Pokémon",
+        "obtainmethodhoenn": "Nesting Pokémon"
     }
 ]
