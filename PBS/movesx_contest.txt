@@ -1,0 +1,6085 @@
+#-------------------------------
+[MEGAHORN]
+#Megahorn
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[ATTACKORDER]
+#Attack Order
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesBetterIfIncreasesCrowdExcitement
+ContestFlags = 
+ContestDescription = Works best if the audience's excitement goes up.
+#-------------------------------
+[BUGBUZZ]
+#Bug Buzz
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesBetterIfIncreasesCrowdExcitement
+ContestFlags = 
+ContestDescription = Works best if the audience's excitement goes up.
+#-------------------------------
+[FIRSTIMPRESSION]
+#First Impression
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnRoundNumberLower
+ContestFlags = 
+ContestDescription = Appeal is better the earlier the round.
+#-------------------------------
+[POLLENPUFF]
+#Pollen Puff
+ContestType = COOL
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[LEECHLIFE]
+#Leech Life
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[LUNGE]
+#Lunge
+ContestType = COOL
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[XSCISSOR]
+#X-Scissor
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[SIGNALBEAM]
+#Signal Beam
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = StealsAttention
+ContestFlags = 
+ContestDescription = Makes the judge expect little of other contestants.
+#-------------------------------
+[UTURN]
+#U-turn
+ContestType = CUTE
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[STEAMROLLER]
+#Steamroller
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[BUGBITE]
+#Bug Bite
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[SILVERWIND]
+#Silver Wind
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[FELLSTINGER]
+#Fell Stinger
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[STRUGGLEBUG]
+#Struggle Bug
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[FURYCUTTER]
+#Fury Cutter
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[PINMISSILE]
+#Pin Missile
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[TWINEEDLE]
+#Twineedle
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[INFESTATION]
+#Infestation
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[DEFENDORDER]
+#Defend Order
+ContestType = SMART
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[HEALORDER]
+#Heal Order
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = EqualsCrowdExcitement
+ContestFlags = 
+ContestDescription = The appeal depends on the audience's excitement.
+#-------------------------------
+[POWDER]
+#Powder
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[QUIVERDANCE]
+#Quiver Dance
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[RAGEPOWDER]
+#Rage Powder
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[SPIDERWEB]
+#Spider Web
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[STICKYWEB]
+#Sticky Web
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[STRINGSHOT]
+#String Shot
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[TAILGLOW]
+#Tail Glow
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[HYPERSPACEFURY]
+#Hyperspace Fury
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[FOULPLAY]
+#Foul Play
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Badly startles those that have made appeals.
+#-------------------------------
+[DARKESTLARIAT]
+#Darkest Lariat
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[NIGHTDAZE]
+#Night Daze
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[CRUNCH]
+#Crunch
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[DARKPULSE]
+#Dark Pulse
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[THROATCHOP]
+#Throat Chop
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[NIGHTSLASH]
+#Night Slash
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the previous Pokémon's move went.
+#-------------------------------
+[SUCKERPUNCH]
+#Sucker Punch
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[KNOCKOFF]
+#Knock Off
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[ASSURANCE]
+#Assurance
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesBetterLaterPerformed
+ContestFlags = 
+ContestDescription = The appeal works better the later it is performed in a turn.
+#-------------------------------
+[BITE]
+#Bite
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[BRUTALSWING]
+#Brutal Swing
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[FEINTATTACK]
+#Feint Attack
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[THIEF]
+#Thief
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[SNARL]
+#Snarl
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[PAYBACK]
+#Payback
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[PURSUIT]
+#Pursuit
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[BEATUP]
+#Beat Up
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[FLING]
+#Fling
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[POWERTRIP]
+#Power Trip
+ContestType = SMART
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[PUNISHMENT]
+#Punishment
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judges attention.
+#-------------------------------
+[DARKVOID]
+#Dark Void
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[EMBARGO]
+#Embargo
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[FAKETEARS]
+#Fake Tears
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[FLATTER]
+#Flatter
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[HONECLAWS]
+#Hone Claws
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[MEMENTO]
+#Memento
+ContestType = TOUGH
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[NASTYPLOT]
+#Nasty Plot
+ContestType = CUTE
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[PARTINGSHOT]
+#Parting Shot
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[QUASH]
+#Quash
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[SNATCH]
+#Snatch
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SWITCHEROO]
+#Switcheroo
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[TAUNT]
+#Taunt
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[TOPSYTURVY]
+#Topsy-Turvy
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[TORMENT]
+#Torment
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[ROAROFTIME]
+#Roar of Time
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = GainAppealValueOfOtherInFront
+ContestFlags = 
+ContestDescription = Adds the score of the previous Pokémon's appeal to yours.
+#-------------------------------
+[DRACOMETEOR]
+#Draco Meteor
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[OUTRAGE]
+#Outrage
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[CLANGINGSCALES]
+#Clanging Scales
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[COREENFORCER]
+#Core Enforcer
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[DRAGONRUSH]
+#Dragon Rush
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[SPACIALREND]
+#Spacial Rend
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[DRAGONHAMMER]
+#Dragon Hammer
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[DRAGONPULSE]
+#Dragon Pulse
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesBetterIfIncreasesCrowdExcitement
+ContestFlags = 
+ContestDescription = Works best if the audience's excitement goes up.
+#-------------------------------
+[DRAGONCLAW]
+#Dragon Claw
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[DRAGONBREATH]
+#Dragon Breath
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[DRAGONTAIL]
+#Dragon Tail
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveLater
+ContestFlags = 
+ContestDescription = Causes the user to move later on the next turn.
+#-------------------------------
+[DUALCHOP]
+#Dual Chop
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[TWISTER]
+#Twister
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[DRAGONRAGE]
+#Dragon Rage
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[DRAGONDANCE]
+#Dragon Dance
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[BOLTSTRIKE]
+#Bolt Strike
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[VOLTTACKLE]
+#Volt Tackle
+ContestType = COOL
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[ZAPCANNON]
+#Zap Cannon
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[THUNDER]
+#Thunder
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[FUSIONBOLT]
+#Fusion Bolt
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesBetterLaterPerformed
+ContestFlags = 
+ContestDescription = The appeal works better the later it is performed in a turn.
+#-------------------------------
+[PLASMAFISTS]
+#Plasma Fists
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[THUNDERBOLT]
+#Thunderbolt
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[WILDCHARGE]
+#Wild Charge
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[DISCHARGE]
+#Discharge
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[ZINGZAP]
+#Zing Zap
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[THUNDERPUNCH]
+#Thunder Punch
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[VOLTSWITCH]
+#Volt Switch
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[PARABOLICCHARGE]
+#Parabolic Charge
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[SPARK]
+#Spark
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[THUNDERFANG]
+#Thunder Fang
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[SHOCKWAVE]
+#Shock Wave
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[ELECTROWEB]
+#Electroweb
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[CHARGEBEAM]
+#Charge Beam
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[THUNDERSHOCK]
+#Thunder Shock
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[NUZZLE]
+#Nuzzle
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[ELECTROBALL]
+#Electro Ball
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[CHARGE]
+#Charge
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[EERIEIMPULSE]
+#Eerie Impulse
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[ELECTRICTERRAIN]
+#Electric Terrain
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[ELECTRIFY]
+#Electrify
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[IONDELUGE]
+#Ion Deluge
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[MAGNETRISE]
+#Magnet Rise
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[MAGNETICFLUX]
+#Magnetic Flux
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[THUNDERWAVE]
+#Thunder Wave
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[LIGHTOFRUIN]
+#Light of Ruin
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[FLEURCANNON]
+#Fleur Cannon
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[MOONBLAST]
+#Moonblast
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[PLAYROUGH]
+#Play Rough
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[DAZZLINGGLEAM]
+#Dazzling Gleam
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[DRAININGKISS]
+#Draining Kiss
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[DISARMINGVOICE]
+#Disarming Voice
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[FAIRYWIND]
+#Fairy Wind
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[NATURESMADNESS]
+#Nature's Madness
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[AROMATICMIST]
+#Aromatic Mist
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[BABYDOLLEYES]
+#Baby-Doll Eyes
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[CHARM]
+#Charm
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[CRAFTYSHIELD]
+#Crafty Shield
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[FAIRYLOCK]
+#Fairy Lock
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[FLORALHEALING]
+#Floral Healing
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[FLOWERSHIELD]
+#Flower Shield
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[GEOMANCY]
+#Geomancy
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[MISTYTERRAIN]
+#Misty Terrain
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[MOONLIGHT]
+#Moonlight
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[SWEETKISS]
+#Sweet Kiss
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[FOCUSPUNCH]
+#Focus Punch
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[HIJUMPKICK]
+#High Jump Kick
+ContestType = COOL
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[CLOSECOMBAT]
+#Close Combat
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[FOCUSBLAST]
+#Focus Blast
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[SUPERPOWER]
+#Superpower
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[CROSSCHOP]
+#Cross Chop
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the previous Pokémon's move went.
+#-------------------------------
+[DYNAMICPUNCH]
+#Dynamic Punch
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[FLYINGPRESS]
+#Flying Press
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[HAMMERARM]
+#Hammer Arm
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[JUMPKICK]
+#Jump Kick
+ContestType = COOL
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[SACREDSWORD]
+#Sacred Sword
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[SECRETSWORD]
+#Secret Sword
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[SKYUPPERCUT]
+#Sky Uppercut
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[AURASPHERE]
+#Aura Sphere
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[SUBMISSION]
+#Submission
+ContestType = COOL
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[BRICKBREAK]
+#Brick Break
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[DRAINPUNCH]
+#Drain Punch
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[VITALTHROW]
+#Vital Throw
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[WAKEUPSLAP]
+#Wake-Up Slap
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidPoor
+ContestFlags = 
+ContestDescription = Works better if the last appeal did poorly
+#-------------------------------
+[LOWSWEEP]
+#Low Sweep
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[CIRCLETHROW]
+#Circle Throw
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveLater
+ContestFlags = 
+ContestDescription = Causes the user to move later on the next turn.
+#-------------------------------
+[FORCEPALM]
+#Force Palm
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[REVENGE]
+#Revenge
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[ROLLINGKICK]
+#Rolling Kick
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[STORMTHROW]
+#Storm Throw
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[KARATECHOP]
+#Karate Chop
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the previous Pokémon's move went.
+#-------------------------------
+[MACHPUNCH]
+#Mach Punch
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[POWERUPPUNCH]
+#Power-Up Punch
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good..
+#-------------------------------
+[ROCKSMASH]
+#Rock Smash
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[VACUUMWAVE]
+#Vacuum Wave
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[DOUBLEKICK]
+#Double Kick
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[ARMTHRUST]
+#Arm Thrust
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[TRIPLEKICK]
+#Triple Kick
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[COUNTER]
+#Counter
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[FINALGAMBIT]
+#Final Gambit
+ContestType = TOUGH
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[LOWKICK]
+#Low Kick
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[REVERSAL]
+#Reversal
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesBetterLaterPerformed
+ContestFlags = 
+ContestDescription = The appeal works better the later it is performed in a turn.
+#-------------------------------
+[SEISMICTOSS]
+#Seismic Toss
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[BULKUP]
+#Bulk Up
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[DETECT]
+#Detect
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[MATBLOCK]
+#Mat Block
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[QUICKGUARD]
+#Quick Guard
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[VCREATE]
+#V-create
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[BLASTBURN]
+#Blast Burn
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[ERUPTION]
+#Eruption
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[MINDBLOWN]
+#Mind Blown
+ContestType = SMART
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[SHELLTRAP]
+#Shell Trap
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[BLUEFLARE]
+#Blue Flare
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[BURNUP]
+#Burn Up
+ContestType = SMART
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[OVERHEAT]
+#Overheat
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[FLAREBLITZ]
+#Flare Blitz
+ContestType = COOL
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[FIREBLAST]
+#Fire Blast
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[FUSIONFLARE]
+#Fusion Flare
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesBetterLaterPerformed
+ContestFlags = 
+ContestDescription = The appeal works better the later it is performed in a turn.
+#-------------------------------
+[INFERNO]
+#Inferno
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[MAGMASTORM]
+#Magma Storm
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[SACREDFIRE]
+#Sacred Fire
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[SEARINGSHOT]
+#Searing Shot
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[HEATWAVE]
+#Heat Wave
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[FLAMETHROWER]
+#Flamethrower
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[BLAZEKICK]
+#Blaze Kick
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[FIERYDANCE]
+#Fiery Dance
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[FIRELASH]
+#Fire Lash
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[FIREPLEDGE]
+#Fire Pledge
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[LAVAPLUME]
+#Lava Plume
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[FIREPUNCH]
+#Fire Punch
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[MYSTICALFIRE]
+#Mystical Fire
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[FLAMEBURST]
+#Flame Burst
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = StealsAttention
+ContestFlags = 
+ContestDescription = Makes the judge expect little of other contestants.
+#-------------------------------
+[FIREFANG]
+#Fire Fang
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[FLAMEWHEEL]
+#Flame Wheel
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[INCINERATE]
+#Incinerate
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[FLAMECHARGE]
+#Flame Charge
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[EMBER]
+#Ember
+ContestType = CUTE
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[FIRESPIN]
+#Fire Spin
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[HEATCRASH]
+#Heat Crash
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[SUNNYDAY]
+#Sunny Day
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[WILLOWISP]
+#Will-O-Wisp
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[SKYATTACK]
+#Sky Attack
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidPoor
+ContestFlags = 
+ContestDescription = Works better if the last appeal did poorly.
+#-------------------------------
+[BRAVEBIRD]
+#Brave Bird
+ContestType = COOL
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[DRAGONASCENT]
+#Dragon Ascent
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[HURRICANE]
+#Hurricane
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[AEROBLAST]
+#Aeroblast
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the appeal in front goes.
+#-------------------------------
+[BEAKBLAST]
+#Beak Blast
+ContestType = SMART
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[FLY]
+#Fly
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[BOUNCE]
+#Bounce
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[DRILLPECK]
+#Drill Peck
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[OBLIVIONWING]
+#Oblivion Wing
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[AIRSLASH]
+#Air Slash
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[CHATTER]
+#Chatter
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[AERIALACE]
+#Aerial Ace
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[AIRCUTTER]
+#Air Cutter
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[PLUCK]
+#Pluck
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[SKYDROP]
+#Sky Drop
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[WINGATTACK]
+#Wing Attack
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[ACROBATICS]
+#Acrobatics
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[GUST]
+#Gust
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[PECK]
+#Peck
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[DEFOG]
+#Defog
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[FEATHERDANCE]
+#Feather Dance
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[MIRRORMOVE]
+#Mirror Move
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[ROOST]
+#Roost
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[TAILWIND]
+#Tailwind
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[SHADOWFORCE]
+#Shadow Force
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[MOONGEISTBEAM]
+#Moongeist Beam
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[PHANTOMFORCE]
+#Phantom Force
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[SPECTRALTHIEF]
+#Spectral Thief
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[SHADOWBONE]
+#Shadow Bone
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[SHADOWBALL]
+#Shadow Ball
+ContestType = SMART
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[SPIRITSHACKLE]
+#Spirit Shackle
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[SHADOWCLAW]
+#Shadow Claw
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[HEX]
+#Hex
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[OMINOUSWIND]
+#Ominous Wind
+ContestType = SMART
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[SHADOWPUNCH]
+#Shadow Punch
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[SHADOWSNEAK]
+#Shadow Sneak
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[ASTONISH]
+#Astonish
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[LICK]
+#Lick
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[NIGHTSHADE]
+#Night Shade
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[CONFUSERAY]
+#Confuse Ray
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[CURSE]
+#Curse
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveLater
+ContestFlags = 
+ContestDescription = Causes the user to move later on the next turn.
+#-------------------------------
+[DESTINYBOND]
+#Destiny Bond
+ContestType = SMART
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[GRUDGE]
+#Grudge
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[NIGHTMARE]
+#Nightmare
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SPITE]
+#Spite
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[TRICKORTREAT]
+#Trick-or-Treat
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[FRENZYPLANT]
+#Frenzy Plant
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[LEAFSTORM]
+#Leaf Storm
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[SOLARBLADE]
+#Solar Blade
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[PETALDANCE]
+#Petal Dance
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[POWERWHIP]
+#Power Whip
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[SEEDFLARE]
+#Seed Flare
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[SOLARBEAM]
+#Solar Beam
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[WOODHAMMER]
+#Wood Hammer
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[ENERGYBALL]
+#Energy Ball
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[LEAFBLADE]
+#Leaf Blade
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[PETALBLIZZARD]
+#Petal Blizzard
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[GRASSPLEDGE]
+#Grass Pledge
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[SEEDBOMB]
+#Seed Bomb
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[GIGADRAIN]
+#Giga Drain
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[HORNLEECH]
+#Horn Leech
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[TROPKICK]
+#Trop Kick
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[LEAFTORNADO]
+#Leaf Tornado
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[MAGICALLEAF]
+#Magical Leaf
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[NEEDLEARM]
+#Needle Arm
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[RAZORLEAF]
+#Razor Leaf
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidPoor
+ContestFlags = 
+ContestDescription = Works better if the last appeal did poorly.
+#-------------------------------
+[VINEWHIP]
+#Vine Whip
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[LEAFAGE]
+#Leafage
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[MEGADRAIN]
+#Mega Drain
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[BULLETSEED]
+#Bullet Seed
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[ABSORB]
+#Absorb
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[GRASSKNOT]
+#Grass Knot
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesBetterLaterPerformed
+ContestFlags = 
+ContestDescription = The appeal works better the later it is performed in a turn.
+#-------------------------------
+[AROMATHERAPY]
+#Aromatherapy
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[COTTONGUARD]
+#Cotton Guard
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[COTTONSPORE]
+#Cotton Spore
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[FORESTSCURSE]
+#Forest's Curse
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[GRASSWHISTLE]
+#Grass Whistle
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[GRASSYTERRAIN]
+#Grassy Terrain
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[INGRAIN]
+#Ingrain
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[LEECHSEED]
+#Leech Seed
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SLEEPPOWDER]
+#Sleep Powder
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SPIKYSHIELD]
+#Spiky Shield
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[SPORE]
+#Spore
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[STRENGTHSAP]
+#Strength Sap
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[STUNSPORE]
+#Stun Spore
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[SYNTHESIS]
+#Synthesis
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[WORRYSEED]
+#Worry Seed
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[PRECIPICEBLADES]
+#Precipice Blades
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[EARTHQUAKE]
+#Earthquake
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[HIGHHORSEPOWER]
+#High Horsepower
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[EARTHPOWER]
+#Earth Power
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[LANDSWRATH]
+#Land's Wrath
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[THOUSANDARROWS]
+#Thousand Arrows
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[THOUSANDWAVES]
+#Thousand Waves
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[DIG]
+#Dig
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[DRILLRUN]
+#Drill Run
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidGreat
+ContestFlags = 
+ContestDescription = Works better if the last appeal was good.
+#-------------------------------
+[STOMPINGTANTRUM]
+#Stomping Tantrum
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[BONECLUB]
+#Bone Club
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[MUDBOMB]
+#Mud Bomb
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[BULLDOZE]
+#Bulldoze
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[MUDSHOT]
+#Mud Shot
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[BONEMERANG]
+#Bonemerang
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[SANDTOMB]
+#Sand Tomb
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[BONERUSH]
+#Bone Rush
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[MUDSLAP]
+#Mud-Slap
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[FISSURE]
+#Fissure
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[MAGNITUDE]
+#Magnitude
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[MUDSPORT]
+#Mud Sport
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[ROTOTILLER]
+#Rototiller
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[SANDATTACK]
+#Sand Attack
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[SHOREUP]
+#Shore Up
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[SPIKES]
+#Spikes
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[FREEZESHOCK]
+#Freeze Shock
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidGreat
+ContestFlags = 
+ContestDescription = Works better if the last appeal was good.
+#-------------------------------
+[ICEBURN]
+#Ice Burn
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidPoor
+ContestFlags = 
+ContestDescription = Works better if the last appeal did poorly.
+#-------------------------------
+[BLIZZARD]
+#Blizzard
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[ICEHAMMER]
+#Ice Hammer
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[ICEBEAM]
+#Ice Beam
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[ICICLECRASH]
+#Icicle Crash
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[ICEPUNCH]
+#Ice Punch
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[FREEZEDRY]
+#Freeze-Dry
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[AURORABEAM]
+#Aurora Beam
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[GLACIATE]
+#Glaciate
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[ICEFANG]
+#Ice Fang
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[AVALANCHE]
+#Avalanche
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[FROSTBREATH]
+#Frost Breath
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[ICYWIND]
+#Icy Wind
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[ICESHARD]
+#Ice Shard
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[POWDERSNOW]
+#Powder Snow
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[ICEBALL]
+#Ice Ball
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[ICICLESPEAR]
+#Icicle Spear
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[SHEERCOLD]
+#Sheer Cold
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[AURORAVEIL]
+#Aurora Veil
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[HAIL]
+#Hail
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[HAZE]
+#Haze
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[MIST]
+#Mist
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[EXPLOSION]
+#Explosion
+ContestType = BEAUTY
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[SELFDESTRUCT]
+#Self-Destruct
+ContestType = BEAUTY
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[GIGAIMPACT]
+#Giga Impact
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[HYPERBEAM]
+#Hyper Beam
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[BOOMBURST]
+#Boomburst
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[LASTRESORT]
+#Last Resort
+ContestType = CUTE
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[SKULLBASH]
+#Skull Bash
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[DOUBLEEDGE]
+#Double-Edge
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[HEADCHARGE]
+#Head Charge
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[MEGAKICK]
+#Mega Kick
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[MULTIATTACK]
+#Multi-Attack
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[TECHNOBLAST]
+#Techno Blast
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[THRASH]
+#Thrash
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[EGGBOMB]
+#Egg Bomb
+ContestType = CUTE
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[JUDGMENT]
+#Judgment
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[HYPERVOICE]
+#Hyper Voice
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[REVELATIONDANCE]
+#Revelation Dance
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[ROCKCLIMB]
+#Rock Climb
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = StealsAttention
+ContestFlags = 
+ContestDescription = Makes the judge expect little of other contestants.
+#-------------------------------
+[TAKEDOWN]
+#Take Down
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[UPROAR]
+#Uproar
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[BODYSLAM]
+#Body Slam
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[EXTREMESPEED]
+#Extreme Speed
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[HYPERFANG]
+#Hyper Fang
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[MEGAPUNCH]
+#Mega Punch
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[RAZORWIND]
+#Razor Wind
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidPoor
+ContestFlags = 
+ContestDescription = Works better if the last appeal did poorly.
+#-------------------------------
+[SLAM]
+#Slam
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[STRENGTH]
+#Strength
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[TRIATTACK]
+#Tri Attack
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[CRUSHCLAW]
+#Crush Claw
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[RELICSONG]
+#Relic Song
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[CHIPAWAY]
+#Chip Away
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[DIZZYPUNCH]
+#Dizzy Punch
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[FACADE]
+#Facade
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[HEADBUTT]
+#Headbutt
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[RETALIATE]
+#Retaliate
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidPoor
+ContestFlags = 
+ContestDescription = Works better if the last appeal did poorly.
+#-------------------------------
+[SECRETPOWER]
+#Secret Power
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[SLASH]
+#Slash
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the previous Pokémon's move went.
+#-------------------------------
+[SMELLINGSALT]
+#Smelling Salts
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the previous Pokémon's move went.
+#-------------------------------
+[HORNATTACK]
+#Horn Attack
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[STOMP]
+#Stomp
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[COVET]
+#Covet
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[HIDDENPOWER]
+#Hidden Power
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[ROUND]
+#Round
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[SWIFT]
+#Swift
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[VICEGRIP]
+#Vice Grip
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[CUT]
+#Cut
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[RAPIDSPIN]
+#Rapid Spin
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[SNORE]
+#Snore
+ContestType = CUTE
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[STRUGGLE]
+#Struggle
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[WEATHERBALL]
+#Weather Ball
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[ECHOEDVOICE]
+#Echoed Voice
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[FAKEOUT]
+#Fake Out
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[FALSESWIPE]
+#False Swipe
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[HOLDBACK]
+#Hold Back
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[PAYDAY]
+#Pay Day
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[POUND]
+#Pound
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[QUICKATTACK]
+#Quick Attack
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[SCRATCH]
+#Scratch
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[TACKLE]
+#Tackle
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[DOUBLEHIT]
+#Double Hit
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[FEINT]
+#Feint
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[TAILSLAP]
+#Tail Slap
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[RAGE]
+#Rage
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[SPIKECANNON]
+#Spike Cannon
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[COMETPUNCH]
+#Comet Punch
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[FURYSWIPES]
+#Fury Swipes
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[BARRAGE]
+#Barrage
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[BIND]
+#Bind
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[DOUBLESLAP]
+#Double Slap
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[FURYATTACK]
+#Fury Attack
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[WRAP]
+#Wrap
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[CONSTRICT]
+#Constrict
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[BIDE]
+#Bide
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveLater
+ContestFlags = 
+ContestDescription = Causes the user to move later on the next turn.
+#-------------------------------
+[CRUSHGRIP]
+#Crush Grip
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[ENDEAVOR]
+#Endeavor
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[FLAIL]
+#Flail
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesBetterLaterPerformed
+ContestFlags = 
+ContestDescription = The appeal works better the later it is performed in a turn.
+#-------------------------------
+[FRUSTRATION]
+#Frustration
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = MaxesCrowdExcitement
+ContestFlags = 
+ContestDescription = Gets the audience going!
+#-------------------------------
+[GUILLOTINE]
+#Guillotine
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[HORNDRILL]
+#Horn Drill
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[NATURALGIFT]
+#Natural Gift
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[PRESENT]
+#Present
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[RETURN]
+#Return
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = MaxesCrowdExcitement
+ContestFlags = 
+ContestDescription = Gets the audience going!
+#-------------------------------
+[SONICBOOM]
+#Sonic Boom
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[SPITUP]
+#Spit Up
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[SUPERFANG]
+#Super Fang
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[TRUMPCARD]
+#Trump Card
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnRoundNumberHigher
+ContestFlags = 
+ContestDescription = Appeal is better the later the round.
+#-------------------------------
+[WRINGOUT]
+#Wring Out
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[ACUPRESSURE]
+#Acupressure
+ContestType = COOL
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[AFTERYOU]
+#After You
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveLater
+ContestFlags = 
+ContestDescription = Causes the user to move later on the next turn.
+#-------------------------------
+[ASSIST]
+#Assist
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[ATTRACT]
+#Attract
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[BATONPASS]
+#Baton Pass
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[BELLYDRUM]
+#Belly Drum
+ContestType = CUTE
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[BESTOW]
+#Bestow
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = EqualsCrowdExcitement
+ContestFlags = 
+ContestDescription = The appeal depends on the audience's excitement.
+#-------------------------------
+[BLOCK]
+#Block
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[CAMOUFLAGE]
+#Camouflage
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoesGreatIfOtherInFrontDidPoor
+ContestFlags = 
+ContestDescription = Works better if the last appeal did poorly.
+#-------------------------------
+[CAPTIVATE]
+#Captivate
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[CELEBRATE]
+#Celebrate
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[CONFIDE]
+#Confide
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[CONVERSION]
+#Conversion
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[CONVERSION2]
+#Conversion 2
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[COPYCAT]
+#Copycat
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[DEFENSECURL]
+#Defense Curl
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[DISABLE]
+#Disable
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[DOUBLETEAM]
+#Double Team
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[ENCORE]
+#Encore
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[ENDURE]
+#Endure
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[ENTRAINMENT]
+#Entrainment
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[FLASH]
+#Flash
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = StealsAttention
+ContestFlags = 
+ContestDescription = Makes the judge expect little of other contestants.
+#-------------------------------
+[FOCUSENERGY]
+#Focus Energy
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[FOLLOWME]
+#Follow Me
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[FORESIGHT]
+#Foresight
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[GLARE]
+#Glare
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[GROWL]
+#Growl
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[GROWTH]
+#Growth
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[HAPPYHOUR]
+#Happy Hour
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[HARDEN]
+#Harden
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[HEALBELL]
+#Heal Bell
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[HELPINGHAND]
+#Helping Hand
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[HOLDHANDS]
+#Hold Hands
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[HOWL]
+#Howl
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[LASERFOCUS]
+#Laser Focus
+ContestType = SMART
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[LEER]
+#Leer
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[LOCKON]
+#Lock-On
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[LOVELYKISS]
+#Lovely Kiss
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[LUCKYCHANT]
+#Lucky Chant
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[MEFIRST]
+#Me First
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[MEANLOOK]
+#Mean Look
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[METRONOME]
+#Metronome
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[MILKDRINK]
+#Milk Drink
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[MIMIC]
+#Mimic
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[MINDREADER]
+#Mind Reader
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[MINIMIZE]
+#Minimize
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[MORNINGSUN]
+#Morning Sun
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[NATUREPOWER]
+#Nature Power
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[NOBLEROAR]
+#Noble Roar
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[ODORSLEUTH]
+#Odor Sleuth
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[PAINSPLIT]
+#Pain Split
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[PERISHSONG]
+#Perish Song
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[PLAYNICE]
+#Play Nice
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[PROTECT]
+#Protect
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[PSYCHUP]
+#Psych Up
+ContestType = SMART
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[RECOVER]
+#Recover
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[RECYCLE]
+#Recycle
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[REFLECTTYPE]
+#Reflect Type
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[REFRESH]
+#Refresh
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[ROAR]
+#Roar
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveLater
+ContestFlags = 
+ContestDescription = Causes the user to move later on the next turn.
+#-------------------------------
+[SAFEGUARD]
+#Safeguard
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[SCARYFACE]
+#Scary Face
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[SCREECH]
+#Screech
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SHARPEN]
+#Sharpen
+ContestType = CUTE
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[SHELLSMASH]
+#Shell Smash
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[SIMPLEBEAM]
+#Simple Beam
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[SING]
+#Sing
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[SKETCH]
+#Sketch
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[SLACKOFF]
+#Slack Off
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesBetterLaterPerformed
+ContestFlags = 
+ContestDescription = The appeal works better the later it is performed in a turn.
+#-------------------------------
+[SLEEPTALK]
+#Sleep Talk
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[SMOKESCREEN]
+#Smokescreen
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[SOFTBOILED]
+#Soft-Boiled
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[SPLASH]
+#Splash
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[SPOTLIGHT]
+#Spotlight
+ContestType = BEAUTY
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[STOCKPILE]
+#Stockpile
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[SUBSTITUTE]
+#Substitute
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[SUPERSONIC]
+#Supersonic
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = StealsAttention
+ContestFlags = 
+ContestDescription = Makes the judge expect little of other contestants.
+#-------------------------------
+[SWAGGER]
+#Swagger
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[SWALLOW]
+#Swallow
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[SWEETSCENT]
+#Sweet Scent
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SWORDSDANCE]
+#Swords Dance
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[TAILWHIP]
+#Tail Whip
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[TEARFULLOOK]
+#Tearful Look
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+
+#-------------------------------
+[TEETERDANCE]
+#Teeter Dance
+ContestType = CUTE
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[TICKLE]
+#Tickle
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[TRANSFORM]
+#Transform
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[WHIRLWIND]
+#Whirlwind
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[WISH]
+#Wish
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[WORKUP]
+#Work Up
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[YAWN]
+#Yawn
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[BELCH]
+#Belch
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[GUNKSHOT]
+#Gunk Shot
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SLUDGEWAVE]
+#Sludge Wave
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[SLUDGEBOMB]
+#Sludge Bomb
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[POISONJAB]
+#Poison Jab
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[CROSSPOISON]
+#Cross Poison
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[SLUDGE]
+#Sludge
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[VENOSHOCK]
+#Venoshock
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[CLEARSMOG]
+#Clear Smog
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[POISONFANG]
+#Poison Fang
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[POISONTAIL]
+#Poison Tail
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[ACID]
+#Acid
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[ACIDSPRAY]
+#Acid Spray
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatUsedSameType
+ContestFlags = 
+ContestDescription = Startles Pokémon that used a move of the same type.
+#-------------------------------
+[SMOG]
+#Smog
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[POISONSTING]
+#Poison Sting
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[ACIDARMOR]
+#Acid Armor
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[BANEFULBUNKER]
+#Baneful Bunker
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[COIL]
+#Coil
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[GASTROACID]
+#Gastro Acid
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[POISONGAS]
+#Poison Gas
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[POISONPOWDER]
+#Poison Powder
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[PURIFY]
+#Purify
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[TOXIC]
+#Toxic
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[TOXICSPIKES]
+#Toxic Spikes
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[TOXICTHREAD]
+#Toxic Thread
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[VENOMDRENCH]
+#Venom Drench
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = LowerSpiritOfOthersThatMoved
+ContestFlags = 
+ContestDescription = Lowers the spirit of those that made appeals.
+#-------------------------------
+[PRISMATICLASER]
+#Prismatic Laser
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[PSYCHOBOOST]
+#Psycho Boost
+ContestType = SMART
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[FUTURESIGHT]
+#Future Sight
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[SYNCHRONOISE]
+#Synchronoise
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[DREAMEATER]
+#Dream Eater
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[PHOTONGEYSER]
+#Photon Geyser
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[PSYSTRIKE]
+#Psystrike
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[PSYCHIC]
+#Psychic
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[PSYCHICFANGS]
+#Psychic Fangs
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[EXTRASENSORY]
+#Extrasensory
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[HYPERSPACEHOLE]
+#Hyperspace Hole
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[PSYSHOCK]
+#Psyshock
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 4
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[ZENHEADBUTT]
+#Zen Headbutt
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[LUSTERPURGE]
+#Luster Purge
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[MISTBALL]
+#Mist Ball
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[PSYCHOCUT]
+#Psycho Cut
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[PSYBEAM]
+#Psybeam
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[HEARTSTAMP]
+#Heart Stamp
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[CONFUSION]
+#Confusion
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[STOREDPOWER]
+#Stored Power
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnUsersSpirit
+ContestFlags = 
+ContestDescription = Works well if the user's spirit is good.
+#-------------------------------
+[MIRRORCOAT]
+#Mirror Coat
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[PSYWAVE]
+#Psywave
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOthersGoodAppeals
+ContestFlags = 
+ContestDescription = Startles all Pokémon, more so those that made good appeals.
+#-------------------------------
+[AGILITY]
+#Agility
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[ALLYSWITCH]
+#Ally Switch
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[AMNESIA]
+#Amnesia
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[BARRIER]
+#Barrier
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[CALMMIND]
+#Calm Mind
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[COSMICPOWER]
+#Cosmic Power
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[GRAVITY]
+#Gravity
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[GUARDSPLIT]
+#Guard Split
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[GUARDSWAP]
+#Guard Swap
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[HEALBLOCK]
+#Heal Block
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[HEALPULSE]
+#Heal Pulse
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[HEALINGWISH]
+#Healing Wish
+ContestType = BEAUTY
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[HEARTSWAP]
+#Heart Swap
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[HYPNOSIS]
+#Hypnosis
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[IMPRISON]
+#Imprison
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[INSTRUCT]
+#Instruct
+ContestType = SMART
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[KINESIS]
+#Kinesis
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[LIGHTSCREEN]
+#Light Screen
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[LUNARDANCE]
+#Lunar Dance
+ContestType = BEAUTY
+ContestHearts = 8
+ContestJam = 0
+ContestFunctionCode = NoMoreMoves
+ContestFlags = 
+ContestDescription = Makes a great appeal, but prevents the user from taking further contest moves.
+#-------------------------------
+[MAGICCOAT]
+#Magic Coat
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[MAGICROOM]
+#Magic Room
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[MEDITATE]
+#Meditate
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[MIRACLEEYE]
+#Miracle Eye
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[POWERSPLIT]
+#Power Split
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[POWERSWAP]
+#Power Swap
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[POWERTRICK]
+#Power Trick
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementLower
+ContestFlags = 
+ContestDescription = Works better the less the audience is excited.
+#-------------------------------
+[PSYCHICTERRAIN]
+#Psychic Terrain
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[PSYCHOSHIFT]
+#Psycho Shift
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[REFLECT]
+#Reflect
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[REST]
+#Rest
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[ROLEPLAY]
+#Role Play
+ContestType = CUTE
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[SKILLSWAP]
+#Skill Swap
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesSameAppealValueAsOtherInFront
+ContestFlags = 
+ContestDescription = Earns the same amount as the previous Pokémon's appeal.
+#-------------------------------
+[SPEEDSWAP]
+#Speed Swap
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[TELEKINESIS]
+#Telekinesis
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[TELEPORT]
+#Teleport
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[TRICK]
+#Trick
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[TRICKROOM]
+#Trick Room
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[WONDERROOM]
+#Wonder Room
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[HEADSMASH]
+#Head Smash
+ContestType = TOUGH
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[ROCKWRECKER]
+#Rock Wrecker
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[DIAMONDSTORM]
+#Diamond Storm
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[STONEEDGE]
+#Stone Edge
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the previous Pokémon's move went.
+#-------------------------------
+[POWERGEM]
+#Power Gem
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[ROCKSLIDE]
+#Rock Slide
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[ANCIENTPOWER]
+#Ancient Power
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[ROCKTOMB]
+#Rock Tomb
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = StealsAttention
+ContestFlags = 
+ContestDescription = Makes the judge expect little of other contestants.
+#-------------------------------
+[ROCKTHROW]
+#Rock Throw
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[SMACKDOWN]
+#Smack Down
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[ACCELEROCK]
+#Accelerock
+ContestType = SMART
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[ROLLOUT]
+#Rollout
+ContestType = CUTE
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[ROCKBLAST]
+#Rock Blast
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AppealIsRandom
+ContestFlags = 
+ContestDescription = Increases the users appeal by varying amounts.
+#-------------------------------
+[ROCKPOLISH]
+#Rock Polish
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[SANDSTORM]
+#Sandstorm
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = ScrambleOrderNextTurn
+ContestFlags = 
+ContestDescription = Scrambles the order of appeals on the next turn.
+#-------------------------------
+[STEALTHROCK]
+#Stealth Rock
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[WIDEGUARD]
+#Wide Guard
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[DOOMDESIRE]
+#Doom Desire
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[IRONTAIL]
+#Iron Tail
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[SUNSTEELSTRIKE]
+#Sunsteel Strike
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[METEORMASH]
+#Meteor Mash
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[ANCHORSHOT]
+#Anchor Shot
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[FLASHCANNON]
+#Flash Cannon
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[IRONHEAD]
+#Iron Head
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[SMARTSTRIKE]
+#Smart Strike
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[STEELWING]
+#Steel Wing
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[DOUBLEIRONBASH]
+#Double Iron Bash
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenMatchesLastTurnMoveType
+ContestFlags = 
+ContestDescription = Works well if it is the same type as the move used by the last Pokémon.
+#-------------------------------
+[MIRRORSHOT]
+#Mirror Shot
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[MAGNETBOMB]
+#Magnet Bomb
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[GEARGRIND]
+#Gear Grind
+ContestType = SMART
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[METALCLAW]
+#Metal Claw
+ContestType = COOL
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[BULLETPUNCH]
+#Bullet Punch
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[GYROBALL]
+#Gyro Ball
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DoesBetterLaterPerformed
+ContestFlags = 
+ContestDescription = The appeal works better the later it is performed in a turn.
+#-------------------------------
+[HEAVYSLAM]
+#Heavy Slam
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[METALBURST]
+#Metal Burst
+ContestType = COOL
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[AUTOTOMIZE]
+#Autotomize
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[GEARUP]
+#Gear Up
+ContestType = SMART
+ContestHearts = 0
+ContestJam = 0
+ContestFunctionCode = DoubleNextAppeal
+ContestFlags = 
+ContestDescription = User earns double the score in it's next appeal.
+#-------------------------------
+[IRONDEFENSE]
+#Iron Defense
+ContestType = TOUGH
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[KINGSSHIELD]
+#King's Shield
+ContestType = COOL
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartled
+ContestFlags = 
+ContestDescription = Can avoid being startled by others until the turn ends.
+#-------------------------------
+[METALSOUND]
+#Metal Sound
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SHIFTGEAR]
+#Shift Gear
+ContestType = SMART
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[HYDROCANNON]
+#Hydro Cannon
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 4
+ContestFunctionCode = StartleOthersMissNextTurn
+ContestFlags = 
+ContestDescription = Startles all other Pokémon. User cannot act in the next turn.
+#-------------------------------
+[WATERSPOUT]
+#Water Spout
+ContestType = BEAUTY
+ContestHearts = 6
+ContestJam = 0
+ContestFunctionCode = EasilyStartled
+ContestFlags = 
+ContestDescription = After this move, the user is more easily startled.
+#-------------------------------
+[HYDROPUMP]
+#Hydro Pump
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[ORIGINPULSE]
+#Origin Pulse
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenFirst
+ContestFlags = 
+ContestDescription = The appeal works great if performed first.
+#-------------------------------
+[STEAMERUPTION]
+#Steam Eruption
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesGreatWhenLast
+ContestFlags = 
+ContestDescription = The appeal works great if performed last.
+#-------------------------------
+[CRABHAMMER]
+#Crabhammer
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the previous Pokémon's move went.
+#-------------------------------
+[AQUATAIL]
+#Aqua Tail
+ContestType = BEAUTY
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[MUDDYWATER]
+#Muddy Water
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[SPARKLINGARIA]
+#Sparkling Aria
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[SURF]
+#Surf
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[LIQUIDATION]
+#Liquidation
+ContestType = SMART
+ContestHearts = 2
+ContestJam = 3
+ContestFunctionCode = StartleOtherInFront
+ContestFlags = 
+ContestDescription = Startles the last Pokémon to act before the user.
+#-------------------------------
+[DIVE]
+#Dive
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
+#-------------------------------
+[SCALD]
+#Scald
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = MakeAllOthersAfterUserNervous
+ContestFlags = 
+ContestDescription = Makes the remaining Pokémon nervous.
+#-------------------------------
+[WATERPLEDGE]
+#Water Pledge
+ContestType = BEAUTY
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[WATERFALL]
+#Waterfall
+ContestType = TOUGH
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[RAZORSHELL]
+#Razor Shell
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = CanUseRepeatedly
+ContestFlags = 
+ContestDescription = Can be used repeatedly without boring the judge.
+#-------------------------------
+[BRINE]
+#Brine
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DependsOnAppealInFront
+ContestFlags = 
+ContestDescription = Affected by how well the previous Pokémon's move went.
+#-------------------------------
+[BUBBLEBEAM]
+#Bubble Beam
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 3
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[OCTAZOOKA]
+#Octazooka
+ContestType = TOUGH
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = DoesBetterIfIncreasesCrowdExcitement
+ContestFlags = 
+ContestDescription = Works best if the audience's excitement goes up.
+#-------------------------------
+[WATERPULSE]
+#Water Pulse
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = StealsAttention
+ContestFlags = 
+ContestDescription = Makes the judge expect little of other contestants.
+#-------------------------------
+[AQUAJET]
+#Aqua Jet
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[BUBBLE]
+#Bubble
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 2
+ContestFunctionCode = StartleOthersThatMoved
+ContestFlags = 
+ContestDescription = Startles those that have made appeals.
+#-------------------------------
+[WATERGUN]
+#Water Gun
+ContestType = CUTE
+ContestHearts = 4
+ContestJam = 0
+ContestFunctionCode = Basic
+ContestFlags = 
+ContestDescription = A highly appealing move.
+#-------------------------------
+[CLAMP]
+#Clamp
+ContestType = TOUGH
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[WHIRLPOOL]
+#Whirlpool
+ContestType = BEAUTY
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = PauseCrowdExcitement
+ContestFlags = 
+ContestDescription = Temporarily stops the audience from growing excited.
+#-------------------------------
+[WATERSHURIKEN]
+#Water Shuriken
+ContestType = COOL
+ContestHearts = 3
+ContestJam = 0
+ContestFunctionCode = DoNextMoveEarlier
+ContestFlags = 
+ContestDescription = Causes the user to move earlier on the next turn.
+#-------------------------------
+[AQUARING]
+#Aqua Ring
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = GetPumpedUp
+ContestFlags = 
+ContestDescription = Ups the user's spirit. Helps prevent nervousness.
+#-------------------------------
+[RAINDANCE]
+#Rain Dance
+ContestType = BEAUTY
+ContestHearts = 1
+ContestJam = 0
+ContestFunctionCode = DependsOnCrowdExcitementHigher
+ContestFlags = 
+ContestDescription = Works better the more the audience is excited.
+#-------------------------------
+[SOAK]
+#Soak
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 1
+ContestFunctionCode = StartleOtherWithJudgeAttention
+ContestFlags = 
+ContestDescription = Startles the Pokémon that has the judge's attention.
+#-------------------------------
+[WATERSPORT]
+#Water Sport
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AlwaysExcitesCrowd
+ContestFlags = 
+ContestDescription = Excites the audience in any kind of contest.
+#-------------------------------
+[WITHDRAW]
+#Withdraw
+ContestType = CUTE
+ContestHearts = 2
+ContestJam = 0
+ContestFunctionCode = AvoidBeingStartledOnce
+ContestFlags = 
+ContestDescription = Can avoid being startled by others once.
