@@ -113,6 +113,7 @@ class PokemonPauseMenu
     cmdDebug = -1
     cmdQuit = -1
     cmdEndGame = -1
+    cmdNuzlockeReset = -1
     if $Trainer.has_pokedex && $Trainer.pokedex.accessible_dexes.length > 0
       commands[cmdPokedex = commands.length] = _INTL("Pokédex")
     end
@@ -120,6 +121,9 @@ class PokemonPauseMenu
     commands[cmdBag = commands.length] = _INTL("Bag") if !pbInBugContest?
     commands[cmdPokegear = commands.length] = _INTL("Pokégear") if $Trainer.has_pokegear
     commands[cmdTrainer = commands.length] = $Trainer.name
+    if $game_switches[SWITCH_NUZLOCKE_RESET_ENABLED] && nuzlocke_snapshot_path && File.file?(nuzlocke_snapshot_path)
+      commands[cmdNuzlockeReset = commands.length] = _INTL("Reset Run")
+    end
     commands[cmdOutfit = commands.length] = _INTL("Outfit") if $Trainer.can_change_outfit
     if pbInSafari?
       if Settings::SAFARI_STEPS <= 0
@@ -242,6 +246,11 @@ class PokemonPauseMenu
             pbShowMenu
           end
         end
+      elsif cmdNuzlockeReset >= 0 && command == cmdNuzlockeReset
+        @scene.pbHideMenu
+        nuzlocke_reset_run
+        @scene.pbEndScene
+        return
       elsif cmdSave >= 0 && command == cmdSave
         @scene.pbHideMenu
         scene = PokemonSave_Scene.new
