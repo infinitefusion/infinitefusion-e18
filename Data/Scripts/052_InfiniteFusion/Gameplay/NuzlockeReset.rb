@@ -120,13 +120,16 @@ def nuzlocke_reset_run
   pbMapInterpreter&.setup(nil, 0, 0)
 
   # Restore the snapshot into the live globals. This replaces $scene with a
-  # fresh Scene_Map internally — we'll undo that below.
+  # fresh Scene_Map internally — we'll undo that below. Crucially, Game.load
+  # also restores the snapshot's $game_map / $game_player position / all
+  # self-switches, which together encode "intro completed, no party, no
+  # progress." We deliberately do NOT then warp the player to
+  # $data_system.start_map_id — that's the bedroom, and re-entering it would
+  # re-fire its autorun event chain (mode select, name entry, full intro).
+  # The snapshot is already the post-intro state; we just want to honor it.
   Game.load(snapshot)
 
-  # Override Game.load's saved-map setup and warp to the new-game start position.
-  $MapFactory = PokemonMapFactory.new($data_system.start_map_id)
-  $game_player.moveto($data_system.start_x, $data_system.start_y)
-  $game_player.refresh
+  # Rebuild PokemonEncounters for whatever map the snapshot put us on.
   $PokemonEncounters = PokemonEncounters.new
   $PokemonEncounters.setup($game_map.map_id)
   $game_map.autoplay
