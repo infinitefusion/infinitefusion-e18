@@ -5,6 +5,7 @@ def getGameModeFromIndex(index)
   return _INTL("Expert") if index == 3
   return _INTL("Species") if index == 4
   return _INTL("Debug") if index == 5
+  return _INTL("Nuzlocke") if index == 6
   return ""
 end
 
@@ -30,6 +31,10 @@ def getCurrentGameModeSymbol()
 
   if $game_switches[SWITCH_LEGENDARY_MODE]
     gameMode = :LEGENDARY
+  end
+
+  if $game_switches[SWITCH_NUZLOCKE_MODE]
+    gameMode = :NUZLOCKE
   end
   return gameMode
 end

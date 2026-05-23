@@ -418,6 +418,7 @@ class PokemonLoadScreen
     $Trainer.game_mode = 4 if $game_switches[SWITCH_SINGLE_POKEMON_MODE]
     $Trainer.game_mode = 1 if $game_switches[SWITCH_RANDOMIZED_AT_LEAST_ONCE]
     $Trainer.game_mode = 5 if $game_switches[ENABLED_DEBUG_MODE_AT_LEAST_ONCE]
+    $Trainer.game_mode = 6 if $game_switches[SWITCH_NUZLOCKE_AT_LEAST_ONCE]
   end
 
 

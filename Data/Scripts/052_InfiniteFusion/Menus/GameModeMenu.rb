@@ -4,6 +4,7 @@ def select_game_mode
   cmd_mode_classic = _INTL("Classic")
   cmd_mode_remix = _INTL("Remix Mode")
   cmd_mode_random = _INTL("Randomized Mode")
+  cmd_mode_nuzlocke = _INTL("Nuzlocke Mode")
   cmd_mode_legendary = _INTL("Legendary Mode")
   cmd_mode_expert = _INTL("Expert Mode")  #Disabled - Moved to experimental options
 
@@ -11,6 +12,7 @@ def select_game_mode
   commands << cmd_mode_classic
   commands << cmd_mode_remix
   commands << cmd_mode_random
+  commands << cmd_mode_nuzlocke
   commands << cmd_mode_legendary if $Trainer.new_game_plus_unlocked
   echoln $Trainer.new_game_plus_unlocked
   commands_choose_mode = []
@@ -30,6 +32,10 @@ def select_game_mode
       commands_choose_mode = [_INTL("Back"),_INTL("Play Randomized Mode")]
       confirmed_index = pbMessage(_INTL("In \\C[1]Randomized mode\\C[0] all of the trainers, wild encounters and items can be randomized. You'll get to customize exactly how you want everything to be randomized."),commands_choose_mode)
       game_mode = :RANDOMIZED if confirmed_index ==1
+    when cmd_mode_nuzlocke
+      commands_choose_mode = [_INTL("Back"),_INTL("Play Nuzlocke Mode")]
+      confirmed_index = pbMessage(_INTL("\\C[1]Nuzlocke mode\\C[0] is a challenge mode where fainted Pokémon are gone for good, you can only catch the first Pokémon you encounter in each area, and every Pokémon you catch must be nicknamed. You'll get to customize the rules and optionally randomize your run."),commands_choose_mode)
+      game_mode = :NUZLOCKE if confirmed_index ==1
     when cmd_mode_legendary
       commands_choose_mode = [_INTL("Back"),_INTL("Play Legendary Mode")]
       confirmed_index = pbMessage(_INTL("In \\C[1]Legendary mode\\C[0], every trainer Pokémon gets fused with a legendary Pokémon. You also start with an egg of every legendary Pokémon in your PC and get a legendary starter."),commands_choose_mode)
@@ -55,5 +61,12 @@ def apply_game_mode(game_mode)
     initializeLegendaryMode
   when :EXPERT
     $game_switches[SWITCH_EXPERT_MODE] = true
+  when :NUZLOCKE
+    initializeNuzlockeMode
+    pbFadeOutIn {
+      scene = NuzlockeSettingsScene.new
+      screen = PokemonOptionScreen.new(scene)
+      screen.pbStartScreen
+    }
   end
 end
