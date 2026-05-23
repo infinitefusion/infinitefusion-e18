@@ -103,9 +103,15 @@ def nuzlocke_reset_run
   # reshuffles can take a moment on bigger randomized runs.
   pbMessage(_INTL("Resetting your run. This may take a minute...\\^"))
 
-  # Mirror Game.start_new (MultiSaves.rb) so the scene gets cleanly torn down
-  # and rebuilt. Without this, the live Scene_Map keeps stale references
-  # (notably @spritesets) and the next render trips a NoMethodError on nil.
+  # Hang onto the live Scene_Map. Game.load (003_Game processing/001_StartGame.rb)
+  # internally does `$scene = Scene_Map.new` as part of its load flow, and we
+  # explicitly do NOT want that swap to stick: a fresh Scene_Map has
+  # @spritesets = nil until its main loop runs createSpritesets, and any
+  # rendering in between (the shuffle's progress messages, Game.save chrome,
+  # the final pbMessage) calls Scene_Map#spriteset and crashes on the nil.
+  original_scene = $scene
+
+  # Best-effort cleanup of the current map's event state before the swap.
   if $game_map && $game_map.events
     $game_map.events.each_value { |event| event.clear_starting }
   end
@@ -113,19 +119,11 @@ def nuzlocke_reset_run
   pbMapInterpreter&.clear
   pbMapInterpreter&.setup(nil, 0, 0)
 
-  # Restore the snapshot into the live globals.
+  # Restore the snapshot into the live globals. This replaces $scene with a
+  # fresh Scene_Map internally — we'll undo that below.
   Game.load(snapshot)
 
-  # Fresh scene avoids the @spritesets-is-nil crash that the previous reset
-  # implementation hit; createSpritesets runs when the new scene starts up.
-  $scene = Scene_Map.new
-
-  # Re-roll any randomization that's currently enabled so the post-reset run
-  # is fresh. The shuffle functions surface their own progress UI via
-  # Kernel.pbMessageNoSound.
-  nuzlocke_reset_reshuffle_randomizers
-
-  # Warp the player to the new-game start position (same pattern as Game.start_new).
+  # Override Game.load's saved-map setup and warp to the new-game start position.
   $MapFactory = PokemonMapFactory.new($data_system.start_map_id)
   $game_player.moveto($data_system.start_x, $data_system.start_y)
   $game_player.refresh
@@ -133,6 +131,20 @@ def nuzlocke_reset_run
   $PokemonEncounters.setup($game_map.map_id)
   $game_map.autoplay
   $game_map.update
+
+  # Reclaim the live scene and rebuild its spritesets in-place for the new
+  # map. Pattern lifted from Scene_Map#transfer_player (002_Scene_Map.rb).
+  if original_scene.is_a?(Scene_Map)
+    $scene = original_scene
+    original_scene.disposeSpritesets
+    RPG::Cache.clear if defined?(RPG::Cache) && RPG::Cache.respond_to?(:need_clearing) && RPG::Cache.need_clearing
+    original_scene.createSpritesets
+  end
+
+  # Re-roll any randomization that's currently enabled so the post-reset run
+  # is fresh. The shuffle functions surface their own progress UI via
+  # Kernel.pbMessageNoSound.
+  nuzlocke_reset_reshuffle_randomizers
 
   # Persist the freshly reset state back into the original slot.
   Game.save(active_slot) if active_slot
