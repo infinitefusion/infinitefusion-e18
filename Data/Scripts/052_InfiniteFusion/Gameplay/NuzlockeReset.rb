@@ -34,18 +34,15 @@ end
 #   * The player has actually saved at least once ($Trainer.save_slot is set)
 #   * No snapshot already exists for this slot
 #
-# Note on SWITCH_DURING_INTRO (917):
-# A codebase grep finds no Ruby line that ever clears switch 917 - the only
-# readers are in RandomizerSettings.rb. The switch is therefore set/cleared
-# inside the intro's map events (binary .rxdata), so we can trust the Ruby-side
-# read but we cannot verify the toggle in source. As a defensive secondary
-# guard we also require $Trainer.party_count > 0, which is naturally false
-# until the starter has been received and a normal step is taken on a real map.
+# Capturing pre-starter is intentional: the player should be able to hit
+# "Reset Run" at any point, including after checking the starters but before
+# committing to one. SWITCH_DURING_INTRO is cleared by binary map events at
+# the end of the intro sequence; once that goes false and they've saved, the
+# first overworld step grabs the snapshot.
 Events.onStepTaken += proc {
   next if !$game_switches || !$game_switches[SWITCH_NUZLOCKE_MODE]
   next if $game_switches[SWITCH_DURING_INTRO]
   next if !$Trainer || $Trainer.save_slot.nil?
-  next if $Trainer.party_count == 0
   path = nuzlocke_snapshot_path
   next if path.nil?
   next if File.file?(path)
@@ -102,17 +99,40 @@ def nuzlocke_reset_run
 
   active_slot = $Trainer.save_slot
 
+  # Surface progress before we kick off the heavy work — Game.load and the
+  # reshuffles can take a moment on bigger randomized runs.
+  pbMessage(_INTL("Resetting your run. This may take a minute...\\^"))
+
+  # Mirror Game.start_new (MultiSaves.rb) so the scene gets cleanly torn down
+  # and rebuilt. Without this, the live Scene_Map keeps stale references
+  # (notably @spritesets) and the next render trips a NoMethodError on nil.
+  if $game_map && $game_map.events
+    $game_map.events.each_value { |event| event.clear_starting }
+  end
+  $game_temp.common_event_id = 0 if $game_temp
+  pbMapInterpreter&.clear
+  pbMapInterpreter&.setup(nil, 0, 0)
+
   # Restore the snapshot into the live globals.
   Game.load(snapshot)
 
-  # Re-roll any randomization that's currently enabled so the post-reset run is fresh.
+  # Fresh scene avoids the @spritesets-is-nil crash that the previous reset
+  # implementation hit; createSpritesets runs when the new scene starts up.
+  $scene = Scene_Map.new
+
+  # Re-roll any randomization that's currently enabled so the post-reset run
+  # is fresh. The shuffle functions surface their own progress UI via
+  # Kernel.pbMessageNoSound.
   nuzlocke_reset_reshuffle_randomizers
 
   # Warp the player to the new-game start position (same pattern as Game.start_new).
   $MapFactory = PokemonMapFactory.new($data_system.start_map_id)
   $game_player.moveto($data_system.start_x, $data_system.start_y)
   $game_player.refresh
+  $PokemonEncounters = PokemonEncounters.new
+  $PokemonEncounters.setup($game_map.map_id)
   $game_map.autoplay
+  $game_map.update
 
   # Persist the freshly reset state back into the original slot.
   Game.save(active_slot) if active_slot
