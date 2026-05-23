@@ -55,6 +55,19 @@ Events.onStepTaken += proc {
 }
 
 #===============================================================================
+# Common event lookup by name (so reset doesn't break when upstream
+# renumbers common events on update).
+#===============================================================================
+def find_common_event_id_by_name(name)
+  return nil if !$data_common_events
+  $data_common_events.each_with_index do |ev, i|
+    next if ev.nil?
+    return i if ev.name == name
+  end
+  return nil
+end
+
+#===============================================================================
 # Re-run randomization shuffles based on currently-active switches
 # Shape copied from RepairUtils.rb lines 66-72.
 #===============================================================================
@@ -104,11 +117,10 @@ def nuzlocke_reset_run
   pbMessage(_INTL("Resetting your run. This may take a minute...\\^"))
 
   # Hang onto the live Scene_Map. Game.load (003_Game processing/001_StartGame.rb)
-  # internally does `$scene = Scene_Map.new` as part of its load flow, and we
-  # explicitly do NOT want that swap to stick: a fresh Scene_Map has
-  # @spritesets = nil until its main loop runs createSpritesets, and any
-  # rendering in between (the shuffle's progress messages, Game.save chrome,
-  # the final pbMessage) calls Scene_Map#spriteset and crashes on the nil.
+  # internally does `$scene = Scene_Map.new`; we restore the live scene below
+  # because a fresh Scene_Map has @spritesets = nil until its main loop runs
+  # createSpritesets, and any rendering in between (shuffle progress, save
+  # chrome, pbMessage) would crash on Scene_Map#spriteset.
   original_scene = $scene
 
   # Best-effort cleanup of the current map's event state before the swap.
@@ -119,14 +131,13 @@ def nuzlocke_reset_run
   pbMapInterpreter&.clear
   pbMapInterpreter&.setup(nil, 0, 0)
 
-  # Restore the snapshot into the live globals. This replaces $scene with a
-  # fresh Scene_Map internally — we'll undo that below. Crucially, Game.load
-  # also restores the snapshot's $game_map / $game_player position / all
-  # self-switches, which together encode "intro completed, no party, no
-  # progress." We deliberately do NOT then warp the player to
-  # $data_system.start_map_id — that's the bedroom, and re-entering it would
-  # re-fire its autorun event chain (mode select, name entry, full intro).
-  # The snapshot is already the post-intro state; we just want to honor it.
+  # Restore the snapshot into the live globals. This wipes party / bag /
+  # badges / progress flags back to the captured "post-intro, pre-starter"
+  # state. We DON'T trust the snapshot's saved position to put the player
+  # in a starter-ready spot — the bedroom autorun re-fires the whole intro
+  # chain when party_count is 0. Instead we run the canonical
+  # "skip intro" common event below, which is the exact same code path the
+  # game uses when the player picks Skip during the splicer demo cutscene.
   Game.load(snapshot)
 
   # Rebuild PokemonEncounters for whatever map the snapshot put us on.
@@ -145,14 +156,27 @@ def nuzlocke_reset_run
   end
 
   # Re-roll any randomization that's currently enabled so the post-reset run
-  # is fresh. The shuffle functions surface their own progress UI via
-  # Kernel.pbMessageNoSound.
+  # is fresh. Silent re-roll using the player's already-chosen switches —
+  # no randomizer-settings menu pops up. Shuffle functions surface their own
+  # progress UI via Kernel.pbMessageNoSound.
   nuzlocke_reset_reshuffle_randomizers
 
-  # Persist the freshly reset state back into the original slot.
+  # Persist the wiped state to the slot before the warp.
   Game.save(active_slot) if active_slot
 
-  pbMessage(_INTL("Your run has been reset. Good luck."))
+  # Run the existing in-game "skip intro" common event — the same one the
+  # splicer demo cutscene's Skip option triggers. It pops the "Skip to
+  # starter selection?" prompt, sets self-switch A on Oak's lab event 1
+  # (map 157), and transfers the player to the starter selection point.
+  # Looked up by name so upstream renumbering on update won't silently
+  # break us.
+  skip_id = find_common_event_id_by_name("skip intro")
+  if skip_id
+    pbCommonEvent(skip_id)
+  else
+    echoln("[NuzlockeReset] 'skip intro' common event not found; leaving the player at the snapshot position.")
+    pbMessage(_INTL("Your run has been reset. Good luck."))
+  end
 
   $game_temp.transition_processing = true if $game_temp
 end
