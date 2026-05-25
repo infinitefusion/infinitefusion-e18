@@ -11,8 +11,14 @@
 #   2. Perma-death (fused)   - fainted fusions are handled per
 #      VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE (0 Off / 1 Head dies / 2 Body dies /
 #      3 Both die). The surviving half is unfused and kept.
-#   3. Battle items lock     - the Bag command is unavailable in battle when
-#      battle items are not allowed.
+#
+# Perma-death stays inert until the player owns at least one Poke Ball
+# (balls-first parity with the one-catch rule), and an empty post-battle party
+# triggers the engine's standard blackout so the player is never soft-locked.
+#
+# Battle-items enforcement is NOT here anymore - it lives per-item in
+# NuzlockeCaptureRules.rb (ItemHandlers.triggerCanUseInBattle) so Poke Balls
+# stay usable while other items are blocked.
 #===============================================================================
 
 module NuzlockeBattleRules
@@ -77,6 +83,15 @@ module NuzlockeBattleRules
     return if !active?
     return if !$Trainer || !$Trainer.party
 
+    # Balls-first parity (Fix #20): keep ALL perma-death (unfused AND fused)
+    # completely inert until the player owns at least one Poke Ball. The very
+    # first rival fight happens before you can catch anything, so without this
+    # guard the starter could permanently die before catching is even possible.
+    # This mirrors the one-catch rule (NuzlockeCaptureRules), which likewise
+    # only engages once the player actually has balls. Once the bag holds >=1
+    # ball, perma-death resumes exactly as before.
+    return if !NuzlockeCaptureRules.player_has_balls?
+
     perma_unfused = $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED]
     fused_mode    = (pbGet(VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE) rescue 0) || 0
 
@@ -138,6 +153,26 @@ module NuzlockeBattleRules
   rescue => e
     PBDebug.log("[Nuzlocke] process_party_after_battle failed: #{e.message}") if defined?(PBDebug)
   end
+
+  # No-soft-lock guard (Fix #22): some battles (notably the first rival fight)
+  # are scripted "you're allowed to lose" (canLose) battles that NEVER trigger a
+  # whiteout - the engine's Events.onEndBattle handler does `when 2,5: pbStartOver
+  # unless canLose`. If perma-death just emptied the party in such a battle, the
+  # player is stranded with zero Pokemon and no recovery (soft-lock). We only
+  # fire here for canLose battles; for a normal loss the engine already warps the
+  # player, so firing too would double-blackout. pbStartOver itself handles a
+  # missing Pokemon Center (warps to the fallback start point), so it's safe even
+  # early game. Fix #20 already keeps the pre-catch starter fight from emptying
+  # the party at all; this is defense-in-depth for any later canLose battle.
+  # NOTE: auto-reset-on-wipe under true perma-death is a separate future feature
+  # (task #21). For now we only prevent the soft-lock via the standard blackout.
+  def blackout_after_empty_party
+    return if !active?
+    return if !$Trainer || !$Trainer.party || !$Trainer.party.empty?
+    Kernel.pbStartOver(false)
+  rescue => e
+    PBDebug.log("[Nuzlocke] blackout_after_empty_party failed: #{e.message}") if defined?(PBDebug)
+  end
 end
 
 #===============================================================================
@@ -150,38 +185,25 @@ class PokeBattle_Battle
     def pbEndOfBattle
       decision = nuzlocke_orig_pbEndOfBattle
       NuzlockeBattleRules.process_party_after_battle
+      # Only self-blackout in canLose battles - a normal loss already triggers
+      # the engine's own pbStartOver (Events.onEndBattle), so firing here too
+      # would double-blackout. @canLose is the PokeBattle_Battle attr_accessor.
+      NuzlockeBattleRules.blackout_after_empty_party if @canLose
       return decision
     end
   end
 end
 
 #===============================================================================
-# Feature 3: battle items lock, hooked into the command menu.
-# When Nuzlocke mode is on and battle items are NOT allowed, intercept a Bag
-# selection (return value 1), warn the player, and re-open the menu so they
-# pick another action. Trainer/other battles are unaffected when the switch is
-# off.
+# Battle-items enforcement (Fix #23) lives elsewhere now.
+#
+# The old whole-bag block here intercepted the Bag command in
+# PokeBattle_Scene#pbCommandMenu and blocked the ENTIRE bag - including Poke
+# Balls - which made catching impossible and broke the core Nuzlocke loop.
+# It has been removed so the bag opens normally.
+#
+# Battle-items enforcement now happens per-item in NuzlockeCaptureRules.rb via
+# ItemHandlers.triggerCanUseInBattle, which allows Poke Balls while blocking
+# other items when battle items are forbidden. Keeping balls usable is what
+# preserves the catch loop, so do NOT reintroduce a bag-wide block here.
 #===============================================================================
-class PokeBattle_Scene
-  unless method_defined?(:nuzlocke_orig_pbCommandMenu)
-    alias_method :nuzlocke_orig_pbCommandMenu, :pbCommandMenu
-
-    def pbCommandMenu(idxBattler, firstAction)
-      loop do
-        ret = nuzlocke_orig_pbCommandMenu(idxBattler, firstAction)
-        if ret == 1 && nuzlocke_items_blocked?
-          pbDisplayMessage(_INTL("No items allowed in this challenge!"))
-          next   # bounce back to the command menu
-        end
-        return ret
-      end
-    end
-
-    def nuzlocke_items_blocked?
-      return false if !$game_switches
-      return false if !$game_switches[SWITCH_NUZLOCKE_MODE]
-      return false if $game_switches[SWITCH_NUZLOCKE_BATTLE_ITEMS_ALLOWED]
-      return true
-    end
-  end
-end

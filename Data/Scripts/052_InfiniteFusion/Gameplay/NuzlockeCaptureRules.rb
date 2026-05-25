@@ -7,7 +7,8 @@
 #
 # Features:
 #   1. One catch per area (SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA)
-#      - Area identity = $game_map.map_id.
+#      - Area identity = the displayed area NAME ($game_map.name), so a route
+#        split across multiple sub-maps counts as ONE area.
 #      - "Area used" is recorded ONLY on a SUCCESSFUL catch. Fleeing or defeating
 #        the first encounter does NOT burn the area. (Common romhack reading; it
 #        is also the only event we can detect cleanly without touching the
@@ -50,17 +51,49 @@ module NuzlockeCaptureRules
     return $game_switches[SWITCH_NUZLOCKE_FORCE_NICKNAMES]
   end
 
-  # Returns the list of map_ids where the player has already used their catch.
-  # nil is treated as [] (lazy init).
+  # True when nuzlocke is on AND battle items are forbidden. Battle-items
+  # enforcement now lives ENTIRELY in ItemHandlers.triggerCanUseInBattle below
+  # (the parallel NuzlockeBattleRules.rb no longer blocks the whole bag). When
+  # this is true, any item that is NOT a Poke Ball is blocked; Poke Balls stay
+  # usable (still subject to the one-catch block).
+  def battle_items_forbidden?
+    return false if !nuzlocke_active?
+    return !$game_switches[SWITCH_NUZLOCKE_BATTLE_ITEMS_ALLOWED]
+  end
+
+  # Returns the list of area keys where the player has already used their catch.
+  # Keys are the displayed area NAME strings (see current_area_key). nil is
+  # treated as [] (lazy init).
+  #
+  # NOTE: keying switched from numeric map_id to the displayed area name so a
+  # route split across several sub-maps counts as ONE area. Older saves that
+  # stored integer map_ids will simply start fresh under the new string keying
+  # (a previously-burned area becomes catchable again). This is acceptable for a
+  # dev-stage feature.
   def caught_areas
     return [] if !$PokemonGlobal
     $PokemonGlobal.nuzlocke_caught_areas ||= []
     return $PokemonGlobal.nuzlocke_caught_areas
   end
 
-  def current_area_id
+  # The area key for the current map: the displayed location/area NAME, matching
+  # what the player sees on the location signpost. The signpost is built from
+  # $game_map.name (see 012_Overworld/001_Overworld.rb:394), which resolves the
+  # map's display name via pbGetMessage(MessageTypes::MapNames, map_id) in
+  # 004_Game classes/004_Game_Map.rb:133. We reuse that same name so our "area"
+  # matches the on-screen area name. Falls back to the map_id as a string only
+  # if no name resolves, so this never returns nil/crashes.
+  def current_area_key
     return nil if !$game_map
-    return $game_map.map_id
+    name = ($game_map.name rescue nil)
+    return name if name.is_a?(String) && !name.strip.empty?
+    return $game_map.map_id.to_s
+  end
+
+  # Backwards-compatible accessor. Older code referred to current_area_id; it now
+  # returns the name-based key.
+  def current_area_id
+    return current_area_key
   end
 
   # Balls-first gate: true only if the bag holds at least one Poke Ball.
@@ -84,14 +117,14 @@ module NuzlockeCaptureRules
 
   # True if the current area's one allowed catch has already been used.
   def current_area_used?
-    area = current_area_id
+    area = current_area_key
     return false if area.nil?
     return caught_areas.include?(area)
   end
 
   # Mark the current area as having had its catch used (idempotent).
   def mark_current_area_used
-    area = current_area_id
+    area = current_area_key
     return if area.nil?
     list = caught_areas
     list.push(area) if !list.include?(area)
@@ -120,14 +153,23 @@ module ItemHandlers
       alias_method :nuzlocke_orig_triggerCanUseInBattle, :triggerCanUseInBattle
 
       def triggerCanUseInBattle(item, pkmn, battler, move, firstAction, battle, scene, showMessages = true)
-        if NuzlockeCaptureRules.one_catch_per_area_active?
-          is_ball = (GameData::Item.get(item).is_poke_ball? rescue false)
-          if is_ball && NuzlockeCaptureRules.should_block_catch?
-            if showMessages && scene && scene.respond_to?(:pbDisplay)
-              scene.pbDisplay(_INTL("You already caught a Pokémon in this area!"))
-            end
-            return false
+        is_ball = (GameData::Item.get(item).is_poke_ball? rescue false)
+        # Battle-items lock: when items are forbidden, block everything that is
+        # NOT a Poke Ball. Balls are deliberately exempt here (they are only ever
+        # gated by the one-catch rule below), so catching stays possible.
+        if !is_ball && NuzlockeCaptureRules.battle_items_forbidden?
+          if showMessages && scene && scene.respond_to?(:pbDisplay)
+            scene.pbDisplay(_INTL("No items allowed in this challenge!"))
           end
+          return false
+        end
+        # One-catch-per-area: block a Poke Ball when this area's catch is spent.
+        if is_ball && NuzlockeCaptureRules.one_catch_per_area_active? &&
+           NuzlockeCaptureRules.should_block_catch?
+          if showMessages && scene && scene.respond_to?(:pbDisplay)
+            scene.pbDisplay(_INTL("You already caught a Pokémon in this area!"))
+          end
+          return false
         end
         return nuzlocke_orig_triggerCanUseInBattle(item, pkmn, battler, move, firstAction, battle, scene, showMessages)
       end
