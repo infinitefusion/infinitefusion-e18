@@ -655,6 +655,7 @@ module PBItems
   JETPACK = 643
   INFINITEREVERSERS = 644
   INFINITESPLICERS = 645
+  CAPCANDYNUZLOCKE = 646
 
   def PBItems.getName(item)
     return GameData::Item.get(item).real_name
