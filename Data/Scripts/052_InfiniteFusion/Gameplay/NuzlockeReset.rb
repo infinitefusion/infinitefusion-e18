@@ -68,6 +68,79 @@ def find_common_event_id_by_name(name)
 end
 
 #===============================================================================
+# Settings preservation across the snapshot reload.
+#
+# Game.load(snapshot) overwrites the ENTIRE $game_switches / $game_variables with
+# the snapshot's values. The snapshot is captured once per slot at the starting
+# line and is NOT refreshed on a new game, so its switch state can be stale and
+# silently turn OFF the player's perma-death rules and randomizer config after a
+# reset. These two lists name the switches/vars that represent the player's chosen
+# SETTINGS (not run progress) and must therefore survive the wipe. Constants are
+# resolved with const_defined? guards so unreleased (e.g. stashed Phase 2) options
+# are simply skipped until they exist.
+#===============================================================================
+NUZLOCKE_RESET_PRESERVED_SWITCH_SYMS = [
+  # --- Nuzlocke rule switches ---
+  :SWITCH_NUZLOCKE_MODE, :SWITCH_NUZLOCKE_MODE_INTRO, :SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA,
+  :SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED, :SWITCH_NUZLOCKE_FORCE_NICKNAMES,
+  :SWITCH_NUZLOCKE_RESET_ENABLED, :SWITCH_NUZLOCKE_AT_LEAST_ONCE,
+  :SWITCH_NUZLOCKE_BATTLE_ITEMS_ALLOWED, :SWITCH_NUZLOCKE_CAP_CANDY_ENABLED,
+  :SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS,
+  # --- Nuzlocke Phase 2 switches (skipped until released) ---
+  :SWITCH_NUZLOCKE_HERITAGE_MOVEPOOL, :SWITCH_NUZLOCKE_ENCOUNTER_DEX_LOCK,
+  :SWITCH_NUZLOCKE_MONOTYPE_FUSION_MANDATE, :SWITCH_NUZLOCKE_FUSION_PERMANENCE_LOCK,
+  :SWITCH_NUZLOCKE_SEEDED_RUN, :SWITCH_NUZLOCKE_EVOLUTION_ROULETTE,
+  :SWITCH_NUZLOCKE_STARTER_FUSION_LOCK, :SWITCH_NUZLOCKE_DUPES_CLAUSE_ADDITIVE,
+  :SWITCH_NUZLOCKE_SHINY_CLAUSE,
+  # --- Randomizer configuration switches (define how the run randomizes) ---
+  :SWITCH_RANDOMIZED_AT_LEAST_ONCE, :SWITCH_RANDOMIZED_MODE_INTRO,
+  :SWITCH_RANDOM_WILD, :SWITCH_RANDOM_WILD_AREA, :SWITCH_RANDOM_WILD_TO_FUSION,
+  :SWITCH_RANDOM_TRAINERS, :SWITCH_RANDOM_STARTERS, :SWITCH_RANDOM_STARTER_FIRST_STAGE,
+  :SWITCH_RANDOM_ITEMS, :SWITCH_RANDOM_ITEMS_GENERAL, :SWITCH_RANDOM_FOUND_ITEMS,
+  :SWITCH_RANDOM_ITEMS_DYNAMIC, :SWITCH_RANDOM_ITEMS_MAPPED, :SWITCH_RANDOM_TMS,
+  :SWITCH_RANDOM_GIVEN_ITEMS, :SWITCH_RANDOM_GIVEN_TMS, :SWITCH_RANDOM_SHOP_ITEMS,
+  :SWITCH_RANDOM_FOUND_TMS, :SWITCH_WILD_RANDOM_GLOBAL, :SWITCH_RANDOM_STATIC_ENCOUNTERS,
+  :SWITCH_RANDOM_WILD_ONLY_CUSTOMS, :SWITCH_RANDOM_GYM_PERSIST_TEAMS,
+  :SWITCH_GYM_RANDOM_EACH_BATTLE, :SWITCH_RANDOM_GYM_CUSTOMS, :SWITCH_RANDOMIZE_GYMS_SEPARATELY,
+  :SWITCH_RANDOMIZED_GYM_TYPES, :SWITCH_RANDOM_GIFT_POKEMON, :SWITCH_RANDOM_HELD_ITEMS,
+  :SWITCH_DEFINED_RIVAL_STARTER, :SWITCH_RANDOMIZED_WILD_POKEMON_TO_FUSIONS,
+  :SWITCH_RANDOM_WILD_LEGENDARIES, :SWITCH_RANDOM_TRAINER_LEGENDARIES,
+  :SWITCH_RANDOM_GYM_LEGENDARIES, :SWITCH_DONT_RANDOMIZE
+].freeze
+
+NUZLOCKE_RESET_PRESERVED_VAR_SYMS = [
+  :VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE,
+  :VAR_RANDOMIZER_WILD_POKE_BST,
+  # Phase 2 vars (skipped until released)
+  :VAR_NUZLOCKE_HERITAGE_MOVEPOOL_MODE, :VAR_NUZLOCKE_SPLICE_ECONOMY_MODE,
+  :VAR_NUZLOCKE_SPLICE_ECONOMY_COST, :VAR_NUZLOCKE_SEEDED_RUN_SEED,
+  :VAR_NUZLOCKE_EVOLUTION_ROULETTE_BUDGET, :VAR_NUZLOCKE_DUPES_CLAUSE_REROLL_ATTEMPTS
+].freeze
+
+# Capture {switch_id => value} for every preserved switch that is currently defined.
+def nuzlocke_reset_capture_settings
+  switches = {}
+  NUZLOCKE_RESET_PRESERVED_SWITCH_SYMS.each do |sym|
+    next if !Object.const_defined?(sym)
+    id = Object.const_get(sym)
+    switches[id] = $game_switches[id]
+  end
+  vars = {}
+  NUZLOCKE_RESET_PRESERVED_VAR_SYMS.each do |sym|
+    next if !Object.const_defined?(sym)
+    id = Object.const_get(sym)
+    vars[id] = $game_variables[id]
+  end
+  return [switches, vars]
+end
+
+# Re-apply preserved settings on top of the freshly-loaded snapshot.
+def nuzlocke_reset_restore_settings(switches, vars)
+  switches.each { |id, val| $game_switches[id] = val } if switches
+  vars.each { |id, val| $game_variables[id] = val } if vars
+end
+
+#===============================================================================
 # Re-run randomization shuffles based on currently-active switches
 # Shape copied from RepairUtils.rb lines 66-72.
 #===============================================================================
@@ -131,6 +204,13 @@ def nuzlocke_reset_run
   pbMapInterpreter&.clear
   pbMapInterpreter&.setup(nil, 0, 0)
 
+  # Capture the player's chosen SETTINGS (Nuzlocke rules + randomizer config)
+  # BEFORE the wipe. Game.load below overwrites ALL switches/variables with the
+  # snapshot's (possibly stale) values, which would otherwise silently disable
+  # perma-death and randomization for the post-reset run. We re-apply these
+  # immediately after the load so the reset keeps your settings exactly.
+  preserved_switches, preserved_vars = nuzlocke_reset_capture_settings
+
   # Restore the snapshot into the live globals. This wipes party / bag /
   # badges / progress flags back to the captured "post-intro, pre-starter"
   # state. We DON'T trust the snapshot's saved position to put the player
@@ -139,6 +219,12 @@ def nuzlocke_reset_run
   # "skip intro" common event below, which is the exact same code path the
   # game uses when the player picks Skip during the splicer demo cutscene.
   Game.load(snapshot)
+
+  # Re-apply the preserved settings on top of the restored snapshot, so perma-death
+  # and the randomizer switches reflect the player's CURRENT choices (not whatever
+  # the snapshot happened to hold). This must happen before the reshuffle below,
+  # which keys off these switches.
+  nuzlocke_reset_restore_settings(preserved_switches, preserved_vars)
 
   # Rebuild PokemonEncounters for whatever map the snapshot put us on.
   $PokemonEncounters = PokemonEncounters.new
