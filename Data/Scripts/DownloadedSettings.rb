@@ -1,11 +1,19 @@
 
 module Settings
-  LATEST_GAME_RELEASE = "6.6.1"
+  LATEST_GAME_RELEASE = "6.7.2"
 
   SHINY_POKEMON_CHANCE = 16
+  SNOW_DAY = false
+
+  STARTUP_MESSAGES = ""
+  MAIN_MENU_LINKS = {
+    "Discord" => "https://discord.com/invite/infinitefusion",
+    "Wiki" => "https://infinitefusion.fandom.com/",
+  }
+  
+  FEEDBACK_FORM_URL = "https://forms.gle/1svTMSUMf7ebHdZq7"
   DISCORD_URL = "https://discord.com/invite/infinitefusion"
   WIKI_URL = "https://infinitefusion.fandom.com/"
-  STARTUP_MESSAGES = ""
   
   CREDITS_FILE_URL = "https://infinitefusion.net/customsprites/Sprite_Credits.csv"
 
@@ -34,7 +42,8 @@ module Settings
   CUSTOM_FUSIONS_SPRITESHEET_TRUE_SIZE_URL = "https://infinitefusion.net/customsprites/spritesheets/spritesheets_custom/"
 
   
-  
+  TRANSFER_BOX_DISCLAIMER_MESSAGE = "\\C[2]The Transfer Box is not yet available in Infinite Fusion 1, it is planned for a future update. It can still be used to transfer Pokémon between Hoenn savefiles in the meantime."
+
   CUSTOMSPRITES_RATE_MAX_NB_REQUESTS = 15  #Nb. requests allowed in each time window
   CUSTOMSPRITES_ENTRIES_RATE_TIME_WINDOW = 60    # In seconds
   MAX_NB_SPRITES_TO_DOWNLOAD_AT_ONCE =5
@@ -47,8 +56,8 @@ module Settings
   AI_ENTRIES_RATE_LOG_FILE = 'Data/pokedex/rate_limit.log'  # Path to the log file
 
   #Spritepack
-  NEWEST_SPRITEPACK_MONTH = 9
-  NEWEST_SPRITEPACK_YEAR = 2025
+  NEWEST_SPRITEPACK_MONTH = 4
+  NEWEST_SPRITEPACK_YEAR = 2026
 
 
 end

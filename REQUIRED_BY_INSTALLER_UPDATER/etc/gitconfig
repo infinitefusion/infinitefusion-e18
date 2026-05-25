@@ -1,0 +1,26 @@
+[core]
+	symlinks = false
+	autocrlf = true
+[color]
+	interactive = true
+	ui = auto
+[pack]
+	packSizeLimit = 2g
+[help]
+	format = html
+[diff "astextplain"]
+	textconv = astextplain
+[rebase]
+	autosquash = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper = manager
+[safe]
+    directory = *
+[http]
+	postBuffer = 52428800
+	version = HTTP/1.1
