@@ -252,3 +252,39 @@ class PokeBattle_SafariZone
     end
   end
 end
+
+#===============================================================================
+# Force-nickname for the STARTER and GIFT Pokemon.
+#
+# Caught wild Pokemon are nicknamed via the battle's own pbStorePokemon /
+# pbDisplayConfirm path (handled above). The starter and gift Pokemon take a
+# DIFFERENT path: pbAddPokemon / pbAddToParty / pbAddPokemonID ->
+# pbNicknameAndStore -> pbNickname (019_Utilities/002_Utilities_Pokemon.rb:8),
+# which uses the global pbConfirmMessage - a method our battle hooks never see,
+# so those Pokemon kept getting the optional yes/no prompt.
+#
+# pbNickname is a top-level function (a private instance method on Object), so
+# we reopen Object and wrap it: when force-nicknames is active, skip the
+# "Would you like to give a nickname?" confirm and open the name entry directly
+# (mirroring the one line the original runs on "yes"). Eggs are left alone -
+# they're named after hatching. When the switch is off, the original runs
+# verbatim. This covers EVERY non-catch acquisition: starter, gifts, fusion
+# results, in-game trades, etc.
+#===============================================================================
+class Object
+  unless private_method_defined?(:nuzlocke_orig_pbNickname) ||
+         method_defined?(:nuzlocke_orig_pbNickname)
+    alias_method :nuzlocke_orig_pbNickname, :pbNickname
+    def pbNickname(pkmn)
+      if NuzlockeCaptureRules.force_nicknames_active? && pkmn &&
+         !(pkmn.respond_to?(:egg?) && pkmn.egg?) &&
+         !(pkmn.respond_to?(:shadowPokemon?) && pkmn.shadowPokemon?)
+        species_name = pkmn.speciesName
+        pkmn.name = pbEnterPokemonName(_INTL("{1}'s nickname?", species_name),
+                                       0, Pokemon::MAX_NAME_SIZE, "", pkmn)
+        return
+      end
+      return nuzlocke_orig_pbNickname(pkmn)
+    end
+  end
+end
