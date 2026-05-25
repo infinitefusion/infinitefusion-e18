@@ -21,8 +21,10 @@ toggle.
 - **Lenient variant (what we shipped first):** any *one* catch per area (you can
   KO/flee and still catch a later one).
 - **Our setting:** `SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA` (currently lenient).
-  ⚠ DECISION #26 — add a strictness mode: **First-encounter-only** vs
-  **One-per-area**. Recommend a 3-way: `Off / First encounter only / One per area`.
+  ✅ DECIDED #26 — replace with a 3-way **catch-rule mode**
+  (`Off / First encounter only / One per area`), **default = First encounter
+  only** (canonical), switchable so players can loosen it. Needs a new VAR
+  (boolean switch → 3-state var) + first-encounter tracking/forfeit logic.
 - **Area identity:** `$game_map.name` (the location-signpost name) — matches the
   "Met at" convention; a route split across sub-maps counts as one area. ✅ shipped.
 - **Encounter-slot nuance (canon):** fishing / surfing / rock-smash are *separate*
@@ -56,7 +58,7 @@ toggle.
 | Clause | Canon definition | Our plan |
 |---|---|---|
 | **Dupes Clause** | If your first encounter is a species (or evo-line) you already own, you may skip it and keep searching. | `SWITCH_NUZLOCKE_DUPES_CLAUSE_ADDITIVE` (1217) + `VAR_NUZLOCKE_DUPES_CLAUSE_REROLL_ATTEMPTS` (default 3). ⚠ DECISION on fusion matching — see §4.1. |
-| **Shiny Clause** | A shiny encounter may be caught WITHOUT spending the area's catch (you get the shiny *and* your normal encounter). | ⚠ DECISION — add `SWITCH_NUZLOCKE_SHINY_CLAUSE` (recommend default On). Not yet wired. |
+| **Shiny Clause** | A shiny encounter may be caught WITHOUT spending the area's catch (you get the shiny *and* your normal encounter). | ✅ DECIDED — add `SWITCH_NUZLOCKE_SHINY_CLAUSE`, **default On**. A shiny wild mon is exempt from the catch-rule limit and never burns/forfeits the area. |
 | **Species Clause** | Usually = Dupes by evolutionary line (own any stage → can't catch others in that line). | Fold into Dupes Clause as "by evo line" (recommend). |
 | **Ban List** | Legendaries / pseudo / OP species banned from use. | Optional, low priority. Can piggyback on existing legendary handling. |
 
@@ -70,8 +72,13 @@ toggle.
   is owned; some only the head.
 - **Documented strategy:** catch a fusion that contains a dupe half, unfuse, release
   the dupe half, keep the valid one.
-- ⚠ DECISION — match dupes on **either half** (recommend) vs head-only. Affects the
-  Dupes Clause reroll logic.
+- ✅ DECIDED — a wild Pokémon is a **dupe if you already own EITHER of its component
+  species, in ANY capacity** (owned as a standalone mon OR as a head/body of any
+  fusion you currently have). For a wild **fusion**, check BOTH its head and body
+  species against everything you own; for a wild **non-fusion**, check its single
+  species. If either component is owned anywhere, it's a dupe and may be skipped /
+  rerolled. (Ownership scan must walk party + storage and decompose every fusion
+  into its head+body species.)
 
 ### 4.2 Does unfusing dodge perma-death?
 - **Community consensus:** NO. If a **fused** Pokémon faints, **both** components are
@@ -83,8 +90,9 @@ toggle.
 ### 4.3 Which species register on first-encounter / catch?
 - **Community:** varies — Option A (strict): only non-fused encounters count, fused
   ones are skipped; Option B (lenient): a fusion IS the encounter, accept or forfeit.
-- ⚠ DECISION — recommend **Option B** (a wild fusion is your encounter) as default;
-  it's simpler and matches "what you see is your encounter."
+- ✅ DECIDED — **Option B**: a wild fusion IS your encounter. You catch it or forfeit
+  the area; fusions are not skipped for being fused. (Dupes Clause may still skip it
+  per §4.1, and Shiny Clause exempts shinies.)
 
 ### 4.4 Level caps & fusion BST
 - **Community:** gym-based level caps (12/22/… per badge) and BST tiers (≤560 early,
@@ -116,10 +124,24 @@ toggle.
 
 ---
 
-## 7. Open Decisions Summary (need user sign-off)
-1. **#26 Catch rule strictness:** `Off / First encounter only / One per area`? Default?
-2. **Encounter slots:** keep whole named area = 1 slot, or split fishing/surf? (recommend keep simple)
-3. **Dupes fusion matching:** either half (recommend) vs head-only.
-4. **Fusion as encounter:** Option B accept-the-fusion (recommend) vs Option A skip-fusions.
-5. **Shiny Clause:** add it, default On? (recommend yes)
-6. **#21 Auto-reset on wipe:** add `On wipe: Reset / Blackout` toggle? Default Blackout.
+## 7. Decisions Log
+
+**Resolved (user sign-off 2026-05-25):**
+1. **#26 Catch rule:** 3-way `Off / First encounter only / One per area`, **default
+   First encounter only**, switchable. ✅
+2. **Fusion as encounter:** Option B — the wild fusion IS your encounter. ✅
+3. **Dupes + fusion:** dupe if you own **either** component species in **any
+   capacity** (standalone or as a fusion half); for a wild fusion check both
+   head+body. ✅
+4. **Shiny Clause:** add it, **default On**; shinies don't spend/forfeit the area. ✅
+
+**Defaulted (will proceed unless you say otherwise):**
+5. **Encounter slots:** keep whole named area = 1 encounter slot for v1 (no separate
+   fishing/surf slot). Simpler; revisit later.
+6. **#21 Auto-reset on wipe:** default to the normal **Blackout** (already shipped);
+   auto-reset-on-wipe deferred to its own optional toggle later.
+
+**New constants needed (Wave 2):** catch-rule 3-state VAR (replacing the boolean
+`SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA`), `SWITCH_NUZLOCKE_SHINY_CLAUSE`. Dupes uses the
+already-staged `SWITCH_NUZLOCKE_DUPES_CLAUSE_ADDITIVE` (1217) +
+`VAR_NUZLOCKE_DUPES_CLAUSE_REROLL_ATTEMPTS` (1206).
