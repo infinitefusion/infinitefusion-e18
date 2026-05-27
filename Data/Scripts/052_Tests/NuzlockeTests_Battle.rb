@@ -18,7 +18,7 @@ NuzlockeTestHarness.suite("Fused perma-death mode 0 (Off): fainted fusion surviv
   party = $Trainer.party
 
   t.assert("fainted fusion still in party (mode Off)",
-           party.any? { |m| m && (isFusion(m.species_data.id_number) rescue false) })
+           party.any? { |m| m && isFusion(m.species_data.id_number) })
   t.assert_eq("party size unchanged", 1, party.compact.length)
 end
 
@@ -35,8 +35,8 @@ NuzlockeTestHarness.suite("Fused perma-death mode 2 (Body dies): keeps HEAD half
   party = $Trainer.party
 
   t.assert("original fusion removed",
-           party.none? { |m| m && (isFusion(m.species_data.id_number) rescue false) })
-  surviving_half = party.find { |m| m && !(isFusion(m.species_data.id_number) rescue false) }
+           party.none? { |m| m && isFusion(m.species_data.id_number) })
+  surviving_half = party.find { |m| m && !isFusion(m.species_data.id_number) }
   t.assert("a surviving unfused half returned", !surviving_half.nil?)
   t.assert_eq("survivor is the HEAD species (dex 19)", 19, surviving_half.species_data.id_number)
   t.assert_eq("final party size = surviving half only", 1, party.compact.length)
@@ -56,7 +56,7 @@ NuzlockeTestHarness.suite("Fused perma-death mode 3 (Both die): no survivor") do
   party = $Trainer.party
 
   t.assert("fusion removed from party",
-           party.none? { |m| m && (isFusion(m.species_data.id_number) rescue false) })
+           party.none? { |m| m && isFusion(m.species_data.id_number) })
   t.assert("NO surviving half returned (no unfused Pidgey/Rattata)",
            party.none? { |m| m && [16, 19].include?(m.species_data.id_number) })
   t.assert("healthy Pikachu kept", party.any? { |m| m && m.species == :PIKACHU })
@@ -78,7 +78,7 @@ NuzlockeTestHarness.suite("Multi-fusion party mode 1: two body-halves + healthy 
   NuzlockeBattleRules.process_party_after_battle
   party = $Trainer.party
 
-  t.assert("no fusions remain", party.none? { |m| m && (isFusion(m.species_data.id_number) rescue false) })
+  t.assert("no fusions remain", party.none? { |m| m && isFusion(m.species_data.id_number) })
   t.assert("healthy Pikachu survived", party.any? { |m| m && m.species == :PIKACHU })
   t.assert("BODY half of fusion A (dex 16) returned",
            party.any? { |m| m && m.species_data.id_number == 16 })
@@ -153,11 +153,11 @@ NuzlockeTestHarness.suite("The ace fusion falls") do |t|
   party = $Trainer.party
 
   t.assert("the fusion is gone for good",
-           party.none? { |m| m && (isFusion(m.species_data.id_number) rescue false) })
+           party.none? { |m| m && isFusion(m.species_data.id_number) })
   body_half = party.find { |m| m && m.species_data.id_number == 16 }
   t.assert("the BODY half (Pidgey, dex 16) limps on, now unfused", !body_half.nil?)
   t.refute("the surviving half is no longer a fusion",
-           body_half && (isFusion(body_half.species_data.id_number) rescue false))
+           body_half && isFusion(body_half.species_data.id_number))
   t.assert_eq("only the lone survivor remains", 1, party.compact.length)
   t.log("Epilogue: #{party.compact.map { |m| m.species }.inspect} fights on.") if !party.compact.empty?
 end

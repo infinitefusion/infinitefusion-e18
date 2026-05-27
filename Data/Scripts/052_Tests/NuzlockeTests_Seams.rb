@@ -138,7 +138,7 @@ NuzlockeTestHarness.suite("Survivor stays in a FULL party (regression)") do |t|
   t.assert("surviving BODY half (Pidgey, 16) is IN the party, not boxed",
            final.any? { |m| m.species_data.id_number == 16 })
   t.assert_eq("party stays at 6 (5 healthy + survivor)", 6, final.length)
-  t.assert("the dead fusion itself is gone", final.none? { |m| isFusion(m.species_data.id_number) rescue false })
+  t.assert("the dead fusion itself is gone", final.none? { |m| isFusion(m.species_data.id_number) })
 end
 
 NuzlockeTestHarness.suite("Two dead fusions in a 6-mon party: both halves retained") do |t|

@@ -32,13 +32,13 @@ NuzlockeTestHarness.suite("Mixed party one pass (mode 2: body dies, keep head)")
   t.assert("egg kept (eggs never die)", party.any? { |m| m && m.egg? })
   t.assert("fainted UNFUSED Rattata removed",
            party.none? { |m| m && m.species == :RATTATA && !m.egg? &&
-                              !(isFusion(m.species_data.id_number) rescue false) && m.fainted? })
+                              !isFusion(m.species_data.id_number) && m.fainted? })
   t.assert("dead FUSION no longer in party",
-           party.none? { |m| m && (isFusion(m.species_data.id_number) rescue false) })
+           party.none? { |m| m && isFusion(m.species_data.id_number) })
   surviving_head = party.find { |m| m && m.species_data.id_number == 19 && !m.egg? && !m.fainted? }
   t.assert("HEAD half (dex 19, unfused, healthy) returned", !surviving_head.nil?)
   t.refute("HEAD half is not a fusion",
-           (isFusion(surviving_head.species_data.id_number) rescue false)) if surviving_head
+           isFusion(surviving_head.species_data.id_number)) if surviving_head
   t.assert_eq("final compact party = Pikachu + egg + head-half = 3", 3, party.compact.length)
   t.log("post-battle party: #{party.compact.map { |m| m.egg? ? :EGG : m.species }.inspect}")
 end

@@ -33,22 +33,30 @@ NuzlockeTestHarness.suite("nuzlocke_reset_run: no-snapshot is a graceful no-op")
            t.captured_msgs.any? { |m| m =~ /no reset snapshot/i })
 end
 
-# STORY: with Force Nicknames on, a non-egg acquisition drops straight into name
-# entry. (The seam flag is sticky within a suite; per-acquisition forcing is
-# covered in NuzlockeTests_Seams.rb -- here we narrate the starter end to end.)
-NuzlockeTestHarness.suite("STORY: 'Name them all' -- starter is force-named") do |t|
+# STORY: with Force Nicknames on, EVERY non-egg acquisition drops straight into
+# name entry. We reset_nick_flag between each so the test proves each acquisition
+# forces naming independently (not a single stuck flag) -- and that eggs are exempt.
+NuzlockeTestHarness.suite("STORY: 'Name them all' -- starter, gift, and catch each forced; egg exempt") do |t|
   t.set_switch(SWITCH_NUZLOCKE_MODE, true)
   t.set_switch(SWITCH_NUZLOCKE_FORCE_NICKNAMES, true)
-  t.log("Player chooses Bulbasaur as their starter.")
-  pbNickname(t.make_pokemon(:BULBASAUR, 5))
-  t.assert("starter forced the name-entry screen open", t.nick_prompted?)
-  t.log("A later gift and a caught wild mon take the same forced path.")
-end
 
-NuzlockeTestHarness.suite("STORY: eggs are exempt from forced naming (named on hatch)") do |t|
-  t.set_switch(SWITCH_NUZLOCKE_MODE, true)
-  t.set_switch(SWITCH_NUZLOCKE_FORCE_NICKNAMES, true)
-  t.log("Player receives an egg; eggs are named when they hatch, not now.")
+  t.reset_nick_flag
+  t.log("Starter: Bulbasaur.")
+  pbNickname(t.make_pokemon(:BULBASAUR, 5))
+  t.assert("starter forced the name-entry screen", t.nick_prompted?)
+
+  t.reset_nick_flag
+  t.log("Gift: an Eevee from an NPC.")
+  pbNickname(t.make_pokemon(:EEVEE, 5))
+  t.assert("gift forced the name-entry screen", t.nick_prompted?)
+
+  t.reset_nick_flag
+  t.log("Caught: a wild Pidgey.")
+  pbNickname(t.make_pokemon(:PIDGEY, 5))
+  t.assert("caught mon forced the name-entry screen", t.nick_prompted?)
+
+  t.reset_nick_flag
+  t.log("Egg: named on hatch, not now.")
   pbNickname(t.make_egg(:PIKACHU))
   t.refute("egg did NOT force the name-entry screen", t.nick_prompted?)
 end

@@ -141,7 +141,11 @@ module NuzlockeBattleRules
         next
       end
 
-      is_fusion = (isFusion(mon.species_data.id_number) rescue false)
+      # No inline rescue: the method-level rescue below is the safety net. If
+      # isFusion ever raised, swallowing it here would misclassify a fusion as
+      # unfused and wrongly perma-kill it; letting it bubble safely aborts the
+      # whole post-battle processing instead (no one dies on an unexpected error).
+      is_fusion = isFusion(mon.species_data.id_number)
 
       if !is_fusion
         # --- Feature 1: unfused perma-death ---

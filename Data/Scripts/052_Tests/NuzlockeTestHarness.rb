@@ -236,6 +236,7 @@ module NuzlockeTestHarness
   def fake_scene; NuzlockeTestScene.new; end
   def fake_battle(caught = [], can_lose = false); NuzlockeTestBattle.new(caught, can_lose); end
   def nick_prompted?; $nuzlocke_test_nick_prompted == true; end
+  def reset_nick_flag; $nuzlocke_test_nick_prompted = false; end
   def shuffles; $nuzlocke_test_shuffles || []; end
   def bag_stored_items; ($PokemonBag && $PokemonBag.respond_to?(:stored_items)) ? $PokemonBag.stored_items : []; end
 
@@ -312,14 +313,14 @@ module NuzlockeTestHarness
     party_sp = ($Trainer.party.compact.map { |p| p.species } rescue [])
     log_line("party species: #{party_sp.inspect}")
     log_line("owned base-species count (party+storage, fusions decomposed): #{owned.keys.length}")
-    has_fusion = ($Trainer.party.compact.any? { |p| isFusion(p.species_data.id_number) } rescue false)
+    has_fusion = $Trainer.party.compact.any? { |p| isFusion(p.species_data.id_number) }
     log_line("party contains a fusion: #{has_fusion}")
     assert("ownership scan non-empty when party non-empty",
            $Trainer.party.compact.empty? || !owned.empty?)
 
     # 3. build_survivor fidelity on a REAL fusion, if the save has one.
     section("build_survivor on a real fusion")
-    fusion = ($Trainer.party.compact.find { |p| isFusion(p.species_data.id_number) } rescue nil)
+    fusion = $Trainer.party.compact.find { |p| isFusion(p.species_data.id_number) }
     if fusion
       log_line("real fusion: #{fusion.species} lv#{fusion.level} nature=#{(fusion.nature.id rescue fusion.nature) rescue '?'} gender=#{fusion.gender} ability_idx=#{fusion.ability_index} shiny=#{fusion.shiny?} item=#{fusion.item_id.inspect}")
       s = NuzlockeBattleRules.build_survivor(fusion, true)
@@ -347,7 +348,7 @@ module NuzlockeTestHarness
     $game_switches[SWITCH_NUZLOCKE_MODE] = true
     $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED] = true
     ($PokemonBag.pbStoreItem(:POKEBALL) rescue nil)   # satisfy balls-first, in-memory
-    victim = ($Trainer.party.compact.find { |p| !(isFusion(p.species_data.id_number)) } rescue nil)
+    victim = $Trainer.party.compact.find { |p| !isFusion(p.species_data.id_number) }
     if victim
       vsp = victim.species; vitem = victim.item_id
       before = $Trainer.party.compact.length
@@ -419,8 +420,8 @@ end
 NuzlockeTestHarness.suite("Fusion half-selection (build_survivor's decision)") do |t|
   fusion_id = GameData::Species.get(:B16H19).id_number   # body Pidgey(16), head Rattata(19)
   pidgey_id = GameData::Species.get(:PIDGEY).id_number
-  t.assert("isFusion(:B16H19) true",  (isFusion(fusion_id) rescue false) == true)
-  t.assert("isFusion(:PIDGEY) false", (isFusion(pidgey_id) rescue true) == false)
+  t.assert("isFusion(:B16H19) true",  isFusion(fusion_id) == true)
+  t.assert("isFusion(:PIDGEY) false", isFusion(pidgey_id) == false)
   t.assert_eq("keep_body=true selects BODY (16)", 16, getBasePokemonID(fusion_id, true))
   t.assert_eq("keep_body=false selects HEAD (19)", 19, getBasePokemonID(fusion_id, false))
   t.assert_eq("non-fusion resolves to self", pidgey_id, getBasePokemonID(pidgey_id, true))
@@ -477,9 +478,9 @@ NuzlockeTestHarness.suite("Battle perma-death: real party rebuild") do |t|
 
   t.assert("healthy Pikachu survived", party.any? { |m| m && m.species == :PIKACHU })
   t.assert("fainted UNFUSED Rattata permanently removed",
-           party.none? { |m| m && m.species == :RATTATA && !(isFusion(m.species_data.id_number) rescue false) })
+           party.none? { |m| m && m.species == :RATTATA && !isFusion(m.species_data.id_number) })
   t.assert("fainted FUSION removed from party",
-           party.none? { |m| m && (isFusion(m.species_data.id_number) rescue false) })
+           party.none? { |m| m && isFusion(m.species_data.id_number) })
   surviving_half = party.find { |m| m && m.species_data.id_number == 16 }
   t.assert("surviving BODY half (species 16) returned unfused", !surviving_half.nil?)
   t.assert_eq("final party size = healthy + surviving half", 2, party.compact.length)
