@@ -29,7 +29,14 @@
 #-------------------------------------------------------------------------------
 # Lightweight test doubles (only ever used by the harness).
 #-------------------------------------------------------------------------------
-NuzlockeTestBag = Struct.new(:pockets) unless defined?(NuzlockeTestBag)
+# Bag double: exposes pockets for player_has_balls? and records pbStoreItem calls
+# so we can assert held items are returned to the bag on perma-death.
+class NuzlockeTestBag
+  attr_accessor :pockets, :stored_items
+  def initialize(pockets = []); @pockets = pockets; @stored_items = []; end
+  def pbStoreItem(item, _qty = 1); @stored_items << item; true; end
+end
+
 # need_refresh accessor so pbSet ($game_map.need_refresh = true) works on the double.
 NuzlockeTestMap = Struct.new(:name, :map_id) do
   attr_accessor :need_refresh
@@ -192,9 +199,10 @@ module NuzlockeTestHarness
 
   # Build a real Pokemon. fainted:true sets HP to 0 via the ivar (so fainted?
   # returns true) without needing a setter.
-  def make_pokemon(species, level = 10, fainted: false)
+  def make_pokemon(species, level = 10, fainted: false, held: nil)
     pk = Pokemon.new(species, level, nil)
     pk.instance_variable_set(:@hp, 0) if fainted
+    pk.item = held if held
     pk
   end
 
@@ -210,6 +218,7 @@ module NuzlockeTestHarness
   def fake_battle(caught = [], can_lose = false); NuzlockeTestBattle.new(caught, can_lose); end
   def nick_prompted?; $nuzlocke_test_nick_prompted == true; end
   def shuffles; $nuzlocke_test_shuffles || []; end
+  def bag_stored_items; ($PokemonBag && $PokemonBag.respond_to?(:stored_items)) ? $PokemonBag.stored_items : []; end
 
   #-- assertions / logging ---------------------------------------------------
   def assert(name, cond)
