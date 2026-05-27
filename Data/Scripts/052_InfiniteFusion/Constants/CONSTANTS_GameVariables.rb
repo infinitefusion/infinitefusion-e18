@@ -131,6 +131,11 @@ VAR_REGI_PUZZLE_SWITCH_PRESSED = 1122
 # Nuzlocke fused perma-death mode. Values: 0=Off, 1=Head only, 2=Body only, 3=Both
 VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE = 1200
 
+# Nuzlocke catch rule. Values: 0=Off, 1=First encounter only (canonical), 2=One per area.
+# Default 0 here; initializeNuzlockeMode sets it to 1. Falls back to the legacy
+# SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA boolean (=> mode 2) when unset, for old saves.
+VAR_NUZLOCKE_CATCH_RULE_MODE = 1220
+
 VAR_HOENN_STARTER = 1002
 VAR_HOENN_CHOSEN_STARTER_INDEX = 1003
 VAR_ORICORIO_TO_FIND=1021

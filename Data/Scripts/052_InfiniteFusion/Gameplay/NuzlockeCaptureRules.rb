@@ -29,7 +29,8 @@
 # Registry of areas where a catch has already been used up, stored on the save.
 #===============================================================================
 class PokemonGlobalMetadata
-  attr_accessor :nuzlocke_caught_areas
+  attr_accessor :nuzlocke_caught_areas          # areas where a catch was SUCCESSFUL
+  attr_accessor :nuzlocke_first_encounter_areas # areas whose first encounter has occurred (caught or not)
 end
 
 module NuzlockeCaptureRules
@@ -41,9 +42,64 @@ module NuzlockeCaptureRules
     return $game_switches[SWITCH_NUZLOCKE_MODE]
   end
 
+  # Catch-rule modes.
+  CATCH_RULE_OFF             = 0
+  CATCH_RULE_FIRST_ENCOUNTER = 1   # canonical: only the first wild seen per area is catchable
+  CATCH_RULE_ONE_PER_AREA    = 2   # lenient: any one catch per area
+
+  # Resolve the active catch-rule mode. Prefers the 3-state VAR; falls back to the
+  # legacy SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA boolean (=> One-per-area) so existing
+  # saves and the existing test suites keep working unchanged.
+  def catch_rule_mode
+    return CATCH_RULE_OFF if !nuzlocke_active?
+    m = (pbGet(VAR_NUZLOCKE_CATCH_RULE_MODE) rescue 0) || 0
+    return m if m.is_a?(Integer) && m > 0
+    return CATCH_RULE_ONE_PER_AREA if $game_switches[SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA]
+    return CATCH_RULE_OFF
+  end
+
+  # True when any catch restriction is active (either mode). Drives the catch
+  # interception in triggerCanUseInBattle and the record-on-success in pbThrowPokeBall.
   def one_catch_per_area_active?
-    return false if !nuzlocke_active?
-    return $game_switches[SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA]
+    return catch_rule_mode != CATCH_RULE_OFF
+  end
+
+  #-----------------------------------------------------------------------------
+  # First-encounter-only support.
+  #-----------------------------------------------------------------------------
+  # Areas whose first encounter has already occurred (whether or not it was caught).
+  # Persistent on the save; lazily initialised. nil $PokemonGlobal => [].
+  def first_encounter_areas
+    return [] if !$PokemonGlobal
+    $PokemonGlobal.nuzlocke_first_encounter_areas ||= []
+    return $PokemonGlobal.nuzlocke_first_encounter_areas
+  end
+
+  # Transient (per-battle) flag: is the CURRENT wild battle this area's designated
+  # first encounter (and therefore the one battle in which a catch is allowed)?
+  def current_is_first_encounter?
+    return $nuzlocke_current_is_first_encounter == true
+  end
+
+  # Called at wild-encounter start (EncounterModifier). In first-encounter mode,
+  # if the player has balls and this area's first encounter hasn't happened yet,
+  # record it now and flag THIS battle as the catchable first encounter. The
+  # balls-first caveat means pre-ball encounters never "use up" the first slot.
+  def note_wild_encounter_start
+    $nuzlocke_current_is_first_encounter = false
+    return if catch_rule_mode != CATCH_RULE_FIRST_ENCOUNTER
+    return if !player_has_balls?
+    area = current_area_key
+    return if area.nil?
+    if !first_encounter_areas.include?(area)
+      first_encounter_areas.push(area)
+      $nuzlocke_current_is_first_encounter = true
+    end
+  end
+
+  # Clear the transient flag when the wild battle ends.
+  def clear_wild_encounter_flag
+    $nuzlocke_current_is_first_encounter = false
   end
 
   def force_nicknames_active?
@@ -134,9 +190,17 @@ module NuzlockeCaptureRules
   # Only blocks when: nuzlocke + one-catch on, the player actually has balls
   # (no reason to block an impossible throw), and the area is already used.
   def should_block_catch?
-    return false if !one_catch_per_area_active?
-    return false if !player_has_balls?
-    return current_area_used?
+    mode = catch_rule_mode
+    return false if mode == CATCH_RULE_OFF
+    return false if !player_has_balls?      # balls-first: never block an impossible throw
+    case mode
+    when CATCH_RULE_ONE_PER_AREA
+      return current_area_used?             # blocked once any catch has been made here
+    when CATCH_RULE_FIRST_ENCOUNTER
+      return true if current_area_used?     # already caught your one mon here
+      return !current_is_first_encounter?   # only the designated first encounter is catchable
+    end
+    return false
   end
 end
 
@@ -287,4 +351,24 @@ class Object
       return nuzlocke_orig_pbNickname(pkmn)
     end
   end
+end
+
+#===============================================================================
+# First-encounter recording hooks.
+#   - EncounterModifier fires as a wild encounter is generated: mark the area's
+#     first encounter (first-encounter mode only) and flag this battle catchable.
+#   - onWildBattleEnd clears the transient per-battle flag.
+# Both are defined in 012_Overworld (loaded before this file), so they exist here.
+#===============================================================================
+if defined?(EncounterModifier)
+  EncounterModifier.register(proc { |encounter|
+    NuzlockeCaptureRules.note_wild_encounter_start if NuzlockeCaptureRules.nuzlocke_active?
+    encounter
+  })
+end
+
+if defined?(Events) && Events.respond_to?(:onWildBattleEnd)
+  Events.onWildBattleEnd += proc { |_sender, _e|
+    NuzlockeCaptureRules.clear_wild_encounter_flag
+  }
 end

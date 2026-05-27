@@ -8,7 +8,9 @@ def initializeNuzlockeMode()
 
   # Default the gameplay toggles to the canonical Nuzlocke rules.
   # Players can opt out of any of these via the Nuzlocke settings menu.
-  $game_switches[SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA] = true
+  $game_switches[SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA] = true   # legacy flag (kept for back-compat)
+  # Canonical catch rule = First encounter only. (0=Off, 1=First encounter, 2=One per area)
+  pbSet(VAR_NUZLOCKE_CATCH_RULE_MODE, 1)
   $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED] = true
   $game_switches[SWITCH_NUZLOCKE_FORCE_NICKNAMES] = true
 

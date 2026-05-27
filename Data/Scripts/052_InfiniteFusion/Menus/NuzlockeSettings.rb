@@ -35,12 +35,18 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      "Configure randomization for your Nuzlocke run. When On, opens the Randomizer settings."
       ),
 
-      EnumOption.new(_INTL("One catch per area"), [_INTL("On"), _INTL("Off")],
-                     proc { $game_switches[SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA] ? 0 : 1 },
+      EnumOption.new(_INTL("Catch rule"),
+                     [_INTL("Off"), _INTL("First encounter"), _INTL("One per area")],
+                     proc { pbGet(VAR_NUZLOCKE_CATCH_RULE_MODE) || 0 },
                      proc { |value|
-                       $game_switches[SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA] = (value == 0)
+                       pbSet(VAR_NUZLOCKE_CATCH_RULE_MODE, value)
+                       # Keep the legacy boolean consistent so catch_rule_mode's
+                       # fallback agrees with an explicit "Off" choice.
+                       $game_switches[SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA] = (value != 0)
                      },
-                     "Only your first encounter in each route or area can be caught."
+                     [_INTL("No catch restriction - catch as many as you like."),
+                      _INTL("Only the FIRST wild Pokémon you encounter in each area can be caught (canonical)."),
+                      _INTL("Any single Pokémon may be caught per area; fleeing/KO doesn't forfeit it (lenient).")]
       ),
 
       EnumOption.new(_INTL("Perma-death (unfused)"), [_INTL("On"), _INTL("Off")],
