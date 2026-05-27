@@ -85,9 +85,77 @@ module NuzlockeCaptureRules
   # if the player has balls and this area's first encounter hasn't happened yet,
   # record it now and flag THIS battle as the catchable first encounter. The
   # balls-first caveat means pre-ball encounters never "use up" the first slot.
-  def note_wild_encounter_start
+  #-----------------------------------------------------------------------------
+  # Dupes Clause.
+  #-----------------------------------------------------------------------------
+  def dupes_clause_active?
+    return false if !nuzlocke_active?
+    return $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE]
+  end
+
+  # Decompose a Pokemon into the base species id(s) it represents for ownership:
+  # a fusion counts as BOTH its head and body species; a normal mon as itself.
+  def owned_species_of(pkmn)
+    return [] if !pkmn
+    id = (pkmn.species_data.id_number rescue nil)
+    return [] if !id
+    if (isFusion(id) rescue false)
+      body = (getBasePokemonID(id, true) rescue nil)
+      head = (getBasePokemonID(id, false) rescue nil)
+      return [body, head].select { |s| s.is_a?(Integer) && s > 0 }
+    end
+    return [id]
+  end
+
+  # The set (hash) of base species ids the player owns, scanning party + storage
+  # and decomposing every fusion into its halves ("owned in any capacity").
+  def owned_species_set
+    owned = {}
+    if $Trainer && $Trainer.party
+      $Trainer.party.each { |pk| owned_species_of(pk).each { |s| owned[s] = true } }
+    end
+    if $PokemonStorage && $PokemonStorage.respond_to?(:boxes)
+      ($PokemonStorage.boxes rescue []).each do |box|
+        next if !box
+        (box.pokemon rescue []).each { |pk| owned_species_of(pk).each { |s| owned[s] = true } }
+      end
+    end
+    return owned
+  end
+
+  # True if a wild encounter is a "dupe" the clause lets you skip:
+  #   - non-fusion: you already own that species.
+  #   - fusion: you own BOTH halves (if either half is new, it's catchable).
+  def wild_is_dupe?(species)
+    return false if species.nil?
+    id = (GameData::Species.get(species).id_number rescue nil)
+    return false if !id
+    owned = owned_species_set
+    if (isFusion(id) rescue false)
+      body = (getBasePokemonID(id, true) rescue nil)
+      head = (getBasePokemonID(id, false) rescue nil)
+      return false if !body || !head
+      return owned[body] && owned[head] ? true : false   # dupe only if BOTH owned
+    end
+    return owned[id] ? true : false
+  end
+
+  # Pull the species out of an EncounterModifier encounter ([species, level]).
+  def encounter_species(encounter)
+    return encounter[0] if encounter.is_a?(Array)
+    return encounter
+  end
+
+  def note_wild_encounter_start(encounter = nil)
     return if catch_rule_mode != CATCH_RULE_FIRST_ENCOUNTER
     return if !player_has_balls?
+    # Dupes Clause: a dupe wild does NOT count as the area's first encounter -- it
+    # is skipped (and stays uncatchable, since it's never flagged), leaving the
+    # area open so the next non-dupe wild becomes the real first encounter. A
+    # fusion with at least one NEW half is not a dupe, so it remains catchable.
+    if dupes_clause_active? && encounter && wild_is_dupe?(encounter_species(encounter))
+      return
+    end
     area = current_area_key
     return if area.nil?
     # Only flag the battle catchable when this call FRESHLY records the area's
@@ -371,7 +439,7 @@ end
 # unless first-encounter mode is active, so the proc is safe to register always.
 module NuzlockeCaptureRules
   ENCOUNTER_START_PROC = proc { |encounter|
-    NuzlockeCaptureRules.note_wild_encounter_start
+    NuzlockeCaptureRules.note_wild_encounter_start(encounter)
     encounter
   }
   WILD_BATTLE_END_PROC = proc { |_sender, _e|

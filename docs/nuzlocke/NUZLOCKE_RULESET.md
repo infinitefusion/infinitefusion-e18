@@ -72,13 +72,18 @@ toggle.
   is owned; some only the head.
 - **Documented strategy:** catch a fusion that contains a dupe half, unfuse, release
   the dupe half, keep the valid one.
-- ✅ DECIDED — a wild Pokémon is a **dupe if you already own EITHER of its component
-  species, in ANY capacity** (owned as a standalone mon OR as a head/body of any
-  fusion you currently have). For a wild **fusion**, check BOTH its head and body
-  species against everything you own; for a wild **non-fusion**, check its single
-  species. If either component is owned anywhere, it's a dupe and may be skipped /
-  rerolled. (Ownership scan must walk party + storage and decompose every fusion
-  into its head+body species.)
+- ✅ DECIDED (refined 2026-05-27) — a wild is a skippable **dupe** only when it
+  brings NO new species:
+  - **Non-fusion:** dupe if you already own that species.
+  - **Fusion:** dupe only if you own **BOTH** halves. If **either** half is a
+    species you don't own, the fusion is **catchable** (it brings new genetics) —
+    "you can catch a fusion if one of them isn't the dupe."
+  Ownership is "in ANY capacity": the scan walks party + storage and decomposes
+  every owned fusion into its head+body species. A dupe does **not** count as the
+  area's first encounter — it's skipped and the next non-dupe wild becomes the
+  real first encounter ("reroll on your next encounter"). Implemented in
+  `NuzlockeCaptureRules` (wild_is_dupe? / owned_species_set), gated on
+  `SWITCH_NUZLOCKE_DUPES_CLAUSE`, default On, tied to first-encounter mode.
 
 ### 4.2 Does unfusing dodge perma-death?
 - **Community consensus:** NO. If a **fused** Pokémon faints, **both** components are
@@ -130,9 +135,11 @@ toggle.
 1. **#26 Catch rule:** 3-way `Off / First encounter only / One per area`, **default
    First encounter only**, switchable. ✅
 2. **Fusion as encounter:** Option B — the wild fusion IS your encounter. ✅
-3. **Dupes + fusion:** dupe if you own **either** component species in **any
-   capacity** (standalone or as a fusion half); for a wild fusion check both
-   head+body. ✅
+3. **Dupes + fusion (refined 2026-05-27):** a fusion is a dupe only if you own
+   **BOTH** halves; if **either** half is new the fusion is catchable. Non-fusion
+   dupe if owned. Dupes are skipped (don't count as the first encounter).
+   Ownership scanned in any capacity (standalone or fusion half). ✅ Implemented +
+   tested (SWITCH_NUZLOCKE_DUPES_CLAUSE, default On). 
 4. **Shiny Clause:** add it, **default On**; shinies don't spend/forfeit the area. ✅
 
 **Defaulted (will proceed unless you say otherwise):**

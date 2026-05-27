@@ -67,6 +67,14 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                       _INTL("A fused Pokémon dies regardless of which half faints (canonical).")]
       ),
 
+      EnumOption.new(_INTL("Dupes Clause"), [_INTL("On"), _INTL("Off")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE] ? 0 : 1 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE] = (value == 0)
+                     },
+                     "Skip duplicate first encounters. A fusion is still catchable if either half is a species you don't own yet."
+      ),
+
       EnumOption.new(_INTL("Force nicknames"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[SWITCH_NUZLOCKE_FORCE_NICKNAMES] ? 0 : 1 },
                      proc { |value|

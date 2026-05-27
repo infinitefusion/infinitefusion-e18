@@ -13,6 +13,9 @@ def initializeNuzlockeMode()
   pbSet(VAR_NUZLOCKE_CATCH_RULE_MODE, 1)
   $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED] = true
   $game_switches[SWITCH_NUZLOCKE_FORCE_NICKNAMES] = true
+  # Dupes Clause on by default: skip duplicate encounters (a fusion still counts
+  # as catchable if either half is a new species).
+  $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE] = true
 
   # Fused perma-death defaults to "Both" (the most punishing canonical option).
   pbSet(VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE, 3)
