@@ -365,15 +365,21 @@ end
 #   - onWildBattleEnd clears the transient per-battle flag.
 # Both are defined in 012_Overworld (loaded before this file), so they exist here.
 #===============================================================================
-if defined?(EncounterModifier)
-  EncounterModifier.register(proc { |encounter|
-    NuzlockeCaptureRules.note_wild_encounter_start if NuzlockeCaptureRules.nuzlocke_active?
+# Stored as constants so tests can invoke the EXACT proc objects the engine holds
+# and assert their persistent outcome -- without depending on other mods' procs in
+# the shared EncounterModifier chain. note_wild_encounter_start is itself a no-op
+# unless first-encounter mode is active, so the proc is safe to register always.
+module NuzlockeCaptureRules
+  ENCOUNTER_START_PROC = proc { |encounter|
+    NuzlockeCaptureRules.note_wild_encounter_start
     encounter
-  })
-end
-
-if defined?(Events) && Events.respond_to?(:onWildBattleEnd)
-  Events.onWildBattleEnd += proc { |_sender, _e|
+  }
+  WILD_BATTLE_END_PROC = proc { |_sender, _e|
     NuzlockeCaptureRules.clear_wild_encounter_flag
   }
+end
+
+EncounterModifier.register(NuzlockeCaptureRules::ENCOUNTER_START_PROC) if defined?(EncounterModifier)
+if defined?(Events) && Events.respond_to?(:onWildBattleEnd)
+  Events.onWildBattleEnd += NuzlockeCaptureRules::WILD_BATTLE_END_PROC
 end

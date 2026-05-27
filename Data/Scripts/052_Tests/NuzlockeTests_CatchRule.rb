@@ -104,4 +104,48 @@ NuzlockeTestHarness.suite("First-encounter: balls-first -- pre-ball wilds don't 
   t.refute("and it is catchable", m.should_block_catch?)
 end
 
+#-- SEAM tests: invoke the EXACT proc objects we registered with EncounterModifier
+#   / Events.onWildBattleEnd, and assert their persistent outcome. (We call the
+#   stored proc rather than EncounterModifier.trigger so a foreign mod's proc in
+#   the shared chain -- which wants real roamer state at boot -- can't pollute the
+#   result. The proc here is the same object the engine invokes at runtime.)
+NuzlockeTestHarness.suite("SEAM: registered EncounterModifier proc records the first encounter") do |t|
+  m = NuzlockeCaptureRules
+  t.give_ball
+  t.set_switch(SWITCH_NUZLOCKE_MODE, true)
+  t.set_var(VAR_NUZLOCKE_CATCH_RULE_MODE, 1)
+  t.set_area("Route 7", 70)
+  t.assert("precondition: area not yet recorded", m.first_encounter_areas.empty?)
+  ret = m::ENCOUNTER_START_PROC.call([:RATTATA, 5])
+  t.assert("area recorded via the registered proc", m.first_encounter_areas.include?("Route 7"))
+  t.assert("battle flagged catchable via the registered proc", m.current_is_first_encounter?)
+  t.assert_eq("proc returns the encounter unchanged (chain-safe)", [:RATTATA, 5], ret)
+end
+
+NuzlockeTestHarness.suite("SEAM: registered onWildBattleEnd proc clears the transient flag") do |t|
+  m = NuzlockeCaptureRules
+  t.give_ball
+  t.set_switch(SWITCH_NUZLOCKE_MODE, true)
+  t.set_var(VAR_NUZLOCKE_CATCH_RULE_MODE, 1)
+  t.set_area("Route 8", 80)
+  m::ENCOUNTER_START_PROC.call([:PIDGEY, 6])
+  t.assert("flag set by the encounter proc", m.current_is_first_encounter?)
+  m::WILD_BATTLE_END_PROC.call(nil, [:PIDGEY, 6, 1])
+  t.refute("flag cleared by the battle-end proc", m.current_is_first_encounter?)
+end
+
+NuzlockeTestHarness.suite("SEAM: full first-encounter lifecycle through the registered procs") do |t|
+  m = NuzlockeCaptureRules
+  t.give_ball
+  t.set_switch(SWITCH_NUZLOCKE_MODE, true)
+  t.set_var(VAR_NUZLOCKE_CATCH_RULE_MODE, 1)
+  t.set_area("Route 9", 90)
+  m::ENCOUNTER_START_PROC.call([:RATTATA, 5])      # first wild appears
+  t.refute("first wild is catchable", m.should_block_catch?)
+  m::WILD_BATTLE_END_PROC.call(nil, [:RATTATA, 5, 2])  # fled/KO, no catch
+  m::ENCOUNTER_START_PROC.call([:RATTATA, 6])      # next wild, same area
+  t.assert("area FORFEITED after the uncaught first encounter (via procs)",
+           m.should_block_catch? == true)
+end
+
 end # defined?(NuzlockeTestHarness)
