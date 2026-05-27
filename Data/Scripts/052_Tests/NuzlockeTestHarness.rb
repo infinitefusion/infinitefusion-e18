@@ -185,6 +185,7 @@ module NuzlockeTestHarness
     $nuzlocke_test_startover = false
     $nuzlocke_test_nick_prompted = false
     $nuzlocke_test_shuffles = []
+    $nuzlocke_current_is_first_encounter = false
   end
 
   #-- helpers exposed to suites ----------------------------------------------
