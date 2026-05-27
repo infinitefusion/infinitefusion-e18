@@ -53,4 +53,21 @@ NuzlockeTestHarness.suite("Egg survives a full party wipe (eggs never perma-die)
   t.log("post-wipe party: #{party.compact.map { |m| m.egg? ? '<egg>' : m.species }.inspect}")
 end
 
+NuzlockeTestHarness.suite("Shiny survivor: a shiny fusion's surviving half stays shiny") do |t|
+  f = t.make_pokemon(:B16H19, 20)
+  f.shiny = true
+  t.assert("precondition: fusion is shiny", f.shiny? == true)
+  s = NuzlockeBattleRules.build_survivor(f, true)   # keep BODY (Pidgey, 16)
+  t.assert("survivor built", !s.nil?)
+  t.assert("surviving half is shiny", s && s.shiny? == true)
+end
+
+NuzlockeTestHarness.suite("Shiny survivor: a NON-shiny fusion's half is not shiny") do |t|
+  f = t.make_pokemon(:B16H19, 20)
+  f.shiny = false
+  s = NuzlockeBattleRules.build_survivor(f, true)
+  t.assert("survivor built", !s.nil?)
+  t.refute("surviving half is not forced shiny", s && s.shiny?)
+end
+
 end # defined?(NuzlockeTestHarness)

@@ -61,6 +61,11 @@ module NuzlockeBattleRules
     # (matching the vanilla unfuse behaviour).
     survivor.item = fused.item_id if (fused.item_id rescue nil)
 
+    # Shininess carries over deterministically (user ruling: a shiny's surviving
+    # half stays shiny). We mirror the fusion's exact shiny state -- unlike the
+    # probabilistic pbUnfuse split, a shiny half can never be lost to a coin flip.
+    (survivor.shiny = fused.shiny?) rescue nil
+
     survivor.obtain_method = 0
     return survivor
   rescue => e
