@@ -63,14 +63,19 @@ module NuzlockeBattleRules
     return nil
   end
 
-  # Give a Pokemon to the player: into the party if there's room, else the PC.
-  def give_survivor(survivor)
+  # Add a surviving half to the rebuilt-party list and register it in the Pokedex.
+  #
+  # We push into +survivors+ (the list process_party_after_battle commits at the
+  # end) rather than appending to $Trainer.party directly. The old version
+  # appended to $Trainer.party mid-iteration and only "worked" because Ruby's
+  # Array#each re-visited the appended element; it also evaluated party_full?
+  # against the not-yet-cleaned party, so a full party wrongly boxed the survivor
+  # even though the dead fusion had just freed a slot. survivors can never exceed
+  # 6 (each survivor replaces exactly one dead party slot), so no PC overflow is
+  # possible and none is needed.
+  def register_survivor(survivor, survivors)
     return if !survivor
-    if $Trainer && !$Trainer.party_full?
-      $Trainer.party[$Trainer.party.length] = survivor
-    else
-      $PokemonStorage.pbStoreCaught(survivor) if $PokemonStorage
-    end
+    survivors.push(survivor)
     if $Trainer && $Trainer.pokedex
       $Trainer.pokedex.set_seen(survivor.species)
       $Trainer.pokedex.set_owned(survivor.species)
@@ -124,7 +129,7 @@ module NuzlockeBattleRules
       when 1   # Head dies, keep body
         survivor = build_survivor(mon, true)
         if survivor
-          give_survivor(survivor)
+          register_survivor(survivor, survivors)
           messages.push(_INTL("{1} can never battle again, but {2} survived...", mon.name, survivor.name))
         else
           survivors.push(mon)   # fail-safe: don't destroy on error
@@ -132,7 +137,7 @@ module NuzlockeBattleRules
       when 2   # Body dies, keep head
         survivor = build_survivor(mon, false)
         if survivor
-          give_survivor(survivor)
+          register_survivor(survivor, survivors)
           messages.push(_INTL("{1} can never battle again, but {2} survived...", mon.name, survivor.name))
         else
           survivors.push(mon)
