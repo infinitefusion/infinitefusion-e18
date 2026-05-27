@@ -748,6 +748,7 @@
 702,SPRAYCAN,Spray Can,Spray Can,8,0,"A can of colored spray paint that can be used to paint on walls.",2,0,6,
 703,SPAWNER,Spawner, Spawners,8,0,"Debug tool for spawning Pokémon.",2,0,6,
 704,PRESENT,Present,Presents,1,50,"A small gift box that contains coins.",2,0,0,
+705,UNKNOWN,Thing,Things,1,50,"Some kind of object. You're not too sure what it is...",0,0,0,
 
 
 
