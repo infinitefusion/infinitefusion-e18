@@ -36,36 +36,43 @@ module NuzlockeBattleRules
   # EVs/nickname). +keep_body+ true => keep the body species, false => head.
   # Returns a new Pokemon, or nil if the survivor species can't be resolved.
   def build_survivor(fused, keep_body)
-    id_number = fused.species_data.id_number
-    survivor_species = getBasePokemonID(id_number, keep_body)
+    survivor_species = getBasePokemonID(fused.species_data.id_number, keep_body)
     return nil if !survivor_species || survivor_species <= 0
 
-    # Mirror pbUnfuse: prefer preserved fused-EXP if present, else use level.
-    survivor = Pokemon.new(survivor_species, fused.level)
-    if fused.exp_when_fused_head != nil && fused.exp_when_fused_body != nil
-      preserved = (keep_body ? fused.exp_when_fused_body : fused.exp_when_fused_head)
-      gained    = fused.exp_gained_since_fused || 0
-      survivor.exp = preserved + gained
+    # Same individual, re-based onto the half's species. Pokemon#clone deep-copies
+    # the individual (IVs/EVs/nature/gender/ability slot/shininess/happiness/held
+    # item/nickname/owner); species= recalcs stats and re-derives the ability from
+    # the preserved ability_index. This is the user ruling -- "literally the same
+    # mon" -- so we copy everything by construction rather than a hand-listed set.
+    survivor = fused.clone
+    survivor.species = survivor_species
+
+    # EXP: restore the kept half's stored exp the way pbUnfuse does; else the level.
+    if !fused.exp_when_fused_head.nil? && !fused.exp_when_fused_body.nil?
+      preserved = keep_body ? fused.exp_when_fused_body : fused.exp_when_fused_head
+      survivor.exp = preserved + (fused.exp_gained_since_fused || 0)
+    else
+      survivor.level = fused.level
     end
 
-    # Copy over IVs / EVs (hashes - dup so we don't share references).
-    survivor.iv = fused.iv.dup       if fused.iv
-    survivor.ev = fused.ev.dup       if fused.ev
-    survivor.ivMaxed = fused.ivMaxed.dup if fused.ivMaxed
+    # Keep the half's ORIGINAL ability slot if the fusion recorded it (as pbUnfuse
+    # does); otherwise the clone already carried the fusion's ability index.
+    if keep_body && fused.respond_to?(:body_original_ability_index) && fused.body_original_ability_index
+      survivor.ability_index = fused.body_original_ability_index
+    elsif !keep_body && fused.respond_to?(:head_original_ability_index) && fused.head_original_ability_index
+      survivor.ability_index = fused.head_original_ability_index
+    end
 
-    # Preserve the nickname only if the trainer actually nicknamed the fusion.
-    survivor.name = fused.name if fused.nicknamed?
+    # Shininess kept deterministically (a shiny's surviving half stays shiny).
+    survivor.shiny = fused.shiny?
 
-    # The surviving half carries the fusion's held item forward (it is the same
-    # Pokemon continuing on, just unfused). Moves are intentionally NOT preserved
-    # (matching the vanilla unfuse behaviour).
-    survivor.item = fused.item_id if (fused.item_id rescue nil)
+    # Clear vestigial fusion bookkeeping now that this is a standalone Pokemon.
+    survivor.exp_when_fused_head = nil    if survivor.respond_to?(:exp_when_fused_head=)
+    survivor.exp_when_fused_body = nil    if survivor.respond_to?(:exp_when_fused_body=)
+    survivor.exp_gained_since_fused = nil if survivor.respond_to?(:exp_gained_since_fused=)
 
-    # Shininess carries over deterministically (user ruling: a shiny's surviving
-    # half stays shiny). We mirror the fusion's exact shiny state -- unlike the
-    # probabilistic pbUnfuse split, a shiny half can never be lost to a coin flip.
-    (survivor.shiny = fused.shiny?) rescue nil
-
+    survivor.reset_moves   # moves reset to the half's natural set (lost, as in unfuse)
+    survivor.heal          # the survivor returns ready to battle
     survivor.obtain_method = 0
     return survivor
   rescue => e

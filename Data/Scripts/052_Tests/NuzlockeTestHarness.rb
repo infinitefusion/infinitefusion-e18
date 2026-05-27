@@ -321,13 +321,20 @@ module NuzlockeTestHarness
     section("build_survivor on a real fusion")
     fusion = ($Trainer.party.compact.find { |p| isFusion(p.species_data.id_number) } rescue nil)
     if fusion
-      log_line("real fusion: #{fusion.species} lv#{fusion.level} shiny=#{fusion.shiny?} item=#{fusion.item_id.inspect}")
+      log_line("real fusion: #{fusion.species} lv#{fusion.level} nature=#{(fusion.nature.id rescue fusion.nature) rescue '?'} gender=#{fusion.gender} ability_idx=#{fusion.ability_index} shiny=#{fusion.shiny?} item=#{fusion.item_id.inspect}")
       s = NuzlockeBattleRules.build_survivor(fusion, true)
       if s
-        log_line("survivor: #{s.species} lv#{s.level} shiny=#{s.shiny?} item=#{s.item_id.inspect}")
-        assert("survivor level == fusion level", s.level == fusion.level)
+        log_line("survivor:    #{s.species} lv#{s.level} nature=#{(s.nature.id rescue s.nature) rescue '?'} gender=#{s.gender} ability_idx=#{s.ability_index} shiny=#{s.shiny?} item=#{s.item_id.inspect}")
+        # Unambiguously-preserved individual data ("the same mon"):
         assert("survivor IVs == fusion IVs", s.iv == fusion.iv)
+        assert("survivor EVs == fusion EVs", s.ev == fusion.ev)
+        assert("survivor nature == fusion nature", s.nature == fusion.nature)
         assert("survivor shiny matches fusion", s.shiny? == fusion.shiny?)
+        assert("survivor item matches fusion", s.item_id == fusion.item_id)
+        assert("survivor nicknamed-state matches", s.nicknamed? == fusion.nicknamed?)
+        assert("survivor level == fusion level", s.level == fusion.level)
+        # Species-dependent -- log only (a genderless/ability-locked half legitimately differs):
+        log_line("  (gender/ability are species-dependent: expected to differ for gender-locked halves)")
       else
         assert("build_survivor produced a survivor", false)
       end
