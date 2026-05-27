@@ -81,6 +81,13 @@ end
 module NuzlockeTestHarness
   FLAG_PATH = "nuzlocke_run_tests.flag"
   LOG_PATH  = "nuzlocke_test_results.log"
+  # Real-save verification: flag file contains a save slot name (e.g. "File B").
+  # Loads that REAL save's values into the live globals and runs the actual
+  # functions against the real $Trainer/bag/$PokemonGlobal/$PokemonStorage --
+  # NOT mocks. Read-only + in-memory only; never calls Game.save, so the save
+  # file on disk is never modified, and exit! follows immediately.
+  REALSAVE_FLAG = "nuzlocke_realsave_check.flag"
+  REALSAVE_LOG  = "nuzlocke_realsave_results.log"
 
   @suites = []
   def self.suites; @suites; end
@@ -90,6 +97,17 @@ module NuzlockeTestHarness
 
   #-- entry point (hooked from Game.set_up_system) ---------------------------
   def run_if_flagged
+    if File.file?(REALSAVE_FLAG)
+      slot = (File.read(REALSAVE_FLAG).strip rescue "")
+      File.delete(REALSAVE_FLAG) rescue nil
+      @log_path = REALSAVE_LOG
+      begin
+        run_realsave_check(slot)
+      rescue => e
+        write_crash(e)
+      end
+      exit!(0)
+    end
     return unless File.file?(FLAG_PATH)
     File.delete(FLAG_PATH) rescue nil   # one-shot
     begin
@@ -241,9 +259,111 @@ module NuzlockeTestHarness
   def section(t); log_line(""); log_line("-- #{t} --"); end
 
   def flush_log
-    File.open(LOG_PATH, "w") { |f| f.write((@log || []).join("\n") + "\n") }
+    File.open(@log_path || LOG_PATH, "w") { |f| f.write((@log || []).join("\n") + "\n") }
   rescue => e
     echoln("[NuzlockeTestHarness] log write failed: #{e.message}") if defined?(echoln)
+  end
+
+  # Count Poke Balls in the REAL bag independently of player_has_balls?, so we can
+  # cross-check that helper against ground truth.
+  def real_ball_count
+    n = 0
+    pockets = ($PokemonBag.pockets rescue nil)
+    return 0 if !pockets
+    pockets.each do |pocket|
+      next if !pocket
+      pocket.each do |entry|
+        next if !entry
+        item = (GameData::Item.get(entry[0]) rescue nil)
+        n += 1 if item && (item.is_poke_ball? rescue false)
+      end
+    end
+    n
+  end
+
+  # Load a REAL save's values into the live globals and run the actual code paths
+  # against them. Read-only + in-memory; never persists (no Game.save), exit! after.
+  def run_realsave_check(slot)
+    @log = []; @pass = 0; @fail = 0
+    log_line("=== Nuzlocke REAL-SAVE Check ===")
+    log_line("time: #{Time.now}")
+    log_line("slot: #{slot.inspect}")
+    stub_ui   # capture pbMessage/pbStartOver so nothing tries to render
+
+    path = File.join(SaveData::SAVE_DIR, "#{slot}.rxdata")
+    unless File.file?(path)
+      log_line("!! SAVE NOT FOUND: #{path}")
+      flush_log; return
+    end
+    data = SaveData.read_from_file(path)
+    SaveData.load_all_values(data)   # loads $Trainer/bag/global/storage/switches/vars (no scene/map setup)
+    log_line("loaded real save: trainer=#{($Trainer.name rescue '?')} party=#{($Trainer.party.length rescue '?')} bag=#{($PokemonBag ? 'yes' : 'nil')}")
+
+    # 1. player_has_balls? vs an independent scan of the real bag.
+    section("player_has_balls? vs real bag")
+    balls = real_ball_count
+    log_line("independent Poke Ball count in real bag: #{balls}")
+    assert("player_has_balls? matches the real bag (#{balls > 0})",
+           (NuzlockeCaptureRules.player_has_balls? == (balls > 0)))
+
+    # 2. owned_species_set against the real party + storage.
+    section("owned_species_set on real party + storage")
+    owned = NuzlockeCaptureRules.owned_species_set
+    party_sp = ($Trainer.party.compact.map { |p| p.species } rescue [])
+    log_line("party species: #{party_sp.inspect}")
+    log_line("owned base-species count (party+storage, fusions decomposed): #{owned.keys.length}")
+    has_fusion = ($Trainer.party.compact.any? { |p| isFusion(p.species_data.id_number) } rescue false)
+    log_line("party contains a fusion: #{has_fusion}")
+    assert("ownership scan non-empty when party non-empty",
+           $Trainer.party.compact.empty? || !owned.empty?)
+
+    # 3. build_survivor fidelity on a REAL fusion, if the save has one.
+    section("build_survivor on a real fusion")
+    fusion = ($Trainer.party.compact.find { |p| isFusion(p.species_data.id_number) } rescue nil)
+    if fusion
+      log_line("real fusion: #{fusion.species} lv#{fusion.level} shiny=#{fusion.shiny?} item=#{fusion.item_id.inspect}")
+      s = NuzlockeBattleRules.build_survivor(fusion, true)
+      if s
+        log_line("survivor: #{s.species} lv#{s.level} shiny=#{s.shiny?} item=#{s.item_id.inspect}")
+        assert("survivor level == fusion level", s.level == fusion.level)
+        assert("survivor IVs == fusion IVs", s.iv == fusion.iv)
+        assert("survivor shiny matches fusion", s.shiny? == fusion.shiny?)
+      else
+        assert("build_survivor produced a survivor", false)
+      end
+    else
+      log_line("no fusion in this save's party; build_survivor real check skipped")
+    end
+
+    # 4. REAL perma-death on the real party (in-memory only; disk never written).
+    section("perma-death on the real party (in-memory)")
+    $game_switches[SWITCH_NUZLOCKE_MODE] = true
+    $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED] = true
+    ($PokemonBag.pbStoreItem(:POKEBALL) rescue nil)   # satisfy balls-first, in-memory
+    victim = ($Trainer.party.compact.find { |p| !(isFusion(p.species_data.id_number)) } rescue nil)
+    if victim
+      vsp = victim.species; vitem = victim.item_id
+      before = $Trainer.party.compact.length
+      log_line("victim (unfused): #{vsp} item=#{vitem.inspect}; party before=#{before}")
+      victim.instance_variable_set(:@hp, 0)            # faint in-memory
+      NuzlockeBattleRules.process_party_after_battle
+      after = $Trainer.party.compact.length
+      log_line("party after: #{$Trainer.party.compact.map { |p| p.species }.inspect} (size #{after})")
+      assert("real fainted unfused victim removed from real party", after == before - 1)
+      if vitem
+        assert("victim's held item returned to the REAL bag",
+               ($PokemonBag.pbHasItem?(vitem) rescue false) == true)
+      else
+        log_line("victim held no item; item-return assertion skipped")
+      end
+    else
+      log_line("no unfused party member to test perma-death; skipped")
+    end
+
+    log_line("")
+    log_line("=== REAL-SAVE SUMMARY: #{@pass} passed, #{@fail} failed ===")
+    log_line("(disk save was NOT written; this ran in memory only)")
+    flush_log
   end
 
   def write_crash(e)
