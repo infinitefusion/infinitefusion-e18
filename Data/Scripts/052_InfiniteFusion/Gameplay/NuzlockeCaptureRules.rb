@@ -86,11 +86,16 @@ module NuzlockeCaptureRules
   # record it now and flag THIS battle as the catchable first encounter. The
   # balls-first caveat means pre-ball encounters never "use up" the first slot.
   def note_wild_encounter_start
-    $nuzlocke_current_is_first_encounter = false
     return if catch_rule_mode != CATCH_RULE_FIRST_ENCOUNTER
     return if !player_has_balls?
     area = current_area_key
     return if area.nil?
+    # Only flag the battle catchable when this call FRESHLY records the area's
+    # first encounter. We deliberately do NOT reset the flag to false otherwise:
+    # EncounterModifier fires once PER wild in a battle, so a double battle's 2nd
+    # mon would otherwise clear the flag the 1st mon set. Between battles the flag
+    # is reset to false by clear_wild_encounter_flag (onWildBattleEnd), so a later
+    # battle in an already-encountered area stays non-catchable.
     if !first_encounter_areas.include?(area)
       first_encounter_areas.push(area)
       $nuzlocke_current_is_first_encounter = true

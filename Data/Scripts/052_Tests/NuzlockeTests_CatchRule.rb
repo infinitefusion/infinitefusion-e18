@@ -73,6 +73,20 @@ NuzlockeTestHarness.suite("First-encounter: fleeing the first wild FORFEITS the 
   t.log("Route 2's first encounter fled; the area is closed for good.")
 end
 
+NuzlockeTestHarness.suite("First-encounter: a DOUBLE battle's first encounter stays catchable") do |t|
+  m = NuzlockeCaptureRules
+  t.give_ball
+  t.set_switch(SWITCH_NUZLOCKE_MODE, true)
+  t.set_var(VAR_NUZLOCKE_CATCH_RULE_MODE, 1)
+  t.set_area("Route 1", 10)
+  # EncounterModifier fires once per wild; a double battle => two calls, same area,
+  # same battle. The flag the first mon sets must NOT be cleared by the second.
+  m.note_wild_encounter_start   # mon 1 (records the area, flags catchable)
+  m.note_wild_encounter_start   # mon 2 (same area, same battle)
+  t.assert("double-battle first encounter remains the catchable one", m.current_is_first_encounter?)
+  t.refute("and is not blocked", m.should_block_catch?)
+end
+
 NuzlockeTestHarness.suite("First-encounter: balls-first -- pre-ball wilds don't burn the slot") do |t|
   m = NuzlockeCaptureRules
   t.empty_bag                                       # no balls yet
