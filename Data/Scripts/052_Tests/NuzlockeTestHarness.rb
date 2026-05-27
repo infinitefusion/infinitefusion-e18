@@ -30,7 +30,10 @@
 # Lightweight test doubles (only ever used by the harness).
 #-------------------------------------------------------------------------------
 NuzlockeTestBag = Struct.new(:pockets) unless defined?(NuzlockeTestBag)
-NuzlockeTestMap = Struct.new(:name, :map_id) unless defined?(NuzlockeTestMap)
+# need_refresh accessor so pbSet ($game_map.need_refresh = true) works on the double.
+NuzlockeTestMap = Struct.new(:name, :map_id) do
+  attr_accessor :need_refresh
+end unless defined?(NuzlockeTestMap)
 
 class NuzlockeTestPokedex
   def set_seen(_s); end
@@ -50,6 +53,15 @@ end
 class NuzlockeTestGlobal
   attr_accessor :nuzlocke_caught_areas
 end
+
+# Battle-scene double: captures messages routed through pbDisplay.
+class NuzlockeTestScene
+  def pbDisplay(msg); ($nuzlocke_test_msgs ||= []) << msg.to_s; nil; end
+  def pbDisplayPaused(msg); pbDisplay(msg); end
+end
+
+# Battle double for hooks that read @caughtPokemon / @canLose.
+NuzlockeTestBattle = Struct.new(:caughtPokemon, :canLose) unless defined?(NuzlockeTestBattle)
 
 class NuzlockeTestTrainer
   attr_accessor :party
@@ -111,6 +123,29 @@ module NuzlockeTestHarness
     $game_temp      ||= (Game_Temp.new rescue nil)
     $game_system    ||= (Game_System.new rescue nil)
     stub_ui
+    stub_engine
+  end
+
+  # Stub engine entry points that the enforcement seams call out to, so we can
+  # observe behavior without driving real UI or the real randomizer. Only done
+  # when flagged; the harness always exit!s, so real play never sees these.
+  def stub_engine
+    $nuzlocke_test_nick_prompted = false
+    $nuzlocke_test_shuffles = []
+    # Force-nickname seam: record that the name-entry screen was opened.
+    Object.send(:define_method, :pbEnterPokemonName) { |*_a| $nuzlocke_test_nick_prompted = true; "TESTNICK" }
+    # Default the optional confirm to "no" so non-forced paths never name.
+    Object.send(:define_method, :pbConfirmMessage) { |*_a| false }
+    # Reshuffle dispatch seam: record which shuffles ran.
+    Object.send(:define_method, :pbShuffleItems) { |*_a| ($nuzlocke_test_shuffles ||= []) << :items }
+    Object.send(:define_method, :pbShuffleTMs)   { |*_a| ($nuzlocke_test_shuffles ||= []) << :tms }
+    Kernel.define_singleton_method(:pbShuffleDex)      { |*_a| ($nuzlocke_test_shuffles ||= []) << :dex }
+    Kernel.define_singleton_method(:pbShuffleTrainers) { |*_a| ($nuzlocke_test_shuffles ||= []) << :trainers }
+    # triggerCanUseInBattle seam: make the underlying original return a sentinel
+    # so a "pass-through" (allowed) is distinguishable from a block (false).
+    if defined?(ItemHandlers) && ItemHandlers.respond_to?(:nuzlocke_orig_triggerCanUseInBattle)
+      ItemHandlers.singleton_class.send(:define_method, :nuzlocke_orig_triggerCanUseInBattle) { |*_a| :ORIG }
+    end
   end
 
   # Replace UI/flow calls with capturing no-ops. Safe because the harness always
@@ -141,6 +176,8 @@ module NuzlockeTestHarness
     $PokemonGlobal  = NuzlockeTestGlobal.new unless $PokemonGlobal.respond_to?(:nuzlocke_caught_areas)
     $nuzlocke_test_msgs = []
     $nuzlocke_test_startover = false
+    $nuzlocke_test_nick_prompted = false
+    $nuzlocke_test_shuffles = []
   end
 
   #-- helpers exposed to suites ----------------------------------------------
@@ -160,6 +197,19 @@ module NuzlockeTestHarness
     pk.instance_variable_set(:@hp, 0) if fainted
     pk
   end
+
+  # Build a real egg (egg? is `@steps_to_hatch > 0`).
+  def make_egg(species = :PIKACHU, level = 5)
+    pk = Pokemon.new(species, level, nil)
+    pk.instance_variable_set(:@steps_to_hatch, 5)
+    pk
+  end
+
+  # Test doubles + seam observers.
+  def fake_scene; NuzlockeTestScene.new; end
+  def fake_battle(caught = [], can_lose = false); NuzlockeTestBattle.new(caught, can_lose); end
+  def nick_prompted?; $nuzlocke_test_nick_prompted == true; end
+  def shuffles; $nuzlocke_test_shuffles || []; end
 
   #-- assertions / logging ---------------------------------------------------
   def assert(name, cond)
