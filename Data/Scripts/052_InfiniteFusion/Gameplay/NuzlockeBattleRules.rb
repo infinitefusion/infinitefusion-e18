@@ -56,6 +56,11 @@ module NuzlockeBattleRules
     # Preserve the nickname only if the trainer actually nicknamed the fusion.
     survivor.name = fused.name if fused.nicknamed?
 
+    # The surviving half carries the fusion's held item forward (it is the same
+    # Pokemon continuing on, just unfused). Moves are intentionally NOT preserved
+    # (matching the vanilla unfuse behaviour).
+    survivor.item = fused.item_id if (fused.item_id rescue nil)
+
     survivor.obtain_method = 0
     return survivor
   rescue => e
@@ -80,6 +85,19 @@ module NuzlockeBattleRules
       $Trainer.pokedex.set_seen(survivor.species)
       $Trainer.pokedex.set_owned(survivor.species)
     end
+  end
+
+  # Return a removed Pokemon's held item to the Bag so perma-death only costs the
+  # Pokemon, never the item (user ruling). Used when a mon is fully removed:
+  # unfused perma-death, or a fused "Both die" faint. (For Head/Body modes the
+  # surviving half carries the item instead, via build_survivor.) No-op if the
+  # mon holds nothing.
+  def reclaim_held_item(mon)
+    return if !mon
+    item = (mon.item_id rescue nil)
+    return if !item
+    ($PokemonBag.pbStoreItem(item) rescue nil) if $PokemonBag
+    (mon.item = nil) rescue nil
   end
 
   # Process the whole party after a battle, applying perma-death rules.
@@ -116,6 +134,7 @@ module NuzlockeBattleRules
       if !is_fusion
         # --- Feature 1: unfused perma-death ---
         if perma_unfused
+          reclaim_held_item(mon)   # item back to the Bag; only the mon is lost
           messages.push(_INTL("{1} can never battle again...", mon.name))
           # Dropped from survivors => permanently removed.
         else
@@ -143,6 +162,7 @@ module NuzlockeBattleRules
           survivors.push(mon)
         end
       when 3   # Both die
+        reclaim_held_item(mon)   # both halves gone; item back to the Bag
         messages.push(_INTL("{1} can never battle again...", mon.name))
         # Dropped => removed entirely.
       else     # 0 = Off: normal revive-at-center behaviour
