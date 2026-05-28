@@ -191,7 +191,12 @@ module NuzlockeBattleRules
     $Trainer.party.clear
     survivors.each { |m| $Trainer.party.push(m) }
 
-    messages.each { |msg| pbMessage(msg) }
+    # Queue messages -- displayed AFTER the engine's post-battle handlers
+    # (evolution check, pick-up bonus, pbStartOver) by a drainer registered on
+    # Events.onEndBattle below. pbMessage'ing here would interrupt that sequence.
+    # Resolves #15.
+    $nuzlocke_pending_perma_death_msgs ||= []
+    messages.each { |msg| $nuzlocke_pending_perma_death_msgs.push(msg) }
   rescue => e
     PBDebug.log("[Nuzlocke] process_party_after_battle failed: #{e.message}") if defined?(PBDebug)
   end
@@ -234,6 +239,27 @@ class PokeBattle_Battle
       return decision
     end
   end
+end
+
+#===============================================================================
+# Perma-death message drainer (#15). process_party_after_battle queues its
+# "X can never battle again..." messages instead of pbMessage'ing inline (which
+# would interrupt the post-battle sequence). We drain the queue from an
+# onEndBattle handler -- registered with += so it runs AFTER the engine's
+# default handler (evolution check, pick-up bonus, pbStartOver). Evolutions
+# and everything else finish first; then the perma-death notices display.
+#===============================================================================
+module NuzlockeBattleRules
+  PERMA_DEATH_MSG_DRAINER_PROC = proc { |_sender, _e|
+    msgs = ($nuzlocke_pending_perma_death_msgs ||= [])
+    while !msgs.empty?
+      pbMessage(msgs.shift)
+    end
+  }
+end
+
+if defined?(Events) && Events.respond_to?(:onEndBattle)
+  Events.onEndBattle += NuzlockeBattleRules::PERMA_DEATH_MSG_DRAINER_PROC
 end
 
 #===============================================================================

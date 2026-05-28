@@ -76,6 +76,10 @@ class NuzlockeTestTrainer
   def pokedex; @pokedex; end
   def party_full?; @party.length >= 6; end
   def save_slot; "TEST"; end
+  # Engine default Events.onEndBattle handler walks the party via pokemon_party.
+  def pokemon_party; @party; end
+  def able_pokemon; @party.compact.reject { |p| p.fainted? rescue false }; end
+  def able_pokemon_count; able_pokemon.length; end
 end
 
 module NuzlockeTestHarness
@@ -204,6 +208,7 @@ module NuzlockeTestHarness
     $nuzlocke_test_nick_prompted = false
     $nuzlocke_test_shuffles = []
     $nuzlocke_current_is_first_encounter = false
+    $nuzlocke_pending_perma_death_msgs = []
   end
 
   #-- helpers exposed to suites ----------------------------------------------
