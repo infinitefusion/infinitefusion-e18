@@ -22,6 +22,15 @@ module NuzlockeWorldRules
     return $game_switches[SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS]
   end
 
+  # True when nuzlocke is on AND the player chose "Disallowed" for trainer
+  # fleeing. When true, we set the cannotRun battle rule on trainer battles,
+  # so the player can't escape -- a loss is a loss.
+  def trainer_flee_blocked?
+    return false if !$game_switches
+    return false if !$game_switches[SWITCH_NUZLOCKE_MODE]
+    return !$game_switches[SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED]
+  end
+
   # Ensure the mart stock contains at least one basic HP-healing item. No-op if
   # the setting is off, the input isn't an Array, or the stock already has any
   # HEALING_ITEMS entry. Otherwise prepend a Potion.
@@ -50,6 +59,28 @@ class Object
     def replaceShopStockWithRandomized(stock)
       randomized = nuzlocke_orig_replaceShopStockWithRandomized(stock)
       return NuzlockeWorldRules.ensure_heal_in_stock(randomized)
+    end
+  end
+end
+
+#===============================================================================
+# Trainer-fleeing (#13). Hooked at pbTrainerBattleCore -- the common path every
+# trainer-battle entry point (pbTrainerBattle, pbDoubleTrainerBattle,
+# pbTripleTrainerBattle) funnels through. When the setting blocks fleeing, we
+# apply the cannotRun battle rule before the original runs, so the engine sees
+# canRun=false at battle setup. When the setting allows fleeing, we touch
+# nothing -- the IF default stands, and the emergent "fled-but-fainted-mons-
+# still-perma-die" partial-forfeit mechanic continues to work.
+#===============================================================================
+class Object
+  unless private_method_defined?(:nuzlocke_orig_pbTrainerBattleCore) ||
+         method_defined?(:nuzlocke_orig_pbTrainerBattleCore)
+    alias_method :nuzlocke_orig_pbTrainerBattleCore, :pbTrainerBattleCore
+    def pbTrainerBattleCore(*args, **kwargs)
+      if NuzlockeWorldRules.trainer_flee_blocked? && defined?(setBattleRule)
+        setBattleRule("cannotRun")
+      end
+      return nuzlocke_orig_pbTrainerBattleCore(*args, **kwargs)
     end
   end
 end

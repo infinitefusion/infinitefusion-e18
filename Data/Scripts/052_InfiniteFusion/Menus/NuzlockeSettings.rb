@@ -83,6 +83,16 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      "Every caught Pokémon must be nicknamed."
       ),
 
+      EnumOption.new(_INTL("Trainer fleeing"),
+                     [_INTL("Allowed"), _INTL("Disallowed")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED] ? 0 : 1 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED] = (value == 0)
+                     },
+                     [_INTL("You can flee a trainer battle. Mons that already fainted still perma-die, but the rest survive -- a Nuzlocke-flavored partial-forfeit escape."),
+                      _INTL("You cannot run from trainer battles (canonical mainline rule). If you lose, you wipe -- the run is over.")]
+      ),
+
       EnumOption.new(_INTL("Battle items"), [_INTL("Allowed"), _INTL("Forbidden")],
                      proc { $game_switches[SWITCH_NUZLOCKE_BATTLE_ITEMS_ALLOWED] ? 0 : 1 },
                      proc { |value|

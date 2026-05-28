@@ -16,6 +16,10 @@ def initializeNuzlockeMode()
   # Dupes Clause on by default: skip duplicate encounters (a fusion still counts
   # as catchable if either half is a new species).
   $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE] = true
+  # Trainer fleeing allowed by default -- preserves IF's behavior, which combined
+  # with perma-death produces a Nuzlocke-flavored partial-forfeit (whoever fainted
+  # is gone, the rest get out). Player can switch to Disallowed for a strict run.
+  $game_switches[SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED] = true
 
   # Fused perma-death defaults to "Both" (the most punishing canonical option).
   pbSet(VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE, 3)
