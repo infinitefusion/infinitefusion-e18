@@ -36,7 +36,7 @@ class NuzlockeSettingsScene < PokemonOption_Scene
       ),
 
       EnumOption.new(_INTL("Catch rule"),
-                     [_INTL("Off"), _INTL("First encounter"), _INTL("One per area")],
+                     [_INTL("Off"), _INTL("First only"), _INTL("Per area")],
                      proc { pbGet(VAR_NUZLOCKE_CATCH_RULE_MODE) || 0 },
                      proc { |value|
                        pbSet(VAR_NUZLOCKE_CATCH_RULE_MODE, value)
@@ -91,13 +91,10 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      "Whether the bag can be used during battle. Classic Nuzlockes forbid it."
       ),
 
-      EnumOption.new(_INTL("Cap Candy item"), [_INTL("Enabled"), _INTL("Disabled")],
-                     proc { $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] ? 0 : 1 },
-                     proc { |value|
-                       $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] = (value == 0)
-                     },
-                     "Adds the Cap Candy: a single-use item that raises a Pokémon to the current level cap."
-      ),
+      # Cap Candy toggle hidden until the item itself ships (#12) -- avoids a UX
+      # vapor toggle that does nothing. Re-add once the PBS entry, effect handler,
+      # and icon sprite are built. (SWITCH_NUZLOCKE_CAP_CANDY_ENABLED still exists
+      # and stays settable from a debug path; it just isn't in the player menu.)
 
       EnumOption.new(_INTL("Guarantee Mart heals"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS] ? 0 : 1 },
