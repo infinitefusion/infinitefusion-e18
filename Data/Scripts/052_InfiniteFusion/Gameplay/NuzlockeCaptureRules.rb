@@ -181,6 +181,28 @@ module NuzlockeCaptureRules
     return $game_switches[SWITCH_NUZLOCKE_FORCE_NICKNAMES]
   end
 
+  # Post-acquisition force-nickname loop. Called by paths that need to enforce
+  # naming AFTER an engine routine has already given the player an optional
+  # prompt (e.g. pbHatch -- which has its own inline confirm+entry that
+  # bypasses pbNickname). If the mon ends up with no real nickname, this
+  # re-prompts via pbEnterPokemonName until the name is non-empty and isn't
+  # the species name. Bounded at 5 attempts so a stuck UI can't hang. No-op on
+  # already-nicknamed mons (the existing nickname stands).
+  def force_nickname_loop!(pokemon)
+    return if !pokemon
+    return if pokemon.respond_to?(:shadowPokemon?) && pokemon.shadowPokemon?
+    species_name = pokemon.speciesName
+    attempts = 0
+    while (pokemon.name.nil? || pokemon.name.to_s.strip == "" || pokemon.name == species_name) &&
+          attempts < 5
+      pbMessage(_INTL("In a Nuzlocke, every Pokémon must be nicknamed!")) if attempts > 0
+      entered = pbEnterPokemonName(_INTL("{1}'s nickname?", species_name),
+                                   0, Pokemon::MAX_NAME_SIZE, "", pokemon)
+      pokemon.name = entered if entered && entered.to_s.strip != ""
+      attempts += 1
+    end
+  end
+
   # True when nuzlocke is on AND battle items are forbidden. Battle-items
   # enforcement now lives ENTIRELY in ItemHandlers.triggerCanUseInBattle below
   # (the parallel NuzlockeBattleRules.rb no longer blocks the whole bag). When
@@ -463,6 +485,28 @@ end
 # verbatim. This covers EVERY non-catch acquisition: starter, gifts, fusion
 # results, in-game trades, etc.
 #===============================================================================
+#===============================================================================
+# Egg-hatch force-nickname (#11). pbHatch has its OWN inline confirm+entry that
+# bypasses our pbNickname wrap entirely (016_UI/001_Non-interactive UI/
+# 003_UI_EggHatching.rb:224). We alias pbHatch so AFTER the original runs we
+# loop the player into a real nickname if they bailed out -- using the shared
+# force_nickname_loop! helper. Idempotent: a player who already nicknamed during
+# the hatch dialog short-circuits the helper immediately.
+#===============================================================================
+class Object
+  unless private_method_defined?(:nuzlocke_orig_pbHatch) ||
+         method_defined?(:nuzlocke_orig_pbHatch)
+    alias_method :nuzlocke_orig_pbHatch, :pbHatch
+    def pbHatch(pokemon)
+      result = nuzlocke_orig_pbHatch(pokemon)
+      if NuzlockeCaptureRules.force_nicknames_active?
+        NuzlockeCaptureRules.force_nickname_loop!(pokemon)
+      end
+      return result
+    end
+  end
+end
+
 class Object
   unless private_method_defined?(:nuzlocke_orig_pbNickname) ||
          method_defined?(:nuzlocke_orig_pbNickname)
