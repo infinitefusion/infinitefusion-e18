@@ -141,6 +141,16 @@ def nuzlocke_reset_restore_settings(switches, vars)
   vars.each { |id, val| $game_variables[id] = val } if vars
 end
 
+# Snapshot-independent progress wipe. Clears party, bag, storage, and money so
+# the post-reset run is genuinely fresh, regardless of what the snapshot file
+# happened to contain. Story/map state still come from Game.load(snapshot).
+def nuzlocke_reset_wipe_progress
+  $Trainer.party.clear if $Trainer && $Trainer.party
+  $PokemonBag = PokemonBag.new if defined?(PokemonBag)
+  $PokemonStorage = PokemonStorage.new if defined?(PokemonStorage)
+  $Trainer.money = 0 if $Trainer && $Trainer.respond_to?(:money=)
+end
+
 #===============================================================================
 # Re-run randomization shuffles based on currently-active switches
 # Shape copied from RepairUtils.rb lines 66-72.
@@ -220,6 +230,14 @@ def nuzlocke_reset_run
   # "skip intro" common event below, which is the exact same code path the
   # game uses when the player picks Skip during the splicer demo cutscene.
   Game.load(snapshot)
+
+  # Force-wipe progress (resolves #16). The snapshot's capture timing was
+  # supposed to land on "post-intro, pre-starter" but that's fragile -- any
+  # mis-timing left the snapshot with party/items/storage from a later state,
+  # and Game.load would restore that, defeating the reset. Making the wipe
+  # snapshot-independent makes the reset robust regardless of when the snapshot
+  # was captured.
+  nuzlocke_reset_wipe_progress
 
   # Re-apply the preserved settings on top of the restored snapshot, so perma-death
   # and the randomizer switches reflect the player's CURRENT choices (not whatever
