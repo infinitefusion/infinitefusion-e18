@@ -161,8 +161,16 @@ module NuzlockeTestHarness
   def stub_engine
     $nuzlocke_test_nick_prompted = false
     $nuzlocke_test_shuffles = []
-    # Force-nickname seam: record that the name-entry screen was opened.
-    Object.send(:define_method, :pbEnterPokemonName) { |*_a| $nuzlocke_test_nick_prompted = true; "TESTNICK" }
+    # Force-nickname seam: a SEQUENCE of responses (default ["TESTNICK"]); each
+    # call to pbEnterPokemonName shifts the next response (or repeats the last).
+    # Tests use set_name_entry_responses(...) to simulate loops where the user
+    # first OKs the species name and then enters a real one.
+    $nuzlocke_test_name_entry_responses = nil
+    Object.send(:define_method, :pbEnterPokemonName) do |*_a|
+      $nuzlocke_test_nick_prompted = true
+      q = ($nuzlocke_test_name_entry_responses ||= ["TESTNICK"])
+      q.length > 1 ? q.shift : q.first
+    end
     # Default the optional confirm to "no" so non-forced paths never name.
     Object.send(:define_method, :pbConfirmMessage) { |*_a| false }
     # Reshuffle dispatch seam: record which shuffles ran.
@@ -209,6 +217,7 @@ module NuzlockeTestHarness
     $nuzlocke_test_shuffles = []
     $nuzlocke_current_is_first_encounter = false
     $nuzlocke_pending_perma_death_msgs = []
+    $nuzlocke_test_name_entry_responses = nil   # default ["TESTNICK"]
   end
 
   #-- helpers exposed to suites ----------------------------------------------
@@ -242,6 +251,10 @@ module NuzlockeTestHarness
   def fake_battle(caught = [], can_lose = false); NuzlockeTestBattle.new(caught, can_lose); end
   def nick_prompted?; $nuzlocke_test_nick_prompted == true; end
   def reset_nick_flag; $nuzlocke_test_nick_prompted = false; end
+  # Configure the pbEnterPokemonName stub's response sequence -- each call
+  # shifts the next, the last value repeats indefinitely. Use to drive loop
+  # tests (e.g., [species_name, "REALNICK"] to simulate OK-then-rename).
+  def set_name_entry_responses(arr); $nuzlocke_test_name_entry_responses = arr.dup; end
   def shuffles; $nuzlocke_test_shuffles || []; end
   def bag_stored_items; ($PokemonBag && $PokemonBag.respond_to?(:stored_items)) ? $PokemonBag.stored_items : []; end
 

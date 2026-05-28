@@ -393,10 +393,26 @@ module PokeBattle_BattleCommon
       if NuzlockeCaptureRules.force_nicknames_active? && pkmn && !pkmn.shadowPokemon?
         @nuzlocke_force_nick = true
         begin
-          return nuzlocke_orig_pbStorePokemon(pkmn)
+          result = nuzlocke_orig_pbStorePokemon(pkmn)
         ensure
           @nuzlocke_force_nick = false
         end
+        # Post-store force-nick loop (#7): in the battle path the engine uses
+        # @scene.pbNameEntry, which accepts "OK on the species name" as the
+        # nickname -- bypassing the force. After the engine stores the mon,
+        # re-prompt via the same scene until the name actually differs from the
+        # species name. Bounded at 5 attempts so a stuck scene can't hang.
+        species_name = pkmn.speciesName rescue nil
+        if species_name && @scene && @scene.respond_to?(:pbNameEntry)
+          attempts = 0
+          while (pkmn.name.nil? || pkmn.name.to_s.strip == "" || pkmn.name == species_name) &&
+                attempts < 5
+            @scene.pbDisplay(_INTL("In a Nuzlocke, every Pokémon must be nicknamed!")) if @scene.respond_to?(:pbDisplay)
+            pkmn.name = @scene.pbNameEntry(_INTL("{1}'s nickname?", species_name), pkmn)
+            attempts += 1
+          end
+        end
+        return result
       end
       return nuzlocke_orig_pbStorePokemon(pkmn)
     end
@@ -456,6 +472,20 @@ class Object
          !(pkmn.respond_to?(:egg?) && pkmn.egg?) &&
          !(pkmn.respond_to?(:shadowPokemon?) && pkmn.shadowPokemon?)
         species_name = pkmn.speciesName
+        # Loop the entry until they give a name that's not the species name and
+        # not empty: hitting OK on the default species name used to "skip" the
+        # force (#7). Bounded so a stuck UI can't hang -- after 5 refusals we
+        # accept whatever they entered.
+        5.times do
+          entered = pbEnterPokemonName(_INTL("{1}'s nickname?", species_name),
+                                       0, Pokemon::MAX_NAME_SIZE, "", pkmn)
+          if entered && entered.to_s.strip != "" && entered != species_name
+            pkmn.name = entered
+            return
+          end
+          pbMessage(_INTL("In a Nuzlocke, every Pokémon must be nicknamed!"))
+        end
+        # Fallback: cap reached, accept what's there (defensive against UI hang).
         pkmn.name = pbEnterPokemonName(_INTL("{1}'s nickname?", species_name),
                                        0, Pokemon::MAX_NAME_SIZE, "", pkmn)
         return
