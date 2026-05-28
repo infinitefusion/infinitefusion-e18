@@ -31,6 +31,7 @@
 class PokemonGlobalMetadata
   attr_accessor :nuzlocke_caught_areas          # areas where a catch was SUCCESSFUL
   attr_accessor :nuzlocke_first_encounter_areas # areas whose first encounter has occurred (caught or not)
+  attr_accessor :nuzlocke_ever_had_balls        # one-way ratchet for balls-first gating
 end
 
 module NuzlockeCaptureRules
@@ -238,7 +239,45 @@ module NuzlockeCaptureRules
         next if !item_id
         item = (GameData::Item.get(item_id) rescue nil)
         next if !item
-        return true if item.is_poke_ball?
+        if item.is_poke_ball?
+          # Latch the one-way ratchet (see ever_had_balls?): the first time the
+          # bag holds a ball at all, the run is "past the pre-catch phase" and
+          # perma-death stays armed from now on -- even if the bag later empties.
+          $PokemonGlobal.nuzlocke_ever_had_balls = true if $PokemonGlobal
+          return true
+        end
+      end
+    end
+    return false
+  end
+
+  # One-way ratchet for perma-death gating. The original balls-first gate
+  # (player_has_balls?) was meant to protect ONLY the pre-catch starter rival
+  # fight, but as a live check it leaked indefinitely: any time the bag emptied
+  # later, perma-death silently turned back off (user-reported wipes retained
+  # mons because the bag was empty at wipe-time, see tasks #8/#10). Once the
+  # player has owned a ball at any point in the run, this returns true forever.
+  # Includes a migration heuristic for saves made before the ratchet existed:
+  # if the player already has more than just a starter (multi-mon party) or any
+  # mon in storage, they've clearly caught something -> latch on first read.
+  def ever_had_balls?
+    return false if !$PokemonGlobal
+    return true  if $PokemonGlobal.nuzlocke_ever_had_balls
+    if player_has_balls?      # also latches as a side effect (see above)
+      return true
+    end
+    # Migration heuristic for existing saves.
+    if $Trainer && $Trainer.party && $Trainer.party.compact.length > 1
+      $PokemonGlobal.nuzlocke_ever_had_balls = true
+      return true
+    end
+    if $PokemonStorage && $PokemonStorage.respond_to?(:boxes)
+      ($PokemonStorage.boxes rescue []).each do |box|
+        next if !box
+        if (box.pokemon rescue []).compact.any?
+          $PokemonGlobal.nuzlocke_ever_had_balls = true
+          return true
+        end
       end
     end
     return false

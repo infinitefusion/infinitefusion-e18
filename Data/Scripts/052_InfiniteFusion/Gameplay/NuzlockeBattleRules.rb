@@ -118,14 +118,15 @@ module NuzlockeBattleRules
     return if !active?
     return if !$Trainer || !$Trainer.party
 
-    # Balls-first parity (Fix #20): keep ALL perma-death (unfused AND fused)
-    # completely inert until the player owns at least one Poke Ball. The very
-    # first rival fight happens before you can catch anything, so without this
-    # guard the starter could permanently die before catching is even possible.
-    # This mirrors the one-catch rule (NuzlockeCaptureRules), which likewise
-    # only engages once the player actually has balls. Once the bag holds >=1
-    # ball, perma-death resumes exactly as before.
-    return if !NuzlockeCaptureRules.player_has_balls?
+    # Balls-first RATCHET (resolves user reports #8/#9/#10): perma-death stays
+    # inert until the player has OWNED a Poke Ball at any point in the run, then
+    # stays armed forever -- even if the bag later empties. Original purpose was
+    # to protect the pre-catch starter rival fight; the previous live-only check
+    # leaked, silently disabling perma-death on a wipe whenever the bag happened
+    # to be empty. ever_had_balls? latches one-way on $PokemonGlobal and includes
+    # a migration heuristic for pre-ratchet saves (multi-mon party / non-empty
+    # storage implies catches have happened).
+    return if !NuzlockeCaptureRules.ever_had_balls?
 
     perma_unfused = $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED]
     fused_mode    = (pbGet(VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE) rescue 0) || 0
