@@ -4778,14 +4778,14 @@ Pokemon = B199H94,58 #GengarSlowking
 
 ##########################
 
-[WORKER,Angus]
+[ENGINEER,Angus]
 Pokemon = B439H82,44 #MagnetonTrevenant
 Pokemon = B184H396,44 #ShelgonAzumarill
 Pokemon = B134H170,44 #ChinchouVaporeon
 	Moves = CHARGEBEAM,BUBBLEBEAM,QUICKATTACK,BITE
 ##########################
 
-[WORKER,Silvio]
+[ENGINEER,Silvio]
 Pokemon = B33H398,44 #KlangNidorino
 Pokemon = B101H181,44 #AmpharosElectrode
 Pokemon = B464H269,45 #TogekissLycanrocD
@@ -4793,7 +4793,7 @@ Pokemon = B370H101,45 #ElectrodePyukumuku
 	Moves = EXPLOSION
 ##########################
 
-[WORKER,Hermann]
+[ENGINEER,Hermann]
 Pokemon = B131H328,44 #DoubladeLapras
 Pokemon = B110H71,44 #VictreebellWeezing
 Pokemon = B332H367,45 #ChandelureLuxray
@@ -4801,13 +4801,13 @@ Pokemon = B484H363,45 #GalvantulaDelphox
 
 ##########################
 
-[WORKER,John]
+[ENGINEER,John]
 Pokemon = B89H420,44 #StunfiskMuk
 Pokemon = B439H131,45 #LaprasTrevenant
 Pokemon = B281H184,46 #AzumarillBlaziken
 ##########################
 
-[WORKER,Felix]
+[ENGINEER,Felix]
 Pokemon = B265H13,44 #WeedleRhyperior
 Pokemon = B420H6,44 #CharizardStunfisk
 Pokemon = B376H202,44 #WobbuffetZweilous
@@ -4815,14 +4815,14 @@ Pokemon = B9H237,44 #HitmontopBlastoise
 
 ##########################
 
-[WORKER,Kevin]
+[ENGINEER,Kevin]
 Pokemon = B181H392,45 #TrapinchAmpharos
 Pokemon = B141H265,45 #RhyperiorKabutops
 Pokemon = B195H317,44 #GrotleQuagsire
 Pokemon = B67H488,45 #TorkoalMachoke
 ##########################
 
-[WORKER,Mark]
+[ENGINEER,Mark]
 Pokemon = B481H25,44 #PikachuChesnaught
 	Item = LIGHTBALL
 Pokemon = B293H492,45 #SlurpuffMetagross

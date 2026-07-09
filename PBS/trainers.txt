@@ -3916,40 +3916,40 @@ Pokemon = B132H52,54 #MEOWTO
 
 ##########################
 
-[WORKER,Angus]
+[ENGINEER,Angus]
 Pokemon = HERACROSS,37 
 Pokemon = B217H202,39 
 ##########################
 
-[WORKER,Silvio]
+[ENGINEER,Silvio]
 Pokemon = DUGTRIO,37 
 Pokemon = B26H180,39 
 ##########################
 
-[WORKER,Hermann]
+[ENGINEER,Hermann]
 Pokemon = MAGNETON,38 
 Pokemon = MAGNETON,38 
 Pokemon = B205H82,38 #MAGNETRESS
 
 ##########################
 
-[WORKER,John]
+[ENGINEER,John]
 Pokemon = B95H214,44 #onix/heracross
 ##########################
 
-[WORKER,Felix]
+[ENGINEER,Felix]
 Pokemon = MACHOP,39 
 Pokemon = MACHOKE,39 
 Pokemon = B67H212,39 #SCICHOKE
 
 ##########################
 
-[WORKER,Kevin]
+[ENGINEER,Kevin]
 Pokemon = ELECTRODE,42 
 Pokemon = B210H82,42 #MAGNEBULL
 ##########################
 
-[WORKER,Mark]
+[ENGINEER,Mark]
 Pokemon = MACHOKE,42 
 Pokemon = B205H106,44 #FORRELEE
 ##########################
