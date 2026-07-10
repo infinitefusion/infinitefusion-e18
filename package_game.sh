@@ -23,6 +23,7 @@ FILES=(
     "Credits.txt" 
     "Game.ini" 
     "InfiniteFusion.exe" 
+    "Credits.txt"
     "InfiniteFusion-performance.exe" 
     "mkxp.json" 
     "README.md" 
