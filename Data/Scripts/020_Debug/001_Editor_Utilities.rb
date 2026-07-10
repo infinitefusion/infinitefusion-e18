@@ -126,15 +126,15 @@ def pbChooseSpeciesList(default = nil,max=nil)
   max = max ? max : PBSpecies.maxValue
   params.setRange(1,max)
   params.setInitialValue(defaultNumber)
-  dexNum = pbMessageChooseNumber("dex number?",params)
+  dexNum = pbMessageChooseNumber(_INTL("dex number?"),params)
   return GameData::Species.get(dexNum)
 end
 
 def pbChooseSpeciesTextList(default = nil)
   commands = []
-  for i in 1..NB_POKEMON
+  for i in 1..NB_POKEMON-4
     species = GameData::Species.get(i)
-    commands.push([species.id_number, species.real_name, species.id])
+    commands.push([species.id_number, species.name, species.id])
   end
   return pbChooseList(commands, default, nil, -1)
 end
@@ -143,7 +143,7 @@ end
 def pbChooseSpeciesFormList(default = nil)
   commands = []
   GameData::Species.each do |s|
-    name = (s.form == 0) ? s.real_name : sprintf("%s_%d", s.real_name, s.form)
+    name = (s.form == 0) ? s.real_name : sprintf("%s_%d", s.name, s.form)
     commands.push([s.id_number, name, s.id])
   end
   return pbChooseList(commands, default, nil, -1)
@@ -156,7 +156,7 @@ end
 def pbChooseMoveList(default = nil)
   commands = []
   GameData::Move.each { |i| commands.push([i.id_number, i.real_name, i.id]) }
-  return pbChooseList(commands, default, nil, 1)
+  return pbChooseListWithFilter(commands,0,nil,1,0,0,"Select a move",:longest_value)
 end
 
 def pbChooseMoveListForSpecies(species, defaultMoveID = nil)
@@ -384,6 +384,117 @@ def pbChooseList(commands, default = 0, cancelValue = -1, sortType = 1)
   end
   cmdwin.dispose
   return itemID
+end
+
+def pbChooseListWithFilter(commands, default = 0, cancelValue = -1, sortType = 1,
+                           window_x = 0, window_y = 0, filter_default_text = "",
+                           width_mode = :filter_text)
+  filter_height = 60
+  case width_mode
+  when :longest_value     # Measure the longest display string from commands
+    longest = commands.map { |c|
+      sortType <= 0 ? sprintf("%03d: %s", c[0], c[1]) : c[1]
+    }.max_by(&:length) || ""
+    # Fall back to filter_default_text if commands is empty
+    reference_text = longest.length >= filter_default_text.length ? longest : filter_default_text
+  else # :filter_text (default)
+    reference_text = filter_default_text
+  end
+
+  filterwin = Window_UnformattedTextPokemon.newWithSize(
+    reference_text, window_x, window_y, Graphics.width / 2, filter_height
+  )
+  filterwin.setTextToFit(reference_text)
+  filterwin.z = 99999
+
+  cmdwin = pbListWindow([])
+  cmdwin.x      = window_x
+  cmdwin.y      = window_y + filter_height
+  cmdwin.width  = filterwin.width
+  cmdwin.height = Graphics.height - window_y - filter_height
+  cmdwin.z      = 99999
+  cmdwin.active = true
+
+
+  Input.text_input = true
+  filterText = ""
+  itemID     = default
+  itemIndex  = 0
+  sortMode   = (sortType >= 0) ? sortType : 0
+  needsRefresh = true
+  filteredCommands = []
+
+  loop do
+    if needsRefresh
+      # Sort
+      if sortMode == 0
+        commands.sort! { |a, b| a[0] <=> b[0] }
+      elsif sortMode == 1
+        commands.sort! { |a, b| a[1] <=> b[1] }
+      end
+
+      # Filter
+      filteredCommands = filterText.empty? ? commands.dup : commands.select { |c|
+        c[1].downcase.include?(filterText.downcase)
+      }
+
+      # Rebuild display strings
+      realcommands = filteredCommands.map do |command|
+        sortType <= 0 ? sprintf("%03d: %s", command[0], command[1]) : command[1]
+      end
+
+      # Restore selected index
+      itemIndex = 0
+      if itemID.is_a?(Symbol)
+        filteredCommands.each_with_index { |c, i| itemIndex = i if c[2] == itemID }
+      elsif itemID && itemID > 0
+        filteredCommands.each_with_index { |c, i| itemIndex = i if c[0] == itemID }
+      end
+
+      cmdwin.commands = realcommands
+      cmdwin.index    = itemIndex
+      filterwin.text  = filterText.empty? ? filter_default_text : "#{filterText}"
+      needsRefresh    = false
+    end
+
+    Graphics.update
+    Input.update
+    cmdwin.update
+
+    # Typing
+    typed = Input.gets
+    if typed && !typed.empty?
+      filterText  += typed
+      itemID       = -1   # reset selection when filter changes
+      needsRefresh = true
+      next
+    end
+
+    if Input.triggerex?(:BACKSPACE) && filterText.length > 0
+      filterText   = filterText[0...-1]
+      itemID       = -1
+      needsRefresh = true
+      next
+    end
+
+    if Input.trigger?(Input::ACTION) && sortType < 0
+      itemID    = filteredCommands[cmdwin.index][2] || filteredCommands[cmdwin.index][0]
+      sortMode  = (sortMode + 1) % 2
+      needsRefresh = true
+    elsif Input.trigger?(Input::BACK)
+      itemID = cancelValue
+      break
+    elsif Input.trigger?(Input::USE)
+      itemID = filteredCommands.empty? ? cancelValue : (filteredCommands[cmdwin.index][2] || filteredCommands[cmdwin.index][0])
+      break
+    end
+  end
+
+  Input.text_input = false
+  filterwin.dispose
+  cmdwin.dispose
+  return itemID
+
 end
 
 def pbCommandsSortable(cmdwindow,commands,cmdIfCancel,defaultindex=-1,sortable=false)

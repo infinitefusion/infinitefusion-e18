@@ -265,6 +265,7 @@ def pbChooseNumber(msgwindow, params)
     pbUpdateSceneMap
     cmdwindow.update
     msgwindow.update if msgwindow
+    $game_temp.choose_number_window = cmdwindow
     yield if block_given?
     if Input.trigger?(Input::USE)
       ret = cmdwindow.number
@@ -282,6 +283,7 @@ def pbChooseNumber(msgwindow, params)
       break
     end
   end
+  $game_temp.choose_number_window = nil
   cmdwindow.dispose
   Input.update
   return ret
@@ -339,7 +341,10 @@ def pbGetBasicMapNameFromId(id)
 end
 
 def pbGetMapNameFromId(id)
-  map = pbGetBasicMapNameFromId(id)
+  map = pbGetMessage(MessageTypes::MapNames, id)
+  if nil_or_empty?(map)
+    map = pbGetBasicMapNameFromId(id)
+  end
   map.gsub!(/\\PN/, $Trainer.name) if $Trainer
   return map
 end
@@ -404,7 +409,8 @@ def pbGetGoldString
   return moneyString
 end
 
-def pbDisplayGoldWindow(msgwindow)
+
+def pbDisplayGoldWindow(msgwindow,x=nil,y=nil)
   moneyString = pbGetGoldString()
   goldwindow = Window_AdvancedTextPokemon.new(_INTL("Money:\n<ar>{1}</ar>", moneyString))
   goldwindow.setSkin("Graphics/Windowskins/goldskin")
@@ -415,9 +421,40 @@ def pbDisplayGoldWindow(msgwindow)
   else
     goldwindow.y = 0
   end
+  goldwindow.x = x if x
+  goldwindow.y = y if y
+
   goldwindow.viewport = msgwindow.viewport
   goldwindow.z = msgwindow.z
   return goldwindow
+end
+
+def pbDisplayCosmeticsMoneyWindow(msgwindow,x=nil,y=nil)
+  moneyString = pbGetCosmeticsMoneyString()
+  goldwindow = Window_AdvancedTextPokemon.new(_INTL("{2}:\n<ar>{1}</ar>", moneyString,COSMETIC_CURRENCY_NAME))
+  goldwindow.setSkin("Graphics/Windowskins/goldskin")
+  goldwindow.resizeToFit(goldwindow.text, Graphics.width)
+  goldwindow.width = 160 if goldwindow.width <= 160
+  if msgwindow.y <= 10
+    goldwindow.y = Graphics.height - goldwindow.height
+  else
+    goldwindow.y = 0
+  end
+  goldwindow.x = x if x
+  goldwindow.y = y if y
+
+  goldwindow.viewport = msgwindow.viewport
+  goldwindow.z = msgwindow.z
+  return goldwindow
+end
+
+def pbGetCosmeticsMoneyString
+  begin
+    moneyString = _INTL("{1}", $Trainer.cosmetics_money.to_s_formatted)
+  rescue
+    moneyString = ""
+  end
+  return moneyString
 end
 
 def pbDisplayBattleFactoryPointsWindow(msgwindow)
@@ -473,8 +510,6 @@ def pbDisplayHeartScalesWindow(msgwindow)
   pointswindow.z = msgwindow.z
   return pointswindow
 end
-
-
 
 def pbDisplayCoinsWindow(msgwindow, goldwindow)
   coinString = ($Trainer) ? $Trainer.coins.to_s_formatted : "0"
@@ -590,8 +625,9 @@ def pbMessageDisplay(msgwindow, message, letterbyletter = true, commandProc = ni
   linecount = (Graphics.height > 400) ? 3 : 2
   ### Text replacement
   text.gsub!(/\\sign\[([^\]]*)\]/i) { # \sign[something] gets turned into
-  next "\\op\\cl\\ts[]\\w[" + $1 + "]" # \op\cl\ts[]\w[something]
+    next "\\op\\cl\\ts[]\\w[" + $1 + "]" # \op\cl\ts[]\w[something]
   }
+  text.gsub!("  ", " ")
   text.gsub!(/\\\\/, "\5")
   text.gsub!(/\\1/, "\1")
   if $game_actors
@@ -627,6 +663,13 @@ def pbMessageDisplay(msgwindow, message, letterbyletter = true, commandProc = ni
     end
     next ""
   }
+  if $PokemonTemp.windowSkin
+    path = "Graphics/Windowskins/#{$PokemonTemp.windowSkin}"
+    if pbResolveBitmap(path)
+      msgwindow.setSkin(path)
+    end
+    $PokemonTemp.windowSkin = nil
+  end
   isDarkSkin = isDarkWindowskin(msgwindow.windowskin)
   text.gsub!(/\\[Cc]\[([0-9]+)\]/) {
     m = $1.to_i
@@ -758,10 +801,10 @@ def pbMessageDisplay(msgwindow, message, letterbyletter = true, commandProc = ni
           head = getBasePokemonID(param.to_i, false)
           body = getBasePokemonID(param.to_i, true)
           facewindow.dispose if facewindow
-          #path = obtainPokemonSpritePath(body, head, true) if isFusion
+          # path = obtainPokemonSpritePath(body, head, true) if isFusion
 
           spriteLoader = BattleSpriteLoader.new
-          facewindow = isFusion ? PictureWindow.new(spriteLoader.load_fusion_sprite(head,body)) : PictureWindow.new(spriteLoader.load_base_sprite(head))
+          facewindow = isFusion ? PictureWindow.new(spriteLoader.load_fusion_sprite(head, body)) : PictureWindow.new(spriteLoader.load_base_sprite(head))
           pbPositionNearMsgWindow(facewindow, msgwindow, :left)
           facewindow.viewport = msgwindow.viewport
           facewindow.z = msgwindow.z
@@ -775,6 +818,9 @@ def pbMessageDisplay(msgwindow, message, letterbyletter = true, commandProc = ni
       when "g" # Display gold window
         goldwindow.dispose if goldwindow
         goldwindow = pbDisplayGoldWindow(msgwindow)
+      when "cm" # Display cosmetics money window
+        goldwindow.dispose if goldwindow
+        goldwindow = pbDisplayCosmeticsMoneyWindow(msgwindow)
       when "ft" # Display battle factory tokens
         goldwindow.dispose if goldwindow
         goldwindow = pbDisplayBattleFactoryPointsWindow(msgwindow)
@@ -935,14 +981,14 @@ def pbMessageChooseNumber(message, params, &block)
   return ret
 end
 
-
-def pbShowCommands(msgwindow, commands = nil, cmdIfCancel = 0, defaultCmd = 0, x_offset=nil, y_offset=nil)
+def pbShowCommands(msgwindow, commands = nil, cmdIfCancel = 0, defaultCmd = 0, x_offset = nil, y_offset = nil, font= nil)
   return 0 if !commands
-  $PokemonTemp.speechbubble_arrow.visible =false if $PokemonTemp.speechbubble_arrow && !$PokemonTemp.speechbubble_arrow.disposed?
+  $PokemonTemp.speechbubble_arrow.visible = false if $PokemonTemp.speechbubble_arrow && !$PokemonTemp.speechbubble_arrow.disposed?
   if defaultCmd == 0 && ($game_variables && $game_variables[VAR_COMMAND_WINDOW_INDEX] != 0)
     defaultCmd = $game_variables[VAR_COMMAND_WINDOW_INDEX]
   end
   cmdwindow = Window_CommandPokemonEx.new(commands)
+  cmdwindow.contents.font.name = font if font
   cmdwindow.z = 99999
   cmdwindow.visible = true
   cmdwindow.resizeToFit(cmdwindow.commands)

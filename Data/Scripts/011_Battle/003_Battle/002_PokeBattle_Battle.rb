@@ -67,6 +67,7 @@ class PokeBattle_Battle
   attr_accessor :controlPlayer    # Whether player's Pokémon are AI controlled
   attr_accessor :expGain          # Whether Pokémon can gain Exp/EVs
   attr_accessor :moneyGain        # Whether the player can gain/lose money
+  attr_accessor :caughtOffGuard
   attr_accessor :rules
   attr_accessor :choices          # Choices made by each Pokémon this round
   attr_accessor :megaEvolution    # Battle index of each trainer's Pokémon to Mega Evolve
@@ -83,6 +84,13 @@ class PokeBattle_Battle
   attr_reader   :endOfRound       # True during the end of round
   attr_accessor :moldBreaker      # True if Mold Breaker applies
   attr_reader   :struggle         # The Struggle move
+  attr_accessor  :wind_side
+
+  #statistics
+  attr_accessor   :balls_thrown
+  attr_accessor   :damage_received
+  attr_accessor   :favored_moves
+
 
   include PokeBattle_BattleCommon
 
@@ -137,6 +145,7 @@ class PokeBattle_Battle
     @controlPlayer     = false
     @expGain           = true
     @moneyGain         = true
+    @caughtOffGuard    = false
     @rules             = {}
     @priority          = []
     @priorityTrickRoom = false
@@ -167,6 +176,10 @@ class PokeBattle_Battle
     else
       @struggle = PokeBattle_Struggle.new(self, nil)
     end
+
+    @favored_moves = []   #Some trainers can be set to prioritize certain moves (ex: move tutor battles)
+    @balls_thrown =0
+    @damage_received = 0
   end
 
   #=============================================================================
@@ -204,6 +217,8 @@ class PokeBattle_Battle
       else                      default  # Single, 1v1 (default)
       end
   end
+
+
 
   def singleBattle?
     return pbSideSize(0)==1 && pbSideSize(1)==1
@@ -414,7 +429,7 @@ class PokeBattle_Battle
     ret = -1
     party.each_with_index do |pkmn,i|
       next if i<idxPartyStart || i>=idxPartyEnd   # Check the team only
-      next if !pkmn || !pkmn.able?   # Can't copy a non-fainted Pokémon or egg
+      next if !pkmn #|| !pkmn.able?   # Can't copy a non-fainted Pokémon or egg
       ret = i if ret < 0 || partyOrders[i] > partyOrders[ret]
     end
     return ret
@@ -694,12 +709,12 @@ class PokeBattle_Battle
     when :HarshSun
       if !pbCheckGlobalAbility(:DESOLATELAND)
         @field.weather = :None
-        pbDisplay("The harsh sunlight faded!")
+        pbDisplay(_INTL("The harsh sunlight faded!"))
       end
     when :HeavyRain
       if !pbCheckGlobalAbility(:PRIMORDIALSEA)
         @field.weather = :None
-        pbDisplay("The heavy rain has lifted!")
+        pbDisplay(_INTL("The heavy rain has lifted!"))
       end
     # when :StrongWinds
     #   if !pbCheckGlobalAbility(:DELTASTREAM)

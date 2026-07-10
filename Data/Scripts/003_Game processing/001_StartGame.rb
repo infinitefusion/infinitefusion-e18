@@ -17,7 +17,7 @@ module Game
     GameData.load_all
     map_file = format('Data/Map%03d.rxdata', $data_system.start_map_id)
     if $data_system.start_map_id == 0 || !pbRgssExists?(map_file)
-      raise _INTL('No starting position was set in the map editor.')
+      raise _INTL("No starting position was set in the map editor.")
     end
   end
 
@@ -105,9 +105,9 @@ module Game
     # Set resize factor
     pbSetResizeFactor([$PokemonSystem.screensize, 4].min)
     # Set language (and choose language if there is no save file)
-    if Settings::LANGUAGES.length >= 2
+    if Settings::LANGUAGES[Settings::GAME_ID].length >= 2
       $PokemonSystem.language = pbChooseLanguage if save_data.empty?
-      pbLoadMessages('Data/' + Settings::LANGUAGES[$PokemonSystem.language][1])
+      pbLoadMessages('Data/' + Settings::LANGUAGES[Settings::GAME_ID][$PokemonSystem.language][1])
     end
   end
 
@@ -126,8 +126,8 @@ module Game
             pokemon.exp_when_fused_body=nil
             pokemon.exp_gained_since_fused=nil
             pokemon.level = 5
+            pokemon.pif_sprite =nil
 
-            echoln pokemon.owner.id
             pokemon.owner.id = $Trainer.id
             pokemon.ot=$Trainer.name
             pokemon.obtain_method = 0
@@ -217,13 +217,13 @@ module Game
         $MapFactory.setup($game_map.map_id)
       rescue Errno::ENOENT
         if $DEBUG
-          pbMessage(_INTL('Map {1} was not found.', $game_map.map_id))
+          pbMessage(_INTL("Map {1} was not found.", $game_map.map_id))
           map = pbWarpToMapList
           exit unless map
           $MapFactory.setup(map[0])
           $game_player.moveto(map[1], map[2])
         else
-          raise _INTL('The map was not found. The game cannot continue.')
+          raise _INTL("The map was not found. The game cannot continue.")
         end
       end
       $game_player.center($game_player.x, $game_player.y)
@@ -231,7 +231,7 @@ module Game
       $MapFactory.setMapChanged($game_map.map_id)
     end
     if $game_map.events.nil?
-      raise _INTL('The map is corrupt. The game cannot continue.')
+      raise _INTL("The map is corrupt. The game cannot continue.")
     end
     $PokemonEncounters = PokemonEncounters.new
     $PokemonEncounters.setup($game_map.map_id)

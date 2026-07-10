@@ -124,3 +124,10 @@ def getTrainerSpriteBallFilename(pokeball)
 
   return base_path + "/" + pokeball.to_s
 end
+
+def getOverworldBicycleTrickFilename
+  return Settings::PLAYER_GRAPHICS_FOLDER + BASE_FOLDER + "/" + BASE_OVERWORLD_FOLDER + "/bicycle/bike_trick"
+end
+def getOverworldBicycleFilename
+  return Settings::PLAYER_GRAPHICS_FOLDER + BASE_FOLDER + "/" + BASE_OVERWORLD_FOLDER + "/bicycle/bike"
+end

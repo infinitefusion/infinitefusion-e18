@@ -146,15 +146,18 @@ class PokemonHatPresenter
   def initialize_bitmap()
     spriteLoader = BattleSpriteLoader.new
 
-    if @pokemon.isTripleFusion?
-      #todo
-    elsif @pokemon.isFusion?
-      @original_pokemon_bitmap = spriteLoader.load_fusion_sprite(@pokemon.head_id(),@pokemon.body_id())
+    if $PokemonSystem.random_sprites
+      @original_pokemon_bitmap = spriteLoader.load_pif_sprite_pokemon(@pokemon)
     else
-      echoln @pokemon
-      echoln @pokemon.species_data
-      @original_pokemon_bitmap = spriteLoader.load_base_sprite(@pokemon.id_number)
+      if @pokemon.isTripleFusion?
+        #todo
+      elsif @pokemon.isFusion?
+        @original_pokemon_bitmap = spriteLoader.load_fusion_sprite(@pokemon.head_id(),@pokemon.body_id())
+      else
+        @original_pokemon_bitmap = spriteLoader.load_base_sprite(@pokemon.id_number)
+      end
     end
+
     @original_pokemon_bitmap.scale_bitmap(Settings::FRONTSPRITE_SCALE)
   end
 

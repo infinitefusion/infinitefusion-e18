@@ -3,7 +3,7 @@ def export_music_use_map()
   for map_id in 1..796
     mapInfos = load_data(sprintf("Data/Map%03d.rxdata", map_id))
     bgm_name = mapInfos.bgm.name
-    map_name = Kernel.getMapName(map_id)
+    map_name = getMapName(map_id)
     formatted_value = map_name + " [" + map_id.to_s + "]"
     if music_hash.has_key?(bgm_name)
       music_hash[bgm_name] << formatted_value

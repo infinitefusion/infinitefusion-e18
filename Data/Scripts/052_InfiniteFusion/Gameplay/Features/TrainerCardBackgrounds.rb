@@ -110,7 +110,7 @@ CARD_BACKGROUND_UNLOCKABLES = {
   "RUBY" => SWITCH_HOENN_HAIR_COLLECTION,
   "SAPPHIRE" => SWITCH_HOENN_HAIR_COLLECTION,
   "EMERALD" => SWITCH_HOENN_HAIR_COLLECTION,
-  "BARS_BOACH" => SWITCH_HOENN_HAIR_COLLECTION,
+  "BARS-BOACH" => SWITCH_HOENN_HAIR_COLLECTION,
   "RIVALS" => SWITCH_HOENN_HAIR_COLLECTION,
 
 
@@ -179,7 +179,7 @@ end
 def purchaseCardBackground(price = 1000)
   $Trainer.unlocked_card_backgrounds = [] if ! $Trainer.unlocked_card_backgrounds
   purchasable_cards = []
-  current_city = pbGet(VAR_CURRENT_MART)
+  current_city = pbGet(VAR_CURRENT_CITY)
   current_city = :PEWTER if !current_city.is_a?(Symbol)
   for card in CARD_BACKGROUND_CITY_EXCLUSIVES.keys
     purchasable_cards << card if current_city == CARD_BACKGROUND_CITY_EXCLUSIVES[card] && !$Trainer.unlocked_card_backgrounds.include?(card)
@@ -219,7 +219,7 @@ def purchaseCardBackground(price = 1000)
       pbSEPlay("Mart buy item")
       $Trainer.money -= price
       unlock_card_background(chosen)
-      pbSEPlay("Item get")
+      pbMEPlay("Item get")
       pbMessage(_INTL("\\GYou purchased the {1} Trainer Card background!", name))
       if pbConfirmMessage(_INTL("Would you like to swap your current Trainer Card for the newly purchased one?"))
         pbSEPlay("GUI trainer card open")

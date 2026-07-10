@@ -7,6 +7,9 @@ class SecretBaseLoader
   end
 
   def load_visitor_bases
+    return #DISABLED FOR NOW
+
+    #todo
     visitor_bases = @importer.load_bases(SecretBaseImporter::VISITOR_BASES_FILE)
     friend_bases = @importer.load_bases(SecretBaseImporter::FRIEND_BASES_FILE)
     all_bases = visitor_bases + friend_bases

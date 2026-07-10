@@ -139,6 +139,8 @@ class PokeBattle_AI
         next if !@battle.pbMoveCanTarget?(user.index, b.index, target_data)
         next if target_data.targets_foe && !user.opposes?(b)
         score = pbGetMoveScore(move, user, b, skill)
+
+        #echoln "Move: #{move.id} Score: #{score}"
         scoresAndTargets.push([score, b.index]) if score > 0
       end
       if scoresAndTargets.length > 0
@@ -156,6 +158,9 @@ class PokeBattle_AI
     skill = PBTrainerAI.minimumSkill if skill < PBTrainerAI.minimumSkill
     score = 100
     score = pbGetMoveScoreFunctionCode(score, move, user, target, skill)
+
+    #echoln "Move #{move.id} : score"
+
     # A score of 0 here means it absolutely should not be used
     return 0 if score <= 0
     if skill >= PBTrainerAI.mediumSkill

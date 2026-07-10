@@ -98,7 +98,6 @@ class PokeBattle_Battler
     # User's ability
     if user.abilityActive?
       BattleHandlers.triggerUserAbilityEndOfMove(user.ability,user,targets,move,@battle)
-      BattleHandlers.triggerUserAbilityEndOfMove(user.ability2,user,targets,move,@battle) if user.ability2
     end
     # Greninja - Battle Bond
     if !user.fainted? && !user.effects[PBEffects::Transform] &&
@@ -168,7 +167,6 @@ class PokeBattle_Battler
       next if b.damageState.unaffected || switchedBattlers.include?(b.index)
       next if !b.abilityActive?
       BattleHandlers.triggerTargetAbilityAfterMoveUse(b.ability,b,user,move,switchedBattlers,@battle)
-      BattleHandlers.triggerTargetAbilityAfterMoveUse(b.ability2,b,user,move,switchedBattlers,@battle) if b.ability2
       if !switchedBattlers.include?(b.index) && move.damagingMove?
         if b.pbAbilitiesOnDamageTaken(b.damageState.initialHP)   # Emergency Exit, Wimp Out
           switchWimpOut.push(b.index)

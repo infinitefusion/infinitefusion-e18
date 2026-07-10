@@ -94,9 +94,10 @@ class Scene_Map
     $game_temp.player_transferring = false
     pbCancelVehicles($game_temp.player_new_map_id) if cancelVehicles
     autofade($game_temp.player_new_map_id)
-    pbBridgeOff
+    #pbBridgeOff
     @spritesetGlobal.playersprite.clearShadows
     clear_quest_icons()
+    update_last_visited_location
     if $game_map.map_id != $game_temp.player_new_map_id
       $MapFactory.setup($game_temp.player_new_map_id)
     end
@@ -127,6 +128,17 @@ class Scene_Map
     Graphics.frame_reset
     Input.update
   end
+
+  def update_last_visited_location
+    old_map = $game_map.map_id
+    mapdata = pbLoadTownMapData
+    all_maps = mapdata[0][2]
+    if find_position_for_map(all_maps,old_map)
+      $Trainer.last_visited_town_map_location = old_map
+    end
+  end
+
+
 
   def call_menu
     $game_temp.menu_calling = false
@@ -190,6 +202,14 @@ class Scene_Map
     Events.onMapUpdate.trigger(self)
   end
 
+  def showLocationWindow
+    dayOfWeek = getDayOfTheWeekName()
+    location_window_text = pbGetMapNameFromId($game_map.map_id)
+    location_window_text += "\n"+ pbGetTimeNow.strftime(_INTL("%I:%M %p"))# unless $game_switches[SWITCH_TIME_PAUSED]
+    location_window_text += "\n"+ dayOfWeek
+    $scene.spriteset.addUserSprite(LocationWindow.new(location_window_text))
+  end
+
   def update
     loop do
       pbMapInterpreter.update
@@ -230,8 +250,7 @@ class Scene_Map
         unless $game_system.menu_disabled || $game_player.moving?
           $game_temp.menu_calling = true
           $game_temp.menu_beep = true
-          dayOfWeek = getDayOfTheWeek().to_s
-          $scene.spriteset.addUserSprite(LocationWindow.new($game_map.name+ "\n"+ pbGetTimeNow.strftime(_INTL("%I:%M %p")) + "\n" + dayOfWeek))
+          showLocationWindow
         end
       elsif Input.trigger?(Input::SPECIAL)
         unless $game_system.menu_disabled || $game_player.moving?
@@ -260,6 +279,8 @@ class Scene_Map
 
   def reset_player_sprite
     @spritesetGlobal.playersprite.updateBitmap
+    updateSpritesets
+    refreshPlayerOutfit
   end
 
   def reset_map(fadeout = false,reset_music=true)
@@ -269,12 +290,14 @@ class Scene_Map
     $game_map.update
     disposeSpritesets
     GC.start
+    $PokemonTemp.dependentEvents = nil
     createSpritesets
     if fadeout
       $game_temp.transition_processing = false
       Graphics.transition(20)
     end
     $game_map.autoplay if reset_music
+    clearOverworldPokemon
     Graphics.frame_reset
     Input.update
   end

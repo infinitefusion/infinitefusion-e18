@@ -225,6 +225,11 @@ class AnimatedPlane < LargePlane
   def setBitmap(file, hue=0)
     clearBitmaps()
     return if file==nil
+    file = pbLocalizedBitmapFilename(file)
+    if isDarkMode
+      darkmode_file = file + "_dark"
+      file = darkmode_file if pbResolveBitmap(darkmode_file)
+    end
     @bitmap=AnimatedBitmap.new(file,hue)
   end
 end

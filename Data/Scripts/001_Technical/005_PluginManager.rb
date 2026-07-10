@@ -131,7 +131,7 @@
 #     Name         = Simple Extension                                          #
 #     Version      = 1.0                                                       #
 #     Requires     = Basic Plugin                                              #
-#     Requires     = Useful Utilities,1.1                                      #
+#     Requires     = Useful 0_Utilities,1.1                                      #
 #     Conflicts    = Complex Extension                                         #
 #     Conflicts    = Extended Windows                                          #
 #     Link         = https://reliccastle.com/link-to-the-plugin/               #
@@ -234,8 +234,7 @@ module PluginManager
                 dep_version = dep[1]
                 next if self.installed?(dep_name, dep_version)
                 if self.installed?(dep_name)   # Have plugin but lower version
-                  msg = "Plugin '#{name}' requires plugin '#{dep_name}' version #{dep_version} or higher, " +
-                        "but the installed version is #{self.version(dep_name)}."
+                  msg = _INTL("Plugin '{1}' requires plugin '{2}' version {3} or higher, but the installed version is {4}.", name, dep_name, dep_version, self.version(dep_name))
                   if dep_link = self.link(dep_name)
                     msg += "\r\nCheck #{dep_link} for an update to plugin '#{dep_name}'."
                   end

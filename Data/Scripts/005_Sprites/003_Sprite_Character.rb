@@ -82,6 +82,9 @@ class Sprite_Character < RPG::Sprite
     if @character && @character != $game_player
       checkModifySpriteGraphics(@character) if @character.active?
     end
+    if @character && @character.character_name == "000"
+      @character.character_name=""
+    end
     update
   end
 
@@ -90,13 +93,23 @@ class Sprite_Character < RPG::Sprite
   end
 
   def checkModifySpriteGraphics(character)
-    return if character == $game_player || !character.name
+    return if character.is_a?(Game_Player)
+    return if character.is_a?(OverworldPokemonEvent)
+    return unless character.name
     if TYPE_EXPERTS_APPEARANCES.keys.include?(character.name.to_sym)
       typeExpert = character.name.to_sym
       setSpriteToAppearance(TYPE_EXPERTS_APPEARANCES[typeExpert])
     end
   end
 
+  def setSpriteToStaticAppearance(file_path)
+    begin
+      new_bitmap = AnimatedBitmap.new(file_path)
+      @bitmap_override = new_bitmap
+      updateBitmap
+    rescue
+    end
+  end
   def setSpriteToAppearance(trainerAppearance)
     #return if !@charbitmap || !@charbitmap.bitmap
     begin
@@ -140,8 +153,10 @@ class Sprite_Character < RPG::Sprite
   end
 
   def updateBitmap
+    return if @manual_refresh
     @manual_refresh = true
   end
+
 
   def pbLoadOutfitBitmap(outfitFileName)
     # Construct the file path for the outfit bitmap based on the given value
@@ -169,15 +184,17 @@ class Sprite_Character < RPG::Sprite
   end
 
   def updateCharacterBitmap
-    AnimatedBitmap.new('Graphics/Characters/' + @character_name, @character_hue)
+    checkModifySpriteGraphics(@character)
+    return AnimatedBitmap.new('Graphics/Characters/' + @character_name, @character_hue)
   end
 
   def should_update?
-    return @tile_id != @character.tile_id ||
+    return true if @manual_refresh
+    return false if !@character
+    @tile_id        != @character.tile_id ||
       @character_name != @character.character_name ||
-      @character_hue != @character.character_hue ||
-      @oldbushdepth != @character.bush_depth ||
-      @manual_refresh
+      @character_hue  != @character.character_hue ||
+      @oldbushdepth   != @character.bush_depth
   end
 
   def refreshOutfit()
@@ -189,9 +206,14 @@ class Sprite_Character < RPG::Sprite
       self.bitmap = self.pending_bitmap
       self.pending_bitmap = nil
     end
+    return unless @character
     return if @character.is_a?(Game_Event) && !@character.should_update?
     super
     if should_update?
+      unless self.is_a?(Sprite_Player)
+        @shadow.visible = self.visible if @shadow
+      end
+
       @manual_refresh = false
       @tile_id = @character.tile_id
       @character_name = @character.character_name
@@ -217,19 +239,23 @@ class Sprite_Character < RPG::Sprite
         @charbitmap = updateCharacterBitmap()
         @charbitmap = @bitmap_override.clone if @bitmap_override
 
-        RPG::Cache.retain('Graphics/Characters/', @character_name, @character_hue) if @charbitmapAnimated = true
+        RPG::Cache.retain('Graphics/Characters/', @character_name, @character_hue) if @character == $game_player
+        @charbitmapAnimated = true
         @bushbitmap.dispose if @bushbitmap
         @bushbitmap = nil
         #@spriteoffset = @character_name[/offset/i]
-        @spriteoffset = @character_name[/fish/i] || @character_name[/dive/i] || @character_name[/surf/i]
+        if @character == $game_player
+          @spriteoffset = @character_name[/fish/i] || @character_name[/dive/i] || @character_name[/surf/i]
+        end
         @cw = @charbitmap.width / 4 if !@charbitmap.disposed?
         @ch = @charbitmap.height / 4 if !@charbitmap.disposed?
         self.ox = @cw / 2
         @character.sprite_size = [@cw, @ch]
       end
+      @manual_refresh = false
     end
     @charbitmap.update if @charbitmapAnimated
-    bushdepth = @character.bush_depth
+    bushdepth = @character.bush_depth if @character
     if bushdepth == 0
       if @character == $game_player
         self.bitmap = getClothedPlayerSprite() #generateClothedBitmap()
@@ -268,3 +294,5 @@ class Sprite_Character < RPG::Sprite
     @surfbase.update if @surfbase
   end
 end
+# frozen_string_literal: true
+

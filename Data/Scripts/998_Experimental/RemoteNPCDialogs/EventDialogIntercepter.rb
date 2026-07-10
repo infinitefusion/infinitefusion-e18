@@ -67,6 +67,9 @@ class Interpreter
     return unless Settings::REMOTE_NPC_DIALOG
 
     if event_id > 0 && map_id
+      return unless $game_map.events[@event_id]
+      return unless $game_map.events[@event_id].trigger
+      return unless $game_map.events[@event_id].trigger < 3
       $game_temp.talking_npc_id = event_id
       return unless $game_temp.talking_npc_id
       # Prepare finalizer for end-of-event
@@ -81,6 +84,8 @@ class Interpreter
   def command_end
     _remoteNPCDialog_command_end
     # Run finalizer once when the event’s interpreter finishes
+    return unless @event_id == $game_temp.talking_npc_id
+
     if $game_temp.active_event_finalizer
       $game_temp.active_event_finalizer.call
       $game_temp.active_event_finalizer = nil

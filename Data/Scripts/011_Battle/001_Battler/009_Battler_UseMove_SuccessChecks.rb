@@ -222,7 +222,11 @@ class PokeBattle_Battler
         end
       end
     end
-    # Obedience check
+    if @battle.caughtOffGuard && @battle.turnCount == 0 && !@battle.pbOwnedByPlayer?(@index)
+      @battle.pbDisplay(_INTL("{1} was caught off guard and couldn't move!",pbThis))
+      return false
+    end
+     # Obedience check
     return false if !pbObedienceCheck?(choice)
     # Truant
     if hasActiveAbility?(:TRUANT)

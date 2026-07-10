@@ -2,7 +2,7 @@
 
 class HatShopView < ClothesShopView
 
-  def initialize(currency_name = "Money")
+  def initialize(currency_name = _INTL("Money"))
     @currency_name = currency_name
   end
 
@@ -97,9 +97,13 @@ class HatShopView < ClothesShopView
       @adapter.updateTrainerPreview(itemwindow.item, @sprites["trainerPreview"])
       displayLayerIcons(item)
     else
-      description = _INTL("Quit.")
+      description = getQuitDescription
     end
     @sprites["itemtextwindow"].text = description
+  end
+
+  def getQuitDescription
+    return _INTL("Hats are submitted by the community. More will be added with future updates.")
   end
 
   def updateTrainerPreview()

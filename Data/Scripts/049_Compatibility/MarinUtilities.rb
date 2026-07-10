@@ -1,5 +1,5 @@
 # # PluginManager.register({
-# #                          :name => "Marin's Scripting Utilities",
+# #                          :name => "Marin's Scripting 0_Utilities",
 # #                          :version => "1.5",
 # #                          :credits => "Marin",
 # #                          :link => "https://reliccastle.com/resources/165/"

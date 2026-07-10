@@ -35,12 +35,20 @@ class PokeBattle_Scene
                                                        16, Graphics.height - 96 + 2, Graphics.width - 32, 96, @viewport)
     msgWindow.z = 200
     msgWindow.opacity = 0
-    msgWindow.baseColor = PokeBattle_SceneConstants::MESSAGE_BASE_COLOR
-    msgWindow.shadowColor = PokeBattle_SceneConstants::MESSAGE_SHADOW_COLOR
+
+    base_color = PokeBattle_SceneConstants::MESSAGE_BASE_COLOR
+    shadow_color = PokeBattle_SceneConstants::MESSAGE_SHADOW_COLOR
+
+    if isDarkMode
+      base_color, shadow_color = shadow_color, base_color
+    end
+    msgWindow.baseColor = base_color
+    msgWindow.shadowColor = shadow_color
+
     msgWindow.letterbyletter = true
     @sprites["messageWindow"] = msgWindow
     # Create command window
-    @sprites["commandWindow"] = CommandMenuDisplay.new(@viewport, 200)
+    @sprites["commandWindow"] = CommandMenuDisplay.new(@viewport, 200,base_color,shadow_color)
     # Create fight window
     @sprites["fightWindow"] = FightMenuDisplay.new(@viewport, 200)
     # Create targeting window
@@ -61,10 +69,6 @@ class PokeBattle_Scene
       # Ability splash bars
       if PokeBattle_SceneConstants::USE_ABILITY_SPLASH
         @sprites["abilityBar_#{side}"] = AbilitySplashBar.new(side, @viewport)
-        if $game_switches[SWITCH_DOUBLE_ABILITIES]
-          @sprites["ability2Bar_#{side}"] = AbilitySplashBar.new(side, @viewport, true)
-          @sprites["ability2Bar_#{side}"].y = @sprites["ability2Bar_#{side}"].y + 30
-        end
       end
     end
     # Player's and partner trainer's back sprite
@@ -111,11 +115,11 @@ class PokeBattle_Scene
     when :BACKGROUND then
       base_path = "Graphics/Battlebacks/battlebg/"
     when :ENEMYBASE then
-      base_path = "Graphics/Battlebacks/enemybase/"
+      base_path = "Graphics/Battlebacks/base/"
     when :PLAYERBASE then
-      base_path = "Graphics/Battlebacks/playerbase/"
+      base_path = "Graphics/Battlebacks/base/"
     when :MESSAGE then
-      base_path = "Graphics/Battlebacks/"
+      base_path = "Graphics/Battlebacks/message/"
     end
     return base_path
   end
@@ -124,6 +128,8 @@ class PokeBattle_Scene
     time = getBackdropTimeSuffix()
     base_path = getBackdropBasePath(backdrop_type)
     default_name = base_path + filename
+    echoln default_name
+
     time_adjusted_name = "#{base_path}#{filename}_#{time}"
     if pbResolveBitmap(time_adjusted_name)
       return time_adjusted_name
@@ -142,6 +148,13 @@ class PokeBattle_Scene
       baseX, baseY = PokeBattle_SceneConstants.pbBattlerPosition(side)
       base = pbAddSprite("base_#{side}", baseX, baseY,
                          (side == 0) ? playerBase : enemyBase, @viewport)
+      player_side = side == 0
+      if player_side
+        base.zoom_x = 1.5
+        base.zoom_y = 1.5
+         base.x -= 50
+         base.y+= 70
+      end
       base.z = 1
       if base.bitmap
         base.ox = base.bitmap.width / 2
@@ -156,15 +169,22 @@ class PokeBattle_Scene
   DEFAULT_MESSAGE_NAME = "default_message"
   def pbCreateBackdropSprites
     background_name = @battle.backdrop ? @battle.backdrop.downcase : DEFAULT_BACKGROUND_NAME
-    battlebase_name = @battle.backdropBase ? @battle.backdropBase.downcase : background_name
+    simplified_name = background_name.downcase.split("-")[0]
+
+    battlebase_name = @battle.backdropBase ? @battle.backdropBase.downcase : simplified_name
     message_name = background_name + "_message"
+
+    #To avoid duplicating files too much, some backgrounds have a common prefix separated by -
+    # Ex: city-rustboro
+    # Will use the full name (city-rustboro) for the background, but "city" for the bases
+
 
     battleBG =getBackdropSpriteFullPath(background_name, :BACKGROUND)
     playerBase =getBackdropSpriteFullPath(battlebase_name, :PLAYERBASE)
     enemyBase =getBackdropSpriteFullPath(battlebase_name, :ENEMYBASE)
-    messageBG =getBackdropSpriteFullPath(message_name, :MESSAGE)
+    messageBG =getBackdropSpriteFullPath(simplified_name, :MESSAGE)
     if !pbResolveBitmap(messageBG)
-      messageBG = "Graphics/Battlebacks/default_message"
+      messageBG = "Graphics/Battlebacks/message/default_message"
     end
     apply_backdrop_graphics(battleBG,playerBase,enemyBase,messageBG)
   end
@@ -244,7 +264,7 @@ class PokeBattle_Scene
     trainer = pbAddSprite("trainer_#{idxTrainer + 1}", spriteX, spriteY, trainerFile, @viewport)
     spriteOverrideBitmap = setTrainerSpriteOverrides(trainerType)
     trainer.bitmap = spriteOverrideBitmap if spriteOverrideBitmap
-    trainer.bitmap = generate_front_trainer_sprite_bitmap_from_appearance(custom_appearance,true).bitmap if custom_appearance
+    trainer.bitmap = generate_front_trainer_sprite_bitmap_from_appearance(custom_appearance,false).bitmap if custom_appearance
     return if !trainer.bitmap
     # Alter position of sprite
     trainer.z = 7 + idxTrainer

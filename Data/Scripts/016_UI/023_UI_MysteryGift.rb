@@ -2,13 +2,6 @@
 # Mystery Gift system
 # By Maruno
 #===============================================================================
-# This url is the location of an example Mystery Gift file.
-# You should change it to your file's url once you upload it.
-#===============================================================================
-module MysteryGift
-  URL = "https://pastebin.com/raw/w6BqqUsm"
-end
-
 #===============================================================================
 # Creating a new Mystery Gift for the Master file, and editing an existing one.
 #===============================================================================
@@ -121,6 +114,7 @@ end
 # Debug option for managing gifts in the Master file and exporting them to a
 # file to be uploaded.
 #===============================================================================
+
 def pbManageMysteryGifts
   if !safeExists?("MysteryGiftMaster.txt")
     pbMessage(_INTL("There are no Mystery Gifts defined."))
@@ -162,7 +156,7 @@ def pbManageMysteryGifts
         for gift in master
           newfile.push(gift) if online.include?(gift[0])
         end
-        string=pbMysteryGiftEncrypt(newfile)
+        string=pbMysteryGiftExportToJson(newfile)
         File.open("MysteryGift.txt","wb") { |f| f.write(string) }
         pbMessage(_INTL("The gifts were saved to MysteryGift.txt."))
         pbMessage(_INTL("Upload MysteryGift.txt to the Internet."))
@@ -228,8 +222,12 @@ def pbRefreshMGCommands(master, online)
     elsif gift[1] > 0
       itemname = GameData::Item.get(gift[2]).name + sprintf(" x%d", gift[1])
     end
-    ontext = ["[  ]", "[X]"][(online.include?(gift[0])) ? 1 : 0]
-    commands.push("#{ontext} #{gift[0]}: #{gift[3]} (#{itemname})")
+    # ontext = ["[  ]", "[X]"][(online.include?(gift[0])) ? 1 : 0]
+    # commands.push("#{ontext} #{gift[0]}: #{gift[3]} (#{itemname})")
+
+    #commands.push("#{gift[0]}: #{gift[3]} (#{itemname})")
+    commands.push("#{gift[3]} (#{itemname})")
+
   end
   commands.push(_INTL("Export selected to file"))
   commands.push(_INTL("Cancel"))
@@ -247,12 +245,85 @@ def pbDownloadMysteryGift(trainer)
   addBackgroundPlane(sprites,"background","mysteryGiftbg",viewport)
   pbFadeInAndShow(sprites)
   sprites["msgwindow"]=pbCreateMessageWindow
+
+  options = []
+  cmd_online = _INTL("Search for public gifts")
+  cmd_code = _INTL("Redeem from a code")
+  cmd_cancel = _INTL("Cancel")
+  options << cmd_online
+  options << cmd_code
+  options << cmd_cancel
+  choice = pbMessage(_INTL("What would you like to do?"),options)
+  case options[choice]
+  when cmd_online
+    downloadMysteryGifts(MysteryGift::URL,sprites, viewport, trainer)
+  when cmd_code
+    code = pbEnterText(_INTL("Enter code to redeem"),1,20)
+    url = MysteryGift::PRIVATE_URL + code + ".json"
+    downloadMysteryGifts(url,sprites, viewport, trainer)
+  when cmd_cancel
+    pbFadeOutAndHide(sprites)
+    pbDisposeMessageWindow(sprites["msgwindow"])
+    pbDisposeSpriteHash(sprites)
+    viewport.dispose
+  end
+end
+
+#From debug menu - for event organizers
+#From debug menu - for event organizers
+def testMysteryGift
+  mystery_gifts = scanLocalMysteryGifts
+  pending=[]
+  for gift in mystery_gifts
+    pending.push(gift)
+  end
+  if pending.length==0
+    pbMessage(_INTL("No testable gift was found. Make sure that your Json doesn't have any formatting errors. You can use any online json validator to make sure!"))
+    return
+  end
+  loop do
+    commands=[]
+    for gift in pending; commands.push(gift[3]); end
+    commands.push(_INTL("Cancel"))
+    command=pbMessage(_INTL("Choose the gift you want to receive.\\wtnp[0]"),commands,-1)
+    break if command==-1 || command==commands.length-1
+    gift=pending[command]
+    $Trainer.mystery_gifts.push(gift)
+    pbReceiveMysteryGift(gift[0])
+    pending[command]=nil; pending.compact!
+    break if pending.length==0
+  end
+end
+
+def scanLocalMysteryGifts
+  skipped_filenames = ["configuration.json", "mkxp.json"]
+  mystery_gifts = []
+  Dir.glob("*.json").each do |filename|
+    next if skipped_filenames.include?(filename)
+    begin
+    next if !safeExists?(filename)
+    string = File.open(filename, "rb") { |f| f.read } rescue nil
+    next if nil_or_empty?(string)
+    gifts = pbMysteryGiftReadFromJson(string, $Trainer) rescue []
+    mystery_gifts.concat(gifts) if gifts.is_a?(Array)
+    rescue Exception => ex
+      pbMessage("There was an error when parsing #{filename}. #{ex.message}")
+      pbMessage("The stacktrace will be copied to your clipboard.")
+      clipboard_content = "#{filename}\n[#{ex.class}] #{ex.message}\n\n#{ex.backtrace.join("\n")}"
+      Input.clipboard = clipboard_content
+    end
+  end
+  return mystery_gifts
+end
+
+
+def downloadMysteryGifts(url,sprites, viewport, trainer)
   pbMessageDisplay(sprites["msgwindow"],_INTL("Searching for a gift.\nPlease wait...\\wtnp[0]"))
-  string = pbDownloadToString(MysteryGift::URL)
+  string = pbDownloadToString(url)
   if nil_or_empty?(string)
-    pbMessageDisplay(sprites["msgwindow"],_INTL("No new gifts are available."))
+    pbMessageDisplay(sprites["msgwindow"],_INTL("No new gift was found."))
   else
-    online=pbMysteryGiftDecrypt(string)
+    online=pbMysteryGiftReadFromJson(string,trainer) rescue []
     pending=[]
     for gift in online
       notgot=true
@@ -262,7 +333,7 @@ def pbDownloadMysteryGift(trainer)
       pending.push(gift) if notgot
     end
     if pending.length==0
-      pbMessageDisplay(sprites["msgwindow"],_INTL("No new gifts are available."))
+      pbMessageDisplay(sprites["msgwindow"],_INTL("No new gift was found."))
     else
       loop do
         commands=[]
@@ -275,16 +346,24 @@ def pbDownloadMysteryGift(trainer)
         else
           gift=pending[command]
           sprites["msgwindow"].visible=false
-          if gift[1]==0
+          if gift[2].is_a?(Pokemon)
             sprite=PokemonSprite.new(viewport)
             sprite.setOffset(PictureOrigin::Center)
             sprite.setPokemonBitmap(gift[2])
             sprite.x=Graphics.width/2
             sprite.y=-sprite.bitmap.height/2
-          else
+          elsif gift[2].is_a?(Symbol) #Item
             sprite=ItemIconSprite.new(0,0,gift[2],viewport)
             sprite.x=Graphics.width/2
             sprite.y=-sprite.height/2
+          elsif gift[2].is_a?(Hat)
+            sprite=IconSprite.new(0,0,viewport)
+            sprite.setBitmap(getTrainerSpriteHatFilename(gift[2].id))
+            sprite.zoom_x = 2
+            sprite.zoom_y = 2
+            sprite.x=80
+          elsif gift[2].is_a?(Clothes)
+            sprite = showOutfitPicture(gift[2].id)
           end
           distanceDiff = 8*20/Graphics.frame_rate
           loop do
@@ -317,7 +396,7 @@ def pbDownloadMysteryGift(trainer)
           sprite.dispose
         end
         if pending.length==0
-          pbMessageDisplay(sprites["msgwindow"],_INTL("No new gifts are available."))
+          pbMessageDisplay(sprites["msgwindow"],_INTL("No new gift was found."))
           break
         end
       end
@@ -337,6 +416,84 @@ def pbMysteryGiftEncrypt(gift)
   return ret
 end
 
+def pbMysteryGiftExportToJson(gift_data)
+  json = {}
+  exporter = SecretBaseExporter.new
+  gift_data.each do |gift_array|
+    id = gift_array[0].to_s.to_i
+    quantity = gift_array[1]
+    gift = gift_array[2] # Pokemon or item
+    if gift.is_a?(Pokemon)
+      pokemon_hash = exporter.export_fused_pokemon_hash(gift)
+    elsif gift.is_a?(Symbol)
+      item = gift
+    end
+
+    name = gift_array[3]
+    gift_json = {}
+    gift_json[:quantity] = quantity if quantity
+    gift_json[:pokemon] = pokemon_hash if pokemon_hash
+    gift_json[:item] = item if item
+    gift_json[:name] = name
+    gift_json[:enabled] = true
+    json[id] = gift_json
+  end
+
+  ret = JSON.generate(json)
+  return ret
+end
+
+def pbMysteryGiftReadFromJson(json_string,trainer)
+  json_data = JSON.parse(json_string) rescue {}
+  mystery_gifts = []
+  importer = SecretBaseImporter.new
+
+  json_data.each do |key, value|
+    id = key.to_s
+    gift_data = json_data[key]
+
+    minimum_version = gift_data[:minimum_version] || nil
+    if minimum_version && !is_higher_version(Settings::GAME_VERSION_NUMBER, minimum_version)
+      next
+    end
+
+    trainer_id = gift_data[:trainerId] || nil
+    if trainer_id
+      next unless trainer.id == trainer_id
+    end
+    pokemon= gift_data[:pokemon]
+    item = gift_data[:item] || nil
+    hat = gift_data[:hat] || nil
+    clothes = gift_data[:clothes] || nil
+    quantity = gift_data[:quantity] || 0
+    name = gift_data[:name]
+    enabled = gift_data[:enabled]
+    kanto_only = gift_data[:kanto_only] || false
+    hoenn_only = gift_data[:hoenn_only] || false
+
+    next if kanto_only && !Settings::KANTO
+    next if hoenn_only && !Settings::HOENN
+    next unless enabled
+
+    if pokemon
+      gift_content = importer.import_pokemon_from_json(pokemon)
+    elsif item
+      gift_content = item.to_sym
+      quantity = quantity.to_i
+    elsif hat
+      gift_content = Hat.new(hat,nil,nil,nil)
+    elsif clothes
+      gift_content = Clothes.new(clothes,nil,nil,nil)
+    else
+      next
+    end
+    gift_array = [id,quantity,gift_content,name]
+    mystery_gifts.push(gift_array)
+  end
+  return mystery_gifts
+end
+
+
 def pbMysteryGiftDecrypt(gift)
   return [] if nil_or_empty?(gift)
   ret = Marshal.restore(Zlib::Inflate.inflate(gift.unpack("m")[0]))
@@ -355,6 +512,13 @@ end
 #===============================================================================
 # Collecting a Mystery Gift from the deliveryman.
 #===============================================================================
+
+def hasUnclaimedMysteryGift?
+  for gift in $Trainer.mystery_gifts
+    return true if gift.length>1
+  end
+  return false
+end
 def pbNextMysteryGiftID
   for i in $Trainer.mystery_gifts
     return i[0] if i.length>1
@@ -375,7 +539,7 @@ def pbReceiveMysteryGift(id)
     return false
   end
   gift=$Trainer.mystery_gifts[index]
-  if gift[1]==0   # Pokémon
+  if gift[2].is_a?(Pokemon)   # Pokémon
     gift[2].personalID = rand(2**16) | rand(2**16) << 16
     gift[2].calc_stats
     time=pbGetTimeNow
@@ -391,10 +555,13 @@ def pbReceiveMysteryGift(id)
     end
     if pbAddPokemonSilent(gift[2])
       pbMessage(_INTL("\\me[Pkmn get]{1} received {2}!",$Trainer.name,gift[2].name))
+      if $Trainer.party.length>=6
+        pbMessage(_INTL("It was transferred to the PC."))
+      end
       $Trainer.mystery_gifts[index]=[id]
       return true
     end
-  elsif gift[1]>0   # Item
+  elsif gift[2].is_a?(Symbol)   # Item
     item=gift[2]
     qty=gift[1]
     if $PokemonBag.pbCanStore?(item,qty)
@@ -416,6 +583,14 @@ def pbReceiveMysteryGift(id)
       $Trainer.mystery_gifts[index]=[id]
       return true
     end
+  elsif gift[2].is_a?(Hat)
+    obtainHat(gift[2].id)
+    $Trainer.mystery_gifts[index]=[id]
+    return true
+  elsif gift[2].is_a?(Clothes)
+    obtainClothes(gift[2].id)
+    $Trainer.mystery_gifts[index]=[id]
+    return true
   end
   return false
 end

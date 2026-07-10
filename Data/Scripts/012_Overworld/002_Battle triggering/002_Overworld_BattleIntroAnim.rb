@@ -1,6 +1,10 @@
 #===============================================================================
 # Battle intro animation
 #===============================================================================
+
+TRANSITION_TIME = 0.5
+TRANSITION_PAUSE_TIME = 20
+
 def pbSceneStandby
   $scene.disposeSpritesets if $scene.is_a?(Scene_Map)
   if RPG::Cache.need_clearing
@@ -78,7 +82,7 @@ def pbBattleAnimation(bgm=nil,battletype=0,foe=nil)
     end
     halfFlashTime = Graphics.frame_rate*2/10   # 0.2 seconds, 8 frames
     alphaDiff = (255.0/halfFlashTime).ceil
-    2.times do
+    1.times do
       viewport.color.alpha = 0
       for i in 0...halfFlashTime*2
         if i<halfFlashTime; viewport.color.alpha += alphaDiff
@@ -90,14 +94,15 @@ def pbBattleAnimation(bgm=nil,battletype=0,foe=nil)
     end
     # Play main animation
     Graphics.freeze
-    Graphics.transition(Graphics.frame_rate*1.25,sprintf("Graphics/Transitions/%s",anim))
+    Graphics.transition(Graphics.frame_rate*TRANSITION_TIME,sprintf("Graphics/Transitions/%s",anim))
     viewport.color = Color.new(0,0,0,255)   # Ensure screen is black
     # Slight pause after animation before starting up the battle scene
-    (Graphics.frame_rate/10).times do
-      Graphics.update
-      Input.update
-      pbUpdateSceneMap
-    end
+    # (Graphics.frame_rate/TRANSITION_PAUSE_TIME).times do
+    #   Graphics.update
+    #   Input.update
+    #   pbUpdateSceneMap
+    # end
+    pbUpdateSceneMap
   end
   pbPushFade
   # Yield to the battle scene
@@ -142,10 +147,11 @@ def pbBattleAnimationOverride(viewport,battletype=0,foe=nil)
     if tr_type
       tbargraphic = sprintf("vsBar_%s", tr_type.to_s) rescue nil
       #tgraphic    = sprintf("vsTrainer_%s", tr_type.to_s) rescue nil
-      tgraphic    = sprintf("trainer%03d", tr_number) rescue nil
+      #tgraphic    = sprintf("trainer%03d", tr_number) rescue nil
+      tgraphic    = tr_type.to_s rescue nil
 
-      echoln tgraphic
-      if pbResolveBitmap("Graphics/Transitions/" + tbargraphic) && pbResolveBitmap("Graphics/Characters/" + tgraphic)
+      echoln tbargraphic
+      if pbResolveBitmap("Graphics/Transitions/" + tbargraphic)# && pbResolveBitmap("Graphics/Characters/" + tgraphic)
         player_tr_type = $Trainer.trainer_type
         outfit = $Trainer.outfit
         # Set up
@@ -164,6 +170,8 @@ def pbBattleAnimationOverride(viewport,battletype=0,foe=nil)
         pbSetSystemFont(overlay.bitmap)
         #pbargraphic = sprintf("vsBar_%s_%d", player_tr_type.to_s, outfit) rescue nil
         pbargraphic = sprintf("vsBar_%s", player_tr_type.to_s) rescue nil
+
+        echoln pbargraphic
         if !pbResolveBitmap("Graphics/Transitions/" + pbargraphic)
           pbargraphic = sprintf("vsBar_%s", player_tr_type.to_s) rescue nil
         end
@@ -230,7 +238,7 @@ def pbBattleAnimationOverride(viewport,battletype=0,foe=nil)
 
         trainer = Sprite.new(viewopp)
         #trainer.bitmap = RPG::Cache.transition(tgraphic)
-        trainer.bitmap =RPG::Cache.load_bitmap("Graphics/Characters/", tgraphic) #RPG::Cache.transition(pgraphic)
+        trainer.bitmap =RPG::Cache.load_bitmap("Graphics/Trainers/", tgraphic) #RPG::Cache.transition(pgraphic)
         trainer.x      = xoffset+150
         trainer.tone   = Tone.new(-255,-255,-255)
         trainer.zoom_x = 2

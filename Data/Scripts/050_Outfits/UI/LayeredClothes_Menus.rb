@@ -12,7 +12,7 @@ def selectHairstyle(all_unlocked = false)
   selector = OutfitSelector.new
   display_outfit_preview()
   hat = $Trainer.hat
-  commands = ["Next style", "Previous style", "Toggle hat", "Back"]
+  commands = [_INTL("Next style"), _INTL("Previous style"), _INTL("Toggle hat"), _INTL("Back")]
   previous_input = 0
   # To enable turning the common event that lets you turn around while in the dialog box
   while (true)
@@ -56,6 +56,45 @@ def swapToNextHairVersion()
   $Trainer.hair = getFullHairId(hair_style,newVersion)
 end
 
+
+def select_bike_color
+  original_color = $Trainer.bike_color
+  $game_switches[SWITCH_SELECTING_CLOTHES]=true
+  $game_map.update
+  commands = [_INTL("Shift up"), _INTL("Shift down"), _INTL("Default"), _INTL("Confirm"), _INTL("Never Mind")]
+  previous_input = 0
+
+  while true
+    choice = pbShowCommands(nil, commands, commands.length, previous_input)
+    previous_input = choice
+    case choice
+    when 0 #NEXT
+      pbSEPlay("GUI storage pick up", 80, 100)
+      shiftBikeColor(10)
+      ret = true
+    when 1 #PREVIOUS
+      pbSEPlay("GUI storage pick up", 80, 100)
+      shiftBikeColor(-10)
+      ret = true
+    when 2 #Reset
+      pbSEPlay("GUI storage put down", 80, 100)
+      $Trainer.bike_color = 0
+      refreshPlayerOutfit
+      ret = original_color != 0
+    when 3 #Confirm
+      break
+    else
+      pbSEPlay("GUI storage put down", 80, 100)
+      $Trainer.bike_color = original_color
+      ret = false
+      break
+    end
+  end
+  $game_switches[SWITCH_SELECTING_CLOTHES]=false
+  $game_map.update
+  return ret
+end
+
 def selectHairColor
   original_color = $Trainer.hair_color
   original_hair = $Trainer.hair
@@ -63,7 +102,8 @@ def selectHairColor
   $game_map.update
   display_outfit_preview()
   hat = $Trainer.hat
-  commands = ["Swap base color", "Shift up", "Shift down", "Toggle hat", "Remove dye", "Confirm", "Never Mind"]
+  hat2 = $Trainer.hat2
+  commands = [_INTL("Swap base color"), _INTL("Shift up"), _INTL("Shift down"), _INTL("Toggle hat"), _INTL("Remove dye"), _INTL("Confirm"), _INTL("Never Mind")]
   previous_input = 0
 
   while (true)
@@ -89,8 +129,10 @@ def selectHairColor
       pbSEPlay("GUI storage put down", 80, 100)
       if hat == $Trainer.hat
         $Trainer.hat = nil
+        $Trainer.hat2 = nil
       else
         $Trainer.hat = hat
+        $Trainer.hat2 = hat2
       end
       display_outfit_preview()
     when 4 #Reset
@@ -109,6 +151,7 @@ def selectHairColor
   end
   hide_outfit_preview()
   $Trainer.hat = hat
+  $Trainer.hat2 = hat2
   $game_switches[SWITCH_SELECTING_CLOTHES]=false
   $game_map.update
   return ret
@@ -118,7 +161,7 @@ end
 def selectHatColor(secondary_hat=false)
   original_color = secondary_hat ? $Trainer.hat2_color : $Trainer.hat_color
   display_outfit_preview()
-  commands = ["Shift up", "Shift down", "Reset", "Confirm", "Never Mind"]
+  commands = [_INTL("Shift up"), _INTL("Shift down"), _INTL("Reset"), _INTL("Confirm"), _INTL("Never Mind")]
   previous_input = 0
   while (true)
     choice = pbShowCommands(nil, commands, commands.length, previous_input)
@@ -158,7 +201,7 @@ end
 def selectClothesColor
   original_color = $Trainer.clothes_color
   display_outfit_preview()
-  commands = ["Shift up", "Shift down", "Reset", "Confirm", "Never Mind"]
+  commands = [_INTL("Shift up"), _INTL("Shift down"), _INTL("Reset"), _INTL("Confirm"), _INTL("Never Mind")]
   previous_input = 0
   ret = false
   while (true)
@@ -197,7 +240,7 @@ end
 def selectHat(all_unlocked = false)
   selector = OutfitSelector.new
   display_outfit_preview()
-  commands = ["Next hat", "Previous hat", "Remove hat", "Back"]
+  commands = [_INTL("Next hat"), _INTL("Previous hat"), _INTL("Remove hat"), _INTL("Back")]
   previous_input = 0
   while (true)
     choice = pbShowCommands(nil, commands, commands.length, previous_input)
@@ -230,10 +273,10 @@ end
 def selectClothes(all_unlocked = false)
   selector = OutfitSelector.new
   display_outfit_preview()
-  commands = ["Next", "Previous"]
+  commands = [_INTL("Next"), _INTL("Previous")]
   #commands << "Remove clothes (DEBUG)" if $DEBUG
-  commands << "Remove" if $DEBUG
-  commands << "Back"
+  commands << _INTL("Remove") if $DEBUG
+  commands << _INTL("Back")
   previous_input = 0
   while (true)
     choice = pbShowCommands(nil, commands, commands.length, previous_input)

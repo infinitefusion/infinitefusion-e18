@@ -29,7 +29,12 @@ class AutogenExtracter < PIFSpriteExtracter
 
   def getSpritesheetPath(pif_sprite)
     head_id = pif_sprite.head_id
-    return "#{SPRITESHEET_FOLDER_PATH}#{head_id}.png"
+    return getSpritesheetPathFromId(head_id)
+  end
+
+  def getSpritesheetPathFromId(head_id)
+    filename = head_id.to_s + ".png"
+    return "#{SPRITESHEET_FOLDER_PATH}#{filename}"
   end
 
   def get_resize_scale
@@ -66,7 +71,7 @@ class AutogenExtracter < PIFSpriteExtracter
     start_time = Time.now
     head_id = pif_sprite.head_id
     body_id = pif_sprite.body_id
-    spritesheet_file = "#{SPRITESHEET_FOLDER_PATH}#{head_id}.png"
+    spritesheet_file = getSpritesheetPathFromId(head_id)
 
     # Check cache before loading from disk
     spritesheet_bitmap = @@spritesheet_cache.fetch(spritesheet_file) do

@@ -11,12 +11,17 @@ module GameData
 
 
     attr_accessor :loseText_rematch
+    attr_accessor :loseText_rematch_double
+
+    attr_accessor :battleText
     attr_accessor :preRematchText
     attr_accessor :preRematchText_caught
     attr_accessor :preRematchText_evolved
     attr_accessor :preRematchText_fused
     attr_accessor :preRematchText_unfused
     attr_accessor :preRematchText_reversed
+    attr_accessor :preRematchText_gift
+    attr_accessor :infoText
 
     DATA = {}
     DATA_FILENAME = "trainers.dat"
@@ -28,6 +33,8 @@ module GameData
       "Form" => [:form, "u"],
       "Name" => [:name, "s"],
       "Moves" => [:moves, "*e", :Move],
+      "MovesHard" => [:moves_hard, "*e", :Move],
+      "MovesEasy" => [:moves_easy, "*e", :Move],
       "Ability" => [:ability, "s"],
       "AbilityIndex" => [:ability_index, "u"],
       "Item" => [:item, "e", :Item],
@@ -42,12 +49,16 @@ module GameData
       "Ball" => [:poke_ball, "s"],
 
       "LoseTextRematch" => [:loseText_rematch, "s"],
+      "LoseTextRematchDouble" => [:loseText_rematch_double, "s"],
+      "BattleText" => [:battleText, "s"],
       "PreRematchText" => [:preRematchText, "s"],
       "PreRematchText_caught" => [:preRematchText_caught, "s"],
       "PreRematchText_evolved" => [:preRematchText_evolved, "s"],
       "PreRematchText_fused" => [:preRematchText_fused, "s"],
       "PreRematchText_unfused" => [:preRematchText_unfused, "s"],
       "PreRematchText_reversed" => [:preRematchText_reversed, "s"],
+      "PreRematchText_gift" => [:preRematchText_gift, "s"],
+      "TrainerInfo" => [:infoText, "s"],
 
 
     }
@@ -112,19 +123,26 @@ module GameData
           pkmn[:ev][s.id] ||= 0 if pkmn[:ev]
         end
       end
-
+      @battleText  = hash[:battleText]
       @loseText_rematch = hash[:loseText_rematch] || @real_lose_text
-      @preRematchText  = hash[:preRematchText] || "Are you up for a rematch? Or maybe you want to trade..."
+      @preRematchText  = hash[:preRematchText] || _INTL("Are you up for a rematch? Or maybe you want to trade...")
       @preRematchText_caught = hash[:preRematchText_caught] || @preRematchText
       @preRematchText_evolved = hash[:preRematchText_evolved] || @preRematchText
       @preRematchText_fused = hash[:preRematchText_fused] || @preRematchText
       @preRematchText_unfused = hash[:preRematchText_unfused] || @preRematchText
       @preRematchText_reversed = hash[:preRematchText_reversed] || @preRematchText
+      @preRematchText_gift = hash[:preRematchText_gift] || @preRematchText
+      @infoText = hash[:infoText]
+
     end
 
     # @return [String] the translated name of this trainer
     def name
       return pbGetMessageFromHash(MessageTypes::TrainerNames, @real_name)
+    end
+
+    def battle_text
+      return pbGetMessageFromHash(MessageTypes::BeginSpeech, @battleText)
     end
 
     # @return [String] the translated in-battle lose message of this trainer
@@ -160,6 +178,14 @@ module GameData
       return pbGetMessageFromHash(MessageTypes::BeginSpeech, @preRematchText_reversed)
     end
 
+    def preRematch_text_gift
+      return pbGetMessageFromHash(MessageTypes::BeginSpeech, @preRematchText_gift)
+    end
+
+    def infoText
+      return pbGetMessageFromHash(MessageTypes::TrainerInfoText, @infoText)
+    end
+
     def replace_species_with_placeholder(species)
       case species
       when Settings::RIVAL_STARTER_PLACEHOLDER_SPECIES
@@ -186,6 +212,7 @@ module GameData
     end
 
     def generateRandomGymSpecies(old_species)
+      echoln "GENERATING GYM SPECIES"
       gym_index = pbGet(VAR_CURRENT_GYM_TYPE)
       return old_species if gym_index == -1
       return generateRandomChampionSpecies(old_species) if gym_index == 999
@@ -195,10 +222,12 @@ module GameData
       customsList = getCustomSpeciesList()
       bst_range = pbGet(VAR_RANDOMIZER_TRAINER_BST)
       gym_type = GameData::Type.get(type_id)
+      echoln "type: #{gym_type.id}"
+
       while true
         new_species = $game_switches[SWITCH_RANDOM_GYM_CUSTOMS] ? getSpecies(getNewCustomSpecies(old_species, customsList, bst_range)) : getSpecies(getNewSpecies(old_species, bst_range))
-        if new_species.hasType?(gym_type) || $game_switches[SWITCH_RANDOM_GYM_CUSTOMS] || $game_switches[SWITCH_LEGENDARY_MODE]
-          # Note: gym Type validation is handled in-house for legendary mode
+        return new_species if $game_switches[SWITCH_LEGENDARY_MODE] #        new_species = $game_switches[SWITCH_RANDOM_GYM_CUSTOMS] ? getSpecies(getNewCustomSpecies(old_species, customsList, bst_range)) : getSpecies(getNewSpecies(old_species, bst_range))
+        if new_species.hasType?(gym_type)
           return new_species
         end
       end
@@ -248,7 +277,7 @@ module GameData
     end
 
     def replace_species_to_randomized_regular(species, trainerId, pokemonIndex)
-      if $PokemonGlobal.randomTrainersHash[trainerId] == nil
+      if !$PokemonGlobal.randomTrainersHash || $PokemonGlobal.randomTrainersHash[trainerId] == nil
         Kernel.pbMessage(_INTL("The trainers need to be re-shuffled."))
         Kernel.pbShuffleTrainers()
       end
@@ -384,20 +413,17 @@ module GameData
         else
           pkmn.item = pkmn_data[:item]
         end
-        if pkmn_data[:moves] && pkmn_data[:moves].length > 0 && original_species == species
+        if pkmn_data[:moves_hard] && pkmn_data[:moves_hard].length > 0 && $game_switches[SWITCH_GAME_DIFFICULTY_HARD] && original_species == species
+          pkmn_data[:moves_hard].each { |move| pkmn.learn_move(move) }
+        elsif pkmn_data[:moves_easy] && pkmn_data[:moves_easy].length > 0 && $game_switches[SWITCH_GAME_DIFFICULTY_EASY] && original_species == species
+            pkmn_data[:moves_easy].each { |move| pkmn.learn_move(move) }
+        elsif pkmn_data[:moves] && pkmn_data[:moves].length > 0 && original_species == species
           pkmn_data[:moves].each { |move| pkmn.learn_move(move) }
         else
           pkmn.reset_moves
         end
         pkmn.ability_index = pkmn_data[:ability_index]
         pkmn.ability = pkmn_data[:ability]
-
-        if $game_switches[SWITCH_DOUBLE_ABILITIES] && pkmn.isFusion?
-          secondary_ability_index = pkmn.ability_index == 0 ? 1 : 0
-          pkmn.ability2_index = secondary_ability_index
-          pkmn.ability2 = pkmn.getAbilityList[secondary_ability_index][0]
-          #print "Primary: {1}, Secondary: {2}",pkmn.ability.id, pkmn.ability2.id
-        end
 
         pkmn.gender = pkmn_data[:gender] || ((trainer.male?) ? 0 : 1)
         pkmn.shiny = (pkmn_data[:shininess]) ? true : false

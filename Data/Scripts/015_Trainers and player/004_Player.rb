@@ -23,6 +23,8 @@ class Player < Trainer
   attr_accessor :unlocked_hairstyles
   attr_accessor :unlocked_card_backgrounds
 
+  attr_accessor :bike_color
+
   attr_accessor :dyed_hats
   attr_accessor :dyed_clothes
 
@@ -43,11 +45,16 @@ class Player < Trainer
 
   attr_accessor :seen_qmarks_sprite
 
+  attr_accessor :birth_day
+  attr_accessor :birth_month
+
 
   # @return [Array<Boolean>] the player's Gym Badges (true if owned)
   attr_accessor :badges
   # @return [Integer] the player's money
   attr_reader   :money
+  attr_accessor   :cosmetics_money
+
   # @return [Integer] the player's Game Corner coins
   attr_reader   :coins
   # @return [Integer] the player's battle points
@@ -71,6 +78,19 @@ class Player < Trainer
   attr_accessor :beat_league
   attr_accessor :new_game_plus_unlocked
   attr_accessor :new_game_plus
+
+  attr_accessor :caught_legendaries
+  attr_accessor :encountered_legendaries
+
+  attr_accessor :challenges
+  attr_accessor :nb_completed_challenges
+
+  attr_accessor :last_visited_town_map_location
+  attr_accessor :last_visited_map
+  attr_accessor :nb_npc_friends
+
+
+
   def trainer_type
     if @trainer_type.is_a?(Integer)
       @trainer_type = GameData::Metadata.get_player(@character_ID || 0)[0]
@@ -83,6 +103,11 @@ class Player < Trainer
   def money=(value)
     validate value => Integer
     @money = value.clamp(0, Settings::MAX_MONEY)
+  end
+
+  def bike_color
+    @bike_color = 0 unless @bike_color
+    return @bike_color
   end
 
   def last_worn_outfit
@@ -324,6 +349,16 @@ class Player < Trainer
   def new_game_plus=(value)
     @new_game_plus = value
   end
+
+  def register_caught_legendary(species)
+    @caught_legendaries = [] unless @caught_legendaries
+    @caught_legendaries << species
+  end
+
+  def register_seen_legendary(species)
+    @encountered_legendaries = [] unless @encountered_legendaries
+    @encountered_legendaries << species
+  end
   #=============================================================================
 
   # (see Pokedex#seen?)
@@ -343,6 +378,11 @@ class Player < Trainer
     return true
   end
 
+  def stats()
+    @stats = TrainerStatistics.new unless @stats
+    return @stats
+  end
+
   #=============================================================================
 
   def initialize(name, trainer_type)
@@ -355,6 +395,7 @@ class Player < Trainer
     @hair                  = 0
     @clothes               = 0
     @hair_color            = 0
+    @bike_color            = 0
     @skin_tone             = 0
     @badges                = [false] * 8
     @money                 = Settings::INITIAL_MONEY
@@ -387,5 +428,13 @@ class Player < Trainer
     @unlocked_card_backgrounds = [@card_background]
 
     @seen_qmarks_sprite = false
+
+    @caught_legendaries = []
+    @encountered_legendaries = []
+    @challenges ={}
+    @nb_completed_challenges = 0
+    @last_visited_town_map_location = nil
+    @last_visited_map = nil
+    @stats = TrainerStatistics.new
   end
 end

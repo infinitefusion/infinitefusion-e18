@@ -98,7 +98,7 @@ def input_friend_code()
     clipboard_text = clipboard_text.slice(0, 10)
 
     if numeric_string?(clipboard_text) && clipboard_text.length == 10 && !check_copied_own_trainerId(clipboard_text)
-      message = _INTL("Is this your friend's Trainer ID? \\C[1]#{clipboard_text}\\C[0]")
+      message = _INTL("Is this your friend's Trainer ID? \\C[1]{1}\\C[0]",clipboard_text)
       commands << cmd_refresh
       commands << cmd_confirm
       commands << cmd_manual
@@ -171,10 +171,12 @@ def pushEvent(itemInstance)
   end
 end
 
-
-
-def sit_on_chair(itemInstance)
+def sit_on_chair_item(itemInstance)
   event=itemInstance.getMainEvent
+  sit_on_chair_event(event)
+end
+
+def sit_on_chair_event(event)
   pbSEPlay("jump", 80, 100)
   $game_player.always_on_top=true
   $game_player.through =true
@@ -197,4 +199,5 @@ def sit_on_chair(itemInstance)
     end
   end
 end
+
 # PC behavior set directly in SecretBaseController

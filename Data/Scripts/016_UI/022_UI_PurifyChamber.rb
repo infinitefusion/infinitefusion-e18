@@ -503,7 +503,7 @@ class PurifyChamberScreen
             @scene.pbSummary(cmd[1],heldpkmn)
           elsif choice==2
             if pbBoxesFull?
-              @scene.pbDisplay("All boxes are full.")
+              @scene.pbDisplay(_INTL("All boxes are full."))
             elsif heldpkmn
               @scene.pbWithdraw(cmd[1],heldpkmn)
               $PokemonStorage.pbStoreCaught(heldpkmn)
@@ -558,9 +558,9 @@ class PurifyChamberScreen
         heldpkmn=pkmn if pkmn
       else # cancel
         if heldpkmn
-          @scene.pbDisplay("You're holding a Pokémon!")
+          @scene.pbDisplay(_INTL("You're holding a Pokémon!"))
         else
-          if !@scene.pbConfirm("Continue editing sets?")
+          if !@scene.pbConfirm(_INTL("Continue editing sets?"))
             break
           end
         end
@@ -616,7 +616,7 @@ class PurifyChamberScreen
       @chamber.setShadow(set,nil) # Remove shadow Pokemon from set
       if (i+1)!=purifiables.length
         @scene.pbDisplay(_INTL("There is another Pokémon that is ready to open its heart!"))
-        if !@scene.pbConfirm("Would you like to switch sets?")
+        if !@scene.pbConfirm(_INTL("Would you like to switch sets?"))
           @scene.pbCloseSet()
           break
         end
@@ -637,7 +637,7 @@ class PurifyChamberScreen
     loop do
       set=@scene.pbChooseSet
       if set<0
-        if !@scene.pbConfirm("Continue viewing holograms?")
+        if !@scene.pbConfirm(_INTL("Continue viewing holograms?"))
           break
         end
       else

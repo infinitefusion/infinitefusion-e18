@@ -71,7 +71,7 @@ class SecretBaseController
       rotateSecretBaseItem(item.getMainEvent)
       furnitureInteract(position,commandIndex)
     when :delete
-      if pbConfirmMessage(_INTL("Put away the #{item.name}?"))
+      if pbConfirmMessage(_INTL("Put away the {1}?",item.name))
         pbSEPlay("GUI storage put down", 80, 100)
         resetFurniture(item.instanceId)
       else

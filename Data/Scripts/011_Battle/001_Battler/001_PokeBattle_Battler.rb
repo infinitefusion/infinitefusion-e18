@@ -42,6 +42,7 @@ class PokeBattle_Battler
   attr_accessor :tookPhysicalHit
   attr_accessor :damageState
   attr_accessor :initialHP # Set at the start of each move's usage
+  attr_accessor :original_ability
 
   #=============================================================================
   # Complex accessors
@@ -771,6 +772,21 @@ class PokeBattle_Battler
           @battle.pbDisplay(_INTL("{1} changed to the Meteor Form!", pbThis))
         end
       end
+
+      if @pokemon.species == :TRIPLE_CELESTIAL_M
+        if new_hp <= (@totalhp / 2)
+          changeBattlerForm(:TRIPLE_CELESTIAL_M, :TRIPLE_CELESTIAL_C,nil, :SHELLSMASH)
+          @battle.pbDisplay(_INTL("{1} changed to the Core Form!", pbThis))
+        end
+      end
+
+      if @pokemon.species == :TRIPLE_CELESTIAL_C
+        if new_hp > (@totalhp / 2)
+          changeBattlerForm(:TRIPLE_CELESTIAL_C, :TRIPLE_CELESTIAL_M,nil, :SHELLSMASH)
+          @battle.pbDisplay(_INTL("{1} changed to the Meteor Form!", pbThis))
+        end
+      end
+
     end
   end
 
@@ -798,4 +814,6 @@ class PokeBattle_Battler
     @battle.scene.pbAnimation(moveID, self,self)
     @battle.scene.pbRefreshOne(@index)
   end
+
+
 end

@@ -16,7 +16,7 @@ CLOTHES_ROCK     = "temp"
 CLOTHES_BUG_1      = "bughakama"
 CLOTHES_BUG_2      = "bughakamapants"
 
-CLOTHES_GHOST    = "temp"
+CLOTHES_GHOST    = "ghostoutfit"
 
 CLOTHES_STEEL_M    = "steelworkerM"
 CLOTHES_STEEL_F    = "steelworkerF"
@@ -24,12 +24,14 @@ CLOTHES_STEEL_F    = "steelworkerF"
 CLOTHES_FIRE     = "fire"
 
 CLOTHES_WATER    = "waterdress"
+CLOTHES_WATER_NEUTRAL    = "waterneutral"
 
-CLOTHES_GRASS    = "temp"
+CLOTHES_GRASS    = "grassexpert"
 
 CLOTHES_ELECTRIC = "urbanelectric"
 
-CLOTHES_PSYCHIC  = "temp"
+CLOTHES_PSYCHIC_M  = "psyshamanm"
+CLOTHES_PSYCHIC_F  = "psyshamanf"
 
 CLOTHES_ICE      = "iceoutfit"
 
@@ -39,6 +41,8 @@ CLOTHES_DARK     = "darkoutfit"
 
 CLOTHES_FAIRY_M    = "mikufairym"
 CLOTHES_FAIRY_F    = "mikufairyf"
+
+
 
 
 NORMAL_ITEMS   = [:NORMALGEM,:MOOMOOMILK,:POTION,:FULLHEAL,:CHILANBERRY,]
@@ -106,7 +110,7 @@ def isWearingFireOutfit()
 end
 
 def isWearingWaterOutfit()
-  return (isWearingClothes(CLOTHES_WATER))
+  return (isWearingClothes(CLOTHES_WATER) || isWearingClothes(CLOTHES_WATER_NEUTRAL))
 end
 
 def isWearingGrassOutfit()
@@ -114,7 +118,7 @@ def isWearingGrassOutfit()
 end
 
 def isWearingPsychicOutfit()
-  return (isWearingClothes(CLOTHES_PSYCHIC))
+  return ((isWearingClothes(CLOTHES_PSYCHIC_M) || isWearingClothes(CLOTHES_PSYCHIC_F)))
 end
 
 def isWearingIceOutfit()
@@ -134,8 +138,23 @@ def isWearingFairyOutfit()
 end
 
 
+def isWearingNurseOutfit()
+  return (isWearingClothes(CLOTHES_NURSE))
+end
 
-
+def nurseOutfitHeal
+  if isWearingNurseOutfit()
+    $Trainer.party.each do |pokemon|
+      next if pokemon.fainted?
+      new_hp = pokemon.hp + (pokemon.totalhp/16)
+      if new_hp > pokemon.totalhp
+        pokemon.hp=pokemon.totalhp
+      else
+        pokemon.hp=new_hp
+      end
+    end
+  end
+end
 
 def pickUpTypeItemSetBonus()
   return if rand(10) != 0

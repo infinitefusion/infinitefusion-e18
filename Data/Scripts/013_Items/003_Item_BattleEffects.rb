@@ -78,6 +78,10 @@ ItemHandlers::CanUseInBattle.add(:POTION,proc { |item,pokemon,battler,move,first
     scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
+  if $PokemonSystem.no_healing_items_battles
+    scene.pbDisplay(_INTL("Your challenge options prevent healing!")) if showMessages
+    next false
+  end
   next true
 })
 
@@ -147,10 +151,18 @@ ItemHandlers::CanUseInBattle.add(:FULLRESTORE,proc { |item,pokemon,battler,move,
     scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
   end
+  if $PokemonSystem.no_healing_items_battles
+    scene.pbDisplay(_INTL("Your challenge options prevent healing!")) if showMessages
+    next false
+  end
   next true
 })
 
 ItemHandlers::CanUseInBattle.add(:REVIVE,proc { |item,pokemon,battler,move,firstAction,battle,scene,showMessages|
+  if pokemon.fainted? && $PokemonSystem.no_reviving
+    scene.pbDisplay(_INTL("Your challenge options prevent you from reviving fainted Pokémon!")) if showMessages
+    next false
+  end
   if pokemon.able? || pokemon.egg?
     scene.pbDisplay(_INTL("It won't have any effect.")) if showMessages
     next false
@@ -323,6 +335,8 @@ ItemHandlers::UseInBattle.add(:POKEFLUTE,proc { |item,battler,battle|
 ItemHandlers::UseInBattle.addIf(proc { |item| GameData::Item.get(item).is_poke_ball? },   # Poké Balls
   proc { |item,battler,battle|
     battle.pbThrowPokeBall(battler.index,item)
+    battle.balls_thrown +=1
+    echoln battle.balls_thrown
   }
 )
 

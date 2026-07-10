@@ -122,7 +122,7 @@ def getNewLegendaryFusionForGymType(original_species, nb_retries = 0)
   echoln "gymType: #{gym_type} - body_species: #{body_species.species} head_species: #{head_species.species}, kept: #{pokemon_to_be_kept.species}"
 
   legendary_species = LEGENDARIES_LIST.sample
-
+  return getNewLegendaryFusion(original_species, nb_retries)  unless pokemon_to_be_replaced
   if pokemon_to_be_replaced.species == head_species.species
     head_species_id = legendary_species
   else

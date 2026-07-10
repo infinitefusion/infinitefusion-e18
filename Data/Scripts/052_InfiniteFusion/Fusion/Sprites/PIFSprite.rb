@@ -7,7 +7,7 @@ class PIFSprite
   attr_accessor :local_path
 
   # types:
-  # :AUTOGEN, :CUSTOM, :BASE
+  # :AUTOGEN, :CUSTOM, :BASE, :TRIPLE
   def initialize(type, head_id, body_id, alt_letter = "")
     @type = type
     @head_id = head_id
@@ -34,7 +34,6 @@ class PIFSprite
 
   def exists()
     filename = get_spritesheet_path()
-    echoln filename
     return File.file?(filename)
   end
 
@@ -49,7 +48,6 @@ class PIFSprite
     else
       return nil
     end
-    echoln path
     return path
   end
 end
@@ -63,15 +61,19 @@ def equals(other_pif_sprite)
 end
 
 # little hack for old methods that expect a filename for a sprite
-def to_filename()
+def to_filename(with_extension = true)
   case @type
   when :CUSTOM
-    return "#{@head_id}.#{@body_id}#{@alt_letter}.png"
+    filename= "#{@head_id}.#{@body_id}#{@alt_letter}"
   when :AUTOGEN
-    return "#{@head_id}.#{@body_id}.png"
+    filename = "#{@head_id}.#{@body_id}"
   when :BASE
-    return "#{@head_id}#{@alt_letter}.png"
+    filename = "#{@head_id}#{@alt_letter}"
+  when :TRIPLE
+    filename = BattleSpriteLoader.new.getSpecialSpriteName(@head_id)
   end
+  filename += ".png" if with_extension
+  return filename
 end
 
 def setup_from_spritename(spritename, type)

@@ -912,7 +912,7 @@ module Transitions
           @bgsprites[i].x = amp*Math.sin((i+angadd)*Math::PI/10)
         end
         @bubblesprite.x = (@width-@bubblebitmap.width)/2
-        @bubblesprite.x -= 32*Math.sin((@numframes-@duration)/(@numframes/50)*3*Math::PI/60)
+        @bubblesprite.x -= 32*Math.sin((@numframes-@duration)/([@numframes / 50, 1].max)*3*Math::PI/60)
         @bubblesprite.y -= @bubblesuby
         if @duration<@numframes*0.5
           @splashsprite.y -= @splashsuby

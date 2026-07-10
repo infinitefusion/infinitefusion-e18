@@ -44,10 +44,30 @@
 #   end
 # }
 
+class PokemonSystem
+  attr_accessor :current_game_version
+end
+
 def onLoadExistingGame()
   migrateOldSavesToCharacterCustomization()
   clear_all_images()
   loadDateSpecificChanges()
+  checkGameVersionUpdate()
+  $PokemonSystem.overworld_encounters = false if Settings::KANTO
+end
+
+def checkGameVersionUpdate
+  if $PokemonSystem.current_game_version != Settings::GAME_VERSION_NUMBER
+    echoln "invalidating cache!"
+    invalidate_sprite_cache
+    $PokemonSystem.current_game_version = Settings::GAME_VERSION_NUMBER
+  end
+end
+
+def invalidate_sprite_cache
+  spritesLoader = BattleSpriteLoader.new
+  spritesLoader.clear_sprites_cache(:CUSTOM)
+  spritesLoader.clear_sprites_cache(:BASE)
 end
 
 def loadDateSpecificChanges()
@@ -57,7 +77,21 @@ def loadDateSpecificChanges()
   end
 end
 
-def onStartingNewGame() end
+def onStartingNewGame()
+  set_starting_options
+end
+
+def set_starting_options
+  if Settings::HOENN
+    $PokemonSystem.overworld_encounters= true
+    $PokemonSystem.use_generated_dex_entries=true
+    $PokemonGlobal.runningShoes=true
+  end
+  if $PokemonSystem.obtained_transfer_box
+    addPokemonStorageTransferBox
+  end
+
+end
 
 def migrateOldSavesToCharacterCustomization()
   if !$Trainer.unlocked_clothes
@@ -234,11 +268,26 @@ end
 #
 #===============================================================================
 class PokemonLoad_Scene
+
+
   def pbChoose(commands, continue_idx)
     @sprites["cmdwindow"].commands = commands
+    @language_option_selected = false unless defined?(@language_option_selected)
     loop do
       Graphics.update
       Input.update
+
+      if @language_option_selected
+        result = pbUpdateLanguageOption(continue_idx, commands)
+        return result if result
+        next
+      end
+
+      if @sprites["cmdwindow"].index == continue_idx && Input.trigger?(Input::UP) && @show_language_option
+        pbPlayCursorSE
+        pbEnterLanguageOption(continue_idx)
+        next
+      end
       pbUpdate
       if Input.trigger?(Input::USE)
         return @sprites["cmdwindow"].index
@@ -257,7 +306,55 @@ class PokemonLoad_Scene
     end
   end
 
+  # Called when the player presses UP while on Continue, to enter language-icon mode.
+  def pbEnterLanguageOption(continue_idx)
+    @language_option_selected = true
+    @sprites["cmdwindow"].active = false
+    @sprites["leftarrow"].visible = false
+    @sprites["rightarrow"].visible = false
+    @sprites["panel#{continue_idx}"].selected = false if @sprites["panel#{continue_idx}"]
+    @sprites["panel#{continue_idx}"].pbRefresh if @sprites["panel#{continue_idx}"]
+    pbUpdate
+  end
+
+  # Handles input while language-icon mode is active.
+  # Returns -4 if the player confirmed (caller should return this from pbChoose).
+  # Returns nil otherwise (caller should just `next` the loop).
+  def pbUpdateLanguageOption(continue_idx, commands)
+    @sprites["langicon"].bitmap = Bitmap.new(ICON_LANGUAGE_SELECTED) rescue nil
+
+    if Input.trigger?(Input::DOWN)
+      pbPlayCursorSE
+      @language_option_selected = false
+      @sprites["langicon"].bitmap = Bitmap.new(ICON_LANGUAGE) rescue nil
+      @sprites["cmdwindow"].active = true
+      @sprites["panel#{continue_idx}"].selected = true if @sprites["panel#{continue_idx}"]
+      @sprites["panel#{continue_idx}"].pbRefresh if @sprites["panel#{continue_idx}"]
+      return nil
+    elsif Input.trigger?(Input::UP)
+      pbPlayCursorSE
+      @language_option_selected = false
+      @sprites["langicon"].bitmap = Bitmap.new(ICON_LANGUAGE) rescue nil
+      last_index = commands.length - 1
+      oldi = @sprites["cmdwindow"].index
+      @sprites["cmdwindow"].index = last_index
+      @sprites["cmdwindow"].active = true
+      pbSelectPanel(oldi, last_index)
+      return nil
+    elsif Input.trigger?(Input::USE)
+      @language_option_selected = false
+      return -4
+    end
+
+    pbUpdate
+    return nil
+  end
+
+  ICON_LANGUAGE = "Graphics/Icons/mainMenu/LANGUAGE"
+  ICON_LANGUAGE_SELECTED = "Graphics/Icons/mainMenu/LANGUAGE_sel"
+
   def pbStartScene(commands, show_continue, trainer, frame_count, map_id)
+
     @commands = commands
     @sprites = {}
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
@@ -289,6 +386,16 @@ class PokemonLoad_Scene
     @sprites["cmdwindow"] = Window_CommandPokemon.new([])
     @sprites["cmdwindow"].viewport = @viewport
     @sprites["cmdwindow"].visible = false
+
+
+    @show_language_option =  Settings::LANGUAGES[Settings::GAME_ID].length >= 2
+    @language_option_selected= false
+    if @show_language_option
+      @sprites["langicon"] = Sprite.new(@viewport)
+      @sprites["langicon"].bitmap = Bitmap.new(ICON_LANGUAGE)
+      @sprites["langicon"].x=12
+      @sprites["langicon"].y = 4
+    end
   end
 
 end
@@ -430,9 +537,13 @@ class PokemonLoadScreen
       pbMessage(_INTL("Version {1} is now available! Please use the game's installer to download the newest version. Check the Discord for more information.", newer_version))
     end
 
-    if Settings::STARTUP_MESSAGES != ""
-      pbMessage(_INTL(Settings::STARTUP_MESSAGES))
+    if Settings::STARTUP_MESSAGES_KANTO != "" && Settings::KANTO
+      pbMessage(_INTL(Settings::STARTUP_MESSAGES_KANTO))
     end
+    if Settings::STARTUP_MESSAGES_HOENN != "" && Settings::HOENN
+      pbMessage(_INTL(Settings::STARTUP_MESSAGES_HOENN))
+    end
+
     if ($game_temp.unimportedSprites && $game_temp.unimportedSprites.size > 0)
       handleReplaceExistingSprites()
     end
@@ -459,27 +570,43 @@ class PokemonLoadScreen
       cmd_language = -1
       cmd_mystery_gift = -1
       cmd_debug = -1
+      cmd_savefile = -1
       cmd_quit = -1
+      cmd_lang_icon = -4
       show_continue = !@save_data.empty?
       new_game_plus = show_continue && (@save_data[:player].new_game_plus_unlocked || $DEBUG)
 
       if show_continue
         commands[cmd_continue = commands.length] = "#{@selected_file}"
-        if @save_data[:player].mystery_gift_unlocked
-          commands[cmd_mystery_gift = commands.length] = _INTL('Mystery Gift') # Honestly I have no idea how to make Mystery Gift work well with this.
-        end
+        #if @save_data[:player].mystery_gift_unlocked
+        commands[cmd_mystery_gift = commands.length] = _INTL("Mystery Gift")
+        #end
       end
 
-      commands[cmd_new_game = commands.length] = _INTL('New Game')
+      commands[cmd_new_game = commands.length] = _INTL("New Game")
       if new_game_plus
-        commands[cmd_new_game_plus = commands.length] = _INTL('New Game +')
+        commands[cmd_new_game_plus = commands.length] = _INTL("New Game +")
       end
-      commands[cmd_options = commands.length] = _INTL('Options')
-      commands[cmd_language = commands.length] = _INTL('Language') if Settings::LANGUAGES.length >= 2
-      commands[cmd_discord = commands.length] = _INTL('Discord')
-      commands[cmd_wiki = commands.length] = _INTL('Wiki')
-      commands[cmd_debug = commands.length] = _INTL('Debug') if $DEBUG
-      commands[cmd_quit = commands.length] = _INTL('Quit Game')
+      commands[cmd_options = commands.length] = _INTL("Options")
+      #commands[cmd_language = commands.length] = _INTL("Language") if Settings::LANGUAGES[Settings::GAME_ID].length >= 2
+
+      cmd_links = {}
+
+      # if Settings::HOENN && new_game_plus && !Settings::FEEDBACK_FORM_URL.empty?
+      #   cmd_links[commands.length] = Settings::FEEDBACK_FORM_URL
+      #   commands[commands.length] = _INTL("Game Feedback Form")
+      # end
+
+      Settings::MAIN_MENU_LINKS.each do |key, value|
+        cmd_links[commands.length] = value
+        commands[commands.length] = _INTL(key)
+      end
+
+      # commands[cmd_discord = commands.length] = _INTL("Discord")
+      # commands[cmd_wiki = commands.length] = _INTL("Wiki")
+      commands[cmd_savefile = commands.length] = _INTL("Savefile management") if show_continue
+      commands[cmd_debug = commands.length] = _INTL("Debug") if $DEBUG
+      commands[cmd_quit = commands.length] = _INTL("Quit Game")
       cmd_left = -3
       cmd_right = -2
 
@@ -489,11 +616,11 @@ class PokemonLoadScreen
       @scene.pbSetParty(@save_data[:player]) if show_continue
       if first_time
         @scene.pbStartScene2
+        pbBGMPlay("pokemon_go_map") if Settings::HOENN
         first_time = false
       else
         @scene.pbUpdate
       end
-
       loop do
         # Inner loop is used for going to other menus and back and stuff (vanilla)
         command = @scene.pbChoose(commands, cmd_continue)
@@ -523,10 +650,6 @@ class PokemonLoadScreen
           initialize_alt_sprite_substitutions()
           @save_data[:player].new_game_plus_unlocked = true
           return
-        when cmd_discord
-          openUrlInBrowser(Settings::DISCORD_URL)
-        when cmd_wiki
-          openUrlInBrowser(Settings::WIKI_URL)
         when cmd_mystery_gift
           pbFadeOutIn { pbDownloadMysteryGift(@save_data[:player]) }
         when cmd_options
@@ -535,16 +658,24 @@ class PokemonLoadScreen
             screen = PokemonOptionScreen.new(scene)
             screen.pbStartScreen(true)
           end
-        when cmd_language
+        when cmd_lang_icon
           @scene.pbEndScene
           $PokemonSystem.language = pbChooseLanguage
-          pbLoadMessages('Data/' + Settings::LANGUAGES[$PokemonSystem.language][1])
+          MessageConfig.pbResetSystemFontName
+          pbLoadMessages('Data/' + Settings::LANGUAGES[Settings::GAME_ID][$PokemonSystem.language][1])
           if show_continue
             @save_data[:pokemon_system] = $PokemonSystem
             File.open(SaveData.get_full_path(@selected_file), 'wb') { |file| Marshal.dump(@save_data, file) }
           end
           $scene = pbCallTitle
           return
+        when cmd_savefile
+          save_data_to_load = savefileOptions(SaveData.get_full_path(@selected_file))
+          if save_data_to_load
+            @scene.pbEndScene
+            Game.load(save_data_to_load)
+            return
+          end
         when cmd_debug
           pbFadeOutIn { pbDebugMenu(false) }
         when cmd_quit
@@ -561,11 +692,101 @@ class PokemonLoadScreen
           @selected_file = SaveData.get_next_slot(save_file_list, @selected_file)
           break # to outer loop
         else
-          pbPlayBuzzerSE
+          if cmd_links.key?(command)
+            openUrlInBrowser(cmd_links[command])
+          else
+            pbPlayBuzzerSE
+          end
         end
       end
     end
   end
+
+  def savefileOptions(selected_file)
+    cmd_cancel = _INTL("Cancel")
+    cmd_loadBackup = _INTL("Load an older backup")
+    cmd_delete = _INTL("Delete this savefile")
+    commands = [cmd_cancel, cmd_loadBackup, cmd_delete]
+    choice = optionsMenu(commands,0)
+    case commands[choice]
+    when cmd_loadBackup
+      echoln selected_file
+      return load_specific_backup(selected_file)
+    when cmd_delete
+      delete_savefile_menu(selected_file)
+      return nil
+    end
+  end
+
+  def delete_savefile_menu(selected_file)
+    file_name=  File.basename(selected_file)
+    pbMessage(_INTL("\\C[2]WARNING: You are trying to delete {1}.",file_name))
+    if pbConfirmMessageSerious(_INTL("\\C[2]This operation cannot be undone. Do you still wish to continue?"))
+      confirm_text = pbEnterText(_INTL("Type DELETE to continue."),0,10)
+      if confirm_text == "DELETE"
+        self.delete_save_data(selected_file)
+        pbMessage(_INTL("The game will now close automatically."))
+        exit
+      else
+        pbMessage(_INTL("The savefile was NOT deleted."))
+      end
+    end
+  end
+
+  def load_specific_backup(file_path)
+    file_name = File.basename(file_path, ".rxdata")
+    save_folder = File.dirname(file_path)
+    backup_dir = File.join(save_folder, "backups", file_name)
+
+    unless Dir.exist?(backup_dir)
+      pbMessage(_INTL("No backup folder found for this save file."))
+      return nil
+    end
+
+    backups = Dir.children(backup_dir).select { |f|
+      f.start_with?(file_name + "_") && f.end_with?(".rxdata")
+    }
+
+    if backups.empty?
+      pbMessage(_INTL("No backups found for this save file."))
+      return nil
+    end
+
+    # Sort by timestamp, newest first
+    backups.sort_by! do |fname|
+      timestamp = fname.sub(/^#{Regexp.escape(file_name)}_/, "").sub(/\.rxdata$/, "")
+      timestamp.to_i
+    end.reverse!
+
+    # Build menu options
+    backup_options = backups.map do |fname|
+      timestamp_str = fname.sub(/^#{Regexp.escape(file_name)}_/, "").sub(/\.rxdata$/, "")
+      timestamp_str.length >= 12 ? formatSaveDate(timestamp_str) : timestamp_str
+    end
+    backup_options << _INTL("Cancel")
+
+    choice = optionsMenu(backup_options, backup_options.length - 1)
+
+    # Cancelled or out of range
+    return nil if choice < 0 || choice >= backups.length
+
+    chosen_file = backups[choice]
+    chosen_date = backup_options[choice]
+
+    return nil unless pbConfirmMessage(_INTL("Load the backup from {1}?", chosen_date))
+
+    backup_path = File.join(backup_dir, chosen_file)
+    save_data = SaveData.read_from_file(backup_path) rescue nil
+
+    unless SaveData.valid?(save_data)
+      pbMessage(_INTL("This backup appears to be corrupt and could not be loaded."))
+      return nil
+    end
+
+    return save_data
+  end
+
+
 end
 
 #===============================================================================
@@ -610,7 +831,7 @@ class PokemonSaveScreen
         _INTL("Save to another slot"),
         _INTL("Don't save")
       ]
-      opt = pbMessage(_INTL('Would you like to save the game?'), choices, 3)
+      opt = pbMessage(_INTL("Would you like to save the game?"), choices, 3)
       if opt == 0
         pbSEPlay('GUI save choice')
         ret = doSave($Trainer.save_slot)
@@ -759,6 +980,11 @@ module Game
     if ngp_trainer
       $Trainer.unlocked_hats = ngp_trainer.unlocked_hats
       $Trainer.unlocked_clothes = ngp_trainer.unlocked_clothes
+
+      if Settings::HOENN
+        $Trainer.pokenav = Pokenav.new
+        $Trainer.pokenav&.installed_apps = ngp_trainer.pokenav&.installed_apps
+      end
     end
     $Trainer.new_game_plus_unlocked = ngp_unlocked
   end
@@ -781,9 +1007,12 @@ module Game
     # Set resize factor
     pbSetResizeFactor([$PokemonSystem.screensize, 4].min)
     # Set language (and choose language if there is no save file)
-    if Settings::LANGUAGES.length >= 2
+    if Settings::LANGUAGES[Settings::GAME_ID].length >= 2
       $PokemonSystem.language = pbChooseLanguage if save_data.empty?
-      pbLoadMessages('Data/' + Settings::LANGUAGES[$PokemonSystem.language][1])
+
+      available_languages = Settings::LANGUAGES[Settings::GAME_ID]
+      $PokemonSystem.language = 0 if $PokemonSystem.language > available_languages.length-1
+      pbLoadMessages('Data/' + available_languages[$PokemonSystem.language][1])
     end
   end
 

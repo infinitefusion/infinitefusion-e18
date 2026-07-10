@@ -8,15 +8,13 @@ end
 
 
 def setSpriteSubstitution(head,body)
-
 end
 
 def set_updated_spritesheets
-  echoln
 end
 
 def initialize_alt_sprite_substitutions()
-  $PokemonGlobal.alt_sprite_substitutions = {} if !$PokemonGlobal.alt_sprite_substitutions
+  $PokemonSystem.alt_sprite_substitutions = {} if !$PokemonSystem.alt_sprite_substitutions
   migrate_sprites_substitutions()
 end
 
@@ -39,8 +37,8 @@ def migrate_sprites_substitutions
   return if $game_switches[SWITCH_UPDATED_TO_SPRITESHEETS_SPRITES]
   new_substitutions = {}
   old_number_pokemon = 470
-  for dex_number_key in $PokemonGlobal.alt_sprite_substitutions.keys
-    if $PokemonGlobal.alt_sprite_substitutions[dex_number_key].is_a?(String) && can_convert_to_int?(dex_number_key)
+  for dex_number_key in $PokemonSystem.alt_sprite_substitutions.keys
+    if $PokemonSystem.alt_sprite_substitutions[dex_number_key].is_a?(String) && can_convert_to_int?(dex_number_key)
       old_dex_number = dex_number_key.to_i
       if old_dex_number > old_number_pokemon #fusion
         body_id = getBodyID(old_dex_number,old_number_pokemon)
@@ -53,14 +51,14 @@ def migrate_sprites_substitutions
         body_id= nil
         type = :BASE
       end
-      file_path = $PokemonGlobal.alt_sprite_substitutions[dex_number_key]
+      file_path = $PokemonSystem.alt_sprite_substitutions[dex_number_key]
       alt_letter =get_alt_letter_from_path(file_path)
 
       pif_sprite = PIFSprite.new(type,head_id,body_id,alt_letter)
       new_substitutions[new_id] = pif_sprite
     end
   end
-  $PokemonGlobal.alt_sprite_substitutions = new_substitutions
+  $PokemonSystem.alt_sprite_substitutions = new_substitutions
   $game_switches[SWITCH_UPDATED_TO_SPRITESHEETS_SPRITES] = true
 end
 

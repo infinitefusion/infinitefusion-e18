@@ -2,21 +2,25 @@
 EXPORT_EXCEPT_MAP_IDS= [768,722,723,724,720,809,816]
 
 def exportAllMaps
-  for id in 817..830
+  (1..800).each do |id|
+    next if EXPORT_EXCEPT_MAP_IDS.include?(id)
+    next if !pbRgssExists?("Data/Map%03d.rxdata" % id)
     begin
-      MapExporter.export(id, [:Events]) if !EXPORT_EXCEPT_MAP_IDS.include?(id)
-    rescue
-      echo "error in " +(id.to_s) +"\n"
+      MapExporter.export(id, [:Events])
+    rescue => e
+      echo "error in #{id}: #{e.message}\n"
     end
   end
 end
 
 def exportSpecificMaps(maps_to_export)
-  for id in maps_to_export
+  maps_to_export.each do |id|
+    next if !pbRgssExists?("Data/Map%03d.rxdata" % id)
     begin
       MapExporter.export(id, [:Events])
-    rescue
-      echo "error in " +(id.to_s) +"\n"
+    rescue => e
+      echo "error in #{id}: #{e.message}\n"
+      next
     end
   end
 end
@@ -34,7 +38,7 @@ module MapExporter
     begin
       @@map = $MapFactory.getMapForExport(map_id)
     rescue
-      error("Map #{map_id} (#{map_name}) could not be loaded.")
+      echoln "Map #{map_id} (#{map_name}) could not be loaded."
     end
     @@bitmap = Bitmap.new(@@map.width * Game_Map::TILE_HEIGHT, @@map.height * Game_Map::TILE_WIDTH)
     @@helper = TileDrawingHelper.fromTileset($data_tilesets[@@map.tileset_id])
@@ -46,8 +50,8 @@ module MapExporter
         echoln "Map #{map_id} (#{map_name}) doesn't have a Panorama."
       end
     end
-    draw_reflective_tiles
-    draw_all_reflections(options)
+    #draw_reflective_tiles
+    #draw_all_reflections(options)
     draw_regular_tiles
     if !draw_all_events(options)
       draw_low_priority_tiles
@@ -95,7 +99,7 @@ module MapExporter
           next if priority == nil
           next if priority != 1
           tag_data = GameData::TerrainTag.try_get(@@map.terrain_tags[tile_id])
-          next if !tag_data || tag_data.shows_reflections
+          next if !tag_data || tile_id == TilemapRenderer::INVISIBLE_WALL_TILE_ID #|| tag_data.shows_reflections
           @@helper.bltTile(@@bitmap, x * Game_Map::TILE_WIDTH, y * Game_Map::TILE_HEIGHT, tile_id)
         end
       end
@@ -146,7 +150,7 @@ module MapExporter
             break
           end
         end
-        draw_event_reflection(event, dep) if event
+        # draw_event_reflection(event, dep) if event
       end
     end
     return true
@@ -158,7 +162,7 @@ module MapExporter
         for z in 0..2
           tile_id = @@map.data[x, y, z] || 0
           tag_data = GameData::TerrainTag.try_get(@@map.terrain_tags[tile_id])
-          next if !tag_data || !tag_data.shows_reflections
+          next if !tag_data || tile_id == TilemapRenderer::INVISIBLE_WALL_TILE_ID#|| !tag_data.shows_reflections
           @@helper.bltTile(@@bitmap, x * Game_Map::TILE_WIDTH, y * Game_Map::TILE_HEIGHT, tile_id)
         end
       end
@@ -174,7 +178,7 @@ module MapExporter
           next if priority == nil
           next if priority >= 1
           tag_data = GameData::TerrainTag.try_get(@@map.terrain_tags[tile_id])
-          next if !tag_data || tag_data.shows_reflections
+          next if !tag_data || tile_id == TilemapRenderer::INVISIBLE_WALL_TILE_ID#|| tag_data.shows_reflections
           @@helper.bltTile(@@bitmap, x * Game_Map::TILE_WIDTH, y * Game_Map::TILE_HEIGHT, tile_id)
         end
       end
@@ -189,7 +193,7 @@ module MapExporter
           priority = @@map.priorities[tile_id]
           next unless priority == 1
           tag_data = GameData::TerrainTag.try_get(@@map.terrain_tags[tile_id])
-          next if !tag_data || tag_data.shows_reflections
+          next if !tag_data || tile_id == TilemapRenderer::INVISIBLE_WALL_TILE_ID#|| tag_data.shows_reflections
           @@helper.bltTile(@@bitmap, x * Game_Map::TILE_WIDTH, y * Game_Map::TILE_HEIGHT, tile_id)
         end
       end
@@ -205,7 +209,7 @@ module MapExporter
           next if priority == nil
           next if priority < 2
           tag_data = GameData::TerrainTag.try_get(@@map.terrain_tags[tile_id])
-          next if !tag_data || tag_data.shows_reflections
+          next if !tag_data || tile_id == TilemapRenderer::INVISIBLE_WALL_TILE_ID#|| tag_data.shows_reflections
           @@helper.bltTile(@@bitmap, x * Game_Map::TILE_WIDTH, y * Game_Map::TILE_HEIGHT, tile_id)
         end
       end
@@ -293,13 +297,13 @@ module MapExporter
       fixed = false
       if event == $game_player || forced
         height = $PokemonGlobal.bridge
-      elsif event.name[/reflection/i]
-        height = 0
-        if event.name[/reflection\((\d+)\)/i]
-          height = $~[1].to_i || 0
-        else
-          height = $PokemonGlobal.bridge
-        end
+      # elsif event.name[/reflection/i]
+      #   height = 0
+      #   if event.name[/reflection\((\d+)\)/i]
+      #     height = $~[1].to_i || 0
+      #   else
+      #     height = $PokemonGlobal.bridge
+      #   end
       end
       if height
         final_x = (event.x * Game_Map::TILE_WIDTH) + ((event.width * Game_Map::TILE_WIDTH)/2) - bmp.width/8
@@ -506,8 +510,7 @@ module MapExporter
 
   def error(message)
     emessage = "Map Exporter EX Error:\n\n" + message
-    print(_INTL(emessage))
-    exit!
+    echoln emessage
   end
 end
 

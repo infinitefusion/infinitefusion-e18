@@ -1,8 +1,15 @@
 
+
+TEAM_ROCKET_CLOTHES = [CLOTHES_TEAM_ROCKET_MALE, CLOTHES_TEAM_ROCKET_FEMALE, CLOTHES_ROCKET_WHITE_M, CLOTHES_ROCKET_WHITE_F]
 def isWearingTeamRocketOutfit()
   return false if !$game_switches[SWITCH_JOINED_TEAM_ROCKET]
-  return (isWearingClothes(CLOTHES_TEAM_ROCKET_MALE) || isWearingClothes(CLOTHES_TEAM_ROCKET_FEMALE)) && isWearingHat(HAT_TEAM_ROCKET)
+  wearing_rocket_clothes = false
+  TEAM_ROCKET_CLOTHES.each do |clothes|
+    wearing_rocket_clothes = true if isWearingClothes(clothes)
+  end
+  return wearing_rocket_clothes && isWearingHat(HAT_TEAM_ROCKET)
 end
+
 
 def isWearingFavoriteOutfit()
   favorites = {
@@ -72,8 +79,8 @@ def finishTRQuest(id, status, silent = false)
   return if pbCompletedQuest?(id)
   pbMEPlay("Register phone") if status == :SUCCESS && !silent
   pbMEPlay("Voltorb Flip Game Over") if status == :FAILURE && !silent
-  Kernel.pbMessage("\\C[2]Mission completed!") if status == :SUCCESS && !silent
-  Kernel.pbMessage("\\C[2]Mission Failed...") if status == :FAILURE && !silent
+  Kernel.pbMessage(_INTL("\\C[2]Mission completed!")) if status == :SUCCESS && !silent
+  Kernel.pbMessage(_INTL("\\C[2]Mission Failed...")) if status == :FAILURE && !silent
 
   $game_variables[VAR_KARMA] -= 5 # karma
   $game_variables[VAR_NB_ROCKET_MISSIONS] += 1 #nb. quests completed

@@ -141,6 +141,7 @@ class FusionTutorService
       #compatibleMoves << :ANCHORSHOT if (is_fusion_of([:EMPOLEON, :STEELIX, :BELDUM, :METANG, :METAGROSS, :KLINK, :KLINKLANG, :KLANG, :ARON, :LAIRON, :AGGRON]) && hasType(:WATER)) || (is_fusion_of([:LAPRAS, :WAILORD, :KYOGRE]) && hasType(:STEEL))
       compatibleMoves << :SPARKLINGARIA if (is_fusion_of([:JYNX, :JIGGLYPUFF, :WIGGLYTUFF]) && hasType(:WATER)) || is_fusion_of([:LAPRAS])
       #compatibleMoves << :WATERSHURIKEN if is_fusion_of([:NINJASK, :LUCARIO, :ZOROARK, :BISHARP]) && hasType(:WATER)
+      compatibleMoves << :DRAGONHAMMER if is_fusion_of([:TROPIUS, :EXEGGUTOR]) && hasType(:DRAGON)
     end
     if includeLegendaries
       #legendary moves (only available after a certain trigger, maybe a different npc)

@@ -38,23 +38,4 @@ class PokemonBoxIcon
     return AnimatedBitmap.new(fusedIconFilePath)
   end
 
-
-  def refresh(fusion_enabled = true)
-    return if !@pokemon
-    if useRegularIcon(@pokemon.species) || @pokemon.egg?
-      self.setBitmap(GameData::Species.icon_filename_from_pokemon(@pokemon))
-    else
-      self.setBitmapDirectly(createFusionIcon(@pokemon.species, @pokemon.spriteform_head, @pokemon.spriteform_body, @pokemon.bodyShiny?, @pokemon.headShiny?))
-      if fusion_enabled
-        self.opacity = 255
-      else
-        self.opacity = 80
-      end
-    end
-    self.src_rect = Rect.new(0, 0, self.bitmap.height, self.bitmap.height)
-  end
-
-
-
-
 end

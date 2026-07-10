@@ -55,6 +55,8 @@ class PokeBattle_Battle
         break
       end
       items.compact!
+      $PokemonTemp.battle_npc_used_items = [] unless $PokemonTemp.battle_npc_used_items
+      $PokemonTemp.battle_npc_used_items << item
     end
   end
 

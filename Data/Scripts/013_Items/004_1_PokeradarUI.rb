@@ -1,5 +1,5 @@
 class PokeRadar_UI
-  attr_reader :sprites
+  attr_accessor :sprites
   attr_reader :disposed
 
   ICON_START_X = 50
@@ -34,6 +34,20 @@ class PokeRadar_UI
     displayRare()
   end
 
+  def set_text(text,x,y,baseColor=nil,shadowColor=nil)
+    baseColor = pbColor(:DARK_TEXT_MAIN_COLOR) unless baseColor
+    shadowColor = pbColor(:DARK_TEXT_SHADOW_COLOR) unless shadowColor
+    @sprites["text"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
+    @sprites["text"].x=x
+    @sprites["text"].y=y
+    pbSetSystemFont(@sprites["text"].bitmap)
+    #@sprites["text"].bitmap.font.size=26
+    pbDrawShadowText(@sprites["text"].bitmap,x,y,-1,-1, text,baseColor,shadowColor)
+  end
+
+  def set_background_visible(value)
+    @sprites["background"].visible = value
+  end
   def dispose
     pbDisposeSpriteHash(@sprites)
     @viewport.dispose if @viewport != nil

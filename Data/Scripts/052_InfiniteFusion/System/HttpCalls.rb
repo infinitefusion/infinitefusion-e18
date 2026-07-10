@@ -39,10 +39,10 @@ def download_file(url, saveLocation)
       File.open(saveLocation, "wb") do |file|
         file.write(response[:body])
       end
-      echoln _INTL("\nDownloaded file {1} to {2}", url, saveLocation)
+      echoln "\nDownloaded file #{url} to #{saveLocation}"
       return saveLocation
     else
-      echoln _INTL("Failed to download file {1}", url)
+      echoln "Failed to download file #{url}"
     end
     return nil
   rescue MKXPError, Errno::ENOENT => error

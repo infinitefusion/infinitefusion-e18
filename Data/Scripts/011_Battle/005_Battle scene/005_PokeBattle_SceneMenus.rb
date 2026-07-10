@@ -112,15 +112,28 @@ class CommandMenuDisplay < BattleMenuBase
      [0,8,1,3]    # 4 = Bug Catching Contest
   ]
 
-  def initialize(viewport,z)
+
+  def initialize(viewport,z,baseColor=nil,shadowColor=nil)
     super(viewport)
     self.x = 0
     self.y = Graphics.height-96
     # Create message box (shows "What will X do?")
     @msgBox = Window_UnformattedTextPokemon.newWithSize("",
        self.x+16,self.y+2,220,Graphics.height-self.y,viewport)
-    @msgBox.baseColor   = TEXT_BASE_COLOR
-    @msgBox.shadowColor = TEXT_SHADOW_COLOR
+
+    @baseColor   = baseColor || PokeBattle_SceneConstants::MESSAGE_BASE_COLOR
+    @shadowColor = shadowColor || PokeBattle_SceneConstants::MESSAGE_SHADOW_COLOR
+    if isDarkMode
+      @baseColor, @shadowColor = @shadowColor, @baseColor
+    end
+
+    @msgBox.baseColor   = @baseColor
+    @msgBox.shadowColor = @shadowColor
+
+    if isDarkMode
+      @msgBox.baseColor, @msgBox.shadowColor = @msgBox.shadowColor, @msgBox.baseColor
+    end
+
     @msgBox.windowskin  = nil
     addSprite("msgBox",@msgBox)
     if USE_GRAPHICS
@@ -128,8 +141,11 @@ class CommandMenuDisplay < BattleMenuBase
       background = IconSprite.new(self.x,self.y,viewport)
       background.setBitmap("Graphics/Pictures/Battle/overlay_command")
       addSprite("background",background)
+
+      commands_img_path = "Graphics/Pictures/Battle/cursor_command"
+      commands_img_path += "_dark" if isDarkMode
       # Create bitmaps
-      @buttonBitmap = AnimatedBitmap.new("Graphics/Pictures/Battle/cursor_command")
+      @buttonBitmap = AnimatedBitmap.new(commands_img_path)
       # Create action buttons
       @buttons = Array.new(4) do |i|   # 4 command options, therefore 4 buttons
         button = SpriteWrapper.new(viewport)
@@ -229,8 +245,14 @@ class FightMenuDisplay < BattleMenuBase
     #       0=don't show, 1=show unpressed, 2=show pressed
     if USE_GRAPHICS
       # Create bitmaps
-      @buttonBitmap  = AnimatedBitmap.new("Graphics/Pictures/Battle/cursor_fight")
-      @typeBitmap    = AnimatedBitmap.new("Graphics/Pictures/types")
+      button_path = "Graphics/Pictures/Battle/cursor_fight"
+      type_path = "Graphics/Pictures/types"
+      if isDarkMode
+        button_path += "_dark"
+      end
+      @buttonBitmap  = AnimatedBitmap.new(button_path)
+      @typeBitmap    = AnimatedBitmap.new(type_path)
+
       @megaEvoBitmap = AnimatedBitmap.new("Graphics/Pictures/Battle/cursor_mega")
       @shiftBitmap   = AnimatedBitmap.new("Graphics/Pictures/Battle/cursor_shift")
       # Create background graphic
@@ -358,7 +380,11 @@ class FightMenuDisplay < BattleMenuBase
         #       of code to ensure the font is an appropriate colour.
         moveNameBase = button.bitmap.get_pixel(10,button.src_rect.y+34)
       end
-      textPos.push([moves[i].name,x,y,2,moveNameBase,TEXT_SHADOW_COLOR])
+      if isDarkMode
+        textPos.push([moves[i].name,x,y,2,TEXT_SHADOW_COLOR,moveNameBase])
+      else
+        textPos.push([moves[i].name,x,y,2,moveNameBase,TEXT_SHADOW_COLOR])
+      end
     end
     pbDrawTextPositions(@pokemon_name_overlay.bitmap, textPos)
   end
@@ -406,8 +432,15 @@ class FightMenuDisplay < BattleMenuBase
     if move.total_pp>0
       ppFraction = [(4.0*move.pp/move.total_pp).ceil,3].min
       textPos = []
+
+      ppColorBase = PP_COLORS[ppFraction*2]
+      ppColorShadow = PP_COLORS[ppFraction*2+1]
+      if isDarkMode
+        ppColorBase, ppColorShadow = ppColorShadow, ppColorBase
+      end
+
       textPos.push([_INTL("PP: {1}/{2}",move.pp,move.total_pp),
-         448,44,2,PP_COLORS[ppFraction*2],PP_COLORS[ppFraction*2+1]])
+         448,44,2,ppColorBase,ppColorShadow])
       pbDrawTextPositions(@infoOverlay.bitmap,textPos)
     end
   end

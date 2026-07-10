@@ -285,7 +285,7 @@ end
 # The phone call itself
 #===============================================================================
 def pbPhoneCall(call,phonenum)
-  pbMessage("......\\wt[5] ......\\1")
+  pbMessage(_INTL("......\\wt[5] ......") + "\\1")
   encspecies     = pbEncounterSpecies(phonenum)
   trainerspecies = pbTrainerSpecies(phonenum)
   trainermap     = pbTrainerMapName(phonenum)
@@ -298,5 +298,5 @@ def pbPhoneCall(call,phonenum)
     messages[i] += "\\1" if i<messages.length-1
     pbMessage(messages[i])
   end
-  pbMessage("Click!\\wt[10]\n......\\wt[5] ......\\1")
+  pbMessage(_INTL("Click!\\wt[10]\n......\\wt[5] ......") + "\\1")
 end

@@ -30,7 +30,12 @@
 #GYM_TYPES_ARRAY = [0,5,11,13,12,3,14,10,4,1,0,6,2,16,7,15,1,8,15,1,7,16,18,17,7,16]
 GYM_TYPES_CLASSIC = [:NORMAL, :ROCK, :WATER, :ELECTRIC, :GRASS, :POISON, :PSYCHIC, :FIRE, :GROUND, :FIGHTING, :NORMAL, :BUG, :FLYING, :DRAGON, :GHOST, :ICE, :FIGHTING, :STEEL, :ICE, :FIGHTING, :GHOST, :DRAGON, :FAIRY, :DARK, :GHOST, :ROCK]
 GYM_TYPES_MODERN = [:NORMAL, :STEEL, :ICE, :FIGHTING, :BUG, :DARK, :FAIRY, :PSYCHIC, :NORMAL, :FIGHTING, :FAIRY, :GRASS, :BUG, :DRAGON, :FIRE, :GHOST, :GROUND, :ELECTRIC, :WATER, :ROCK, :POISON, :FLYING, :FAIRY, :DARK, :GHOST, :DRAGON]
+
+GYM_TYPES_HOENN_CLASSIC = [:NORMAL, :ROCK, :FIGHTING, :ELECTRIC, :FIRE, :NORMAL, :FLYING, :PSYCHIC, :WATER, :PSYCHIC, :GHOST, :ICE, :DRAGON, :STEEL]
+
 GYM_TYPES_ARRAY = ($game_switches && $game_switches[SWITCH_MODERN_MODE]) ? GYM_TYPES_MODERN : GYM_TYPES_CLASSIC
+GYM_TYPES_ARRAY_HOENN = ($game_switches && $game_switches[SWITCH_MODERN_MODE]) ? GYM_TYPES_MODERN : GYM_TYPES_HOENN_CLASSIC
+
 
 #$randomTrainersArray = []
 
@@ -38,7 +43,11 @@ GYM_TYPES_ARRAY = ($game_switches && $game_switches[SWITCH_MODERN_MODE]) ? GYM_T
 
 def Kernel.initRandomTypeArray()
   typesArray = GYM_TYPES_ARRAY.shuffle #ne pas remettre 10 (QMARKS)
-  $game_variables[VAR_GYM_TYPES_ARRAY] = $game_switches[SWITCH_RANDOMIZED_GYM_TYPES] ? typesArray : GYM_TYPES_ARRAY
+  if Settings::KANTO
+    $game_variables[VAR_GYM_TYPES_ARRAY] = $game_switches[SWITCH_RANDOMIZED_GYM_TYPES] ? typesArray : GYM_TYPES_ARRAY
+  elsif Settings::HOENN
+    $game_variables[VAR_GYM_TYPES_ARRAY] = $game_switches[SWITCH_RANDOMIZED_GYM_TYPES] ? typesArray : GYM_TYPES_ARRAY_HOENN
+  end
 end
 
 # def setRivalStarter(starter1, starter2, starter3, choice)
@@ -182,31 +191,31 @@ end
 
 #summarize random options
 def Kernel.sumRandomOptions()
-  answer = $game_switches[SWITCH_RANDOM_STARTERS] ? "On" : "Off"
-  stringOptions = "\nStarters: " << answer
+  answer = $game_switches[SWITCH_RANDOM_STARTERS] ? _INTL("On") : _INTL("Off")
+  stringOptions = _INTL("\nStarters: ") << answer
 
-  answer = $game_switches[SWITCH_RANDOM_WILD] ? "On" : "Off"
-  stringOptions << "\nWild Pokémon: " << answer << " "
+  answer = $game_switches[SWITCH_RANDOM_WILD] ? _INTL("On") : _INTL("Off")
+  stringOptions << _INTL("\nWild Pokémon: ") << answer << " "
   if $game_switches[SWITCH_RANDOM_WILD_AREA]
-    stringOptions << "(Area)"
+    stringOptions << _INTL("(Area)")
   else
-    stringOptions << "(Global)"
+    stringOptions << _INTL("(Global)")
   end
 
-  answer = $game_switches[SWITCH_RANDOM_TRAINERS] ? "On" : "Off"
-  stringOptions << "\nTrainers: " << answer
+  answer = $game_switches[SWITCH_RANDOM_TRAINERS] ? _INTL("On") : _INTL("Off")
+  stringOptions << _INTL("\nTrainers: ") << answer
 
-  answer = $game_switches[SWITCH_RANDOM_STATIC_ENCOUNTERS] ? "On" : "Off"
-  stringOptions << "\nStatic encounters: " << answer
+  answer = $game_switches[SWITCH_RANDOM_STATIC_ENCOUNTERS] ? _INTL("On") : _INTL("Off")
+  stringOptions << _INTL("\nStatic encounters: ") << answer
 
-  answer = $game_switches[SWITCH_RANDOM_GIFT_POKEMON] ? "On" : "Off"
-  stringOptions << "\nGift Pokémon: " << answer
+  answer = $game_switches[SWITCH_RANDOM_GIFT_POKEMON] ? _INTL("On") : _INTL("Off")
+  stringOptions << _INTL("\nGift Pokémon: ") << answer
 
-  answer = $game_switches[SWITCH_RANDOM_ITEMS] ? "On" : "Off"
-  stringOptions << "\nItems: " << answer
+  answer = $game_switches[SWITCH_RANDOM_ITEMS] ? _INTL("On") : _INTL("Off")
+  stringOptions << _INTL("\nItems: ") << answer
 
-  answer = $game_switches[SWITCH_RANDOM_TMS] ? "On" : "Off"
-  stringOptions << "\nTMs: " << answer
+  answer = $game_switches[SWITCH_RANDOM_TMS] ? _INTL("On") : _INTL("Off")
+  stringOptions << _INTL("\nTMs: ") << answer
 
   return stringOptions
 end
@@ -222,40 +231,40 @@ end
 def Kernel.sumGameStats()
   stringStats = ""
 
-  stringStats << "Seen " << $Trainer.pokedexSeen.to_s << " Pokémon"
-  stringStats << "\nCaught " << $Trainer.pokedexOwned.to_s << " Pokémon"
+  stringStats << _INTL("Seen {1} Pokémon",$Trainer.pokedexSeen.to_s)
+  stringStats << _INTL("\nCaught {1} Pokémon",$Trainer.pokedexOwned.to_s)
 
-  stringStats << "\nBeat the Elite Four " << $game_variables[VAR_STAT_NB_ELITE_FOUR].to_s << " times"
-  stringStats << "\nFused " << $game_variables[VAR_STAT_NB_FUSIONS].to_s << " Pokémon"
+  stringStats << _INTL("\nBeat the Elite Four {1} times",$game_variables[VAR_STAT_NB_ELITE_FOUR].to_s)
+  stringStats << _INTL("\nFused {1} Pokémon", $game_variables[VAR_STAT_NB_FUSIONS].to_s)
 
-  stringStats << "\nRematched " << $game_variables[VAR_STAT_LEADER_REMATCH].to_s << " Gym Leaders"
-  stringStats << "\nTook " << $PokemonGlobal.stepcount.to_s << " steps"
-  stringStats << "\nVisited " << countVisitedMaps.to_s << " different areas"
-  stringStats << "\nUsed " << $game_variables[VAR_STAT_RARE_CANDY] << " Rare Candies"
+  stringStats << _INTL("\nRematched {1} Gym Leaders",$game_variables[VAR_STAT_LEADER_REMATCH].to_s)
+  stringStats << _INTL("\nTook {1} steps",$PokemonGlobal.stepcount.to_s)
+  stringStats << _INTL("\nVisited {1} different areas",countVisitedMaps.to_s)
+  stringStats << _INTL("\nUsed {1} Rare Candies",$game_variables[VAR_STAT_RARE_CANDY])
 
   if $game_switches[910]
-    stringStats << "\nMade " << $game_variables[VAR_STAT_NB_WONDERTRADES].to_s << " Wonder Trades"
+    stringStats << _INTL("\nMade {1} Wonder Trades",$game_variables[VAR_STAT_NB_WONDERTRADES].to_s)
   end
 
-  stringStats << "\nTipped $" << $game_variables[VAR_STAT_CLOWN_TIP_TOTAL].to_s << " to clowns"
-  stringStats << "\nDestroyed " << $game_variables[VAR_STAT_NB_SANDCASTLES].to_s << " sandcastles"
-  stringStats << "\nReported " << $game_variables[VAR_NB_CRIMES_REPORTED].to_s << " crimes" if $game_variables[VAR_NB_CRIMES_REPORTED] > 0
+  stringStats << _INTL("\nTipped ${1} to clowns",$game_variables[VAR_STAT_CLOWN_TIP_TOTAL].to_s)
+  stringStats << _INTL("\nDestroyed {1} sandcastles",$game_variables[VAR_STAT_NB_SANDCASTLES].to_s)
+  stringStats << _INTL("\nReported {1} crimes",$game_variables[VAR_NB_CRIMES_REPORTED].to_s) if $game_variables[VAR_NB_CRIMES_REPORTED] > 0
 
 
   if $game_variables[VAR_STAT_GAMBLER_WINS] > 0 || $game_variables[VAR_STAT_GAMBLER_LOSSES] > 0
-    stringStats << "\nWon $" << $game_variables[VAR_STAT_GAMBLER_WINS].to_s << " against gamblers"
-    stringStats << "\nLost $" << $game_variables[VAR_STAT_GAMBLER_LOSSES].to_s << " against gamblers"
+    stringStats << _INTL("\nWon ${1} against gamblers",$game_variables[VAR_STAT_GAMBLER_WINS].to_s)
+    stringStats << _INTL("\nLost ${1} against gamblers",$game_variables[VAR_STAT_GAMBLER_LOSSES].to_s)
   end
-  stringStats << "\nSpent $" << $game_variables[VAR_STAT_HOTELS_SPENT].to_s << " at hotels"
+  stringStats << _INTL("\nSpent ${1} at hotels",$game_variables[VAR_STAT_HOTELS_SPENT].to_s)
 
-  stringStats << "\nAccepted " << $game_variables[VAR_STAT_QUESTS_ACCEPTED].to_s << " quests"
-  stringStats << "\nCompleted " << $game_variables[VAR_STAT_QUESTS_COMPLETED].to_s << " quests"
-  stringStats << "\nDiscovered " << $game_variables[VAR_STAT_NB_SECRETS].to_s << " secrets"
+  stringStats << _INTL("\nAccepted {1} quests",$game_variables[VAR_STAT_QUESTS_ACCEPTED].to_s)
+  stringStats << _INTL("\nCompleted {1} quests",$game_variables[VAR_STAT_QUESTS_COMPLETED].to_s)
+  stringStats << _INTL("\nDiscovered {1} secrets",$game_variables[VAR_STAT_NB_SECRETS].to_s)
 
   if $game_switches[912]
-    stringStats << "\nDied " << $game_variables[191].to_s << " times in Pikachu's adventure"
+    stringStats << _INTL("\nDied {1} times in Pikachu's adventure",$game_variables[191].to_s)
     if $game_variables[193] >= 1
-      stringStats << "\nCollected " << $game_variables[194].to_s << " coins with Pikachu"
+      stringStats << _INTL("\nCollected {1} coins with Pikachu",$game_variables[194].to_s)
     end
   end
   return stringStats
@@ -352,8 +361,8 @@ def Kernel.pbShuffleTrainers(bst_range = 50, customsOnly = false, customsList = 
   trainers_data = getTrainersDataMode.list_all
   trainers_data.each do |key, value|
     trainer = trainers_data[key]
-    echoln "------"
-    echoln "Processing [#{trainer.id}#] {trainer.trainer_type} ##{trainer.real_name}"
+    #echoln "------"
+    #echoln "Processing [#{trainer.id}#] {trainer.trainer_type} ##{trainer.real_name}"
     i = 0
     new_party = []
     for poke in trainer.pokemon
@@ -397,9 +406,9 @@ def Kernel.pbShuffleTrainersCustom(bst_range = 50)
   randomTrainersHash = Hash.new
   bst_range = pbGet(VAR_RANDOMIZER_TRAINER_BST)
 
-  Kernel.pbMessage(_INTL("Parsing custom sprites folder..."))
+  Kernel.pbMessage(_INTL("Parsing custom sprites folder...\\wtnp[20]"))
   customsList = getCustomSpeciesList(true, true)
-  Kernel.pbMessage(_INTL("{1} sprites found. Shuffling...", customsList.length.to_s))
+  Kernel.pbMessage(_INTL("{1} sprites found. Shuffling...\\wtnp[20]", customsList.length.to_s))
 
   if customsList.length == 0
     Kernel.pbMessage(_INTL("To use custom sprites, please place correctly named sprites in the /CustomBattlers folder. See readMe.txt for more information."))
@@ -562,7 +571,7 @@ def Kernel.gymLeaderRematchHint()
     remaining_leaders << switch_nb unless $game_switches[switch_nb]
   end
   if remaining_leaders.empty?
-    return "You got every Gym Leader to come here. This place is more popular than ever!\nNow go and battle them!"
+    return _INTL("You got every Gym Leader to come here. This place is more popular than ever!\nNow go and battle them!")
   else
     key = remaining_leaders.sample
     return hints[key]

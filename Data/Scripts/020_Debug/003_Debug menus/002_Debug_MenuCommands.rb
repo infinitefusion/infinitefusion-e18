@@ -192,7 +192,7 @@ DebugMenuCommands.register("testwildbattle", {
   "name"        => _INTL("Test Wild Battle"),
   "description" => _INTL("Start a single battle against a wild Pokémon. You choose the species/level."),
   "effect"      => proc {
-    species = pbChooseSpeciesList
+    species = pbChooseSpeciesList(nil, NB_POKEMON-4)
     if species
       params = ChooseNumberParams.new
       params.setRange(1, GameData::GrowthRate.max_level)
@@ -463,20 +463,24 @@ DebugMenuCommands.register("additem", {
   "name"        => _INTL("Add Item"),
   "description" => _INTL("Choose an item and a quantity of it to add to the Bag."),
   "effect"      => proc {
-    pbListScreenBlock(_INTL("ADD ITEM"), ItemLister.new) { |button, item|
-      if button == Input::USE && item
-        params = ChooseNumberParams.new
-        params.setRange(1, Settings::BAG_MAX_PER_SLOT)
-        params.setInitialValue(1)
-        params.setCancelValue(0)
-        qty = pbMessageChooseNumber(_INTL("Add how many {1}?",
-           GameData::Item.get(item).name_plural), params)
-        if qty > 0
-          $PokemonBag.pbStoreItem(item, qty)
-          pbMessage(_INTL("Gave {1}x {2}.", qty, GameData::Item.get(item).name))
-        end
+    item_list = []
+    GameData::Item.each do |item|
+      item_list.push([item.id_number, sprintf("%-30s %s", sprintf("%03d: %s", item.id_number, item.real_name), item.id), item.id])
+    end
+    item = pbChooseListWithFilter(item_list,0,nil,1,0,0,"ADD ITEM",:longest_value)
+    if item
+      params = ChooseNumberParams.new
+      params.setRange(1, Settings::BAG_MAX_PER_SLOT)
+      params.setInitialValue(1)
+      params.setCancelValue(0)
+      qty = pbMessageChooseNumber(_INTL("Add how many {1}?",
+                                        GameData::Item.get(item).name_plural), params)
+      if qty > 0
+        $PokemonBag.pbStoreItem(item, qty)
+        pbMessage(_INTL("Gave {1}x {2}.", qty, GameData::Item.get(item).name))
+        promptRegisterItem(GameData::Item.get(item))
       end
-    }
+    end
   }
 })
 
@@ -599,14 +603,14 @@ DebugMenuCommands.register("quickhatch", {
 DebugMenuCommands.register("fillboxes", {
   "parent"      => "pokemonmenu",
   "name"        => _INTL("Fill Storage Boxes"),
-  "description" => _INTL("Add one Pokémon of each species (at Level 50) to storage."),
+  "description" => _INTL("Add one Pokémon of each species to storage."),
   "effect"      => proc {
     added = 0
     box_qty = $PokemonStorage.maxPokemon(0)
     completed = true
-    for num in 1..NB_POKEMON
+    for num in 1..501#NB_POKEMON
       pokemon = getPokemon(num)
-      pbAddPokemonSilent(pokemon,50)
+      pbAddPokemonSilent(pokemon,5)
     end
 
 
@@ -881,6 +885,21 @@ DebugMenuCommands.register("randomid", {
   }
 })
 
+# DebugMenuCommands.register("setid", {
+#   "parent"      => "playermenu",
+#   "name"        => _INTL("Set Player ID"),
+#   "description" => _INTL("Set a new ID for the player."),
+#   "effect"      => proc {
+#     params = ChooseNumberParams.new
+#     params.setRange(1, 9999999999)
+#     params.setInitialValue($Trainer.id)
+#     params.setCancelValue($Trainer.id)
+#     id = pbMessageChooseNumber(_INTL("Set the trainer ID."), params)
+#     $Trainer.id = id.to_i
+#   }
+# })
+
+
 #===============================================================================
 # Information editors
 #===============================================================================
@@ -922,36 +941,35 @@ DebugMenuCommands.register("terraintags", {
 })
 
 
-DebugMenuCommands.register("positionsprites", {
-  "parent"      => "editorsmenu",
-  "name"        => _INTL("Edit Pokémon Sprite Positions"),
-  "description" => _INTL("Reposition Pokémon sprites in battle."),
-  "always_show" => true,
-  "effect"      => proc {
-    pbFadeOutIn {
-      sp = SpritePositioner.new
-      sps = SpritePositionerScreen.new(sp)
-      sps.pbStart
-    }
-  }
-})
-
-DebugMenuCommands.register("autopositionsprites", {
-  "parent"      => "editorsmenu",
-  "name"        => _INTL("Auto-Position All Sprites"),
-  "description" => _INTL("Automatically reposition all Pokémon sprites in battle. Don't use lightly."),
-  "always_show" => true,
-  "effect"      => proc {
-    if pbConfirmMessage(_INTL("Are you sure you want to reposition all sprites?"))
-      msgwindow = pbCreateMessageWindow
-      pbMessageDisplay(msgwindow, _INTL("Repositioning all sprites. Please wait."), false)
-      Graphics.update
-      pbAutoPositionAll
-      pbDisposeMessageWindow(msgwindow)
-    end
-  }
-})
-
+# DebugMenuCommands.register("positionsprites", {
+#   "parent"      => "editorsmenu",
+#   "name"        => _INTL("Edit Pokémon Sprite Positions"),
+#   "description" => _INTL("Reposition Pokémon sprites in battle."),
+#   "always_show" => true,
+#   "effect"      => proc {
+#     pbFadeOutIn {
+#       sp = SpritePositioner.new
+#       sps = SpritePositionerScreen.new(sp)
+#       sps.pbStart
+#     }
+#   }
+# })
+#
+# DebugMenuCommands.register("autopositionsprites", {
+#   "parent"      => "editorsmenu",
+#   "name"        => _INTL("Auto-Position All Sprites"),
+#   "description" => _INTL("Automatically reposition all Pokémon sprites in battle. Don't use lightly."),
+#   "always_show" => true,
+#   "effect"      => proc {
+#     if pbConfirmMessage(_INTL("Are you sure you want to reposition all sprites?"))
+#       msgwindow = pbCreateMessageWindow
+#       pbMessageDisplay(msgwindow, _INTL("Repositioning all sprites. Please wait."), false)
+#       Graphics.update
+#       pbAutoPositionAll
+#       pbDisposeMessageWindow(msgwindow)
+#     end
+#   }
+# })
 DebugMenuCommands.register("animeditor", {
   "parent"      => "editorsmenu",
   "name"        => _INTL("Battle Animation Editor"),
@@ -995,42 +1013,42 @@ DebugMenuCommands.register("exportanims", {
 #===============================================================================
 # Other options
 #===============================================================================
-# DebugMenuCommands.register("othermenu", {
-#   "parent"      => "main",
-#   "name"        => _INTL("Other options..."),
-#   "description" => _INTL("Mystery Gifts, translations, compile data, etc."),
-#   "always_show" => true
-# })
+DebugMenuCommands.register("othermenu", {
+  "parent"      => "main",
+  "name"        => _INTL("Other options..."),
+  "description" => _INTL("Mystery Gifts, translations, compile data, etc."),
+  "always_show" => true
+})
+
+DebugMenuCommands.register("mysterygift", {
+  "parent"      => "othermenu",
+  "name"        => _INTL("Test Mystery Gift"),
+  "description" => _INTL("Place the Mystery Gift JSON in the game's folder (top level)"),
+  "always_show" => true,
+  "effect"      => proc {
+    testMysteryGift
+  }
+})
 #
-# DebugMenuCommands.register("mysterygift", {
-#   "parent"      => "othermenu",
-#   "name"        => _INTL("Manage Mystery Gifts"),
-#   "description" => _INTL("Edit and enable/disable Mystery Gifts."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     pbManageMysteryGifts
-#   }
-# })
-#
-# DebugMenuCommands.register("extracttext", {
-#   "parent"      => "othermenu",
-#   "name"        => _INTL("Extract Text"),
-#   "description" => _INTL("Extract all text in the game to a single file for translating."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     pbExtractText
-#   }
-# })
-#
-# DebugMenuCommands.register("compiletext", {
-#   "parent"      => "othermenu",
-#   "name"        => _INTL("Compile Text"),
-#   "description" => _INTL("Import text and converts it into a language file."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     pbCompileTextUI
-#   }
-# })
+DebugMenuCommands.register("extracttext", {
+  "parent"      => "othermenu",
+  "name"        => _INTL("Extract Text"),
+  "description" => _INTL("Extract all text in the game to a single file for translating."),
+  "always_show" => true,
+  "effect"      => proc {
+    pbExtractText
+  }
+})
+
+DebugMenuCommands.register("compiletext", {
+  "parent"      => "othermenu",
+  "name"        => _INTL("Compile Text"),
+  "description" => _INTL("Import text and converts it into a language file."),
+  "always_show" => true,
+  "effect"      => proc {
+    pbCompileTextUI
+  }
+})
 #
 #
 # DebugMenuCommands.register("renamesprites", {

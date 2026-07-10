@@ -30,3 +30,29 @@ end
 def player_has_quest_journal?
   return $PokemonBag.pbHasItem?(:DEVONSCOPE) || $PokemonBag.pbHasItem?(:NOTEBOOK)
 end
+
+def count_nb_quests(stage,var_nb_total=1,var_nb_remaining=2, var_nb_relative_to_last_stage=3)
+  nb_quests_for_next_reward = QUEST_REWARDS[stage].nb_quests
+  nb_quests_completed = get_completed_quests(false).length
+  nb_remaining = nb_quests_for_next_reward - nb_quests_completed
+  diff_with_last_stage = -1
+  diff_with_last_stage = nb_quests_for_next_reward - QUEST_REWARDS[stage-1].nb_quests if stage >= 1
+  pbSet(var_nb_total,nb_quests_for_next_reward)
+  pbSet(var_nb_remaining,nb_remaining)
+  pbSet(var_nb_relative_to_last_stage,diff_with_last_stage)
+end
+
+def enough_quest_for_reward?(stage)
+  return true
+  nb_quests_for_next_reward = QUEST_REWARDS[stage].nb_quests
+  return get_completed_quests(false).length >= nb_quests_for_next_reward
+end
+
+def receiveQuestReward(stage)
+  item = QUEST_REWARDS[stage].item
+  quantity =QUEST_REWARDS[stage].quantity
+  pbReceiveItem(item, quantity)
+  reward_message = QUEST_REWARDS[stage].description
+  pbCallBub(2,@event_id)
+  pbMessage(reward_message)
+end

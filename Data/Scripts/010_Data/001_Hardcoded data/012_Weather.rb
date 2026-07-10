@@ -192,3 +192,25 @@ GameData::Weather.register({
    next Tone.new(64, 64, 32, 0)
  }
 })
+
+GameData::Weather.register({
+   :id               => :Ash,
+   :id_number        => 12,
+   :graphics         => [["ash_1", "ash_2", "ash_3"]],
+   :particle_delta_x => 20,
+   :particle_delta_y => 100,
+   :tone_proc        => proc { |strength|
+     next Tone.new(strength / 2, strength / 2, strength / 2, 0)
+   }
+ })
+
+GameData::Weather.register({  #Used underwater
+     :id               => :Bubbles,
+     :id_number        => 13,
+     :graphics         => [["bubble_1", "bubble_2", "bubble_3"]],
+     :particle_delta_x => 20,
+     :particle_delta_y => 40,
+     :tone_proc        => proc { |strength|
+       next Tone.new(strength / 2, strength / 2, strength / 2, 0)
+     }
+   })

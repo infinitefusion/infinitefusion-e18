@@ -57,7 +57,7 @@ module Compiler
       case commands[i]
       when PBMoveRoute::Wait, PBMoveRoute::SwitchOn, PBMoveRoute::SwitchOff,
            PBMoveRoute::ChangeSpeed, PBMoveRoute::ChangeFreq, PBMoveRoute::Opacity,
-           PBMoveRoute::Blending, PBMoveRoute::PlaySE, PBMoveRoute::Script
+           PBMoveRoute::Blending, PBMoveRoute::PlaySE, PBMoveRoute::Script, PBMoveRoute::PlayAnimation,
         route.list.push(RPG::MoveCommand.new(commands[i],[commands[i+1]]))
         i += 1
       when PBMoveRoute::ScriptAsync
@@ -748,7 +748,7 @@ module Compiler
           # Rewrite penultimate page
           list.clear
           push_move_route_and_wait(list,0,[   # Move Route for door opening
-             PBMoveRoute::PlaySE,RPG::AudioFile.new("Door enter"),PBMoveRoute::Wait,2,
+             PBMoveRoute::PlaySE,RPG::AudioFile.new("Entering Door"),PBMoveRoute::Wait,2,
              PBMoveRoute::TurnLeft,PBMoveRoute::Wait,2,
              PBMoveRoute::TurnRight,PBMoveRoute::Wait,2,
              PBMoveRoute::TurnUp,PBMoveRoute::Wait,2])

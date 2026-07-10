@@ -10,8 +10,8 @@
 module PBTrainerAI
   # Minimum skill level to be in each AI category.
   def self.minimumSkill; return 1;   end
-  def self.mediumSkill;  return 32;  end
-  def self.highSkill;    return 48;  end
+  def self.mediumSkill;  return 16;  end
+  def self.highSkill;    return 32;  end
   def self.bestSkill;    return 100; end
 end
 

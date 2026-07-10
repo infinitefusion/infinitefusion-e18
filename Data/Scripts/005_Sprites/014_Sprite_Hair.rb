@@ -25,8 +25,10 @@ class Sprite_Hair < Sprite_Wearable
   end
 
   def set_sprite_position(action, direction, current_frame)
-    @sprite.x = @player_sprite.x - @player_sprite.ox
-    @sprite.y = @player_sprite.y - @player_sprite.oy
+    @sprite.x = @player_sprite.x
+    @sprite.y = @player_sprite.y
+    @sprite.ox = @player_sprite.ox
+    @sprite.oy = @player_sprite.oy
     case action
     when "run"
       if direction == DIRECTION_DOWN
@@ -78,8 +80,12 @@ class Sprite_Hair < Sprite_Wearable
       elsif direction == DIRECTION_UP
         apply_sprite_offset(Outfit_Offsets::FISH_OFFSETS_UP, current_frame)
       end
+    else
+      @sprite.x = @player_sprite.x
+      @sprite.y = @player_sprite.y
+      @sprite.ox = @player_sprite.ox
+      @sprite.oy = @player_sprite.oy
     end
-    adjustPositionForScreenScrolling()
   end
 
 end

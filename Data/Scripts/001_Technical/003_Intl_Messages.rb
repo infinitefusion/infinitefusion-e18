@@ -1,6 +1,6 @@
 def pbAddScriptTexts(items, script)
   script.force_encoding(Encoding::UTF_8)
-  script.scan(/(?:_I)\s*\(\s*\"((?:[^\\\"]*\\\"?)*[^\"]*)\"/) do |s|
+  script.scan(/(?:_I|sign)\s*\(\s*\"((?:[^\\\"]*\\\"?)*[^\"]*)\"/) do |s|
     string = s[0]
     string.gsub!(/\\\"/, "\"")
     string.gsub!(/\\\\/, "\\")
@@ -35,17 +35,13 @@ def pbSetTextMessages
       scr = Zlib::Inflate.inflate(script[2])
       pbAddRgssScriptTexts(texts, scr)
     end
-    # If Scripts.rxdata only has 1 section, scripts have been extracted. Get
-    # script texts from .rb files in Data/Scripts
-    if $RGSS_SCRIPTS.length == 1
-      Dir.all("Data/Scripts").each do |script_file|
-        if System.uptime - t >= 5
-          t += 5
-          Graphics.update
-        end
-        File.open(script_file, "rb") do |f|
-          pbAddRgssScriptTexts(texts, f.read)
-        end
+    Dir.all("Data/Scripts").each do |script_file|
+      if System.uptime - t >= 5
+        t += 5
+        Graphics.update
+      end
+      File.open(script_file, "rb") do |f|
+        pbAddRgssScriptTexts(texts, f.read)
       end
     end
     # Must add messages because this code is used by both game system and Editor
@@ -194,9 +190,74 @@ def pbSetTextMessages
         Graphics.update
       end
     end
+    pbAddTrainerTextMessages
+    pbAddOutfitTextMessages
   rescue Hangup
   end
   Graphics.update
+end
+
+
+def pbAddTrainerTextMessages
+  names      = []
+  loseTexts  = []
+  speeches   = []
+  infoTexts   = []
+  GameData::Trainer.each do |trainer|
+    names.push(trainer.real_name)
+
+    loseTexts.push(trainer.real_lose_text)
+    loseTexts.push(trainer.loseText_rematch) if trainer.loseText_rematch
+    loseTexts.push(trainer.loseText_rematch_double) if trainer.loseText_rematch_double
+
+    speeches.push(trainer.battleText) if trainer.battleText
+    speeches.push(trainer.preRematchText) if trainer.preRematchText
+    speeches.push(trainer.preRematchText_caught) if trainer.preRematchText_caught
+    speeches.push(trainer.preRematchText_evolved) if trainer.preRematchText_evolved
+    speeches.push(trainer.preRematchText_fused) if trainer.preRematchText_fused
+    speeches.push(trainer.preRematchText_unfused) if trainer.preRematchText_unfused
+    speeches.push(trainer.preRematchText_reversed) if trainer.preRematchText_reversed
+    speeches.push(trainer.preRematchText_gift) if trainer.preRematchText_gift
+
+    infoTexts.push(trainer.infoText) if trainer.infoText
+  end
+  MessageTypes.addMessagesAsHash(MessageTypes::TrainerNames, names)
+  MessageTypes.addMessagesAsHash(MessageTypes::TrainerLoseText, loseTexts)
+  MessageTypes.addMessagesAsHash(MessageTypes::BeginSpeech, speeches)
+  MessageTypes.addMessagesAsHash(MessageTypes::TrainerInfoText, infoTexts)
+end
+
+def pbCollectOutfitTexts(obj, texts)
+  case obj
+  when Hash
+    texts << obj["name"] if obj["name"].is_a?(String)
+    texts << obj["description"] if obj["description"].is_a?(String)
+    obj.each_value { |v| pbCollectOutfitTexts(v, texts) }
+  when Array
+    obj.each { |v| pbCollectOutfitTexts(v, texts) }
+  end
+end
+
+def pbAddOutfitTextMessages
+  texts = []
+
+  files = [
+    Settings::CLOTHES_DATA_PATH,
+    Settings::HAIRSTYLE_DATA_PATH,
+    Settings::HATS_DATA_PATH
+  ]
+
+  files.each do |file|
+    json_data = File.read(file)
+    data = HTTPLite::JSON.parse(json_data)
+
+    data.each do |entry|
+      texts << entry["name"] if entry["name"]
+      texts << entry["description"] if entry["description"]
+    end
+  end
+
+  MessageTypes.addMessagesAsHash(MessageTypes::OutfitTexts, texts)
 end
 
 def pbEachIntlSection(file)
@@ -533,12 +594,18 @@ class Messages
 
   def saveMessages(filename = nil)
     filename = "Data/messages.dat" if !filename
-    File.open(filename, "wb") { |f| Marshal.dump(@messages, f) }
+    raw = Marshal.dump(@messages)
+    File.open(filename, "wb") { |f| f.write(Encryption.xor(raw)) }
   end
 
   def loadMessageFile(filename)
     begin
-      pbRgssOpen(filename, "rb") { |f| @messages = Marshal.load(f) }
+      raw = File.open(filename, "rb") { |f| f.read }
+      begin
+        @messages = Marshal.load(Encryption.xor(raw))
+      rescue TypeError, ArgumentError
+        @messages = Marshal.load(raw)  # fallback for old unencrypted file
+      end
       if !@messages.is_a?(Array)
         @messages = nil
         raise "Corrupted data"
@@ -623,6 +690,8 @@ module MessageTypes
   ScriptTexts = 24
   RibbonNames = 25
   RibbonDescriptions = 26
+  TrainerInfoText = 27
+  OutfitTexts = 28
   @@messages = Messages.new
   @@messagesFallback = Messages.new("Data/messages.dat", true)
 
@@ -727,6 +796,10 @@ end
 
 # Replaces first argument with a localized version and formats the other
 # parameters by replacing {1}, {2}, etc. with those placeholders.
+def _OUTFIT_INTL(str)
+  return MessageTypes.getFromHash(MessageTypes::OutfitTexts, str)
+end
+
 def _INTL(*arg)
   begin
     string = MessageTypes.getFromHash(MessageTypes::ScriptTexts, arg[0])

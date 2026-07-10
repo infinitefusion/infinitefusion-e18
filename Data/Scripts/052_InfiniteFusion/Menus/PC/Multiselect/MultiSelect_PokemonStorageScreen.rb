@@ -64,7 +64,6 @@ class PokemonStorageScreen
         elsif @fusionMode
           pbFusionCommands(selected)
         else
-          echoln "pcOrganizeCommand?"
           organizeActions(selected, pokemon, heldpoke, isTransferBox)
         end
       end
@@ -101,8 +100,8 @@ class PokemonStorageScreen
     commands = []
     commands << cmd_jump
     commands << cmd_select unless is_holding_pokemon
-    commands << cmd_wallpaper
-    commands << cmd_name if !@storage[@storage.currentBox].is_a?(StorageTransferBox)
+    commands << cmd_wallpaper unless @storage[@storage.currentBox].is_a?(StorageTransferBox)
+    commands << cmd_name unless @storage[@storage.currentBox].is_a?(StorageTransferBox)
     commands << cmd_info if @storage[@storage.currentBox].is_a?(StorageTransferBox)
     commands << cmd_cancel
 
@@ -116,7 +115,7 @@ class PokemonStorageScreen
     when cmd_name
       boxCommandName
     when cmd_info
-      boxCommandTransferInfo
+      transferBoxTutorial
     when cmd_select
       selectAllBox
     end
@@ -204,6 +203,10 @@ class PokemonStorageScreen
   # --- Screen-side game-rule methods (validate, commit, then animate) ---
   # Validate & pick up a selection of multiple Pokémon (logical)
   def pbHoldMulti(box, selected_index)
+    if @scene.inTransferBox && box != -1
+      pbPlayBuzzerSE
+      return
+    end
     selected = getMultiSelection(box, nil)
     return if selected.length == 0
     selected_pos = getBoxPosition(box, selected_index)
@@ -243,6 +246,9 @@ class PokemonStorageScreen
     @scene.animate_hold_multi(box, final_selected, selected_index) # animation
     @multiheldpkmn = new_held
     @storage.pbDeleteMulti(box, final_selected)
+    if @storage[box].is_a?(StorageTransferBox)
+      @saveWhenPlaceDown = true
+    end
     @scene.pbRefresh
   end
 
@@ -250,7 +256,10 @@ class PokemonStorageScreen
   # Commit them to storage and animate the placement.
   def pbPlaceMulti(box, selected_index)
     return if @multiheldpkmn.nil? || @multiheldpkmn.empty?
-
+    if @scene.inTransferBox && box != -1
+      pbPlayBuzzerSE
+      return
+    end
     selected_pos = getBoxPosition(box, selected_index)
     if box >= 0
       # Validate every target slot is in-bounds and unoccupied
@@ -304,6 +313,11 @@ class PokemonStorageScreen
         @storage.party.push(pokemon)
       end
     end
+    if @saveWhenPlaceDown
+      @saveWhenPlaceDown = false
+      Game.save()
+    end
+
     @scene.pbRefresh
     @multiheldpkmn = []
   end

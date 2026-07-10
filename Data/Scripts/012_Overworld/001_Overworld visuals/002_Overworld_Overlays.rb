@@ -3,6 +3,7 @@
 #===============================================================================
 class LocationWindow
   def initialize(name)
+    name = format_location_name(name)
     @window = Window_AdvancedTextPokemon.new(name)
     @window.resizeToFit(name,Graphics.width)
     @window.x        = 0
@@ -11,8 +12,25 @@ class LocationWindow
     @window.viewport.z = 99999
     @currentmap = $game_map.map_id
     @frames = 0
+    @close_automatically = true
   end
 
+  #Everything between parentheses gets ignored
+  def format_location_name(name)
+    name = _INTL(name.to_s)
+    formatted = name.split(" (")
+    return formatted[0]
+  end
+
+  def set_close_automatically(value)
+    @close_automatically = value
+  end
+  def text=(text)
+     @window.text = text
+  end
+  def text
+    return @window.text
+  end
   def disposed?
     @window.disposed?
   end
@@ -28,7 +46,7 @@ class LocationWindow
       @window.dispose
       return
     end
-    if @frames > Graphics.frame_rate * 2
+    if @frames > Graphics.frame_rate * 2 && @close_automatically
       @window.y -= 4
       @window.dispose if @window.y+@window.height<0
     else

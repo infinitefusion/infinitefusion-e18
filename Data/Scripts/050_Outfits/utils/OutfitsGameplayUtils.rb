@@ -7,7 +7,6 @@ def obtainNewClothes(outfit_id)
 end
 
 def obtainHat(outfit_id,secondary=false)
-  echoln "obtained new hat: " + outfit_id
   outfit = get_hat_by_id(outfit_id)
   if !outfit
     pbMessage(_INTL("The hat {1} is invalid.", outfit_id))
@@ -36,7 +35,7 @@ def unlockHat(outfit_id)
 end
 
 def obtainClothes(outfit_id)
-  echoln "obtained new clothes: " + outfit_id
+  echoln "obtained new clothes: #{outfit_id}"
   outfit = get_clothes_by_id(outfit_id)
   if !outfit
     pbMessage(_INTL("The clothes {1} are invalid.", outfit_id))
@@ -52,11 +51,22 @@ def obtainClothes(outfit_id)
   return false
 end
 
+def unlockClothes(outfit_id)
+  outfit = get_clothes_by_id(outfit_id)
+  if !outfit
+    pbMessage(_INTL("The clothes {1} are invalid.", outfit_id))
+    return
+  end
+  return if !outfit
+  $Trainer.unlocked_clothes << outfit_id if !$Trainer.unlocked_clothes.include?(outfit_id)
+  return false
+end
+
 def obtainNewHairstyle(full_outfit_id)
   split_outfit_id = getSplitHairFilenameAndVersionFromID(full_outfit_id)
   hairstyle_id = split_outfit_id[1]
   hairstyle = get_hair_by_id(hairstyle_id)
-  musical_effect = _INTL("Key item get")
+  musical_effect = "Key item get"
   pbMessage(_INTL("\\me[{1}]Your hairstyle was changed to \\c[1]{2}\\c[0] hairstyle!\\wtnp[30]", musical_effect, hairstyle.name))
   return true
 end
@@ -152,7 +162,7 @@ end
 
 def obtainOutfitMessage(outfit)
   pictureViewport = showOutfitPicture(outfit)
-  musical_effect = _INTL("Key item get")
+  musical_effect = "Key item get"
   pbMessage(_INTL("\\me[{1}]You obtained a \\c[1]{2}\\c[0]!\\wtnp[30]", musical_effect, outfit.name))
   pictureViewport.dispose if pictureViewport
 end
@@ -185,10 +195,12 @@ def findLastHairVersion(hairId)
 end
 
 def isWearingClothes(outfitId)
+  return false unless $Trainer
   return $Trainer.clothes == outfitId
 end
 
 def isWearingHat(outfitId)
+  return false unless $Trainer
   return $Trainer.hat == outfitId || $Trainer.hat2 == outfitId
 end
 
@@ -225,7 +237,23 @@ def hasClothes?(outfit_id)
 end
 
 def hasHat?(outfit_id)
+  $Trainer.unlocked_hats = [] unless $Trainer.unlocked_hats
   return $Trainer.unlocked_hats.include?(outfit_id)
+end
+
+def getHatForPokemon(pokemonSpecies)
+  possible_hats = []
+  body_pokemon_id = get_body_species_from_symbol(pokemonSpecies).to_s.downcase
+  head_pokemon_id = get_head_species_from_symbol(pokemonSpecies).to_s.downcase
+  body_pokemon_tag = "pokemon-#{body_pokemon_id}"
+  head_pokemon_tag = "pokemon-#{head_pokemon_id}"
+  possible_hats += search_hats([body_pokemon_tag])
+  possible_hats += search_hats([head_pokemon_tag])
+  possible_hats = filter_hats_only_not_owned(possible_hats)
+  unless possible_hats.empty?()
+    return possible_hats.sample
+  end
+  return nil
 end
 
 def getOutfitForPokemon(pokemonSpecies)
@@ -384,10 +412,6 @@ def generate_appearance_from_name(name)
   hair_color = convert_letter_to_number(seed[8],max_dye_color)
   hair_color = 0 if convert_letter_to_number(seed[9]) % 2 == 0 #1/2 chance of no dyed hair
 
-  echoln hair_color
-  echoln clothes_color
-  echoln hat_color
-
   skin_tone = [1,2,3,4,5,6][convert_letter_to_number(seed[10],5)]
   return TrainerAppearance.new(skin_tone,hat,clothes, hair,
                                hair_color, clothes_color, hat_color,
@@ -395,17 +419,25 @@ def generate_appearance_from_name(name)
 
 end
 
-def get_random_appearance()
+def get_random_appearance(include_hat2=true, hat_dye_chance=30, clothes_dye_chance=30,hair_dye_chance=30)
   hat = $PokemonGlobal.hats_data.keys.sample
-  hat2 = $PokemonGlobal.hats_data.keys.sample
-  hat2 = nil if(rand(3)==0)
+  if include_hat2
+    hat2 = $PokemonGlobal.hats_data.keys.sample
+    hat2 = nil if(rand(3)==0)
+  end
 
   clothes = $PokemonGlobal.clothes_data.keys.sample
-  hat_color = rand(2)==0 ? rand(255) : 0
-  hat2_color = rand(2)==0 ? rand(255) : 0
+  if rand(100) <= hat_dye_chance
+    hat_color = rand(2)==0 ? rand(255) : 0
+    hat2_color = rand(2)==0 ? rand(255) : 0
+  end
+  if rand(100) <= clothes_dye_chance
+    clothes_color = rand(2)==0 ? rand(255) : 0
+  end
 
-  clothes_color = rand(2)==0 ? rand(255) : 0
-  hair_color =  rand(2)==0 ? rand(255) : 0
+  if rand(100) <= hair_dye_chance
+    hair_color =  rand(2)==0 ? rand(255) : 0
+  end
 
   hair_id = $PokemonGlobal.hairstyles_data.keys.sample
   hair_color = [1,2,3,4].sample
@@ -414,6 +446,28 @@ def get_random_appearance()
 
   return TrainerAppearance.new(skin_tone,hat,clothes, hair,
                                hair_color, clothes_color, hat_color,hat2)
+end
+
+def get_random_hat_contest(contest_condition,max_attempts=20)
+  current_attempt = 0
+  while current_attempt < max_attempts
+    hat_id = $PokemonGlobal.hats_data.keys.sample
+    hat = $PokemonGlobal.hats_data[hat_id]
+    return hat.id if (hat.contest_condition.include?(contest_condition.downcase))
+    current_attempt += 1
+  end
+  return hat.id
+end
+
+def get_random_clothes_contest(contest_condition,max_attempts=20)
+  current_attempt = 0
+  while current_attempt < max_attempts
+    clothes_id = $PokemonGlobal.clothes_data.keys.sample
+    clothes = $PokemonGlobal.clothes_data[clothes_id]
+    return clothes.id if (clothes.contest_condition.include?(contest_condition.downcase))
+    current_attempt += 1
+  end
+  return clothes.id
 end
 
 def randomizePlayerOutfit()
@@ -432,8 +486,9 @@ def randomizePlayerOutfit()
   hair_color = [1,2,3,4].sample
   $Trainer.skin_tone = [1,2,3,4,5,6].sample
   $Trainer.hair = getFullHairId(hair_id,hair_color)
-
 end
+
+
 
 def select_hat()
   hats_list = $Trainer.unlocked_hats
@@ -447,6 +502,9 @@ def select_hat()
   return selected_hat_id
 end
 
+def has_trumpet_hat?
+  return $Trainer.unlocked_hats.include?(HAT_TRUMPET)
+end
 def canPutHatOnPokemon(pokemon)
   return !pokemon.egg? && !pokemon.isTripleFusion? && $game_switches[SWITCH_UNLOCKED_POKEMON_HATS]
 end

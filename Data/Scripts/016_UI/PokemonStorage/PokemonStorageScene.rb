@@ -4,6 +4,8 @@
 class PokemonStorageScene
   attr_reader :quickswap
   attr_accessor :sprites
+  attr_accessor :choseFromParty
+  attr_reader :inTransferBox
 
   def initialize
     @command = 1
@@ -41,9 +43,15 @@ class PokemonStorageScene
     @quickswap = false
     @sprites = {}
     @choseFromParty = false
+    @partyTabBackButton = nil
     @command = command
     addBackgroundPlane(@sprites, "background", "Storage/bg", @bgviewport)
-    @sprites["box"] = PokemonBoxSprite.new(@storage, @storage.currentBox, @boxviewport)
+    checkOpenTransferBox(@storage.currentBox)
+    @sprites["box"] = PokemonBoxSprite.new(@storage, @storage.currentBox, @boxviewport,true,@screen.filterProc)
+    # echoln @screen.filterProc
+    # if @screen.filterProc
+    #   @sprites["box"].setFilterProc(@screen.filterProc)
+    # end
     @sprites["boxsides"] = IconSprite.new(0, 0, @boxsidesviewport)
     @sprites["boxsides"].setBitmap("Graphics/Pictures/Storage/overlay_main")
     @sprites["overlay"] = BitmapSprite.new(Graphics.width, Graphics.height, @boxsidesviewport)
@@ -54,8 +62,8 @@ class PokemonStorageScene
     @sprites["pokemon"].y = 134
     @sprites["pokemon"].zoom_y = Settings::FRONTSPRITE_SCALE
     @sprites["pokemon"].zoom_x = Settings::FRONTSPRITE_SCALE
-    @sprites["boxparty"] = PokemonBoxPartySprite.new(@storage.party, @boxsidesviewport)
-    if command != 2 # Drop down tab only on Deposit
+    @sprites["boxparty"] = PokemonBoxPartySprite.new(@storage.party, @boxsidesviewport,@screen.filterProc)
+    if command != 2 && command != 3 # Drop down tab only on Deposit and Select Pokemon
       @sprites["boxparty"].x = 182
       @sprites["boxparty"].y = Graphics.height
     end
@@ -266,7 +274,6 @@ class PokemonStorageScene
     end
     return selection
   end
-
   def pbSelectBoxInternal(_party)
     selection = @selection
     pbSetArrow(@sprites["arrow"], selection)
@@ -369,6 +376,11 @@ class PokemonStorageScene
     end
   end
 
+  def setStartingTab(symbol)
+    @command = (symbol == :party ? 1 : 0)   # 1 = party, 0 = box
+  end
+
+
   def pbSelectPartyInternal(party, depositing)
     selection = @selection
     pbPartySetArrow(@sprites["arrow"], selection)
@@ -453,7 +465,7 @@ class PokemonStorageScene
   end
 
   def pbSwitchBoxToRight(newbox)
-    newbox = PokemonBoxSprite.new(@storage, newbox, @boxviewport, @sprites["box"].isFusionEnabled)
+    newbox = PokemonBoxSprite.new(@storage, newbox, @boxviewport, @sprites["box"].isFusionEnabled,@screen.filterProc)
     newbox.x = 520
     Graphics.frame_reset
     distancePerFrame = 64 * 20 / Graphics.frame_rate
@@ -471,10 +483,11 @@ class PokemonStorageScene
     @sprites["box"].dispose
     @sprites["box"] = newbox
     newbox.refreshAllBoxSprites
+    checkOpenTransferBox(newbox.boxnumber)
   end
 
   def pbSwitchBoxToLeft(newbox)
-    newbox = PokemonBoxSprite.new(@storage, newbox, @boxviewport, @sprites["box"].isFusionEnabled)
+    newbox = PokemonBoxSprite.new(@storage, newbox, @boxviewport, @sprites["box"].isFusionEnabled,@screen.filterProc)
     newbox.x = -152
     Graphics.frame_reset
     distancePerFrame = 64 * 20 / Graphics.frame_rate
@@ -492,6 +505,7 @@ class PokemonStorageScene
     @sprites["box"].dispose
     @sprites["box"] = newbox
     newbox.refreshAllBoxSprites
+    checkOpenTransferBox(newbox.boxnumber)
   end
 
   def pbJumpToBox(newbox)
@@ -503,8 +517,31 @@ class PokemonStorageScene
       end
       @storage.currentBox = newbox
     end
+    checkOpenTransferBox(newbox)
   end
 
+  def checkOpenTransferBox(newbox)
+    @inTransferBox = @storage[newbox].is_a?(StorageTransferBox)
+    if @inTransferBox
+      checkTransferBoxTutorial(newbox)
+      if @storage[newbox].can_use_transfer_box?
+        @storage[newbox].loadTransferBoxPokemon
+      else
+        @storage[newbox].setDisabled
+      end
+    end
+  end
+
+
+  def checkTransferBoxTutorial(newbox)
+    isTransferBox = @storage[newbox].is_a?(StorageTransferBox)
+    if isTransferBox
+      unless $PokemonGlobal.seen_transfer_box_tutorial
+        transferBoxTutorial
+        $PokemonGlobal.seen_transfer_box_tutorial=true
+      end
+    end
+  end
   def pbSetMosaic(selection)
     if !@screen.pbHeldPokemon
       if @boxForMosaic != @storage.currentBox || @selectionForMosaic != selection
@@ -648,13 +685,18 @@ class PokemonStorageScene
 
   def pbChooseBox(msg)
     commands = []
+    boxIndices = []
     for i in 0...@storage.maxBoxes
       box = @storage[i]
       if box
+        next if box.is_a?(StorageTransferBox)
         commands.push(_INTL("{1} ({2}/{3})", box.name, box.nitems, box.length))
+        boxIndices.push(i)
       end
     end
-    return pbShowCommands(msg, commands, @storage.currentBox)
+    defaultIndex = boxIndices.index(@storage.currentBox) || 0
+    cmdIndex = pbShowCommands(msg, commands, defaultIndex)
+    return cmdIndex >= 0 ? boxIndices[cmdIndex] : -1
   end
 
   def pbBoxName(helptext, minchars, maxchars)
@@ -835,9 +877,9 @@ class PokemonStorageScene
   def pbHardRefresh
     oldPartyY = @sprites["boxparty"].y
     @sprites["box"].dispose
-    @sprites["box"] = PokemonBoxSprite.new(@storage, @storage.currentBox, @boxviewport)
+    @sprites["box"] = PokemonBoxSprite.new(@storage, @storage.currentBox, @boxviewport,@screen.filterProc)
     @sprites["boxparty"].dispose
-    @sprites["boxparty"] = PokemonBoxPartySprite.new(@storage.party, @boxsidesviewport)
+    @sprites["boxparty"] = PokemonBoxPartySprite.new(@storage.party, @boxsidesviewport,@screen.filterProc)
     @sprites["boxparty"].y = oldPartyY
   end
 
@@ -874,6 +916,11 @@ class PokemonStorageScene
     shadow = Color.new(168, 184, 184)
     nonbase = Color.new(208, 208, 208)
     nonshadow = Color.new(224, 224, 224)
+
+    if isDarkMode
+      base, shadow = shadow, base
+    end
+
     pokename = pokemon.name
     textstrings = [
       [pokename, 10, 2, false, base, shadow]
@@ -881,27 +928,27 @@ class PokemonStorageScene
     if !pokemon.egg?
       imagepos = []
       if pokemon.male?
-        textstrings.push([_INTL("♂"), 148, 2, false, Color.new(24, 112, 216), Color.new(136, 168, 208)])
+        textstrings.push(["♂", 148, 2, false, Color.new(24, 112, 216), Color.new(136, 168, 208)])
       elsif pokemon.female?
-        textstrings.push([_INTL("♀"), 148, 2, false, Color.new(248, 56, 32), Color.new(224, 152, 144)])
+        textstrings.push(["♀", 148, 2, false, Color.new(248, 56, 32), Color.new(224, 152, 144)])
       end
       imagepos.push(["Graphics/Pictures/Storage/overlay_lv", 6, 246])
       textstrings.push([pokemon.level.to_s, 28, 228, false, base, shadow])
       if pokemon.ability
         textstrings.push([pokemon.ability.name, 86, 300, 2, base, shadow])
       else
-        textstrings.push([_INTL("No ability"), 86, 300, 2, nonbase, nonshadow])
+        textstrings.push([_INTL("No ability"), 86, 300, 2, base, nonshadow])
       end
       if pokemon.item
         textstrings.push([pokemon.item.name, 86, 336, 2, base, shadow])
       else
-        textstrings.push([_INTL("No item"), 86, 336, 2, nonbase, nonshadow])
+        textstrings.push([_INTL("No item"), 86, 336, 2, base, nonshadow])
       end
       if pokemon.shiny?
-        addShinyStarsToGraphicsArray(imagepos, 156, 198, pokemon.bodyShiny?, pokemon.headShiny?, pokemon.debugShiny?, nil, nil, nil, nil, false, true)
+        addShinyStarsToGraphicsArray(imagepos, 156, 198, pokemon.bodyShiny?, pokemon.headShiny?, pokemon.debugShiny?, pokemon.radarShiny?, nil, nil, nil, nil, false, true)
         # imagepos.push(["Graphics/Pictures/shiny", 156, 198])
       end
-      typebitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/types"))
+      typebitmap = AnimatedBitmap.new("Graphics/Pictures/types")
       type1_number = GameData::Type.get(pokemon.type1).id_number
       type2_number = GameData::Type.get(pokemon.type2).id_number
       type1rect = Rect.new(0, type1_number * 28, 64, 28)

@@ -59,6 +59,8 @@ def rockSmashItem(isDark=false)
   if rand(100)< chance
     if rand(5) == 0 && !hatUnlocked?(HAT_AERODACTYL)
       obtainHat(HAT_AERODACTYL)
+    elsif rand(5) == 0 && !hatUnlocked?(HAT_TYRUNT)
+      obtainHat(HAT_TYRUNT)
     else
       itemsList = getRockSmashItemList(isDark)
       i = rand(itemsList.length)

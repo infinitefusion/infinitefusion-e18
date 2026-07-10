@@ -438,13 +438,13 @@ class Slider < UIControl
     color=Color.new(120,120,120)
     bitmap.fill_rect(x,y,width,height,Color.new(0,0,0,0))
     size=bitmap.text_size(self.label).width
-    leftarrows=bitmap.text_size(_INTL(" << "))
+    leftarrows=bitmap.text_size(" << ")
     numbers=bitmap.text_size(" XXXX ").width
-    rightarrows=bitmap.text_size(_INTL(" >> "))
+    rightarrows=bitmap.text_size(" >> ")
     bitmap.font.color=color
     shadowtext(bitmap,x,y,size,height,self.label)
     x+=size
-    shadowtext(bitmap,x,y,leftarrows.width,height,_INTL(" << "),
+    shadowtext(bitmap,x,y,leftarrows.width,height," << ",
        self.disabled || self.curvalue==self.minvalue)
     @leftarrow=Rect.new(x,y,leftarrows.width,height)
     x+=leftarrows.width
@@ -453,7 +453,7 @@ class Slider < UIControl
       shadowtext(bitmap,x,y,numbers,height," #{self.curvalue} ",false,1)
     end
     x+=numbers
-    shadowtext(bitmap,x,y,rightarrows.width,height,_INTL(" >> "),
+    shadowtext(bitmap,x,y,rightarrows.width,height," >> ",
        self.disabled || self.curvalue==self.maxvalue)
     @rightarrow=Rect.new(x,y,rightarrows.width,height)
   end
@@ -687,12 +687,12 @@ class TextSlider < UIControl
     color=Color.new(120,120,120)
     bitmap.fill_rect(x,y,width,height,Color.new(0,0,0,0))
     size=bitmap.text_size(self.label).width
-    leftarrows=bitmap.text_size(_INTL(" << "))
-    rightarrows=bitmap.text_size(_INTL(" >> "))
+    leftarrows=bitmap.text_size(" << ")
+    rightarrows=bitmap.text_size(" >> ")
     bitmap.font.color=color
     shadowtext(bitmap,x,y,size,height,self.label)
     x+=size
-    shadowtext(bitmap,x,y,leftarrows.width,height,_INTL(" << "),
+    shadowtext(bitmap,x,y,leftarrows.width,height," << ",
        self.disabled || self.curvalue==self.minvalue)
     @leftarrow=Rect.new(x,y,leftarrows.width,height)
     x+=leftarrows.width
@@ -701,7 +701,7 @@ class TextSlider < UIControl
       shadowtext(bitmap,x,y,@maxoptionwidth,height," #{@options[self.curvalue]} ",false,1)
     end
     x+=@maxoptionwidth
-    shadowtext(bitmap,x,y,rightarrows.width,height,_INTL(" >> "),
+    shadowtext(bitmap,x,y,rightarrows.width,height," >> ",
        self.disabled || self.curvalue==self.maxvalue)
     @rightarrow=Rect.new(x,y,rightarrows.width,height)
   end

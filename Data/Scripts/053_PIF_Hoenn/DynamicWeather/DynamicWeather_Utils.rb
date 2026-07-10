@@ -6,27 +6,33 @@ def isRaining?()
 end
 
 def isWeatherRain?()
+  return true if GameData::Weather.get($game_screen.weather_type).category == :Rain
   return $game_weather.get_map_weather_type($game_map.map_id) == :Rain || $game_weather.get_map_weather_type($game_map.map_id) == :HeavyRain
 end
 
 def isWeatherSunny?()
+  return true if GameData::Weather.get($game_screen.weather_type).category == :Sunny
   return $game_weather.get_map_weather_type($game_map.map_id) == :Sunny || $game_weather.get_map_weather_type($game_map.map_id) == :HarshSun
 end
 
 def isWeatherStorm?()
+  return true if GameData::Weather.get($game_screen.weather_type).category == :Storm
   return $game_weather.get_map_weather_type($game_map.map_id) == :Storm
 end
 
 def isWeatherWind?()
+  return true if GameData::Weather.get($game_screen.weather_type).category == :Wind
   return $game_weather.get_map_weather_type($game_map.map_id) == :Wind || $game_weather.get_map_weather_type($game_map.map_id) == :StrongWinds
 end
 
 def isWeatherFog?()
+  return true if GameData::Weather.get($game_screen.weather_type).category == :Fog
   return $game_weather.get_map_weather_type($game_map.map_id) == :Fog
 end
 
 def isWeatherSnow?()
-  return $game_weather.get_map_weather_type($game_map.map_id) == :Fog
+  return true if GameData::Weather.get($game_screen.weather_type).category == :Snow
+  return $game_weather.get_map_weather_type($game_map.map_id) == :Snow
 end
 
 

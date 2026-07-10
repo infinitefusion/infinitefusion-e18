@@ -50,6 +50,19 @@ class PokemonSprite < SpriteWrapper
     end
   end
 
+  def setPokemonBitmapPIFSprite(pif_sprite)
+    @_iconbitmap.dispose if @_iconbitmap
+    @_iconbitmap = nil
+    spriteLoader = BattleSpriteLoader.new
+    animatedBitmap = spriteLoader.load_pif_sprite_directly(pif_sprite)
+    @_iconbitmap = SpriteWrapper.new
+    @_iconbitmap.bitmap = animatedBitmap.bitmap if animatedBitmap&.bitmap
+
+    self.bitmap = (@_iconbitmap) ? @_iconbitmap.bitmap : nil
+    self.color = Color.new(0, 0, 0, 0)
+    changeOrigin
+  end
+
   def setPokemonBitmap(pokemon, back = false)
     # Dispose of existing icon bitmap if it exists
     @_iconbitmap.dispose if @_iconbitmap
@@ -82,10 +95,17 @@ class PokemonSprite < SpriteWrapper
     changeOrigin
   end
 
-  def setPokemonBitmapSpecies(pokemon, species, back = false)
+  def setPokemonBitmapSpecies(species, back = false)
     @_iconbitmap.dispose if @_iconbitmap
-    @_iconbitmap = (pokemon) ? GameData::Species.sprite_bitmap_from_pokemon(pokemon, back, species) : nil
+    @_iconbitmap = GameData::Species.front_sprite_bitmap(species)
     self.bitmap = (@_iconbitmap) ? @_iconbitmap.bitmap : nil
+    changeOrigin
+  end
+
+  def setBitmapDirectly(bitmap)
+    @_iconbitmap.dispose if @_iconbitmap
+    @_iconbitmap = nil
+    self.bitmap = bitmap
     changeOrigin
   end
 
@@ -93,6 +113,13 @@ class PokemonSprite < SpriteWrapper
     @_iconbitmap.dispose if @_iconbitmap
     @_iconbitmap = GameData::Species.sprite_bitmap(species, form, gender, shiny, shadow, back, egg)
     self.bitmap = (@_iconbitmap) ? @_iconbitmap.bitmap : nil
+    changeOrigin
+  end
+
+  def setAnimatedBitmap(animated_bitmap)
+    @_iconbitmap.dispose if @_iconbitmap
+    @_iconbitmap = animated_bitmap
+    self.bitmap = animated_bitmap ? animated_bitmap.bitmap : nil
     changeOrigin
   end
 
@@ -124,7 +151,11 @@ class PokemonIconSprite < SpriteWrapper
     @numFrames = 0
     @currentFrame = 0
     @counter = 0
-    self.pokemon = pokemon
+    if pokemon.is_a?(Symbol)
+      self.pokemon = Pokemon.new(pokemon,1)
+    else
+      self.pokemon = pokemon
+    end
     @logical_x = 0 # Actual x coordinate
     @logical_y = 0 # Actual y coordinate
     @adjusted_x = 0 # Offset due to "jumping" animation in party screen
@@ -343,7 +374,6 @@ class PokemonSpeciesIconSprite < SpriteWrapper
   end
 
   def shiny=(value)
-    print "wut"
     @shiny = value
     refresh
   end

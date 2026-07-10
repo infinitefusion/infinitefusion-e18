@@ -4,9 +4,8 @@ class HairMartAdapter < OutfitsMartAdapter
 
   POSSIBLE_VERSIONS = (1..9).to_a
 
-  def initialize(stock = nil, isShop = nil)
-    super
-
+  def initialize(stock = nil, isShop = nil, prices_override = {})
+    super(stock,isShop,false,prices_override)
     @version = getCurrentHairVersion().to_i
     @worn_hair = $Trainer.hair
     @worn_hat = $Trainer.hat
@@ -61,9 +60,10 @@ class HairMartAdapter < OutfitsMartAdapter
 
   def getPrice(item, selling = nil)
     return 0 if !@isShop
+    if @prices_override && @prices_override.has_key?(item.id)
+      return @prices_override[item.id]
+    end
     trainer_hair_id = getSplitHairFilenameAndVersionFromID(@worn_hair)[1]
-
-
     return nil if item.id == trainer_hair_id
     return item.price.to_i
   end
@@ -87,7 +87,6 @@ class HairMartAdapter < OutfitsMartAdapter
   end
 
   def getName(item)
-    echoln $Trainer.hair
     return item.id
   end
 

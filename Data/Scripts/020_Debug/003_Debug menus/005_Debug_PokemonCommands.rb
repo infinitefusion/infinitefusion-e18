@@ -726,54 +726,6 @@ PokemonDebugMenuCommands.register("setability", {
 })
 
 
-PokemonDebugMenuCommands.register("setability2", {
-  "parent"      => "main",
-  "name"        => _INTL("Set secondary ability"),
-  "always_show" => true,
-  "effect"      => proc { |pkmn, pkmnid, heldpoke, settingUpBattle, screen|
-    cmd = 0
-    commands = [
-      _INTL("Set possible ability"),
-      _INTL("Set any ability"),
-      _INTL("Reset")
-    ]
-    loop do
-      if pkmn.ability
-        msg = _INTL("Ability 2 is {1} (index {2}).", pkmn.ability2.name, pkmn.ability2_index)
-      else
-        msg = _INTL("No ability (index {1}).", pkmn.ability2_index)
-      end
-      cmd = screen.pbShowCommands(msg, commands, cmd)
-      break if cmd < 0
-      case cmd
-      when 0   # Set possible ability
-        abils = pkmn.getAbilityList
-        ability_commands = []
-        abil_cmd = 0
-        for i in abils
-          ability_commands.push(((i[1] < 2) ? "" : "(H) ") + GameData::Ability.get(i[0]).name)
-          abil_cmd = ability_commands.length - 1 if pkmn.ability2_id == i[0]
-        end
-        abil_cmd = screen.pbShowCommands(_INTL("Choose an ability."), ability_commands, abil_cmd)
-        next if abil_cmd < 0
-        pkmn.ability2_index = abils[abil_cmd][1]
-        pkmn.ability2 = nil
-        screen.pbRefreshSingle(pkmnid)
-      when 1   # Set any ability
-        new_ability = pbChooseAbilityList(pkmn.ability2_id)
-        if new_ability && new_ability != pkmn.ability2_id
-          pkmn.ability2 = new_ability
-          screen.pbRefreshSingle(pkmnid)
-        end
-      when 2   # Reset
-        pkmn.ability2_index = nil
-        pkmn.ability2 = nil
-        screen.pbRefreshSingle(pkmnid)
-      end
-    end
-    next false
-  }
-})
 
 PokemonDebugMenuCommands.register("setnature", {
   "parent"      => "main",
@@ -823,9 +775,9 @@ PokemonDebugMenuCommands.register("setgender", {
   "name"        => _INTL("Set gender"),
   "always_show" => true,
   "effect"      => proc { |pkmn, pkmnid, heldpoke, settingUpBattle, screen|
-    if pkmn.singleGendered?
-      screen.pbDisplay(_INTL("{1} is single-gendered or genderless.", pkmn.speciesName))
-    else
+    # if pkmn.singleGendered?
+    #   screen.pbDisplay(_INTL("{1} is single-gendered or genderless.", pkmn.speciesName))
+    # else
       cmd = 0
       loop do
         msg = [_INTL("Gender is male."), _INTL("Gender is female.")][pkmn.male? ? 0 : 1]
@@ -851,7 +803,7 @@ PokemonDebugMenuCommands.register("setgender", {
         $Trainer.pokedex.register(pkmn) if !settingUpBattle
         screen.pbRefreshSingle(pkmnid)
       end
-    end
+    #end
     next false
   }
 })
@@ -866,6 +818,17 @@ PokemonDebugMenuCommands.register("printInfo", {
     next false
   }
 })
+
+PokemonDebugMenuCommands.register("jsonExport", {
+  "parent"      => "main",
+  "name"        => _INTL("Export to JSON"),
+  "always_show" => true,
+  "effect"      => proc { |pkmn, pkmnid, heldpoke, settingUpBattle, screen|
+    pkmn.export_to_json
+    next false
+  }
+})
+
 PokemonDebugMenuCommands.register("speciesform", {
   "parent"      => "main",
   "name"        => _INTL("Species/form..."),
@@ -895,9 +858,9 @@ PokemonDebugMenuCommands.register("speciesform", {
       when 1   # Set form
         old_head_dex = get_head_number_from_symbol(pkmn.species)
         old_body_dex = get_body_number_from_symbol(pkmn.species)
-        pbMessage('Head species?')
+        pbMessage(_INTL("Head species?"))
         head_species = pbChooseSpeciesList(old_head_dex,NB_POKEMON)
-        pbMessage('Body species?')
+        pbMessage(_INTL("Body species?"))
         body_species = pbChooseSpeciesList(old_body_dex,NB_POKEMON)
 
         fused_species_dex = getFusionSpecies(body_species.species, head_species.species)
@@ -1252,14 +1215,14 @@ PokemonDebugMenuCommands.register("shadowpkmn", {
   }
 })
 
-PokemonDebugMenuCommands.register("mysterygift", {
-  "parent"      => "main",
-  "name"        => _INTL("Mystery Gift"),
-  "effect"      => proc { |pkmn, pkmnid, heldpoke, settingUpBattle, screen|
-    pbCreateMysteryGift(0, pkmn)
-    next false
-  }
-})
+# PokemonDebugMenuCommands.register("mysterygift", {
+#   "parent"      => "main",
+#   "name"        => _INTL("Mystery Gift"),
+#   "effect"      => proc { |pkmn, pkmnid, heldpoke, settingUpBattle, screen|
+#     pbCreateMysteryGift(0, pkmn)
+#     next false
+#   }
+# })
 
 PokemonDebugMenuCommands.register("duplicate", {
   "parent"      => "main",

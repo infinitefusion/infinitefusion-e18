@@ -14,6 +14,7 @@ module GameData
     attr_reader :snap_edges
     attr_reader :random_dungeon
     attr_reader :battle_background
+    attr_reader :battle_background_water
     attr_reader :wild_battle_BGM
     attr_reader :trainer_battle_BGM
     attr_reader :wild_victory_ME
@@ -39,13 +40,14 @@ module GameData
        "SnapEdges"        => [11, "b"],
        "Dungeon"          => [12, "b"],
        "BattleBack"       => [13, "s"],
-       "WildBattleBGM"    => [14, "s"],
-       "TrainerBattleBGM" => [15, "s"],
-       "WildVictoryME"    => [16, "s"],
-       "TrainerVictoryME" => [17, "s"],
-       "WildCaptureME"    => [18, "s"],
-       "MapSize"          => [19, "us"],
-       "Environment"      => [20, "e", :Environment]
+       "BattleBackWater"  => [14, "s"],
+       "WildBattleBGM"    => [15, "s"],
+       "TrainerBattleBGM" => [16, "s"],
+       "WildVictoryME"    => [17, "s"],
+       "TrainerVictoryME" => [18, "s"],
+       "WildCaptureME"    => [19, "s"],
+       "MapSize"          => [20, "us"],
+       "Environment"      => [21, "e", :Environment]
     }
 
     extend ClassMethodsIDNumbers
@@ -66,6 +68,7 @@ module GameData
          ["SnapEdges",        BooleanProperty,                    _INTL("If true, when the player goes near this map's edge, the game doesn't center the player as usual.")],
          ["Dungeon",          BooleanProperty,                    _INTL("If true, this map has a randomly generated layout. See the wiki for more information.")],
          ["BattleBack",       StringProperty,                     _INTL("PNG files named 'XXX_bg', 'XXX_base0', 'XXX_base1', 'XXX_message' in Battlebacks folder, where XXX is this property's value.")],
+         ["BattleBackWater",  StringProperty,                     _INTL("PNG files named 'XXX_bg', 'XXX_base0', 'XXX_base1', 'XXX_message' in Battlebacks folder, where XXX is this property's value.")],
          ["WildBattleBGM",    BGMProperty,                        _INTL("Default BGM for wild Pokémon battles on this map.")],
          ["TrainerBattleBGM", BGMProperty,                        _INTL("Default BGM for trainer battles on this map.")],
          ["WildVictoryME",    MEProperty,                         _INTL("Default ME played after winning a wild Pokémon battle on this map.")],
@@ -91,6 +94,7 @@ module GameData
       @snap_edges           = hash[:snap_edges]
       @random_dungeon       = hash[:random_dungeon]
       @battle_background    = hash[:battle_background]
+      @battle_background_water    = hash[:battle_background_water]
       @wild_battle_BGM      = hash[:wild_battle_BGM]
       @trainer_battle_BGM   = hash[:trainer_battle_BGM]
       @wild_victory_ME      = hash[:wild_victory_ME]
@@ -115,6 +119,7 @@ module GameData
       when "SnapEdges"        then return @snap_edges
       when "Dungeon"          then return @random_dungeon
       when "BattleBack"       then return @battle_background
+      when "BattleBackWater"  then return @battle_background_water
       when "WildBattleBGM"    then return @wild_battle_BGM
       when "TrainerBattleBGM" then return @trainer_battle_BGM
       when "WildVictoryME"    then return @wild_victory_ME

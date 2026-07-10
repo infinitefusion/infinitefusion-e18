@@ -59,7 +59,6 @@ GameData::EncounterType.register({
 })
 
 
-
 GameData::EncounterType.register({
    :id		  => :WaterStorm,
    :type		  => :none,
@@ -71,6 +70,13 @@ GameData::EncounterType.register({
    :type		  => :none,
    :old_slots      => [30,30,10,15,5,10],
 })
+
+GameData::EncounterType.register({
+  :id		  => :TallGrass,
+  :type		  => :land,
+  :old_slots      => [30,30,10,15,5,10],
+})
+
 
 
 

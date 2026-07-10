@@ -8,7 +8,7 @@ class PokeBattle_Battle
     return if !@internalBattle || !@expGain
     # Go through each battler in turn to find the Pokémon that participated in
     # battle against it, and award those Pokémon Exp/EVs
-    expAll = (GameData::Item.exists?(:EXPALL) && $PokemonBag.pbHasItem?(:EXPALL)) || $game_switches[SWITCH_GAME_DIFFICULTY_EASY]
+    expAll = (GameData::Item.exists?(:EXPALL) && $PokemonBag.pbHasItem?(:EXPALL)) || ( $game_switches[SWITCH_GAME_DIFFICULTY_EASY] && Settings::KANTO)
     p1 = pbParty(0)
     @battlers.each do |b|
       next unless b && b.opposes? # Can only gain Exp from fainted foes
@@ -154,6 +154,14 @@ class PokeBattle_Battle
     end
     exp = i if i >= 0
     # Make sure Exp doesn't exceed the maximum
+    if pokemonExceedsLevelCap(pkmn)
+      if $PokemonSystem.level_caps==1 #Level caps enabled
+        exp = 0
+      else
+        exp = (exp *= 0.6).floor  #Pokémon still gain less exp when over level cap, even if level caps option is disabled
+      end
+    end
+
 
     exp = 0 if $PokemonSystem.level_caps==1 && pokemonExceedsLevelCap(pkmn)
 
@@ -206,8 +214,9 @@ class PokeBattle_Battle
         else
           pkmn.exp_gained_since_fused += expGained
         end
-
       end
+      pkmn.exp_gained_with_player =0 if pkmn.exp_gained_with_player == nil
+      pkmn.exp_gained_with_player += expGained
       @scene.pbEXPBar(battler, levelMinExp, levelMaxExp, tempExp1, tempExp2) if !dontAnimate
 
 
@@ -239,9 +248,6 @@ class PokeBattle_Battle
         @scene.pbLevelUp(pkmn, battler, oldTotalHP, oldAttack, oldDefense,
                          oldSpAtk, oldSpDef, oldSpeed)
       end
-
-      echoln "256"
-
       # Learn all moves learned at this level
       moveList = pkmn.getMoveList
       moveList.each { |m| pbLearnMove(idxParty, m[1]) if m[0] == curLevel }

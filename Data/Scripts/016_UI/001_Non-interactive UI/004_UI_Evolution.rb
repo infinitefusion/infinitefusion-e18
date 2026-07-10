@@ -492,6 +492,8 @@ class PokemonEvolutionScene
   def pbStartScreen(pokemon,newspecies,reversing=false)
     @pokemon = pokemon
     @newspecies = newspecies
+    spriteLoader = BattleSpriteLoader.new
+    evolution_pif_sprite = spriteLoader.obtain_pif_sprite(newspecies)
     @sprites = {}
     @bgviewport = Viewport.new(0,0,Graphics.width,Graphics.height)
     @bgviewport.z = 99999
@@ -508,9 +510,12 @@ class PokemonEvolutionScene
     rsprite1.setPokemonBitmap(@pokemon,false)
     rsprite1.x = Graphics.width/2
     rsprite1.y = (Graphics.height-64)/2
+    @pokemon.preEvolved_pif_sprite = @pokemon.pif_sprite
+    @pokemon.pif_sprite = evolution_pif_sprite
     rsprite2 = PokemonSprite.new(@viewport)
     rsprite2.setOffset(PictureOrigin::Center)
-    rsprite2.setPokemonBitmapSpecies(@pokemon,@newspecies,false)
+
+    rsprite2.setPokemonBitmapPIFSprite(evolution_pif_sprite)
     rsprite2.x       = rsprite1.x
     rsprite2.y       = rsprite1.y
     rsprite2.opacity = 0
@@ -551,7 +556,7 @@ class PokemonEvolutionScene
     pbPlayDecisionSE
     oldstate  = pbSaveSpriteState(@sprites["rsprite1"])
     oldstate2 = pbSaveSpriteState(@sprites["rsprite2"])
-    pbMEPlay("Evolution start")
+    pbMEPlay("evolution_start")
     pbBGMPlay("Evolution")
     canceled = false
     begin
@@ -570,10 +575,20 @@ class PokemonEvolutionScene
     end while metaplayer1.playing? && metaplayer2.playing?
     pbFlashInOut(canceled,oldstate,oldstate2)
     if canceled
-      pbMessageDisplay(@sprites["msgwindow"],
-         _INTL("Huh? {1} stopped evolving!",@pokemon.name)) { pbUpdate }
+      pbMessageDisplay(@sprites["msgwindow"], _INTL("Huh? {1} stopped evolving!",@pokemon.name)) { pbUpdate }
+      pbMessageDisplay(@sprites["msgwindow"], _INTL("The evolution can be prompted again from the party menu.")) { pbUpdate }
+      if @pokemon.preEvolved_pif_sprite
+        @pokemon.pif_sprite = @pokemon.preEvolved_pif_sprite
+        @pokemon.preEvolved_pif_sprite = nil
+      else
+        spriteLoader = BattleSpriteLoader.new
+        evolution_pif_sprite = spriteLoader.obtain_pif_sprite(@pokemon.species)
+        @pokemon.pif_sprite = evolution_pif_sprite
+      end
+      @pokemon.evolve_from_party = true
     else
       pbEvolutionSuccess(reversing)
+      @pokemon.evolve_from_party = false
     end
   end
 
@@ -587,7 +602,7 @@ class PokemonEvolutionScene
       pbUpdate
     end
     # Success jingle/message
-    pbMEPlay("Evolution success")
+    pbMEPlay("evolution_success")
     sprite_bitmap=@sprites["rsprite2"].getBitmap
 
     #drawSpriteCredits(sprite_bitmap.filename,sprite_bitmap.path, @viewport)
@@ -626,7 +641,7 @@ class PokemonEvolutionScene
       $Trainer.pokedex.set_owned(@newspecies)
       Kernel.pbMessageDisplay(@sprites["msgwindow"],
                                _INTL("{1}'s data was added to the Pokédex", newspeciesname))
-      @scene.pbShowPokedex(@newspecies)
+      @scene.pbShowPokedex(@pokemon)
     end
 
 
@@ -654,9 +669,12 @@ class PokemonEvolutionScene
     new_pkmn.markings  = 0
     new_pkmn.poke_ball = :POKEBALL
     new_pkmn.item      = nil
+    new_pkmn.personalID = new_pkmn.generate_personal_id
+    new_pkmn.pif_sprite = nil
     new_pkmn.clearAllRibbons
     new_pkmn.calc_stats
     new_pkmn.heal
+
     # Add duplicate Pokémon to party
     $Trainer.party.push(new_pkmn)
     # See and own duplicate Pokémon

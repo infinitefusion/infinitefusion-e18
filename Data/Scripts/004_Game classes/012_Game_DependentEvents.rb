@@ -381,6 +381,14 @@ class DependentEvents
     end
   end
 
+  def turn(direction)
+    events=$PokemonGlobal.dependentEvents
+    for i in 0...events.length
+      event=@realEvents[i]
+      event.direction=direction
+    end
+  end
+
   def eachEvent
     events=$PokemonGlobal.dependentEvents
     for i in 0...events.length

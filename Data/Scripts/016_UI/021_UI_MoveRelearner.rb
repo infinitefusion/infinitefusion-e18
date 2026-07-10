@@ -33,13 +33,13 @@ class MoveRelearner_Scene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites={}
-    addBackgroundPlane(@sprites,"bg","reminderbg",@viewport)
+    addBackgroundPlane(@sprites,"bg","moveReminder/reminderbg",@viewport)
     @sprites["pokeicon"]=PokemonIconSprite.new(@pokemon,@viewport)
     @sprites["pokeicon"].setOffset(PictureOrigin::Center)
     @sprites["pokeicon"].x=320
     @sprites["pokeicon"].y=84
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap("Graphics/Pictures/reminderSel")
+    @sprites["background"].setBitmap("Graphics/Pictures/moveReminder/reminderSel")
     @sprites["background"].y=78
     @sprites["background"].src_rect=Rect.new(0,72,258,72)
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
@@ -51,10 +51,21 @@ class MoveRelearner_Scene
     @sprites["msgwindow"].visible=false
     @sprites["msgwindow"].viewport=@viewport
     @typebitmap=AnimatedBitmap.new("Graphics/Pictures/types")
+
+    @text_color_base = Color.new(64,64,64)
+    @text_color_shadow = Color.new(176,176,176)
+
+
+    if isDarkMode
+      @text_color_base, @text_color_shadow = @text_color_shadow, @text_color_base
+    end
+
     pbDrawMoveList
     pbDeactivateWindows(@sprites)
     # Fade in all sprites
     pbFadeInAndShow(@sprites) { pbUpdate }
+
+
   end
 
   def pbDrawMoveList
@@ -75,7 +86,7 @@ class MoveRelearner_Scene
 
     text = @pokemon ? "Teach which move?" : "Moves list"
     textpos=[
-       [_INTL(text),16,2,0,Color.new(88,88,80),Color.new(168,184,184)]
+       [_INTL(text),16,2,0,Color.new(168, 184, 184),Color.new(88, 88, 80)]
     ]
     imagepos=[]
     yPos=76
@@ -89,15 +100,15 @@ class MoveRelearner_Scene
         if moveData.total_pp>0
           textpos.push([_INTL("PP"),112,yPos+32,0,Color.new(64,64,64),Color.new(176,176,176)])
           textpos.push([_INTL("{1}/{1}",moveData.total_pp),230,yPos+32,1,
-             Color.new(64,64,64),Color.new(176,176,176)])
+                        Color.new(64,64,64),Color.new(176,176,176)])
         else
-          textpos.push(["-",80,yPos,0,Color.new(64,64,64),Color.new(176,176,176)])
-          textpos.push(["--",228,yPos+32,1,Color.new(64,64,64),Color.new(176,176,176)])
+          textpos.push(["-",80,yPos,0,@text_color_base,@text_color_shadow])
+          textpos.push(["--",228,yPos+32,1,@text_color_base,@text_color_shadow])
         end
       end
       yPos+=64
     end
-    imagepos.push(["Graphics/Pictures/reminderSel",
+    imagepos.push(["Graphics/Pictures/moveReminder/reminderSel",
        0,78+(@sprites["commands"].index-@sprites["commands"].top_item)*64,
        0,0,258,72])
     selMoveData=GameData::Move.get(@moves[@sprites["commands"].index])
@@ -107,10 +118,10 @@ class MoveRelearner_Scene
     textpos.push([_INTL("CATEGORY"),272,108,0,Color.new(248,248,248),Color.new(0,0,0)])
     textpos.push([_INTL("POWER"),272,140,0,Color.new(248,248,248),Color.new(0,0,0)])
     textpos.push([basedamage<=1 ? basedamage==1 ? "???" : "---" : sprintf("%d",basedamage),
-          468,140,2,Color.new(64,64,64),Color.new(176,176,176)])
+          468,140,2,@text_color_base,@text_color_shadow])
     textpos.push([_INTL("ACCURACY"),272,172,0,Color.new(248,248,248),Color.new(0,0,0)])
     textpos.push([accuracy==0 ? "---" : "#{accuracy}%",
-          468,172,2,Color.new(64,64,64),Color.new(176,176,176)])
+          468,172,2,@text_color_base,@text_color_shadow])
     pbDrawTextPositions(overlay,textpos)
     imagepos.push(["Graphics/Pictures/category",436,116,0,category*28,64,28])
     if @sprites["commands"].index<@moves.length-1
@@ -121,7 +132,7 @@ class MoveRelearner_Scene
     end
     pbDrawImagePositions(overlay,imagepos)
     drawTextEx(overlay,272,214,230,5,selMoveData.description,
-       Color.new(64,64,64),Color.new(176,176,176))
+       @text_color_base,@text_color_shadow)
   end
 
   # Processes the scene
@@ -167,6 +178,8 @@ class MoveRelearnerScreen
   def pbGetRelearnableMoves(pkmn)
     return [] if !pkmn || pkmn.egg? || pkmn.shadowPokemon?
     moves = []
+    pkmn.learned_moves = [] unless pkmn.learned_moves
+
     pkmn.getMoveList.each do |m|
       next if m[0] > pkmn.level || pkmn.hasMove?(m[1])
       moves.push(m[1]) if !moves.include?(m[1])
@@ -175,6 +188,7 @@ class MoveRelearnerScreen
     pkmn.learned_moves.each do |move|
       move_id = move.is_a?(Symbol) ? move : move.id
       next if pkmn.hasMove?(move_id)
+      next unless pkmn.compatible_with_move?(move_id)
       moves.push(move_id) if !moves.include?(move_id)
     end
 

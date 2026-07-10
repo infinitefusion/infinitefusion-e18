@@ -67,12 +67,12 @@ end
 #===============================================================================
 #
 #===============================================================================
-def pbEntryScreen(ableproc=nil)
+def pbEntryScreen(ableproc=nil,indexesVar=nil)
   retval = false
   pbFadeOutIn {
     scene = PokemonParty_Scene.new
     screen = PokemonPartyScreen.new(scene, $Trainer.party)
-    ret = screen.pbPokemonMultipleEntryScreenEx(pbBattleChallenge.rules.ruleset,ableproc)
+    ret = screen.pbPokemonMultipleEntryScreenEx(pbBattleChallenge.rules.ruleset,ableproc,indexesVar)
     # Set party
     pbBattleChallenge.setParty(ret) if ret
     # Continue (return true) if Pokémon were chosen

@@ -396,7 +396,7 @@ class ItemLister
     @commands.clear
     @ids.clear
     cmds = []
-    end_of_list = [:POKEBALL, :RARECANDY, :DNASPLICERS, :DNAREVERSER, :SLEEPINGBAG]
+    end_of_list = [:LANTERN, :POKEBALL, :RARECANDY, :DNASPLICERS, :DNAREVERSER, :SLEEPINGBAG, :SPAWNER]
     GameData::Item.each do |item|
       cmds.push([item.id_number, item.id, item.real_name])
     end

@@ -133,35 +133,42 @@ class PokemonLoad_Scene
     addBackgroundOrColoredPlane(@sprites,"background","loadbg",Color.new(248,248,248),@viewport)
   end
 
+  def pbSelectPanel(oldi, newi)
+    return if oldi == newi
+    @sprites["panel#{oldi}"].selected = false if @sprites["panel#{oldi}"]
+    @sprites["panel#{oldi}"].pbRefresh if @sprites["panel#{oldi}"]
+    @sprites["panel#{newi}"].selected = true if @sprites["panel#{newi}"]
+    @sprites["panel#{newi}"].pbRefresh if @sprites["panel#{newi}"]
+    while @sprites["panel#{newi}"].y > Graphics.height - 40*2
+      for i in 0...@commands.length
+        @sprites["panel#{i}"].y -= 24*2
+      end
+      for i in 0...6
+        break if !@sprites["party#{i}"]
+        @sprites["party#{i}"].y -= 24*2
+      end
+      @sprites["player"].y -= 24*2 if @sprites["player"]
+    end
+    while @sprites["panel#{newi}"].y < 16*2
+      for i in 0...@commands.length
+        @sprites["panel#{i}"].y += 24*2
+      end
+      for i in 0...6
+        break if !@sprites["party#{i}"]
+        @sprites["party#{i}"].y += 24*2
+      end
+      @sprites["player"].y += 24*2 if @sprites["player"]
+    end
+  end
+
+
   def pbUpdate
     oldi = @sprites["cmdwindow"].index rescue 0
     pbUpdateSpriteHash(@sprites)
     newi = @sprites["cmdwindow"].index rescue 0
-    if oldi!=newi
-      @sprites["panel#{oldi}"].selected = false
-      @sprites["panel#{oldi}"].pbRefresh
-      @sprites["panel#{newi}"].selected = true
-      @sprites["panel#{newi}"].pbRefresh
-      while @sprites["panel#{newi}"].y>Graphics.height-40*2
-        for i in 0...@commands.length
-          @sprites["panel#{i}"].y -= 24*2
-        end
-        for i in 0...6
-          break if !@sprites["party#{i}"]
-          @sprites["party#{i}"].y -= 24*2
-        end
-        @sprites["player"].y -= 24*2 if @sprites["player"]
-      end
-      while @sprites["panel#{newi}"].y<16*2
-        for i in 0...@commands.length
-          @sprites["panel#{i}"].y += 24*2
-        end
-        for i in 0...6
-          break if !@sprites["party#{i}"]
-          @sprites["party#{i}"].y += 24*2
-        end
-        @sprites["player"].y += 24*2 if @sprites["player"]
-      end
+    pbSelectPanel(oldi, newi)
+    if @sprites["langicon"] && @sprites["panel0"]
+      @sprites["langicon"].visible = (@sprites["panel0"].y == 16 * 2)
     end
   end
 
@@ -229,7 +236,7 @@ class PokemonLoadScreen
     save_data = SaveData.read_from_file(file_path)
     unless SaveData.valid?(save_data)
       if File.file?(file_path + '.bak')
-        pbMessage(_INTL('The save file is corrupt. A backup will be loaded.'))
+        pbMessage(_INTL("The save file is corrupt. A backup will be loaded."))
         save_data = load_save_file(file_path + '.bak')
       else
         self.prompt_save_deletion
@@ -242,9 +249,9 @@ class PokemonLoadScreen
   # Called if all save data is invalid.
   # Prompts the player to delete the save files.
   def prompt_save_deletion
-    pbMessage(_INTL('The save file is corrupt, or is incompatible with this game.'))
+    pbMessage(_INTL("The save file is corrupt, or is incompatible with this game."))
     exit unless pbConfirmMessageSerious(
-      _INTL('Do you want to delete the save file and start anew?')
+      _INTL("Do you want to delete the save file and start anew?")
     )
     self.delete_save_data
     $game_system   = Game_System.new
@@ -272,9 +279,9 @@ class PokemonLoadScreen
   def delete_save_data
     begin
       SaveData.delete_file
-      pbMessage(_INTL('The saved data was deleted.'))
+      pbMessage(_INTL("The saved data was deleted."))
     rescue SystemCallError
-      pbMessage(_INTL('All saved data could not be deleted.'))
+      pbMessage(_INTL("All saved data could not be deleted."))
     end
   end
 
@@ -295,6 +302,7 @@ class PokemonLoadScreen
 
   def pbStartLoadScreen
     copyKeybindings()
+
     commands = []
     cmd_continue     = -1
     cmd_new_game     = -1
@@ -306,19 +314,19 @@ class PokemonLoadScreen
     show_continue = !@save_data.empty?
     new_game_plus = show_continue && (@save_data[:player].new_game_plus_unlocked || $DEBUG)
     if show_continue
-      commands[cmd_continue = commands.length] = _INTL('Continue')
+      commands[cmd_continue = commands.length] = _INTL("Continue")
       if @save_data[:player].mystery_gift_unlocked
-        commands[cmd_mystery_gift = commands.length] = _INTL('Mystery Gift')
+        commands[cmd_mystery_gift = commands.length] = _INTL("Mystery Gift")
       end
     end
-    commands[cmd_new_game = commands.length]  = _INTL('New Game')
+    commands[cmd_new_game = commands.length]  = _INTL("New Game")
     if new_game_plus
-      commands[cmd_new_game_plus = commands.length]  = _INTL('New Game +')
+      commands[cmd_new_game_plus = commands.length]  = _INTL("New Game +")
     end
-    commands[cmd_options = commands.length]   = _INTL('Options')
-    commands[cmd_language = commands.length]  = _INTL('Language') if Settings::LANGUAGES.length >= 2
-    commands[cmd_debug = commands.length]     = _INTL('Debug') if $DEBUG
-    commands[cmd_quit = commands.length]      = _INTL('Quit Game')
+    commands[cmd_options = commands.length]   = _INTL("System Options")
+    commands[cmd_language = commands.length]  = _INTL("Language") if Settings::LANGUAGES[Settings::GAME_ID].length >= 2
+    #commands[cmd_debug = commands.length]     = _INTL("Debug") if $DEBUG
+    commands[cmd_quit = commands.length]      = _INTL("Quit Game")
     map_id = show_continue ? @save_data[:map_factory].map.map_id : 0
     @scene.pbStartScene(commands, show_continue, @save_data[:player],
                         @save_data[:frame_count] || 0, map_id)
@@ -347,14 +355,14 @@ class PokemonLoadScreen
         pbFadeOutIn { pbDownloadMysteryGift(@save_data[:player]) }
       when cmd_options
         pbFadeOutIn do
-          scene = PokemonGameOption_Scene.new
+          scene = SystemOptionsScene.new
           screen = PokemonOptionScreen.new(scene)
           screen.pbStartScreen(true)
         end
       when cmd_language
         @scene.pbEndScene
         $PokemonSystem.language = pbChooseLanguage
-        pbLoadMessages('Data/' + Settings::LANGUAGES[$PokemonSystem.language][1])
+        pbLoadMessages('Data/' + Settings::LANGUAGES[Settings::GAME_ID][$PokemonSystem.language][1])
         if show_continue
           @save_data[:pokemon_system] = $PokemonSystem
           File.open(SaveData::FILE_PATH, 'wb') { |file| Marshal.dump(@save_data, file) }

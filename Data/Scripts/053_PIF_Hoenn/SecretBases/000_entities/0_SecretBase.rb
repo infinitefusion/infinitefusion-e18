@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SecretBase
   attr_reader :outside_map_id #Id of the map where the secret base is
   attr_reader :inside_map_id #Id of the secret base's map itself

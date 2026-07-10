@@ -97,7 +97,6 @@ def pbRepel(item, steps)
   return 3
 end
 
-
 ItemHandlers::UseInField.add(:FUSIONREPEL, proc { |item|
   $game_switches[SWITCH_FORCE_ALL_WILD_FUSIONS] = true
   $game_switches[SWITCH_USED_AN_INCENSE] = true
@@ -119,16 +118,16 @@ ItemHandlers::UseInField.add(:MAXREPEL, proc { |item|
 Events.onStepTaken += proc {
   if $PokemonGlobal.repel > 0 && !$game_player.terrain_tag.ice # Shouldn't count down if on ice
     $PokemonGlobal.repel -= 1
-    if $PokemonGlobal.repel <= 0 && ! $PokemonGlobal.tempRepel
+    if $PokemonGlobal.repel <= 0 && !$PokemonGlobal.tempRepel
       isIncense = $game_switches[SWITCH_USED_AN_INCENSE]
       $game_switches[SWITCH_FORCE_ALL_WILD_FUSIONS] = false
       $game_switches[SWITCH_USED_AN_INCENSE] = false
-      itemName= isIncense ? "incense" : "repellent"
+      itemName = isIncense ? "incense" : "repellent"
       if $PokemonBag.pbHasItem?(:REPEL) ||
         $PokemonBag.pbHasItem?(:SUPERREPEL) ||
         $PokemonBag.pbHasItem?(:MAXREPEL) ||
         $PokemonBag.pbHasItem?(:FUSIONREPEL)
-        if pbConfirmMessage(_INTL("The {1}'s effect wore off! Would you like to use another one?",itemName))
+        if pbConfirmMessage(_INTL("The {1}'s effect wore off! Would you like to use another one?", itemName))
           ret = nil
           pbFadeOutIn {
             scene = PokemonBag_Scene.new
@@ -140,7 +139,7 @@ Events.onStepTaken += proc {
           pbUseItem($PokemonBag, ret) if ret
         end
       else
-        pbMessage(_INTL("The {1}'s effect wore off!",itemName))
+        pbMessage(_INTL("The {1}'s effect wore off!", itemName))
       end
     end
   end
@@ -148,7 +147,7 @@ Events.onStepTaken += proc {
 
 ItemHandlers::UseInField.add(:BLACKFLUTE, proc { |item|
   pbUseItemMessage(item)
-  message = $PokemonMap.blackFluteUsed ? "Wild Pokemon will no longer be repelled.": "Wild Pokémon will be repelled."
+  message = $PokemonMap.blackFluteUsed ? "Wild Pokemon will no longer be repelled." : "Wild Pokémon will be repelled."
   pbMessage(_INTL(message))
   $PokemonMap.blackFluteUsed = !$PokemonMap.blackFluteUsed
   $PokemonMap.whiteFluteUsed = false
@@ -157,7 +156,7 @@ ItemHandlers::UseInField.add(:BLACKFLUTE, proc { |item|
 
 ItemHandlers::UseInField.add(:WHITEFLUTE, proc { |item|
   pbUseItemMessage(item)
-  message = $PokemonMap.whiteFluteUsed ? "Wild Pokemon will no longer be lured.": "Wild Pokémon will be lured."
+  message = $PokemonMap.whiteFluteUsed ? "Wild Pokemon will no longer be lured." : "Wild Pokémon will be lured."
   pbMessage(_INTL(message))
   $PokemonMap.whiteFluteUsed = !$PokemonMap.whiteFluteUsed
   $PokemonMap.blackFluteUsed = false
@@ -317,7 +316,7 @@ ItemHandlers::UseInField.add(:ITEMFINDER, proc { |item|
       end
       pbWait(Graphics.frame_rate * 3 / 10)
       pbMessage(_INTL("Huh? The {1}'s responding!\1", GameData::Item.get(item).name))
-      pbMessage(_INTL("There's an item buried around here!"))
+      pbMessage(_INTL("There's an item around here!"))
     end
   end
   next 1
@@ -335,17 +334,17 @@ ItemHandlers::UseInField.add(:COINCASE, proc { |item|
   next 1
 })
 
-ItemHandlers::UseInField.add(:EXPALL, proc { |item|
-  $PokemonBag.pbChangeItem(:EXPALL, :EXPALLOFF)
-  pbMessage(_INTL("The Exp Share was turned off."))
-  next 1
-})
-
-ItemHandlers::UseInField.add(:EXPALLOFF, proc { |item|
-  $PokemonBag.pbChangeItem(:EXPALLOFF, :EXPALL)
-  pbMessage(_INTL("The Exp Share was turned on."))
-  next 1
-})
+# ItemHandlers::UseInField.add(:EXPALL, proc { |item|
+#   $PokemonBag.pbChangeItem(:EXPALL, :EXPALLOFF)
+#   pbMessage(_INTL("The Exp Share was turned off."))
+#   next 1
+# })
+#
+# ItemHandlers::UseInField.add(:EXPALLOFF, proc { |item|
+#   $PokemonBag.pbChangeItem(:EXPALLOFF, :EXPALL)
+#   pbMessage(_INTL("The Exp Share was turned on."))
+#   next 1
+# })
 
 #===============================================================================
 # UseOnPokemon handlers
@@ -519,6 +518,10 @@ ItemHandlers::UseOnPokemon.add(:FULLRESTORE, proc { |item, pkmn, scene|
 })
 
 ItemHandlers::UseOnPokemon.add(:REVIVE, proc { |item, pkmn, scene|
+  if pkmn.fainted? && $PokemonSystem.no_reviving
+    scene.pbDisplay(_INTL("Your challenge options prevent you from reviving fainted Pokémon!"))
+    next false
+  end
   if !pkmn.fainted?
     scene.pbDisplay(_INTL("It won't have any effect."))
     next false
@@ -788,7 +791,7 @@ ItemHandlers::UseOnPokemon.add(:SWIFTWING, proc { |item, pkmn, scene|
 
 def can_use_rare_candy(pkmn)
   return false if pkmn.level >= GameData::GrowthRate.max_level || pkmn.shadowPokemon?
-  return false if $PokemonSystem.level_caps==1 && pokemonExceedsLevelCap(pkmn)
+  return false if $PokemonSystem.level_caps == 1 && pokemonExceedsLevelCap(pkmn)
   return true
 end
 
@@ -797,10 +800,58 @@ ItemHandlers::UseOnPokemon.add(:RARECANDY, proc { |item, pkmn, scene|
     scene.pbDisplay(_INTL("It won't have any effect."))
     next false
   end
-  pbSet(VAR_STAT_RARE_CANDY,pbGet(VAR_STAT_RARE_CANDY)+1)
+  pbSet(VAR_STAT_RARE_CANDY, pbGet(VAR_STAT_RARE_CANDY) + 1)
   pbChangeLevel(pkmn, pkmn.level + 1, scene)
   scene.pbHardRefresh
   next true
+})
+
+ItemHandlers::UseOnPokemon.add(:EXPCANDY, proc { |item, pkmn, scene|
+  if !(can_use_rare_candy(pkmn))
+    scene.pbDisplay(_INTL("It won't have any effect."))
+    next false
+  end
+
+  quantity = $PokemonBag.pbQuantity(:EXPCANDY)
+  nb = 1
+  if quantity > 1
+    params = ChooseNumberParams.new
+    params.setRange(1, quantity)
+    params.setDefaultValue(1)
+    nb = pbMessageChooseNumber(_INTL("\How many would you like to use?<br>({1} in bag)", quantity), params)
+  end
+  item_data = GameData::Item.get(item)
+  item_name = nb > 1 ? item_data.name_plural : item_data.name
+
+  message = _INTL("Use an {1} on {2}?", item_name, pkmn.name)
+  message = _INTL("Use {1} {2} on {3}?", nb, item_name, pkmn.name) if nb > 1
+
+  previous_level = pkmn.level
+
+  if pbConfirmMessage(message)
+    exp = 1000 * nb
+    pkmn.exp += exp
+    pkmn.exp_gained_with_player =0 unless pkmn.exp_gained_with_player
+    echoln pkmn.exp_gained_with_player
+
+    pkmn.exp_gained_with_player += exp
+
+    echoln pkmn.exp_gained_with_player
+    pkmn.calc_stats
+
+    if pkmn.level != previous_level
+      pbSEPlay("itemlevel")
+      pbMessage(_INTL("{1} grew to level {2}!",pkmn.name,pkmn.level))
+    else
+      pbMessage(_INTL("{1} gained some experience.",pkmn.name))
+    end
+    $PokemonBag.pbDeleteItem(:EXPCANDY, nb -1)
+    scene.pbHardRefresh
+    next true
+  else
+    next false
+  end
+  next false
 })
 
 ItemHandlers::UseOnPokemon.add(:POMEGBERRY, proc { |item, pkmn, scene|
@@ -1079,14 +1130,13 @@ ItemHandlers::UseOnPokemon.add(:ABILITYCAPSULE, proc { |item, pkmn, scene|
     pkmn.ability_index = newabil
     pkmn.ability = GameData::Ability.get((newabil == 0) ? abil1 : abil2).id
 
-    #pkmn.ability = GameData::Ability.get((newabil == 0) ? abil1 : abil2).id
-	  scene.pbHardRefresh
+    # pkmn.ability = GameData::Ability.get((newabil == 0) ? abil1 : abil2).id
+    scene.pbHardRefresh
     scene.pbDisplay(_INTL("{1}'s Ability changed to {2}!", pkmn.name, newabilname))
     next true
   end
   next false
 })
-
 
 # ItemHandlers::UseInField.add(:REGITABLET, proc { |item|
 #   pbCommonEvent(COMMON_EVENT_REGI_TABLET)

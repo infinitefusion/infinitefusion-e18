@@ -41,10 +41,34 @@ def pbFishingEnd
   $PokemonGlobal.fishing = false
 end
 
+
+def getFishingItems(terrain=nil)
+  if Settings::KANTO
+    return [
+            :OLDBOOT,
+            :OLDBOOT,
+            :OLDBOOT,
+            :OLDBOOT,
+            :WATERGEM,
+            :WATERGEM
+    ]
+  elsif  Settings::HOENN
+    items = [:SEAWEED, :SEAWEED, :SEAWEED]
+    if terrain.id == :StillWater  #Freshwater
+      items << :WATERGEM
+    else                           #Ocean
+      items << :DEEPSEATOOTH
+      items << :DEEPSEASCALE
+    end
+    echoln items
+    return items
+  end
+  return []
+end
 def pbFishing(hasEncounter,rodType=1)
   autohook= Settings::FISHING_AUTO_HOOK || $game_switches[SWITCH_FISHING_AUTOHOOK]
   speedup = ($Trainer.first_pokemon && [:STICKYHOLD, :SUCTIONCUPS].include?($Trainer.first_pokemon.ability_id))
-  biteChance = 20+(25*rodType)   # 45, 70, 95
+  biteChance = 30+(25*rodType)   # 55, 70, 100
   biteChance *= 1.5 if speedup   # 67.5, 100, 100
   hookChance = 100
   oldpattern = $game_player.fullPattern
@@ -73,17 +97,11 @@ def pbFishing(hasEncounter,rodType=1)
       end
 
       itemChance = rand((rodType)*5)
-      if itemChance<=1
+      if itemChance<=0
         #ITEM
-        items =  [:PEARL,
-                  :OLDBOOT,
-                  :OLDBOOT,
-                  :OLDBOOT,
-                  :OLDBOOT,
-                  :WATERGEM,
-                  :PEARL,
-                  :WATERGEM
-        ]
+        # todo: detect if fishing in ocean or stillwater
+        terrain = $game_player.pbFacingTerrainTag
+        items = getFishingItems(terrain)
         hats = [
           HAT_SLOWKING_SHELL,HAT_TENTACRUEL
         ]

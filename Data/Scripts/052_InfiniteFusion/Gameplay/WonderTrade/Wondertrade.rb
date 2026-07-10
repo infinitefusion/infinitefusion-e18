@@ -105,17 +105,8 @@ def pbWonderTrade(lvl, except = [], except2 = [], premiumWonderTrade = true)
 
       # raise "{1}'s bst ist {2}, new ist {3}",myPoke,chosenBST,bst
 
-      # species=0 if (except.include?(species) && except2.include?(species))
-      # use this above line instead if you wish to neither receive pokemon that YOU
-      # cannot trade.
-      if rare == true #turn on rareness
-        if species > 0
-          rareness = GameData::Species.get(species).catch_rate
-          species = 0 if rarecap >= rareness
-        end
-      end
     end
-    randTrainerNames = RandTrainerNames_male + RandTrainerNames_female + RandTrainerNames_others
+    randTrainerNames = RandTrainerNames_male + RandTrainerNames_female + RandTrainerNames_others + RandTrainerNames_unisex
     #tname = randTrainerNames[rand(randTrainerNames.size)] # Randomizes Trainer Names
     pname = RandPokeNick[rand(RandPokeNick.size)] # Randomizes Pokemon Nicknames
 

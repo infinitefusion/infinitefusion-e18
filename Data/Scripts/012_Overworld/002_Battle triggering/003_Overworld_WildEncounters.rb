@@ -123,7 +123,7 @@ class PokemonEncounters
     return false if !@step_chances[enc_type] || @step_chances[enc_type] == 0
     return false if !has_encounter_type?(enc_type)
     #Always check encounter if pokeradar is active
-    return true if $PokemonTemp.pokeradar != nil
+    return true if $PokemonTemp.pokeradar != nil && !$PokemonSystem.overworld_encounters
 
     # Get base encounter chance and minimum steps grace period
     encounter_chance = @step_chances[enc_type].to_f
@@ -192,6 +192,10 @@ class PokemonEncounters
   # taking into account Repels and ability effects.
   def allow_encounter?(enc_data, repel_active = false)
     return false if !enc_data
+    if $PokemonTemp.pokeradar
+      return pbPokeRadarOnShakingGrass
+    end
+
     # Repel
     if repel_active && !pbPokeRadarOnShakingGrass
       first_pkmn = (Settings::REPEL_COUNTS_FAINTED_POKEMON) ? $Trainer.first_pokemon : $Trainer.first_able_pokemon
@@ -265,6 +269,7 @@ class PokemonEncounters
         baseType = :Land1 if terrain_tag == :Grass_alt1
         baseType = :Land2 if terrain_tag == :Grass_alt2
         baseType = :Land3 if terrain_tag == :Grass_alt3
+        baseType = :TallGrass if terrain_tag == :TallGrass
         ret = find_valid_encounter_type_for_time(baseType, time) if !ret
       end
       if !ret && has_cave_encounters?
@@ -282,6 +287,9 @@ class PokemonEncounters
   def choose_wild_pokemon(enc_type, chance_rolls = 1)
     if !enc_type || !GameData::EncounterType.exists?(enc_type)
       raise ArgumentError.new(_INTL("Encounter type {1} does not exist", enc_type))
+    end
+    if map_is_altering_cave?
+      return select_altering_cave_encounter
     end
     enc_list = @encounter_tables[enc_type]
     return nil if !enc_list || enc_list.length == 0
@@ -325,6 +333,7 @@ class PokemonEncounters
       encounter = enc
       break
     end
+
     # Get the chosen species and level
     level = rand(encounter[2]..encounter[3])
     # Some abilities alter the level of the wild Pokémon
@@ -382,13 +391,35 @@ class PokemonEncounters
 
 
 
-  def listPossibleEncounters(enctype)
+  def listPossibleEncounters(enctype,include_weather=false)
     if !enctype
       raise ArgumentError.new(_INTL("Encounter type out of range"))
     end
-    return @encounter_tables[enctype]
+    list= @encounter_tables[enctype]
+    if include_weather && $game_weather
+      list += $PokemonEncounters.list_weather_encounters(enctype)
+    end
+    return list
   end
 
+  def list_weather_encounters(enctype)
+    list = []
+    return [] unless $game_weather.current_weather[$game_map.map_id]
+    current_weather = $game_weather.current_weather[$game_map.map_id][0]
+    weather_encounter_type = get_weather_encounter_type(enctype, current_weather)
+    weather_encounters = @encounter_tables[weather_encounter_type]
+    list += weather_encounters if weather_encounters
+    return list
+  end
+
+  def list_weather_encounters_species(enctype)
+    species_list = []
+    weather_encounters= list_weather_encounters(enctype)
+    weather_encounters.each do |encounter|
+      species_list.push(encounter[1])
+    end
+    return species_list
+  end
 
 end
 
@@ -415,13 +446,8 @@ def pbGenerateWildPokemon(species,level,isRoamer=false)
   elsif itemrnd<(chances[0]+chances[1]+chances[2])
     genwildpoke.item = items[2]
   end
-  # Shiny Charm makes shiny Pokémon more likely to generate
-  if GameData::Item.exists?(:SHINYCHARM) && $PokemonBag.pbHasItem?(:SHINYCHARM)
-    2.times do   # 3 times as likely
-      break if genwildpoke.shiny?
-      genwildpoke.personalID = rand(2**16) | rand(2**16) << 16
-    end
-  end
+  apply_shiny_rerolls(genwildpoke)
+
   # Give Pokérus
   genwildpoke.givePokerus if rand(65536) < Settings::POKERUS_CHANCE
   # Change wild Pokémon's gender/nature depending on the lead party Pokémon's
@@ -440,6 +466,31 @@ def pbGenerateWildPokemon(species,level,isRoamer=false)
   # Trigger events that may alter the generated Pokémon further
   Events.onWildPokemonCreate.trigger(nil,genwildpoke)
   return genwildpoke
+end
+
+def apply_shiny_rerolls(pokemon)
+  # Shiny Charm: 2 extra rerolls (3× as likely)
+  if GameData::Item.exists?(:SHINYCHARM) && $PokemonBag.pbHasItem?(:SHINYCHARM)
+    2.times do
+      break if pokemon.shiny?
+      pokemon.personalID = rand(2**16) | rand(2**16) << 16
+    end
+  end
+
+  # NPC friends: 0–2 extra rerolls scaling with friend count (3× at 100 friends)
+  if $Trainer.nb_npc_friends && $Trainer.nb_npc_friends > 0
+    extra_rerolls  = ([[$Trainer.nb_npc_friends, 0].max, 100].min / 100.0) * 2.0
+    full_rerolls   = extra_rerolls.floor
+    partial_chance = extra_rerolls - full_rerolls
+
+    full_rerolls.times do
+      break if pokemon.shiny?
+      pokemon.personalID = rand(2**16) | rand(2**16) << 16
+    end
+    if !pokemon.shiny? && rand < partial_chance
+      pokemon.personalID = rand(2**16) | rand(2**16) << 16
+    end
+  end
 end
 
 # Used by fishing rods and Headbutt/Rock Smash/Sweet Scent to generate a wild

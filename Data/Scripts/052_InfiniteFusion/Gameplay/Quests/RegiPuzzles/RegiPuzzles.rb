@@ -53,7 +53,7 @@ def registeel_ice_press_switch(letter)
   pbSet(VAR_REGI_PUZZLE_SWITCH_PRESSED, order)
   if order == solution
     echoln "OK"
-    pbSEPlay("Evolution start", nil, 130)
+    pbMEPlay("evolution_start", nil, 130)
   elsif order.length >= solution.length
     registeel_ice_reset_switches()
   end

@@ -14,6 +14,10 @@ module MessageConfig
   NARROW_FONT_NAME        = "Power Green Narrow"
   NARROW_FONT_SIZE        = 29
 
+  FONT_NAME_CHINESE        = "Fusion Poke Pixel Normal zh_hans"
+  SMALL_FONT_NAME_CHINESE  = "Fusion Poke Pixel Small zh_hans"
+  NARROW_FONT_NAME_CHINESE = "Fusion Poke Pixel Narrow zh_hans"
+
   BUBBLE_TEXT_BASE   =  Color.new(248,248,248)#(72,80,88)#DIALOG
   BUBBLE_TEXT_SHADOW= Color.new(166,160,151)
 
@@ -110,14 +114,30 @@ module MessageConfig
   #-----------------------------------------------------------------------------
 
   def self.pbDefaultSystemFontName
+    current_language = getCurrentLanguage
+    if current_language == :CHINESE
+      return MessageConfig.pbTryFonts(FONT_NAME_CHINESE)
+    end
     return MessageConfig.pbTryFonts(FONT_NAME)
   end
 
+  def self.pbResetSystemFontName
+    @@systemFont = nil
+  end
+
   def self.pbDefaultSmallFontName
+    current_language = getCurrentLanguage
+    if current_language == :CHINESE
+      return MessageConfig.pbTryFonts(SMALL_FONT_NAME_CHINESE)
+    end
     return MessageConfig.pbTryFonts(SMALL_FONT_NAME)
   end
 
   def self.pbDefaultNarrowFontName
+    current_language = getCurrentLanguage
+    if current_language == :CHINESE
+      return MessageConfig.pbTryFonts(NARROW_FONT_NAME_CHINESE)
+    end
     return MessageConfig.pbTryFonts(NARROW_FONT_NAME)
   end
 
@@ -424,18 +444,33 @@ end
 #===============================================================================
 # Sets a bitmap's font to the system font.
 def pbSetSystemFont(bitmap)
-  bitmap.font.name = MessageConfig.pbGetSystemFontName
-  bitmap.font.size = MessageConfig::FONT_SIZE
+  if getCurrentLanguage == :CHINESE
+    bitmap.font.name  = MessageConfig::FONT_NAME_CHINESE
+    bitmap.font.size  = MessageConfig::FONT_SIZE
+  else
+    bitmap.font.name  = MessageConfig.pbGetSystemFontName
+    bitmap.font.size  = MessageConfig::FONT_SIZE
+  end
 end
 
 # Sets a bitmap's font to the system small font.
 def pbSetSmallFont(bitmap)
+  if getCurrentLanguage == :CHINESE
+    bitmap.font.name = MessageConfig::SMALL_FONT_NAME_CHINESE
+    bitmap.font.size = MessageConfig::SMALL_FONT_SIZE
+    return
+  end
   bitmap.font.name = MessageConfig.pbGetSmallFontName
   bitmap.font.size = MessageConfig::SMALL_FONT_SIZE
 end
 
 # Sets a bitmap's font to the system narrow font.
 def pbSetNarrowFont(bitmap)
+  if getCurrentLanguage == :CHINESE
+    bitmap.font.name = MessageConfig::NARROW_FONT_NAME_CHINESE
+    bitmap.font.size = MessageConfig::NARROW_FONT_SIZE
+    return
+  end
   bitmap.font.name = MessageConfig.pbGetNarrowFontName
   bitmap.font.size = MessageConfig::NARROW_FONT_SIZE
 end
@@ -732,7 +767,13 @@ end
 # _viewport_ is a viewport to place the background in.
 def addBackgroundPlane(sprites,planename,background,viewport=nil)
   sprites[planename]=AnimatedPlane.new(viewport)
-  bitmapName=pbResolveBitmap("Graphics/Pictures/#{background}")
+
+  background_dark = "Graphics/Pictures/#{background}_dark"
+  background_normal = "Graphics/Pictures/#{background}"
+
+  bitmapName = (isDarkMode && pbResolveBitmap(background_dark)) ||
+    pbResolveBitmap(background_normal)
+
   if bitmapName==nil
     # Plane should exist in any case
     sprites[planename].bitmap=nil

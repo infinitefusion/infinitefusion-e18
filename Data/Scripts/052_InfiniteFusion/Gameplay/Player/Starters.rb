@@ -14,6 +14,8 @@ def obtainStarter(starterIndex = 0)
     startersList = Settings::DEFAULT_STARTERS
     if $game_switches[SWITCH_JOHTO_STARTERS]
       startersList = Settings::JOHTO_STARTERS
+    elsif $game_switches[SWITCH_KANTO_STARTERS]
+      startersList = Settings::KANTO_STARTERS
     elsif $game_switches[SWITCH_HOENN_STARTERS]
       startersList = Settings::HOENN_STARTERS
     elsif $game_switches[SWITCH_SINNOH_STARTERS]

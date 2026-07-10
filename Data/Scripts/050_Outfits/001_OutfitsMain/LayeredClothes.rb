@@ -42,8 +42,6 @@ def list_available_outfits(directory, versions = [], unlocked = [], prefix_filte
   else
     outfits = list_all_numeric_folders(directory)
   end
-  # #echoln outfits
-  # return outfits  #todo: remove this return for unlockable outfits
   available_outfits = []
   for outfit in outfits
     if !unlocked || unlocked.include?(outfit)
@@ -91,6 +89,13 @@ def shiftHairColor(incr)
   refreshPlayerOutfit()
 end
 
+def shiftBikeColor(incr)
+  $Trainer.bike_color = 0 if !$Trainer.bike_color
+  $Trainer.bike_color += incr
+  echoln "Bike color: #{$Trainer.bike_color}"
+  refreshPlayerOutfit()
+end
+
 def pbLoadOutfitBitmap(outfitFileName)
   begin
     outfitBitmap = RPG::Cache.load_bitmap("", outfitFileName)
@@ -109,6 +114,7 @@ def setHat(hat_id)
 end
 
 def getEasterEggHeldItem()
+  return unless Settings::KANTO #todo: add hoenn map ids too
   map = $game_map.map_id
   return "secrets/HOTDOG" if [141, 194].include?(map) #restaurant
   return "secrets/SNOWBALL" if [670, 693, 698, 694].include?(map)
@@ -140,7 +146,6 @@ def getCurrentPokeball(allowEasterEgg=true)
 end
 
 def generate_front_trainer_sprite_bitmap_from_appearance(trainerAppearance,is_trainer=true)
-  echoln trainerAppearance.hat
   return generate_front_trainer_sprite_bitmap(false,nil,trainerAppearance.clothes,trainerAppearance.hat,trainerAppearance.hat2,
                                               trainerAppearance.hair,trainerAppearance.skin_color,
                                               trainerAppearance.hair_color,trainerAppearance.hat_color,trainerAppearance.clothes_color,
@@ -152,7 +157,6 @@ def generate_front_trainer_sprite_bitmap(allowEasterEgg=true, pokeball = nil,
                                          clothes_id = nil, hat_id = nil, hat2_id=nil, hair_id = nil,
                                          skin_tone_id = nil, hair_color = nil, hat_color = nil, clothes_color = nil,
                                          hat2_color = nil, is_trainer=true)
-
   clothes_id = $Trainer.clothes if !clothes_id && is_trainer
   hat_id = $Trainer.hat if !hat_id && is_trainer
   hat2_id = $Trainer.hat2 if !hat2_id && is_trainer

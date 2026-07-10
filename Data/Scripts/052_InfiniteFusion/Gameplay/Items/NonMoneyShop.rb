@@ -27,7 +27,7 @@ def pbVariablePokemonMart(stock,currencyVariable,currency_name="Points",speech=n
   cmdSell = -1
   cmdQuit = -1
   commands[cmdBuy = commands.length]  = _INTL("Buy")
-  commands[cmdSell = commands.length] = _INTL("Sell") if !cantsell
+  #commands[cmdSell = commands.length] = _INTL("Sell") if !cantsell
   commands[cmdQuit = commands.length] = _INTL("Quit")
   cmd = pbMessage(
     speech ? speech : _INTL("Welcome! How may I serve you?"),

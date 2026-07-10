@@ -120,6 +120,7 @@ class PokeBattle_Battler
     @effects[PBEffects::GemConsumed] = nil
     @effects[PBEffects::ShellTrap] = false
     @battle.eachBattler { |b| b.pbContinualAbilityChecks } # Trace, end primordial weathers
+    checkChallengesAfterTurn
   end
 
   def pbConfusionDamage(msg)
@@ -723,6 +724,10 @@ class PokeBattle_Battler
       targets.each do |b|
         next if b.damageState.unaffected
         move.pbInflictHPDamage(b)
+
+        unless onPlayerSide?
+          @battle.damage_received += b.damageState.hpLost
+        end
       end
       # Animate the hit flashing and HP bar changes
       move.pbAnimateHitAndHPLost(user, targets)
@@ -805,5 +810,9 @@ class PokeBattle_Battler
     targets.each { |b| b.pbFaint if b && b.fainted? }
     user.pbFaint if user.fainted?
     return true
+  end
+
+  def onPlayerSide?
+    return (@index % 2) == 0
   end
 end

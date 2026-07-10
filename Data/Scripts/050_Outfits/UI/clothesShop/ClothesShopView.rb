@@ -1,7 +1,8 @@
 class ClothesShopView < PokemonMart_Scene
 
-  def initialize(currency_name = "Money")
+  def initialize(currency_name = _INTL("Money"))
     @currency_name = currency_name
+    @currency_name = COSMETIC_CURRENCY_NAME if Settings::HOENN
   end
 
   def pbStartBuyOrSellScene(buying, stock, adapter)
@@ -18,8 +19,9 @@ class ClothesShopView < PokemonMart_Scene
 
     @sprites["trainerPreview"].show()
     @sprites["moneywindow"].visible = false if !@adapter.isShop?
+    @sprites["itemwindow"].setAllowPageJump(false)
 
-    Kernel.pbDisplayText(@adapter.toggleText, 80, 200, 99999) if @adapter.toggleText
+    Kernel.pbDisplayText(@adapter.toggleText, 100, 240, 99999) if @adapter.toggleText
 
   end
 
@@ -46,13 +48,27 @@ class ClothesShopView < PokemonMart_Scene
     @initial_direction = $game_player.direction
     $game_player.turn_down
     pbRefreshSceneMap
+
+      # pbSEPlay("GUI menu open")
+      # $game_player.center($game_player.x+7, $game_player.y-5)
+      # @initial_direction = $game_player.direction
+      # $game_player.turn_down
+      # Graphics.update
+      # Input.update
+      # pbRefreshSceneMap
   end
 
   def scroll_back_map
+
     @adapter.reset_player_clothes()
     pbScrollMap(DIRECTION_LEFT, 7, 6)
     pbScrollMap(DIRECTION_DOWN, 5, 6)
     $game_player.turn_generic(@initial_direction)
+
+    # $game_player.center($game_player.x, $game_player.y)
+    # Graphics.update
+    # Input.update
+    # pbRefreshSceneMap
   end
 
   def refreshStock(adapter)
@@ -75,7 +91,7 @@ class ClothesShopView < PokemonMart_Scene
           text = @adapter.getDescription(item)
         end
       else
-        text = _INTL("Quit.")
+        text = getQuitDescription
       end
       @sprites["itemtextwindow"].text = text
       itemwindow.refresh
@@ -98,11 +114,14 @@ class ClothesShopView < PokemonMart_Scene
       end
       @adapter.updateTrainerPreview(itemwindow.item, @sprites["trainerPreview"])
     else
-      description = _INTL("Quit.")
+      description = getQuitDescription
     end
     @sprites["itemtextwindow"].text = description
   end
 
+  def getQuitDescription
+    return _INTL("Outfits are submitted by the community. More will be added with future updates.")
+  end
   def updatePreviewWindow
     itemwindow= @sprites["itemwindow"]
     @adapter.updateTrainerPreview(itemwindow.item, @sprites["trainerPreview"])
@@ -123,15 +142,15 @@ class ClothesShopView < PokemonMart_Scene
         if itemwindow.item != olditem
           displayNewItem(itemwindow)
         end
-        if Input.trigger?(Input::AUX1) #L button  - disabled  because same key as speed up...
-          #@adapter.switchVersion(itemwindow.item, -1)
-          #updateTrainerPreview()
+        if Input.trigger?(Input::L) #X button
+          @adapter.switchVersion(itemwindow.item, -1)
+          updateTrainerPreview()
         end
 
-        if Input.trigger?(Input::AUX2) || Input.trigger?(Input::SHIFT) #R button
+        if Input.trigger?(Input::R)  #Y button
           switchItemVersion(itemwindow)
         end
-        if Input.trigger?(Input::SPECIAL) #R button
+        if Input.trigger?(Input::SPECIAL) #Z button
           @adapter.toggleEvent(itemwindow.item)
           updateTrainerPreview()
         end

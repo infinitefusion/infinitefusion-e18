@@ -129,3 +129,9 @@ GameData::Environment.register({
   :id   => :UltraSpace,
   :name => _INTL("Ultra Space")
 })
+
+GameData::Environment.register({
+  :id   => :Bridge,
+  :name => _INTL("Bridge"),
+  :battle_base => "Bridge"
+})

@@ -34,6 +34,12 @@ class PokemonStorageScreen
       },
       {
         key: :level,
+        label: _INTL("By base stats"),
+        value_proc: ->(p) { p.bst || 0 },
+        friendly: [_INTL("Lowest to Highest BST"), _INTL("Highest to Lowest BST")]
+      },
+      {
+        key: :level,
         label: _INTL("By level"),
         value_proc: ->(p) { p.level || 0 },
         friendly: [_INTL("Lowest to Highest level"), _INTL("Highest to Lowest level")]

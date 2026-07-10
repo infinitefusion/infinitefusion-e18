@@ -2,8 +2,8 @@ module Input
   USE      = C
   BACK     = B
   ACTION   = A
-  JUMPUP   = X
-  JUMPDOWN = Y
+  JUMPUP   = L
+  JUMPDOWN = R
   SPECIAL  = Z
   AUX1     = L
   AUX2     = R

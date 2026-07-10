@@ -28,24 +28,28 @@ class ExperimentalOptionsScene < PokemonOption_Scene
   end
 
   def pbGetOptions(inloadscreen = false)
-    options = [
-      EnumOption.new(_INTL("Expert mode (beta)"), [_INTL("On"), _INTL("Off")],
-                     proc {
-                       $game_switches[SWITCH_EXPERT_MODE] ? 0 : 1
-                     },
-                     proc { |value|
-                       $game_switches[SWITCH_EXPERT_MODE] = value == 0
-                     }, _INTL("Changes all of the trainer teams to make them as challenging as possible!")
-      ),
-      EnumOption.new(_INTL("No levels mode"), [_INTL("On"), _INTL("Off")],
+    options = []
+
+    if Settings::KANTO
+      options << EnumOption.new(_INTL("Expert mode (beta)"), [_INTL("On"), _INTL("Off")],
+                                proc {
+                                  $game_switches[SWITCH_EXPERT_MODE] ? 0 : 1
+                                },
+                                proc { |value|
+                                  $game_switches[SWITCH_EXPERT_MODE] = value == 0
+                                }, _INTL("Changes all of the trainer teams to make them as challenging as possible!")
+      )
+    end
+
+    options << EnumOption.new(_INTL("No levels mode"), [_INTL("On"), _INTL("Off")],
                      proc {
                        $game_switches[SWITCH_NO_LEVELS_MODE] ? 0 : 1
                      },
                      proc { |value|
                        $game_switches[SWITCH_NO_LEVELS_MODE] = value == 0
                      }, _INTL("All Pokémon use their base stats, regardless of levels.")
-      ),
-      EnumOption.new(_INTL("Reversed mode"), [_INTL("On"), _INTL("Off")],
+      )
+    options << EnumOption.new(_INTL("Reversed mode"), [_INTL("On"), _INTL("Off")],
                      proc {
                        $game_switches[SWITCH_REVERSED_MODE] ? 0 : 1
                      },
@@ -53,18 +57,6 @@ class ExperimentalOptionsScene < PokemonOption_Scene
                        $game_switches[SWITCH_REVERSED_MODE] = value == 0
                      }, _INTL("Inverts the fusions of all the trainers in the game.")
       )
-
-    #,
-          # EnumOption.new("Double abilities", ["On", "Off"],
-          #                proc {
-          #                  $game_switches[SWITCH_DOUBLE_ABILITIES] ? 0 : 1
-          #                },
-          #                proc { |value|
-          #                  $game_switches[SWITCH_DOUBLE_ABILITIES] = value == 0
-          #                }, "Fused Pokémon have two abilities at the same time"
-          #)
-
-    ]
     return options
   end
 

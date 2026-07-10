@@ -5,28 +5,39 @@
 #==============================================================================#
 module Settings
   # The version of your game. It has to adhere to the MAJOR.MINOR.PATCH format.
-  GAME_VERSION_NUMBER = "6.7.2"
+  GAME_VERSION_NUMBER = "6.8.0"
   LATEST_GAME_RELEASE = "6.6"
+
+  HOENN_VERSION_NUMBER = "1.1.0"
+  HOENN_LATEST_GAME_RELEASE = "1.1.0"
+
+  SNOW_DAY = false
 
   KANTO = GAME_ID == :IF_KANTO
   HOENN = GAME_ID == :IF_HOENN
 
+  OVERWORLD_POKEMON_LIMIT = 8
+
   POKERADAR_LIGHT_ANIMATION_RED_ID = 17
   POKERADAR_LIGHT_ANIMATION_GREEN_ID = 18
   POKERADAR_HIDDEN_ABILITY_POKE_CHANCE = 32
-  POKERADAR_BATTERY_STEPS = 0
+  POKERADAR_BATTERY_STEPS = HOENN ? 1000 : 0
 
-  LEADER_VICTORY_MUSIC="Battle victory leader"
-  TRAINER_VICTORY_MUSIC="trainer-victory"
-  WILD_VICTORY_MUSIC="wild-victory"
+  LEADER_VICTORY_MUSIC = "victory_gymLeader"
+  TRAINER_VICTORY_MUSIC = "victory_trainer"
+  WILD_VICTORY_MUSIC = "victory_wild"
+  GRUNT_VICTORY_MUSIC = "victory_grunt"
+  CHAMPION_VICTORY_MUSIC = "victory_champion"
+  FRONTIER_VICTORY_MUSIC = "victory_frontierBrain"
 
-  #getRandomCustomFusionForIntro
+  # getRandomCustomFusionForIntro
   FUSION_ICON_SPRITE_OFFSET = 10
 
-  ANIMATE_REFLECTIONS= false#GAME_ID == :IF_HOENN #true
+  ANIMATE_REFLECTIONS = false # GAME_ID == :IF_HOENN #true
   USE_REFLECTIONS = false
-  #Infinite fusion settings
-  NB_POKEMON = Settings::GAME_ID == :IF_HOENN ? 565 : 501
+  # Infinite fusion settings
+  NB_POKEMON = 576
+  TRANSFER_BOX_DISCLAIMER_MESSAGE = ""
   CUSTOM_BASE_SPRITES_FOLDER = "Graphics/CustomBattlers/local_sprites/BaseSprites/"
   CUSTOM_BATTLERS_FOLDER = "Graphics/CustomBattlers/"
   CUSTOM_SPRITES_TO_IMPORT_FOLDER = "Graphics/CustomBattlers/Sprites to import/"
@@ -54,13 +65,14 @@ module Settings
   PLAYER_BALL_FOLDER = 'balls'
   PLAYER_TEMP_OUTFIT_FALLBACK = 'temp'
 
-
   HATS_DATA_PATH = "Data/outfits/hats_data.json"
   HAIRSTYLE_DATA_PATH = "Data/outfits/hairstyles_data.json"
   CLOTHES_DATA_PATH = "Data/outfits/clothes_data.json"
 
   PLAYER_SURFBASE_FOLDER = 'surf_base/'
-  OW_SHINE_ANIMATION_ID=25
+  OW_SHINE_ANIMATION_ID = 25
+
+  FEEDBACK_FORM_URL = ""
 
   HTTP_CONFIGS_FILE_URL = "https://raw.githubusercontent.com/infinitefusion/pif-downloadables/refs/heads/master/Settings.rb"
   HTTP_CONFIGS_FILE_PATH = "Data/Scripts/DownloadedSettings.rb"
@@ -71,41 +83,47 @@ module Settings
   CREDITS_FILE_URL = "https://infinitefusion.net/customsprites/Sprite_Credits.csv"
   CUSTOM_DEX_FILE_URL = "https://raw.githubusercontent.com/infinitefusion/pif-downloadables/refs/heads/master/dex.json"
 
-
   SECRETBASE_UPLOAD_URL = "http://secretbases-upload.pkmninfinitefusion.workers.dev"
   SECRETBASE_DOWNLOAD_URL = "https://secretbase-download.pkmninfinitefusion.workers.dev"
 
   STARTUP_MESSAGES = ""
+  STARTUP_MESSAGES_KANTO = ""
+  STARTUP_MESSAGES_HOENN = ""
 
-  LEVEL_CAPS=[12,22,26,35,38,45,51,54,62,62,63,64,64,65,67,68]
+  LEVEL_CAPS_KANTO = [12, 22, 26, 35, 38, 45, 51, 54, 62, 62, 63, 64, 64, 65, 67, 68]
+  LEVEL_CAPS_HOENN = [15, 19, 26, 99, 99, 99, 99, 99]
 
   CUSTOM_ENTRIES_NAME_PLACEHOLDER = "POKENAME"
 
-  DEFAULT_SPEED_UP_SPEED=2
+  DEFAULT_SPEED_UP_SPEED = 2
   FRONTSPRITE_POSITION_OFFSET = 20
   FRONTSPRITE_SCALE = 0.6666666666666666
   BACKRPSPRITE_SCALE = 1
   EGGSPRITE_SCALE = 1
   BACKSPRITE_POSITION_OFFSET = 20
   FRONTSPRITE_POSITION = 200
-  SHINY_HUE_OFFSET = 75 #no longer used
+  SHINY_HUE_OFFSET = 75 # no longer used
   NO_LEVEL_MODE_LEVEL_INCR = 5.8
   NO_LEVEL_MODE_LEVEL_BASE = 6
+  MEW_OW_ENCOUNTER_CHANCE = 0
+  SAVEFILE_NB_BACKUPS = 10
 
-  SAVEFILE_NB_BACKUPS=10
+  MAIN_MENU_LINKS = {
+  }
 
   DISCORD_URL = "https://discord.com/invite/infinitefusion"
   WIKI_URL = "https://infinitefusion.fandom.com/"
+  FAQ_URL = "https://hackmd.io/@PIF-Staff/PIF-Hoenn-FAQ"
 
   AI_ENTRIES_URL = "https://ai-entries.pkmninfinitefusion.workers.dev/"
-  AI_ENTRIES_RATE_MAX_NB_REQUESTS = 10  #Nb. requests allowed in each time window
-  AI_ENTRIES_RATE_TIME_WINDOW = 120    # In seconds
-  AI_ENTRIES_RATE_LOG_FILE = 'Data/pokedex/dex_rate_limit.log'  # Path to the log file
+  AI_ENTRIES_RATE_MAX_NB_REQUESTS = 10 # Nb. requests allowed in each time window
+  AI_ENTRIES_RATE_TIME_WINDOW = 120 # In seconds
+  AI_ENTRIES_RATE_LOG_FILE = 'Data/pokedex/dex_rate_limit.log' # Path to the log file
 
-  CUSTOMSPRITES_RATE_MAX_NB_REQUESTS = 15  #Nb. requests allowed in each time window
-  CUSTOMSPRITES_ENTRIES_RATE_TIME_WINDOW = 120    # In seconds
-  CUSTOMSPRITES_RATE_LOG_FILE = 'Data/sprites/sprites_rate_limit.log'  # Path to the log file
-  MAX_NB_SPRITES_TO_DOWNLOAD_AT_ONCE=5
+  CUSTOMSPRITES_RATE_MAX_NB_REQUESTS = 15 # Nb. requests allowed in each time window
+  CUSTOMSPRITES_ENTRIES_RATE_TIME_WINDOW = 120 # In seconds
+  CUSTOMSPRITES_RATE_LOG_FILE = 'Data/sprites/sprites_rate_limit.log' # Path to the log file
+  MAX_NB_SPRITES_TO_DOWNLOAD_AT_ONCE = 5
 
   CUSTOM_SPRITES_REPO_URL = "https://bitbucket.org/infinitefusionsprites/customsprites/raw/main/CustomBattlers/"
   CUSTOM_SPRITES_NEW_URL = "https://infinitefusion.net/CustomBattlers/"
@@ -129,18 +147,19 @@ module Settings
   OVERRIDE_BATTLE_LEVEL_SWITCH = 785
   OVERRIDE_BATTLE_LEVEL_VALUE_VAR = 240
   HARD_MODE_LEVEL_MODIFIER = 1.1
+  EASY_MODE_LEVEL_MODIFIER = 0.9
 
-  ZAPMOLCUNO_NB = 999999#176821
+  ZAPMOLCUNO_NB = 999999 # 176821
   MAPS_WITHOUT_SURF_MUSIC = [762]
 
   WONDERTRADE_BASE_URL = "http://localhost:8080"
   WONDERTRADE_PUBLIC_KEY = "http://localhost:8080"
 
-  MAX_NB_OUTFITS=99
+  MAX_NB_OUTFITS = 99
 
-  OUTFIT_PREVIEW_PICTURE_ID=20
+  OUTFIT_PREVIEW_PICTURE_ID = 20
 
-  DEFAULT_TRAINER_CARD_BG="BLUE"
+  DEFAULT_TRAINER_CARD_BG = "BLUE"
 
   # The generation that the battle system follows. Used throughout the battle
   # scripts, and also by some other settings which are used in and out of battle
@@ -170,7 +189,7 @@ module Settings
   # Number of badges in the game
   NB_BADGES = 16
   # The odds of a newly generated Pokémon being shiny (out of 65536).
-  SHINY_POKEMON_CHANCE =16#(MECHANICS_GENERATION >= 6) ? 16 : 8
+  SHINY_POKEMON_CHANCE = 16 #(MECHANICS_GENERATION >= 6) ? 16 : 8
 
   # The odds of a wild Pokémon/bred egg having Pokérus (out of 65536).
   POKERUS_CHANCE = 3
@@ -181,7 +200,6 @@ module Settings
   # always inherit egg moves from its father.
   BREEDING_CAN_INHERIT_EGG_MOVES_FROM_MOTHER = (MECHANICS_GENERATION >= 6)
 
-
   KANTO_STARTERS = [:BULBASAUR, :CHARMANDER, :SQUIRTLE]
   JOHTO_STARTERS = [:CHIKORITA, :CYNDAQUIL, :TOTODILE]
   HOENN_STARTERS = [:TREECKO, :TORCHIC, :MUDKIP]
@@ -190,9 +208,8 @@ module Settings
 
   DEFAULT_STARTERS = Settings::GAME_ID == :IF_KANTO ? KANTO_STARTERS : HOENN_STARTERS
 
-
-  GRASS_STARTERS = [:BULBASAUR,:CHIKORITA,:TREECKO,:TURTWIG,:CHESPIN]
-  FIRE_STARTERS = [:CHARMANDER,:CYNDAQUIL, :TORCHIC, :CHIMCHAR, :FENNEKIN]
+  GRASS_STARTERS = [:BULBASAUR, :CHIKORITA, :TREECKO, :TURTWIG, :CHESPIN]
+  FIRE_STARTERS = [:CHARMANDER, :CYNDAQUIL, :TORCHIC, :CHIMCHAR, :FENNEKIN]
   WATER_STARTERS = [:SQUIRTLE, :TOTODILE, :MUDKIP, :PIPLUP, :FROAKIE]
 
   #=============================================================================
@@ -278,14 +295,14 @@ module Settings
   #   e.g. To require the second badge, put false and 1.
   #        To require at least 2 badges, put true and 2.
   BADGE_FOR_CUT = 1
-  BADGE_FOR_FLASH = 1
-  BADGE_FOR_ROCKSMASH = 0
+  BADGE_FOR_FLASH = Settings::KANTO ? 1 : 2
+  BADGE_FOR_ROCKSMASH = Settings::KANTO ? 0 : 4
   BADGE_FOR_SURF = 6
   BADGE_FOR_FLY = 3
   BADGE_FOR_STRENGTH = 5
   BADGE_FOR_DIVE = 9
   BADGE_FOR_WATERFALL = 9
-  BADGE_FOR_TELEPORT = 3
+  BADGE_FOR_TELEPORT = 1
   BADGE_FOR_BOUNCE = 8
   BADGE_FOR_ROCKCLIMB = 16
   #=============================================================================
@@ -372,7 +389,6 @@ module Settings
   # will begin their numbering at 0 rather than 1 (e.g. Victini in Unova's Dex).
   DEXES_WITH_OFFSETS = []
 
-
   #=============================================================================
 
   # A set of arrays, each containing details of a graphic to be shown on the
@@ -388,40 +404,40 @@ module Settings
     #[0, 52, 20, 14, "mapHiddenFaraday", false]
   ]
 
-  TRIPLE_TYPES = [:QMARKS,:ICEFIREELECTRIC,:FIREWATERELECTRIC,:WATERGROUNDFLYING,:GHOSTSTEELWATER,
-                  :FIREWATERGRASS,:GRASSSTEEL,:BUGSTEELPSYCHIC,:ICEROCKSTEEL]
+  TRIPLE_TYPES = [:QMARKS, :ICEFIREELECTRIC, :FIREWATERELECTRIC, :WATERGROUNDFLYING, :GHOSTSTEELWATER,
+                  :FIREWATERGRASS, :GRASSSTEEL, :BUGSTEELPSYCHIC, :ICEROCKSTEEL]
 
   #=============================================================================
 
   # A list of maps used by roaming Pokémon. Each map has an array of other maps
   # it can lead to.
   ROAMING_AREAS = {
-    262  => [261,311],
-    311 => [262,312],
+    262 => [261, 311],
+    311 => [262, 312],
     312 => [311],
-    261 => [262,288,267],
-    288 => [261,267,285],
-    267 => [261,288,300,254],
-    284 => [288,266,285],
-    300 => [267,254],
-    254 => [300,265],
-    266 => [284,265],
-    265 => [266,254],
-    285 => [284,288]}
+    261 => [262, 288, 267],
+    288 => [261, 267, 285],
+    267 => [261, 288, 300, 254],
+    284 => [288, 266, 285],
+    300 => [267, 254],
+    254 => [300, 265],
+    266 => [284, 265],
+    265 => [266, 254],
+    285 => [284, 288] }
 
   SEVII_ROAMING = {
-    528  => [526],         #Treasure beach
-    526 => [528,559],          #Knot Island
-    559 => [526,561,564],      #Kindle Road
-    561 => [559],              #Mt. Ember
-    564 => [559,562,563,594],  #brine road
-    562 => [564],              #boon island
-    563 => [564,600] ,         #kin island
-    594 => [564,566,603],      #water labyrinth
-    600 => [563,619],          #bond bridge
-    619 => [600] ,             #Berry forest
-    566 => [594,603],          #Resort gorgeous
-    603 => [566,594],          #Chrono Island
+    528 => [526], # Treasure beach
+    526 => [528, 559], # Knot Island
+    559 => [526, 561, 564], # Kindle Road
+    561 => [559], # Mt. Ember
+    564 => [559, 562, 563, 594], # brine road
+    562 => [564], # boon island
+    563 => [564, 600], # kin island
+    594 => [564, 566, 603], # water labyrinth
+    600 => [563, 619], # bond bridge
+    619 => [600], # Berry forest
+    566 => [594, 603], # Resort gorgeous
+    603 => [566, 594], # Chrono Island
   }
   # A set of arrays, each containing the details of a roaming Pokémon. The
   # information within each array is as follows:
@@ -433,14 +449,14 @@ module Settings
   #   * Name of BGM to play for that encounter (optional).
   #   * Roaming areas specifically for this Pokémon (optional).
   ROAMING_SPECIES = [
-    [:ENTEI, 50, 350, 1, "Legendary Birds",ROAMING_AREAS,:Sunny],
-    [:B245H243, 50, 341, 1, "Legendary Birds",ROAMING_AREAS,:Storm],
-    [:B379H378, 50, 602, 0, "Legendary Birds",SEVII_ROAMING,:StrongWinds],
-    [:B378H379, 50, 602, 0, "Legendary Birds",SEVII_ROAMING,:StrongWinds],
-    [:FEEBAS, 15, 4, 3, "Pokemon HeartGold and SoulSilver - Wild Pokemon Battle (Kanto)",SEVII_ROAMING,:Rain]
+    [:ENTEI, 50, 350, 1, "Legendary Birds", ROAMING_AREAS, :Sunny],
+    [:B245H243, 50, 341, 1, "Legendary Birds", ROAMING_AREAS, :Storm],
+    [:B379H378, 50, 602, 0, "Legendary Birds", SEVII_ROAMING, :StrongWinds],
+    [:B378H379, 50, 602, 0, "Legendary Birds", SEVII_ROAMING, :StrongWinds],
+    [:FEEBAS, 15, 4, 3, "Pokemon HeartGold and SoulSilver - Wild Pokemon Battle (Kanto)", SEVII_ROAMING, :Rain]
   ]
 
-  PINKAN_ISLAND_MAPS=[51,46,428,531]
+  PINKAN_ISLAND_MAPS = Settings::KANTO ? [51, 46, 428, 531] : []
 
   #=============================================================================
 
@@ -453,58 +469,58 @@ module Settings
   #   * Minimum possible level.
   #   * Maximum possible level (optional).
   POKE_RADAR_ENCOUNTERS = [
-    [78, 50,  :FLETCHLING,2,5],         #Rt. 1
-    [86, 50,  :FLETCHLING,2,5],         #Rt. 2
-    [90, 50,  :FLETCHLING,2,5],         #Rt. 2
-    [491, 50, :SHROOMISH,2,5],          #Viridian Forest
-    [490, 50, :BUDEW,4,9],              #Rt. 3
-    [106, 50, :NINCADA,8,10],           #Rt. 4
-    [12, 50,  :TOGEPI,10,10],           #Rt. 5
-    [16, 50,  :SLAKOTH,12,15],          #Rt. 6
-    [413, 50, :DRIFLOON,17,20],         #Rt. 7
-    [409, 50, :SHINX,17,18],            #Rt. 8
-    [495, 50, :ARON,12,15],             #Rt. 9
-    [351, 50, :ARON,12,15],             #Rt. 9
-    [154, 50, :KLINK,14,17],            #Rt. 10
-    [155, 50, :NINCADA,12,15],          #Rt. 11
-    [159, 50, :COTTONEE,22,25],         #Rt. 12
-    [437, 50, :COTTONEE,22,25],         #Rt. 13
-    [437, 50, :JOLTIK,22,25],           #Rt. 13
-    [440, 50, :JOLTIK,22,25],           #Rt. 14
-    [444, 50, :SOLOSIS,22,25],          #Rt. 15
-    [438, 50, :NATU,22,25],             #Rt. 16
-    [146, 50, :KLEFKI,22,25],           #Rt. 17
-    [517, 50, :FERROSEED,22,25],        #Rt. 18
-    [445, 50, :BAGON,20,20],            #Safari zone 1
-    [484, 50, :AXEW,20,20],             #Safari zone 2
-    [485, 50, :DEINO,20,20],            #Safari zone 3
-    [486, 50, :LARVITAR,20,20],         #Safari zone 4
-    [487, 50, :JANGMOO,20,20],           #Safari zone 5
-    [59, 50,  :DUNSPARCE,25,30],        #Rt. 21
-    [171, 50, :BIDOOF,2,5],             #Rt. 22
-    [143, 50, :RIOLU,25,25],            #Rt. 23
-    [8, 50,   :BUNEARY,12,13],          #Rt. 24
-    [145, 50, :ABSOL,30,35],            #Rt. 26
-    [147, 50, :ABSOL,30,35],            #Rt. 27
-    [311, 50, :BIDOOF,5,5],             #Rt. 29
-    [284, 50, :LUXIO,40,45],            #Rt. 33
-    [288, 50, :VIGOROTH,40,45],         #Rt. 32
-    [342, 50, :GOLETT,40,45],           #Ruins of Alph
-    [261, 50, :BELLOSSOM,45,50],        #Rt. 31
-    [262, 50, :BIBAREL,45,50],          #Rt. 30
-    [265, 50, :KIRLIA,25,30],           #Rt. 34
-    [254, 50, :SMEARGLE,25,30],         #Rt. 35
-    [267, 50, :SUDOWOODO,25,30],        #Rt. 36
-    [500, 50, :FOMANTIS,30,30],          #National Park
-    [266, 50, :BRELOOM,30,30],          #Ilex Forest
-    [670, 50, :WEAVILE,50,50],          #Ice mountains
-    [528, 50, :PYUKUMUKU,20,20],        #Treasure Beach
-    [690, 50, :OCTILLERY,32,45],        #Deep Ocean
-    [561, 50, :FLETCHINDER,32,45],      #Mt. Ember
-    [562, 50, :NINJASK,45,50],          #Boon Island
-    [603, 50, :KECLEON,45,50],          #Chrono Island
-    [654, 50, :WHIMSICOTT,32,45],        #Brine Road
-    [559, 50, :SCRAGGY,32,45]        #Kindle Road
+    [78, 50, :FLETCHLING, 2, 5], # Rt. 1
+    [86, 50, :FLETCHLING, 2, 5], # Rt. 2
+    [90, 50, :FLETCHLING, 2, 5], # Rt. 2
+    [491, 50, :SHROOMISH, 2, 5], # Viridian Forest
+    [490, 50, :BUDEW, 4, 9], # Rt. 3
+    [106, 50, :NINCADA, 8, 10], # Rt. 4
+    [12, 50, :TOGEPI, 10, 10], # Rt. 5
+    [16, 50, :SLAKOTH, 12, 15], # Rt. 6
+    [413, 50, :DRIFLOON, 17, 20], # Rt. 7
+    [409, 50, :SHINX, 17, 18], # Rt. 8
+    [495, 50, :ARON, 12, 15], # Rt. 9
+    [351, 50, :ARON, 12, 15], # Rt. 9
+    [154, 50, :KLINK, 14, 17], # Rt. 10
+    [155, 50, :NINCADA, 12, 15], # Rt. 11
+    [159, 50, :COTTONEE, 22, 25], # Rt. 12
+    [437, 50, :COTTONEE, 22, 25], # Rt. 13
+    [437, 50, :JOLTIK, 22, 25], # Rt. 13
+    [440, 50, :JOLTIK, 22, 25], # Rt. 14
+    [444, 50, :SOLOSIS, 22, 25], # Rt. 15
+    [438, 50, :NATU, 22, 25], # Rt. 16
+    [146, 50, :KLEFKI, 22, 25], # Rt. 17
+    [517, 50, :FERROSEED, 22, 25], # Rt. 18
+    [445, 50, :BAGON, 20, 20], # Safari zone 1
+    [484, 50, :AXEW, 20, 20], # Safari zone 2
+    [485, 50, :DEINO, 20, 20], # Safari zone 3
+    [486, 50, :LARVITAR, 20, 20], # Safari zone 4
+    [487, 50, :JANGMOO, 20, 20], # Safari zone 5
+    [59, 50, :DUNSPARCE, 25, 30], # Rt. 21
+    [171, 50, :BIDOOF, 2, 5], # Rt. 22
+    [143, 50, :RIOLU, 25, 25], # Rt. 23
+    [8, 50, :BUNEARY, 12, 13], # Rt. 24
+    [145, 50, :ABSOL, 30, 35], # Rt. 26
+    [147, 50, :ABSOL, 30, 35], # Rt. 27
+    [311, 50, :BIDOOF, 5, 5], # Rt. 29
+    [284, 50, :LUXIO, 40, 45], # Rt. 33
+    [288, 50, :VIGOROTH, 40, 45], # Rt. 32
+    [342, 50, :GOLETT, 40, 45], # Ruins of Alph
+    [261, 50, :BELLOSSOM, 45, 50], # Rt. 31
+    [262, 50, :BIBAREL, 45, 50], # Rt. 30
+    [265, 50, :KIRLIA, 25, 30], # Rt. 34
+    [254, 50, :SMEARGLE, 25, 30], # Rt. 35
+    [267, 50, :SUDOWOODO, 25, 30], # Rt. 36
+    [500, 50, :FOMANTIS, 30, 30], # National Park
+    [266, 50, :BRELOOM, 30, 30], # Ilex Forest
+    [670, 50, :WEAVILE, 50, 50], # Ice mountains
+    [528, 50, :PYUKUMUKU, 20, 20], # Treasure Beach
+    [690, 50, :OCTILLERY, 32, 45], # Deep Ocean
+    [561, 50, :FLETCHINDER, 32, 45], # Mt. Ember
+    [562, 50, :NINJASK, 45, 50], # Boon Island
+    [603, 50, :KECLEON, 45, 50], # Chrono Island
+    [654, 50, :WHIMSICOTT, 32, 45], # Brine Road
+    [559, 50, :SCRAGGY, 32, 45] # Kindle Road
   ]
 
   #=============================================================================
@@ -530,6 +546,13 @@ module Settings
   # ID of the animation played when a trainer notices the player (an exclamation
   # bubble).
   EXCLAMATION_ANIMATION_ID = 3
+
+  QUESTION_MARK_ANIMATION_ID = 4
+  ANGRY_ANIMATION_ID = 24
+  ANGRY_SHORT_ANIMATION_ID = 34
+
+  FUSE_ANIMATION_ID = 33
+
   # ID of the animation played when a patch of grass rustles due to using the
   # Poké Radar.
   RUSTLE_NORMAL_ANIMATION_ID = 1
@@ -555,18 +578,26 @@ module Settings
   # An array of available languages in the game, and their corresponding message
   # file in the Data folder. Edit only if you have 2 or more languages to choose
   # from.
-  LANGUAGES = [
+  LANGUAGES = {
+    :IF_KANTO => [
       ["English", "english.dat"],
-      ["Français", "french.dat"]
-  ]
+      ["Français", "french.dat"],
+    ],
+    :IF_HOENN => [
+      ["English", "english.dat"],
+      ["Français", "french.dat"],
+      #["Español", "spanish.dat"],
+      #["中文", "chinese.dat"]
+    ]
+  }
 
-  #Experimental
+  # Experimental
   REMOTE_BATTLES_CONTROL = false
   REMOTE_NPC_DIALOG = false
   REMOTE_BATTLE_CONTROL_SERVER_URL = "http://127.0.0.1:5000/choose_move"
-  REMOTE_NPC_DIALOG_SERVER_URL = "http://127.0.0.1:5000"
-  #Technical
-  SPRITE_CACHE_MAX_NB=100
+  REMOTE_NPC_DIALOG_SERVER_URL = "http://127.0.0.1:5050"
+  # Technical
+  SPRITE_CACHE_MAX_NB = 100
   NEWEST_SPRITEPACK_MONTH = 12
   NEWEST_SPRITEPACK_YEAR = 2020
   #=============================================================================
@@ -629,31 +660,35 @@ module Settings
     "choice 28"
   ]
 
-
-  RANDOMIZED_GYM_TYPE_TM=
+  RANDOMIZED_GYM_TYPE_TM =
     {
-      :NORMAL => [:TM32,:TM49,:TM42,:TM98],       #DOUBLETEAM	ECHOEDVOICE	FACADE	BATONPASS
-      :FIGHTING => [:TM83,:TM115,:TM52,:TM112],   #WORKUP	POWERUPPUNCH	FOCUSBLAST	FOCUSPUNCH
-      :FLYING => [:TM62,:TM58,:TM108,:TM100],     #ACROBATICS	SKYDROP	SKYATTACK	DEFOG
-      :POISON => [:TM84,:TM06,:TM36,:TM34],       #POISONJAB	TOXIC	SLUDGEBOMB	SLUDGEWAVE
-      :GROUND => [:TM28,:TM78,:TM26,:TM119],      #DIG	BULLDOZE	EARTHQUAKE	STOMPINGTANTRUM
-      :ROCK => [:TM39,:TM80,:TM71,:TM69],         #ROCKTOMB	ROCKTHROW	STONEDGE ROCKPOLISH
-      :BUG  => [:TM76,:TM89,:TM113,:TM99],        #STRUGGLEBUG	UTURN	INFESTATION	QUIVERDANCE
-      :GHOST => [:TM85,:TM65,:TM30,:TM97],        #DREAMEATER	SHADOWCLAW	SHADOWBALL	NASTYPLOT
-      :STEEL => [:TM74,:TM118,:TM117,:TM75],      #	GYROBALL	STEELWING	SMARTSTRIKE SWORDDANCE
-      :FIRE => [:TM11,:TM43,:TM38,:TM61],         #SUNNYDAY	FLAMECHARGE	FIREBLAST	WILLOWISP
-      :WATER => [:TM55,:TM105,:TM121,:TM18],      #WATERPULSE	AQUAJET SCALD RAINDANCE
-      :GRASS  => [:TM22,:TM53,:TM86,:TM102],      #	SOLARBEAM	 ENERGYBALL GRASSKNOT	SPORE
-      :ELECTRIC => [:TM73,:TM116,:TM93,:TM72],    #THUNDERWAVE	SHOCKWAVE	WILDCHARGE	VOLTSWITCH
-      :PSYCHIC => [:TM77,:TM03,:TM29,:TM04],      #PSYCHUP	PSYSHOCK	PSYCHIC	CALMMIND
-      :ICE => [:TM110,:TM13,:TM14,:TM07],         #AURORAVEIL	ICEBEAM	BLIZZARD	HAIL
-      :DRAGON => [:TM95,:TM02,:TM82,:TM101],      #SNARL	DRAGONCLAW	DRAGONTAIL	DRAGONDANCE
-      :DARK => [:TM95,:TM46,:TM120,:TM97],        #SNARL	THIEF	THROATCHOP	NASTYPLOT
-      :FAIRY => [:TM45,:TM111,:TM96,:TM104]       #ATTRACT	DAZZLINGGLEAM	MOONBLAST	RECOVER
+      :NORMAL => [:TM32, :TM49, :TM42, :TM98], # DOUBLETEAM	ECHOEDVOICE	FACADE	BATONPASS
+      :FIGHTING => [:TM83, :TM115, :TM52, :TM112], # WORKUP	POWERUPPUNCH	FOCUSBLAST	FOCUSPUNCH
+      :FLYING => [:TM62, :TM58, :TM108, :TM100], # ACROBATICS	SKYDROP	SKYATTACK	DEFOG
+      :POISON => [:TM84, :TM06, :TM36, :TM34], # POISONJAB	TOXIC	SLUDGEBOMB	SLUDGEWAVE
+      :GROUND => [:TM28, :TM78, :TM26, :TM119], # DIG	BULLDOZE	EARTHQUAKE	STOMPINGTANTRUM
+      :ROCK => [:TM39, :TM80, :TM71, :TM69], # ROCKTOMB	ROCKTHROW	STONEDGE ROCKPOLISH
+      :BUG => [:TM76, :TM89, :TM113, :TM99], # STRUGGLEBUG	UTURN	INFESTATION	QUIVERDANCE
+      :GHOST => [:TM85, :TM65, :TM30, :TM97], # DREAMEATER	SHADOWCLAW	SHADOWBALL	NASTYPLOT
+      :STEEL => [:TM74, :TM118, :TM117, :TM75], #	GYROBALL	STEELWING	SMARTSTRIKE SWORDDANCE
+      :FIRE => [:TM11, :TM43, :TM38, :TM61], # SUNNYDAY	FLAMECHARGE	FIREBLAST	WILLOWISP
+      :WATER => [:TM55, :TM105, :TM121, :TM18], # WATERPULSE	AQUAJET SCALD RAINDANCE
+      :GRASS => [:TM22, :TM53, :TM86, :TM102], #	SOLARBEAM	 ENERGYBALL GRASSKNOT	SPORE
+      :ELECTRIC => [:TM73, :TM116, :TM93, :TM72], # THUNDERWAVE	SHOCKWAVE	WILDCHARGE	VOLTSWITCH
+      :PSYCHIC => [:TM77, :TM03, :TM29, :TM04], # PSYCHUP	PSYSHOCK	PSYCHIC	CALMMIND
+      :ICE => [:TM110, :TM13, :TM14, :TM07], # AURORAVEIL	ICEBEAM	BLIZZARD	HAIL
+      :DRAGON => [:TM95, :TM02, :TM82, :TM101], # SNARL	DRAGONCLAW	DRAGONTAIL	DRAGONDANCE
+      :DARK => [:TM95, :TM46, :TM120, :TM97], # SNARL	THIEF	THROATCHOP	NASTYPLOT
+      :FAIRY => [:TM45, :TM111, :TM96, :TM104] # ATTRACT	DAZZLINGGLEAM	MOONBLAST	RECOVER
     }
 
-  EXCLUDE_FROM_RANDOM_SHOPS=[:RARECANDY]
+  EXCLUDE_FROM_RANDOM_SHOPS = [:RARECANDY]
 
+end
+
+module MysteryGift
+  URL = "https://download.infinitefusion.net/mystery_gift/MysteryGiftPublic.json"
+  PRIVATE_URL = "https://download.infinitefusion.net/mystery_gift/MysteryGiftsPrivate/"
 end
 
 # DO NOT EDIT THESE!
@@ -661,3 +696,4 @@ module Essentials
   VERSION = "19.1.dev"
   ERROR_TEXT = ""
 end
+

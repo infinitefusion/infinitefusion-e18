@@ -35,10 +35,10 @@ class Game_Player < Game_Character
 
   #Override the player's graphics
   # Path from Graphics/Characters/player/
-  def setPlayerGraphicsOverride(path)
-    @defaultCharacterName=path
-
+  def setPlayerGraphicsOverride(filename)
+    @defaultCharacterName="overrides/#{filename}"
   end
+
   def removeGraphicsOverride
     @defaultCharacterName = ""
   end
@@ -70,18 +70,98 @@ class Game_Player < Game_Character
 
   def update_command
     self.move_speed = 0.5 if $game_switches[SWITCH_SUPER_SLOW_SPEED]
+
     if $game_player.pbTerrainTag.ice
-      self.move_speed = 4     # Sliding on ice
-    elsif !moving? && !@move_route_forcing && $PokemonGlobal
+      reset_bike_speed
+      self.move_speed = 4
+    elsif !@move_route_forcing && $PokemonGlobal
       if $PokemonGlobal.bicycle
-        self.move_speed = $game_switches[SWITCH_RACE_BIKE] && !Input.press?(Input::ACTION) ? 5.5 : 5   # Cycling
+        self.move_speed = current_bicycle_speed
       elsif pbCanRun? || $PokemonGlobal.surfing
-        self.move_speed = 4   # Running, surfing
+        reset_bike_speed
+        self.move_speed = 4
       else
-        self.move_speed = 3   # Walking, diving
+        reset_bike_speed
+        self.move_speed = 3
       end
     end
+
     super
+  end
+
+  def current_bicycle_speed
+    if $game_player.pbTerrainTag.must_walk
+      reset_bike_speed
+      return 3
+    end
+
+    if $game_switches[SWITCH_RACE_BIKE]
+      reset_bike_speed
+      return Input.press?(Input::ACTION) ? 5 : 5.6
+    end
+
+    if Settings::KANTO
+      reset_bike_speed
+      return 5
+    end
+
+    # Settings::HOENN — accelerating bike
+    mach_max_speed = 5.333
+    mach_starting_speed = 4.2
+    mach_acceleration = 0.05
+    acro_speed = 5.0
+
+    if Input.press?(Input::ACTION)
+      bikeOnFence unless $PokemonGlobal.bike_trick
+      @bike_speed = acro_speed
+      @bike_idle_frames = 0
+      check_bunny_hops
+      $PokemonGlobal.bike_trick = true
+    elsif moving?
+      @bike_speed = [(@bike_speed || mach_starting_speed) + mach_acceleration, mach_max_speed].min
+      @bike_idle_frames = 0
+      stop_bunny_hops
+    else
+      @bike_idle_frames = (@bike_idle_frames || 0) + 1
+      @bike_speed = mach_starting_speed if @bike_idle_frames > 3
+      $PokemonGlobal.bike_trick = false
+      stop_bunny_hops
+    end
+    @bike_speed = acro_speed if $game_player.floating
+    @bike_was_moving = moving?
+    return @bike_speed || mach_starting_speed
+  end
+
+  def check_bunny_hops
+    @bike_hops_timer = 0 unless @bike_hops_timer
+    if @bike_hops_unlocked
+      if Input.press?(Input::ACTION)
+        $game_player.bike_hops = true
+      else
+        @bike_hops_unlocked = false
+        $game_player.bike_hops = false
+      end
+    else
+      if moving?
+        @bike_hops_timer = 0
+        $game_player.bike_hops = false
+      else
+        @bike_hops_timer += 1
+        if @bike_hops_timer >= 16
+          @bike_hops_unlocked = true
+          $game_player.bike_hops = true
+        end
+      end
+    end
+  end
+
+  def stop_bunny_hops
+    @bike_hops_timer = 0
+    @bike_hops_unlocked = false
+    $game_player.bike_hops = false
+  end
+  def reset_bike_speed
+    @bike_speed = nil
   end
 
   def update_pattern

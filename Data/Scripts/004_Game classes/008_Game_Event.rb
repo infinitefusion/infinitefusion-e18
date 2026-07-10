@@ -7,7 +7,9 @@ class Game_Event < Game_Character
   attr_reader :character_name
   attr_accessor :need_refresh
   attr_accessor :opacity
-  attr_accessor :through
+  attr_reader :page
+  attr_reader :on_bridge
+  attr_accessor :refresh_hue
 
   def initialize(map_id, event, map=nil)
     super(map)
@@ -20,18 +22,32 @@ class Game_Event < Game_Character
       @width = $~[1].to_i
       @height = $~[2].to_i
     end
+    if @event.name[/bush_depth\((\d+)\)/i]
+      @forced_bush_depth = $~[1].to_i
+    end
+
     @erased       = false
     @starting     = false
     @need_refresh = false
     @route_erased = false
     @through      = true
     @to_update    = true
+    @need_refresh = true
+    @refresh_hue = true
     @tempSwitches = {}
     if @event.name[/forced_z\s*=\s*(-?\d+)/i]
       @forced_z = $1.to_i
     end
+    if @event.name.include?("on_bridge")
+      @on_bridge = true
+    end
     moveto(@event.x, @event.y) if map
     refresh
+  end
+
+  def through
+    return true if @on_bridge && $PokemonGlobal.bridge <= 0
+    return @through
   end
 
   def id;   return @event.id;   end
@@ -85,6 +101,7 @@ class Game_Event < Game_Character
     switchname = $data_system.switches[id]
     return false if !switchname
     if switchname[/^s\:/]
+      #echoln caller
       return eval($~.post_match)
     else
       return $game_switches[id]
@@ -185,6 +202,10 @@ class Game_Event < Game_Character
     end
   end
 
+  def get_page(page_index)
+    return @event.pages[page_index]
+  end
+
   def refresh
     new_page = nil
     unless @erased
@@ -217,7 +238,7 @@ class Game_Event < Game_Character
     end
     @tile_id              = @page.graphic.tile_id
     @character_name       = @page.graphic.character_name
-    @character_hue        = @page.graphic.character_hue
+    @character_hue        = @page.graphic.character_hue if @refresh_hue
     if @original_direction != @page.graphic.direction
       @direction          = @page.graphic.direction
       @original_direction = @direction
@@ -286,6 +307,11 @@ class Game_Event < Game_Character
 
   def active?
     return !@erased && @page != nil
+  end
+
+  def visible?
+    return false unless @page && @page.graphic
+    return @page.graphic.character_name != "" && active?
   end
 
 

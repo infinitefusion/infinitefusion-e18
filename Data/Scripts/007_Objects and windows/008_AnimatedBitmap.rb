@@ -8,6 +8,7 @@ class AnimatedBitmap
 
   def initialize(file, hue = 0)
     raise "Filename is nil (missing graphic)." if file.nil?
+    file = pbLocalizedBitmapFilename(file)
     path = file
     filename = ""
     if file.last != '/' # Isn't just a directory

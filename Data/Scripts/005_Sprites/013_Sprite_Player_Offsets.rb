@@ -14,8 +14,7 @@ module Outfit_Offsets
 
   SURF_OFFSETS_DOWN = [[0, -6], [0, -4], [0, -6], [0, -4]]
   SURF_OFFSETS_LEFT = [[-2, -10], [-2, -8], [-2, -10], [-2, -8]]
-  SURF_OFFSETS_RIGHT = [[4, -10], [4, -8], [4, -10], [4, -8]]
-  #SURF_OFFSETS_UP = [[0, -6], [0, -4], [0, -6], [0, -4]]
+  SURF_OFFSETS_RIGHT = [[2, -10], [2, -8], [2, -10], [2, -8]]
   SURF_OFFSETS_UP = [[0, -10], [0, -8], [0, -10], [0, -8]]
 
   DIVE_OFFSETS_DOWN = [[0, -6], [0, -4], [0, -6], [0, -4]]

@@ -29,15 +29,21 @@ end
 def promptGiveToPartner(caughtPokemon)
   return false if !$Trainer.npcPartner
   return false if $Trainer.npcPartner == BATTLED_TRAINER_WALLY_KEY && $game_switches[SWITCH_WALLY_GAVE_POKEMON]
-  if $Trainer.npcPartner == BATTLED_TRAINER_WALLY_KEY && caughtPokemon.isFusion?
-    pbMessage(_INTL("I... I don't think I can handle a fused Pokémon. Can we try to catch a different one?"))
-    return
+  return false if $Trainer.npcPartner == BATTLED_TRAINER_WALLY_KEY && $game_switches[SWITCH_DIED_WITH_WALLY]
+
+  if $Trainer.npcPartner == BATTLED_TRAINER_WALLY_KEY
+    $game_switches[SWITCH_WALLY_SAW_CAUGHT_POKEMON] = true
+    if caughtPokemon.isFusion?
+      pbMessage(_INTL("I... I don't think I can handle a fused Pokémon. Can we try to catch a different one?"))
+      return
+    end
   end
+
   partnerTrainer = getRebattledTrainerFromKey($Trainer.npcPartner)
   return false if $Trainer.npcPartner == BATTLED_TRAINER_WALLY_KEY && partnerTrainer.currentTeam.length > 0
   return false if !partnerTrainer
     command = pbMessage(_INTL("Would you like to give the newly caught {1} to {2}?",caughtPokemon.name,partnerTrainer.trainerName),
-                        [_INTL("Keep"),_INTL("Give to {1}",partnerTrainer.trainerName)], 2)
+                        [_INTL("Keep"),_INTL("Give to {1}",partnerTrainer.trainerName)], 0)
     case command
     when 0 # Keep
       return

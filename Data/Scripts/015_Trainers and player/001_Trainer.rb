@@ -25,7 +25,7 @@ class Trainer
   end
 
   def full_name
-    return "#{trainer_type_name} #{@name}"
+    "#{trainer_type_name} #{pbGetMessageFromHash(MessageTypes::TrainerNames, @name)}"
   end
 
   #=============================================================================

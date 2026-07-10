@@ -1,24 +1,23 @@
 class CharacterSelectMenuPresenter
   attr_accessor :options
   attr_reader :current_index
-
-  OPTION_NAME = 'Name'
-  OPTION_AGE = "Age"
-  OPTION_GENDER = "Gender"
-  OPTION_HAIR = "Hair"
-  OPTION_SKIN = "Skin"
-  OPTION_CONFIRM = "Confirm"
+  OPTION_NAME = _INTL("Name")
+  OPTION_AGE = _INTL("Age")
+  OPTION_GENDER = _INTL("Gender")
+  OPTION_HAIR = _INTL("Hair")
+  OPTION_SKIN = _INTL("Skin")
+  OPTION_CONFIRM = _INTL("Confirm")
 
   MIN_AGE = 10
   MAX_AGE = 17
 
   MIN_SKIN_COLOR = 1
   MAX_SKIN_COLOR = 6
-  SKIN_COLOR_IDS = ["Type A", "Type B", "Type C", "Type D", "Type E", "Type F"]
-  GENDERS_IDS = ["Female", "Male"]
+  SKIN_COLOR_IDS = [_INTL("Type A"), _INTL("Type B"), _INTL("Type C"), _INTL("Type D"), _INTL("Type E"), _INTL("Type F")]
+  GENDERS_IDS = [_INTL("Female"), _INTL("Male")]
 
   HAIR_COLOR_IDS = [1, 2, 3, 4]
-  HAIR_COLOR_NAMES = ["Blonde", "Light Brown", "Dark Brown", "Black"]
+  HAIR_COLOR_NAMES = [_INTL("Blonde"), _INTL("Light Brown"), _INTL("Dark Brown"), _INTL("Black")]
 
   #ids for displayed text sprites
   NAME_TEXT_ID = "name"
@@ -35,6 +34,7 @@ class CharacterSelectMenuPresenter
     @hairstyle = "red"
     @hairColor = 2
 
+    @is_player= true
     @options = [OPTION_NAME, OPTION_GENDER, OPTION_AGE, OPTION_SKIN, OPTION_HAIR, OPTION_CONFIRM]
 
     @trainerPreview = TrainerClothesPreview.new(300, 80, false, "POKEBALL")
@@ -42,9 +42,44 @@ class CharacterSelectMenuPresenter
     @closed = false
     @current_index = 0
     @view.setMaxIndex(@options.length - 1)
+    @rival = false
+  end
+
+  #For selecting the rival in Hoenn
+  def main_rival()
+    trainer_hair = $Trainer.hair
+    trainer_hat = $Trainer.hat
+    trainer_clothes = $Trainer.clothes
+    trainer_skinTone = $Trainer.skin_tone
+    trainer_name = $Trainer.name
+    @trainerPreview.set_trainer(false)
+    $Trainer.hat = nil
+    @options = [OPTION_NAME, OPTION_SKIN, OPTION_HAIR, OPTION_CONFIRM]
+    @view.setMaxIndex(@options.length - 1)
+    if isPlayerMale
+      @hairstyle = getDefaultHair(GENDER_FEMALE)
+      $Trainer.clothes = getDefaultClothes(GENDER_FEMALE)
+      $Trainer.hair = getDefaultHair(GENDER_FEMALE)
+    else
+      @hairstyle = getDefaultHair(GENDER_MALE)
+      $Trainer.clothes = getDefaultClothes(GENDER_MALE)
+      $Trainer.hair = getDefaultHair(GENDER_MALE)
+    end
+    @rival = true
+    setInitialValuesRival()
+    main()
+    $Trainer.init_rival_appearance($Trainer.skin_tone, $Trainer.hair)
+    pbSet(VAR_RIVAL_NAME, @name)
+    $Trainer.hair = trainer_hair
+    $Trainer.hat = trainer_hat
+    $Trainer.clothes = trainer_clothes
+    $Trainer.skin_tone = trainer_skinTone
+    $Trainer.name = trainer_name
+    $scene.reset_player_sprite
   end
 
   def main()
+    #@trainerPreview.show()
     pbSEPlay("GUI naming tab swap start", 80, 100)
     @current_index = 0
     loop do
@@ -66,6 +101,7 @@ class CharacterSelectMenuPresenter
 
   def updateTrainerPreview
     @trainerPreview.resetOutfits
+    @trainerPreview.hat2=nil
     @trainerPreview.updatePreview
   end
 
@@ -74,7 +110,7 @@ class CharacterSelectMenuPresenter
     case selected_option
     when OPTION_NAME
       pbSEPlay("GUI summary change page", 80, 100)
-      @name = pbEnterPlayerName(_INTL("Enter your name"), 0, Settings::MAX_PLAYER_NAME_SIZE)
+      @name = pbEnterPlayerName(_INTL("Name?"), 0, Settings::MAX_PLAYER_NAME_SIZE, @name)
       @name = getDefaultName() if @name == ''
       pbSEPlay("GUI trainer card open", 80, 100)
       updateDisplayedName(current_index)
@@ -102,6 +138,9 @@ class CharacterSelectMenuPresenter
   end
 
   def getDefaultName()
+    if @rival
+      return init_rival_name
+    end
     return getPlayerDefaultName(@gender)
   end
 
@@ -111,7 +150,6 @@ class CharacterSelectMenuPresenter
 
   def applyAllSelectedValues
     applyGender(@gender)
-    echoln @age
     pbSet(VAR_TRAINER_AGE, @age)
     $Trainer.skin_tone = @skinTone
     $Trainer.name = @name
@@ -135,7 +173,19 @@ class CharacterSelectMenuPresenter
     @current_index = @options.length - 1 if @current_index <= -1
 
     update_cursor(@current_index)
+    setHatVisibility(@current_index)
     return @current_index
+  end
+
+  def setHatVisibility(index)
+    return if @rival
+    case @options[index]
+    when OPTION_HAIR
+      $Trainer.hat=nil
+    else
+      $Trainer.hat = getDefaultHat(@gender)
+    end
+    updateTrainerPreview
   end
 
   def update_cursor(index)
@@ -146,7 +196,7 @@ class CharacterSelectMenuPresenter
   end
 
   def close_menu
-    @trainerPreview.erase()
+    @trainerPreview.erase
     Kernel.pbClearNumber()
     Kernel.pbClearText()
     pbDisposeSpriteHash(@view.sprites)
@@ -229,6 +279,7 @@ class CharacterSelectMenuPresenter
   end
 
   def applyGender(gender_index)
+    return if @rival
     # outfitId = gender + 1
     pbSet(VAR_TRAINER_GENDER, gender_index)
 
@@ -268,6 +319,18 @@ class CharacterSelectMenuPresenter
 
     setGender(genderIndex, 0)
     setAge(ageIndex, 0)
+    setHairColor(hairIndex, 0)
+    setSkinColor(skinIndex, 0)
+    updateTrainerPreview()
+  end
+
+  def setInitialValuesRival()
+    hairIndex = getOptionIndex(OPTION_HAIR)
+    skinIndex = getOptionIndex(OPTION_SKIN)
+
+    @name = init_rival_name
+    updateDisplayedName(getOptionIndex(OPTION_NAME))
+
     setHairColor(hairIndex, 0)
     setSkinColor(skinIndex, 0)
     updateTrainerPreview()

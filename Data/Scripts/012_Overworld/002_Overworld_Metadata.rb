@@ -5,6 +5,8 @@
 class PokemonGlobalMetadata
   # Movement
   attr_accessor :bicycle
+  attr_accessor :bike_trick
+
   attr_accessor :surfing
   attr_accessor :diving
   attr_accessor :sliding
@@ -59,9 +61,13 @@ class PokemonGlobalMetadata
   attr_accessor :rematchedTrainers
   attr_accessor :questRewardsObtained
 
+  attr_accessor :boat
+  attr_accessor :acroBike
+
   def initialize
     # Movement
     @bicycle              = false
+    @bike_trick           = false
     @surfing              = false
     @diving               = false
     @sliding              = false
@@ -279,6 +285,7 @@ class PokemonTemp
   attr_accessor :surfJump
   attr_accessor :endSurf
   attr_accessor :forceSingleBattle
+  attr_accessor :pokeradar_pokemon
 
   def initialize
     @menuLastChoice         = 0
@@ -287,5 +294,6 @@ class PokemonTemp
     @begunNewGame           = false
     @miniupdate             = false
     @forceSingleBattle      = false
+    @pokeradar_pokemon      = nil
   end
 end

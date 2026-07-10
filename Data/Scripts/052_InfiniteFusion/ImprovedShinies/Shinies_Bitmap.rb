@@ -112,6 +112,8 @@ class Bitmap
 
 
   def hue_changecolors(dex_number, bodyShiny, headShiny, alt = "")
+    
+    return if !bodyShiny && !headShiny
     if isFusion(dex_number)
       body_id = getBodyID(dex_number)
       head_id = getHeadID(dex_number, body_id)
@@ -135,7 +137,10 @@ class Bitmap
 
 
     offset = offsets.compact.max_by { |o| o.keys.count }
-    return unless offset
+    if !offset
+      hue_change(GameData::Species.calculateShinyHueOffset(dex_number, bodyShiny, headShiny))
+      return
+    end
     onetime = true
     offset.keys.each do |version|
       value = offset&.dig(version)

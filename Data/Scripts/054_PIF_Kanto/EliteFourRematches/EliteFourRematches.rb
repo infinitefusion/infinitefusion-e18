@@ -116,7 +116,7 @@ def select_league_tier
   available_tiers.reverse!
   commands = []
   available_tiers.each do |tier_nb|
-    commands << _INTL("Tier #{tier_nb}")
+    commands << _INTL("Rank {1}",tier_nb)
   end
   cmd_cancel = _INTL("Cancel")
   commands << cmd_cancel
@@ -148,7 +148,7 @@ def unlock_new_league_tiers
     $game_switches[SWITCH_LEAGUE_TIER_5] = true if tiers_to_unlock.include?(5)
     unless currently_unlocked_tiers.include?(tier)
       pbMEPlay("Key item get")
-      pbMessage(_INTL("{1} unlocked \\C[1]Tier {2} League Rematches\\C[0]!",$Trainer.name,tier))
+      pbMessage(_INTL("{1} unlocked \\C[1]Rank {2} League Rematches\\C[0]!",$Trainer.name,tier))
     end
   end
 end

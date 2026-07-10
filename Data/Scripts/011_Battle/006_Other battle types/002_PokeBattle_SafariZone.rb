@@ -311,6 +311,7 @@ class PokeBattle_SafariZone
   attr_accessor :moneyGain        # Whether the player can gain/lose money
   attr_accessor :rules
   attr_accessor :ballCount
+  attr_accessor :caughtOffGuard
 
   include PokeBattle_BattleCommon
 
@@ -338,6 +339,13 @@ class PokeBattle_SafariZone
     ]
     @rules         = {}
     @ballCount     = 0
+    @caughtOffGuard    = false
+    @turn_count = 0
+
+  end
+
+  def balls_thrown
+    return 30-@ballCount
   end
 
   def defaultWeather=(value); @weather = value; end
@@ -478,6 +486,8 @@ class PokeBattle_SafariZone
           if @ballCount<=0
             pbDisplay(_INTL("PA: You have no Safari Balls left! Game over!"))
             @decision = 2
+          elsif @caughtOffGuard && @turn_count == 0
+            pbDisplay(_INTL("{1} was caught off guard and couldn't move!",pbThis))
           elsif can_escape(pkmn, escapeFactor)
             pbSEPlay("Battle flee")
             pbDisplay(_INTL("{1} fled!",pkmn.name))
@@ -494,6 +504,7 @@ class PokeBattle_SafariZone
           @scene.pbCommonAnimation(weather_data.animation) if weather_data
         end
         break if @decision > 0
+        @turn_count+=1
       end
       @scene.pbEndBattle(@decision)
     rescue BattleAbortedException

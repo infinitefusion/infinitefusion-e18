@@ -5,9 +5,11 @@ module PokeBattle_BattleCommon
   def pbStorePokemon(pkmn)
     # Nickname the Pokémon (unless it's a Shadow Pokémon)
     if !pkmn.shadowPokemon?
-      if pbDisplayConfirm(_INTL("Would you like to give a nickname to {1}?", pkmn.name))
-        nickname = @scene.pbNameEntry(_INTL("{1}'s nickname?", pkmn.speciesName), pkmn)
-        pkmn.name = nickname
+      if $PokemonSystem.prompt_nicknames
+        if pbDisplayConfirm(_INTL("Would you like to give a nickname to {1}?", pkmn.name))
+          nickname = @scene.pbNameEntry(_INTL("{1}'s nickname?", pkmn.speciesName), pkmn)
+          pkmn.name = nickname
+        end
       end
     end
     # Store the Pokémon
@@ -64,7 +66,7 @@ module PokeBattle_BattleCommon
         if $Trainer.has_pokedex
           pbDisplayPaused(_INTL("{1}'s data was added to the Pokédex.", pkmn.name))
           pbPlayer.pokedex.register_last_seen(pkmn)
-          @scene.pbShowPokedex(pkmn.species)
+          @scene.pbShowPokedex(pkmn)
         end
       end
       # Record a Shadow Pokémon's species as having been caught
@@ -194,6 +196,8 @@ module PokeBattle_BattleCommon
         pkmn.owner = Pokemon::Owner.new_from_trainer(pbPlayer)
       end
       BallHandlers.onCatch(ball, self, pkmn)
+      checkCatchChallenge(ball, self, pkmn)
+
       pkmn.poke_ball = ball
       pkmn.makeUnmega if pkmn.mega?
       pkmn.makeUnprimal
@@ -226,7 +230,9 @@ module PokeBattle_BattleCommon
       catch_rate /= 10
     end
 
-
+    if @scene&.battle&.caughtOffGuard
+      catch_rate = [catch_rate * 1.5, 255].min
+    end
 
     # First half of the shakes calculation
     a = battler.totalhp
@@ -247,15 +253,15 @@ module PokeBattle_BattleCommon
 
     #Increased chances of catching if is on last ball
     isOnLastBall = !$PokemonBag.pbHasItem?(ball)
-    echoln isOnLastBall
     # Critical capture check
     if isOnLastBall
       c = x * 6 / 12
-      if c > 0 && pbRandom(256) < c
+      if c > 0 && pbRandom(256) < c || pkmn.shiny?
         @criticalCapture = true
         return 4
       end
     end
+
     # Calculate the number of shakes
     numShakes = 0
     for i in 0...4

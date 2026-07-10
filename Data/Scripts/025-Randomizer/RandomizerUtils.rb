@@ -1,4 +1,5 @@
-NON_RANDOMIZE_ITEMS = [:CELLBATTERY, :MAGNETSTONE, :TM94, :DYNAMITE]
+NON_RANDOMIZE_ITEMS = [:CELLBATTERY, :MAGNETSTONE, :TM94, :DYNAMITE,
+                       :HM01, :HM02, :HM03, :HM04, :HM05, :HM06,:HM07, :HM08, :HM09, :HM10]
 HELD_ITEMS = [:AIRBALLOON, :BRIGHTPOWDER, :EVIOLITE, :FLOATSTONE, :DESTINYKNOT, :ROCKYHELMET, :EJECTBUTTON, :REDCARD,
               :SHEDSHELL, :SMOKEBALL, :CHOICEBAND, :CHOICESPECS, :CHOICESCARF, :HEATROCK, :DAMPROCK, :SMOOTHROCK, :ICYROCK,
               :LIGHTCLAY, :GRIPCLAW, :BINDINGBAND, :BIGROOT, :BLACKSLUDGE, :LEFTOVERS, :SHELLBELL, :MENTALHERB, :WHITEHERB,
@@ -18,11 +19,11 @@ HELD_ITEMS = [:AIRBALLOON, :BRIGHTPOWDER, :EVIOLITE, :FLOATSTONE, :DESTINYKNOT, 
               :KEBIABERRY, :SHUCABERRY, :COBABERRY, :PAYAPABERRY, :TANGABERRY, :CHARTIBERRY, :KASIBBERRY,
               :HABANBERRY, :COLBURBERRY, :BABIRIBERRY, :CHILANBERRY, :LIECHIBERRY, :GANLONBERRY, :SALACBERRY,
               :PETAYABERRY, :APICOTBERRY, :LANSATBERRY, :STARFBERRY, :ENIGMABERRY, :MICLEBERRY, :CUSTAPBERRY,
-              :JABOCABERRY, :ROWAPBERRY, :FAIRYGEM]
+              :JABOCABERRY, :ROWAPBERRY, :FAIRYGEM, :ROSELIBERRY]
 
 INVALID_ITEMS = [:COVERFOSSIL, :PLUMEFOSSIL, :ACCURACYUP, :DAMAGEUP, :ANCIENTSTONE, :ODDKEYSTONE_FULL,
-                 :DEVOLUTIONSPRAY, :INVISIBALL]
-RANDOM_ITEM_EXCEPTIONS = [:DNASPLICERS,:POKEBALL, :DYNAMITE, :PINKANBERRY]
+                 :DEVOLUTIONSPRAY, :INVISIBALL, :DEBUGCANDY]
+RANDOM_ITEM_EXCEPTIONS = [:DNASPLICERS, :POKEBALL, :DYNAMITE, :PINKANBERRY, :TM94]
 
 def getRandomGivenTM(item)
   return item if item == nil
@@ -38,6 +39,9 @@ def getRandomGivenTM(item)
 end
 
 def getMappedRandomItem(item)
+  echoln item.id
+  echoln item.is_TM?
+  echoln NON_RANDOMIZE_ITEMS.include?(item.id)
   if (item.is_TM?)
     return item if NON_RANDOMIZE_ITEMS.include?(item.id)
     return item if !$game_switches[SWITCH_RANDOM_TMS]
@@ -90,8 +94,8 @@ def pbGetRandomItem(item_id)
   return item if !($game_switches[SWITCH_RANDOM_ITEMS] || $game_switches[SWITCH_RANDOM_TMS])
   if $game_switches[SWITCH_RANDOM_ITEMS_MAPPED]
     return getMappedRandomItem(item)
-  # elsif $game_switches[SWITCH_RANDOM_ITEMS_DYNAMIC]
-  #   return getDynamicRandomItem(item)
+    # elsif $game_switches[SWITCH_RANDOM_ITEMS_DYNAMIC]
+    #   return getDynamicRandomItem(item)
   end
   return item
 end
@@ -138,4 +142,30 @@ def ensureRandomHashInitialized()
     end
     $PokemonGlobal.psuedoBSTHash = psuedoHash
   end
+end
+
+def get_gym_types_array
+  if Settings::KANTO
+    gym_types = GYM_TYPES_ARRAY
+  else
+    gym_types = GYM_TYPES_ARRAY_HOENN
+  end
+  randomized_gyms = $game_variables[VAR_GYM_TYPES_ARRAY]
+  return randomized_gyms if $game_switches[SWITCH_RANDOM_GYM_CUSTOMS]
+  return gym_types
+end
+
+# @deprecated Still used in some pif1 events
+def setTextToLeaderType(variable)
+  set_current_gym_type_name(nil,false,variable)
+end
+def set_current_gym_type_name(gym_index = nil, capitalize=false, variable = VAR_CURRENT_GYM_TYPE_NAME)
+  unless gym_index
+    gym_index = pbGet(VAR_CURRENT_GYM_TYPE)
+  end
+  gym_types = get_gym_types_array
+  current_type_id = gym_types[gym_index]
+  type_name = GameData::Type.get(current_type_id).name
+  type_name = type_name.downcase unless capitalize
+  pbSet(variable, type_name)
 end

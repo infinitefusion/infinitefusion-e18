@@ -58,6 +58,8 @@ class PokemonStorage
   attr_accessor   :transfer_box
   attr_accessor :currentBox
   attr_writer   :unlockedWallpapers
+  attr_accessor :filterProc
+
   BASICWALLPAPERQTY = 16
 
   def initialize(maxBoxes = Settings::NUM_STORAGE_BOXES, maxPokemon = PokemonBox::BOX_SIZE)
@@ -100,11 +102,12 @@ class PokemonStorage
        _INTL("Norman"),_INTL("Roxanne"),_INTL("Tate & Liza"),_INTL("Wallace"),    #52-55
        _INTL("Rotom Dex 1"),_INTL("Rotom Dex 2"),_INTL("Happy Hypno"),_INTL("Fossil Shark"),  #56-59
        _INTL("Camping"),_INTL("Swimming"),_INTL("Nostalgic 3"),_INTL("Graffiti"), #60-63
-       _INTL("Ruins"),_INTL("Digital"),_INTL("Galactic"),_INTL("Sinnoh"), #64-67
+       _INTL("Ruins"),_INTL("Marsh"),_INTL("Galactic"),_INTL("Sinnoh"), #64-67
        _INTL("PC"),_INTL("Ancient Sea"),_INTL("Cat Playroom"),_INTL("Softboiled"), #68-71
        _INTL("Electric Mouse"),_INTL("Sailing"),_INTL("Forest 2"),_INTL("Graveyard"), #72-75
        _INTL("Eon"),_INTL("Quest"),_INTL("Pink Stars"),_INTL("Party Hard"), #76-79
        _INTL("Espurr"),_INTL("Nostalgic 4"),_INTL("Dark Forest"), #80-82
+       _INTL("My Bud Skipun")
     ]
   end
 
@@ -116,6 +119,7 @@ class PokemonStorage
 
   def isAvailableWallpaper?(i)
     @unlockedWallpapers = [] if !@unlockedWallpapers
+    return true if i == "transfer" #transfer box wallpaper is hardcoded
     return true if i<BASICWALLPAPERQTY
     return true if @unlockedWallpapers[i]
     return false
@@ -390,9 +394,9 @@ class RegionalStorage
     getCurrentStorage.pbStoreCaught(pkmn)
   end
 
-  def pbDelete(box,index)
-    getCurrentStorage.pbDelete(pkmn)
-  end
+  # def pbDelete(box,index)
+  #   getCurrentStorage.pbDelete(pkmn)
+  # end
 end
 
 

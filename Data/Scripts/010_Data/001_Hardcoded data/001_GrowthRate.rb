@@ -61,7 +61,7 @@ module GameData
     # @param exp [Integer] an Exp amount
     # @return [Integer] the level of a Pokémon that has the given Exp amount
     def level_from_exp(exp)
-      return ArgumentError.new("Exp amount #{level} is invalid.") if !exp || exp < 0
+      return ArgumentError.new("Exp amount #{exp} is invalid.") if !exp || exp < 0
       max = GrowthRate.max_level
       return max if exp >= maximum_exp
       for level in 1..max

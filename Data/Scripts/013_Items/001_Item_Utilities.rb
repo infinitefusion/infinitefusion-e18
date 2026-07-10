@@ -173,7 +173,8 @@ def pbChangeLevel(pkmn, newlevel, scene)
       pbLearnMove(pkmn, i[1], true) { scene.pbUpdate }
     end
     # Check for evolution
-    newspecies = pkmn.check_evolution_on_level_up
+    newspecies = pkmn.check_evolution_on_level_up unless pkmn.evolve_from_party
+    echoln newspecies
     if newspecies
       pbFadeOutInWithMusic {
         evo = PokemonEvolutionScene.new
@@ -215,6 +216,10 @@ def pbItemRestoreHP(pkmn, restoreHP)
 end
 
 def pbHPItem(pkmn, restoreHP, scene)
+  if $PokemonSystem.no_healing_items_ow
+    scene.pbDisplay(_INTL("Your challenge options prevent healing!"))
+    return false
+  end
   if !pkmn.able? || pkmn.hp == pkmn.totalhp
     scene.pbDisplay(_INTL("It won't have any effect."))
     return false
@@ -226,6 +231,10 @@ def pbHPItem(pkmn, restoreHP, scene)
 end
 
 def pbBattleHPItem(pkmn, battler, restoreHP, scene)
+  if $PokemonSystem.no_healing_items_battles
+    scene.pbDisplay(_INTL("Your challenge options prevent healing!"))
+    return false
+  end
   if battler
     if battler.pbRecoverHP(restoreHP) > 0
       scene.pbDisplay(_INTL("{1}'s HP was restored.", battler.pbThis))
@@ -365,7 +374,9 @@ def pbClosestHiddenItem
   playerX = $game_player.x
   playerY = $game_player.y
   for event in $game_map.events.values
-    next if !event.name[/hiddenitem/i]
+    next unless event.name.downcase.start_with?("item")
+    next unless event.active?
+    next if event.name.include?("Present") && !event.visible?
     next if (playerX - event.x).abs >= 8
     next if (playerY - event.y).abs >= 6
     next if $game_self_switches[[$game_map.map_id, event.id, "A"]]
@@ -542,8 +553,7 @@ def pbUseItem(bag, item, bagscene = nil)
           break
         end
         pkmn = $Trainer.party[chosen]
-        if
-        pbCheckUseOnPokemon(item, pkmn, screen)
+        if pbCheckUseOnPokemon(item, pkmn, screen)
           ret = ItemHandlers.triggerUseOnPokemon(item, pkmn, screen)
           if ret && useType == 1 # Usable on Pokémon, consumed
             bag.pbDeleteItem(item)

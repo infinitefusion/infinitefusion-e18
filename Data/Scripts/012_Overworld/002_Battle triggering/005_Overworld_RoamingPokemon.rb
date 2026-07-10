@@ -173,7 +173,7 @@ EncounterModifier.register(proc { |encounter|
   # Give the regular encounter if encountering a roaming Pokémon isn't possible
   next encounter if $PokemonGlobal.roamedAlready
   next encounter if $PokemonGlobal.partner
-  next encounter if $PokemonTemp.pokeradar
+  next encounter if $PokemonTemp.pokeradar && !$PokemonSystem.overworld_encounters
   #next encounter if rand(100) < 75   # 25% chance of encountering a roaming Pokémon
   # Look at each roaming Pokémon in turn and decide whether it's possible to
   # encounter it

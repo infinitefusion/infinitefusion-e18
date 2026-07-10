@@ -5,7 +5,7 @@ module PBSpecies
   end
 
   def PBSpecies.getName(species)
-    return GameData::Species.get(species).real_name
+    return GameData::Species.get(species).name
   end
 
 #In some places, pokemon are instanciated as PBSpecies::NAME in wild battles, trades, etc. which doesn't work anymore.

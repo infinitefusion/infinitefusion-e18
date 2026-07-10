@@ -23,6 +23,7 @@ class PokeBattle_Battle
   end
 
   def pbJudgeCheckpoint(user,move=nil)
+
     if pbAllFainted?(0) && pbAllFainted?(1)
       if @rules["drawclause"]   # NOTE: Also includes Life Orb (not implemented)
         if !(move && move.function=="0DD")   # Not a draw if fainting occurred due to Liquid Ooze
@@ -193,7 +194,7 @@ class PokeBattle_Move_0E0   # Self-Destruct
       count  = @battle.pbAbleNonActiveCount(user.idxOwnSide)
       count += @battle.pbAbleNonActiveCount(user.idxOpposingSide)
       if count==0
-        @battle.pbDisplay("But it failed!")
+        @battle.pbDisplay(_INTL("But it failed!"))
         return false
       end
     end

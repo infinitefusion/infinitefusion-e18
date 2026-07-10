@@ -66,12 +66,17 @@ module Effectiveness
   SUPER_EFFECTIVE_ONE    = 4
   NORMAL_EFFECTIVE       = NORMAL_EFFECTIVE_ONE ** 3
 
+  NOT_VERY_EFFECTIVE   = 4
+  EXTREMELY_EFFECTIVE = 32
   module_function
 
   def ineffective?(value)
     return value == INEFFECTIVE
   end
 
+  def mostly_ineffective?(value)
+    return value > INEFFECTIVE && value < NOT_VERY_EFFECTIVE
+  end
   def not_very_effective?(value)
     return value > INEFFECTIVE && value < NORMAL_EFFECTIVE
   end
@@ -86,6 +91,10 @@ module Effectiveness
 
   def super_effective?(value)
     return value > NORMAL_EFFECTIVE
+  end
+
+  def extremely_effective?(value)
+    return value >= EXTREMELY_EFFECTIVE
   end
 
   def ineffective_type?(attack_type, defend_type1, defend_type2 = nil, defend_type3 = nil)

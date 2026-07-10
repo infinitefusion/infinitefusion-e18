@@ -61,6 +61,13 @@ def pbNicknameAndStore(pkmn)
   #pbStorePokemon(pkmn)
 end
 
+def pbAddRentalPokemon(species,level)
+  original_trainer = "RENTAL"
+  pokemon = Pokemon.new(species,level)
+  pokemon.owner.name=original_trainer
+  pbAddPokemon(pokemon,level)
+end
+
 #===============================================================================
 # Giving Pokémon to the player (will send to storage if party is full)
 #===============================================================================
@@ -141,20 +148,27 @@ def pbAddForeignPokemon(pkmn, level = 1, owner_name = nil, nickname = nil, owner
   return true
 end
 
-def pbGenerateEgg(pkmn, text = "")
+def receiveEgg(species)
+  pbGenerateEgg(species)
+  pbMEPlay("Egg get")
+  pbMessage(_INTL("{1} received a Pokémon egg!",$Trainer.name))
+end
+
+def pbGenerateEgg(pkmn, obtain_text = "")
   return false if !pkmn #|| $Trainer.party_full?
   pkmn = Pokemon.new(pkmn, Settings::EGG_LEVEL) if !pkmn.is_a?(Pokemon)
   # Set egg's details
   pkmn.name           = _INTL("Egg")
   pkmn.steps_to_hatch = pkmn.species_data.hatch_steps
-  pkmn.obtain_text    = text
+  pkmn.obtain_text    = obtain_text
   pkmn.calc_stats
+
   # Add egg to party
   if $Trainer.party.length<6
     $Trainer.party[$Trainer.party.length] = pkmn
   else
     $PokemonStorage.pbStoreCaught(pkmn)
-    Kernel.pbMessage(_INTL("The egg was transfered to the PC."))
+    Kernel.pbMessage(_INTL("The egg was transferred to the PC."))
   end
   return true
 end

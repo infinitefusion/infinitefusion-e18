@@ -81,7 +81,7 @@ module RPG
       new_type = GameData::Weather.get(new_type).id
       new_max = 0 if new_type == :None
       return if @type == new_type && @max == new_max
-      set_fog(new_type)
+      #set_fog(new_type)
       if duration > 0
         @target_type = new_type
         @target_max = new_max
@@ -117,7 +117,7 @@ module RPG
         @fading = false
       end
       @type = type
-      set_fog(type)
+      #set_fog(type)
       prepare_bitmaps(@type)
       if GameData::Weather.get(@type).has_tiles?
         w = @weatherTypes[@type][2][0].width
@@ -134,6 +134,7 @@ module RPG
     end
 
     def set_fog(weather_type)
+      # return #handled elsewhere
       weather = GameData::Weather.get(weather_type)
       return if weather.fog_name.nil?
       $game_map.fog_name       = weather.fog_name
@@ -144,6 +145,7 @@ module RPG
 
     def set_max(value,weather_type)
       return if @max == value
+      return if get_max_sprites(value,weather_type) <= 0
       value = value.clamp(0, get_max_sprites(value,weather_type))
       #echoln "[Weather] Setting max particles to #{value} for type #{@type}" if @max != value
       @max = value
@@ -202,7 +204,7 @@ module RPG
         end
       end
       if @fading && @new_sprites.length < MAX_SPRITES && @weatherTypes[@target_type] &&
-         @weatherTypes[@target_type][1].length > 0
+        @weatherTypes[@target_type][1].length > 0
         for i in 0...MAX_SPRITES
           if !@new_sprites[i]
             sprite = Sprite.new(@origViewport)
@@ -369,7 +371,7 @@ module RPG
             sprite.opacity = 255 * (1 - fraction)
           end
         elsif @fade_time >= [FADE_NEW_TILES_START - @time_shift, 0].max &&
-              @fade_time < [FADE_NEW_TILES_END - @time_shift, 0].max
+          @fade_time < [FADE_NEW_TILES_END - @time_shift, 0].max
           fraction = (@fade_time - [FADE_NEW_TILES_START - @time_shift, 0].max) / (FADE_NEW_TILES_END - FADE_NEW_TILES_START)
           sprite.opacity = 255 * fraction
         else
@@ -393,7 +395,7 @@ module RPG
       if @fading
         if @type == @target_type   # Just changing max
           if @fade_time >= [FADE_NEW_TONE_START - @time_shift, 0].max &&
-             @fade_time < [FADE_NEW_TONE_END - @time_shift, 0].max
+            @fade_time < [FADE_NEW_TONE_END - @time_shift, 0].max
             weather_max = @target_max
             fract = (@fade_time - [FADE_NEW_TONE_START - @time_shift, 0].max) / (FADE_NEW_TONE_END - FADE_NEW_TONE_START)
             tone_red = @target_tone.red + (1 - fract) * (@old_tone.red - @target_tone.red)
@@ -434,7 +436,7 @@ module RPG
       if weather_type == :Sun
         @sun_magnitude = weather_max if @sun_magnitude != weather_max && @sun_magnitude != -weather_max
         @sun_magnitude *= -1 if (@sun_magnitude > 0 && @sun_strength > @sun_magnitude) ||
-                                (@sun_magnitude < 0 && @sun_strength < 0)
+          (@sun_magnitude < 0 && @sun_strength < 0)
         @sun_strength += @sun_magnitude.to_f * Graphics.delta_s / 0.4   # 0.4 seconds per half flash
         tone_red += @sun_strength
         tone_green += @sun_strength
@@ -510,7 +512,7 @@ module RPG
         if @time_until_flash > 0
           @time_until_flash -= Graphics.delta_s
           if @time_until_flash <= 0
-            @viewport.flash(Color.new(255, 255, 255, 230), (2 + rand(3)) * 20)
+            @viewport.flash(Color.new(255, 255, 255, 80), (2 + rand(3)) * 20)
             if rand < 0.1
               @lightning_overlay.opacity = 255
               @lightning_overlay_duration = 20  # Lasts ~10 frames

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 #Levels relative to 50 (actual level is adjusted dynamically depending on the type of rematch)
 
 
@@ -120,10 +118,10 @@ E4_POKEMON_POOL = {
     {:species => [:PORYGONZ,:NOIVERN],  :level => 5, :ability => :ADAPTABILITY,  :nature => :MODEST,   :moves => [:BOOMBURST,:DRAGONCLAW,:TRIATTACK,:WHIRLWIND],     :item => :ASSAULTVEST, :tier => 4},
 
     #TIER 5
-    {:species => [:BLISSEY,:GOODRA],  :level => 8, :ability => :ADAPTABILITY,  :nature => :DOCILE,   :moves => [:RECOVER,:CALMMIND,:DRAGONPULSE,:FLAMETHROWER],     :item => :CHOPLEBERRY, :tier => 5},
+    {:species => [:BLISSEY,:GOODRA],  :level => 8, :ability => :ADAPTABILITY,  :nature => :NATURALCURE,   :moves => [:RECOVER,:CALMMIND,:DRAGONPULSE,:FLAMETHROWER],     :item => :CHOPLEBERRY, :tier => 5},
     {:species => [:URSARING,:DRAGONITE],  :level => 6, :ability => :GUTS,  :nature => :ADAMANT,   :moves => [:SWORDSDANCE,:FIREPUNCH,:EXTREMESPEED,:FACADE],     :item => :FLAMEORB, :tier => 5},
     {:species => [:RAMPARDOS,:HYDREIGON],  :level => 8, :ability => :HUSTLE,  :nature => :ADAMANT,   :moves => [:DRAGONDANCE,:HEADSMASH,:OUTRAGE,:EARTHQUAKE],     :item => :FOCUSSASH, :tier => 5},
-    {:species => [:TYRANITAR,:HIMTONLEE],  :level => 7, :ability => :UNBURDEN,  :nature => :ADAMANT,   :moves => [:FAKEOUT,:CLOSECOMBAT,:ROCKSLIDE,:EARTHQUAKE],     :item => :NORMALGEM, :tier => 5},
+    {:species => [:TYRANITAR,:HITMONLEE],  :level => 7, :ability => :UNBURDEN,  :nature => :ADAMANT,   :moves => [:FAKEOUT,:CLOSECOMBAT,:ROCKSLIDE,:EARTHQUAKE],     :item => :NORMALGEM, :tier => 5},
     {:species => [:SNORLAX,:FLYGON],  :level => 7, :ability => :THICKFAT,  :nature => :CAREFUL,   :moves => [:BODYSLAM,:DRAGONTAIL,:GUNKSHOT,:ICEBEAM],     :item => :LEFTOVERS, :tier => 5},
 
 

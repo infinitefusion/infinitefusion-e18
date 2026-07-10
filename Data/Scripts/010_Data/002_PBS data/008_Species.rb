@@ -192,26 +192,23 @@ module GameData
     end
     # @return [String] the translated name of this species
     def name
-      return @real_name
-      #return pbGetMessage(MessageTypes::Species, @id_number)
+      ret = MessageTypes.get(MessageTypes::Species, @id_number)
+      return (ret && !ret.empty?) ? ret : @real_name
     end
 
-    # @return [String] the translated name of this form of this species
     def form_name
-      return @real_form_name
-      #return pbGetMessage(MessageTypes::FormNames, @id_number)
+      ret = MessageTypes.get(MessageTypes::FormNames, @id_number)
+      return (ret && !ret.empty?) ? ret : @real_form_name
     end
 
-    # @return [String] the translated Pokédex category of this species
     def category
-      return @real_category
-      #return pbGetMessage(MessageTypes::Kinds, @id_number)
+      ret = MessageTypes.get(MessageTypes::Kinds, @id_number)
+      return (ret && !ret.empty?) ? ret : @real_category
     end
 
-    # @return [String] the translated Pokédex entry of this species
     def pokedex_entry
-      return @real_pokedex_entry
-      #return pbGetMessage(MessageTypes::Entries, @id_number)
+      ret = MessageTypes.get(MessageTypes::Entries, @id_number)
+      return (ret && !ret.empty?) ? ret : @real_pokedex_entry
     end
 
     def is_fusion
@@ -285,6 +282,40 @@ module GameData
         ret.concat(evo_array) if evo_array && evo_array.length > 0
       end
       return ret
+    end
+
+    def get_ordered_family_species(exclude_invalid = true)
+      baby = self.get_baby_species
+      tree = GameData::Species.get(baby).build_evo_tree(exclude_invalid)
+      result = []
+      flatten_evo_tree(tree, result)
+      return result
+    end
+
+    private
+
+    def flatten_evo_tree(node, result)
+      result << node[:species]
+      node[:children].each { |child| flatten_evo_tree(child, result) }
+    end
+
+    def build_evo_tree(exclude_invalid = true)
+      evos = self.get_evolutions(exclude_invalid)
+      evos = evos.sort do |a, b|
+        a_is_level = (a[1] == :Level)
+        b_is_level = (b[1] == :Level)
+        if a_is_level && b_is_level
+          (a[2] || 0) <=> (b[2] || 0)
+        elsif a_is_level then -1
+        elsif b_is_level then 1
+        else a[1].to_s <=> b[1].to_s
+        end
+      end
+
+      {
+        species: @species,
+        children: evos.map { |evo| GameData::Species.get(evo[0]).build_evo_tree(exclude_invalid) }
+      }
     end
 
     def get_previous_species

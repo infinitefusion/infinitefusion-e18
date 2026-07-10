@@ -38,6 +38,10 @@ class Player < Trainer
       self.refresh_accessible_dexes
     end
 
+    def list_seen_fusions
+      return @seen_fusion
+    end
+
     def initStandardDexArray()
       dex_array = []
       (0..NB_POKEMON).each { |poke|

@@ -18,8 +18,8 @@ def handleReplaceExistingSprites()
   commands << _INTL("Replace all the old sprites with the new ones")
   #commands << "Import all the new sprites as alts"
 
-  messageSingular = "While importing custom sprites, the game has detected that {1} new custom sprite already has a version that exist in the game."
-  messagePlural = "While importing custom sprites, the game has detected that {1} new custom sprites already have versions that exist in the game."
+  messageSingular = _INTL("While importing custom sprites, the game has detected that {1} new custom sprite already has a version that exist in the game.")
+  messagePlural = _INTL("While importing custom sprites, the game has detected that {1} new custom sprites already have versions that exist in the game.")
 
   messageText = spritesToReplaceList.size==1 ? messageSingular : messagePlural
   message = _INTL(messageText,spritesToReplaceList.length.to_s)
@@ -144,11 +144,17 @@ def showLoadingScreen
   else
     selected_loading_screen = "Graphics/titles/default_loading_screen"
   end
+  logo_path = "Graphics/titles/no_ai_logo"
   picture = Sprite.new(@viewport)
      picture.bitmap = pbBitmap(selected_loading_screen)
      picture.visible=true
-     Graphics.update
+
+  logo = Sprite.new(@viewport)
+    logo.bitmap = pbBitmap(logo_path)
+    logo.visible=true
+  Graphics.update
      picture.dispose
+  logo.dispose
 end
 
 
@@ -176,6 +182,7 @@ def mainFunctionDebug
     rescue
       echo "failed to sort custom battlers"
     end
+    MessageConfig.pbResetSystemFontName
     $scene = pbCallTitle
     $scene.main until $scene.nil?
     Graphics.transition(20)

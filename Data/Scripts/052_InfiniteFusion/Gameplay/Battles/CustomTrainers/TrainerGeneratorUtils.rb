@@ -2,7 +2,7 @@
 def pick_trainer_sprite(spriter_name)
   possible_types = "abcd"
   trainer_type_index = select_number_from_seed(spriter_name,0,3)
-  path = _INTL("Graphics/Trainers/trainer116{1}",possible_types[trainer_type_index].to_s)
+  path = "Graphics/Trainers/trainer116#{possible_types[trainer_type_index].to_s}"
   return path
 end
 

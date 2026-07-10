@@ -35,11 +35,11 @@ def pbCanUsePokeRadar?
   # Debug
   return true if $DEBUG && Input.press?(Input::CTRL)
   # Can't use Radar if it isn't fully charged
-  if $PokemonGlobal.pokeradarBattery && $PokemonGlobal.pokeradarBattery > 0
-    pbMessage(_INTL("The battery has run dry!\nFor it to recharge, you need to walk another {1} steps.",
-                    $PokemonGlobal.pokeradarBattery))
-    return false
-  end
+  # if $PokemonGlobal.pokeradarBattery && $PokemonGlobal.pokeradarBattery > 0
+  #   pbMessage(_INTL("The battery has run dry!\nFor it to recharge, you need to walk another {1} steps.",
+  #                   $PokemonGlobal.pokeradarBattery))
+  #   return false
+  # end
   return true
 end
 
@@ -56,8 +56,8 @@ def pbUsePokeRadar
   pbWait(20)
   pbPokeRadarHighlightGrass
   if $PokemonGlobal.repel <= 0
-    $PokemonGlobal.repel=10
-    $PokemonGlobal.tempRepel=true
+    $PokemonGlobal.repel = 10
+    $PokemonGlobal.tempRepel = true
   end
   return true
 end
@@ -106,9 +106,9 @@ end
 
 def pbPokeRadarCancel
   if $PokemonGlobal.tempRepel
-    $PokemonGlobal.repel=0
+    $PokemonGlobal.repel = 0
   end
-  $PokemonGlobal.tempRepel=false
+  $PokemonGlobal.tempRepel = false
 
   if $PokemonTemp.pokeradar_ui != nil
     $PokemonTemp.pokeradar_ui.dispose
@@ -117,14 +117,12 @@ def pbPokeRadarCancel
   $PokemonTemp.pokeradar = nil
 end
 
-
-
-def listPokemonInCurrentRoute(encounterType, onlySeen = false, onlyUnseen = false)
+def listPokemonInCurrentRoute(encounterType, onlySeen = false, onlyUnseen = false, include_weather = false)
   return [] if encounterType == nil
   processed = []
   seen = []
   unseen = []
-  for encounter in $PokemonEncounters.listPossibleEncounters(encounterType)
+  for encounter in $PokemonEncounters.listPossibleEncounters(encounterType, include_weather)
     species = $game_switches[SWITCH_RANDOM_WILD] && !$game_switches[SWITCH_RANDOM_WILD_AREA] ? getRandomizedTo(encounter[1]) : encounter[1]
 
     if !processed.include?(species)
@@ -146,13 +144,42 @@ def listPokemonInCurrentRoute(encounterType, onlySeen = false, onlyUnseen = fals
   end
 end
 
-#can only encounter rare if have seen every encounterable land pokemon on the route
+# can only encounter rare if have seen every encounterable land pokemon on the route
 def canEncounterRarePokemon(unseenPokemon)
   terrain = $game_map.terrain_tag($game_player.x, $game_player.y)
   return unseenPokemon.length == 0 &&
     $PokemonEncounters.has_normal_land_encounters? &&
     terrain.land_wild_encounters &&
     terrain.shows_grass_rustle
+end
+
+def getTerrainTilesNearPlayer(terrainType, min_distance_from_player = 2, max_distance_from_player = 10, max_attempts = 5)
+  tiles = []
+  px = $game_player.x
+  py = $game_player.y
+
+  # Scan square area around player
+  for x in (px - max_distance_from_player)..(px + max_distance_from_player)
+    for y in (py - max_distance_from_player)..(py + max_distance_from_player)
+      next unless $game_map.OWPokemonPassable?(x, y, DIRECTION_ALL)
+      next if x == px && y == py
+      # Manhattan distance (PokéRadar-style ring)
+      distance = (x - px).abs + (y - py).abs
+      next if distance < min_distance_from_player
+      next if distance > max_distance_from_player
+
+      # Check terrain
+      terrain = $game_map.terrain_tag(x, y)
+      if terrainType == :Grass
+        tiles << [x, y] if terrain.land_wild_encounters
+      elsif terrainType == :Water
+        tiles << [x, y] if terrain.can_surf
+      else
+        tiles << [x, y]
+      end
+    end
+  end
+  return tiles
 end
 
 def pbPokeRadarHighlightGrass(showmessage = true)
@@ -181,7 +208,8 @@ def pbPokeRadarHighlightGrass(showmessage = true)
         # Choose a rarity for the grass (0=normal, 1=rare, 2=shiny)
         s = (rand(100) < 25) ? 1 : 0
         if $PokemonTemp.pokeradar && $PokemonTemp.pokeradar[2] > 0
-          v = [(65536 / Settings::SHINY_POKEMON_CHANCE) - $PokemonTemp.pokeradar[2] * 200, 200].max
+          chain_for_odds = [$PokemonTemp.pokeradar[2], 40].min
+          v = [(65536 / Settings::SHINY_POKEMON_CHANCE) - chain_for_odds * 200, 200].max
           v = 0xFFFF / v
           v = rand(65536) / v
           s = 2 if v == 0
@@ -212,6 +240,7 @@ def pbPokeRadarHighlightGrass(showmessage = true)
 end
 
 def pbPokeRadarGetShakingGrass
+  return -1 if $PokemonSystem.overworld_encounters
   return -1 if !$PokemonTemp.pokeradar
   grasses = $PokemonTemp.pokeradar[3]
   return -1 if grasses.length == 0
@@ -222,6 +251,7 @@ def pbPokeRadarGetShakingGrass
 end
 
 def pbPokeRadarOnShakingGrass
+  return false if $PokemonSystem.overworld_encounters
   return pbPokeRadarGetShakingGrass >= 0
 end
 
@@ -235,7 +265,7 @@ def pbPokeRadarGetEncounter(rarity = 0)
       array.push(enc) if enc[0] == map && GameData::Species.exists?(enc[2])
     end
     # If there are any exclusives, first have a chance of encountering those
-    if array.length > 0 && listPokemonInCurrentRoute($PokemonEncounters.encounter_type, false, true).length==0
+    if array.length > 0 && listPokemonInCurrentRoute($PokemonEncounters.encounter_type, false, true).length == 0
       rnd = rand(100)
       array.each do |enc|
         rnd -= enc[1]
@@ -253,6 +283,7 @@ end
 # Event handlers
 ################################################################################
 EncounterModifier.register(proc { |encounter|
+  next encounter if Settings::HOENN
   if GameData::EncounterType.get($PokemonTemp.encounterType).type != :land ||
     $PokemonGlobal.partner # $PokemonGlobal.bicycle || $PokemonGlobal.partner
     pbPokeRadarCancel
@@ -284,21 +315,27 @@ EncounterModifier.register(proc { |encounter|
     end
   else
     # Encounter triggered by stepping in non-rustling grass
-    pbPokeRadarCancel if encounter  && $PokemonGlobal.repel <= 0
+    pbPokeRadarCancel if encounter && $PokemonGlobal.repel <= 0
   end
   next encounter
 })
 
 Events.onWildPokemonCreate += proc { |_sender, e|
   pokemon = e[0]
+  next if Settings::HOENN # pokeradar shininess is handled in spawn_pokeradar_pokemon for pokenav pokeradar
   next if !$PokemonTemp.pokeradar
   grasses = $PokemonTemp.pokeradar[3]
   next if !grasses
   for grass in grasses
     next if $game_player.x != grass[0] || $game_player.y != grass[1]
     pokemon.shiny = true if grass[3] == 2
-    break
+	if grass[3] == 2
+	  pokemon.shiny = true
+	  pokemon.debug_shiny = false
+	  pokemon.radar_shiny = true
+	end
   end
+
 }
 
 Events.onWildBattleEnd += proc { |_sender, e|
@@ -306,11 +343,24 @@ Events.onWildBattleEnd += proc { |_sender, e|
   level = e[1]
   decision = e[2]
   if $PokemonTemp.pokeradar && (decision == 1 || decision == 4) # Defeated/caught
-    $PokemonTemp.pokeradar[0] = species
-    $PokemonTemp.pokeradar[1] = level
-    $PokemonTemp.pokeradar[2] += 1
-    $PokemonTemp.pokeradar[2] = 40 if $PokemonTemp.pokeradar[2] > 40
-    pbPokeRadarHighlightGrass(false)
+    if Settings::HOENN
+      pokeradar_species = $PokemonTemp.pokeradar[0]
+    else
+      pokeradar_species = species
+    end
+    if species == pokeradar_species
+      $PokemonTemp.pokeradar[0] = species
+      $PokemonTemp.pokeradar[1] = level
+      $PokemonTemp.pokeradar[2] += 1
+      if Settings::HOENN
+        continue_pokeradar_app_chain
+      else
+        $PokemonTemp.pokeradar[2] = 40 if $PokemonTemp.pokeradar[2] > 40
+        pbPokeRadarHighlightGrass(false)
+      end
+    else
+      pbPokeRadarCancel
+    end
   else
     pbPokeRadarCancel
   end
@@ -321,6 +371,7 @@ Events.onStepTaken += proc { |_sender, _e|
     !$PokemonTemp.pokeradar
     $PokemonGlobal.pokeradarBattery -= 1
   end
+  next if $PokemonSystem.overworld_encounters
   terrain = $game_map.terrain_tag($game_player.x, $game_player.y)
   if !terrain.land_wild_encounters || !terrain.shows_grass_rustle
     pbPokeRadarCancel

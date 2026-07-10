@@ -24,18 +24,10 @@ class ClothesShopPresenter < PokemonMartScreen
   end
 
   def swapHats()
-    echoln "hat 1: #{$Trainer.hat}"
-    echoln "hat 2: #{$Trainer.hat2}"
-
-
     $Trainer.hat, $Trainer.hat2 = $Trainer.hat2, $Trainer.hat
 
     pbSEPlay("GUI naming tab swap start")
     new_selected_hat = @adapter.is_secondary_hat ? $Trainer.hat2 : $Trainer.hat
-    echoln "hat 1: #{$Trainer.hat}"
-    echoln "hat 2: #{$Trainer.hat2}"
-    echoln "new selected hat: #{new_selected_hat}"
-
     @scene.select_specific_item(new_selected_hat,true)
     @scene.updatePreviewWindow
   end

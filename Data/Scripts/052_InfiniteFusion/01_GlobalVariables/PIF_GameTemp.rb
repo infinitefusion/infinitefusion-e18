@@ -11,6 +11,8 @@ class Game_Temp
   attr_accessor :moving_furniture_oldItemPosition
   attr_accessor :original_direction   #generic - for if we need to save a direction for whatever reason
   attr_accessor :starter_options
+  attr_accessor :time_trial_bumps
+
   alias pokemonEssentials_GameTemp_original_initialize initialize
   def initialize
     pokemonEssentials_GameTemp_original_initialize
@@ -19,5 +21,6 @@ class Game_Temp
     @base_sprites_list    ={}
     @moving_furniture    = nil
     @original_direction = nil
+    @time_trial_bumps = 0
   end
 end

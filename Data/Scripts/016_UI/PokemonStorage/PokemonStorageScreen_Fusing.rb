@@ -34,6 +34,7 @@ class PokemonStorageScreen
       pbHold(selected)
       pbDisplay(_INTL("Select a Pokémon to fuse it with"))
       @scene.sprites["box"].disableFusions()
+
       return
     end
     if !poke_body
@@ -109,7 +110,7 @@ class PokemonStorageScreen
         end
         isSuperSplicer = isSuperSplicer?(@fusionItem)
 
-        selectedHead = selectFusion(pokemon, heldpoke, isSuperSplicer)
+        selectedHead, selected_sprite = selectFusion(pokemon, heldpoke, isSuperSplicer)
         if selectedHead == nil
           pbDisplay(_INTL("It won't have any effect."))
           return false
@@ -123,7 +124,7 @@ class PokemonStorageScreen
 
         if (Kernel.pbConfirmMessage(_INTL("Fuse the two Pokémon?")))
           playingBGM = $game_system.getPlayingBGM
-          pbFuse(selectedHead, selectedBase, @fusionItem)
+          pbFuse(selectedHead, selectedBase, @fusionItem, selected_sprite)
           if canDeleteItem(@fusionItem)
             $PokemonBag.pbDeleteItem(@fusionItem)
           end
@@ -168,7 +169,7 @@ class PokemonStorageScreen
       scene.pbDisplay(_INTL("It won't have any effect."))
       return
     end
-    if Kernel.pbConfirmMessageSerious(_INTL("Should {1} be reversed?", pokemon.name))
+    if Kernel.pbConfirmMessage(_INTL("Should {1} be reversed?", pokemon.name))
       reverseFusion(pokemon)
       $PokemonBag.pbDeleteItem(:DNAREVERSER) if $PokemonBag.pbQuantity(:INFINITEREVERSERS) <= 0
     end
@@ -184,7 +185,7 @@ class PokemonStorageScreen
       item = selectSplicer()
       return if item == nil
       isSuperSplicer = isSuperSplicer?(item)
-      if pbUnfuse(pokemon, @scene, isSuperSplicer, selected)
+      if pbUnfuse(pokemon, @scene, nil, selected)
         if canDeleteItem(item)
           $PokemonBag.pbDeleteItem(item)
         end

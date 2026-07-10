@@ -40,7 +40,6 @@ class SecretBaseImporter
         trainer_data: import_trainer_from_json(trainer_data),
         base_message: base_data[:base_message],
       )
-      echoln base.layout
       visitor_bases << base
       #base.dump_info
       rescue Exception => e
@@ -64,11 +63,9 @@ class SecretBaseImporter
       direction = item_data[:direction]
       item_instance = SecretBaseItemInstance.new(id,position,direction)
 
-      echoln item_instance.direction
       items << item_instance
     end
 
-    echoln items
     layout.items = items
     return layout
   end
@@ -82,44 +79,7 @@ class SecretBaseImporter
       app[:hat2], app[:hat2_color]
     )
 
-    team = trainer_json[:team].map do |poke_json|
-      pokemon = Pokemon.new(poke_json[:species], poke_json[:level])
-      pokemon.name     = poke_json[:name]
-      pokemon.item     = poke_json[:item]
-      pokemon.ability  = poke_json[:ability]
-      pokemon.nature   = poke_json[:nature]
-      pokemon.moves    = poke_json[:moves]
-
-      if poke_json[:ivs]
-        poke_json[:ivs].each do |stat, value|
-          case stat.to_s.downcase
-          when "hp"   then pokemon.iv[:HP] = value
-          when "atk"  then pokemon.iv[:ATTACK] = value
-          when "def"  then pokemon.iv[:DEFENSE] = value
-          when "spe"  then pokemon.iv[:SPEED] = value
-          when "spa"  then pokemon.iv[:SPECIAL_ATTACK] = value
-          when "spd"  then pokemon.iv[:SPECIAL_DEFENSE] = value
-          end
-        end
-      end
-
-      if poke_json[:evs]
-        poke_json[:evs].each do |stat, value|
-          case stat.to_s.downcase
-          when "hp"   then pokemon.ev[:HP] = value
-          when "atk"  then pokemon.ev[:ATTACK] = value
-          when "def"  then pokemon.ev[:DEFENSE] = value
-          when "spe"  then pokemon.ev[:SPEED] = value
-          when "spa"  then pokemon.ev[:SPECIAL_ATTACK] = value
-          when "spd"  then pokemon.ev[:SPECIAL_DEFENSE] = value
-          end
-        end
-      end
-
-      pokemon.calc_stats
-      pokemon
-    end
-
+    team = trainer_json[:team].map { |poke_json| import_pokemon_from_json(poke_json) }
     SecretBaseTrainer.new(
       trainer_json[:name],
       trainer_json[:nb_badges],
@@ -127,6 +87,64 @@ class SecretBaseImporter
       trainer_appearance,
       team
     )
+  end
+
+  def import_pokemon_from_json(poke_json)
+    pokemon = Pokemon.new(poke_json[:species], poke_json[:level])
+    pokemon.name     = poke_json[:name]
+    pokemon.item     = poke_json[:item]
+    pokemon.ability  = poke_json[:ability]
+    pokemon.nature   = poke_json[:nature]
+    pokemon.ot = poke_json[:owner] if poke_json[:owner]
+    pokemon.hat = poke_json[:hat]
+    pokemon.hat_x = poke_json[:hat_x]
+    pokemon.hat_y = poke_json[:hat_y]
+    pokemon.steps_to_hatch = poke_json[:steps_to_hatch] || 0
+    pokemon.poke_ball = poke_json[:ball]
+    if poke_json[:alt_sprite] && poke_json[:alt_sprite] != ""
+      if pokemon.isFusion?
+        pokemon.pif_sprite = PIFSprite.new(:CUSTOM, pokemon.get_head_num,pokemon.get_body_num,poke_json[:alt_sprite])
+      else
+        pokemon.pif_sprite = PIFSprite.new(:BASE, pokemon.id_number,nil,poke_json[:alt_sprite])
+      end
+    end
+    moves = poke_json[:moves]
+    pokemon_moves = []
+    moves.each do |move_id|
+      move = Pokemon::Move.new(move_id)
+      pokemon_moves << Pokemon::Move.new(move_id)
+      pokemon.add_learned_move(move)
+    end
+    pokemon.moves    = pokemon_moves
+
+    if poke_json[:ivs]
+      poke_json[:ivs].each do |stat, value|
+        case stat.to_s.downcase
+        when "hp"   then pokemon.iv[:HP] = value
+        when "atk"  then pokemon.iv[:ATTACK] = value
+        when "def"  then pokemon.iv[:DEFENSE] = value
+        when "spe"  then pokemon.iv[:SPEED] = value
+        when "spa"  then pokemon.iv[:SPECIAL_ATTACK] = value
+        when "spd"  then pokemon.iv[:SPECIAL_DEFENSE] = value
+        end
+      end
+    end
+
+    if poke_json[:evs]
+      poke_json[:evs].each do |stat, value|
+        case stat.to_s.downcase
+        when "hp"   then pokemon.ev[:HP] = value
+        when "atk"  then pokemon.ev[:ATTACK] = value
+        when "def"  then pokemon.ev[:DEFENSE] = value
+        when "spe"  then pokemon.ev[:SPEED] = value
+        when "spa"  then pokemon.ev[:SPECIAL_ATTACK] = value
+        when "spd"  then pokemon.ev[:SPECIAL_DEFENSE] = value
+        end
+      end
+    end
+
+    pokemon.calc_stats
+    pokemon
   end
 
   private

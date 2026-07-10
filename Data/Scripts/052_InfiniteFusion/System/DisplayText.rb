@@ -1,4 +1,9 @@
-def Kernel.pbDisplayText(message,xposition,yposition,z=nil, baseColor=nil, shadowColor=nil)
+
+#alignment
+# 1: right
+# 2 : centered
+# 3 : left
+def Kernel.pbDisplayText(message,xposition,yposition,z=nil, baseColor=nil, shadowColor=nil,alignment=2)
   if @hud==nil
     @hud = []
   end
@@ -8,12 +13,14 @@ def Kernel.pbDisplayText(message,xposition,yposition,z=nil, baseColor=nil, shado
     sprite = BitmapSprite.new(Graphics.width,Graphics.height,@viewport1)
     if z != nil
       sprite.z=z
+    else
+      sprite.z = 999999
     end
     @hud.push(sprite)
 
   text1=_INTL(message)
     textPosition=[
-      [text1,xposition,yposition,2,baseColor,shadowColor],
+      [text1,xposition,yposition,alignment,baseColor,shadowColor],
     ]
     pbSetSystemFont(@hud[-1].bitmap)
     pbDrawTextPositions(@hud[0].bitmap,textPosition)

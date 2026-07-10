@@ -6,6 +6,7 @@ class PokemonTrainerCard_Scene
     pbUpdateSpriteHash(@sprites)
   end
 
+  TOTAL_PAGES = 2
   def pbStartScene
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     @viewport.z = 99999
@@ -25,6 +26,7 @@ class PokemonTrainerCard_Scene
     @sprites["trainer"].x -= (@sprites["trainer"].bitmap.width - 128) / 2
     @sprites["trainer"].y -= (@sprites["trainer"].bitmap.height - 128)
     @sprites["trainer"].z = 2
+    @page = 0
     pbDrawTrainerCardFront
     pbFadeInAndShow(@sprites) { pbUpdate }
   end
@@ -40,14 +42,14 @@ class PokemonTrainerCard_Scene
     else
       @sprites["card"].setBitmap("Graphics/Pictures/Trainer Card/card")
     end
-    @sprites["card"].z=-100
+    @sprites["card"].z = -100
   end
 
   def trainerCardActions
     cmd_swapBackground = _INTL("Swap background")
     cmd_copyTrainerID = _INTL("Copy Trainer ID")
     cmd_cancel = _INTL("Cancel")
-    commands = [cmd_swapBackground, cmd_copyTrainerID,cmd_cancel]
+    commands = [cmd_swapBackground, cmd_copyTrainerID, cmd_cancel]
     choice = optionsMenu(commands)
     case commands[choice]
     when cmd_swapBackground
@@ -71,7 +73,7 @@ class PokemonTrainerCard_Scene
         end
       end
     else
-      pbMessage("You can purchase new Trainer Card backgrounds at PokéMarts!")
+      pbMessage(_INTL("You can purchase new Trainer Card backgrounds at Poké Marts!"))
     end
   end
 
@@ -86,21 +88,31 @@ class PokemonTrainerCard_Scene
     time = (hour > 0) ? _INTL("{1}h {2}m", hour, min) : _INTL("{1}m", min)
     $PokemonGlobal.startTime = pbGetTimeNow if !$PokemonGlobal.startTime
     starttime = "#{pbGetAbbrevMonthName($PokemonGlobal.startTime.mon)} #{$PokemonGlobal.startTime.day}, #{$PokemonGlobal.startTime.year}"
-    textPositions = [
-      [_INTL("Name"), 34, 58, 0, baseColor, shadowColor],
-      [$Trainer.name, 302, 58, 1, baseColor, shadowColor],
-      [_INTL("Trainer ID"), 352, 28, 0, baseColor, shadowColor],  #      [_INTL("ID"), 332, 58, 0, baseColor, shadowColor],
-      [sprintf("%05d", $Trainer.id), 462, 58, 1, baseColor, shadowColor], #      [sprintf("%05d", $Trainer.id), 468, 58, 1, baseColor, shadowColor],
+    textPositions = []
+    textPositions << [_INTL("Name"), 34, 58, 0, baseColor, shadowColor]
+    textPositions << [$Trainer.name, 302, 58, 1, baseColor, shadowColor]
+    textPositions << [_INTL("Trainer ID"), 352, 28, 0, baseColor, shadowColor] #      [_INTL("ID"), 332, 58, 0, baseColor, shadowColor],
+    textPositions << [sprintf("%05d", $Trainer.id), 462, 58, 1, baseColor, shadowColor] #      [sprintf("%05d", $Trainer.id), 468, 58, 1, baseColor, shadowColor],
 
-      [_INTL("Money"), 34, 106, 0, baseColor, shadowColor],
-      [_INTL("${1}", $Trainer.money.to_s_formatted), 302, 106, 1, baseColor, shadowColor],
-      [_INTL("Pokédex"), 34, 154, 0, baseColor, shadowColor],
-      [sprintf("%d/%d", $Trainer.pokedex.owned_count, $Trainer.pokedex.seen_count), 302, 154, 1, baseColor, shadowColor],
-      [_INTL("Time"), 34, 202, 0, baseColor, shadowColor],
-      [time, 302, 202, 1, baseColor, shadowColor],
-      [_INTL("Started"), 34, 250, 0, baseColor, shadowColor],
-      [starttime, 302, 250, 1, baseColor, shadowColor]
-    ]
+    if @page == 0
+      textPositions << [_INTL("Money"), 34, 106, 0, baseColor, shadowColor]
+      textPositions << [_INTL("${1}", $Trainer.money.to_s_formatted), 302, 106, 1, baseColor, shadowColor]
+      textPositions << [_INTL("Pokédex"), 34, 154, 0, baseColor, shadowColor]
+      textPositions << [sprintf("%d/%d", $Trainer.pokedex.owned_count, $Trainer.pokedex.seen_count), 302, 154, 1, baseColor, shadowColor]
+    elsif @page == 1
+      $Trainer.cosmetics_money = 0 unless $Trainer.cosmetics_money
+      textPositions << [_INTL("Glimmer Coins"), 34, 106, 0, baseColor, shadowColor]
+      textPositions << [_INTL("{1}", $Trainer.cosmetics_money.to_s_formatted), 302, 106, 1, baseColor, shadowColor]
+      textPositions << [_INTL("Clothes / Hats"), 34, 154, 0, baseColor, shadowColor]
+      textPositions << [sprintf("%d/%d", $Trainer.unlocked_clothes.length, $Trainer.unlocked_hats.length), 302, 154, 1, baseColor, shadowColor]
+    end
+
+
+    textPositions << [_INTL("Time"), 34, 202, 0, baseColor, shadowColor]
+    textPositions << [time, 302, 202, 1, baseColor, shadowColor]
+    textPositions << [_INTL("Started"), 34, 250, 0, baseColor, shadowColor]
+    textPositions << [starttime, 302, 250, 1, baseColor, shadowColor]
+
     pbDrawTextPositions(overlay, textPositions)
     x = 72
     imagePositions = []
@@ -141,8 +153,14 @@ class PokemonTrainerCard_Scene
       Graphics.update
       Input.update
       pbUpdate
+      if Input.trigger?(Input::LEFT) || Input.trigger?(Input::RIGHT) && Settings::HOENN
+        pbSEPlay("GUI party switch")
+        @page = (@page + 1) % TOTAL_PAGES
+        pbDrawTrainerCardFront
+      end
       if Input.trigger?(Input::USE)
         trainerCardActions()
+        pbDrawTrainerCardFront
       end
       if Input.trigger?(Input::BACK)
         pbPlayCloseMenuSE

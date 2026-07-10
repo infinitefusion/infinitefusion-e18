@@ -1,3 +1,5 @@
+#TODO: Do not autoformat this file
+
 #==============================================================================
 # ** Game_System
 #------------------------------------------------------------------------------
@@ -20,7 +22,7 @@ class Game_System
   attr_accessor :autoscroll_x_speed
   attr_accessor :autoscroll_y_speed
   attr_accessor :bgm_position
-
+  attr_reader :defaultBGM
   def initialize
     @map_interpreter    = Interpreter.new(0, true)
     @battle_interpreter = Interpreter.new(0, false)
@@ -42,10 +44,13 @@ class Game_System
 ################################################################################
 
   def bgm_play(bgm)
+    begin
     old_pos = @bgm_position
     @bgm_position = 0
     bgm_play_internal(bgm,0)
     @bgm_position = old_pos
+    rescue
+    end
   end
 
   def bgm_play_internal2(name,volume,pitch,position) # :nodoc:
@@ -62,7 +67,7 @@ class Game_System
   def bgm_play_internal(bgm,position) # :nodoc:
     @bgm_position = position if !@bgm_paused
     @playing_bgm = (bgm==nil) ? nil : bgm.clone
-    if bgm!=nil && bgm.name!=""
+    if (bgm!=nil && bgm.name!="")
       if FileTest.audio_exist?("Audio/BGM/"+bgm.name)
         bgm_play_internal2("Audio/BGM/"+bgm.name,
            bgm.volume,bgm.pitch,@bgm_position) if !@defaultBGM
@@ -122,6 +127,7 @@ class Game_System
 
   # Plays the currently memorized background music
   def bgm_restore
+    echoln @memorized_bgm
     bgm_play(@memorized_bgm)
   end
 
@@ -131,7 +137,9 @@ class Game_System
   end
 
   def setDefaultBGM(bgm,volume=80,pitch=100)
-    bgm = RPG::AudioFile.new(bgm,volume,pitch) if bgm.is_a?(String)
+
+    #@defaultBGM = bgm.clone
+    bgm = RPG::AudioFile.new(bgm) if bgm.is_a?(String)
     if bgm!=nil && bgm.name!=""
       @defaultBGM = nil
       self.bgm_play(bgm)

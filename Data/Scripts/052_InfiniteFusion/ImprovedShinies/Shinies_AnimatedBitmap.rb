@@ -4,6 +4,7 @@ class AnimatedBitmap
     @bitmap.bitmap.hue_customcolor(rules)
   end
 
+  SHINY_BASE_FOLDER = "Graphics/Battlers/Shiny/"
   def shiftAllColors(dex_number, bodyShiny, headShiny)
     # pratically the same as hue_changecolors but for the animated bitmap
     if isFusion(dex_number)
@@ -28,7 +29,10 @@ class AnimatedBitmap
       return
     end
     offset = offsets.compact.max_by { |o| o.keys.count }
-    return unless offset
+    if !offset
+      shiftColors(GameData::Species.calculateShinyHueOffset(dex_number, bodyShiny, headShiny))
+      return
+    end
     onetime = true
     offset.keys.each do |version|
       value = offset&.dig(version)
@@ -36,6 +40,7 @@ class AnimatedBitmap
       if value.is_a?(String) && onetime
         onetime = false
         shiftCustomColors(GameData::Species.calculateCustomShinyHueOffset(dex_number, bodyShiny, headShiny))
+        Dir.mkdir(shiny_directory) unless Dir.exist?(shiny_directory)
         Dir.mkdir(shiny_directory) unless Dir.exist?(shiny_directory)
         @bitmap.bitmap.save_to_png(shiny_file_path)
       elsif !value.is_a?(String)

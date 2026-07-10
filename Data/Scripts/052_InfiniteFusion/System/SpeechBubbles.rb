@@ -28,6 +28,9 @@ class PokemonTemp
   attr_accessor :speechbubble_talking
   attr_accessor :speechbubble_alwaysDown
   attr_accessor :speechbubble_alwaysUp
+
+  attr_accessor :windowSkin
+
 end
 
 module MessageConfig
@@ -91,13 +94,13 @@ def pbRepositionMessageWindow(msgwindow, linecount=2)
         msgwindow.setSkin("Graphics/windowskins/frlgtextskin")
         msgwindow.height = 102
         msgwindow.width = Graphics.width
-        if ($game_player.direction==8 && !$PokemonTemp.speechbubble_alwaysDown) || $PokemonTemp.speechbubble_alwaysUp
+        if ($game_player.direction==DIRECTION_UP && !$PokemonTemp.speechbubble_alwaysDown) || $PokemonTemp.speechbubble_alwaysUp
           $PokemonTemp.speechbubble_vp = Viewport.new(0, 0, Graphics.width, 280)
           msgwindow.y = 6
         else
           $PokemonTemp.speechbubble_vp = Viewport.new(0, 6 + msgwindow.height, Graphics.width, 280)
           msgwindow.y = (Graphics.height - msgwindow.height) - 6
-          if $PokemonTemp.speechbubble_outofrange==true
+          if $PokemonTemp.speechbubble_outofrange==true && !$PokemonTemp.speechbubble_alwaysDown
             msgwindow.y = 6
           end
         end
@@ -168,6 +171,7 @@ def pbCreateMessageWindow(viewport=nil,skin=nil)
     arrow.zoom_y = 2
     end
   end
+  arrow.bitmap=nil if $PokemonTemp.speechbubble_outofrange && arrow
   $PokemonTemp.speechbubble_arrow = arrow
   msgwindow=Window_AdvancedTextPokemon.new("")
   if !viewport
@@ -204,14 +208,34 @@ def pbCallBubDown(status=0,value=0)
 end
 
 #always_down, always_up is not ideal but used everywhere in game so too late to change
-def pbCallBub(status=0,value=0,always_down=false, always_up=false)
+def pbCallBub(status=0, event_id=0, always_down=false, always_up=false)
   begin
-  $PokemonTemp.speechbubble_talking=get_character(value).id if status<3
-  $PokemonTemp.speechbubble_bubble=status
-  $PokemonTemp.speechbubble_alwaysDown=always_down
-  $PokemonTemp.speechbubble_alwaysUp=always_up
-
+    if status < 3
+      if event_id.is_a?(Integer)
+        char = $game_map.events[event_id]
+        $PokemonTemp.speechbubble_talking = char ? char.id : event_id
+      else
+        $PokemonTemp.speechbubble_talking = get_character(event_id).id
+      end
+    end
+    $PokemonTemp.speechbubble_bubble = status
+    $PokemonTemp.speechbubble_alwaysDown = always_down
+    $PokemonTemp.speechbubble_alwaysUp = always_up
   rescue
-    return #Let's not crash the game if error
+    return
   end
+end
+
+def setSign(type=:NORMAL)
+  case type
+  when :NORMAL
+    setWindowSkin("sign_normal")
+  when :WOOD
+    setWindowSkin("sign_wood")
+  when :WALL
+    setWindowSkin("sign_wall")
+  end
+end
+def setWindowSkin(skin)
+  $PokemonTemp.windowSkin=skin
 end

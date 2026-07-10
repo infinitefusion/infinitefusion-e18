@@ -6,6 +6,8 @@ class Pokemon
   attr_accessor :spriteform_body
   attr_accessor :spriteform_head
 
+  attr_accessor :preEvolved_pif_sprite #Used for cancelling evolution
+  attr_accessor :pif_sprite
   # @return [Symbol] this Pokémon's species
   attr_reader :species
   # If defined, this Pokémon's form will be this value even if a MultipleForms
@@ -17,6 +19,7 @@ class Pokemon
   attr_accessor :time_form_set
   # @return [Integer] the current experience points
   attr_reader :exp
+  attr_accessor :exp_gained_with_player
 
   attr_accessor :exp_when_fused_head
   attr_accessor :exp_when_fused_body
@@ -45,6 +48,14 @@ class Pokemon
   attr_accessor :body_shiny
   attr_accessor :debug_shiny
   attr_accessor :natural_shiny
+  attr_accessor :radar_shiny
+
+  attr_accessor :evolve_from_party  #Flag when evolution is cancelled on a pokemon. Won't auto-prompt evolution when it's true, but adds a new option in party menu to evolve.
+  #Fusions
+  # Copy of the original Pokemon object from before they were fused
+  attr_accessor :original_body
+  attr_accessor :original_head
+
 
   # The index of this Pokémon's ability (0, 1 are natural abilities, 2+ are
   # hidden abilities)as defined for its species/form. An ability may not be
@@ -56,6 +67,8 @@ class Pokemon
 
   # @return [Array<Pokemon::Move>] the moves known by this Pokémon
   attr_accessor :moves
+  attr_accessor :moves_hard
+  attr_accessor :moves_easy
 
   # @return [Array<Symbol>] All the move (ids) ever learned by this Pokémon
   attr_reader :learned_moves
@@ -114,6 +127,7 @@ class Pokemon
   attr_accessor :size_category #the size attribute for scaling the sprite (used only for gourgeist/pumpkaboo)
 
   attr_accessor :force_disobey
+  attr_accessor :ow_coordinates #used only for ow pokemon encounters, will be nil most of the time
 
   # Max total IVs
   IV_STAT_LIMIT = 31
@@ -128,6 +142,30 @@ class Pokemon
 
   S_CHANCE_VALIDATOR = 16
 
+  def export_to_json
+    exporter = SecretBaseExporter.new
+    hash = exporter.export_fused_pokemon_hash(self)
+
+    def deep_stringify(obj)
+      case obj
+      when Hash
+        obj.transform_keys(&:to_s).transform_values { |v| deep_stringify(v) }
+      when Array
+        obj.map { |v| deep_stringify(v) }
+      when Symbol
+        obj.to_s
+      when Pokemon::Owner
+        obj.name
+      else
+        obj
+      end
+    end
+
+    json = JSON.generate(deep_stringify(hash))
+    Input.clipboard = json
+    pbMessage(_INTL("The Pokémon's data was copied to the clipboard."))
+  end
+
   def print_all_attributes
     echoln("Spriteform Body: #{@spriteform_body}")
     echoln("Spriteform Head: #{@spriteform_head}")
@@ -135,12 +173,15 @@ class Pokemon
     echoln("Forced Form: #{@forced_form}")
     echoln("Time Form Set: #{@time_form_set}")
     echoln("Experience: #{@exp}")
+    echoln("EXP with player: #{@exp_gained_with_player}")
     echoln("EXP When Fused Head: #{@exp_when_fused_head}")
     echoln("EXP When Fused Body: #{@exp_when_fused_body}")
     echoln("EXP Gained Since Fused: #{@exp_gained_since_fused}")
     echoln("Hat: #{@hat}")
     echoln("Hat X: #{@hat_x}")
     echoln("Hat Y: #{@hat_y}")
+    @pif_sprite.dump_info if @pif_sprite
+
     echoln("Steps to Hatch: #{@steps_to_hatch}")
     echoln("HP: #{@hp}")
     echoln("Status: #{@status}")
@@ -150,6 +191,7 @@ class Pokemon
     echoln("Body Shiny: #{@body_shiny}")
     echoln("Debug Shiny: #{@debug_shiny}")
     echoln("Natural Shiny: #{@natural_shiny}")
+	echoln("Radar Shiny: #{@radar_shiny}")
 
     echoln("Calculated ability: #{@ability}")
     echoln("Abilities hash: #{getAbilityList()}")
@@ -187,6 +229,8 @@ class Pokemon
     echoln("Personal ID: #{@personalID}")
     echoln("Hidden Power Type: #{@hiddenPowerType}")
     echoln("Scale: #{sprite_scale}")
+
+    echoln("Egg groups: #{species_data.egg_groups}")
 
     # Add other attribute print statements here
   end
@@ -259,6 +303,29 @@ class Pokemon
       @species == GameData::Species.get(check_species).species)
   end
 
+  def get_body_species
+    return @species unless isFusion?
+    body_species = GameData::Species.get(@species)&.get_body_species
+    return GameData::Species.get(body_species)
+  end
+
+  def get_head_species
+    return @species unless isFusion?
+    head_species = GameData::Species.get(@species)&.get_head_species
+    return GameData::Species.get(head_species)
+  end
+
+  def get_body_num
+    return species_data.id_number unless isFusion?
+    body_species = GameData::Species.get(@species)&.get_body_species
+    return body_species.id_number
+  end
+
+  def get_head_num
+    return GameData::Species.get(@species).id_number unless isFusion?
+    head_species = GameData::Species.get(@species)&.get_head_species
+    return head_species.id_number
+  end
 
   def hasBodyOf?(check_species)
     if !self.isFusion?
@@ -300,7 +367,9 @@ class Pokemon
   def debugShiny?
     return !@natural_shiny || @debug_shiny
   end
-
+  def radarShiny?
+    return @radar_shiny
+  end
   def bodyShiny?
     return @body_shiny
   end
@@ -426,6 +495,10 @@ class Pokemon
     @level = value
   end
 
+  def calculate_level_at_exp(exp_value)
+    return growth_rate.level_from_exp(exp_value)
+  end
+
   # Sets this Pokémon's Exp. Points.
   # @param value [Integer] new experience points
   def exp=(value)
@@ -466,6 +539,7 @@ class Pokemon
   # Sets the Pokémon's health.
   # @param value [Integer] new HP value
   def hp=(value)
+    return if fainted? && $PokemonSystem.no_reviving
     @hp = value.clamp(0, @totalhp)
     heal_status if @hp == 0
     checkHPRelatedFormChange()
@@ -477,7 +551,7 @@ class Pokemon
     return if !able?
     new_status = GameData::Status.try_get(value)
     if !new_status
-      raise ArgumentError, _INTL('Attempted to set {1} as Pokémon status', value.class.name)
+      raise ArgumentError, _INTL("Attempted to set {1} as Pokémon status", value.class.name)
     end
     @status = new_status.id
   end
@@ -495,6 +569,7 @@ class Pokemon
   # Heals all HP of this Pokémon.
   def heal_HP
     return if egg?
+    return if fainted? && $PokemonSystem.no_reviving
     @hp = @totalhp
     checkHPRelatedFormChange()
   end
@@ -522,6 +597,7 @@ class Pokemon
   # Heals all HP, PP, and status problems of this Pokémon.
   def heal
     return if egg?
+    return if fainted? && $PokemonSystem.no_reviving
     heal_HP
     heal_status
     heal_PP
@@ -570,6 +646,13 @@ class Pokemon
   def hasType?(type)
     type = GameData::Type.get(type).id
     return self.types.include?(type)
+  end
+
+  def hasOneOfTheseTypes?(type_array)
+    type_array.each do |type|
+      return true if hasType?(type)
+    end
+    return false
   end
 
   def getHeldPlateType()
@@ -787,11 +870,23 @@ class Pokemon
 
   # @return [GameData::Item, nil] an Item object corresponding to this Pokémon's item
   def item
-    return GameData::Item.try_get(@item)
+    if @item
+      if GameData::Item.exists?(@item)
+        return GameData::Item.try_get(@item)
+      else
+        return GameData::Item.try_get(:UNKNOWN)
+      end
+    end
+    return nil
   end
 
   def item_id
-    return @item
+    return nil unless @item
+    if GameData::Item.exists?(@item)
+      return @item
+    else
+      return :UNKNOWN
+    end
   end
 
   # Gives an item to this Pokémon to hold.
@@ -830,7 +925,7 @@ class Pokemon
   # @param mail [Mail, nil] mail to be held by this Pokémon
   def mail=(mail)
     if !mail.nil? && !mail.is_a?(Mail)
-      raise ArgumentError, _INTL('Invalid value {1} given', mail.inspect)
+      raise ArgumentError, _INTL("Invalid value {1} given", mail.inspect)
     end
     @mail = mail
   end
@@ -1252,7 +1347,7 @@ class Pokemon
       _INTL("Evolve body!"),
       _INTL("Don't evolve")
     ]
-    choice = pbMessage(_INTL('Both halves of {1} are ready to evolve!', self.name), choices, 0)
+    choice = pbMessage(_INTL("\\f[{2}]Both halves of {1} are ready to evolve!", self.name,self.id_number), choices, 0)
     # if choice == 0  #EVOLVE BOTH
     #   newspecies = getFusionSpecies(body_evolution,head_evolution)
     if choice == 0 #EVOLVE HEAD
@@ -1280,7 +1375,7 @@ class Pokemon
       }
       if body_evolution && head_evolution
         return prompt_evolution_choice(body_evolution, head_evolution) if prompt_choice
-        return [body_evolution,head_evolution].sample
+        return [fusionOf(head,body_evolution),fusionOf(head_evolution,body)].sample
       end
     end
 
@@ -1382,6 +1477,12 @@ class Pokemon
     return ret
   end
 
+  def bst
+    bst = 0
+    baseStats.each_value { |s| bst += s }
+    return bst
+  end
+
   # Returns this Pokémon's effective IVs, taking into account Hyper Training.
   # Only used for calculating stats.
   # @return [Hash<Integer>] hash containing this Pokémon's effective IVs
@@ -1431,6 +1532,18 @@ class Pokemon
           changeFormSpecies(:MINIOR_C, :MINIOR_M)
         end
       end
+
+      if @species == :TRIPLE_CELESTIAL_M
+        if @hp <= (@totalhp / 2)
+          changeFormSpecies(:TRIPLE_CELESTIAL_M, :TRIPLE_CELESTIAL_C)
+        end
+      end
+      if @species == :TRIPLE_CELESTIAL_C
+        if @hp > (@totalhp / 2)
+          changeFormSpecies(:TRIPLE_CELESTIAL_C, :TRIPLE_CELESTIAL_M)
+        end
+      end
+
     end
   end
 
@@ -1440,7 +1553,7 @@ class Pokemon
       this_level = self.level
     this_IV = self.calcIV
 
-    if $game_switches[SWITCH_NO_LEVELS_MODE]
+    if $game_switches && $game_switches[SWITCH_NO_LEVELS_MODE]
       this_level = adjust_level_for_base_stats_mode()
     end
 
@@ -1543,10 +1656,8 @@ class Pokemon
     @gender = nil
     @shiny = nil
     @ability_index = nil
-    @ability2_index = nil
 
     @ability = nil
-    @ability2 = nil
 
     @nature = nil
     @nature_for_stats = nil
@@ -1581,6 +1692,8 @@ class Pokemon
       @owner = owner
     elsif owner.is_a?(Player) || owner.is_a?(NPCTrainer)
       @owner = Owner.new_from_trainer(owner)
+    elsif owner.is_a?(String)
+      @owner = Owner.new(0, owner, 2, 2)
     else
       @owner = Owner.new(0, '', 2, 2)
     end
@@ -1593,7 +1706,7 @@ class Pokemon
     @timeReceived = Time.new.to_i
     @timeEggHatched = nil
     @fused = nil
-    @personalID = rand(2 ** 16) | rand(2 ** 16) << 16
+    @personalID = generate_personal_id
     @hp = 1
     @totalhp = 1
     @spriteform_body = nil
@@ -1615,7 +1728,15 @@ class Pokemon
         reset_moves if withMoves
       end
     end
+    @ow_coordinates = nil
+    @sprite_letter = nil
+    @evolve_from_party = false
   end
+
+  def generate_personal_id
+    return rand(2 ** 16) | rand(2 ** 16) << 16
+  end
+
 
   def totalIv()
 

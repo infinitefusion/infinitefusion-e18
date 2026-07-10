@@ -11,7 +11,7 @@ def pbWarpToMapId
   params = ChooseNumberParams.new
   params.setRange(1,999) #pbMapTree().length)
   params.setDefaultValue($game_map.map_id)
-  map_id = pbMessageChooseNumber("map id?",params)
+  map_id = pbMessageChooseNumber(_INTL("map id?"),params)
   return [map_id,0,0]
 end
 
@@ -561,6 +561,8 @@ def pbExtractText
     return
   end
   pbMessageDisplay(msgwindow,_INTL("Please wait.\\wtnp[0]"))
+  pbSetTextMessages
+  MessageTypes.saveMessages
   MessageTypes.extract("intl.txt")
   pbMessageDisplay(msgwindow,_INTL("All text in the game was extracted and saved to intl.txt.\1"))
   pbMessageDisplay(msgwindow,_INTL("To localize the text for a particular language, translate every second line in the file.\1"))

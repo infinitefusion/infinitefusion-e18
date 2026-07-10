@@ -1,5 +1,9 @@
+#[TRADE, ITEM, PARTNER]
+# Max is 100 - put a value above that if a level should not be attainable
 class BattledTrainer
   FRIENDSHIP_LEVELS = {
+
+    #Normal trainers
     AROMALADY:      [10, 25, 45],
     BEAUTY:         [15, 30, 60],
     BIKER:          [20, 40, 80],
@@ -17,7 +21,7 @@ class BattledTrainer
     LADY:           [15, 30, 60],
     PAINTER:        [8, 22, 40],
     POKEMANIAC:     [18, 35, 70],
-    POKEMONBREEDER: [8, 18, 35],
+    POKEMONBREEDER_F: [8, 18, 35],
     PROFESSOR:      [10, 30, 60],
     ROCKER:         [15, 35, 70],
     RUINMANIAC:     [15, 35, 65],
@@ -49,6 +53,8 @@ class BattledTrainer
     CRUSHKIN:       [15, 35, 80],
     SISANDBRO:      [10, 25, 50],
     TWINS:          [10, 25, 50],
+    TWIN_1:          [10, 25, 50],
+    TWIN_2:          [10, 25, 50],
     YOUNGCOUPLE:    [15, 30, 65],
     SOCIALITE:      [12, 30, 70],
     BUGCATCHER_F:   [8, 20, 35],
@@ -80,6 +86,55 @@ class BattledTrainer
     TEAM_MAGMA_GRUNT_F:       [25, 60, 100],
     TEAM_MAGMAQUA_GRUNT_M:    [25, 60, 100],
     TEAM_MAGMAQUA_GRUNT_F:    [25, 60, 100],
+    POKEFAN_M:    [10, 22, 38],
+    POKEFAN_F:    [10, 22, 38],
+    SCHOOLMATE_SR:      [12, 25, 50],
+    SCHOOLMATE_JR:      [10, 22, 42],
+    POKEMONBREEDER_M:   [8, 18, 35],
+    STREETTHUG:         [22, 45, 85],
+    DELINQUENT:         [22, 45, 85],
+    BUGMANIAC:          [15, 30, 60],
+    EXPERT_M:           [25, 55, 100],
+    EXPERT_F:           [25, 55, 100],
+    COLLECTOR:          [25, 50, 90],
+    SURFER:             [12, 28, 55],
+    DIVER_M:            [12, 28, 55],
+    DIVER_F:            [12, 28, 55],
+    REPORTER:           [15, 30, 60],
+    CAMERAMAN:          [15, 30, 60],
+    NINJABOY:           [12, 25, 45],
+    DRAGONTAMER:        [22, 45, 95],
+    HEXMANIAC:          [15, 35, 70],
+    PARASOLLADY:        [12, 28, 55],
+    SECRETBASEEXPERT:   [15, 35, 75],
+    YOUNGCOUPLE_M:      [15, 30, 65],
+    YOUNGCOUPLE_F:      [15, 30, 65],
+    TRIATHLETE_BIKE_M:  [15, 35, 70],
+    TRIATHLETE_BIKE_F:  [15, 35, 70],
+    TRIATHLETE_SWIM_M:  [15, 35, 70],
+    TRIATHLETE_SWIM_F:  [15, 35, 70],
+    TRIATHLETE_RUN_M:   [15, 35, 70],
+    TRIATHLETE_RUN_F:   [15, 35, 70],
+
+
+    #story / bosses
+    LEADER_Roxanne:    [20, 40, 200],
+    LEADER_Brawly:    [20, 40, 200],
+    LEADER_Wattson:    [20, 40, 200],
+    LEADER_Flannery:    [20, 40, 200],
+    LEADER_Norman:    [5, 40, 200],
+    LEADER_Winona:    [20, 40, 200],
+    LEADER_Tate:    [20, 40, 200],
+    LEADER_Liza:    [20, 40, 200],
+    LEADER_Wallace:    [20, 40, 200],
+    LEADER_Juan:    [20, 40, 200],
+    ELITEFOUR_Sidney:    [30, 60, 200],
+    ELITEFOUR_Phoebe:    [30, 60, 200],
+    ELITEFOUR_Glacia:    [30, 60, 200],
+    ELITEFOUR_Drake:    [30, 60, 200],
+    CHAMPION_Steven:    [50, 70, 200],
+    TEAM_AQUA_BOSS:     [60, 200, 200],
+    TEAM_MAGMA_BOSS:    [60, 200, 200]
   }
 
 end

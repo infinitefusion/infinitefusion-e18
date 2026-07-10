@@ -10,8 +10,8 @@ class ClothesMartAdapter < OutfitsMartAdapter
     end
   end
 
-  def initialize(stock = nil, isShop = nil)
-    super
+  def initialize(stock = nil, isShop = nil, prices_override = {})
+    super(stock,isShop,false,prices_override)
   end
 
   def getName(item)
@@ -22,6 +22,7 @@ class ClothesMartAdapter < OutfitsMartAdapter
 
   def getDescription(item)
     return DEFAULT_DESCRIPTION if !item.description
+
     return item.description
   end
 

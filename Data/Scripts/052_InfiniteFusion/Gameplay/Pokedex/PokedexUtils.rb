@@ -51,12 +51,12 @@ class PokedexUtils
     return $game_temp.custom_sprites_list[sprite_id]
   end
 
-  def pbGetAvailableAlts(species, includeAutogens=false)
-    dex_number = getDexNumberForSpecies(species)
+  def pbGetAvailableAlts(dex_number, includeAutogens=false)
     if isFusion(dex_number)
       body_id = getBodyID(dex_number)
       head_id = getHeadID(dex_number,body_id)
       available_alts = getFusionSpriteAlts(head_id,body_id)
+      echoln available_alts
       available_alts = [] if !available_alts
       local_alts = getLocalFusionSpriteAlts(head_id,body_id)
     else

@@ -589,10 +589,10 @@ end
 
 def pbChooseLanguage
   commands=[]
-  for lang in Settings::LANGUAGES
+  for lang in Settings::LANGUAGES[Settings::GAME_ID]
     commands.push(lang[0])
   end
-  return pbShowCommands(nil,commands)
+  return pbShowCommands(nil, commands, 0, 0, nil, nil, MessageConfig::FONT_NAME_CHINESE)
 end
 
 def pbScreenCapture

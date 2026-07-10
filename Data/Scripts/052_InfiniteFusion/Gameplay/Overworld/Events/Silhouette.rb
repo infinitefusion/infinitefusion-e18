@@ -68,6 +68,7 @@ Events.onStepTaken += proc { |sender, e|
   spawnSilhouette()
 }
 Events.onMapChange += proc { |sender, e|
+  next unless Settings::KANTO
   next if $PokemonTemp.tempEvents.empty?
   $PokemonTemp.pbClearTempEvents()
 }
@@ -75,30 +76,7 @@ Events.onMapChange += proc { |sender, e|
 
 
 
-def getRandomPositionOnPerimeter(width, height, center_x, center_y, variance=0,edge=nil)
-  half_width = width / 2.0
-  half_height = height / 2.0
 
-  # Randomly select one of the four edges of the rectangle
-  edge = rand(4) if !edge
-
-  case edge
-  when 0 # Top edge
-    random_x = center_x + rand(-half_width..half_width)
-    random_y = center_y - half_height
-  when 1 # Bottom edge
-    random_x = center_x + rand(-half_width..half_width)
-    random_y = center_y + half_height
-  when 2 # Left edge
-    random_x = center_x - half_width
-    random_y = center_y + rand(-half_height..half_height)
-  when 3 # Right edge
-    random_x = center_x + half_width
-    random_y = center_y + rand(-half_height..half_height)
-  end
-
-  return random_x.round, random_y.round
-end
 
 # def launchSilhouetteCommonEvent(event)
 #   $scene.spriteset.addUserAnimation(VIRUS_ANIMATION_ID, event.x, event.y, true)

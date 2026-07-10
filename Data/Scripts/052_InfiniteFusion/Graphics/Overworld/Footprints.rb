@@ -45,6 +45,19 @@ module FootprintVariables
   # Delay velocity
   FOOT_DELAY = 1.1
 
+  CURVE_FRAMES = {
+    [DIRECTION_RIGHT, DIRECTION_DOWN]  => 4,
+    [DIRECTION_UP, DIRECTION_LEFT]  => 4,
+
+    [DIRECTION_RIGHT, DIRECTION_UP]  => 5,
+    [DIRECTION_DOWN,  DIRECTION_LEFT]  => 5,
+
+    [DIRECTION_UP,    DIRECTION_RIGHT] => 6,
+    [DIRECTION_LEFT,  DIRECTION_DOWN]  => 6,
+
+    [DIRECTION_DOWN,  DIRECTION_RIGHT] => 7,
+    [DIRECTION_LEFT,  DIRECTION_UP]    => 7,
+  }
   def self.get_new_id
     newId = 1
     while !$game_map.events[newId].nil? do
@@ -55,6 +68,7 @@ module FootprintVariables
   end
 
   def self.show(event, position)
+    return if $PokemonGlobal.boat
     if event != $game_player
       return if event.character_name == "" || event.character_name == "nil" || event.name.include?("/nofoot/")
       return if pbEventCommentInput(event, 0, "NoFoot")
@@ -66,13 +80,34 @@ module FootprintVariables
     character_sprites = $scene.spriteset.character_sprites
     viewport = $scene.spriteset.viewport1
     footsprites = $scene.spriteset.footsprites
+
+    on_bike           = (event == $game_player) && $PokemonGlobal.bicycle
+    last_fp           = footsprites.last
+    if last_fp
+      last_fp = nil if last_fp&.opacity <= 10
+    end
+
     nid = self.get_new_id
     rpgEvent = RPG::Event.new(position[0], position[1])
     rpgEvent.id = nid
     fev = Game_Event.new($game_map.map_id, rpgEvent, $game_map)
     eventsprite = Sprite_Character.new(viewport, fev)
     character_sprites.push(eventsprite)
-    footsprites.push(Footsprite.new(eventsprite, fev, viewport, $game_map, position[2], nid, character_sprites, (event == $game_player)))
+
+    if on_bike && last_fp && last_fp.direction != position[2]
+      curve_index = CURVE_FRAMES[[last_fp.direction, position[2]]]
+      if curve_index
+        footsprites.push(
+          Footsprite.new(eventsprite, fev, viewport, $game_map, position[2], nid,
+                         character_sprites, true, curve_index)
+        )
+      end
+    else
+      footsprites.push(
+        Footsprite.new(eventsprite, fev, viewport, $game_map, position[2], nid,
+                       character_sprites, (event == $game_player))
+      )
+    end
   end
 
 end
@@ -170,24 +205,30 @@ class Game_Character
 
   def triggerLeaveTile
     leave_tile_footprints
-    $scene.spriteset.putFootprint(self, get_last_pos) if foot_prints?
+    $scene&.spriteset&.putFootprint(self, get_last_pos) if foot_prints?
   end
 
 end
 
 class Footsprite
-  def initialize(sprite, event, viewport, map, direction, nid, chardata, player)
+  attr_reader :direction
+  attr_reader :opacity
+  def initialize(sprite, event, viewport, map, direction, nid, chardata, player, curve_frame = nil)
     @rsprite = sprite
-    # Sprite
     @sprite = Sprite.new(viewport)
     file = player && $PokemonGlobal.bicycle ? "footsetbike.png" : "footset.png"
     @sprite.bitmap = RPG::Cache.load_bitmap("Graphics/Pictures/", file)
-    # Set position
-    @realwidth = @sprite.bitmap.width / 4
+    frame_count = (player && $PokemonGlobal.bicycle) ? 8 : 4
+    @realwidth = @sprite.bitmap.width / frame_count
     @sprite.src_rect.width = @realwidth
     @opacity = FootprintVariables::FOOT_OPACITY
-    setFootset(direction)
-    # Values
+    @direction = direction
+    if curve_frame
+      @sprite.src_rect.x = @realwidth * curve_frame  # no longer + 4
+      @sprite.opacity = @opacity
+    else
+      setFootset(@direction)
+    end
     @map = map
     @event = event
     @disposed = false
@@ -200,10 +241,10 @@ class Footsprite
   def setFootset(direction)
     @sprite.src_rect.x =
       case direction
-      when 2 then 0 # Move down
-      when 4 then @realwidth * 3 # Move left
-      when 6 then @realwidth * 2 # Move right
-      when 8 then @realwidth # Move up
+      when DIRECTION_UP   then 0
+      when DIRECTION_DOWN then @realwidth
+      when DIRECTION_LEFT then @realwidth * 2
+      when DIRECTION_RIGHT then @realwidth * 3
       end
     @sprite.opacity = @opacity
   end

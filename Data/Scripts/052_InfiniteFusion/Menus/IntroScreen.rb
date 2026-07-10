@@ -17,8 +17,9 @@ class Scene_Intro
 
   def playIntroCinematic
     intro_frames_path = "Graphics\\Pictures\\Intro\\INTRO-%03d"
-    intro_bgm = "INTRO_music_cries"
-    intro_movie = Movie.new(intro_frames_path,intro_bgm,230,true)
+    intro_bgm = Settings::KANTO ? "INTRO_music_cries" : "intro_part1"
+    max_frames = Settings::KANTO ? 230 : 378
+    intro_movie = Movie.new(intro_frames_path,intro_bgm,max_frames,true)
     intro_movie.playInViewPort(@viewport)
   end
 
@@ -30,7 +31,16 @@ class Scene_Intro
 
     playIntroCinematic
     # Selects title screen style
-    @screen = GenOneStyle.new
+
+    unless File.exist?(Settings::CREDITS_FILE_PATH)
+      updateCreditsFile
+    end
+    if Settings::KANTO
+      @screen = GenOneStyle.new
+    end
+    if Settings::HOENN
+      @screen = HoennIntroScreen.new
+    end
     # Plays the title screen intro (is skippable)
     @screen.intro
     # Creates/updates the main title screen loop
@@ -151,7 +161,7 @@ class GenOneStyle
     @selector_pos = 0 #1: left, 0:right
 
     # sound file for playing the title screen BGM
-    bgm = "Pokemon Red-Blue Opening"
+    bgm = Settings::KANTO ? "Pokemon Red-Blue Opening" : "title_screen"
     @skip = false
     # speed of the effect movement
     @speed = 16
@@ -178,7 +188,10 @@ class GenOneStyle
     @sprites["bg"].x = -Graphics.width
 
     @sprites["logo"] = Sprite.new(@viewport)
-    @sprites["logo"].bitmap = pbBitmap("Graphics/Titles/PokemonInfiniteFusionLogo_Main_25")
+
+      @sprites["logo"].bitmap = pbBitmap("Graphics/Titles/PokemonInfiniteFusionLogo_Main_25") if Settings::KANTO
+      @sprites["logo"].bitmap = pbBitmap("Graphics/Titles/InfiniteFusionHoenn") if Settings::HOENN
+
     @sprites["logo"].tone = Tone.new(255, 255, 255, 255)
     @sprites["logo"].x = (Graphics.width/2)-125
     @sprites["logo"].y = 0
@@ -187,7 +200,7 @@ class GenOneStyle
     @sprites["logo"].z = 9999
 
     @sprites["logo_bg"] = Sprite.new(@viewport)
-    @sprites["logo_bg"].bitmap = pbBitmap("Graphics/Titles/PokemonInfiniteFusionLogo_Back_25")
+    @sprites["logo_bg"].bitmap = pbBitmap("Graphics/Titles/PokemonInfiniteFusionLogo_Back_25") if Settings::KANTO
     @sprites["logo_bg"].tone = Tone.new(255, 255, 255, 255)
     @sprites["logo_bg"].x = (Graphics.width/2)-125
     @sprites["logo_bg"].y = 0
@@ -228,7 +241,7 @@ class GenOneStyle
 
     @sprites["fpoke"] = Sprite.new(@viewport)
 
-    fusedPoke = @spriteLoader.load_pif_sprite(random_fusion)
+    fusedPoke = @spriteLoader.load_random_alt_for_pif_sprite(random_fusion)
     if fusedPoke
       @sprites["fpoke"].bitmap = fusedPoke.bitmap
     end
@@ -312,12 +325,16 @@ class GenOneStyle
 
   def showUIElements()
     @sprites["logo"].opacity = 255
-    @sprites["logo_bg"].opacity = 255
+    @sprites["logo_bg"].opacity = 255 if Settings::KANTO
     @sprites["poke2"].opacity = 255
     @sprites["2poke2"].opacity = 255
     @sprites["start"].opacity = 200
 
-    Kernel.pbDisplayText("v." + Settings::GAME_VERSION_NUMBER, 455, 5, 99999,pbColor(:WHITE),pbColor(:INVISIBLE))
+    begin
+      Kernel.pbDisplayText("v." + Settings::GAME_VERSION_NUMBER, 455, 5, 99999,pbColor(:WHITE),pbColor(:INVISIBLE))
+    rescue
+
+    end
   end
 
 
@@ -405,7 +422,7 @@ class GenOneStyle
       @sprites["2poke"].bitmap = @spriteLoader.load_base_sprite(random_fusion_head).bitmap
 
       wait(150)
-      fusedPoke = @spriteLoader.load_pif_sprite(random_fusion)
+      fusedPoke = @spriteLoader.load_random_alt_for_pif_sprite(random_fusion)
       if fusedPoke
         @sprites["fpoke"].bitmap = fusedPoke.bitmap
       end

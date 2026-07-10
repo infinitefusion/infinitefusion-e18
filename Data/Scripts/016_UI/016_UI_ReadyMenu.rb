@@ -13,11 +13,11 @@ class ReadyMenuButton < SpriteWrapper
     @selected = selected
     @side = side
     if @command[2]
-      @button = AnimatedBitmap.new("Graphics/Pictures/Ready Menu/icon_movebutton")
+      @cursor = AnimatedBitmap.new("Graphics/Pictures/Ready Menu/icon_movebutton")
     else
-      @button = AnimatedBitmap.new("Graphics/Pictures/Ready Menu/icon_itembutton")
+      @cursor = AnimatedBitmap.new("Graphics/Pictures/Ready Menu/icon_itembutton")
     end
-    @contents = BitmapWrapper.new(@button.width,@button.height/2)
+    @contents = BitmapWrapper.new(@cursor.width, @cursor.height/2)
     self.bitmap = @contents
     pbSetSystemFont(self.bitmap)
     if @command[2]
@@ -31,7 +31,7 @@ class ReadyMenuButton < SpriteWrapper
   end
 
   def dispose
-    @button.dispose
+    @cursor.dispose
     @contents.dispose
     @icon.dispose
     super
@@ -56,19 +56,19 @@ class ReadyMenuButton < SpriteWrapper
 
   def refresh
     sel = (@selected==@index && (@side==0)==@command[2])
-    self.y = (Graphics.height-@button.height/2)/2 - (@selected-@index)*(@button.height/2+4)
+    self.y = (Graphics.height-@cursor.height/2)/2 - (@selected-@index)*(@cursor.height/2+4)
     if @command[2]   # Pokémon
       self.x = (sel) ? 0 : -16
       @icon.x = self.x+52
       @icon.y = self.y+32
     else   # Item
-      self.x = (sel) ? Graphics.width-@button.width : Graphics.width+16-@button.width
+      self.x = (sel) ? Graphics.width-@cursor.width : Graphics.width+16-@cursor.width
       @icon.x = self.x+32
-      @icon.y = self.y+@button.height/4
+      @icon.y = self.y+@cursor.height/4
     end
     self.bitmap.clear
-    rect = Rect.new(0,(sel) ? @button.height/2 : 0,@button.width,@button.height/2)
-    self.bitmap.blt(0,0,@button.bitmap,rect)
+    rect = Rect.new(0, (sel) ? @cursor.height/2 : 0, @cursor.width, @cursor.height/2)
+    self.bitmap.blt(0, 0, @cursor.bitmap, rect)
     textx = (@command[2]) ? 164 : (GameData::Item.get(@command[0]).is_important?) ? 146 : 124
     textpos = [
        [@command[1],textx,16,2,Color.new(248,248,248),Color.new(40,40,40),1],
@@ -238,68 +238,70 @@ class PokemonReadyMenu
     @scene.pbShowMenu
   end
 
-  def pbStartReadyMenu(moves,items)
-    commands = [[],[]]   # Moves, items
-    for i in moves
-      commands[0].push([i[0], GameData::Move.get(i[0]).name, true, i[1]])
-    end
-    commands[0].sort! { |a,b| a[1]<=>b[1] }
-    for i in items
-      commands[1].push([i, GameData::Item.get(i).name, false])
-    end
-    commands[1].sort! { |a,b| a[1]<=>b[1] }
-    @scene.pbStartScene(commands)
-    loop do
-      command = @scene.pbShowCommands
-      break if command==-1
-      if command[0]==0   # Use a move
-        move = commands[0][command[1]][0]
-        user = $Trainer.party[commands[0][command[1]][3]]
-        if move == :FLY
-          ret = nil
-          pbFadeOutInWithUpdate(99999,@scene.sprites) {
-            pbHideMenu
-            scene = PokemonRegionMap_Scene.new(-1,false)
-            screen = PokemonRegionMapScreen.new(scene)
-            ret = screen.pbStartFlyScreen
-            pbShowMenu if !ret
-          }
-          if ret
-            $PokemonTemp.flydata = ret
-            $game_temp.in_menu = false
-            pbUseHiddenMove(user,move)
-            break
-          end
-        else
-          pbHideMenu
-          if pbConfirmUseHiddenMove(user,move)
-            $game_temp.in_menu = false
-            pbUseHiddenMove(user,move)
-            break
-          else
-            pbShowMenu
-          end
-        end
-      else   # Use an item
-        item = commands[1][command[1]][0]
-        pbHideMenu
-        if ItemHandlers.triggerConfirmUseInField(item)
-          $game_temp.in_menu = false
-          break if pbUseKeyItemInField(item)
-          $game_temp.in_menu = true
-        end
-      end
-      pbShowMenu
-    end
-    @scene.pbEndScene
-  end
+  #Overriden in BetterRegionMap.rb
+
+  # def pbStartReadyMenu(moves,items)
+  #   commands = [[],[]]   # Moves, items
+  #   for i in moves
+  #     commands[0].push([i[0], GameData::Move.get(i[0]).name, true, i[1]])
+  #   end
+  #   commands[0].sort! { |a,b| a[1]<=>b[1] }
+  #   for i in items
+  #     commands[1].push([i, GameData::Item.get(i).name, false])
+  #   end
+  #   commands[1].sort! { |a,b| a[1]<=>b[1] }
+  #   @scene.pbStartScene(commands)
+  #   loop do
+  #     command = @scene.pbShowCommands
+  #     break if command==-1
+  #     if command[0]==0   # Use a move
+  #       move = commands[0][command[1]][0]
+  #       user = $Trainer.party[commands[0][command[1]][3]]
+  #       if move == :FLY
+  #         ret = nil
+  #         pbFadeOutInWithUpdate(99999,@scene.sprites) {
+  #           pbHideMenu
+  #           scene = PokemonRegionMap_Scene.new(-1,false)
+  #           screen = PokemonRegionMapScreen.new(scene)
+  #           ret = screen.pbStartFlyScreen
+  #           pbShowMenu if !ret
+  #         }
+  #         if ret
+  #           $PokemonTemp.flydata = ret
+  #           $game_temp.in_menu = false
+  #           pbUseHiddenMove(user,move)
+  #           break
+  #         end
+  #       else
+  #         pbHideMenu
+  #         if pbConfirmUseHiddenMove(user,move)
+  #           $game_temp.in_menu = false
+  #           pbUseHiddenMove(user,move)
+  #           break
+  #         else
+  #           pbShowMenu
+  #         end
+  #       end
+  #     else   # Use an item
+  #       item = commands[1][command[1]][0]
+  #       pbHideMenu
+  #       if ItemHandlers.triggerConfirmUseInField(item)
+  #         $game_temp.in_menu = false
+  #         break if pbUseKeyItemInField(item)
+  #         $game_temp.in_menu = true
+  #       end
+  #     end
+  #     pbShowMenu
+  #   end
+  #   @scene.pbEndScene
+  # end
 end
 
 #===============================================================================
 # Using a registered item
 #===============================================================================
 def pbUseKeyItem
-  moves = [:CUT, :DEFOG, :DIG, :DIVE, :FLASH, :FLY, :HEADBUTT, :ROCKCLIMB,
+  moves = [:CUT, :DEFOG, :DIG, :DIVE, :FLASH, :FLY, :ROCKCLIMB,
            :ROCKSMASH, :SECRETPOWER, :STRENGTH, :SURF, :SWEETSCENT, :TELEPORT,
            :WATERFALL, :WHIRLPOOL, :BOUNCE, :SUNNYDAY, :RAINDANCE, :WHIRLWIND]
   real_moves = []
@@ -314,6 +316,7 @@ def pbUseKeyItem
     itm = GameData::Item.get(i).id
     real_items.push(itm) if $PokemonBag.pbHasItem?(itm)
   end
+  real_items << GameData::Item.get(:POKENAV) if $Trainer.has_pokegear
   if real_items.length == 0 && real_moves.length == 0
     pbMessage(_INTL("An item in the Bag can be registered to this key for instant use."))
   else

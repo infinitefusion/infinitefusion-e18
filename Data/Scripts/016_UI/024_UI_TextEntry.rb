@@ -5,15 +5,20 @@ class Window_CharacterEntry < Window_DrawableCommand
   XSIZE=13
   YSIZE=4
 
-  def initialize(charset,viewport=nil)
-    @viewport=viewport
-    @charset=charset
-    @othercharset=""
-    super(0,96,480,192)
-    colors=getDefaultTextColors(self.windowskin)
-    self.baseColor=colors[0]
-    self.shadowColor=colors[1]
-    self.columns=XSIZE
+  def initialize(charset, viewport=nil)
+    @viewport = viewport
+    @charset = charset
+    @othercharset = ""
+    super(0, 96, 480, 192)
+    colors = getDefaultTextColors(self.windowskin)
+    @text_color_base = colors[0]
+    @text_color_shadow = colors[1]
+    if isDarkMode
+      @text_color_base, @text_color_shadow = @text_color_shadow, @text_color_base
+    end
+    self.baseColor = @text_color_base
+    self.shadowColor = @text_color_shadow
+    self.columns = XSIZE
     refresh
   end
 
@@ -50,16 +55,16 @@ class Window_CharacterEntry < Window_DrawableCommand
     rect=drawCursor(index,rect)
     if index==@charset.length # -1
       pbDrawShadowText(self.contents,rect.x,rect.y,rect.width,rect.height,"[ ]",
-         self.baseColor,self.shadowColor)
+         @text_color_base,@text_color_shadow)
     elsif index==@charset.length+1 # -2
       pbDrawShadowText(self.contents,rect.x,rect.y,rect.width,rect.height,@othercharset,
-         self.baseColor,self.shadowColor)
+                       @text_color_base,@text_color_shadow)
     elsif index==@charset.length+2 # -3
       pbDrawShadowText(self.contents,rect.x,rect.y,rect.width,rect.height,_INTL("OK"),
-         self.baseColor,self.shadowColor)
+                       @text_color_base,@text_color_shadow)
     else
       pbDrawShadowText(self.contents,rect.x,rect.y,rect.width,rect.height,@charset[index],
-         self.baseColor,self.shadowColor)
+                       @text_color_base,@text_color_shadow)
     end
   end
 end
@@ -77,6 +82,13 @@ class PokemonEntryScene
   USEKEYBOARD=true
 
   def pbStartScene(helptext,minlength,maxlength,initialText,subject=0,pokemon=nil)
+    @text_color_base = Color.new(16, 24, 32)
+    @text_color_shadow = Color.new(168, 184, 184)
+
+    if isDarkMode
+      @text_color_base, @text_color_shadow = @text_color_shadow, @text_color_base
+    end
+
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
@@ -115,8 +127,8 @@ class PokemonEntryScene
     @sprites["helpwindow"].letterbyletter=false
     @sprites["helpwindow"].viewport=@viewport
     @sprites["helpwindow"].visible=USEKEYBOARD
-    @sprites["helpwindow"].baseColor=Color.new(16,24,32)
-    @sprites["helpwindow"].shadowColor=Color.new(168,184,184)
+    @sprites["helpwindow"].baseColor=@text_color_base
+    @sprites["helpwindow"].shadowColor=@text_color_shadow
     addBackgroundPlane(@sprites,"background","Naming/bg_2",@viewport)
     case subject
     when 1   # Player
@@ -374,6 +386,11 @@ class PokemonEntryScene2
 
 
   def pbStartScene(helptext,minlength,maxlength,initialText,subject=0,pokemon=nil)
+    @text_color_base = Color.new(16, 24, 32)
+    @text_color_shadow = Color.new(168, 184, 184)
+    if isDarkMode
+      @text_color_base, @text_color_shadow = @text_color_shadow, @text_color_base
+    end
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     @viewport.z = 99999
     @helptext = helptext
@@ -389,15 +406,15 @@ class PokemonEntryScene2
         for x in 0...ROWS
           pos = y * ROWS + x
           textPos.push([@@Characters[i][0][pos], 44 + x * 32, 12 + y * 38, 2,
-             Color.new(16, 24, 32), Color.new(160, 160, 160)])
+             @text_color_base,@text_color_shadow])
         end
       end
       pbDrawTextPositions(b, textPos)
       @bitmaps[@@Characters.length + i] = b
     end
     underline_bitmap = BitmapWrapper.new(24, 6)
-    underline_bitmap.fill_rect(2, 2, 22, 4, Color.new(168, 184, 184))
-    underline_bitmap.fill_rect(0, 0, 22, 4, Color.new(16, 24, 32))
+    underline_bitmap.fill_rect(2, 2, 22, 4, @text_color_shadow)
+    underline_bitmap.fill_rect(0, 0, 22, 4, @text_color_base)
     @bitmaps.push(underline_bitmap)
     # Create sprites
     @sprites = {}
@@ -491,6 +508,10 @@ class PokemonEntryScene2
     @cursorpos = 0
     @refreshOverlay = true
     @sprites["cursor"].setCursorPos(@cursorpos)
+
+
+
+
     pbFadeInAndShow(@sprites) { pbUpdate }
   end
 
@@ -512,12 +533,12 @@ class PokemonEntryScene2
     bgoverlay.clear
     pbSetSystemFont(bgoverlay)
     textPositions = [
-       [@helptext, 160, 6, false, Color.new(16, 24, 32), Color.new(168, 184, 184)]
+       [@helptext, 160, 6, false, @text_color_base, @text_color_shadow]
     ]
     chars = @helper.textChars
     x = 166
     for ch in chars
-      textPositions.push([ch, x, 42, false, Color.new(16, 24, 32), Color.new(168, 184, 184)])
+      textPositions.push([ch, x, 42, false, @text_color_base, @text_color_shadow])
       x += 24
     end
     pbDrawTextPositions(bgoverlay, textPositions)

@@ -288,8 +288,8 @@ def pbCellProperties(canvas)
   previewsprite.z=previewwin.z+1
   sliderwin2.z=previewwin.z+2
   set0=sliderwin2.addSlider(_INTL("Pattern:"),-2,1000,cel[AnimFrame::PATTERN])
-  set1=sliderwin2.addSlider(_INTL("X:"),-64,512+64,cel[AnimFrame::X])
-  set2=sliderwin2.addSlider(_INTL("Y:"),-64,384+64,cel[AnimFrame::Y])
+  set1=sliderwin2.addSlider("X:",-64,512+64,cel[AnimFrame::X])
+  set2=sliderwin2.addSlider("Y:",-64,384+64,cel[AnimFrame::Y])
   set3=sliderwin2.addSlider(_INTL("Zoom X:"),5,1000,cel[AnimFrame::ZOOMX])
   set4=sliderwin2.addSlider(_INTL("Zoom Y:"),5,1000,cel[AnimFrame::ZOOMY])
   set5=sliderwin2.addSlider(_INTL("Angle:"),0,359,cel[AnimFrame::ANGLE])
@@ -511,7 +511,7 @@ end
 
 def pbSelectSE(canvas,audio)
   filename=(audio.name!="") ? audio.name : ""
-  displayname=(filename!="") ? filename : _INTL("<user's cry>")
+  displayname=(filename!="") ? filename : "<user's cry>"
   animfiles=[]
   ret=false
   pbRgssChdir(File.join("Audio", "SE", "Anim")) {
@@ -521,7 +521,7 @@ def pbSelectSE(canvas,audio)
      animfiles.concat(Dir.glob("*.wma"))
   }
   animfiles.sort! { |a,b| a.upcase<=>b.upcase }
-  animfiles=[_INTL("[Play user's cry]")]+animfiles
+  animfiles=["[Play user's cry]"]+animfiles
   cmdwin=pbListWindow(animfiles,320)
   cmdwin.height=480
   cmdwin.opacity=200
@@ -594,8 +594,8 @@ def pbSelectBG(canvas,timing)
   cmdwin.viewport=canvas.viewport
   maxsizewindow=ControlWindow.new(320,0,320,32*11)
   maxsizewindow.addLabel(_INTL("File: \"{1}\"",filename))
-  maxsizewindow.addSlider(_INTL("X:"),-500,500,timing.bgX || 0)
-  maxsizewindow.addSlider(_INTL("Y:"),-500,500,timing.bgY || 0)
+  maxsizewindow.addSlider("X:",-500,500,timing.bgX || 0)
+  maxsizewindow.addSlider("Y:",-500,500,timing.bgY || 0)
   maxsizewindow.addSlider(_INTL("Opacity:"),0,255,timing.opacity || 0)
   maxsizewindow.addSlider(_INTL("Red:"),0,255,timing.colorRed || 0)
   maxsizewindow.addSlider(_INTL("Green:"),0,255,timing.colorGreen || 0)
@@ -641,8 +641,8 @@ def pbEditBG(canvas,timing)
   ret=false
   maxsizewindow=ControlWindow.new(0,0,320,32*11)
   maxsizewindow.addSlider(_INTL("Duration:"),0,50,timing.duration)
-  maxsizewindow.addOptionalSlider(_INTL("X:"),-500,500,timing.bgX || 0)
-  maxsizewindow.addOptionalSlider(_INTL("Y:"),-500,500,timing.bgY || 0)
+  maxsizewindow.addOptionalSlider("X:",-500,500,timing.bgX || 0)
+  maxsizewindow.addOptionalSlider("Y:",-500,500,timing.bgY || 0)
   maxsizewindow.addOptionalSlider(_INTL("Opacity:"),0,255,timing.opacity || 0)
   maxsizewindow.addOptionalSlider(_INTL("Red:"),0,255,timing.colorRed || 0)
   maxsizewindow.addOptionalSlider(_INTL("Green:"),0,255,timing.colorGreen || 0)
@@ -860,8 +860,8 @@ def pbCellBatch(canvas)
   sliderwin2.viewport=canvas.viewport
   sliderwin2.opacity=200
   set0=sliderwin2.addOptionalSlider(_INTL("Pattern:"),-2,1000,0)
-  set1=sliderwin2.addOptionalSlider(_INTL("X:"),-64,512+64,0)
-  set2=sliderwin2.addOptionalSlider(_INTL("Y:"),-64,384+64,0)
+  set1=sliderwin2.addOptionalSlider("X:",-64,512+64,0)
+  set2=sliderwin2.addOptionalSlider("Y:",-64,384+64,0)
   set3=sliderwin2.addOptionalSlider(_INTL("Zoom X:"),5,1000,100)
   set4=sliderwin2.addOptionalSlider(_INTL("Zoom Y:"),5,1000,100)
   set5=sliderwin2.addOptionalSlider(_INTL("Angle:"),0,359,0)

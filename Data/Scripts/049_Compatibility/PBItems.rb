@@ -657,6 +657,6 @@ module PBItems
   INFINITESPLICERS = 645
 
   def PBItems.getName(item)
-    return GameData::Item.get(item).real_name
+    return GameData::Item.get(item).name
   end
 end

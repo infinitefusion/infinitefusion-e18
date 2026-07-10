@@ -1,4 +1,3 @@
-
 #==============================================================================#
 #                         Better Fast-forward Mode                             #
 #                                   v1.0                                       #
@@ -28,8 +27,7 @@ PluginManager.register({
                        })
 
 # When the user clicks F, it'll pick the next number in this array.
-SPEEDUP_STAGES = [1,2,3]
-
+SPEEDUP_STAGES = [1, 2, 3]
 
 def pbAllowSpeedup
   $CanToggle = true
@@ -50,7 +48,11 @@ module Graphics
   end
 
   def self.update
-    if $CanToggle && Input.trigger?(Input::AUX1)
+    # if $DEBUG && Input.trigger?(Input::AUX1)
+    #   spawn_random_overworld_pokemon_group
+    # end
+
+    if $CanToggle && Input.trigger?(Input::X)
       $GameSpeed += 1
       $GameSpeed = 0 if $GameSpeed >= SPEEDUP_STAGES.size
     end
@@ -59,13 +61,44 @@ module Graphics
       speedStage = SPEEDUP_STAGES[$GameSpeed]
     else
       speedStage = 1
-      if Input.press?(Input::AUX1) && $CanToggle
-        $PokemonSystem.speedup_speed = Settings::DEFAULT_SPEED_UP_SPEED if !$PokemonSystem.speedup_speed || $PokemonSystem.speedup_speed==0
-        speedStage=$PokemonSystem.speedup_speed+1
+      if Input.press?(Input::X) && $CanToggle
+        speedStage = self.get_speedup_speed + 1
       end
     end
     return unless $frame % speedStage == 0
     fast_forward_update
     $frame = 0
+  end
+
+  #TODO: For compatibility with set controls screen
+  # def self.update
+  #   if $CanToggle && Input.trigger?(Input::AUX3)
+  #     $GameSpeed += 1
+  #     $GameSpeed = 0 if $GameSpeed >= SPEEDUP_STAGES.size
+  #   end
+  #   $frame += 1
+  #   if $PokemonSystem && $PokemonSystem.speedup == 1
+  #     speedStage = SPEEDUP_STAGES[$GameSpeed]
+  #   else
+  #     speedStage = 1
+  #     if Input.press?(Input::AUX3) && $CanToggle
+  #       speedStage = self.get_speedup_speed + 1
+  #     end
+  #   end
+  #   return unless $frame % speedStage == 0
+  #   fast_forward_update
+  #   $frame = 0
+  # end
+
+
+  def self.get_speedup_speed
+    $PokemonSystem.speedup_speed = Settings::DEFAULT_SPEED_UP_SPEED if !$PokemonSystem.speedup_speed || $PokemonSystem.speedup_speed == 0
+    $PokemonSystem.speedup_speed_battles = Settings::DEFAULT_SPEED_UP_SPEED if !$PokemonSystem.speedup_speed_battles || $PokemonSystem.speedup_speed_battles == 0
+
+    if $game_temp.in_battle
+      return $PokemonSystem.speedup_speed_battles
+    else
+      return $PokemonSystem.speedup_speed
+    end
   end
 end

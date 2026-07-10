@@ -1,4 +1,4 @@
-def genericOutfitsShopMenu(stock = [], itemType = nil, versions = false, isShop=true, message=nil)
+def genericOutfitsShopMenu(stock = [], itemType = nil, versions = false, isShop=true, message=nil, price_overrides = {})
   commands = []
   commands[cmdBuy = commands.length] = _INTL("Buy")
   commands[cmdQuit = commands.length] = _INTL("Quit")
@@ -6,13 +6,13 @@ def genericOutfitsShopMenu(stock = [], itemType = nil, versions = false, isShop=
   cmd = pbMessage(message, commands, cmdQuit + 1)
   loop do
     if cmdBuy >= 0 && cmd == cmdBuy
-      adapter = getAdapter(itemType, stock, isShop)
+      adapter = getAdapter(itemType, stock, isShop,false,price_overrides)
       view = ClothesShopView.new()
       presenter = getPresenter(itemType, view, stock, adapter, versions)
       presenter.pbBuyScreen
       break
     else
-      pbMessage(_INTL("Please come again!"))
+      pbMessage(_INTL("Please come again!")) unless message
       break
     end
   end
@@ -29,14 +29,14 @@ def getPresenter(itemType, view, stock, adapter, versions)
   end
 end
 
-def getAdapter(itemType, stock, isShop, is_secondary=false)
+def getAdapter(itemType, stock, isShop, is_secondary=false, prices_override={})
   case itemType
   when :CLOTHES
-    return ClothesMartAdapter.new(stock, isShop)
+    return ClothesMartAdapter.new(stock, isShop,prices_override)
   when :HAT
-    return HatsMartAdapter.new(stock, isShop,is_secondary)
+    return HatsMartAdapter.new(stock, isShop,is_secondary,prices_override)
   when :HAIR
-    return HairMartAdapter.new(stock, isShop)
+    return HairMartAdapter.new(stock, isShop,prices_override)
   end
 end
 
@@ -60,7 +60,7 @@ def hatShop(outfits_list = [], free=false, customMessage=nil)
   genericOutfitsShopMenu(stock, :HAT,false,!free,customMessage)
 end
 
-def hairShop(outfits_list = [],free=false, customMessage=nil)
+def hairShop(outfits_list = [],free=false, customMessage=nil,price_overrides={})
   currentHair = getSimplifiedHairIdFromFullID($Trainer.hair)
   stock = [:SWAP_COLOR]
   #always add current hairstyle as first option (in case the player just wants to swap the color)
@@ -70,7 +70,19 @@ def hairShop(outfits_list = [],free=false, customMessage=nil)
     outfit = get_hair_by_id(outfit_id)
     stock << outfit if outfit
   }
-  genericOutfitsShopMenu(stock, :HAIR, true,!free,customMessage)
+
+  genericOutfitsShopMenu(stock, :HAIR, true,!free,customMessage, price_overrides)
+end
+
+def pokemonHairstylesShop()
+  hairShop([HAIR_EEVEE,HAIR_TORCHIC,
+            HAIR_MUDKIP, HAIR_MAWILE,
+            HAIR_ROSERADE_M,HAIR_ROSERADE_F,
+            HAIR_LYCANROC, HAIR_HAPPINY,
+            HAIR_GARDEVOIR, HAIR_LEAFEON,
+            HAIR_ORICORIO,HAIR_TYRANITAR,
+            HAIR_HOOH,HAIR_CRESSELIA,
+            HAIR_LATIAS,])
 end
 
 def switchHatsPosition()

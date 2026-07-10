@@ -430,32 +430,32 @@ class HallOfFame_Scene
 
 
   def getCurrentGameMode()
-    gameMode = "Classic mode"
+    gameMode = _INTL("Classic mode")
     if $game_switches[SWITCH_MODERN_MODE]
-      gameMode = "Remix mode"
+      gameMode = _INTL("Remix mode")
     end
     if $game_switches[SWITCH_EXPERT_MODE]
-      gameMode = "Expert mode"
+      gameMode = _INTL("Expert mode")
     end
     if $game_switches[SWITCH_SINGLE_POKEMON_MODE]
       pokemon_number = pbGet(VAR_SINGLE_POKEMON_MODE)
       if pokemon_number.is_a?(Integer) && pokemon_number > 0
         pokemon = GameData::Species.get(pokemon_number)
-        gameMode = pokemon.real_name + " mode"
+        gameMode = _INTL("{1} mode",pokemon.name)
       else
-        gameMode = "Debug mode"
+        gameMode = _INTL("Debug mode")
       end
     end
     if $game_switches[SWITCH_RANDOMIZED_AT_LEAST_ONCE]
-      gameMode = "Randomized mode"
+      gameMode = _INTL("Randomized mode")
     end
 
     if $game_switches[SWITCH_LEGENDARY_MODE]
-      gameMode = "Legendary mode"
+      gameMode = _INTL("Legendary mode")
     end
 
     if $game_switches[ENABLED_DEBUG_MODE_AT_LEAST_ONCE] || $DEBUG
-      gameMode = "Debug mode"
+      gameMode = _INTL("Debug mode")
     end
     return gameMode
   end

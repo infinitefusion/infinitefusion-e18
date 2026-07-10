@@ -249,7 +249,7 @@ class TriadScene
     commands    = []
     chosenCards = []
     for item in cardStorage
-      commands.push(_INTL("{1} x{2}", GameData::Species.get(item[0]).name, item[1]))
+      commands.push("#{GameData::Species.get(item[0]).name} x#{item[1]}")
     end
     command = Window_CommandPokemonEx.newWithSize(commands,0,0,Graphics.width/2,Graphics.height-64,@viewport)
     @sprites["helpwindow"].text = _INTL("Choose {1} cards to use for this duel.",@battle.maxCards)
@@ -283,7 +283,7 @@ class TriadScene
           @battle.pbAdd(cardStorage,item)
           commands = []
           for item in cardStorage
-            commands.push(_INTL("{1} x{2}", GameData::Species.get(item[0]).name, item[1]))
+            commands.push("#{GameData::Species.get(item[0]).name} x#{item[1]}")
           end
           command.commands = commands
           index = -1
@@ -305,7 +305,7 @@ class TriadScene
           @battle.pbSubtract(cardStorage,item[0])
           commands = []
           for item in cardStorage
-            commands.push(_INTL("{1} x{2}", GameData::Species.get(item[0]).name, item[1]))
+            commands.push("#{GameData::Species.get(item[0]).name} x#{item[1]}")
           end
           command.commands = commands
           command.index = commands.length-1 if command.index>=commands.length
@@ -567,7 +567,7 @@ class TriadScene
       oppscore    += @opponentCardIndexes.length
     end
     pbDrawTextPositions(bitmap,[
-       [_INTL("{1}-{2}",oppscore,playerscore),Graphics.width/2,-2,2,Color.new(248,248,248),Color.new(96,96,96)]
+       ["#{oppscore}-#{playerscore}",Graphics.width/2,-2,2,Color.new(248,248,248),Color.new(96,96,96)]
     ])
   end
 
@@ -1143,7 +1143,7 @@ def pbSellTriads
   for i in 0...$PokemonGlobal.triads.length
     item = $PokemonGlobal.triads[i]
     speciesname = GameData::Species.get(item[0]).name
-    commands.push(_INTL("{1} x{2}", speciesname, item[1]))
+    commands.push("#{speciesname} x#{item[1]}")
   end
   commands.push(_INTL("CANCEL"))
   if commands.length==1
@@ -1223,7 +1223,7 @@ def pbSellTriads
             for i in 0...$PokemonGlobal.triads.length
               item = $PokemonGlobal.triads[i]
               speciesname = GameData::Species.get(item[0]).name
-              commands.push(_INTL("{1} x{2}",speciesname,item[1]))
+              commands.push("#{speciesname} x#{item[1]}")
             end
             commands.push(_INTL("CANCEL"))
             cmdwindow.commands = commands
@@ -1247,7 +1247,7 @@ def pbTriadList
   for i in 0...$PokemonGlobal.triads.length
     item = $PokemonGlobal.triads[i]
     speciesname = GameData::Species.get(item[0]).name
-    commands.push(_INTL("{1} x{2}",speciesname,item[1]))
+    commands.push("#{speciesname} x#{item[1]}")
   end
   commands.push(_INTL("CANCEL"))
   if commands.length==1

@@ -4,7 +4,6 @@ class CharacterSelectionMenuView
   attr_accessor :sprites
   attr_accessor :textValues
 
-
   OPTIONS_START_Y = 66
   CURSOR_Y_MARGIN = 50
   CURSOR_X_MARGIN = 76
@@ -14,42 +13,37 @@ class CharacterSelectionMenuView
 
   OPTIONS_LABEL_X = 50
 
-
   OPTIONS_LABEL_WIDTH = 100
 
   OPTIONS_VALUE_X = 194
   SELECTOR_X = 120
-  SELECTOR_STAGGER_OFFSET=26
-
+  SELECTOR_STAGGER_OFFSET = 26
 
   ARROW_LEFT_X_POSITION = 75
   ARROW_RIGHT_X_POSITION = 275
-  ARROWS_Y_OFFSET = 10#20
+  ARROWS_Y_OFFSET = 10 # 20
 
   CONFIRM_X = 296
-  CONFIRM_Y= 322
+  CONFIRM_Y = 322
 
   STAGGER_OFFSET_1 = 26
   STAGGER_OFFSET_2 = 50
-
-
 
   def initialize
     @presenter = CharacterSelectMenuPresenter.new(self)
     @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     @sprites = {}
-    @textValues={}
-    @max_index=5
+    @textValues = {}
+    @max_index = 5
   end
 
   def init_graphics()
     @sprites["bg"] = IconSprite.new(@viewport)
     @sprites["bg"].setBitmap("Graphics/Pictures/trainer_application_form")
 
-
     @sprites["select"] = IconSprite.new(@viewport)
     @sprites["select"].setBitmap("Graphics/Pictures/cc_selection_box")
-    @sprites["select"].x = get_cursor_x_position(0)#OPTIONS_LABEL_X + OPTIONS_LABEL_WIDTH + CURSOR_X_MARGIN
+    @sprites["select"].x = get_cursor_x_position(0) # OPTIONS_LABEL_X + OPTIONS_LABEL_WIDTH + CURSOR_X_MARGIN
     @sprites["select"].y = OPTIONS_START_Y
     @sprites["select"].visible = true
 
@@ -59,41 +53,46 @@ class CharacterSelectionMenuView
     @sprites["leftarrow"].visible = false
     @sprites["leftarrow"].play
 
-
     @sprites["rightarrow"] = AnimatedSprite.new("Graphics/Pictures/rightarrow", 8, 40, 28, 2, @viewport)
     @sprites["rightarrow"].x = ARROW_RIGHT_X_POSITION
     @sprites["rightarrow"].y = 0
     @sprites["rightarrow"].visible = false
     @sprites["rightarrow"].play
 
-    @presenter.setInitialValues()
   end
 
+
   def setMaxIndex(maxIndex)
-    @max_index=maxIndex
+    @max_index = maxIndex
   end
 
   def init_labels()
-    Kernel.pbDisplayText("Confirm", (CONFIRM_X+CURSOR_X_MARGIN), CONFIRM_Y)
+    @textValues["confirm"].dispose if @textValues["confirm"]
+    yposition = CONFIRM_Y
+    xposition = CONFIRM_X+CURSOR_X_MARGIN
 
-    #Labels are directly in the image
-
-    # current_Y = OPTIONS_START_Y
-    # for option in @presenter.options
-    #   x_pos = option == "Confirm" ? OPTIONS_VALUE_X : OPTIONS_LABEL_X
-    #
-    #   Kernel.pbDisplayText(option, x_pos, current_Y)
-    #   current_Y += CURSOR_Y_MARGIN
-    # end
-
+    baseColor= baseColor ? baseColor : Color.new(72,72,72)
+    shadowColor= shadowColor ? shadowColor : Color.new(160,160,160)
+    @textValues["confirm"] = BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
+    textPosition=[
+      [_INTL("Confirm"),xposition,yposition,2,baseColor,shadowColor],
+    ]
+    pbSetSystemFont(@textValues["confirm"].bitmap)
+    pbDrawTextPositions(@textValues["confirm"].bitmap,textPosition)
+    #Kernel.pbDisplayText("Confirm", (CONFIRM_X+CURSOR_X_MARGIN), CONFIRM_Y)
   end
-
-
-
   def start
     init_graphics()
     init_labels()
+    @presenter.setInitialValues()
     @presenter.main()
+  end
+
+  def start_rival
+    init_graphics()
+    @sprites["bg"].setBitmap("Graphics/Pictures/trainer_application_form_rival")
+    init_labels()
+    @presenter.main_rival()
   end
 
   def get_cursor_y_position(index)
@@ -122,51 +121,47 @@ class CharacterSelectionMenuView
     return 0
   end
 
-
-
-
   def showSideArrows(y_index)
     y_position = get_cursor_y_position(y_index)
 
-    @sprites["rightarrow"].y=y_position+ARROWS_Y_OFFSET
-    @sprites["leftarrow"].y=y_position+ARROWS_Y_OFFSET
+    @sprites["rightarrow"].y = y_position + ARROWS_Y_OFFSET
+    @sprites["leftarrow"].y = y_position + ARROWS_Y_OFFSET
 
-    @sprites["leftarrow"].x=getTextBoxStaggerOffset(y_index)+ARROW_LEFT_X_POSITION
-    @sprites["rightarrow"].x= getTextBoxStaggerOffset(y_index)+ARROW_RIGHT_X_POSITION
+    @sprites["leftarrow"].x = getTextBoxStaggerOffset(y_index) + ARROW_LEFT_X_POSITION
+    @sprites["rightarrow"].x = getTextBoxStaggerOffset(y_index) + ARROW_RIGHT_X_POSITION
 
-    @sprites["rightarrow"].visible=true
-    @sprites["leftarrow"].visible=true
+    @sprites["rightarrow"].visible = true
+    @sprites["leftarrow"].visible = true
   end
 
   def hideSideArrows()
-    @sprites["rightarrow"].visible=false
-    @sprites["leftarrow"].visible=false
+    @sprites["rightarrow"].visible = false
+    @sprites["leftarrow"].visible = false
   end
 
-  def displayAge(age,y_index)
+  def displayAge(age, y_index)
     y_position = get_cursor_y_position(y_index)
     x_position = get_value_x_position(y_index)
     Kernel.pbClearNumber()
-    Kernel.pbDisplayNumber(age,x_position,y_position)
+    Kernel.pbDisplayNumber(age, x_position, y_position)
   end
 
-  def displayText(spriteId,text,y_index)
+  def displayText(spriteId, text, y_index)
     @textValues[spriteId].dispose if @textValues[spriteId]
     yposition = get_cursor_y_position(y_index)
     xposition = get_value_x_position(y_index)
 
-    baseColor= baseColor ? baseColor : Color.new(72,72,72)
-    shadowColor= shadowColor ? shadowColor : Color.new(160,160,160)
-    @textValues[spriteId] = BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
-    text1=_INTL(text)
-    textPosition=[
-      [text1,xposition,yposition,2,baseColor,shadowColor],
+    baseColor = baseColor ? baseColor : Color.new(72, 72, 72)
+    shadowColor = shadowColor ? shadowColor : Color.new(160, 160, 160)
+    @textValues[spriteId] = BitmapSprite.new(Graphics.width, Graphics.height, @viewport)
+    text1 = _INTL(text)
+    textPosition = [
+      [text1, xposition, yposition, 2, baseColor, shadowColor],
     ]
     pbSetSystemFont(@textValues[spriteId].bitmap)
-    pbDrawTextPositions(@textValues[spriteId].bitmap,textPosition)
+    pbDrawTextPositions(@textValues[spriteId].bitmap, textPosition)
 
   end
-
 
   def updateGraphics()
     Graphics.update
@@ -176,6 +171,5 @@ class CharacterSelectionMenuView
       @sprites["leftarrow"].update
     end
   end
-
 
 end

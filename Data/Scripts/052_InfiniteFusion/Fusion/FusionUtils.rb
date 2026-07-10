@@ -2,6 +2,18 @@ def playerHasFusionItems()
   return pbHasItem?(:DNASPLICERS) || pbHasItem?(:SUPERSPLICERS) || pbHasItem?(:INFINITESPLICERS) || pbHasItem?(:INFINITESPLICERS2)
 end
 
+def hasUnfusedPokemonInParty(allow_fainted=true)
+  $Trainer.party.each do |pokemon|
+    unless pokemon.isFusion?
+      if !allow_fainted
+        next if pokemon.hp <= 0
+      end
+      return true
+    end
+  end
+  return false
+end
+
 def selectSplicer()
   dna_splicers_const = _INTL("DNA Splicers")
   super_splicers_const = _INTL("Super Splicers")
@@ -22,7 +34,7 @@ def selectSplicer()
     return nil
   end
 
-  cmd = pbShowCommands(_INTL("Use which splicers?"), options)
+  cmd = pbMessage(_INTL("Use which splicers?"), options)
   if cmd == -1
     return nil
   end
@@ -133,6 +145,14 @@ def get_head_id_from_symbol(id)
   return split_id[0].to_i
 end
 
+#returns [BODY num, HEAD num]
+def splitHeadBody(id)
+  if (m = id.to_s.match(/\AB(\d+)H(\d+)\z/))
+    return [m[1].to_i, m[2].to_i]
+  end
+  return nil
+end
+
 def obtainPokemonSpritePath(id, includeCustoms = true)
   head = getBasePokemonID(param.to_i, false)
   body = getBasePokemonID(param.to_i, true)
@@ -221,6 +241,7 @@ def checkIfCustomSpriteExistsByPath(path)
   return true if pbResolveBitmap(path) != nil
 end
 
+
 def customSpriteExistsBodyHead(body, head)
   pathCustom = getCustomSpritePath(body, head)
 
@@ -260,7 +281,7 @@ end
 
 def getRandomLocalFusion()
   spritesList = []
-  $PokemonGlobal.alt_sprite_substitutions.each_value do |value|
+  $PokemonSystem.alt_sprite_substitutions.each_value do |value|
     if value.is_a?(PIFSprite)
       spritesList << value
     end
@@ -342,6 +363,8 @@ def getDexNumberForSpecies(species)
     dexNum = GameData::Species.get(species.species).id_number
   elsif species.is_a?(GameData::Species)
     return species.id_number
+  elsif species.is_a?(String)
+    dexNum = GameData::Species.get(species).id_number
   else
     dexNum = species
   end
@@ -403,6 +426,7 @@ def get_pokemon_readable_internal_name(pokemon)
 end
 
 def get_species_readable_internal_name(species_symbol)
+  return unless species_symbol
   if isSpeciesFusion(species_symbol)
     body_pokemon = get_body_species_from_symbol(species_symbol)
     head_pokemon = get_head_species_from_symbol(species_symbol)

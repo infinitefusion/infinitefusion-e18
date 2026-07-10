@@ -44,10 +44,17 @@ class PokemonBag
     end
   end
 
+
   def sort_pocket_alphabetically()
     current_pocket = @pockets[@lastpocket]
     sorted = current_pocket.sort_by do |item|
-      GameData::Item.get(item[0]).name
+      item_data = GameData::Item.get(item[0])
+      if item_data.is_machine?
+        name= GameData::Move.get(item_data.move).real_name
+      else
+        name = item_data.name
+      end
+      next name
     end
     sorted.reverse! if @descending_sort
 
@@ -64,6 +71,61 @@ class PokemonBag
         item[1]
       end
     end
+    @descending_sort = !@descending_sort
+    @pockets[@lastpocket] = sorted
+  end
+
+  def sort_pocket_by_tm_number()
+    current_pocket = @pockets[@lastpocket]
+
+    sorted = current_pocket.sort_by do |item|
+      item_name = item[0].to_s
+      match = item_name.match(/\A([A-Z]+)(\d+)/)
+
+      if match
+        prefix    = match[1]        # "HM" or "TM"
+        tm_number = match[2].to_i   # 24
+        group_priority = (prefix == "HM") ? 1 : 2
+        if @descending_sort
+          [group_priority, -tm_number, item_name]
+        else
+          [group_priority, tm_number, item_name]
+        end
+      else
+        [3, 0, item_name]
+      end
+    end
+
+    @descending_sort = !@descending_sort
+    @pockets[@lastpocket] = sorted
+  end
+
+  def sort_pocket_by_move_type()
+    current_pocket = @pockets[@lastpocket]
+    sorted = current_pocket.sort_by do |item|
+      item_id = item.is_a?(Array) ? item[0] : item
+      item_data = GameData::Item.get(item_id)
+
+      type_name = "zzzz"  # so that it goes at the end
+      move_power = 0
+
+      if item_data.is_machine?
+        move = GameData::Move.get(item_data.move)
+        move_type = move.type
+        move_power = move.base_damage || 0
+        type_name = GameData::Type.get(move_type).real_name
+      end
+
+      if @descending_sort
+        is_machine = item_data.is_machine? ? 0 : 1
+        inverted_chars = type_name.chars.map { |c| -c.ord }
+        [is_machine, inverted_chars, move_power, item_id.to_s]
+      else
+        is_machine = item_data.is_machine? ? 0 : 1
+        [is_machine, type_name, move_power, item_id.to_s]
+      end
+    end
+
     @descending_sort = !@descending_sort
     @pockets[@lastpocket] = sorted
   end

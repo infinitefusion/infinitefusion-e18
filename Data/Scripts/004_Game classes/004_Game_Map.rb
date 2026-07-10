@@ -38,6 +38,9 @@ class Game_Map
   attr_accessor :need_refresh # refresh request flag
   attr_accessor :scroll_direction
 
+  attr_accessor :fog2_name
+  attr_accessor :fog2_opacity
+
   TILE_WIDTH = 32
   TILE_HEIGHT = 32
   X_SUBPIXELS = 4
@@ -64,6 +67,7 @@ class Game_Map
     @fog2_sx = 0
     @fog2_sy = 0
     @fog2_opacity = 0
+    @fog2_name = ""
 
     @fog_tone = Tone.new(0, 0, 0, 0)
     @fog_tone_target = Tone.new(0, 0, 0, 0)
@@ -76,7 +80,7 @@ class Game_Map
     Events.onMapCreate.trigger(self, map_id, @map, tileset)
     @events = {}
     for i in @map.events.keys
-      @events[i] = Game_Event.new(@map_id, @map.events[i], self)
+      @events[i] = create_new_game_event(@map.events[i])
     end
     @common_events = {}
     for i in 1...$data_common_events.size
@@ -85,6 +89,10 @@ class Game_Map
     @scroll_direction = 2
     @scroll_rest = 0
     @scroll_speed = 4
+  end
+
+  def create_new_game_event(event)
+    return Game_Event.new(@map_id, event, self)
   end
 
   def updateTileset
@@ -126,7 +134,7 @@ class Game_Map
     return @map.data;
   end
 
-  def tileset_id;
+  def tileset_id
     return @map.tileset_id;
   end
 
@@ -153,20 +161,25 @@ class Game_Map
     end
   end
 
-  def setFog2(filename,sx=0,sy=0,opacity=32)
+  def bgm
+    return @map.bgm
+  end
+
+  def setFog2(filename,sx=0,sy=0,opacity=32,zoom=nil)
+    @fog2_name = filename
     @fog2_sx=sx
     @fog2_sy=-sy
     @fog2_opacity = opacity
-    $scene.spriteset.setFog2(filename)
+    @fog_zoom = zoom if zoom
+    $scene.spriteset.setFog2(filename) if $scene.is_a?(Scene_Map)
   end
 
   def eraseFog2()
-    @fog2_sx=0
-    @fog2_sy=-0
+    @fog2_sx = 0
+    @fog2_sy = -0
     @fog2_opacity = 0
     $scene.spriteset.disposeFog2()
   end
-
 
   #-----------------------------------------------------------------------------
   # * Plays background music
@@ -237,6 +250,16 @@ class Game_Map
     for i in [2, 1, 0]
       tile_id = data[x, y, i]
       terrain = GameData::TerrainTag.try_get(@terrain_tags[tile_id])
+
+      # BRIDGE LOGIC FOR NPCs
+      # If we are on a bridge, ignore non-bridge tiles (like water underneath)
+      if terrain.bridge && $PokemonGlobal.bridge > 0
+        passage = @passages[tile_id]
+        return (passage & bit == 0 && passage & 0x0f != 0x0f)
+      end
+      next if terrain.bridge && $PokemonGlobal.bridge == 0
+
+
       # If already on water, only allow movement to another water tile
       if self_event != nil && terrain.can_surf_freely
         for j in [2, 1, 0]
@@ -262,6 +285,8 @@ class Game_Map
           break if facing_terrain.id != :None && !facing_terrain.ignore_passability
         end
       end
+      return true if terrain.acroBike && $PokemonGlobal.bicycle
+
       # Regular passability checks
       if !terrain || !terrain.ignore_passability
         passage = @passages[tile_id]
@@ -276,15 +301,55 @@ class Game_Map
     bit = (1 << (d / 2 - 1)) & 0x0f
     for i in [2, 1, 0]
       tile_id = data[x, y, i]
+      next unless tile_id
       terrain = GameData::TerrainTag.try_get(@terrain_tags[tile_id])
       passage = @passages[tile_id]
       if terrain
         # Ignore bridge tiles if not on a bridge
         next if terrain.bridge && $PokemonGlobal.bridge == 0
         # Make water tiles passable if player is surfing
-        return true if $PokemonGlobal.surfing && terrain.can_surf && !terrain.waterfall
+        return true if ($PokemonGlobal.surfing || $PokemonGlobal.boat) && terrain.can_surf && !terrain.waterfall
         # Prevent cycling in really tall grass/on ice
-        return false if $PokemonGlobal.bicycle && terrain.must_walk
+        # return false if $PokemonGlobal.bicycle && terrain.must_walk
+        # Depend on passability of bridge tile if on bridge
+        if terrain.bridge && $PokemonGlobal.bridge > 0
+          return (passage & bit == 0 && passage & 0x0f != 0x0f)
+        end
+      end
+      # Regular passability checks
+      if !terrain || !terrain.ignore_passability
+        return false if passage & bit != 0 || passage & 0x0f == 0x0f
+        return true if @priorities[tile_id] == 0
+      end
+    end
+    return true
+  end
+
+  # Just a copy of playerPassable? without the ledges
+  def OWPokemonPassable?(x, y, d, self_event = nil)
+    return false if x== $game_player.x && y == $game_player.y
+    return false if $game_map.event_at_position(x, y)
+    bit = (1 << (d / 2 - 1)) & 0x0f
+    for i in [2, 1, 0]
+      tile_id = data[x, y, i]
+      next unless tile_id
+      terrain = GameData::TerrainTag.try_get(@terrain_tags[tile_id])
+      passage = @passages[tile_id]
+      if terrain
+        return false if terrain.ledge
+        return false if terrain.acroBike
+        # Ignore bridge tiles if not on a bridge
+        next if terrain.bridge && $PokemonGlobal.bridge == 0
+        # Make water tiles passable if player is surfing
+        if terrain.can_surf && !terrain.waterfall
+          if ($PokemonGlobal.surfing || $PokemonGlobal.boat)
+            return true
+          else
+            return false
+          end
+        end
+        # Prevent cycling in really tall grass/on ice
+        # return false if $PokemonGlobal.bicycle && terrain.must_walk
         # Depend on passability of bridge tile if on bridge
         if terrain.bridge && $PokemonGlobal.bridge > 0
           return (passage & bit == 0 && passage & 0x0f != 0x0f)
@@ -375,12 +440,21 @@ class Game_Map
     return false
   end
 
+
   def get_event_at_position(x, y, excluding_IDs = [])
     for event in self.events.values
       next if excluding_IDs.include?(event.id)
       return event if event.at_coordinate?(x, y)
     end
     return nil
+  end
+
+  def get_events_with_name(name)
+    events_with_name = []
+    for event in self.events.values
+      events_with_name << event if event.name.downcase == name.downcase
+    end
+    return events_with_name
   end
 
   def display_x=(value)

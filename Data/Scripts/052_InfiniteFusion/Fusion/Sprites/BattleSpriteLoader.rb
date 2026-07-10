@@ -4,15 +4,20 @@ class BattleSpriteLoader
   end
 
   def load_pif_sprite_directly(pif_sprite)
-    if pif_sprite.local_path && pbResolveBitmap(pif_sprite.local_path)
+    if pif_sprite&.local_path && pbResolveBitmap(pif_sprite.local_path)
       return AnimatedBitmap.new(pif_sprite.local_path)
     end
     extractor = get_sprite_extractor_instance(pif_sprite.type)
-    return extractor.load_sprite(pif_sprite)
+    bitmap = extractor.load_sprite(pif_sprite)
+    if bitmap
+      return bitmap
+    else
+      return handle_unloaded_sprites(extractor, pif_sprite)
+    end
   end
 
   #random alt
-  def load_pif_sprite(pif_sprite)
+  def load_random_alt_for_pif_sprite(pif_sprite)
     case pif_sprite.type
     when :CUSTOM, :AUTOGEN
       load_fusion_sprite(pif_sprite.head_id, pif_sprite.body_id)
@@ -26,8 +31,8 @@ class BattleSpriteLoader
     return if !pokemon
     substitution_id = get_sprite_substitution_id_from_dex_number(pokemon.species)
     # echoln substitution_id
-    # echoln $PokemonGlobal.alt_sprite_substitutions
-    pif_sprite = $PokemonGlobal.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
+    # echoln $PokemonSystem.alt_sprite_substitutions
+    pif_sprite = $PokemonSystem.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
     if !pif_sprite
       pif_sprite = get_pif_sprite_from_species(pokemon.species)
     end
@@ -40,7 +45,7 @@ class BattleSpriteLoader
     echoln "preloading"
     previous_download_allowed = @download_allowed
     @download_allowed = false
-    load_pif_sprite(pif_sprite)
+    load_random_alt_for_pif_sprite(pif_sprite)
     @download_allowed = previous_download_allowed
   end
 
@@ -67,14 +72,27 @@ class BattleSpriteLoader
 
   def registerSpriteSubstitution(pif_sprite)
     substitution_id = get_sprite_substitution_id_from_dex_number(pif_sprite.species)
-    $PokemonGlobal.alt_sprite_substitutions[substitution_id] = pif_sprite
+    $PokemonSystem.alt_sprite_substitutions[substitution_id] = pif_sprite
   end
 
+  def obtain_pif_sprite(species)
+    species_data = GameData::Species.get(species)
+    if species_data.is_triple_fusion
+      pif_sprite = select_new_pif_triple_sprite(species_data.id_number)
+    elsif species_data.is_fusion
+      head= species_data.get_head_species
+      body = species_data.get_body_species
+      pif_sprite = select_new_pif_fusion_sprite(head, body)
+    else
+      pif_sprite = select_new_pif_base_sprite(species_data.id_number)
+    end
+    return pif_sprite
+  end
   def obtain_fusion_pif_sprite(head_id,body_id)
     substitution_id = get_sprite_substitution_id_for_fusion(head_id, body_id)
-    pif_sprite = $PokemonGlobal.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
+    pif_sprite = $PokemonSystem.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
     #pif_sprite.dump_info if pif_sprite
-    if !pif_sprite
+    if !pif_sprite || $PokemonSystem.random_sprites
       pif_sprite = select_new_pif_fusion_sprite(head_id, body_id)
       local_path = check_for_local_sprite(pif_sprite)
       if local_path
@@ -82,7 +100,7 @@ class BattleSpriteLoader
         pif_sprite.type = :CUSTOM
       end
       substitution_id = get_sprite_substitution_id_for_fusion(head_id, body_id)
-      $PokemonGlobal.alt_sprite_substitutions[substitution_id] = pif_sprite if $PokemonGlobal
+      $PokemonSystem.alt_sprite_substitutions[substitution_id] = pif_sprite if $PokemonGlobal && !$PokemonSystem.random_sprites
     end
     return pif_sprite
   end
@@ -103,10 +121,10 @@ class BattleSpriteLoader
 
   def load_base_sprite(dex_number)
     substitution_id = get_sprite_substitution_id_from_dex_number(dex_number)
-    pif_sprite = $PokemonGlobal.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
-    if !pif_sprite
+    pif_sprite = $PokemonSystem.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
+    if !pif_sprite || $PokemonSystem.random_sprites
       pif_sprite = select_new_pif_base_sprite(dex_number)
-      $PokemonGlobal.alt_sprite_substitutions[substitution_id] = pif_sprite if $PokemonGlobal
+      $PokemonSystem.alt_sprite_substitutions[substitution_id] = pif_sprite if $PokemonGlobal && !$PokemonSystem.random_sprites
     end
     if pif_sprite.local_path
       return AnimatedBitmap.new(pif_sprite.local_path)
@@ -117,6 +135,15 @@ class BattleSpriteLoader
       loaded_sprite = handle_unloaded_sprites(extractor,pif_sprite)
     end
     return loaded_sprite
+  end
+
+  def load_pif_sprite_pokemon(pokemon)
+    pif_sprite = pokemon.pif_sprite
+    unless pokemon.pif_sprite
+      pif_sprite = GameData::Species.front_pif_sprite(pokemon.species, pokemon.shiny?, pokemon.body_shiny, pokemon.head_shiny)
+      pokemon.pif_sprite = pif_sprite
+    end
+    return load_pif_sprite_directly(pif_sprite)
   end
 
   def handle_unloaded_sprites(extractor,pif_sprite)
@@ -162,7 +189,7 @@ class BattleSpriteLoader
 
   def get_pif_sprite_from_species(species)
     substitution_id = get_sprite_substitution_id_from_dex_number(species)
-    pif_sprite = $PokemonGlobal.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
+    pif_sprite = $PokemonSystem.alt_sprite_substitutions[substitution_id] if $PokemonGlobal
     return pif_sprite if pif_sprite
     species_data = GameData::Species.get(species)
     if species_data.id_number <= NB_POKEMON #base pokemon
@@ -171,6 +198,15 @@ class BattleSpriteLoader
       return select_new_pif_fusion_sprite(species_data.get_head_species, species_data.get_body_species)
     end
   end
+
+
+  def select_new_pif_triple_sprite(dex_number)
+    sprite= PIFSprite.new(:TRIPLE, dex_number, nil, "")
+    sprite.local_path = getSpecialSpriteName(dex_number)
+    echoln sprite.local_path
+    return sprite
+  end
+
 
   #
   # Flow:
@@ -204,6 +240,8 @@ class BattleSpriteLoader
   #todo refactor by using get_triple_fusion_components()
   def getSpecialSpriteName(dexNum)
     base_path = "Graphics/Battlers/special/"
+    echoln dexNum
+    echoln Settings::ZAPMOLCUNO_NB + 31
     case dexNum
     when Settings::ZAPMOLCUNO_NB
       return sprintf(base_path + "144.145.146")
@@ -250,7 +288,7 @@ class BattleSpriteLoader
     when Settings::ZAPMOLCUNO_NB + 20 #birdBoss Left
       return sprintf(base_path +"invisible")
     when Settings::ZAPMOLCUNO_NB + 21 #birdBoss middle
-      return sprintf(base_path + "144.145.146")
+      return sprintf(base_path + "BIRDBOSS")
     when Settings::ZAPMOLCUNO_NB + 22 #birdBoss right
       return sprintf(base_path +"invisible")
     when Settings::ZAPMOLCUNO_NB + 23 #sinnohboss left
@@ -272,6 +310,14 @@ class BattleSpriteLoader
       return sprintf(base_path + "480.483.486")
     when Settings::ZAPMOLCUNO_NB + 30
       return sprintf(base_path + "481.484.487")
+    when Settings::ZAPMOLCUNO_NB + 31 #TELEMAUV
+      return sprintf(base_path + "000")
+    when Settings::ZAPMOLCUNO_NB + 32 #Minior/Solrock/Lunatone (meteor)
+      return sprintf(base_path + "498.544.545")
+    when Settings::ZAPMOLCUNO_NB + 33 #Minior/Solrock/Lunatone (core)
+      return sprintf(base_path + "499.544.545")
+    when Settings::ZAPMOLCUNO_NB + 34 #Stunfisk, bruxish, luvdisc
+      return sprintf(base_path + "420.469.501")
     else
       return sprintf(base_path + "000")
     end

@@ -228,8 +228,8 @@ ItemHandlers::UseOnPokemon.add(:INCUBATOR, proc { |item, pokemon, scene|
       next false
     else
       scene.pbDisplay(_INTL("Incubating..."))
-      scene.pbDisplay(_INTL("..."))
-      scene.pbDisplay(_INTL("..."))
+      scene.pbDisplay("...")
+      scene.pbDisplay("...")
       scene.pbDisplay(_INTL("Your egg is ready to hatch!"))
       pokemon.eggsteps = 1
       next true
@@ -255,13 +255,24 @@ ItemHandlers::UseFromBag.add(:DEBUGGER, proc { |item|
   if Kernel.pbConfirmMessageSerious(_INTL("Innapropriate use of this item can lead to unwanted effects and make the game unplayable. Do you want to continue?"))
     $game_player.cancelMoveRoute()
     Kernel.pbStartOver(false)
-    pbCommonEvent(COMMON_EVENT_FIX_GAME)
+    fixStuff
     Kernel.pbMessage(_INTL("Please report the glitch on the game's Discord, in the #bug-reports channel."))
     openUrlInBrowser(Settings::DISCORD_URL)
     next 1
   else
     next 0
   end
+})
+
+ItemHandlers::UseInField.add(:SPAWNER, proc { |item|
+  old_id = pbGet(1)
+  unless old_id.is_a?(Integer)
+    old_id =1
+  end
+  species = pbChooseSpeciesList(old_id,NB_POKEMON)
+  pbSet(1,species.id_number)
+  echoln species.species
+  spawn_ow_pokemon(species.species,5,1)
 })
 
 def useSleepingBag()
@@ -285,6 +296,13 @@ def useSleepingBag()
   pbSet(UnrealTime::EXTRA_SECONDS, currentSecondsValue + timeAdded)
   pbSEPlay("Sleep", 100)
   pbFadeOutIn {
+    if $game_weather
+      mapId = $game_map.map_id
+      $game_weather.try_spawn_new_weather(mapId,
+                                          $game_weather.current_weather[mapId][0],
+                                          40)
+      $game_weather.update_weather
+    end
     Kernel.pbMessage(_INTL("{1} slept for a while...", $Trainer.name))
   }
   time = pbGetTimeNow.strftime("%I:%M %p")
@@ -294,6 +312,7 @@ def useSleepingBag()
   else
     Kernel.pbMessage(_INTL("The current time is now {1}.", time))
   end
+  $scene.spriteset.addUserSprite(WeatherIcon.new)
   return 1
 end
 
@@ -308,7 +327,17 @@ def useFieldSleepingBag()
     pbSet(UnrealTime::EXTRA_SECONDS, currentSecondsValue + timeAdded)
     pbSEPlay("Sleep", 100)
     pbFadeOutIn {
-      $game_weather.update_weather
+      if $game_weather
+        mapId = $game_map.map_id
+        echoln $game_weather.current_weather[mapId]
+        if $game_weather.current_weather[mapId]
+          echoln "spawning...."
+          $game_weather.try_spawn_new_weather(mapId,
+                                              $game_weather.current_weather[mapId][0],
+                                              40)
+        end
+        $game_weather.update_weather
+      end
       Kernel.pbMessage(_INTL("{1} slept for a while...", $Trainer.name))
       $scene.reset_map(false)
     }
@@ -319,6 +348,7 @@ def useFieldSleepingBag()
     else
       Kernel.pbMessage(_INTL("The current time is now {1}.", time))
     end
+    $scene.spriteset.addUserSprite(WeatherIcon.new)
     return 1
   end
 
@@ -344,7 +374,7 @@ ItemHandlers::UseInField.add(:SLEEPINGBAG, proc { |item|
 
 ItemHandlers::UseFromBag.add(:FIELDSLEEPINGBAG, proc { |item|
   mapMetadata = GameData::MapMetadata.try_get($game_map.map_id)
-  if !mapMetadata || !mapMetadata.outdoor_map
+  if !mapMetadata || !mapMetadata.outdoor_map || $PokemonGlobal.surfing
     Kernel.pbMessage(_INTL("Can't use that here..."))
     next 0
   end
@@ -353,7 +383,7 @@ ItemHandlers::UseFromBag.add(:FIELDSLEEPINGBAG, proc { |item|
 
 ItemHandlers::UseInField.add(:FIELDSLEEPINGBAG, proc { |item|
   mapMetadata = GameData::MapMetadata.try_get($game_map.map_id)
-  if !mapMetadata || !mapMetadata.outdoor_map
+  if !mapMetadata || !mapMetadata.outdoor_map || $PokemonGlobal.surfing
     Kernel.pbMessage(_INTL("Can't use that here..."))
     next 0
   end
@@ -367,6 +397,24 @@ ItemHandlers::UseFromBag.add(:ROCKETUNIFORM, proc { |item|
 ItemHandlers::UseInField.add(:ROCKETUNIFORM, proc { |item|
   next useRocketUniform()
 })
+
+ItemHandlers::UseFromBag.add(:MAGMAUNIFORM, proc { |item|
+  next useMagmaUniform()
+})
+
+ItemHandlers::UseInField.add(:MAGMAUNIFORM, proc { |item|
+  next useMagmaUniform()
+})
+
+ItemHandlers::UseFromBag.add(:AQUAUNIFORM, proc { |item|
+  next useAquaUniform()
+})
+
+ItemHandlers::UseInField.add(:AQUAUNIFORM, proc { |item|
+  next useAquaUniform()
+})
+
+
 
 ItemHandlers::UseFromBag.add(:FAVORITEOUTFIT, proc { |item|
   next useFavoriteOutfit()
@@ -396,11 +444,30 @@ ItemHandlers::UseFromBag.add(:EMERGENCYWHISTLE, proc { |item|
   next 0
 })
 
+
+ItemHandlers::UseFromBag.add(:PRESENT, proc { |item|
+  quantity = $PokemonBag.pbQuantity(item)
+  nb = 1
+  if quantity > 1
+    params = ChooseNumberParams.new
+    params.setRange(1, quantity)
+    params.setDefaultValue(1)
+    nb = pbMessageChooseNumber(_INTL("\How many would you like to open?<br>({1} in bag)", quantity), params)
+  end
+  if Settings::HOENN
+    pbReceiveCosmeticsMoney(600*nb)
+  else
+    pbReceiveMoney(400*nb)
+  end
+  $PokemonBag.pbDeleteItem(item, nb)
+  next 1
+})
+
 ItemHandlers::UseFromBag.add(:MUSHROOMSPORES, proc { |item|
   if $game_switches[SWITCH_SPORES_REPEL]
     if pbQuantity(:MUSHROOMSPORES) >= 2
       if pbConfirmMessage(_INTL("Condense 2 spore samples into a Repel?"))
-        $PokemonBag.pbDeleteItem(:MUSHROOMSPORES,2)
+        $PokemonBag.pbDeleteItem(:MUSHROOMSPORES, 2)
         pbReceiveItem(:REPEL)
         next 1
       else
@@ -414,7 +481,6 @@ ItemHandlers::UseFromBag.add(:MUSHROOMSPORES, proc { |item|
   end
   next 0
 })
-
 
 ItemHandlers::UseFromBag.add(:ODDKEYSTONE, proc { |item|
   TOTAL_SPIRITS_NEEDED = 108
@@ -449,9 +515,9 @@ def useFavoriteOutfit()
     switchToFavoriteOutfit()
   elsif options[choice] == cmd_mark_favorite
     pbSEPlay("shiny", 80, 100)
-    $Trainer.favorite_clothes= $Trainer.clothes
+    $Trainer.favorite_clothes = $Trainer.clothes
     $Trainer.favorite_hat = $Trainer.hat
-    $Trainer.favorite_hat2=$Trainer.hat2
+    $Trainer.favorite_hat2 = $Trainer.hat2
     pbMessage(_INTL("Your favorite outfit was updated!"))
   end
 end
@@ -471,9 +537,9 @@ def switchToFavoriteOutfit()
         $Trainer.last_worn_outfit = getDefaultClothes(getPlayerGenderId)
       end
       playOutfitChangeAnimation()
-      putOnClothes($Trainer.last_worn_outfit, true) #if $Trainer.favorite_clothes
-      putOnHat($Trainer.last_worn_hat, true,false) #if $Trainer.favorite_hat
-      putOnHat($Trainer.last_worn_hat2, true,true) #if $Trainer.favorite_hat2
+      putOnClothes($Trainer.last_worn_outfit, true) # if $Trainer.favorite_clothes
+      putOnHat($Trainer.last_worn_hat, true, false) # if $Trainer.favorite_hat
+      putOnHat($Trainer.last_worn_hat2, true, true) # if $Trainer.favorite_hat2
 
     else
       return 0
@@ -498,7 +564,7 @@ def useRocketUniform()
   if isWearingTeamRocketOutfit()
     if (Kernel.pbConfirmMessage(_INTL("Remove the Team Rocket uniform?")))
       if ($Trainer.last_worn_outfit == CLOTHES_TEAM_ROCKET_MALE || $Trainer.last_worn_outfit == CLOTHES_TEAM_ROCKET_FEMALE) && $Trainer.last_worn_hat == HAT_TEAM_ROCKET
-        $Trainer.last_worn_outfit = getDefaultClothes(getPlayerGender)
+        $Trainer.last_worn_outfit = getDefaultClothes(getPlayerGenderId)
       end
       playOutfitChangeAnimation()
       putOnClothes($Trainer.last_worn_outfit, true)
@@ -522,9 +588,71 @@ def useRocketUniform()
   return 1
 end
 
+
+def useMagmaUniform()
+  return 0 if !$game_switches[SWITCH_JOINED_TEAM_MAGMA]
+  if isWearingTeamMagmaOutfit()
+    if (Kernel.pbConfirmMessage(_INTL("Remove the Team Magma uniform?")))
+      if ($Trainer.last_worn_outfit == CLOTHES_TEAM_MAGMA_M || $Trainer.last_worn_outfit == CLOTHES_TEAM_MAGMA_F) && $Trainer.last_worn_hat == HAT_TEAM_MAGMA
+        gender = pbGet(VAR_TRAINER_GENDER)
+        $Trainer.last_worn_outfit = getDefaultClothes(gender)
+      end
+      playOutfitChangeAnimation()
+      putOnClothes($Trainer.last_worn_outfit, true)
+      putOnHat($Trainer.last_worn_hat, true)
+    else
+      return 0
+    end
+  else
+    if (Kernel.pbConfirmMessage(_INTL("Put on the Team Magma uniform?")))
+      playOutfitChangeAnimation()
+      gender = pbGet(VAR_TRAINER_GENDER)
+      if gender == GENDER_MALE
+        putOnClothes(CLOTHES_TEAM_MAGMA_M, true)
+      else
+        putOnClothes(CLOTHES_TEAM_MAGMA_F, true)
+      end
+      putOnHat(HAT_TEAM_MAGMA, true)
+    end
+  end
+  return 1
+end
+
+
+
+def useAquaUniform()
+  return 0 if !$game_switches[SWITCH_JOINED_TEAM_AQUA]
+  if isWearingTeamAquaOutfit()
+    if (Kernel.pbConfirmMessage(_INTL("Remove the Team Aqua uniform?")))
+      if ($Trainer.last_worn_outfit == CLOTHES_TEAM_AQUA_M || $Trainer.last_worn_outfit == CLOTHES_TEAM_AQUA_F) && $Trainer.last_worn_hat == HAT_TEAM_AQUA
+        gender = pbGet(VAR_TRAINER_GENDER)
+        $Trainer.last_worn_outfit = getDefaultClothes(gender)
+      end
+      playOutfitChangeAnimation()
+      putOnClothes($Trainer.last_worn_outfit, true)
+      putOnHat($Trainer.last_worn_hat, true)
+    else
+      return 0
+    end
+  else
+    if (Kernel.pbConfirmMessage(_INTL("Put on the Team Aqua uniform?")))
+      playOutfitChangeAnimation()
+      gender = pbGet(VAR_TRAINER_GENDER)
+      if gender == GENDER_MALE
+        putOnClothes(CLOTHES_TEAM_AQUA_M, true)
+      else
+        putOnClothes(CLOTHES_TEAM_AQUA_F, true)
+      end
+      putOnHat(HAT_TEAM_AQUA, true)
+    end
+  end
+  return 1
+end
+
+
 def useDreamMirror
   visitedMap = $PokemonGlobal.visitedMaps[pbGet(226)]
-  map_name = visitedMap ? Kernel.getMapName(pbGet(226)).to_s : _INTL("an unknown location")
+  map_name = visitedMap ? getMapName(pbGet(226)).to_s : _INTL("an unknown location")
 
   Kernel.pbMessage(_INTL("You peeked into the Dream Mirror..."))
 
@@ -680,7 +808,7 @@ ItemHandlers::UseOnPokemon.add(:DNAREVERSER, proc { |item, pokemon, scene|
     scene.pbDisplay(_INTL("It won't have any effect."))
     next false
   end
-  if Kernel.pbConfirmMessageSerious(_INTL("Should {1} be reversed?", pokemon.name))
+  if Kernel.pbConfirmMessage(_INTL("Should {1} be reversed?", pokemon.name))
     reverseFusion(pokemon)
     scene.pbRefreshAnnotations(proc { |p| pbCheckEvolution(p, item) > 0 })
     scene.pbRefresh
@@ -691,7 +819,7 @@ ItemHandlers::UseOnPokemon.add(:DNAREVERSER, proc { |item, pokemon, scene|
 })
 
 def reverseFusion(pokemon)
-  if pokemon.owner.name  == "RENTAL"
+  if pokemon.owner.name == "RENTAL"
     pbMessage(_INTL("You cannot reverse a rental pokémon!"))
     return
   end
@@ -707,6 +835,7 @@ def reverseFusion(pokemon)
   pokemon.exp_when_fused_head = body_exp
 
   pokemon.head_shiny, pokemon.body_shiny = pokemon.body_shiny, pokemon.head_shiny
+  pokemon.original_body, pokemon.original_head = pokemon.original_head, pokemon.original_body
   # play animation
   pbFadeOutInWithMusic(99999) {
     fus = PokemonEvolutionScene.new
@@ -721,7 +850,7 @@ ItemHandlers::UseOnPokemon.add(:INFINITEREVERSERS, proc { |item, pokemon, scene|
     scene.pbDisplay(_INTL("It won't have any effect."))
     next false
   end
-  if Kernel.pbConfirmMessageSerious(_INTL("Should {1} be reversed?", pokemon.name))
+  if Kernel.pbConfirmMessage(_INTL("Should {1} be reversed?", pokemon.name))
     body = getBasePokemonID(pokemon.species, true)
     head = getBasePokemonID(pokemon.species, false)
     newspecies = (head) * Settings::NB_POKEMON + body
@@ -898,7 +1027,7 @@ def drawPokemonType(pokemon_id, x_pos = 192, y_pos = 264)
   overlay = BitmapSprite.new(Graphics.width, Graphics.height, viewport).bitmap
 
   pokemon = GameData::Species.get(pokemon_id)
-  typebitmap = AnimatedBitmap.new(_INTL("Graphics/Pictures/types"))
+  typebitmap = AnimatedBitmap.new("Graphics/Pictures/types")
   type1_number = GameData::Type.get(pokemon.type1).id_number
   type2_number = GameData::Type.get(pokemon.type2).id_number
   type1rect = Rect.new(0, type1_number * 28, 64, 28)
@@ -1047,7 +1176,6 @@ ItemHandlers::UseOnPokemon.add(:SLOWPOKETAIL, proc { |item, pokemon, scene|
   next evolveSlowpokeTail(item, pokemon, scene)
 })
 
-
 def evolveSlowpokeTail(item, pokemon, scene)
   if pokemon.species != :SHELLDER
     pbMessage(_INTL("It won't have any effect."))
@@ -1065,6 +1193,7 @@ def evolveSlowpokeTail(item, pokemon, scene)
   }
   return true
 end
+
 #
 # ItemHandlers::UseOnPokemon.add(:SHINYSTONE, proc { |item, pokemon, scene|
 #   if (pokemon.isShadow? rescue false)
@@ -1212,8 +1341,8 @@ ItemHandlers::UseFromBag.add(:EXPALLOFF, proc { |item|
   next 1 # Continue
 })
 
-ItemHandlers::BattleUseOnPokemon.add(:BANANA,proc { |item,pokemon,battler,choices,scene|
-  pbBattleHPItem(pokemon,battler,30,scene)
+ItemHandlers::BattleUseOnPokemon.add(:BANANA, proc { |item, pokemon, battler, choices, scene|
+  pbBattleHPItem(pokemon, battler, 30, scene)
 })
 
 ItemHandlers::UseOnPokemon.add(:BANANA, proc { |item, pokemon, scene|
@@ -1344,7 +1473,7 @@ ItemHandlers::UseOnPokemon.add(:COFFEE, proc { |item, pokemon, scene|
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:COFFEE, proc { |item, pokemon, battler, choices, scene|
-  battler.pbRaiseStatStage(:SPEED,(Settings::X_STAT_ITEMS_RAISE_BY_TWO_STAGES) ? 2 : 1,battler) if battler
+  battler.pbRaiseStatStage(:SPEED, (Settings::X_STAT_ITEMS_RAISE_BY_TWO_STAGES) ? 2 : 1, battler) if battler
   pbBattleHPItem(pokemon, battler, 50, scene)
 })
 
@@ -1366,8 +1495,8 @@ ItemHandlers::UseOnPokemon.add(:INCUBATOR, proc { |item, pokemon, scene|
       next false
     else
       scene.pbDisplay(_INTL("Incubating..."))
-      scene.pbDisplay(_INTL("..."))
-      scene.pbDisplay(_INTL("..."))
+      scene.pbDisplay("...")
+      scene.pbDisplay("...")
       scene.pbDisplay(_INTL("Your egg is ready to hatch!"))
       pokemon.steps_to_hatch = 1
       next true
@@ -1389,8 +1518,8 @@ ItemHandlers::UseOnPokemon.add(:INCUBATOR_NORMAL, proc { |item, pokemon, scene|
       pokemon.steps_to_hatch = steps
     end
     scene.pbDisplay(_INTL("Incubating..."))
-    scene.pbDisplay(_INTL("..."))
-    scene.pbDisplay(_INTL("..."))
+    scene.pbDisplay("...")
+    scene.pbDisplay("...")
     scene.pbDisplay(_INTL("The egg is closer to hatching!"))
 
     # if pokemon.steps_to_hatch <= 1
@@ -1432,7 +1561,7 @@ def pbForceEvo(pokemon)
   return false if evolutions.empty?
   # if multiple evolutions, pick a random one
   #(format of returned value is [[speciesNum, level]])
-  newspecies = evolutions[rand(evolutions.length - 1)][0]
+  newspecies = evolutions[rand(evolutions.length)][0]
   return false if newspecies == nil
   evo = PokemonEvolutionScene.new
   evo.pbStartScreen(pokemon, newspecies)
@@ -1500,7 +1629,7 @@ def getPokemonPositionInParty(pokemon)
 end
 
 # don't remember why there's two Supersplicers arguments.... probably a mistake
-def pbDNASplicing(pokemon, scene, item = :DNASPLICERS)
+def pbDNASplicing(pokemon, scene, item = :DNASPLICERS, partyPosition =nil)
   is_supersplicer = isSuperSplicersMechanics(item)
 
   playingBGM = $game_system.getPlayingBGM
@@ -1534,7 +1663,7 @@ def pbDNASplicing(pokemon, scene, item = :DNASPLICERS)
             return false
           end
 
-          selectedHead = selectFusion(pokemon, poke2, is_supersplicer)
+          selectedHead, selected_sprite = selectFusion(pokemon, poke2, is_supersplicer)
           if selectedHead == -1 # cancelled
             return false
           end
@@ -1554,7 +1683,7 @@ def pbDNASplicing(pokemon, scene, item = :DNASPLICERS)
           end
 
           if (Kernel.pbConfirmMessage(_INTL("Fuse {1} and {2}?", selectedHead.name, selectedBase.name)))
-            pbFuse(selectedHead, selectedBase, item)
+            pbFuse(selectedHead, selectedBase, item, selected_sprite)
             pbRemovePokemonAt(chosen)
             scene.pbHardRefresh
             pbBGMPlay(playingBGM)
@@ -1573,8 +1702,8 @@ def pbDNASplicing(pokemon, scene, item = :DNASPLICERS)
       end
     end
   else
-    # UNFUSE
-    return true if pbUnfuse(pokemon, scene, is_supersplicer)
+    partyPosition = getPokemonPositionInParty(pokemon) unless partyPosition
+    return true if pbUnfuse(pokemon, scene, partyPosition, nil)
   end
 end
 
@@ -1584,8 +1713,9 @@ def selectFusion(pokemon, poke2, supersplicers = false)
 
   selectorWindow = FusionPreviewScreen.new(poke2, pokemon, supersplicers) # PictureWindow.new(picturePath)
   selectedHead = selectorWindow.getSelection
+  fusion_pif_sprite = selectorWindow.get_selected_sprite if selectedHead.is_a?(Pokemon)
   selectorWindow.dispose
-  return selectedHead
+  return selectedHead, fusion_pif_sprite
 end
 
 # firstOptionSelected= selectedHead == pokemon
@@ -1612,28 +1742,40 @@ end
 #   end
 # end
 
-def pbFuse(pokemon_body, pokemon_head, splicer_item)
+def pbFuse(pokemon_body, pokemon_head, splicer_item, fusion_pif_sprite=nil)
+  original_head = pokemon_head.clone
+  original_body = pokemon_body.clone
+
   use_supersplicers_mechanics = isSuperSplicersMechanics(splicer_item)
 
   newid = (pokemon_body.species_data.id_number) * NB_POKEMON + pokemon_head.species_data.id_number
   fus = PokemonFusionScene.new
 
-  if (fus.pbStartScreen(pokemon_body, pokemon_head, newid, splicer_item))
+  if (fus.pbStartScreen(pokemon_body, pokemon_head, newid, splicer_item, fusion_pif_sprite))
     returnItemsToBag(pokemon_body, pokemon_head)
     fus.pbFusionScreen(false, use_supersplicers_mechanics)
     $game_variables[VAR_FUSE_COUNTER] += 1 # fuse counter
     fus.pbEndScreen
+    $PokemonTemp.fuse_count_today = 0 unless $PokemonTemp.fuse_count_today
+    $PokemonTemp.fuse_count_today += 1
+    checkFuseChallenges(original_head,original_body)
     return true
   end
 end
 
+
+
+
+
+
+
 # Todo: refactor this, this is a mess
-def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
+def unfusePokemonLegacy(pokemon, scene, supersplicers, pcPosition = nil)
   if pokemon.species_data.id_number > (NB_POKEMON * NB_POKEMON) + NB_POKEMON # triple fusion
     scene.pbDisplay(_INTL("{1} cannot be unfused.", pokemon.name))
     return false
   end
-  if pokemon.owner.name  == "RENTAL"
+  if pokemon.owner.name == "RENTAL"
     scene.pbDisplay(_INTL("You cannot unfuse a rental pokémon!"))
     return
   end
@@ -1665,9 +1807,9 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
         end
       end
 
-      scene.pbDisplay(_INTL("Unfusing ... "))
-      scene.pbDisplay(_INTL(" ... "))
-      scene.pbDisplay(_INTL(" ... "))
+      pbSEPlay("Minimize")
+      pbMessage(_INTL("Unfusing...\\....\\....\\....\\wtnp[5]"))
+      pbSEPlay("Voltorb Flip Point")
 
       if pokemon.exp_when_fused_head == nil || pokemon.exp_when_fused_body == nil
         new_level = calculateUnfuseLevelOldMethod(pokemon, supersplicers)
@@ -1691,6 +1833,11 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
       pokemon.exp_when_fused_head = nil
       pokemon.exp_when_fused_body = nil
 
+      pokemon.pif_sprite = nil
+      poke1.pif_sprite=nil
+      poke2.pif_sprite = nil
+
+
       if pokemon.shiny?
         pokemon.shiny = false
         if pokemon.bodyShiny? && pokemon.headShiny?
@@ -1710,8 +1857,10 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
           # shiny was obtained already fused
           if rand(2) == 0
             pokemon.shiny = true
+            pokemon.natural_shiny = true if pokemon.natural_shiny && !pokemon.debug_shiny
           else
             poke2.shiny = true
+            poke2.natural_shiny = true if pokemon.natural_shiny && !pokemon.debug_shiny
           end
         end
       end
@@ -1728,11 +1877,6 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
 
       pokemon.ability_index = pokemon.body_original_ability_index if pokemon.body_original_ability_index
       poke2.ability_index = pokemon.head_original_ability_index if pokemon.head_original_ability_index
-
-      pokemon.ability2_index = nil
-      pokemon.ability2 = nil
-      poke2.ability2_index = nil
-      poke2.ability2 = nil
 
       pokemon.debug_shiny = true if pokemon.debug_shiny && pokemon.body_shiny
       poke2.debug_shiny = true if pokemon.debug_shiny && poke2.head_shiny
@@ -1801,7 +1945,7 @@ def pbUnfuse(pokemon, scene, supersplicers, pcPosition = nil)
 
       # scene.pbDisplay(p1.to_s + " " + p2.to_s)
       scene.pbHardRefresh
-      scene.pbDisplay(_INTL("Your Pokémon were successfully unfused!"))
+      pbMessage(_INTL("Your Pokémon were successfully unfused!"))
       return true
     end
   end
@@ -2119,7 +2263,6 @@ ItemHandlers::UseFromBag.add(:EXPALLOFF, proc { |item|
   next 1 # Continue
 })
 
-
 ItemHandlers::UseInField.add(:BOXLINK, proc { |item|
   blacklisted_maps = [
     315, 316, 317, 318, 328, 343, # Elite Four
@@ -2139,12 +2282,12 @@ ItemHandlers::UseInField.add(:BOXLINK, proc { |item|
   next 1
 })
 
-def changeOricorioFormFromItem(pokemon,form_name,new_form)
+def changeOricorioFormFromItem(pokemon, form_name, new_form)
   if !(Kernel.isPartPokemon(pokemon, :ORICORIO_1) ||
     Kernel.isPartPokemon(pokemon, :ORICORIO_2) ||
     Kernel.isPartPokemon(pokemon, :ORICORIO_3) ||
     Kernel.isPartPokemon(pokemon, :ORICORIO_4))
-    scene.pbDisplay(_INTL("It had no effect."))
+    pbMessage(_INTL("It had no effect."))
     return false
   end
   if changeOricorioForm(pokemon, new_form)
@@ -2160,47 +2303,47 @@ end
 ItemHandlers::UseOnPokemon.add(:REDNECTAR, proc { |item, poke, scene|
   form_name = "Baile"
   form = 1
-  next changeOricorioFormFromItem(poke,form_name,form)
+  next changeOricorioFormFromItem(poke, form_name, form)
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:REDNECTAR, proc { |item, poke, scene|
   form_name = "Baile"
   form = 1
-  next changeOricorioFormFromItem(poke,form_name,form)
+  next changeOricorioFormFromItem(poke, form_name, form)
 })
 
 ItemHandlers::UseOnPokemon.add(:YELLOWNECTAR, proc { |item, poke, scene|
   form_name = "Pom-Pom"
   form = 2
-  next changeOricorioFormFromItem(poke,form_name,form)
+  next changeOricorioFormFromItem(poke, form_name, form)
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:YELLOWNECTAR, proc { |item, poke, scene|
   form_name = "Pom-Pom"
-  form = 1
-  next changeOricorioFormFromItem(poke,form_name,form)
+  form = 2
+  next changeOricorioFormFromItem(poke, form_name, form)
 })
 
 ItemHandlers::UseOnPokemon.add(:PINKNECTAR, proc { |item, poke, scene|
   form_name = "Pa'u"
   form = 3
-  next changeOricorioFormFromItem(poke,form_name,form)
+  next changeOricorioFormFromItem(poke, form_name, form)
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:PINKNECTAR, proc { |item, poke, scene|
   form_name = "Pa'u"
   form = 3
-  next changeOricorioFormFromItem(poke,form_name,form)
+  next changeOricorioFormFromItem(poke, form_name, form)
 })
 
 ItemHandlers::UseOnPokemon.add(:BLUENECTAR, proc { |item, poke, scene|
   form_name = "Sensu"
   form = 4
-  next changeOricorioFormFromItem(poke,form_name,form)
+  next changeOricorioFormFromItem(poke, form_name, form)
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:BLUENECTAR, proc { |item, poke, scene|
   form_name = "Sensu"
   form = 4
-  next changeOricorioFormFromItem(poke,form_name,form)
+  next changeOricorioFormFromItem(poke, form_name, form)
 })

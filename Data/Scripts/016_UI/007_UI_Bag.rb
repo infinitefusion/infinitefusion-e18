@@ -66,11 +66,20 @@ class Window_PokemonBag < Window_DrawableCommand
     rect = Rect.new(rect.x+16,rect.y+16,rect.width-16,rect.height)
     thispocket = @bag.pockets[@pocket]
     if index==self.itemCount-1
-      textpos.push([_INTL("CLOSE BAG"),rect.x,rect.y-2,false,self.baseColor,self.shadowColor])
+      closeBase   = @baseColor
+      closeShadow = @shadowColor
+      if isDarkMode
+        closeBase, closeShadow = closeShadow, closeBase
+      end
+      textpos.push([_INTL("CLOSE BAG"),rect.x,rect.y-2,false,closeBase,closeShadow])
     else
       item = (@filterlist) ? thispocket[@filterlist[@pocket][index]][0] : thispocket[index][0]
-      baseColor   = self.baseColor
-      shadowColor = self.shadowColor
+      baseColor   = @baseColor
+      shadowColor = @shadowColor
+
+      if isDarkMode
+        baseColor, shadowColor = shadowColor, baseColor
+      end
       if @sorting && index==self.index
         baseColor   = Color.new(224,0,0)
         shadowColor = Color.new(248,144,144)
@@ -280,8 +289,13 @@ class PokemonBag_Scene
     overlay = @sprites["overlay"].bitmap
     overlay.clear
     # Draw the pocket name
+    pnBase   = POCKETNAMEBASECOLOR
+    pnShadow = POCKETNAMESHADOWCOLOR
+    if isDarkMode
+      pnBase, pnShadow = pnShadow, pnBase
+    end
     pbDrawTextPositions(overlay,[
-       [PokemonBag.pocketNames[@bag.lastpocket],94,176,2,POCKETNAMEBASECOLOR,POCKETNAMESHADOWCOLOR]
+      [PokemonBag.pocketNames[@bag.lastpocket],94,176,2,pnBase,pnShadow]
     ])
     # Draw slider arrows
     showslider = false
@@ -447,6 +461,15 @@ end
 # Bag mechanics
 #===============================================================================
 class PokemonBagScreen
+  POCKET_ITEMS = 1
+  POCKET_MEDICINE = 2
+  POCKET_BALLS = 3
+  POCKET_TM = 4
+  POCKET_BERRIES = 5
+  POCKET_MAIL = 6
+  POCKET_BATTLE = 7
+  POCKET_KEY = 8
+
   def initialize(scene,bag)
     @bag   = bag
     @scene = scene
@@ -534,21 +557,31 @@ class PokemonBagScreen
         end
         @scene.pbRefresh
       elsif cmdSort >=0 && command == cmdSort # Sort bag
-        command = @scene.pbShowCommands(_INTL("How to sort?",itemname),[
-          _INTL("Alphabetically"),
-          _INTL("By quantity"),
-          # "Recently used",
-          # "Recently obtained",
-          _INTL("Cancel")
-        ],0)
-        case command
+        commands = []
+        cmd_alphabet =_INTL("Alphabetically")
+        cmd_quantity =   _INTL("By quantity")
+        cmd_number =  _INTL("By number")
+        cmd_type =  _INTL("By move type")
+        cmd_cancel =  _INTL("Cancel")
+
+        commands << cmd_alphabet
+        commands << cmd_quantity unless @bag.lastpocket == POCKET_TM || @bag.lastpocket == POCKET_KEY
+        commands << cmd_number if @bag.lastpocket == POCKET_TM
+        commands << cmd_type if @bag.lastpocket == POCKET_TM
+        commands << cmd_cancel
+        command = @scene.pbShowCommands(_INTL("How to sort?",itemname),commands,0)
+        case commands[command]
           ### Cancel ###
-        when -1, 3
-          next
-        when 0
-          @bag.sort_pocket_alphabetically()
-        when 1
+        when cmd_alphabet
+            @bag.sort_pocket_alphabetically()
+        when cmd_quantity
           @bag.sort_pocket_by_quantity()
+        when cmd_number
+          @bag.sort_pocket_by_tm_number()
+        when cmd_type
+          @bag.sort_pocket_by_move_type()
+        else
+          next
         end
         @scene.pbRefresh
       elsif cmdDebug>=0 && command==cmdDebug   # Debug

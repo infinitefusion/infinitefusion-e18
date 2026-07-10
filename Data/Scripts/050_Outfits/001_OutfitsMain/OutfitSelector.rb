@@ -52,7 +52,7 @@ class OutfitSelector
       list += get_hairstyle_salon_base_options()
       list += search_hairstyles(get_regional_sets_tags())
     end
-    list << HAIR_BALD
+    list << HAIR_BALD if Settings::KANTO
     return list
   end
 

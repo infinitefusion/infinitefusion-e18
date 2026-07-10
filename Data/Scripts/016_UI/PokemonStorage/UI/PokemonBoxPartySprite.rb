@@ -3,16 +3,24 @@
 # Party pop-up panel
 #===============================================================================
 class PokemonBoxPartySprite < SpriteWrapper
-  def initialize(party, viewport = nil)
+  attr_accessor :filterProc
+
+  def initialize(party, viewport = nil, filter= nil)
     super(viewport)
     @party = party
-    @boxbitmap = AnimatedBitmap.new("Graphics/Pictures/Storage/overlay_party")
+    dark_mode = isDarkMode
+    party_tab_path ="Graphics/Pictures/Storage/overlay_party"
+    party_tab_path += "_dark" if dark_mode
+    @boxbitmap = AnimatedBitmap.new(party_tab_path)
     @pokemonsprites = []
+    @filterProc = filter
+
     for i in 0...Settings::MAX_PARTY_SIZE
       @pokemonsprites[i] = nil
       pokemon = @party[i]
       if pokemon
         @pokemonsprites[i] = PokemonBoxIcon.new(pokemon, viewport)
+        @pokemonsprites[i].apply_filter(@filterProc)
       end
     end
     @contents = BitmapWrapper.new(172, 352)
@@ -90,7 +98,7 @@ class PokemonBoxPartySprite < SpriteWrapper
   def refresh
     @contents.blt(0, 0, @boxbitmap.bitmap, Rect.new(0, 0, 172, 352))
     pbDrawTextPositions(self.bitmap, [
-      [_INTL("Back"), 86, 240, 2, Color.new(248, 248, 248), Color.new(80, 80, 80), 1]
+      [_INTL("Boxes"), 86, 240, 2, Color.new(248, 248, 248), Color.new(80, 80, 80), 1]
     ])
     xvalues = [] # [18, 90, 18, 90, 18, 90]
     yvalues = [] # [2, 18, 66, 82, 130, 146]

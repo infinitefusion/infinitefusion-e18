@@ -147,7 +147,10 @@ BallHandlers::ModifyCatchRate.add(:TIMERBALL,proc { |ball,catchRate,battle,battl
 
 BallHandlers::ModifyCatchRate.add(:DUSKBALL,proc { |ball,catchRate,battle,battler,ultraBeast|
   multiplier = (Settings::NEW_POKE_BALL_CATCH_RATES) ? 3 : 3.5
-  catchRate *= multiplier if battle.time==2
+  if GameData::MapMetadata.exists?($game_map.map_id)
+    battle_environment = GameData::MapMetadata.get($game_map.map_id).battle_environment
+  end
+  catchRate *= multiplier if (battle.time==2 || battle_environment && battle_environment == :Cave)
   next catchRate
 })
 

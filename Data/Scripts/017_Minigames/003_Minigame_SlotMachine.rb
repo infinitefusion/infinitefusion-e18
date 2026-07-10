@@ -296,7 +296,7 @@ class SlotMachineScene
         @sprites["window1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/stop"))
         @sprites["window1"].src_rect.set(152*((frame/spinFrameTime)%4),0,152,208)
         if Input.trigger?(Input::USE)
-          pbSEPlay("Slots stop")
+          pbSEPlay("SlotsStop")
           if @sprites["reel1"].spinning
             @sprites["reel1"].stopSpinning(@replay)
             @sprites["button1"].visible=true
@@ -330,7 +330,7 @@ class SlotMachineScene
           @sprites["window2"].src_rect.set(152*((frame/insertFrameTime)%2),0,152,208)
         end
         if Input.trigger?(Input::DOWN) && @wager<3 && @sprites["credit"].score>0
-          pbSEPlay("Slots coin")
+          pbSEPlay("SlotsCoin")
           @wager+=1
           @sprites["credit"].score-=1
           if @wager>=3

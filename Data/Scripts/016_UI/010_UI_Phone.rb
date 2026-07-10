@@ -92,7 +92,7 @@ class PokemonPhoneScene
       end
     end
     infotext = _INTL("Registered<br>")
-    infotext += _INTL(" <r>{1}<br>",@sprites["list"].commands.length)
+    infotext += " <r>#{@sprites["list"].commands.length}<br>"
     infotext += _INTL("Waiting for a rematch<r>{1}",rematchcount)
     @sprites["info"].text = infotext
     pbFadeInAndShow(@sprites)

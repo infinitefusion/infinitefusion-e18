@@ -32,19 +32,31 @@ class Game_Player < Game_Character
   end
 
   def bump_into_object
-    return if @bump_se && @bump_se>0
+    if $game_switches[SWITCH_TIME_TRIAL]
+      $game_temp.time_trial_bumps ||= 0
+      $game_temp.time_trial_bumps += 1 unless @bump_se && @bump_se > 0
+    end
+    return if @bump_se && @bump_se > 0
     pbSEPlay("Player bump")
-    @bump_se = Graphics.frame_rate/2
+    @bump_se = Graphics.frame_rate / 2
   end
 
   def move_generic(dir, turn_enabled = true)
     turn_generic(dir, true) if turn_enabled
     if !$PokemonTemp.encounterTriggered
+      return if hopOffFence
+      unless $PokemonGlobal.acroBike
+        if $PokemonGlobal.bike_trick && $game_player.pbFacingTerrainTag.acroBike
+          bikeOnFence
+          pbWait(4)
+        end
+      end
       if can_move_in_direction?(dir)
         x_offset = (dir == 4) ? -1 : (dir == 6) ? 1 : 0
         y_offset = (dir == 8) ? -1 : (dir == 2) ? 1 : 0
         return if pbLedge(x_offset, y_offset)
         return if pbEndSurf(x_offset, y_offset)
+        return if sitOnChair
         turn_generic(dir, true)
         if !$PokemonTemp.encounterTriggered
           @x += x_offset
@@ -364,7 +376,7 @@ class Game_Player < Game_Character
   end
 
   def update_event_triggering
-    return if moving?
+    return if moving? || jumping?
     # Try triggering events upon walking into them/in front of them
     if @moved_this_frame
       $PokemonTemp.dependentEvents.pbTurnDependentEvents
@@ -419,6 +431,7 @@ def pbCancelVehicles(destination=nil)
   $PokemonGlobal.surfing = false
   $PokemonGlobal.diving  = false
   $PokemonGlobal.bicycle = false if !destination || !pbCanUseBike?(destination)
+  $PokemonGlobal.acroBike = false
   pbUpdateVehicle
 end
 
@@ -432,6 +445,7 @@ end
 
 def pbMountBike
   return if $PokemonGlobal.bicycle
+  pbSEPlay("bike")
   $PokemonGlobal.bicycle = true
   pbUpdateVehicle
   bike_bgm = GameData::Metadata.get.bicycle_BGM
@@ -440,8 +454,11 @@ def pbMountBike
 end
 
 def pbDismountBike
+  return if $game_map.terrain_tag($game_player.x, $game_player.y).acroBike
   return if !$PokemonGlobal.bicycle
   $PokemonGlobal.bicycle = false
+  $PokemonGlobal.acroBike = false
+  $game_player.bike_hops = false
   pbUpdateVehicle
   $game_map.autoplayAsCue
 end

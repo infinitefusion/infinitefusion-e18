@@ -28,9 +28,6 @@ class ClippableSprite < Sprite_Character
     end
   end
 end
-
-
-
 class Spriteset_Map
   attr_reader :map
   @@viewport0 = Viewport.new(0, 0, Settings::SCREEN_WIDTH, Settings::SCREEN_HEIGHT)   # Panorama
@@ -56,6 +53,9 @@ class Spriteset_Map
     @fog = AnimatedPlane.new(@@viewport1)
     @fog.z = 3000
     @fog2=nil
+    if @map.fog2_name && @map.fog2_name != ""
+      setFog2(@map.fog2_name)
+    end
     @character_sprites = []
     for i in @map.events.keys.sort
       sprite = Sprite_Character.new(@@viewport1,@map.events[i])
@@ -63,20 +63,26 @@ class Spriteset_Map
     end
     @weather = RPG::Weather.new(@@viewport1)
     pbOnSpritesetCreate(self,@@viewport1)
+
     update
   end
 
-  def setFog2(filename="010-Water04")
-    disposeFog2()
+  def setFog2(filename)
+    disposeFog2
+    return if filename.nil? || filename == ""
+
+    @map.fog2_name = filename
     @fog2 = AnimatedPlane.new(@@viewport1)
     @fog2.z = 3001
     @fog2.setFog(filename)
   end
 
-  def disposeFog2()
+  def disposeFog2
     @fog2.dispose if @fog2
-    @fog2 =nil
+    @fog2 = nil
   end
+
+
 
   def dispose
     if $scene.is_a?(Scene_Map)
@@ -153,7 +159,7 @@ class Spriteset_Map
       sprite.update
     end
     if self.map!=$game_map
-      #@weather.fade_in(:None, 0, 20)
+      @weather.fade_in(:None, 0, 20)
     else
       @weather.fade_in($game_screen.weather_type, $game_screen.weather_power, $game_screen.weather_duration)
     end
@@ -166,3 +172,6 @@ class Spriteset_Map
     @@viewport3.update
   end
 end
+
+
+

@@ -94,6 +94,14 @@ class SecretBaseExporter
       item: pokemon.item ? pokemon.item.id.to_s : "",
       ability: pokemon.ability ? pokemon.ability.id.to_s : "",
       level: pokemon.level || 1,
+      owner: pokemon.owner,
+      ball: pokemon.poke_ball,
+
+      hat: pokemon.hat,
+      hat_x: pokemon.hat_x,
+      hat_y: pokemon.hat_y,
+      steps_to_hatch: pokemon.steps_to_hatch,
+      alt_sprite: pokemon.pif_sprite&.alt_letter,
       evs: {
         hp: pokemon.ev[:HP] || 0,
         atk: pokemon.ev[:ATTACK] || 0,
@@ -116,18 +124,17 @@ class SecretBaseExporter
   end
 
   private
-
-  # Recursively replace nils with empty strings (or zero if numeric leaf)
-  def sanitize_string(obj)
-    case obj
-    when Hash
-      obj.transform_values { |v| sanitize_string(v) }
-    when Array
-      obj.map { |v| sanitize_string(v) }
-    when NilClass
-      ""
-    else
-      obj
-    end
+end
+# Recursively replace nils with empty strings (or zero if numeric leaf)
+def sanitize_string(obj)
+  case obj
+  when Hash
+    obj.transform_values { |v| sanitize_string(v) }
+  when Array
+    obj.map { |v| sanitize_string(v) }
+  when NilClass
+    ""
+  else
+    obj
   end
 end

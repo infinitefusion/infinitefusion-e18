@@ -61,6 +61,9 @@ class SecretBaseItemInstance
   end
 
   def interactable?(position = [0,0])
+    return true#
+
+    #TODO
     return get_interactable_positions.include?(position)
   end
 
@@ -79,6 +82,7 @@ class SecretBaseItemInstance
   end
 
   def calculate_occupied_volume_positions(main_event_position)
+    return [] #TODO
     template = get_item_template
 
     item_x, item_y = main_event_position

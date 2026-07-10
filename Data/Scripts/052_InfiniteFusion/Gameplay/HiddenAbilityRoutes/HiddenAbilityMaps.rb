@@ -1,32 +1,49 @@
-
-
 HIDDEN_MAPS_STEPS = 1500
-HIDDEN_MAP_ALWAYS = [178,655,570,356]
-RANDOM_HIDDEN_MAP_LIST =  [8,109,431,446,402,403,467,468,10,23,167,16,19,78,185,86,
-                           491,90,40,342,490,102,103,104,105,106,1,12,413,445,484,485,486,140,350,146,
-                           149,304,356,307,409,351,495,154,349,322,323,544,198,144,155,444,58,59,229,52,53,54,
-                           55,98,173,174,181,187,95,159,162,437,440,438,57,171,528,265,288,364,329,
-                           335,254,261,262,266,230,145,147,258,284,283,267,586,285,286,287,300,311,47,580,529,
-                           635,638,646,560,559,526,600,564,594,566,562,619,563,603,561,597,633,640,641,621,312,
-                           670,692,643,523,698,
-                           602,642,623,569,588,573,362,645,651,376,762
+HIDDEN_MAP_ALWAYS = [178, 655, 570, 356]
+RANDOM_HIDDEN_MAP_LIST = [8, 109, 431, 446, 402, 403, 467, 468, 10, 23, 167, 16, 19, 78, 185, 86,
+                          491, 90, 40, 342, 490, 102, 103, 104, 105, 106, 1, 12, 413, 445, 484, 485, 486, 140, 350, 146,
+                          149, 304, 356, 307, 409, 351, 495, 154, 349, 322, 323, 544, 198, 144, 155, 444, 58, 59, 229, 52, 53, 54,
+                          55, 98, 173, 174, 181, 187, 95, 159, 162, 437, 440, 438, 57, 171, 528, 265, 288, 364, 329,
+                          335, 254, 261, 262, 266, 230, 145, 147, 258, 284, 283, 267, 586, 285, 286, 287, 300, 311, 47, 580, 529,
+                          635, 638, 646, 560, 559, 526, 600, 564, 594, 566, 562, 619, 563, 603, 561, 597, 633, 640, 641, 621, 312,
+                          670, 692, 643, 523, 698,
+                          602, 642, 623, 569, 588, 573, 362, 645, 651, 376, 762
 ]
 
-Events.onMapUpdate+=proc {|sender,e|
-  #next if !$game_switches[HIDDENMAPSWITCH]
+RANDOM_HIDDEN_MAP_LIST_HOENN = [
+  5, 10, 11, 12, 20, 50, 49, 31, 65, 37, 38, 39, 71, 74, 76, 77, # Routes
+  30, 28, 32, 34, 35, # dungeons
+  69, 62, 97, # secret areas
+  7, 47, 51, 6, # cities (only those that have encounterable pokemon)
+  999, 999, 999, 999, 999, 999, 999, 999, 999, 999, 999, 999, 999, 999, 999, 999, 999, 999, # Placeholders (so that it's still rare in the demo lol)
+]
+Events.onMapUpdate += proc { |sender, e|
+  # next if !$game_switches[HIDDENMAPSWITCH]
   if $PokemonGlobal.stepcount % HIDDEN_MAPS_STEPS == 0
     changeHiddenMap()
   end
 }
+
 def changeHiddenMap()
-  i = rand(RANDOM_HIDDEN_MAP_LIST.length-1)
-  pbSet(VAR_CURRENT_HIDDEN_MAP,RANDOM_HIDDEN_MAP_LIST[i])
+  maps_list = Settings::KANTO ? RANDOM_HIDDEN_MAP_LIST : RANDOM_HIDDEN_MAP_LIST_HOENN
+  i = rand(maps_list.length - 1)
+  pbSet(VAR_CURRENT_HIDDEN_MAP, maps_list[i])
+  setHiddenAbilityMapAnnouncement if Settings::HOENN
 end
 
-Events.onWildPokemonCreate+=proc {|sender,e|
+def setHiddenAbilityMapAnnouncement
+  visitedMap = $PokemonGlobal.visitedMaps[pbGet(VAR_CURRENT_HIDDEN_MAP)]
+  if visitedMap
+    addTVAnnouncement(:hidden_ability)
+  else
+    removeTVAnnouncement(:hidden_ability)
+  end
+end
+
+Events.onWildPokemonCreate += proc { |sender, e|
   if player_on_hidden_ability_map || isAlwaysHiddenAbilityMap($game_map.map_id)
-    pokemon=e[0]
-    chosenAbility = pokemon.getAbilityList.sample #format: [[:ABILITY, index],...]
+    pokemon = e[0]
+    chosenAbility = pokemon.getAbilityList.sample # format: [[:ABILITY, index],...]
     pokemon.ability = chosenAbility[0]
     pokemon.ability_index = chosenAbility[1]
   end
@@ -37,10 +54,14 @@ def isAlwaysHiddenAbilityMap(mapId)
 end
 
 def player_on_hidden_ability_map
-  return $game_map.map_id== pbGet(226)
+  return $game_map.map_id == pbGet(VAR_CURRENT_HIDDEN_MAP)
 end
 
-def Kernel.getMapName(id)
+def getCurrentHiddenAbilityMapName
+  return getMapName(pbGet(VAR_CURRENT_HIDDEN_MAP)).to_s
+end
+
+def getMapName(id)
   mapinfos = pbLoadMapInfos
   return _INTL("Unknown location") if !mapinfos[id]
   return mapinfos[id].name

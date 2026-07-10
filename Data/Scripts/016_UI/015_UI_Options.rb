@@ -4,6 +4,7 @@
 class PokemonSystem
   attr_accessor :textspeed
   attr_accessor :battlescene
+  attr_accessor :nobattlemovement
   attr_accessor :battlestyle
   attr_accessor :frame
   attr_accessor :textskin
@@ -13,18 +14,29 @@ class PokemonSystem
   attr_accessor :bgmvolume
   attr_accessor :sevolume
   attr_accessor :textinput
-  attr_accessor :quicksurf
+  attr_accessor :quickHM
   attr_accessor :level_caps
   attr_accessor :battle_type
   attr_accessor :download_sprites
   attr_accessor :speedup
   attr_accessor :speedup_speed
+  attr_accessor :speedup_speed_battles
   attr_accessor :max_nb_sprites_download
   attr_accessor :on_mobile
   attr_accessor :type_icons
   attr_accessor :use_generated_dex_entries
   attr_accessor :hide_custom_eggs
   attr_accessor :include_alt_sprites_in_random
+  attr_accessor :overworld_encounters
+  attr_accessor :encountered_music
+  attr_accessor :random_sprites
+  attr_accessor :prompt_nicknames
+
+  attr_accessor :no_reviving
+  attr_accessor :no_healing_items_battles
+  attr_accessor :no_healing_items_ow
+  attr_accessor :no_pokemon_center
+  attr_accessor :obtained_transfer_box
 
   def initialize
     @textspeed = 1 # Text speed (0=slow, 1=normal, 2=fast)
@@ -38,10 +50,11 @@ class PokemonSystem
     @bgmvolume = 40 # Volume of background music and ME
     @sevolume = 40 # Volume of sound effects
     @textinput = 1 # Text input mode (0=cursor, 1=keyboard)
-    @quicksurf = 0
+    @quickHM = 0
     @battle_type = 0
-    @speedup = 0 #0= hold, 1=toggle
-    @speedup_speed = 3 #for hold only
+    @speedup = 0 # 0= hold, 1=toggle
+    @speedup_speed = 3 # for hold only
+    @speedup_speed_battles = 3 # for hold only
     @download_sprites = 0
     @max_nb_sprites_download = 5
     @on_mobile = false
@@ -49,6 +62,12 @@ class PokemonSystem
     @use_generated_dex_entries = true
     @hide_custom_eggs = true
     @include_alt_sprites_in_random = false
+
+    @no_reviving = false
+    @no_healing_items_battles = false
+    @no_pokemon_center = false
+    @random_sprites = true
+    @prompt_nicknames = true
   end
 end
 
@@ -139,7 +158,7 @@ class NumberOption < Option
   attr_reader :optstart
   attr_reader :optend
 
-  def initialize(name, optstart, optend, getProc, setProc, description="")
+  def initialize(name, optstart, optend, getProc, setProc, description = "")
     super(description)
     @name = name
     @optstart = optstart
@@ -194,6 +213,30 @@ class SliderOption < Option
     index -= @optinterval
     index = @optstart if index < @optstart
     return index - @optstart
+  end
+end
+
+class ButtonOption < Option
+  attr_reader :name
+
+  def initialize(name, onPressProc, description = "")
+    super(description)
+    @name = name
+    @onPressProc = onPressProc
+  end
+
+  # Button options don't have values
+  def get
+    0;
+  end
+
+  def set(_value)
+    ;
+  end
+
+  # When the player presses confirm
+  def trigger
+    @onPressProc.call if @onPressProc
   end
 end
 
@@ -265,10 +308,30 @@ class Window_PokemonOption < Window_DrawableCommand
   def drawItem(index, _count, rect)
     return if dont_draw_item(index)
     rect = drawCursor(index, rect)
-    optionname = (index == @options.length) ? _INTL("Confirm") : @options[index].name
     optionwidth = rect.width * 9 / 20
+
+    optionname = (index == @options.length) ? _INTL("Confirm") : @options[index].name
+
+    if index == @options.length
+      base_color = Color.new(
+        [@nameBaseColor.red + 80, 255].min,
+        [@nameBaseColor.green + 80, 255].min,
+        [@nameBaseColor.blue + 80, 255].min
+      )
+      shadow_color = Color.new(
+        [base_color.red - 60, 0].max,
+        [base_color.green - 60, 0].max,
+        [base_color.blue - 60, 0].max
+      )
+    else
+      base_color   = @nameBaseColor
+      shadow_color = @nameShadowColor
+    end
+
     pbDrawShadowText(self.contents, rect.x, rect.y, optionwidth, rect.height, optionname,
-                     @nameBaseColor, @nameShadowColor)
+                     base_color, shadow_color)
+
+
     return if index == @options.length
     if @options[index].is_a?(EnumOption)
       if @options[index].values.length > 1
@@ -313,6 +376,8 @@ class Window_PokemonOption < Window_DrawableCommand
       xpos += optionwidth - self.contents.text_size(value).width
       pbDrawShadowText(self.contents, xpos, rect.y, optionwidth, rect.height, value,
                        @selBaseColor, @selShadowColor)
+    elsif @options[index].is_a?(ButtonOption)
+      return
     else
       value = @options[index].values[self[index]]
       xpos = optionwidth + rect.x
@@ -337,22 +402,33 @@ class Window_PokemonOption < Window_DrawableCommand
     end
 
     if self.active && self.index < @options.length
-      if Input.repeat?(Input::LEFT)
-        self[self.index] = @options[self.index].prev(self[self.index])
-        @selected_position = self[self.index]
-        @mustUpdateOptions = true
-        @mustUpdateDescription = true
-        refresh if self[self.index]
-        return
+
+      if @options[self.index].is_a?(ButtonOption) #submenus
+        if Input.trigger?(Input::USE) || Input.trigger?(Input::LEFT) || Input.trigger?(Input::RIGHT)
+          @options[self.index].trigger
+          @mustUpdateDescription = true
+          refresh
+          return
+        end
+      else
+        if Input.repeat?(Input::LEFT)
+          self[self.index] = @options[self.index].prev(self[self.index])
+          @selected_position = self[self.index]
+          @mustUpdateOptions = true
+          @mustUpdateDescription = true
+          refresh if self[self.index]
+          return
+        end
+        if Input.repeat?(Input::RIGHT)
+          self[self.index] = @options[self.index].next(self[self.index])
+          @selected_position = self[self.index]
+          @mustUpdateOptions = true
+          @mustUpdateDescription = true
+          refresh
+          return
+        end
       end
-      if Input.repeat?(Input::RIGHT)
-        self[self.index] = @options[self.index].next(self[self.index])
-        @selected_position = self[self.index]
-        @mustUpdateOptions = true
-        @mustUpdateDescription = true
-        refresh
-        return
-      end
+
       if Input.repeat?(Input::UP) || Input.repeat?(Input::DOWN)
         @selected_position = self[self.index]
         @mustUpdateOptions = true
@@ -370,7 +446,8 @@ end
 #===============================================================================
 class PokemonOption_Scene
   def getDefaultDescription
-    return _INTL("Speech frame {1}.", 1 + $PokemonSystem.textskin)
+    #return _INTL("Speech frame {1}.", 1 + $PokemonSystem.textskin)
+    return _INTL("Save changes and close the menu.")
   end
 
   def pbUpdate
@@ -383,7 +460,8 @@ class PokemonOption_Scene
 
   def initialize
     @autosave_menu = false
-    @manually_changed_difficulty=false
+    @challenge_menu = false
+    @manually_changed_difficulty = false
   end
 
   def initUIElements
@@ -416,9 +494,11 @@ class PokemonOption_Scene
   end
 
   def initOptionsWindow
+    width = Graphics.width
+    height = (Graphics.height - @sprites["title"].height - @sprites["textbox"].height) +32
     optionsWindow = Window_PokemonOption.new(@PokemonOptions, 0,
-                                             @sprites["title"].height, Graphics.width,
-                                             Graphics.height - @sprites["title"].height - @sprites["textbox"].height)
+                                             @sprites["title"].height,
+                                             width, height)
     optionsWindow.viewport = @viewport
     optionsWindow.visible = true
     return optionsWindow
@@ -446,7 +526,7 @@ class PokemonOption_Scene
     end
   end
 
-  #IMPLEMENT IN INHERITED CLASSES
+  # IMPLEMENT IN INHERITED CLASSES
   def pbGetOptions(inloadscreen = false)
     options = []
     return options
@@ -457,7 +537,7 @@ class PokemonOption_Scene
   end
 
   def openAutosaveMenu()
-    return if !@autosave_menu
+    return unless @autosave_menu
     pbFadeOutIn {
       scene = AutosaveOptionsScene.new
       screen = PokemonOptionScreen.new(scene)
@@ -465,6 +545,7 @@ class PokemonOption_Scene
     }
     @autosave_menu = false
   end
+
 
   def pbOptions
     oldSystemSkin = $PokemonSystem.frame # Menu
@@ -512,7 +593,7 @@ class PokemonOption_Scene
     end
     pbDisposeMessageWindow(@sprites["textbox"])
     pbDisposeSpriteHash(@sprites)
-    pbRefreshSceneMap
+    #pbRefreshSceneMap
     @viewport.dispose
   end
 end
