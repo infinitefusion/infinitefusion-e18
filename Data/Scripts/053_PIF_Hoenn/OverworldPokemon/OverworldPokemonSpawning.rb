@@ -51,8 +51,7 @@ end
 
 def get_overworld_pokemon_group_size(species, max_group_size)
   catch_rate = GameData::Species.get(species).catch_rate
-  t = (catch_rate - 1) / 254.0
-  t = Math.sqrt(t) # invert to favor smaller groups
+  t = Math.sqrt([(catch_rate - 1) / 254.0, 0].max)
 
   # Base group size, biased toward smaller numbers
   base = 1 + (t * (max_group_size - 1) * 0.5) # multiply by 0.5 to shrink toward 1–2

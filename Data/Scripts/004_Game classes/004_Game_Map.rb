@@ -619,3 +619,52 @@ def pbScrollMap(direction, distance, speed)
     end
   end
 end
+
+def pbScrollMapDiagonal(distance_horizontal, distance_vertical, speed)
+  real_x = distance_horizontal.abs * Game_Map::REAL_RES_X
+  real_y = distance_vertical.abs * Game_Map::REAL_RES_Y
+
+  if speed == 0
+    if distance_horizontal > 0
+      $game_map.scroll_right(real_x)
+    elsif distance_horizontal < 0
+      $game_map.scroll_left(real_x)
+    end
+    if distance_vertical > 0
+      $game_map.scroll_down(real_y)
+    elsif distance_vertical < 0
+      $game_map.scroll_up(real_y)
+    end
+  else
+    x_rest = real_x
+    y_rest = real_y
+    step = 2 ** speed
+    loop do
+      Graphics.update
+      Input.update
+      moved = false
+      if x_rest > 0
+        dx = [step, x_rest].min
+        if distance_horizontal > 0
+          $game_map.scroll_right(dx)
+        else
+          $game_map.scroll_left(dx)
+        end
+        x_rest -= dx
+        moved = true
+      end
+      if y_rest > 0
+        dy = [step, y_rest].min
+        if distance_vertical > 0
+          $game_map.scroll_down(dy)
+        else
+          $game_map.scroll_up(dy)
+        end
+        y_rest -= dy
+        moved = true
+      end
+      pbUpdateSceneMap
+      break if !moved || (x_rest <= 0 && y_rest <= 0)
+    end
+  end
+end

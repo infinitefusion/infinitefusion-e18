@@ -1,6 +1,6 @@
 
 module Settings
-  LATEST_GAME_RELEASE = "6.7.2"
+  LATEST_GAME_RELEASE = "6.8.0"
 
   SHINY_POKEMON_CHANCE = 16
   SNOW_DAY = false
@@ -48,7 +48,7 @@ module Settings
   CUSTOM_FUSIONS_SPRITESHEET_TRUE_SIZE_URL = "https://infinitefusion.net/customsprites/spritesheets/spritesheets_custom/"
 
   
-  TRANSFER_BOX_DISCLAIMER_MESSAGE = "\\C[2]The Transfer Box is not yet available in Infinite Fusion 1, it is planned for a future update. It can still be used to transfer Pokémon between Hoenn savefiles in the meantime."
+  TRANSFER_BOX_DISCLAIMER_MESSAGE = ""
 
   CUSTOMSPRITES_RATE_MAX_NB_REQUESTS = 15  #Nb. requests allowed in each time window
   CUSTOMSPRITES_ENTRIES_RATE_TIME_WINDOW = 60    # In seconds

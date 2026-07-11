@@ -5,7 +5,7 @@
 #==============================================================================#
 module Settings
   # The version of your game. It has to adhere to the MAJOR.MINOR.PATCH format.
-  GAME_VERSION_NUMBER = "6.8.1"
+  GAME_VERSION_NUMBER = "6.8.2"
   LATEST_GAME_RELEASE = "6.8"
 
   HOENN_VERSION_NUMBER = "1.1.0"
@@ -211,6 +211,17 @@ module Settings
   GRASS_STARTERS = [:BULBASAUR, :CHIKORITA, :TREECKO, :TURTWIG, :CHESPIN]
   FIRE_STARTERS = [:CHARMANDER, :CYNDAQUIL, :TORCHIC, :CHIMCHAR, :FENNEKIN]
   WATER_STARTERS = [:SQUIRTLE, :TOTODILE, :MUDKIP, :PIPLUP, :FROAKIE]
+
+  ALTERING_CAVE_ENCOUNTERS =
+    {
+    :MONDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :HOUNDOUR],
+    :TUESDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :SCRAGGY],
+    :WEDNESDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :PINECO],
+    :THURSDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :MAREEP],
+    :FRIDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :TEDDIURSA],
+    :SATURDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :AIPOM],
+    :SUNDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :SMEARGLE],
+  }
 
   #=============================================================================
 

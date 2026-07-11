@@ -1165,6 +1165,19 @@ HiddenMoveHandlers::UseMove.add(:MAGNETRISE, proc { |move, pokemon|
   next true
 })
 
+HiddenMoveHandlers::CanUseMove.add(:SPLASH, proc { |move, pkmn, showmsg|
+  next true unless $PokemonGlobal.bicycle || $game_player.floating
+})
+HiddenMoveHandlers::UseMove.add(:SPLASH, proc { |move, pokemon|
+  if !pbHiddenMoveAnimation(pokemon)
+    pbMessage(_INTL("{1} used {2}!", pokemon.name, GameData::Move.get(move).name))
+  end
+  pbSEPlay("jump", 80, 100)
+  $game_player.jump(0,0)
+  next true
+})
+
+
 HiddenMoveHandlers::CanUseMove.add(:MIST, proc { |move, pkmn, showmsg|
   next true if Settings::GAME_ID == :IF_HOENN
 })

@@ -3,6 +3,7 @@ class PokemonTemp
 end
 module PokeBattle_BattleCommon
   def checkCatchChallenge(pokeball, battle, caught_pokemon)
+    return unless battle.is_a?(PokeBattle_Battle) #This whole check gets skipped for safari zone - maybe implement it later
     #Caught in 1 try
     if battle.balls_thrown == 0 #It's incremented after this method gets checked
       $Trainer.complete_challenge(:catch_first_try)

@@ -180,7 +180,7 @@ class BattledTrainer
       held_item = pokemon.item
       is_holdable_item = HELD_ITEMS.include?(held_item.id)
       echoln "#{held_item} #{is_holdable_item}"
-      next if is_holdable_item && rand(100) >= store_held_item_chancex
+      next if is_holdable_item && rand(100) >= store_held_item_chance
 
       is_evolution_item = held_item.is_evolution_stone?
       is_battle_item = held_item.has_battle_use?

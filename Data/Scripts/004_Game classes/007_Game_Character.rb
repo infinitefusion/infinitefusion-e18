@@ -34,7 +34,6 @@ class Game_Character
   attr_accessor :shadow_offset
   attr_accessor :animation_speed
   attr_accessor :step_anime
-
   def initialize(map = nil)
     @map = map
     @id = 0
@@ -420,6 +419,7 @@ class Game_Character
   # Movement
   #=============================================================================
   def moving?
+    return true if @diag_move_active
     return @real_x != @x * Game_Map::REAL_RES_X ||
       @real_y != @y * Game_Map::REAL_RES_Y
   end
@@ -1235,6 +1235,10 @@ class Game_Character
   end
 
   def update_move
+    if @diag_move_active
+      update_diagonal_move
+      return
+    end
     # Move the character (the 0.1 catches rounding errors)
     distance = (jumping?) ? jump_speed_real : move_speed_real
     dest_x = @x * Game_Map::REAL_RES_X
@@ -1326,5 +1330,68 @@ class Game_Character
     return (dx + dy) - 1
   end
 
+  def move_diagonal_freeform(distance_horizontal, distance_vertical, speed)
+    real_dx = distance_horizontal * Game_Map::REAL_RES_X
+    real_dy = distance_vertical * Game_Map::REAL_RES_Y
+    total_dist = Math.sqrt((real_dx ** 2) + (real_dy ** 2))
+    return if total_dist == 0
 
+    unless @direction_fix
+      if real_dx.abs > real_dy.abs
+        @direction = (real_dx < 0) ? 4 : 6
+      else
+        @direction = (real_dy < 0) ? 8 : 2
+      end
+    end
+
+    @diag_start_x  = @real_x
+    @diag_start_y  = @real_y
+    @diag_real_dx  = real_dx
+    @diag_real_dy  = real_dy
+    @diag_total_dist = total_dist
+    @diag_traveled = 0
+    step = (speed == 6) ? 64 : (speed == 5) ? 32 : (2 ** (speed + 1)) * 0.8
+    @diag_step = step * 40.0 / Graphics.frame_rate
+    @diag_move_active = true
+  end
+
+  def stop_diagonal_move
+    return unless @diag_move_active
+    @diag_move_active = false
+    calculate_bush_depth
+    triggerLeaveTile
+  end
+
+  def update_diagonal_move
+    move_amount = [@diag_step, @diag_total_dist - @diag_traveled].min
+    @diag_traveled += move_amount
+    frac = @diag_traveled / @diag_total_dist
+    @real_x = @diag_start_x + (@diag_real_dx * frac)
+    @real_y = @diag_start_y + (@diag_real_dy * frac)
+    @x = (@real_x / Game_Map::REAL_RES_X).round % self.map.width
+    @y = (@real_y / Game_Map::REAL_RES_Y).round % self.map.height
+    @anime_count += 1 if @walk_anime || @step_anime
+    @moved_this_frame = true
+
+    return if @diag_traveled < @diag_total_dist
+
+    # Finished - snap to tile
+    @real_x = @diag_start_x + @diag_real_dx
+    @real_y = @diag_start_y + @diag_real_dy
+    @x = (@real_x / Game_Map::REAL_RES_X).round % self.map.width
+    @y = (@real_y / Game_Map::REAL_RES_Y).round % self.map.height
+    @diag_move_active = false
+    calculate_bush_depth
+    triggerLeaveTile
+    Events.onStepTakenFieldMovement.trigger(self, self)
+  end
+
+  def diagonal_moving?
+    return @diag_move_active
+  end
+end
+
+def pbMoveEventDiagonal(event, distance_horizontal, distance_vertical, speed)
+  event = get_character(event) if event.is_a?(Integer)
+  event.move_diagonal_freeform(distance_horizontal, distance_vertical, speed)
 end

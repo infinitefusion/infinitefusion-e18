@@ -128,16 +128,7 @@ end
 
 def select_altering_cave_encounter
   level_range = 8..16
-  encounter_table =
-    {
-      :MONDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :HOUNDOUR],
-      :TUESDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :SCRAGGY],
-      :WEDNESDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :PINECO],
-      :THURSDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :MAREEP],
-      :FRIDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :TEDDIURSA],
-      :SATURDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :AIPOM],
-      :SUNDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :SMEARGLE],
-    }
+  encounter_table = Settings::ALTERING_CAVE_ENCOUNTERS
   day_of_week = getDayOfTheWeek
   species = encounter_table[day_of_week].sample
   level = rand(level_range)
