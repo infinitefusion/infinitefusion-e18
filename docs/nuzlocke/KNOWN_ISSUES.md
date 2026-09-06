@@ -9,7 +9,7 @@ Running list of reported problems and their status. Add new ones at the top of
 
 ## Wishlist / not started
 
-- Custom reroll graphic: the lever (`BWSwitches`) can be swapped for a
+- Custom reroll graphic: the terminal (`BWComputer`) can be swapped for a
   hand-drawn charset by pointing map 77 event "Nuzlocke slot machine" page 2
   at the new file.
 - Soul Link: untested in-game so far; relay URL must be set first.
@@ -40,5 +40,5 @@ Running list of reported problems and their status. Add new ones at the top of
 - Reset Run landed post-Pokédex: rebuilt from a true new game instead of a
   saved copy. (v1.1.1)
 - Slot machine was half a Game Corner bank and sat badly on the rug: replaced
-  by the BWSwitches lever charset at (16,16), animated on pull; bookshelves
-  restored, map tile data back to pristine. (v1.1.1)
+  by the BWComputer terminal charset at (16,15) with a blinking screen; the
+  potted plant (tiles + easter-egg event) moved to (7,13)-(7,14). (v1.1.1)

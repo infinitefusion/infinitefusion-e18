@@ -1,8 +1,8 @@
 #===============================================================================
 # Nuzlocke starter slot machine
 #
-# A lever event beside the starter table in Oak's lab (map 77, event
-# "Nuzlocke slot machine", charset BWSwitches) rerolls the three starters while starter selection is
+# A terminal event beside the starter table in Oak's lab (map 77, event
+# "Nuzlocke slot machine", charset BWComputer) rerolls the three starters while starter selection is
 # open. The rerolled trio is stored on the save and served through obtainStarter,
 # so the three Poke Balls (and the rival's pick via setRivalStarter) all see it.
 #
@@ -157,9 +157,9 @@ class Object
 end
 
 #===============================================================================
-# The map event's script call. The event is the "BWSwitches" lever charset
-# (facing down = lever centred; left/right = lever tilted), so a pull is
-# animated by turning the event.
+# The map event's script call. The event is the "BWComputer" terminal charset
+# (facing left/up = screen on, down/right = screen off; step animation makes
+# the screen flicker), so a reroll is animated by blinking the screen.
 #===============================================================================
 NUZLOCKE_SLOT_EVENT_NAME = "Nuzlocke slot machine"
 
@@ -172,26 +172,27 @@ def nuzlocke_slot_pull_animation
   ev = nuzlocke_slot_event
   return if !ev || !defined?(PBMoveRoute) || !defined?(pbMoveRoute)
   (pbSEPlay("SlotsCoin") rescue nil)
-  pbMoveRoute(ev, [PBMoveRoute::TurnLeft, PBMoveRoute::Wait, 6,
-                   PBMoveRoute::TurnDown, PBMoveRoute::Wait, 4,
-                   PBMoveRoute::TurnRight, PBMoveRoute::Wait, 6,
-                   PBMoveRoute::TurnDown], true)
+  pbMoveRoute(ev, [PBMoveRoute::DirectionFixOff,
+                   PBMoveRoute::TurnDown, PBMoveRoute::Wait, 6,
+                   PBMoveRoute::TurnLeft, PBMoveRoute::Wait, 4,
+                   PBMoveRoute::TurnDown, PBMoveRoute::Wait, 6,
+                   PBMoveRoute::TurnLeft, PBMoveRoute::DirectionFixOn], true)
 rescue => e
-  PBDebug.log("[Nuzlocke] lever animation failed: #{e.message}") if defined?(PBDebug)
+  PBDebug.log("[Nuzlocke] terminal animation failed: #{e.message}") if defined?(PBDebug)
 end
 
 def pbNuzlockeStarterSlotMachine
   if !NuzlockeStarterSlots.enabled?
-    pbMessage(_INTL("A lever with a sign: 'STARTER REROLL'. It's been switched off."))
+    pbMessage(_INTL("A terminal labeled 'STARTER REROLL'. The screen is dark."))
     return false
   end
   if !NuzlockeStarterSlots.selection_open?
-    pbMessage(_INTL("A lever with a sign: 'STARTER REROLL'. It's locked in place."))
+    pbMessage(_INTL("A terminal labeled 'STARTER REROLL'. It's locked."))
     return false
   end
   names = NuzlockeStarterSlots.current_trio.map { |sp| NuzlockeStarterSlots.species_name(sp) }
-  cmds = [_INTL("Pull it!"), _INTL("Leave it")]
-  choice = pbMessage(_INTL("A lever with a sign: 'STARTER REROLL'. It rerolls the three Pokémon on the table.\nRight now: {1}, {2} and {3}.", names[0], names[1], names[2]), cmds, cmds.length)
+  cmds = [_INTL("Reroll!"), _INTL("Leave it")]
+  choice = pbMessage(_INTL("A terminal labeled 'STARTER REROLL'. It rerolls the three Pokémon on the table.\nRight now: {1}, {2} and {3}.", names[0], names[1], names[2]), cmds, cmds.length)
   return false if choice != 0
   nuzlocke_slot_pull_animation
   3.times do
@@ -202,6 +203,6 @@ def pbNuzlockeStarterSlotMachine
   end
   trio = NuzlockeStarterSlots.reroll!
   new_names = trio.map { |sp| NuzlockeStarterSlots.species_name(sp) }
-  pbMessage(_INTL("\\se[]Clunk! The Poké Balls now hold {1}, {2} and {3}!", new_names[0], new_names[1], new_names[2]))
+  pbMessage(_INTL("\\se[]Beep! The Poké Balls now hold {1}, {2} and {3}!", new_names[0], new_names[1], new_names[2]))
   return true
 end
