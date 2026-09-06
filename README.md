@@ -52,6 +52,8 @@ What it enforces (each has a toggle):
   **Set battle style**, enforced **level caps**.
 - **Cap Candy** — optional QoL item sold in every PokéMart that raises one
   Pokémon straight to the current level cap.
+- **Starter slot machine** — a slot machine next to the starter table in Oak's
+  lab rerolls the three starters as often as you like, until you pick one.
 - **Reset Run** — pause-menu option that wipes the run (rerolling any
   randomization) while keeping your name and settings; optionally triggered
   automatically when your whole team is wiped.

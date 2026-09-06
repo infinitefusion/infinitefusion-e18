@@ -24,6 +24,7 @@ To update later, rename the folder to `InfiniteFusion` and run `INSTALL_OR_UPDAT
 - **Cap Candy**: optional item sold in every PokéMart that raises one Pokémon to the current level cap.
 - **Guaranteed Mart heals** for randomized runs.
 - **Reset Run** from the pause menu, and optional **auto Reset Run on a wipe**.
+- **Starter slot machine** next to the starter table in Oak's lab: reroll the three starters until you pick one (toggle in Nuzlocke settings).
 - **Soul Link** (v1.1.0): Soullocke with a friend over a room code. Linked deaths, broken links, fusion-aware. Needs the relay from `tools/soul_link_relay/` deployed once.
 - Optional randomization through the game's own randomizer.
 

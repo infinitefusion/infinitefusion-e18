@@ -32,6 +32,7 @@ SWITCH_NUZLOCKE_SET_BATTLE_STYLE=1211      # force Set style (no free switch on 
 SWITCH_NUZLOCKE_LEVEL_CAP=1212             # force the game's level caps on for this run
 SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE=1213    # a blackout wipes the run and triggers Reset Run
 SWITCH_NUZLOCKE_SOUL_LINK=1214             # Soul Link (Soullocke) sync via the relay
+SWITCH_NUZLOCKE_STARTER_REROLL=1215        # slot machine in Oak's lab that rerolls the 3 starters
 # VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE lives in CONSTANTS_GameVariables.rb
 # Values: 0=Off, 1=Head only, 2=Body only, 3=Both (default)
 

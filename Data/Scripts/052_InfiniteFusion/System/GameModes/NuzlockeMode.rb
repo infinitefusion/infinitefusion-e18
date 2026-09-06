@@ -31,6 +31,9 @@ def initializeNuzlockeMode()
   $game_switches[SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE] = false
   # Soul Link is opt-in: it needs a partner and a room code.
   $game_switches[SWITCH_NUZLOCKE_SOUL_LINK] = false
+  # Starter slot machine in Oak's lab: on by default (a Nuzlocke lives or dies
+  # by its starter; rerolling costs nothing but the player's honour).
+  $game_switches[SWITCH_NUZLOCKE_STARTER_REROLL] = true
 
   # Fused perma-death defaults to "Both" (the most punishing canonical option).
   pbSet(VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE, 3)

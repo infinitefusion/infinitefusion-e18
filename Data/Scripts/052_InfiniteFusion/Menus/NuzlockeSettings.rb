@@ -151,6 +151,14 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      "Adds a 'Reset Run' option to the pause menu. Wipes all progress and rerolls randomization, keeping your name."
       ),
 
+      EnumOption.new(_INTL("Starter slot machine"), [_INTL("On"), _INTL("Off")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_STARTER_REROLL] ? 0 : 1 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_STARTER_REROLL] = (value == 0)
+                     },
+                     "A slot machine next to the starter table in Oak's lab rerolls the three starters. Works until you pick one."
+      ),
+
       EnumOption.new(_INTL("Soul Link"), [_INTL("Off"), _INTL("On")],
                      proc { $game_switches[SWITCH_NUZLOCKE_SOUL_LINK] ? 1 : 0 },
                      proc { |value|

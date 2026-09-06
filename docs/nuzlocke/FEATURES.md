@@ -42,6 +42,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 30 | Reset Run lands you at starter selection in Oak's lab, pre-Pokédex | — | — | ✅ *fixed in v1.1.1* — the old copy was taken after the first save, so saving after the Pokédex made resets land post-Pokédex |
 | 31 | Auto Reset Run on a full wipe | On wipe → Reset run | Blackout | ✅ *new in v1.0.0* |
 | 32 | Soul Link (Soullocke) with a partner over a room-code relay: linked deaths, broken links, fusion-aware, linked-box warnings | Soul Link | Off | ✅ *new in v1.1.0* (needs the relay deployed, see `tools/soul_link_relay/`) |
+| 33 | Starter slot machine in Oak's lab (right of the starter table) that rerolls the three starters until you pick one. Randomized runs redraw within the randomizer's BST window; classic runs get a random grass/fire/water trio from every generation | Starter slot machine | On | ✅ *new in v1.1.1* (only map change in the mod: one event on map 77) |
 
 ## Not built (by design)
 
