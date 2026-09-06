@@ -21,7 +21,7 @@ To update later, rename the folder to `InfiniteFusion` and run `INSTALL_OR_UPDAT
 - **Dupes Clause** (a fusion is a dupe only if you own both halves) and **Shiny Clause** (shinies always catchable, never spend an area).
 - **Battle items forbidden** (Poké Balls still work), **trainer fleeing** allowed/disallowed.
 - **Set battle style** and **level cap** enforcement (Hardcore options, off by default).
-- **Cap Candy**: optional item sold in every PokéMart that raises one Pokémon to the current level cap.
+- **Cap Candy**: optional reusable key item that raises one Pokémon to the current level cap.
 - **Guaranteed Mart heals** for randomized runs.
 - **Reset Run** from the pause menu, and optional **auto Reset Run on a wipe**.
 - **Starter slot machine** next to the starter table in Oak's lab: reroll the three starters until you pick one (toggle in Nuzlocke settings).
@@ -34,6 +34,8 @@ To update later, rename the folder to `InfiniteFusion` and run `INSTALL_OR_UPDAT
 - First-encounter forfeit now actually works after normal wild battles (the per-battle flag was never being cleared).
 - Cap Candy fixed end to end (it previously vanished at boot, collided with TM109, sat in the Berries pocket, had no icon and could not be bought).
 - The empty-party soft-lock guard now fires (it was silently crashing).
+- Catching (first encounters and perma-death) is gated on Oak's Poké Ball handout, not on having a ball, so randomized early balls can't burn a route. Block messages now say whether the area was caught in or the encounter was used up.
+- Auto reset on wipe no longer fires when you flee a trainer.
 - Reset Run (and auto reset on wipe) now rebuilds the game from a true new game and replays the intro's end state, then runs the game's own skip-to-starter. It previously restored a copy of your save taken after your first manual save, which could land you post-Pokédex.
 
 Full checklist: `docs/nuzlocke/FEATURES.md`. Tests: drop an empty `nuzlocke_run_tests.flag` in the game folder and launch; results land in `nuzlocke_test_results.log`.

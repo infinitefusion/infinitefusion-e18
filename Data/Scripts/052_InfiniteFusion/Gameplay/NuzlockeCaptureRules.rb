@@ -227,7 +227,7 @@ module NuzlockeCaptureRules
 
   def note_wild_encounter_start(encounter = nil)
     return if catch_rule_mode != CATCH_RULE_FIRST_ENCOUNTER
-    return if !player_has_balls?
+    return if !catching_unlocked?
     # Dupes Clause: a dupe wild does NOT count as the area's first encounter -- it
     # is skipped (and stays uncatchable, since it's never flagged), leaving the
     # area open so the next non-dupe wild becomes the real first encounter. A
@@ -329,7 +329,9 @@ module NuzlockeCaptureRules
     return current_area_key
   end
 
-  # Balls-first gate: true only if the bag holds at least one Poke Ball.
+  # Live check: does the bag hold at least one Poke Ball right now? Used only to
+  # decide whether a throw is even possible (no point blocking an impossible
+  # throw). It does NOT unlock catching -- see catching_unlocked?.
   def player_has_balls?
     return false if !$PokemonBag
     bag_pockets = ($PokemonBag.pockets rescue nil)
@@ -342,31 +344,35 @@ module NuzlockeCaptureRules
         next if !item_id
         item = (GameData::Item.get(item_id) rescue nil)
         next if !item
-        if item.is_poke_ball?
-          # Latch the one-way ratchet (see ever_had_balls?): the first time the
-          # bag holds a ball at all, the run is "past the pre-catch phase" and
-          # perma-death stays armed from now on -- even if the bag later empties.
-          $PokemonGlobal.nuzlocke_ever_had_balls = true if $PokemonGlobal
-          return true
-        end
+        return true if item.is_poke_ball?
       end
     end
     return false
   end
 
-  # One-way ratchet for perma-death gating. The original balls-first gate
-  # (player_has_balls?) was meant to protect ONLY the pre-catch starter rival
-  # fight, but as a live check it leaked indefinitely: any time the bag emptied
-  # later, perma-death silently turned back off (user-reported wipes retained
-  # mons because the bag was empty at wipe-time, see tasks #8/#10). Once the
-  # player has owned a ball at any point in the run, this returns true forever.
-  # Includes a migration heuristic for saves made before the ratchet existed:
-  # if the player already has more than just a starter (multi-mon party) or any
-  # mon in storage, they've clearly caught something -> latch on first read.
+  # The story moment catching becomes legal: Professor Oak hands over the
+  # Pokedex and the first Poke Balls (Oak's lab event sets this switch right
+  # after "$Trainer.has_pokedex = true"). Holding a ball is NOT enough -- in a
+  # randomized run an item can turn into a Poke Ball long before that, and an
+  # encounter fought with it must not count as an area's first encounter.
+  OAK_POKEBALLS_SWITCH = 988
+
+  def story_unlocked?
+    return true if $game_switches && $game_switches[OAK_POKEBALLS_SWITCH]
+    return true if $Trainer && $Trainer.respond_to?(:has_pokedex) && $Trainer.has_pokedex
+    return false
+  end
+
+  # One-way ratchet: once catching has been unlocked at any point in the run
+  # (Oak's handout, or clear evidence of past catches on older saves), the
+  # rules stay armed forever -- even if the Pokedex flag or bag state changes.
+  # Gates both first-encounter recording and perma-death, so the pre-catch
+  # starter rival fight can never kill the starter.
   def ever_had_balls?
     return false if !$PokemonGlobal
     return true  if $PokemonGlobal.nuzlocke_ever_had_balls
-    if player_has_balls?      # also latches as a side effect (see above)
+    if story_unlocked?
+      $PokemonGlobal.nuzlocke_ever_had_balls = true
       return true
     end
     # Migration heuristic for existing saves.
@@ -401,21 +407,43 @@ module NuzlockeCaptureRules
     list.push(area) if !list.include?(area)
   end
 
-  # Whether a catch attempt in the current area should be blocked right now.
-  # Only blocks when: nuzlocke + one-catch on, the player actually has balls
-  # (no reason to block an impossible throw), and the area is already used.
-  def should_block_catch?
+  # Alias with the intent spelled out.
+  def catching_unlocked?
+    return ever_had_balls?
+  end
+
+  # Why a catch attempt in the current area is blocked right now, or nil if it
+  # isn't. Only blocks when nuzlocke + a catch rule are on and the player
+  # actually has balls (no reason to block an impossible throw).
+  #   :locked         -- Oak hasn't handed out Poke Balls yet (randomized early ball)
+  #   :area_caught    -- a Pokemon was already caught in this area
+  #   :encounter_used -- this area's first encounter came and went (first-only mode)
+  def catch_block_reason
     mode = catch_rule_mode
-    return false if mode == CATCH_RULE_OFF
-    return false if !player_has_balls?      # balls-first: never block an impossible throw
+    return nil if mode == CATCH_RULE_OFF
+    return nil if !player_has_balls?
+    return :locked if !catching_unlocked?
     case mode
     when CATCH_RULE_ONE_PER_AREA
-      return current_area_used?             # blocked once any catch has been made here
+      return current_area_used? ? :area_caught : nil
     when CATCH_RULE_FIRST_ENCOUNTER
-      return true if current_area_used?     # already caught your one mon here
-      return !current_is_first_encounter?   # only the designated first encounter is catchable
+      return :area_caught if current_area_used?
+      return :encounter_used if !current_is_first_encounter?
     end
-    return false
+    return nil
+  end
+
+  def should_block_catch?
+    return !catch_block_reason.nil?
+  end
+
+  def catch_block_message(reason)
+    case reason
+    when :locked         then _INTL("You can't catch Pokémon until Professor Oak gives you Poké Balls!")
+    when :area_caught    then _INTL("You already caught a Pokémon in this area!")
+    when :encounter_used then _INTL("You already used up your encounter in this area!")
+    else nil
+    end
   end
 end
 
@@ -442,16 +470,22 @@ module ItemHandlers
           end
           return false
         end
-        # One-catch-per-area: block a Poke Ball when this area's catch is spent.
-        # Shiny Clause: a shiny wild is always catchable.
-        if is_ball && NuzlockeCaptureRules.one_catch_per_area_active? &&
-           NuzlockeCaptureRules.should_block_catch? &&
-           !(NuzlockeCaptureRules.shiny_clause_active? &&
-             NuzlockeCaptureRules.opposing_wild_shiny?(battle))
-          if showMessages && scene && scene.respond_to?(:pbDisplay)
-            scene.pbDisplay(_INTL("You already caught a Pokémon in this area!"))
+        # Catch rule: block a Poke Ball when this area's catch is spent, the
+        # first encounter has come and gone, or catching isn't unlocked yet.
+        # Shiny Clause: a shiny wild is always catchable once catching is unlocked.
+        if is_ball && NuzlockeCaptureRules.one_catch_per_area_active?
+          reason = NuzlockeCaptureRules.catch_block_reason
+          if reason && reason != :locked &&
+             NuzlockeCaptureRules.shiny_clause_active? &&
+             NuzlockeCaptureRules.opposing_wild_shiny?(battle)
+            reason = nil
           end
-          return false
+          if reason
+            if showMessages && scene && scene.respond_to?(:pbDisplay)
+              scene.pbDisplay(NuzlockeCaptureRules.catch_block_message(reason))
+            end
+            return false
+          end
         end
         return nuzlocke_orig_triggerCanUseInBattle(item, pkmn, battler, move, firstAction, battle, scene, showMessages)
       end

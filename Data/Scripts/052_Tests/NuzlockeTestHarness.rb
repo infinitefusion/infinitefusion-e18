@@ -35,6 +35,8 @@ class NuzlockeTestBag
   attr_accessor :pockets, :stored_items
   def initialize(pockets = []); @pockets = pockets; @stored_items = []; end
   def pbStoreItem(item, _qty = 1); @stored_items << item; true; end
+  def pbHasItem?(item); @stored_items.include?(item) || @pockets.any? { |pk| pk && pk.any? { |e| e && e[0] == item } }; end
+  def pbDeleteItem(item, _qty = 1); @stored_items.delete(item); @pockets.each { |pk| pk && pk.delete_if { |e| e && e[0] == item } }; true; end
 end
 
 # need_refresh accessor so pbSet ($game_map.need_refresh = true) works on the double.
@@ -228,8 +230,18 @@ module NuzlockeTestHarness
   #-- helpers exposed to suites ----------------------------------------------
   def set_switch(id, v); $game_switches[id] = v; end
   def set_var(id, v);    $game_variables[id] = v; end
-  def give_ball;  $PokemonBag = NuzlockeTestBag.new([[[:POKEBALL, 5]]]); end
+  # give_ball = the normal early game: Oak has handed out Poke Balls (story
+  # switch) AND one is in the bag. Use unlock_catching / lock_catching to move
+  # the story gate on its own, and give_ball_only for a ball with no handout
+  # (a randomized run's early Poke Ball).
+  def give_ball;  unlock_catching; $PokemonBag = NuzlockeTestBag.new([[[:POKEBALL, 5]]]); end
+  def give_ball_only; $PokemonBag = NuzlockeTestBag.new([[[:POKEBALL, 5]]]); end
   def empty_bag;  $PokemonBag = NuzlockeTestBag.new([]); end
+  def unlock_catching; $game_switches[NuzlockeCaptureRules::OAK_POKEBALLS_SWITCH] = true; end
+  def lock_catching
+    $game_switches[NuzlockeCaptureRules::OAK_POKEBALLS_SWITCH] = false
+    $PokemonGlobal.nuzlocke_ever_had_balls = nil if $PokemonGlobal.respond_to?(:nuzlocke_ever_had_balls=)
+  end
   def set_party(arr); $Trainer.party = arr; end
   def set_area(name, map_id = 1); $game_map = NuzlockeTestMap.new(name, map_id); end
   def captured_msgs; $nuzlocke_test_msgs || []; end

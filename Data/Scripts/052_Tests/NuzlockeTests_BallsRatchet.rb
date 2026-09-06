@@ -9,16 +9,28 @@ NuzlockeTestHarness.suite("Ratchet: starts OFF on a fresh empty state") do |t|
   t.refute("ever_had_balls? false on a blank state", m.ever_had_balls?)
 end
 
-NuzlockeTestHarness.suite("Ratchet: latches true the FIRST time the bag holds a ball, and survives emptying") do |t|
+NuzlockeTestHarness.suite("Ratchet: latches when Oak hands out Poke Balls, and survives emptying the bag") do |t|
   m = NuzlockeCaptureRules
   t.empty_bag
+  t.lock_catching
   $Trainer.party = []
   t.refute("not yet latched", m.ever_had_balls?)
-  t.give_ball                                  # bag now has a ball
-  t.assert("latches true on first read with balls", m.ever_had_balls?)
-  t.empty_bag                                  # use all balls; bag empty again
+  t.give_ball_only                              # a randomized early Poke Ball, no handout yet
+  t.refute("a ball in the bag alone does NOT unlock catching", m.ever_had_balls?)
+  t.unlock_catching                             # Oak's handout (switch 988)
+  t.assert("latches on Oak's handout", m.ever_had_balls?)
+  t.empty_bag
+  t.set_switch(NuzlockeCaptureRules::OAK_POKEBALLS_SWITCH, false)
   t.refute("live player_has_balls? is now false", m.player_has_balls?)
-  t.assert("ratchet STAYS true after the bag empties (the fix)", m.ever_had_balls?)
+  t.assert("ratchet STAYS true after the bag empties and even if the switch is cleared", m.ever_had_balls?)
+end
+
+NuzlockeTestHarness.suite("Pokedex also counts as Oak's handout (older saves)") do |t|
+  m = NuzlockeCaptureRules
+  t.empty_bag
+  t.lock_catching
+  $Trainer.define_singleton_method(:has_pokedex) { true }
+  t.assert("has_pokedex unlocks", m.ever_had_balls?)
 end
 
 NuzlockeTestHarness.suite("Migration: multi-mon party implies they've caught -> ratchet latches") do |t|

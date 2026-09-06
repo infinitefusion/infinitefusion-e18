@@ -325,29 +325,37 @@ NuzlockeTestHarness.suite("Cap Candy: item is registered after GameData load") d
     t.assert_eq("name resolves without the message table", "Cap Candy", item.name)
     t.assert_eq("plural resolves", "Cap Candies", item.name_plural)
     t.assert("description resolves", item.description.to_s.include?("level cap"))
-    t.assert_eq("Medicine pocket", 2, item.pocket)
-    t.assert("has a price (purchasable)", item.price > 0)
+    t.assert_eq("Key Items pocket", 8, item.pocket)
+    t.assert("never sold (price 0)", item.price == 0)
+    t.assert("key item", item.is_key_item? == true)
+    t.assert_eq("reusable: usable on a Pokemon, not consumed", 2, item.field_use)
     t.assert_eq("id_number far outside the compiled range", 9646, item.id_number)
     t.assert("numeric lookup works", GameData::Item.try_get(9646).equal?(item))
     t.assert("no collision with TM109", GameData::Item.try_get(:TM109).id_number != item.id_number)
-    t.assert("not a key/important item", item.is_important? == false)
+    t.assert("important (can't be tossed or sold)", item.is_important? == true)
   end
   t.assert("icon file exists", pbResolveBitmap("Graphics/Items/CAPCANDYNUZLOCKE") ? true : false)
   t.assert("UseOnPokemon handler registered", ItemHandlers::UseOnPokemon[:CAPCANDYNUZLOCKE] ? true : false)
 end
 
-NuzlockeTestHarness.suite("Cap Candy: mart stock injection follows the toggle") do |t|
+NuzlockeTestHarness.suite("Cap Candy: inventory follows the toggle (added when on, removed when off)") do |t|
   t.set_switch(SWITCH_NUZLOCKE_MODE, true)
-  t.set_switch(SWITCH_NUZLOCKE_CAP_CANDY_ENABLED, false)
-  stock = [:POTION, :POKEBALL]
-  t.assert_eq("toggle off: stock unchanged", stock, NuzlockeCapCandy.add_to_stock(stock))
   t.set_switch(SWITCH_NUZLOCKE_CAP_CANDY_ENABLED, true)
-  out = NuzlockeCapCandy.add_to_stock(stock)
-  t.assert("toggle on: Cap Candy appended", out.last == :CAPCANDYNUZLOCKE)
-  t.assert("original items preserved", (stock - out).empty?)
-  t.assert_eq("already stocked: not duplicated", 1, NuzlockeCapCandy.add_to_stock(out).count(:CAPCANDYNUZLOCKE))
+  t.empty_bag
+  t.assert_eq("toggle on, missing -> added", :added, NuzlockeCapCandy.sync_inventory!)
+  t.assert("Cap Candy now in the bag", $PokemonBag.pbHasItem?(:CAPCANDYNUZLOCKE))
+  t.assert_eq("second sync is a no-op", :unchanged, NuzlockeCapCandy.sync_inventory!)
+  t.set_switch(SWITCH_NUZLOCKE_CAP_CANDY_ENABLED, false)
+  t.assert_eq("toggle off, present -> removed", :removed, NuzlockeCapCandy.sync_inventory!)
+  t.refute("Cap Candy gone", $PokemonBag.pbHasItem?(:CAPCANDYNUZLOCKE))
   t.set_switch(SWITCH_NUZLOCKE_MODE, false)
-  t.assert_eq("MODE off: stock unchanged", stock, NuzlockeCapCandy.add_to_stock(stock))
+  t.set_switch(SWITCH_NUZLOCKE_CAP_CANDY_ENABLED, true)
+  t.assert_eq("MODE off -> never added", :unchanged, NuzlockeCapCandy.sync_inventory!)
+end
+
+NuzlockeTestHarness.suite("Cap Candy: excluded from item randomization (key item)") do |t|
+  item = GameData::Item.try_get(:CAPCANDYNUZLOCKE)
+  t.assert("itemCanBeRandomized is false", item && itemCanBeRandomized(item) == false)
 end
 
 NuzlockeTestHarness.suite("Cap Candy: current_cap follows badges and is safe past the last badge") do |t|

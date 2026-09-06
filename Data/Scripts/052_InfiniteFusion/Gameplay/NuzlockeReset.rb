@@ -211,6 +211,13 @@ end
 #===============================================================================
 # The heavy steps, split out so the harness can stub them.
 #===============================================================================
+def nuzlocke_reset_drop_global_spriteset(scene)
+  return if !scene.instance_variable_defined?(:@spritesetGlobal)
+  sg = scene.instance_variable_get(:@spritesetGlobal)
+  (sg.dispose rescue nil) if sg
+  scene.instance_variable_set(:@spritesetGlobal, nil)
+end
+
 # Rebuild every save value from its new-game default (bootup values such as
 # $PokemonSystem / $game_system are untouched, exactly like New Game from the
 # title screen) and start on the game's start map.
@@ -305,12 +312,20 @@ def nuzlocke_reset_run(confirm = true)
   nuzlocke_reset_apply_intro_state
   NuzlockeSoulLink.import_config(soul_link_cfg) if soul_link_cfg && defined?(NuzlockeSoulLink)
 
-  # Reclaim the live scene and rebuild its spritesets for the start map.
+  # Reclaim the live scene and rebuild ALL its spritesets for the start map.
+  # The global spriteset (player sprite + pictures) is normally kept for the
+  # scene's whole life, and its Sprite_Player stays bound to the Game_Player
+  # object it was created with. Game.start_new made a NEW $game_player, so the
+  # old sprite would keep drawing the orphaned old player (naked, wrong map)
+  # while the real player had no sprite at all. Drop it so createSpritesets
+  # builds a fresh one against the new $game_player and the restored outfit.
   if original_scene.is_a?(Scene_Map)
     $scene = original_scene
     original_scene.disposeSpritesets
+    nuzlocke_reset_drop_global_spriteset(original_scene)
     RPG::Cache.clear if defined?(RPG::Cache) && RPG::Cache.respond_to?(:need_clearing) && RPG::Cache.need_clearing
     original_scene.createSpritesets
+    refreshPlayerOutfit if defined?(refreshPlayerOutfit)
   end
 
   # 5. Randomizer, as the intro applies it (silent when nothing is randomized).
@@ -351,10 +366,21 @@ def nuzlocke_auto_reset_active?
   return $game_switches[SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE] ? true : false
 end
 
-# Called right after a blackout. Arms the pending auto-reset when the feature is
-# on and a reset is possible (intro finished). Bug Contest "start over" is a contest
-# loss, not a run wipe, so it never arms.
-def nuzlocke_flag_auto_reset_after_wipe
+# True when the party has nobody left to fight with. Must be evaluated BEFORE
+# pbStartOver runs, because the blackout routine heals the party.
+def nuzlocke_party_wiped?
+  return false if !$Trainer || !$Trainer.party
+  return true if $Trainer.party.compact.empty?
+  return $Trainer.able_pokemon_count == 0 if $Trainer.respond_to?(:able_pokemon_count)
+  return $Trainer.party.compact.all? { |p| p.egg? || p.fainted? }
+end
+
+# Called around a blackout with the pre-blackout wipe state. Arms the pending
+# auto-reset only for a real wipe: IF also routes "fled from a trainer" and a
+# few scripted losses through pbStartOver with living Pokemon, and those are
+# not the end of a run. Bug Contest "start over" is a contest loss, never arms.
+def nuzlocke_flag_auto_reset_after_wipe(wiped = nuzlocke_party_wiped?)
+  return if !wiped
   return if !nuzlocke_auto_reset_active?
   return if !$PokemonGlobal
   return if defined?(pbInBugContest?) && pbInBugContest?
@@ -378,8 +404,9 @@ class Object
          method_defined?(:nuzlocke_orig_pbStartOver)
     alias_method :nuzlocke_orig_pbStartOver, :pbStartOver
     def pbStartOver(gameover = false)
+      wiped = nuzlocke_party_wiped?           # before the blackout heals everyone
       nuzlocke_orig_pbStartOver(gameover)
-      nuzlocke_flag_auto_reset_after_wipe
+      nuzlocke_flag_auto_reset_after_wipe(wiped)
     end
   end
 end

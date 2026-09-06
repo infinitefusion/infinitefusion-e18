@@ -131,8 +131,9 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      proc { $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] ? 1 : 0 },
                      proc { |value|
                        $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] = (value == 1)
+                       NuzlockeCapCandy.sync_inventory! if defined?(NuzlockeCapCandy)
                      },
-                     "Every PokéMart sells Cap Candy, which raises one Pokémon straight to the current level cap. Cuts grinding after a death."
+                     "A reusable Cap Candy key item in your Bag raises one Pokémon straight to the current level cap. Cuts grinding after a death."
       ),
 
       EnumOption.new(_INTL("Guarantee Mart heals"), [_INTL("On"), _INTL("Off")],

@@ -17,7 +17,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 5 | Catch rule: One catch per area (lenient) | Catch rule → Per area | — | ✅ |
 | 6 | Catch rule: Off | Catch rule → Off | — | ✅ |
 | 7 | Area = displayed area name (a route split across maps is one area) | — | — | ✅ |
-| 8 | Balls-first: encounters before you own a Poké Ball never burn an area | — | — | ✅ |
+| 8 | Balls-first: nothing counts (no first encounters, no perma-death) until Professor Oak hands out Poké Balls, so a randomized early Poké Ball can't burn a route | — | — | ✅ *fixed in v1.1.1* (was "a ball in the bag") |
 | 9 | Static / scripted encounters (legendaries, Snorlax, event fights) count as the area's first encounter and are catchable | — | — | ✅ *new in v1.0.0* |
 | 10 | Fleeing / KO'ing the first encounter forfeits the area (first-only mode) | — | — | ✅ *fixed in v1.0.0* — the per-battle flag was never cleared after normal wild battles, so later wilds in the same area stayed catchable |
 | 11 | Perma-death, unfused Pokémon | Perma-death (unfused) | On | ✅ |
@@ -37,12 +37,12 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 25 | Set battle style forced | Battle style → Set | Player's choice | ✅ *new in v1.0.0* |
 | 26 | Level cap enforced (no EXP / Rare Candy past the next gym's cap) | Level cap → Enforced | Player's choice | ✅ *new in v1.0.0* (reuses the game's own level-cap system) |
 | 27 | Guarantee every PokéMart stocks an HP-healing item (randomized runs) | Guarantee Mart heals | On | ✅ |
-| 28 | Cap Candy item (raises one Pokémon to the current level cap; sold in every PokéMart while on) | Cap Candy | Off | ✅ *completed in v1.0.0* — previously unbuyable, no icon, wrong pocket, ID collided with TM109, and the item vanished at boot |
+| 28 | Cap Candy: a reusable key item in your Bag that raises one Pokémon to the current level cap | Cap Candy | Off | ✅ *reworked in v1.1.1* — now a key item handed out directly (mart stock is randomized away in randomized runs) |
 | 29 | Reset Run (pause menu: wipe progress, reroll randomization, keep name, look & settings) | Enable Reset Run | On | ✅ *rebuilt in v1.1.1* — now a genuine new game + intro replay + the game's own skip-to-starter, instead of a saved copy of the player's game |
 | 30 | Reset Run lands you at starter selection in Oak's lab, pre-Pokédex | — | — | ✅ *fixed in v1.1.1* — the old copy was taken after the first save, so saving after the Pokédex made resets land post-Pokédex |
-| 31 | Auto Reset Run on a full wipe | On wipe → Reset run | Blackout | ✅ *new in v1.0.0* |
+| 31 | Auto Reset Run on a full wipe (not on fleeing a trainer or other scripted blackouts with living Pokémon) | On wipe → Reset run | Blackout | ✅ *new in v1.0.0, fixed in v1.1.1* |
 | 32 | Soul Link (Soullocke) with a partner over a room-code relay: linked deaths, broken links, fusion-aware, linked-box warnings | Soul Link | Off | ✅ *new in v1.1.0* (needs the relay deployed, see `tools/soul_link_relay/`) |
-| 33 | Starter slot machine in Oak's lab (right of the starter table) that rerolls the three starters until you pick one. Randomized runs redraw within the randomizer's BST window; classic runs get a random grass/fire/water trio from every generation | Starter slot machine | On | ✅ *new in v1.1.1* (only map change in the mod: one event on map 77) |
+| 33 | Starter slot machine in Oak's lab (on the cleared shelf row below the starter table, with a Game Corner stool) that rerolls the three starters until you pick one. Randomized runs redraw within the randomizer's BST window; classic runs get a random grass/fire/water trio from every generation | Starter slot machine | On | ✅ *new in v1.1.1* (only map change in the mod: one event on map 77) |
 
 ## Not built (by design)
 
@@ -65,9 +65,9 @@ ruleset decision log, so they are not in the game and have no switches:
 - **Double wild battles + Shiny Clause:** if one of the two wilds is shiny, the
   area's first encounter is given back for the whole battle (the non-shiny
   partner is not separately tracked). Rare; lenient in the player's favour.
-- **Cap Candy** is a runtime-registered item (no `items.dat` rebuild). It lives
-  in the Medicine pocket with id 9646. Its name/description are hard-coded in
-  English (they bypass the translation tables).
+- **Cap Candy** is a runtime-registered key item (no `items.dat` rebuild), id
+  9646. Its name/description are hard-coded in English (they bypass the
+  translation tables). The Bag is re-synced on every map change.
 - **Auto Reset on wipe** fires on your first overworld step after the blackout
   (rebuilding the game from inside the post-battle sequence is not safe).
 - **Reset Run** re-asks the rival's name (that is part of the game's own

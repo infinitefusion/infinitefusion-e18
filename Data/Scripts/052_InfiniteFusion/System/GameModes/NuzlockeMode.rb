@@ -44,4 +44,5 @@ def initializeNuzlockeMode()
   $game_switches[SWITCH_NUZLOCKE_BATTLE_ITEMS_ALLOWED] = false
   $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] = false
   $game_switches[SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS] = true
+  NuzlockeCapCandy.sync_inventory! if defined?(NuzlockeCapCandy)
 end

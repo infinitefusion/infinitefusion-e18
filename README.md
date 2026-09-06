@@ -50,8 +50,8 @@ What it enforces (each has a toggle):
   spend an area.
 - **Battle items forbidden**, **Trainer fleeing** allowed/disallowed, forced
   **Set battle style**, enforced **level caps**.
-- **Cap Candy** — optional QoL item sold in every PokéMart that raises one
-  Pokémon straight to the current level cap.
+- **Cap Candy** — optional reusable key item that raises one Pokémon straight
+  to the current level cap.
 - **Starter slot machine** — a slot machine next to the starter table in Oak's
   lab rerolls the three starters as often as you like, until you pick one.
 - **Reset Run** — pause-menu option that wipes the run (rerolling any

@@ -109,11 +109,14 @@ NuzlockeTestHarness.suite("Map 77: the slot machine event exists next to the sta
     ev = map.events.values.find { |e| e.name == "Nuzlocke slot machine" }
     t.assert("event present", !ev.nil?)
     if ev
-      t.assert_eq("position right of the table (16,16)", [16, 16], [ev.x, ev.y])
+      t.assert_eq("position on the cleared shelf row (15,17)", [15, 17], [ev.x, ev.y])
       t.assert_eq("two pages", 2, ev.pages.length)
       on = ev.pages[1]
       t.assert("page 2 conditioned on SWITCH_NUZLOCKE_MODE", on.condition.switch1_valid && on.condition.switch1_id == SWITCH_NUZLOCKE_MODE)
-      t.assert_eq("page 2 shows the Game Corner machine tile", 9281, on.graphic.tile_id)
+      t.assert_eq("page 2 shows the Game Corner machine tile (left-column, faces the stool)", 9280, on.graphic.tile_id)
+      t.assert_eq("red Game Corner stool to its left", 8923, map.data[14, 17, 1])
+      t.assert("upper shelf row cleared", (13..16).all? { |x| map.data[x, 17, 1] == 0 || x == 14 })
+      t.assert("plant access tiles are floor", map.data[16, 15, 1] == 0 && map.data[16, 16, 1] == 0)
       t.assert("page 2 calls the slot machine script", on.list.any? { |c| c.code == 355 && c.parameters[0].to_s.include?("pbNuzlockeStarterSlotMachine") })
       t.assert("page 1 is invisible and walk-through", ev.pages[0].through && ev.pages[0].graphic.tile_id == 0)
       balls = [54, 55, 56].map { |id| map.events[id] }

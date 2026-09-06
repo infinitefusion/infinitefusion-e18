@@ -1,29 +1,26 @@
 #===============================================================================
 # Cap Candy (Nuzlocke mode) -- item registration
 #
-# A Nuzlocke-only QoL item that raises one Pokemon straight to the current level
-# cap (see the UseOnPokemon handler in "New Items effects.rb"). The item is
-# registered at runtime rather than compiled into Data/items.dat, so the mod
-# never has to ship a rebuilt items.dat or PBS recompile.
+# A Nuzlocke-only KEY ITEM that raises one Pokemon straight to the current
+# level cap (see the UseOnPokemon handler in "New Items effects.rb"). It is
+# reusable (field_use 2: usable on a Pokemon, not consumed) and lives in the
+# Key Items pocket. While the Cap Candy setting is on it is simply in the Bag;
+# turning the setting off takes it away again. It is never sold: randomized
+# runs shuffle mart stock, and key items are excluded from that shuffle, so
+# handing it out directly is the only way it survives a randomizer.
 #
-# Two things make runtime registration work reliably:
+# The item is registered at runtime rather than compiled into Data/items.dat:
 #   * GameData.load_all (run from Game.initialize, AFTER every script file has
-#     been evaluated) replaces GameData::Item::DATA wholesale with the contents
-#     of items.dat. Registering at script-load time therefore gets wiped. We
-#     hook GameData::Item.load so the item is re-added every time the table is
-#     (re)loaded.
+#     been evaluated) replaces GameData::Item::DATA wholesale with items.dat, so
+#     we hook GameData::Item.load to re-add it every time the table loads.
 #   * name / name_plural / description normally resolve through the compiled
-#     message tables by id_number, which know nothing about this item and would
-#     return "". The item object answers those itself.
-#
-# id_number 9646 is deliberately far above the compiled range (max 698 as of
-# IF 6.7.2) so it can never collide with an upstream item. DATA is keyed by
-# both the symbol and the number, matching GameData::Item.register.
+#     message tables by id_number, which know nothing about this item; the item
+#     object answers those itself.
+# id_number 9646 is far above the compiled range (max 698 as of IF 6.7.2).
 #===============================================================================
 module NuzlockeCapCandy
   ITEM_ID     = :CAPCANDYNUZLOCKE
   ITEM_NUMBER = 9646
-  PRICE       = 3000
 
   module_function
 
@@ -46,13 +43,26 @@ module NuzlockeCapCandy
     return cap.clamp(1, GameData::GrowthRate.max_level)
   end
 
-  # Mart stock hook: every PokeMart sells Cap Candy while the toggle is on.
-  def add_to_stock(stock)
-    return stock if !enabled?
-    return stock if !stock.is_a?(Array)
-    return stock if stock.include?(ITEM_ID)
-    return stock if !GameData::Item.exists?(ITEM_ID)
-    return stock + [ITEM_ID]
+  # Keep the Bag in step with the setting: present while on, gone while off.
+  # Returns :added, :removed or :unchanged.
+  def sync_inventory!
+    return :unchanged if !$PokemonBag || !$PokemonBag.respond_to?(:pbHasItem?)
+    return :unchanged if !GameData::Item.exists?(ITEM_ID)
+    has = $PokemonBag.pbHasItem?(ITEM_ID)
+    if enabled? && !has
+      $PokemonBag.pbStoreItem(ITEM_ID, 1)
+      return :added
+    elsif !enabled? && has
+      5.times do
+        break if !$PokemonBag.pbHasItem?(ITEM_ID)
+        $PokemonBag.pbDeleteItem(ITEM_ID, 1)
+      end
+      return :removed
+    end
+    return :unchanged
+  rescue => e
+    PBDebug.log("[Nuzlocke] Cap Candy sync failed: #{e.message}") if defined?(PBDebug)
+    return :unchanged
   end
 
   def register_item
@@ -62,19 +72,19 @@ module NuzlockeCapCandy
       id_number:   ITEM_NUMBER,
       name:        "Cap Candy",
       name_plural: "Cap Candies",
-      pocket:      2,        # Medicine, next to Rare Candy
-      price:       PRICE,
-      description: "A Nuzlocke-only candy that raises a Pokémon straight to the current level cap.",
-      field_use:   1,        # usable from the Bag on a party member
+      pocket:      8,        # Key Items
+      price:       0,        # never sold
+      description: "A Nuzlocke-only candy that raises a Pokémon straight to the current level cap. Never runs out.",
+      field_use:   2,        # usable on a party member, NOT consumed
       battle_use:  0,
-      type:        0,
+      type:        6,        # key item
       move:        nil
     })
     # Message-table bypass (see header).
     item.define_singleton_method(:name)        { "Cap Candy" }
     item.define_singleton_method(:name_plural) { "Cap Candies" }
     item.define_singleton_method(:description) {
-      "A Nuzlocke-only candy that raises a Pokémon straight to the current level cap."
+      "A Nuzlocke-only candy that raises a Pokémon straight to the current level cap. Never runs out."
     }
     GameData::Item::DATA[ITEM_ID]     = item
     GameData::Item::DATA[ITEM_NUMBER] = item
@@ -98,15 +108,10 @@ end
 # Also register now, in case DATA was already loaded before this file ran.
 NuzlockeCapCandy.register_item if GameData::Item::DATA.is_a?(Hash) && !GameData::Item::DATA.empty?
 
-# Sell it in every PokeMart while enabled. pbPokemonMart lives in 016_UI, which
-# loads before this file.
-class Object
-  unless private_method_defined?(:nuzlocke_orig_pbPokemonMart) ||
-         method_defined?(:nuzlocke_orig_pbPokemonMart)
-    alias_method :nuzlocke_orig_pbPokemonMart, :pbPokemonMart
-    def pbPokemonMart(stock, speech = nil, cantsell = false)
-      stock = NuzlockeCapCandy.add_to_stock(stock)
-      return nuzlocke_orig_pbPokemonMart(stock, speech, cantsell)
-    end
-  end
+# Keep the Bag in step with the setting whenever the player changes maps
+# (cheap: one pbHasItem? check), so old saves and toggles both converge.
+if defined?(Events) && Events.respond_to?(:onMapChange)
+  Events.onMapChange += proc { |_sender, _e|
+    NuzlockeCapCandy.sync_inventory! if $game_switches && $game_switches[SWITCH_NUZLOCKE_MODE]
+  }
 end
