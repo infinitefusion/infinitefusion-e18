@@ -13,6 +13,19 @@ Running list of reported problems and their status. Add new ones at the top of
   hand-drawn charset by pointing map 77 event "Nuzlocke slot machine" page 2
   at the new file.
 - Soul Link: untested in-game so far; relay URL must be set first.
+- Soul Link co-op battles (idea, not started): when one player enters a
+  battle, their partner's Pokémon join it as a double battle. Two tiers:
+  - Tier 1, "partner snapshot": the game pulls the linked player's current
+    party from the relay and starts the battle with them as an AI-controlled
+    ally on your side. IF already supports this through `$PokemonGlobal.partner`
+    (`001_Overworld_BattleStarting.rb`, wild and trainer paths), so it is
+    mostly relay plumbing plus rules for what a fainted ally Pokémon means.
+    The other player is not interrupted and does not choose moves. Feasible.
+  - Tier 2, "true co-op": both players pick moves each turn, exchanged through
+    the relay in lockstep. Needs a shared RNG seed with identical `rand` call
+    order on both clients, a wait/timeout UI, disconnect handling, and a
+    Durable Object (not KV) for turn ordering; mkxp-z has no WebSockets, so
+    it would poll. Fragile and large. Not planned unless Tier 1 lands first.
 
 ## Fixed
 
