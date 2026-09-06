@@ -1,7 +1,11 @@
 class NuzlockeSettingsScene < PokemonOption_Scene
-  def initialize
-    super
+  # +mid_run+ true when opened from the pause menu of an existing run: the
+  # Randomization entry (which re-opens the New Game randomizer flow) is hidden,
+  # everything else can be changed at any time.
+  def initialize(mid_run = false)
+    super()
     @openRandomizerOptions = false
+    @mid_run = mid_run
   end
 
   def getDefaultDescription
@@ -18,8 +22,8 @@ class NuzlockeSettingsScene < PokemonOption_Scene
   end
 
   def pbGetOptions(inloadscreen = false)
-    options = [
-      EnumOption.new(_INTL("Randomization"), [_INTL("On"), _INTL("Off")],
+    options = []
+    options << EnumOption.new(_INTL("Randomization"), [_INTL("On"), _INTL("Off")],
                      proc {
                        $game_switches[SWITCH_RANDOMIZED_AT_LEAST_ONCE] ? 0 : 1
                      },
@@ -33,8 +37,9 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                        end
                      },
                      "Configure randomization for your Nuzlocke run. When On, opens the Randomizer settings."
-      ),
+      ) if !@mid_run
 
+    options += [
       EnumOption.new(_INTL("Catch rule"),
                      [_INTL("Off"), _INTL("First only"), _INTL("Per area")],
                      proc { pbGet(VAR_NUZLOCKE_CATCH_RULE_MODE) || 0 },
@@ -209,4 +214,14 @@ class NuzlockeSettingsScene < PokemonOption_Scene
     }
     @openRandomizerOptions = false
   end
+end
+
+# Open the Nuzlocke settings from the pause menu of an existing run.
+def pbOpenNuzlockeSettingsMidRun
+  pbFadeOutIn {
+    scene = NuzlockeSettingsScene.new(true)
+    screen = PokemonOptionScreen.new(scene)
+    screen.pbStartScreen
+  }
+  NuzlockeKeyItems.sync_all! if defined?(NuzlockeKeyItems)
 end

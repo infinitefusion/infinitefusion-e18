@@ -174,4 +174,20 @@ NuzlockeTestHarness.suite("Wave 5 mode defaults") do |t|
   t.assert("Medkit switch preserved by Reset Run", NUZLOCKE_RESET_PRESERVED_SWITCH_SYMS.include?(:SWITCH_NUZLOCKE_MEDKIT_ENABLED))
 end
 
+NuzlockeTestHarness.suite("Nuzlocke settings can be opened mid-run (pause menu) without the Randomization entry") do |t|
+  begin
+    scene = NuzlockeSettingsScene.new(true)
+    names = scene.pbGetOptions.map { |o| o.name }
+    t.refute("Randomization hidden mid-run", names.include?("Randomization"))
+    t.assert("Field Medkit present", names.include?("Field Medkit"))
+    t.assert("Cap Candy present", names.include?("Cap Candy"))
+    t.assert("Encounter slots present", names.include?("Encounter slots"))
+    fresh = NuzlockeSettingsScene.new(false).pbGetOptions.map { |o| o.name }
+    t.assert("Randomization shown at New Game", fresh.include?("Randomization"))
+  rescue => e
+    t.assert("settings scene builds its options: #{e.class}: #{e.message}", false)
+  end
+  t.assert("pause-menu opener defined", defined?(pbOpenNuzlockeSettingsMidRun) ? true : false)
+end
+
 end # defined?(NuzlockeTestHarness)

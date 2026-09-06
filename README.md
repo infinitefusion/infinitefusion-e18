@@ -34,7 +34,8 @@ To play Infinite Fusion on Android, you need to use a RPG Maker emulator called 
 
 This fork adds **Nuzlocke Mode** as a fifth game mode. Pick it under *New Game →
 Which mode would you like to play?* and the Nuzlocke settings menu opens so you
-can tune the rules before the run starts.
+can tune the rules before the run starts. The same menu is in the pause menu
+during the run as *Nuzlocke Settings*.
 
 What it enforces (each has a toggle):
 
