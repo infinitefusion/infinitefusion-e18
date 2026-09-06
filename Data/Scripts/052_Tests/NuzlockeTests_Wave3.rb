@@ -328,7 +328,7 @@ NuzlockeTestHarness.suite("Cap Candy: item is registered after GameData load") d
     t.assert_eq("Key Items pocket", 8, item.pocket)
     t.assert("never sold (price 0)", item.price == 0)
     t.assert("key item", item.is_key_item? == true)
-    t.assert_eq("reusable: usable on a Pokemon, not consumed", 2, item.field_use)
+    t.assert_eq("reusable: usable on a Pokemon, not consumed (field_use 5)", 5, item.field_use)
     t.assert_eq("id_number far outside the compiled range", 9646, item.id_number)
     t.assert("numeric lookup works", GameData::Item.try_get(9646).equal?(item))
     t.assert("no collision with TM109", GameData::Item.try_get(:TM109).id_number != item.id_number)
@@ -336,6 +336,9 @@ NuzlockeTestHarness.suite("Cap Candy: item is registered after GameData load") d
   end
   t.assert("icon file exists", pbResolveBitmap("Graphics/Items/CAPCANDYNUZLOCKE") ? true : false)
   t.assert("UseOnPokemon handler registered", ItemHandlers::UseOnPokemon[:CAPCANDYNUZLOCKE] ? true : false)
+  # The Bag only routes field_use 1/5 to a Pokemon target; 2 would call a
+  # non-existent UseFromBag handler and silently do nothing.
+  t.assert("Bag routes it to a Pokemon (field_use 1 or 5)", [1, 5].include?(item.field_use))
 end
 
 NuzlockeTestHarness.suite("Cap Candy: inventory follows the toggle (added when on, removed when off)") do |t|

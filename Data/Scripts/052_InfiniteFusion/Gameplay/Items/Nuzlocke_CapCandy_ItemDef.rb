@@ -3,7 +3,7 @@
 #
 # A Nuzlocke-only KEY ITEM that raises one Pokemon straight to the current
 # level cap (see the UseOnPokemon handler in "New Items effects.rb"). It is
-# reusable (field_use 2: usable on a Pokemon, not consumed) and lives in the
+# reusable (field_use 5: usable on a Pokemon, not consumed) and lives in the
 # Key Items pocket. While the Cap Candy setting is on it is simply in the Bag;
 # turning the setting off takes it away again. It is never sold: randomized
 # runs shuffle mart stock, and key items are excluded from that shuffle, so
@@ -75,7 +75,7 @@ module NuzlockeCapCandy
       pocket:      8,        # Key Items
       price:       0,        # never sold
       description: "A Nuzlocke-only candy that raises a Pokémon straight to the current level cap. Never runs out.",
-      field_use:   2,        # usable on a party member, NOT consumed
+      field_use:   5,        # usable on a party member, NOT consumed (IF: 1=consumed, 5=reusable, 2=from-Bag handler)
       battle_use:  0,
       type:        6,        # key item
       move:        nil

@@ -2619,41 +2619,6 @@ ItemHandlers::UseOnPokemon.add(:INCUBATOR_NORMAL, proc { |item, pokemon, scene|
   end
 })
 
-#===============================================================================
-# CAP CANDY (Nuzlocke mode level cap item)
-#===============================================================================
-ItemHandlers::UseOnPokemon.add(:CAPCANDYNUZLOCKE, proc { |item, pokemon, scene|
-  # Only available when Cap Candy is enabled in Nuzlocke settings
-  if !$game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED]
-    scene.pbDisplay(_INTL("It won't have any effect."))
-    next false
-  end
-
-  # Cannot use on eggs
-  if pokemon.egg?
-    scene.pbDisplay(_INTL("It won't have any effect."))
-    next false
-  end
-
-  # Get current level cap based on badge count
-  current_level_cap = getCurrentLevelCap()
-
-  # Cannot exceed max level (typically 100)
-  if pokemon.level >= current_level_cap
-    scene.pbDisplay(_INTL("{1} is already at or beyond the current level cap!", pokemon.name))
-    next false
-  end
-
-  # Level up the Pokémon to the current cap
-  original_level = pokemon.level
-  pokemon.level = current_level_cap
-  pokemon.heal_hp
-  pokemon.heal_status
-
-  scene.pbRefresh
-  scene.pbDisplay(_INTL("{1} was boosted to level {2}!", pokemon.name, current_level_cap))
-  next true
-})
 
 ItemHandlers::UseOnPokemon.add(:MISTSTONE, proc { |item, pokemon, scene|
   next false if pokemon.egg?
