@@ -11,26 +11,27 @@ NuzlockeTestHarness.suite("find_common_event_id_by_name: name lookup over common
   t.assert("nil $data_common_events returns nil", find_common_event_id_by_name("x").nil?)
 end
 
-NuzlockeTestHarness.suite("nuzlocke_snapshot_path: per-slot path with $Trainer fallback") do |t|
-  path = nuzlocke_snapshot_path("TEST")
-  t.assert("explicit slot returns a String", path.is_a?(String))
-  t.assert("explicit slot path ends with TEST_nuzlocke_reset.rxdata",
-           path.end_with?("TEST_nuzlocke_reset.rxdata"))
-  fallback = nuzlocke_snapshot_path(nil)
-  t.assert("nil slot falls back to a String", fallback.is_a?(String))
-  t.assert("nil slot falls back to $Trainer.save_slot ('TEST')",
-           fallback.end_with?("TEST_nuzlocke_reset.rxdata"))
+NuzlockeTestHarness.suite("nuzlocke_reset_available?: intro finished + MODE on") do |t|
+  t.set_switch(SWITCH_NUZLOCKE_MODE, true)
+  t.set_switch(SWITCH_DURING_INTRO, false)
+  t.assert("available after the intro", nuzlocke_reset_available? == true)
+  t.set_switch(SWITCH_DURING_INTRO, true)
+  t.refute("not available during the intro", nuzlocke_reset_available?)
+  t.set_switch(SWITCH_DURING_INTRO, false)
+  t.set_switch(SWITCH_NUZLOCKE_MODE, false)
+  t.refute("not available outside Nuzlocke mode", nuzlocke_reset_available?)
 end
 
-NuzlockeTestHarness.suite("nuzlocke_reset_run: no-snapshot is a graceful no-op") do |t|
+NuzlockeTestHarness.suite("nuzlocke_reset_run: unavailable is a graceful no-op") do |t|
+  t.set_switch(SWITCH_NUZLOCKE_MODE, true)
+  t.set_switch(SWITCH_DURING_INTRO, true)
   begin
-    nuzlocke_reset_run
-    t.assert("nuzlocke_reset_run returns without raising when no snapshot exists", true)
+    r = nuzlocke_reset_run
+    t.assert("returns false without raising when unavailable", r == false)
   rescue => e
     t.assert("nuzlocke_reset_run raised unexpectedly: #{e.class}: #{e.message}", false)
   end
-  t.assert("a 'no reset snapshot' message was shown to the player",
-           t.captured_msgs.any? { |m| m =~ /no reset snapshot/i })
+  t.assert("an 'isn't available' message was shown", t.captured_msgs.any? { |m| m =~ /isn't available/i })
 end
 
 # STORY: with Force Nicknames on, EVERY non-egg acquisition drops straight into

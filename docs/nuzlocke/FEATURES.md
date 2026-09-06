@@ -38,8 +38,8 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 26 | Level cap enforced (no EXP / Rare Candy past the next gym's cap) | Level cap → Enforced | Player's choice | ✅ *new in v1.0.0* (reuses the game's own level-cap system) |
 | 27 | Guarantee every PokéMart stocks an HP-healing item (randomized runs) | Guarantee Mart heals | On | ✅ |
 | 28 | Cap Candy item (raises one Pokémon to the current level cap; sold in every PokéMart while on) | Cap Candy | Off | ✅ *completed in v1.0.0* — previously unbuyable, no icon, wrong pocket, ID collided with TM109, and the item vanished at boot |
-| 29 | Reset Run (pause menu: wipe progress, reroll randomization, keep name & settings) | Enable Reset Run | On | ✅ |
-| 30 | Reset Run keeps you at the snapshot position and skips the intro | — | — | ✅ |
+| 29 | Reset Run (pause menu: wipe progress, reroll randomization, keep name, look & settings) | Enable Reset Run | On | ✅ *rebuilt in v1.1.1* — now a genuine new game + intro replay + the game's own skip-to-starter, instead of a saved copy of the player's game |
+| 30 | Reset Run lands you at starter selection in Oak's lab, pre-Pokédex | — | — | ✅ *fixed in v1.1.1* — the old copy was taken after the first save, so saving after the Pokédex made resets land post-Pokédex |
 | 31 | Auto Reset Run on a full wipe | On wipe → Reset run | Blackout | ✅ *new in v1.0.0* |
 | 32 | Soul Link (Soullocke) with a partner over a room-code relay: linked deaths, broken links, fusion-aware, linked-box warnings | Soul Link | Off | ✅ *new in v1.1.0* (needs the relay deployed, see `tools/soul_link_relay/`) |
 
@@ -68,7 +68,9 @@ ruleset decision log, so they are not in the game and have no switches:
   in the Medicine pocket with id 9646. Its name/description are hard-coded in
   English (they bypass the translation tables).
 - **Auto Reset on wipe** fires on your first overworld step after the blackout
-  (reloading the snapshot from inside the post-battle sequence is not safe).
+  (rebuilding the game from inside the post-battle sequence is not safe).
+- **Reset Run** re-asks the rival's name (that is part of the game's own
+  skip-to-starter routine) and keeps your name, character, outfit and unlocks.
 - **Soul Link** is honor-system by design: the game applies what a partner's
   ledger says after a prompt. The relay URL must be set before shipping a
   build (`DEFAULT_RELAY_URL`), or per-install via `soul_link_relay.txt`.

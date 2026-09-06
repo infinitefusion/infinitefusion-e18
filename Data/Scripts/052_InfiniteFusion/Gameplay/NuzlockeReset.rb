@@ -1,83 +1,60 @@
 # Nuzlocke Reset Run
 # ------------------
-# Captures a "starting line" snapshot of the player's save right after the new-game
-# intro completes. The pause-menu "Reset Run" entry (added in 016_UI_PauseMenu.rb)
-# uses that snapshot to wipe progress while preserving the player's name and
-# Nuzlocke settings, warping them back to the start map. Wild/trainer/item/TM
-# randomization is re-shuffled for whichever shuffle switches are currently on.
-
-#===============================================================================
-# Snapshot file path helpers
-#===============================================================================
-
-# Returns the absolute path to the per-slot nuzlocke snapshot file.
-# Returns nil if no slot is provided and the player has no active save slot.
-def nuzlocke_snapshot_path(slot = nil)
-  slot ||= ($Trainer && $Trainer.save_slot)
-  return nil if slot.nil?
-  return File.join(SaveData::SAVE_DIR, "#{slot}_nuzlocke_reset.rxdata")
-end
-
-# Returns true if a nuzlocke snapshot exists for the currently active save slot.
-def nuzlocke_snapshot_exists?
-  path = nuzlocke_snapshot_path
-  return false if path.nil?
-  return File.file?(path)
-end
-
-#===============================================================================
-# Snapshot capture - hooks onStepTaken
-#===============================================================================
-# We snapshot on the first overworld step where:
-#   * Nuzlocke mode is active
-#   * The new-game intro is no longer running (SWITCH_DURING_INTRO is false)
-#   * The player has actually saved at least once ($Trainer.save_slot is set)
-#   * No snapshot already exists for this slot
+# Wipes the run back to starter selection while keeping the player's identity
+# (name, gender/character, outfit and unlocks), the Nuzlocke + randomizer
+# settings, the Soul Link pairing, and the save slot.
 #
-# Capturing pre-starter is intentional: the player should be able to hit
-# "Reset Run" at any point, including after checking the starters but before
-# committing to one. SWITCH_DURING_INTRO is cleared by binary map events at
-# the end of the intro sequence; once that goes false and they've saved, the
-# first overworld step grabs the snapshot.
-Events.onStepTaken += proc {
-  next if !$game_switches || !$game_switches[SWITCH_NUZLOCKE_MODE]
-  next if $game_switches[SWITCH_DURING_INTRO]
-  next if !$Trainer || $Trainer.save_slot.nil?
-  path = nuzlocke_snapshot_path
-  next if path.nil?
-  next if File.file?(path)
-  begin
-    SaveData.save_to_file(path)
-    echoln("[NuzlockeReset] Captured reset snapshot for slot '#{$Trainer.save_slot}' at #{path}")
-  rescue => e
-    echoln("[NuzlockeReset] Failed to capture snapshot: #{e.message}")
-  end
-}
+# HOW: the run is rebuilt from a genuine NEW GAME (SaveData new-game values),
+# then the intro's end state is replayed by hand (the switches/variables the
+# Intro map sets, minus the interactive parts we already know the answers to),
+# and finally the game's own "skip to starter selection" common event is run --
+# the same one the splicer-demo Skip (CTRL) uses. So the result is exactly the
+# state a brand-new player is in when they skip the intro: pre-Pokedex, pre-
+# starter, Oak's lab.
+#
+# WHY NOT A SAVED COPY OF THE PLAYER'S GAME: the first version stored a copy
+# of the player's own save on the first step after the intro AND after the
+# first manual save. If the first save happened after getting the Pokedex, the
+# copy was of a post-Pokedex game, so a reset put the player back into a
+# half-finished story (rival renamed, but Oak's lab already past starter
+# selection). Rebuilding from new-game values has no timing dependency and
+# works on every existing save.
+
+#===============================================================================
+# Availability
+#===============================================================================
+# Reset Run is available as soon as the intro is over. (During the intro the
+# player hasn't chosen a name yet, and there is nothing to reset.)
+def nuzlocke_reset_available?
+  return false if !$game_switches || !$game_switches[SWITCH_NUZLOCKE_MODE]
+  return false if $game_switches[SWITCH_DURING_INTRO]
+  return false if !$Trainer
+  return true
+end
 
 #===============================================================================
 # Common event lookup by name (so reset doesn't break when upstream
-# renumbers common events on update).
+# renumbers common events on update). Falls back to +fallback_id+ if given.
 #===============================================================================
-def find_common_event_id_by_name(name)
-  return nil if !$data_common_events
+def find_common_event_id_by_name(name, fallback_id = nil)
+  return fallback_id if !$data_common_events
   $data_common_events.each_with_index do |ev, i|
     next if ev.nil?
-    return i if ev.name == name
+    evname = (ev.name.to_s.dup.force_encoding("UTF-8") rescue ev.name.to_s)
+    return i if evname == name
   end
-  return nil
+  return fallback_id
 end
 
+# Common events the intro / skip flow uses (looked up by name, id as fallback).
+NUZLOCKE_CE_APPLY_RANDOMIZER = ["APPLY randomizer options", 28].freeze
+NUZLOCKE_CE_SKIP_TO_STARTER  = ["les trucs du début du jeu", 29].freeze   # what "skip intro" runs after its Yes/No
+
 #===============================================================================
-# Settings preservation across the snapshot reload.
+# Settings preservation.
 #
-# Game.load(snapshot) overwrites the ENTIRE $game_switches / $game_variables with
-# the snapshot's values. The snapshot is captured once per slot at the starting
-# line and is NOT refreshed on a new game, so its switch state can be stale and
-# silently turn OFF the player's perma-death rules and randomizer config after a
-# reset. These two lists name the switches/vars that represent the player's chosen
-# SETTINGS (not run progress) and must therefore survive the wipe. Constants are
-# resolved with const_defined? guards so unreleased (e.g. stashed Phase 2) options
-# are simply skipped until they exist.
+# These lists name the switches/vars that represent the player's chosen
+# SETTINGS (not run progress) and must survive the new-game rebuild.
 #===============================================================================
 NUZLOCKE_RESET_PRESERVED_SWITCH_SYMS = [
   # --- Nuzlocke rule switches ---
@@ -128,15 +105,14 @@ def nuzlocke_reset_capture_settings
   return [switches, vars]
 end
 
-# Re-apply preserved settings on top of the freshly-loaded snapshot.
+# Re-apply preserved settings on top of the freshly-built game.
 def nuzlocke_reset_restore_settings(switches, vars)
   switches.each { |id, val| $game_switches[id] = val } if switches
   vars.each { |id, val| $game_variables[id] = val } if vars
 end
 
-# Snapshot-independent progress wipe. Clears party, bag, storage, and money so
-# the post-reset run is genuinely fresh, regardless of what the snapshot file
-# happened to contain. Story/map state still come from Game.load(snapshot).
+# Explicit progress wipe. The new-game rebuild already produces empty party/
+# bag/storage/money; this is kept as a standalone helper (and safety net).
 def nuzlocke_reset_wipe_progress
   $Trainer.party.clear if $Trainer && $Trainer.party
   $PokemonBag = PokemonBag.new if defined?(PokemonBag)
@@ -166,92 +142,169 @@ def nuzlocke_reset_reshuffle_randomizers
 end
 
 #===============================================================================
-# Public entry-point called from the pause menu
+# Identity preservation: everything about the PLAYER (not the run) that the
+# intro would have asked for, plus cosmetics/unlocks that are account-level.
 #===============================================================================
-# +confirm+ false skips the "are you sure?" prompt (used by the automatic
-# reset-on-wipe path, where the wipe itself was the decision).
+NUZLOCKE_RESET_PLAYER_IVARS = %i[
+  @name @character_ID @trainer_type @skin_tone
+  @clothes @hat @hat2 @hair @hair_color @hat_color @hat2_color @clothes_color
+  @unlocked_clothes @unlocked_hats @unlocked_hairstyles @unlocked_card_backgrounds
+  @dyed_hats @dyed_clothes @favorite_hat @favorite_hat2 @favorite_clothes
+  @last_worn_outfit @last_worn_hat @last_worn_hat2 @card_background
+  @new_game_plus_unlocked @save_slot @last_time_saved
+].freeze
+
+# Variables the Intro map fills from the player's answers.
+NUZLOCKE_RESET_IDENTITY_VARS = [52, 84, 99].freeze   # 52 = VAR_TRAINER_GENDER, 84 = name, 99 = intro number
+
+def nuzlocke_reset_capture_identity
+  ivars = {}
+  if $Trainer
+    NUZLOCKE_RESET_PLAYER_IVARS.each do |iv|
+      ivars[iv] = $Trainer.instance_variable_get(iv) if $Trainer.instance_variable_defined?(iv)
+    end
+  end
+  vars = {}
+  NUZLOCKE_RESET_IDENTITY_VARS.each { |id| vars[id] = $game_variables[id] } if $game_variables
+  return { ivars: ivars, vars: vars }
+end
+
+def nuzlocke_reset_restore_identity(identity)
+  return if !identity.is_a?(Hash) || !$Trainer
+  ivars = identity[:ivars] || {}
+  # Character (gender sprite/trainer type) first, the way the intro does it.
+  char_id = ivars[:@character_ID]
+  pbChangePlayer(char_id) if char_id.is_a?(Integer) && char_id >= 0 && defined?(pbChangePlayer)
+  ivars.each { |iv, val| $Trainer.instance_variable_set(iv, val) }
+  (identity[:vars] || {}).each { |id, val| $game_variables[id] = val } if $game_variables
+  refreshPlayerOutfit if defined?(refreshPlayerOutfit)
+rescue => e
+  echoln("[NuzlockeReset] restore_identity: #{e.message}")
+end
+
+#===============================================================================
+# Intro replay: the non-interactive state the Intro map (295) leaves behind.
+# Interactive parts (mode choice, name, gender, randomizer menu) are replaced by
+# the preserved settings + identity.
+#===============================================================================
+NUZLOCKE_INTRO_MAP_ID   = 295
+NUZLOCKE_DEMO_MAP_ID    = 157   # splicer demo map; "skip intro" flips its event 1 to the skipped page
+NUZLOCKE_INTRO_SWITCHES = [971, 909, 800, 799, 910, 668, 825, 108].freeze   # set ON at intro start
+
+def nuzlocke_reset_apply_intro_state
+  return if !$game_switches || !$game_variables
+  $game_variables[199] = 0
+  NUZLOCKE_INTRO_SWITCHES.each { |id| $game_switches[id] = true }
+  # The intro seeds the item/TM randomization tables even when unused.
+  pbShuffleItems if defined?(pbShuffleItems)
+  pbShuffleTMs   if defined?(pbShuffleTMs)
+  # Intro finished: its events flip to their inert self-switch pages.
+  if $game_self_switches
+    (1..4).each { |ev| $game_self_switches[[NUZLOCKE_INTRO_MAP_ID, ev, "A"]] = true }
+    $game_self_switches[[NUZLOCKE_DEMO_MAP_ID, 1, "A"]] = true
+  end
+  $game_switches[SWITCH_DURING_INTRO] = false
+  pbSet(VAR_CURRENT_GYM_TYPE, -1) if defined?(VAR_CURRENT_GYM_TYPE) && $game_switches[SWITCH_RANDOMIZED_MODE_INTRO]
+end
+
+#===============================================================================
+# The heavy steps, split out so the harness can stub them.
+#===============================================================================
+# Rebuild every save value from its new-game default (bootup values such as
+# $PokemonSystem / $game_system are untouched, exactly like New Game from the
+# title screen) and start on the game's start map.
+def nuzlocke_reset_fresh_game!
+  SaveData.mark_values_as_unloaded
+  Game.start_new
+  initialize_alt_sprite_substitutions if defined?(initialize_alt_sprite_substitutions)
+  # Nothing on the intro map may start running: we're replaying its outcome.
+  if $game_map && $game_map.respond_to?(:events) && $game_map.events
+    $game_map.events.each_value { |event| event.clear_starting if event.respond_to?(:clear_starting) }
+  end
+  $game_temp.common_event_id = 0 if $game_temp
+end
+
+# Apply the randomizer exactly like the end of the intro (common event 28),
+# falling back to the direct shuffle calls if the event can't be found.
+def nuzlocke_reset_apply_randomizer!
+  id = find_common_event_id_by_name(*NUZLOCKE_CE_APPLY_RANDOMIZER)
+  if id && $data_common_events && $data_common_events[id]
+    pbCommonEvent(id)
+  else
+    nuzlocke_reset_reshuffle_randomizers
+  end
+end
+
+# The game's own "skip to starter selection" routine: running shoes, rival
+# naming, story switches, transfer to Oak's lab.
+def nuzlocke_reset_skip_to_starter!
+  clear_all_images if defined?(clear_all_images)
+  id = find_common_event_id_by_name(*NUZLOCKE_CE_SKIP_TO_STARTER)
+  if id && $data_common_events && $data_common_events[id]
+    pbCommonEvent(id)
+    return true
+  end
+  # Last resort: the full "skip intro" event (asks Skip? first, then runs 29).
+  id = find_common_event_id_by_name("skip intro", 105)
+  if id && $data_common_events && $data_common_events[id]
+    pbCommonEvent(id)
+    return true
+  end
+  echoln("[NuzlockeReset] skip-to-starter common event not found")
+  pbMessage(_INTL("Your run has been reset. Head to Professor Oak's lab to pick your starter."))
+  return false
+end
+
+#===============================================================================
+# Public entry-point (pause menu, and the auto reset on wipe).
+# +confirm+ false skips the "are you sure?" prompt (the wipe was the decision).
+#===============================================================================
 def nuzlocke_reset_run(confirm = true)
-  path = nuzlocke_snapshot_path
-  if path.nil? || !File.file?(path)
-    pbMessage(_INTL("No reset snapshot is available for this save."))
-    return
+  if !nuzlocke_reset_available?
+    pbMessage(_INTL("Reset Run isn't available right now."))
+    return false
+  end
+  if confirm && !pbConfirmMessageSerious(_INTL("This will wipe ALL progress and start the run over from your starter. Your name, look and Nuzlocke settings stay. Continue?"))
+    return false
   end
 
-  if confirm && !pbConfirmMessageSerious(_INTL("This will wipe ALL progress and reset you to the start. Your name and Nuzlocke settings stay. Continue?"))
-    return
-  end
-
-  begin
-    snapshot = SaveData.read_from_file(path)
-  rescue => e
-    echoln("[NuzlockeReset] Failed to read snapshot: #{e.message}")
-    pbMessage(_INTL("The reset snapshot could not be read."))
-    return
-  end
-
-  active_slot = $Trainer.save_slot
-
-  # Surface progress before we kick off the heavy work — Game.load and the
-  # reshuffles can take a moment on bigger randomized runs.
   pbMessage(_INTL("Resetting your run. This may take a minute...\\^"))
 
-  # Hang onto the live Scene_Map. Game.load (003_Game processing/001_StartGame.rb)
-  # internally does `$scene = Scene_Map.new`; we restore the live scene below
-  # because a fresh Scene_Map has @spritesets = nil until its main loop runs
-  # createSpritesets, and any rendering in between (shuffle progress, save
-  # chrome, pbMessage) would crash on Scene_Map#spriteset.
+  # Capture what survives.
+  identity                            = nuzlocke_reset_capture_identity
+  preserved_switches, preserved_vars  = nuzlocke_reset_capture_settings
+  soul_link_cfg = defined?(NuzlockeSoulLink) ? NuzlockeSoulLink.export_config : nil
+  active_slot   = identity[:ivars][:@save_slot]
+
+  # Hang onto the live Scene_Map. Game.start_new does `$scene = Scene_Map.new`;
+  # a fresh Scene_Map has no spritesets until its main loop runs, and any
+  # rendering in between (shuffle progress, messages) would crash. We restore
+  # the live scene and rebuild its spritesets for the new map instead.
   original_scene = $scene
 
-  # Best-effort cleanup of the current map's event state before the swap.
-  if $game_map && $game_map.events
-    $game_map.events.each_value { |event| event.clear_starting }
+  if $game_map && $game_map.respond_to?(:events) && $game_map.events
+    $game_map.events.each_value { |event| event.clear_starting if event.respond_to?(:clear_starting) }
   end
   $game_temp.common_event_id = 0 if $game_temp
   pbMapInterpreter&.clear
   pbMapInterpreter&.setup(nil, 0, 0)
 
-  # Capture the player's chosen SETTINGS (Nuzlocke rules + randomizer config)
-  # BEFORE the wipe. Game.load below overwrites ALL switches/variables with the
-  # snapshot's (possibly stale) values, which would otherwise silently disable
-  # perma-death and randomization for the post-reset run. We re-apply these
-  # immediately after the load so the reset keeps your settings exactly.
-  preserved_switches, preserved_vars = nuzlocke_reset_capture_settings
-  soul_link_cfg = defined?(NuzlockeSoulLink) ? NuzlockeSoulLink.export_config : nil
+  # 1. Genuine new game.
+  nuzlocke_reset_fresh_game!
 
-  # Restore the snapshot into the live globals. This wipes party / bag /
-  # badges / progress flags back to the captured "post-intro, pre-starter"
-  # state. We DON'T trust the snapshot's saved position to put the player
-  # in a starter-ready spot — the bedroom autorun re-fires the whole intro
-  # chain when party_count is 0. Instead we run the canonical
-  # "skip intro" common event below, which is the exact same code path the
-  # game uses when the player picks Skip during the splicer demo cutscene.
-  Game.load(snapshot)
-
-  # Force-wipe progress (resolves #16). The snapshot's capture timing was
-  # supposed to land on "post-intro, pre-starter" but that's fragile -- any
-  # mis-timing left the snapshot with party/items/storage from a later state,
-  # and Game.load would restore that, defeating the reset. Making the wipe
-  # snapshot-independent makes the reset robust regardless of when the snapshot
-  # was captured.
-  nuzlocke_reset_wipe_progress
-
-  # Re-apply the preserved settings on top of the restored snapshot, so perma-death
-  # and the randomizer switches reflect the player's CURRENT choices (not whatever
-  # the snapshot happened to hold). This must happen before the reshuffle below,
-  # which keys off these switches.
+  # 2. Mode + settings (canonical Nuzlocke defaults, then the player's choices).
+  initializeNuzlockeMode
   nuzlocke_reset_restore_settings(preserved_switches, preserved_vars)
-  # Soul Link: the room pairing survives the reset; the ledger starts fresh and
-  # is re-published so partners see the new run.
+
+  # 3. Who the player is.
+  nuzlocke_reset_restore_identity(identity)
+  $Trainer.save_slot = active_slot if active_slot && $Trainer.respond_to?(:save_slot=)
+
+  # 4. What the intro leaves behind.
+  nuzlocke_reset_apply_intro_state
   NuzlockeSoulLink.import_config(soul_link_cfg) if soul_link_cfg && defined?(NuzlockeSoulLink)
 
-  # Rebuild PokemonEncounters for whatever map the snapshot put us on.
-  $PokemonEncounters = PokemonEncounters.new
-  $PokemonEncounters.setup($game_map.map_id)
-  $game_map.autoplay
-  $game_map.update
-
-  # Reclaim the live scene and rebuild its spritesets in-place for the new
-  # map. Pattern lifted from Scene_Map#transfer_player (002_Scene_Map.rb).
+  # Reclaim the live scene and rebuild its spritesets for the start map.
   if original_scene.is_a?(Scene_Map)
     $scene = original_scene
     original_scene.disposeSpritesets
@@ -259,30 +312,19 @@ def nuzlocke_reset_run(confirm = true)
     original_scene.createSpritesets
   end
 
-  # Re-roll any randomization that's currently enabled so the post-reset run
-  # is fresh. Silent re-roll using the player's already-chosen switches —
-  # no randomizer-settings menu pops up. Shuffle functions surface their own
-  # progress UI via Kernel.pbMessageNoSound.
-  nuzlocke_reset_reshuffle_randomizers
+  # 5. Randomizer, as the intro applies it (silent when nothing is randomized).
+  nuzlocke_reset_apply_randomizer!
 
-  # Persist the wiped state to the slot before the warp.
+  # 6. Skip to starter selection (Oak's lab), like CTRL on the splicer demo.
+  nuzlocke_reset_skip_to_starter!
+
+  # Persist the fresh run in the same slot, without the "overwrite?" prompt a
+  # begun-new-game normally triggers on the next manual save.
   Game.save(active_slot) if active_slot
-
-  # Run the existing in-game "skip intro" common event — the same one the
-  # splicer demo cutscene's Skip option triggers. It pops the "Skip to
-  # starter selection?" prompt, sets self-switch A on Oak's lab event 1
-  # (map 157), and transfers the player to the starter selection point.
-  # Looked up by name so upstream renumbering on update won't silently
-  # break us.
-  skip_id = find_common_event_id_by_name("skip intro")
-  if skip_id
-    pbCommonEvent(skip_id)
-  else
-    echoln("[NuzlockeReset] 'skip intro' common event not found; leaving the player at the snapshot position.")
-    pbMessage(_INTL("Your run has been reset. Good luck."))
-  end
+  $PokemonTemp.begunNewGame = false if $PokemonTemp
 
   $game_temp.transition_processing = true if $game_temp
+  return true
 end
 
 #===============================================================================
@@ -294,7 +336,7 @@ end
 # empty/fainted party and warps to the last Pokemon Center), flag the wipe on
 # $PokemonGlobal (so it survives a save/quit), and perform the actual Reset Run
 # on the player's next overworld step -- pbStartOver runs from inside the
-# post-battle sequence, where reloading the snapshot and rebuilding the map
+# post-battle sequence, where rebuilding the game state and the map
 # scene is not safe. The step hook is onStepTakenTransferPossible, the engine's
 # own hook for step handlers that may transfer the player.
 #===============================================================================
@@ -309,13 +351,13 @@ def nuzlocke_auto_reset_active?
 end
 
 # Called right after a blackout. Arms the pending auto-reset when the feature is
-# on and a snapshot exists to reset to. Bug Contest "start over" is a contest
+# on and a reset is possible (intro finished). Bug Contest "start over" is a contest
 # loss, not a run wipe, so it never arms.
 def nuzlocke_flag_auto_reset_after_wipe
   return if !nuzlocke_auto_reset_active?
   return if !$PokemonGlobal
   return if defined?(pbInBugContest?) && pbInBugContest?
-  return if !nuzlocke_snapshot_exists?
+  return if !nuzlocke_reset_available?
   $PokemonGlobal.nuzlocke_auto_reset_pending = true
 end
 
@@ -324,7 +366,7 @@ def nuzlocke_run_pending_auto_reset
   return false if !$PokemonGlobal || !$PokemonGlobal.nuzlocke_auto_reset_pending
   $PokemonGlobal.nuzlocke_auto_reset_pending = false
   return false if !nuzlocke_auto_reset_active?
-  return false if !nuzlocke_snapshot_exists?
+  return false if !nuzlocke_reset_available?
   pbMessage(_INTL("Your whole team was wiped out... The run is over."))
   nuzlocke_reset_run(false)
   return true

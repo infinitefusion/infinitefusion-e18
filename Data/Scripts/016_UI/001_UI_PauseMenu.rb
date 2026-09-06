@@ -122,7 +122,7 @@ class PokemonPauseMenu
     commands[cmdBag = commands.length] = _INTL("Bag") if !pbInBugContest?
     commands[cmdPokegear = commands.length] = _INTL("Pokégear") if $Trainer.has_pokegear
     commands[cmdTrainer = commands.length] = $Trainer.name
-    if $game_switches[SWITCH_NUZLOCKE_RESET_ENABLED] && nuzlocke_snapshot_path && File.file?(nuzlocke_snapshot_path)
+    if $game_switches[SWITCH_NUZLOCKE_RESET_ENABLED] && defined?(nuzlocke_reset_available?) && nuzlocke_reset_available?
       commands[cmdNuzlockeReset = commands.length] = _INTL("Reset Run")
     end
     if defined?(NuzlockeSoulLink) && NuzlockeSoulLink.active?

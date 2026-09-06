@@ -269,19 +269,19 @@ NuzlockeTestHarness.suite("Level cap: PokemonSystem#level_caps reports ON while 
 end
 
 #-- Auto Reset Run on wipe ----------------------------------------------------
-NuzlockeTestHarness.suite("Auto reset on wipe: arming is gated on MODE + toggle + snapshot") do |t|
+NuzlockeTestHarness.suite("Auto reset on wipe: arming is gated on MODE + toggle + availability") do |t|
   t.set_switch(SWITCH_NUZLOCKE_MODE, true)
   t.set_switch(SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE, true)
   t.assert("helper active", nuzlocke_auto_reset_active? == true)
-  # No snapshot on disk for slot TEST -> never arms.
+  # Still in the intro -> never arms.
+  t.set_switch(SWITCH_DURING_INTRO, true)
   $PokemonGlobal.nuzlocke_auto_reset_pending = false
   nuzlocke_flag_auto_reset_after_wipe
-  t.refute("no snapshot -> not armed", $PokemonGlobal.nuzlocke_auto_reset_pending)
-  # Pretend a snapshot exists.
-  orig_exists = Object.instance_method(:nuzlocke_snapshot_exists?)
-  Object.send(:define_method, :nuzlocke_snapshot_exists?) { true }
+  t.refute("during intro -> not armed", $PokemonGlobal.nuzlocke_auto_reset_pending)
+  t.set_switch(SWITCH_DURING_INTRO, false)
+  orig_exists = Object.instance_method(:nuzlocke_reset_available?)
   nuzlocke_flag_auto_reset_after_wipe
-  t.assert("snapshot present -> armed", $PokemonGlobal.nuzlocke_auto_reset_pending == true)
+  t.assert("intro over -> armed", $PokemonGlobal.nuzlocke_auto_reset_pending == true)
   $PokemonGlobal.nuzlocke_auto_reset_pending = false
   t.set_switch(SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE, false)
   nuzlocke_flag_auto_reset_after_wipe
@@ -290,15 +290,15 @@ NuzlockeTestHarness.suite("Auto reset on wipe: arming is gated on MODE + toggle 
   t.set_switch(SWITCH_NUZLOCKE_MODE, false)
   nuzlocke_flag_auto_reset_after_wipe
   t.refute("MODE off -> not armed", $PokemonGlobal.nuzlocke_auto_reset_pending)
-  nuzlocke_test_restore(:nuzlocke_snapshot_exists?, orig_exists)
+  nuzlocke_test_restore(:nuzlocke_reset_available?, orig_exists)
 end
 
 NuzlockeTestHarness.suite("Auto reset on wipe: pending flag runs the reset once, then clears") do |t|
   t.set_switch(SWITCH_NUZLOCKE_MODE, true)
   t.set_switch(SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE, true)
-  orig_exists = Object.instance_method(:nuzlocke_snapshot_exists?)
+  orig_exists = Object.instance_method(:nuzlocke_reset_available?)
   orig_reset  = Object.instance_method(:nuzlocke_reset_run)
-  Object.send(:define_method, :nuzlocke_snapshot_exists?) { true }
+  Object.send(:define_method, :nuzlocke_reset_available?) { true }
   ran = 0
   confirm_arg = :unset
   Object.send(:define_method, :nuzlocke_reset_run) { |*a| ran += 1; confirm_arg = a[0] }
@@ -313,7 +313,7 @@ NuzlockeTestHarness.suite("Auto reset on wipe: pending flag runs the reset once,
   handled = [false]
   Events.onStepTakenTransferPossible.trigger(nil, handled)
   t.assert("second step: nothing happens", ran == 1 && handled[0] == false)
-  nuzlocke_test_restore(:nuzlocke_snapshot_exists?, orig_exists)
+  nuzlocke_test_restore(:nuzlocke_reset_available?, orig_exists)
   nuzlocke_test_restore(:nuzlocke_reset_run, orig_reset)
 end
 

@@ -33,5 +33,6 @@ To update later, rename the folder to `InfiniteFusion` and run `INSTALL_OR_UPDAT
 - First-encounter forfeit now actually works after normal wild battles (the per-battle flag was never being cleared).
 - Cap Candy fixed end to end (it previously vanished at boot, collided with TM109, sat in the Berries pocket, had no icon and could not be bought).
 - The empty-party soft-lock guard now fires (it was silently crashing).
+- Reset Run (and auto reset on wipe) now rebuilds the game from a true new game and replays the intro's end state, then runs the game's own skip-to-starter. It previously restored a copy of your save taken after your first manual save, which could land you post-Pokédex.
 
 Full checklist: `docs/nuzlocke/FEATURES.md`. Tests: drop an empty `nuzlocke_run_tests.flag` in the game folder and launch; results land in `nuzlocke_test_results.log`.
