@@ -42,7 +42,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 28b | Field Medkit: a reusable key item that fully heals the party anywhere outside battle | Field Medkit | Off | ✅ *new in v1.1.1* |
 | 28c | All three key items can be registered to the ready menu (Bag → Register) | — | — | ✅ *new in v1.1.1* |
 | 28d | Repel Toggle: a key item that switches an endless Repel on and off (same level rule as a normal Repel; an incense still overrides it) | Repel Toggle | Off | ✅ *new in v1.1.1* |
-| 29 | Reset Run (pause menu: wipe progress, reroll randomization, keep name, look & settings) | Enable Reset Run | On | ✅ *rebuilt in v1.1.1* — now a genuine new game + intro replay + the game's own skip-to-starter, instead of a saved copy of the player's game |
+| 29 | Reset Run (pause menu: wipe progress, reroll randomization; keeps name, character, skin/hair and settings; outfits and unlocks reset with the run) | Enable Reset Run | On | ✅ *rebuilt in v1.1.1* — now a genuine new game + intro replay + the game's own skip-to-starter, instead of a saved copy of the player's game |
 | 30 | Reset Run lands you at starter selection in Oak's lab, pre-Pokédex | — | — | ✅ *fixed in v1.1.1* — the old copy was taken after the first save, so saving after the Pokédex made resets land post-Pokédex |
 | 31 | Auto Reset Run on a full wipe (not on fleeing a trainer or other scripted blackouts with living Pokémon) | On wipe → Reset run | Blackout | ✅ *new in v1.0.0, fixed in v1.1.1* |
 | 32 | Soul Link (Soullocke) with a partner over a room-code relay: linked deaths, broken links, fusion-aware, linked-box warnings | Soul Link | Off | ✅ *new in v1.1.0* (needs the relay deployed, see `tools/soul_link_relay/`) |

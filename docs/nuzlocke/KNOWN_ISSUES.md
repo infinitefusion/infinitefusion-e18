@@ -5,7 +5,14 @@ Running list of reported problems and their status. Add new ones at the top of
 
 ## Open
 
-- (none)
+- Auto reset after a blackout reportedly leaves story events (gift Pokémon
+  etc.) in their finished state. Not reproduced by reading the code: the reset
+  rebuilds every save value from new-game defaults on both paths (manual and
+  after-wipe). As of this build the fresh-game step verifies each save value is
+  a new object and forces any that survived, and every reset writes a trace to
+  `nuzlocke_reset.log` next to the save files. If it happens again, send that
+  file: it says which path ran, which values had to be forced, and where it
+  stopped.
 
 ## Wishlist / not started
 
@@ -35,6 +42,10 @@ Running list of reported problems and their status. Add new ones at the top of
 
 ## Fixed
 
+- Reset Run kept the previous run's clothes, hats and every unlock: identity is
+  now only what the intro's character screen sets (name, character, skin tone,
+  hairstyle, hair colour). Outfits reset to the gender default with the starting
+  unlocks, like a new game after the bedroom.
 - Added: Dupes Clause now matches by evolution line (default): owning any stage
   makes every stage of that line a dupe, fusion halves included. "Exact species"
   remains available in Nuzlocke settings.

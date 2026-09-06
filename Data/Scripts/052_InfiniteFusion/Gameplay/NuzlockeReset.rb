@@ -1,8 +1,14 @@
 # Nuzlocke Reset Run
 # ------------------
 # Wipes the run back to starter selection while keeping the player's identity
-# (name, gender/character, outfit and unlocks), the Nuzlocke + randomizer
-# settings, the Soul Link pairing, and the save slot.
+# (name, gender/character, skin tone, hairstyle and hair colour: everything the
+# intro's character screen asks for), the Nuzlocke + randomizer settings, the
+# Soul Link pairing, and the save slot. Outfits, hats and every unlock are
+# earned during a run, so they reset like the rest of the run.
+#
+# Every reset appends a step-by-step trace to nuzlocke_reset.log next to the
+# save files (see nuzlocke_reset_log) so a bad reset can be diagnosed from the
+# file instead of from memory.
 #
 # HOW: the run is rebuilt from a genuine NEW GAME (SaveData new-game values),
 # then the intro's end state is replayed by hand (the switches/variables the
@@ -19,6 +25,27 @@
 # half-finished story (rival renamed, but Oak's lab already past starter
 # selection). Rebuilding from new-game values has no timing dependency and
 # works on every existing save.
+
+#===============================================================================
+# Diagnostics: a small append-only trace of every reset.
+#===============================================================================
+NUZLOCKE_RESET_LOG_FILE  = "nuzlocke_reset.log"
+NUZLOCKE_RESET_LOG_LIMIT = 256 * 1024
+
+def nuzlocke_reset_log_path
+  dir = (defined?(SaveData::SAVE_DIR) ? SaveData::SAVE_DIR : ".")
+  return File.join(dir, NUZLOCKE_RESET_LOG_FILE)
+end
+
+def nuzlocke_reset_log(msg)
+  line = "#{Time.now.strftime('%Y-%m-%d %H:%M:%S')} #{msg}"
+  echoln("[NuzlockeReset] #{msg}") if defined?(echoln)
+  path = nuzlocke_reset_log_path
+  File.delete(path) if File.file?(path) && File.size(path) > NUZLOCKE_RESET_LOG_LIMIT
+  File.open(path, "a") { |f| f.puts(line) }
+rescue
+  nil
+end
 
 #===============================================================================
 # Availability
@@ -149,12 +176,11 @@ end
 # Identity preservation: everything about the PLAYER (not the run) that the
 # intro would have asked for, plus cosmetics/unlocks that are account-level.
 #===============================================================================
+# Exactly what the intro's character screen decides, plus bookkeeping that is
+# not part of a run. Clothes, hats, dyes, favourites and every unlocked_* list
+# are deliberately NOT here: they are earned in the run and reset with it.
 NUZLOCKE_RESET_PLAYER_IVARS = %i[
-  @name @character_ID @trainer_type @skin_tone
-  @clothes @hat @hat2 @hair @hair_color @hat_color @hat2_color @clothes_color
-  @unlocked_clothes @unlocked_hats @unlocked_hairstyles @unlocked_card_backgrounds
-  @dyed_hats @dyed_clothes @favorite_hat @favorite_hat2 @favorite_clothes
-  @last_worn_outfit @last_worn_hat @last_worn_hat2 @card_background
+  @name @character_ID @trainer_type @skin_tone @hair @hair_color
   @new_game_plus_unlocked @save_slot @last_time_saved
 ].freeze
 
@@ -181,9 +207,28 @@ def nuzlocke_reset_restore_identity(identity)
   pbChangePlayer(char_id) if char_id.is_a?(Integer) && char_id >= 0 && defined?(pbChangePlayer)
   ivars.each { |iv, val| $Trainer.instance_variable_set(iv, val) }
   (identity[:vars] || {}).each { |id, val| $game_variables[id] = val } if $game_variables
+  nuzlocke_reset_starting_outfit
   refreshPlayerOutfit if defined?(refreshPlayerOutfit)
 rescue => e
-  echoln("[NuzlockeReset] restore_identity: #{e.message}")
+  nuzlocke_reset_log("restore_identity FAILED: #{e.class}: #{e.message}")
+end
+
+# The outfit state a brand-new game has after the intro (setupStartingOutfit:
+# default outfits/hats/hairstyles unlocked, no hat), dressed in the gender's
+# default clothes instead of the pyjamas, since the reset skips the bedroom
+# where a new player changes out of them.
+def nuzlocke_reset_starting_outfit
+  return if !$Trainer
+  setupStartingOutfit if defined?(setupStartingOutfit)
+  if defined?(getDefaultClothes) && $game_variables
+    gender  = $game_variables[VAR_TRAINER_GENDER]
+    default = getDefaultClothes(gender)
+    $Trainer.clothes = default if default
+  end
+  $Trainer.hat  = nil if $Trainer.respond_to?(:hat=)
+  $Trainer.hat2 = nil if $Trainer.respond_to?(:hat2=)
+rescue => e
+  nuzlocke_reset_log("starting_outfit FAILED: #{e.class}: #{e.message}")
 end
 
 #===============================================================================
@@ -224,9 +269,46 @@ end
 # Rebuild every save value from its new-game default (bootup values such as
 # $PokemonSystem / $game_system are untouched, exactly like New Game from the
 # title screen) and start on the game's start map.
+# Every registered save value that a new game rebuilds (everything except the
+# bootup values: options, system, versions). Used to prove the rebuild worked.
+def nuzlocke_reset_rebuildable_values
+  values = SaveData.instance_variable_get(:@values) || []
+  return values.select { |v| v.has_new_game_proc? && !v.load_in_bootup? }
+end
+
+# { id => object_id } of every rebuildable value's CURRENT object.
+def nuzlocke_reset_snapshot_values
+  snap = {}
+  nuzlocke_reset_rebuildable_values.each do |v|
+    snap[v.id] = (v.save.object_id rescue nil)
+  end
+  return snap
+end
+
+# After Game.start_new every rebuildable value must be a NEW object. Any that
+# still is the old one (a value marked loaded, an override that skipped it, a
+# save-data plugin) is forced to its new-game value here, so progress can't
+# leak across a reset whatever the loader did. Returns the ids that were forced.
+def nuzlocke_reset_verify_fresh_values(before, force = true)
+  forced = []
+  nuzlocke_reset_rebuildable_values.each do |v|
+    now = (v.save.object_id rescue nil)
+    next if before[v.id].nil? || now.nil? || now != before[v.id]
+    forced << v.id
+    next if !force
+    v.mark_as_unloaded
+    v.load_new_game_value
+  end
+  return forced
+end
+
 def nuzlocke_reset_fresh_game!
+  before = nuzlocke_reset_snapshot_values
   SaveData.mark_values_as_unloaded
   Game.start_new
+  forced = nuzlocke_reset_verify_fresh_values(before)
+  nuzlocke_reset_log("fresh game: #{before.length} save values rebuilt" +
+                     (forced.empty? ? "" : "; FORCED (not rebuilt by Game.start_new): #{forced.inspect}"))
   initialize_alt_sprite_substitutions if defined?(initialize_alt_sprite_substitutions)
   # Nothing on the intro map may start running: we're replaying its outcome.
   if $game_map && $game_map.respond_to?(:events) && $game_map.events
@@ -275,10 +357,19 @@ def nuzlocke_reset_run(confirm = true)
     pbMessage(_INTL("Reset Run isn't available right now."))
     return false
   end
-  if confirm && !pbConfirmMessageSerious(_INTL("This will wipe ALL progress and start the run over from your starter. Your name, look and Nuzlocke settings stay. Continue?"))
+  if confirm && !pbConfirmMessageSerious(_INTL("This will wipe ALL progress and start the run over from your starter. Your name, character and Nuzlocke settings stay; outfits and unlocks reset. Continue?"))
     return false
   end
+  nuzlocke_reset_log("---- reset run (#{confirm ? 'pause menu' : 'auto, after wipe'}) map=#{$game_map ? $game_map.map_id : '?'} slot=#{$Trainer.respond_to?(:save_slot) ? $Trainer.save_slot.inspect : '?'}")
+  begin
+    return nuzlocke_reset_run_core
+  rescue Exception => e
+    nuzlocke_reset_log("FAILED: #{e.class}: #{e.message}\n  " + (e.backtrace || []).first(8).join("\n  "))
+    raise
+  end
+end
 
+def nuzlocke_reset_run_core
   pbMessage(_INTL("Resetting your run. This may take a minute...\\^"))
 
   # Capture what survives.
@@ -302,6 +393,7 @@ def nuzlocke_reset_run(confirm = true)
 
   # 1. Genuine new game.
   nuzlocke_reset_fresh_game!
+  nuzlocke_reset_log("after new game: switches=#{$game_switches.object_id} selfsw=#{$game_self_switches.object_id} trainer=#{$Trainer.object_id} map=#{$game_map ? $game_map.map_id : '?'}")
 
   # 2. Mode + settings (canonical Nuzlocke defaults, then the player's choices).
   initializeNuzlockeMode
@@ -333,13 +425,16 @@ def nuzlocke_reset_run(confirm = true)
 
   # 5. Randomizer, as the intro applies it (silent when nothing is randomized).
   nuzlocke_reset_apply_randomizer!
+  nuzlocke_reset_log("randomizer applied")
 
   # 6. Skip to starter selection (Oak's lab), like CTRL on the splicer demo.
   nuzlocke_reset_skip_to_starter!
+  nuzlocke_reset_log("skipped to starter: map=#{$game_map ? $game_map.map_id : '?'} clothes=#{$Trainer.respond_to?(:clothes) ? $Trainer.clothes.inspect : '?'}")
 
   # Persist the fresh run in the same slot, without the "overwrite?" prompt a
   # begun-new-game normally triggers on the next manual save.
   Game.save(active_slot) if active_slot
+  nuzlocke_reset_log("saved to #{active_slot.inspect}; done")
   $PokemonTemp.begunNewGame = false if $PokemonTemp
 
   $game_temp.transition_processing = true if $game_temp
