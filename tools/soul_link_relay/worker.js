@@ -26,7 +26,9 @@ const json = (obj, status = 200) =>
     status,
     headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
   });
-const text = (body, status = 200) => new Response(body, { status, headers: { "cache-control": "no-store" } });
+// 204 must carry a null body (the Response constructor rejects "" with 204).
+const text = (body, status = 200) =>
+  new Response(status === 204 ? null : body, { status, headers: { "cache-control": "no-store" } });
 
 function randomCode() {
   const bytes = new Uint8Array(6);
