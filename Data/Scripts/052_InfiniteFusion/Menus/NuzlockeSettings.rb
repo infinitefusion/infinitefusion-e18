@@ -89,12 +89,18 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      "A shiny wild Pokémon can always be caught and never uses up the area's catch."
       ),
 
-      EnumOption.new(_INTL("Dupes Clause"), [_INTL("On"), _INTL("Off")],
-                     proc { $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE] ? 0 : 1 },
-                     proc { |value|
-                       $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE] = (value == 0)
+      EnumOption.new(_INTL("Dupes Clause"), [_INTL("Evolution line"), _INTL("Exact species"), _INTL("Off")],
+                     proc {
+                       next 2 if !$game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE]
+                       next (pbGet(VAR_NUZLOCKE_DUPES_SCOPE) == 1) ? 1 : 0
                      },
-                     "Skip duplicate first encounters. A fusion is still catchable if either half is a species you don't own yet."
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE] = (value != 2)
+                       pbSet(VAR_NUZLOCKE_DUPES_SCOPE, value == 1 ? 1 : 0) if value != 2
+                     },
+                     [_INTL("Skip duplicate first encounters. Owning any stage of an evolution line makes every stage of that line a dupe. A fusion is still catchable if either half is new."),
+                      _INTL("Skip duplicate first encounters, matching the exact species only. A fusion is still catchable if either half is new."),
+                      _INTL("Duplicate first encounters count and must be caught (or lost) like any other.")]
       ),
 
       EnumOption.new(_INTL("Force nicknames"), [_INTL("On"), _INTL("Off")],

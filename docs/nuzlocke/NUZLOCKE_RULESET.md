@@ -64,9 +64,9 @@ toggle.
 
 | Clause | Canon definition | Our plan |
 |---|---|---|
-| **Dupes Clause** | If your first encounter is a species (or evo-line) you already own, you may skip it and keep searching. | ✅ shipped — `SWITCH_NUZLOCKE_DUPES_CLAUSE`, default On. Fusion matching per §4.1. |
+| **Dupes Clause** | If your first encounter is a species (or evo-line) you already own, you may skip it and keep searching. | ✅ shipped — `SWITCH_NUZLOCKE_DUPES_CLAUSE`, default On, by evolution line (`VAR_NUZLOCKE_DUPES_SCOPE` 0) or exact species (1). Fusion matching per §4.1. |
 | **Shiny Clause** | A shiny encounter may be caught WITHOUT spending the area's catch (you get the shiny *and* your normal encounter). | ✅ shipped (v1.0.0) — `SWITCH_NUZLOCKE_SHINY_CLAUSE`, **default On**. A shiny wild is exempt from the catch-rule limit and never burns/forfeits the area. |
-| **Species Clause** | Usually = Dupes by evolutionary line (own any stage → can't catch others in that line). | Fold into Dupes Clause as "by evo line" (recommend). |
+| **Species Clause** | Usually = Dupes by evolutionary line (own any stage → can't catch others in that line). | ✅ folded into Dupes Clause as its default "Evolution line" scope (v1.1.1): every species keys to its lowest stage via `get_baby_species`, so Pichu/Pikachu/Raichu are one line and all Eeveelutions key to Eevee. |
 | **Ban List** | Legendaries / pseudo / OP species banned from use. | Optional, low priority. Can piggyback on existing legendary handling. |
 
 ---

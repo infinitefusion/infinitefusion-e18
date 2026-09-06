@@ -14,6 +14,7 @@ def initializeNuzlockeMode()
   # Encounter slots default to one per METHOD (walking, surfing, fishing,
   # special) -- the split variant. 0 = one per area (strict canon), 2 = rods split.
   pbSet(VAR_NUZLOCKE_ENCOUNTER_SLOTS, 1)
+  pbSet(VAR_NUZLOCKE_DUPES_SCOPE, 0)   # dupes by evolution line
   $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED] = true
   $game_switches[SWITCH_NUZLOCKE_FORCE_NICKNAMES] = true
   # Dupes Clause on by default: skip duplicate encounters (a fusion still counts

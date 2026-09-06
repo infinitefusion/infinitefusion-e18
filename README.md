@@ -47,8 +47,9 @@ What it enforces (each has a toggle):
   the head, the body, or both halves die; a surviving half comes back unfused as
   the same individual. Held items return to your Bag.
 - **Force nicknames** — every Pokémon you obtain must be nicknamed.
-- **Dupes Clause** and **Shiny Clause** — skip species you already own (a fusion
-  is a dupe only if you own both halves); shinies are always catchable and never
+- **Dupes Clause** and **Shiny Clause** — skip evolution lines you already own,
+  or exact species if you prefer (a fusion is a dupe only if you own both halves'
+  lines); shinies are always catchable and never
   spend an area.
 - **Battle items forbidden**, **Trainer fleeing** allowed/disallowed, forced
   **Set battle style**, enforced **level caps**.

@@ -18,7 +18,7 @@ To update later, rename the folder to `InfiniteFusion` and run `INSTALL_OR_UPDAT
 - Catch rule: **First encounter only** (canonical) / One per area / Off. Static encounters count. Balls-first: pre-Poké-Ball encounters never burn an area.
 - **Perma-death** for unfused Pokémon; fused Pokémon die by Head / Body / **Both** (default), the surviving half returns unfused as the same individual. Held items go back to the Bag.
 - **Force nicknames** on catches, starter, gifts, trades and hatched eggs.
-- **Dupes Clause** (a fusion is a dupe only if you own both halves) and **Shiny Clause** (shinies always catchable, never spend an area).
+- **Dupes Clause** by evolution line (own any stage and the whole line is a dupe; a fusion is a dupe only if both halves' lines are owned; exact-species mode available) and **Shiny Clause** (shinies always catchable, never spend an area).
 - **Battle items forbidden** (Poké Balls still work), **trainer fleeing** allowed/disallowed.
 - **Set battle style** and **level cap** enforcement (Hardcore options, off by default).
 - **Cap Candy**, **Field Medkit** and **Repel Toggle**: optional reusable key items (level-cap boost; full party heal outside battle; endless Repel on/off). All registerable to the ready menu.

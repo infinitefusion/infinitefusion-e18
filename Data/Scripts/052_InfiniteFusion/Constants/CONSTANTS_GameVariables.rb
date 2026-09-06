@@ -139,6 +139,8 @@ VAR_NUZLOCKE_CATCH_RULE_MODE = 1220
 # Nuzlocke encounter slots. 0=One per area, 1=One per method (land / water /
 # fishing / special), 2=One per method with each rod its own slot.
 VAR_NUZLOCKE_ENCOUNTER_SLOTS = 1221
+# Dupes Clause scope: 0 = whole evolution line (default), 1 = exact species only
+VAR_NUZLOCKE_DUPES_SCOPE = 1222
 
 VAR_HOENN_STARTER = 1002
 VAR_HOENN_CHOSEN_STARTER_INDEX = 1003

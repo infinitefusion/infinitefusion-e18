@@ -35,6 +35,9 @@ Running list of reported problems and their status. Add new ones at the top of
 
 ## Fixed
 
+- Added: Dupes Clause now matches by evolution line (default): owning any stage
+  makes every stage of that line a dupe, fusion halves included. "Exact species"
+  remains available in Nuzlocke settings.
 - Added: Repel Toggle key item (Nuzlocke settings → Repel Toggle): switches an
   endless Repel on and off from the Bag or the ready menu. Saved with the game;
   turning the setting off removes the item and switches the repel off.

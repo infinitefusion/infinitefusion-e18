@@ -30,7 +30,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 17 | Soft-lock guard: empty party after a "can lose" battle triggers the normal blackout | — | — | ✅ *fixed in v1.0.0* — the guard called `Kernel.pbStartOver`, which raises under Ruby 3 and was silently swallowed |
 | 18 | Force nicknames on catch, starter, gifts, trades, egg hatch | Force nicknames | On | ✅ |
 | 19 | "OK on the species name" does not count as a nickname | — | — | ✅ |
-| 20 | Dupes Clause (species already owned is skipped; a fusion is a dupe only if BOTH halves are owned) | Dupes Clause | On | ✅ |
+| 20 | Dupes Clause: a wild whose evolution line you already own (any stage, babies included, branched lines like Eevee's count as one) is skipped; a fusion is a dupe only if BOTH halves' lines are owned. Can be set to exact species instead | Dupes Clause | Evolution line | ✅ *by evolution line new in v1.1.1* |
 | 21 | Shiny Clause (shiny wilds always catchable, never spend or forfeit an area) | Shiny Clause | On | ✅ *new in v1.0.0* |
 | 22 | Wild fusion IS your encounter (catch it or forfeit) | — | — | ✅ |
 | 23 | Battle items forbidden (Poké Balls still allowed) | Battle items | Forbidden | ✅ |
@@ -54,7 +54,6 @@ These came out of the May research pass but were never signed off in the
 ruleset decision log, so they are not in the game and have no switches:
 
 - Species/ban list (legendaries, pseudo-legendaries).
-- Dupes Clause by evolution line (current clause is by exact species).
 - Level-cap **BST tiers** for fusions.
 - "Phase 2 extras" from the hook-map research: Heritage Movepool, Monotype
   Fusion Mandate, Fusion Permanence Lock, Splice Economy, Evolution Roulette,

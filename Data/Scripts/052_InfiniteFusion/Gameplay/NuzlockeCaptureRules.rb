@@ -163,6 +163,44 @@ module NuzlockeCaptureRules
     return $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE]
   end
 
+  DUPES_SCOPE_LINE    = 0   # any stage of an owned evolution line is a dupe (default)
+  DUPES_SCOPE_SPECIES = 1   # only the exact species is a dupe
+
+  def dupes_scope
+    v = (pbGet(VAR_NUZLOCKE_DUPES_SCOPE) rescue nil)
+    return v == DUPES_SCOPE_SPECIES ? DUPES_SCOPE_SPECIES : DUPES_SCOPE_LINE
+  end
+
+  # The id_number every member of a base species' evolution line shares: its
+  # lowest stage (baby included), so Pichu / Pikachu / Raichu all key to Pichu
+  # and every Eeveelution keys to Eevee. Falls back to the species itself when
+  # the chain can't be read (fusion ids, stubbed data). Cached per session.
+  def family_root(id)
+    return id if !id.is_a?(Integer) || id <= 0
+    $nuzlocke_family_root_cache ||= {}
+    cached = $nuzlocke_family_root_cache[id]
+    return cached if cached
+    root = id
+    begin
+      sp = GameData::Species.get(id)
+      if sp && sp.respond_to?(:get_baby_species)
+        baby = sp.get_baby_species
+        baby_id = (GameData::Species.get(baby).id_number rescue nil)
+        root = baby_id if baby_id.is_a?(Integer) && baby_id > 0
+      end
+    rescue
+      root = id
+    end
+    $nuzlocke_family_root_cache[id] = root
+    return root
+  end
+
+  # The key ownership is compared on: the family root in evolution-line scope,
+  # the species itself in exact-species scope.
+  def dupe_key(id)
+    return dupes_scope == DUPES_SCOPE_LINE ? family_root(id) : id
+  end
+
   # Decompose a Pokemon into the base species id(s) it represents for ownership:
   # a fusion counts as BOTH its head and body species; a normal mon as itself.
   def owned_species_of(pkmn)
@@ -179,22 +217,24 @@ module NuzlockeCaptureRules
 
   # The set (hash) of base species ids the player owns, scanning party + storage
   # and decomposing every fusion into its halves ("owned in any capacity").
+  # Keys are dupe_key(species): family roots in evolution-line scope.
   def owned_species_set
     owned = {}
     if $Trainer && $Trainer.party
-      $Trainer.party.each { |pk| owned_species_of(pk).each { |s| owned[s] = true } }
+      $Trainer.party.each { |pk| owned_species_of(pk).each { |s| owned[dupe_key(s)] = true } }
     end
     if $PokemonStorage && $PokemonStorage.respond_to?(:boxes)
       ($PokemonStorage.boxes rescue []).each do |box|
         next if !box
-        (box.pokemon rescue []).each { |pk| owned_species_of(pk).each { |s| owned[s] = true } }
+        (box.pokemon rescue []).each { |pk| owned_species_of(pk).each { |s| owned[dupe_key(s)] = true } }
       end
     end
     return owned
   end
 
   # True if a wild encounter is a "dupe" the clause lets you skip:
-  #   - non-fusion: you already own that species.
+  #   - non-fusion: you already own that species (or, in evolution-line scope,
+  #     any stage of its line: an owned Pidgeotto makes wild Pidgey a dupe).
   #   - fusion: you own BOTH halves (if either half is new, it's catchable).
   def wild_is_dupe?(species)
     return false if species.nil?
@@ -205,9 +245,9 @@ module NuzlockeCaptureRules
       body = (getBasePokemonID(id, true) rescue nil)
       head = (getBasePokemonID(id, false) rescue nil)
       return false if !body || !head
-      return owned[body] && owned[head] ? true : false   # dupe only if BOTH owned
+      return owned[dupe_key(body)] && owned[dupe_key(head)] ? true : false   # dupe only if BOTH owned
     end
-    return owned[id] ? true : false
+    return owned[dupe_key(id)] ? true : false
   end
 
   # Pull the species out of an EncounterModifier encounter ([species, level]).
