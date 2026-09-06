@@ -54,8 +54,8 @@ What it enforces (each has a toggle):
 - **Cap Candy** and **Field Medkit** — optional reusable key items: one raises a
   Pokémon straight to the current level cap, the other fully heals your party
   anywhere outside battle.
-- **Starter slot machine** — a slot machine next to the starter table in Oak's
-  lab rerolls the three starters as often as you like, until you pick one.
+- **Starter reroll lever** — a lever next to the starter table in Oak's lab
+  rerolls the three starters as often as you like, until you pick one.
 - **Reset Run** — pause-menu option that wipes the run (rerolling any
   randomization) while keeping your name and settings; optionally triggered
   automatically when your whole team is wiped.

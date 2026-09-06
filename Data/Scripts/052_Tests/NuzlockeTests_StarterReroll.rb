@@ -102,27 +102,36 @@ NuzlockeTestHarness.suite("SEAM pbNuzlockeStarterSlotMachine: messages and spin"
   t.assert("result announced", t.captured_msgs.any? { |m| m.include?("now hold") })
 end
 
-NuzlockeTestHarness.suite("Map 77: the slot machine event exists next to the starter table") do |t|
+NuzlockeTestHarness.suite("Map 77: the reroll lever exists beside the starter table") do |t|
   map = (load_data("Data/Map077.rxdata") rescue nil)
   t.assert("Map077 loads", !map.nil?)
   if map
     ev = map.events.values.find { |e| e.name == "Nuzlocke slot machine" }
     t.assert("event present", !ev.nil?)
     if ev
-      t.assert_eq("position on the cleared shelf row (15,17)", [15, 17], [ev.x, ev.y])
+      t.assert_eq("on the rug right of the table, plant tile (16,15) kept free", [16, 16], [ev.x, ev.y])
       t.assert_eq("two pages", 2, ev.pages.length)
       on = ev.pages[1]
       t.assert("page 2 conditioned on SWITCH_NUZLOCKE_MODE", on.condition.switch1_valid && on.condition.switch1_id == SWITCH_NUZLOCKE_MODE)
-      t.assert_eq("page 2 shows the Game Corner machine tile (left-column, faces the stool)", 9280, on.graphic.tile_id)
-      t.assert_eq("red Game Corner stool to its left", 8923, map.data[14, 17, 1])
-      t.assert("upper shelf row cleared", (13..16).all? { |x| map.data[x, 17, 1] == 0 || x == 14 })
+      t.assert_eq("page 2 uses the lever charset", "BWSwitches", on.graphic.character_name)
+      t.assert_eq("lever centred (facing down)", 2, on.graphic.direction)
+      t.assert("page 2 calls the reroll script", on.list.any? { |c| c.code == 355 && c.parameters[0].to_s.include?("pbNuzlockeStarterSlotMachine") })
+      t.assert("page 1 is invisible and walk-through", ev.pages[0].through && ev.pages[0].graphic.tile_id == 0 && ev.pages[0].graphic.character_name.to_s.empty?)
+      t.assert("lever charset file exists", pbResolveBitmap("Graphics/Characters/BWSwitches") ? true : false)
+      t.assert("bookshelves untouched", map.data[13, 17, 1] == 9018 && map.data[16, 18, 1] == 9027)
       t.assert("plant access tiles are floor", map.data[16, 15, 1] == 0 && map.data[16, 16, 1] == 0)
-      t.assert("page 2 calls the slot machine script", on.list.any? { |c| c.code == 355 && c.parameters[0].to_s.include?("pbNuzlockeStarterSlotMachine") })
-      t.assert("page 1 is invisible and walk-through", ev.pages[0].through && ev.pages[0].graphic.tile_id == 0)
       balls = [54, 55, 56].map { |id| map.events[id] }
       t.assert("the three Poke Ball events are still there", balls.all? { |b| b && b.name == "Ball" })
     end
   end
+end
+
+NuzlockeTestHarness.suite("Lever lookup helper finds the event by name") do |t|
+  fake = Struct.new(:name).new("Nuzlocke slot machine")
+  $game_map = Struct.new(:name, :map_id, :events).new("Oak's Lab", 77, { 57 => fake, 1 => Struct.new(:name).new("EV001") })
+  t.assert("found", nuzlocke_slot_event.equal?(fake))
+  $game_map = NuzlockeTestMap.new("Test Area", 1)
+  t.assert("nil when the map has no events accessor", nuzlocke_slot_event.nil?)
 end
 
 end # defined?(NuzlockeTestHarness)

@@ -9,9 +9,9 @@ Running list of reported problems and their status. Add new ones at the top of
 
 ## Wishlist / not started
 
-- Custom slot machine graphic: replace the Game Corner tile with a hand-drawn
-  charset (`Graphics/Characters/nuzlocke_slot_machine.png`, 4x4 cells) once
-  the art exists; then point map 77 event "Nuzlocke slot machine" page 2 at it.
+- Custom reroll graphic: the lever (`BWSwitches`) can be swapped for a
+  hand-drawn charset by pointing map 77 event "Nuzlocke slot machine" page 2
+  at the new file.
 - Soul Link: untested in-game so far; relay URL must be set first.
 
 ## Fixed
@@ -35,5 +35,6 @@ Running list of reported problems and their status. Add new ones at the top of
   directly. (v1.1.1)
 - Reset Run landed post-Pokédex: rebuilt from a true new game instead of a
   saved copy. (v1.1.1)
-- Slot machine blocked the plant / faced the wrong way: moved to (15,17) on
-  the cleared shelf row with a stool at (14,17). (v1.1.1)
+- Slot machine was half a Game Corner bank and sat badly on the rug: replaced
+  by the BWSwitches lever charset at (16,16), animated on pull; bookshelves
+  restored, map tile data back to pristine. (v1.1.1)
