@@ -11,6 +11,9 @@ def initializeNuzlockeMode()
   $game_switches[SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA] = true   # legacy flag (kept for back-compat)
   # Canonical catch rule = First encounter only. (0=Off, 1=First encounter, 2=One per area)
   pbSet(VAR_NUZLOCKE_CATCH_RULE_MODE, 1)
+  # Encounter slots default to one per METHOD (walking, surfing, fishing,
+  # special) -- the split variant. 0 = one per area (strict canon), 2 = rods split.
+  pbSet(VAR_NUZLOCKE_ENCOUNTER_SLOTS, 1)
   $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED] = true
   $game_switches[SWITCH_NUZLOCKE_FORCE_NICKNAMES] = true
   # Dupes Clause on by default: skip duplicate encounters (a fusion still counts
@@ -43,6 +46,7 @@ def initializeNuzlockeMode()
   # the Randomized Nuzlocke from leaving the player without any heals).
   $game_switches[SWITCH_NUZLOCKE_BATTLE_ITEMS_ALLOWED] = false
   $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] = false
+  $game_switches[SWITCH_NUZLOCKE_MEDKIT_ENABLED] = false
   $game_switches[SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS] = true
-  NuzlockeCapCandy.sync_inventory! if defined?(NuzlockeCapCandy)
+  NuzlockeKeyItems.sync_all! if defined?(NuzlockeKeyItems)
 end

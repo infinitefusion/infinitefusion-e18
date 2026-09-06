@@ -49,6 +49,15 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                       _INTL("Any single Pokémon may be caught per area; fleeing/KO doesn't forfeit it (lenient).")]
       ),
 
+      EnumOption.new(_INTL("Encounter slots"),
+                     [_INTL("Per area"), _INTL("Per method"), _INTL("Per rod")],
+                     proc { pbGet(VAR_NUZLOCKE_ENCOUNTER_SLOTS) || 0 },
+                     proc { |value| pbSet(VAR_NUZLOCKE_ENCOUNTER_SLOTS, value) },
+                     [_INTL("One encounter per area, however you met it (strict)."),
+                      _INTL("Walking, surfing, fishing and special encounters (webs, rock smash, headbutt) each get their own slot per area."),
+                      _INTL("Like Per method, and the Old, Good and Super Rod each get their own fishing slot.")]
+      ),
+
       EnumOption.new(_INTL("Perma-death (unfused)"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[SWITCH_NUZLOCKE_PERMA_DEATH_UNFUSED] ? 0 : 1 },
                      proc { |value|
@@ -131,9 +140,18 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      proc { $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] ? 1 : 0 },
                      proc { |value|
                        $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] = (value == 1)
-                       NuzlockeCapCandy.sync_inventory! if defined?(NuzlockeCapCandy)
+                       NuzlockeKeyItems.sync_all! if defined?(NuzlockeKeyItems)
                      },
                      "A reusable Cap Candy key item in your Bag raises one Pokémon straight to the current level cap. Cuts grinding after a death."
+      ),
+
+      EnumOption.new(_INTL("Field Medkit"), [_INTL("Off"), _INTL("On")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_MEDKIT_ENABLED] ? 1 : 0 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_MEDKIT_ENABLED] = (value == 1)
+                       NuzlockeKeyItems.sync_all! if defined?(NuzlockeKeyItems)
+                     },
+                     "A reusable Field Medkit key item in your Bag fully heals your party anywhere outside battle."
       ),
 
       EnumOption.new(_INTL("Guarantee Mart heals"), [_INTL("On"), _INTL("Off")],

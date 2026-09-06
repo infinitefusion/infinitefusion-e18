@@ -97,6 +97,65 @@ module NuzlockeCaptureRules
   # record it now and flag THIS battle as the catchable first encounter. The
   # balls-first caveat means pre-ball encounters never "use up" the first slot.
   #-----------------------------------------------------------------------------
+  # Encounter slots (VAR_NUZLOCKE_ENCOUNTER_SLOTS).
+  #   0 = one slot per area (strict canon)
+  #   1 = one slot per METHOD: land (grass/cave/contest), water, fishing, special
+  #       (rock smash, headbutt, webs and every other scripted wild battle)
+  #   2 = like 1, but Old / Good / Super Rod each get their own fishing slot
+  # Registry keys are "Area" in mode 0 and "Area|slot" otherwise. A legacy plain
+  # "Area" record blocks every slot; in mode 0 any "Area|..." record counts as
+  # the area being used, so switching modes mid-run never hands out free catches.
+  #-----------------------------------------------------------------------------
+  SLOTS_PER_AREA       = 0
+  SLOTS_PER_METHOD     = 1
+  SLOTS_PER_METHOD_ROD = 2
+
+  def encounter_slot_mode
+    return SLOTS_PER_AREA if !nuzlocke_active?
+    m = (pbGet(VAR_NUZLOCKE_ENCOUNTER_SLOTS) rescue 0) || 0
+    return m.is_a?(Integer) ? m.clamp(0, 2) : SLOTS_PER_AREA
+  end
+
+  # The method of the wild battle being set up, from the engine's encounter type
+  # ($PokemonTemp.encounterType is set by walking encounters, pbEncounter for
+  # rods / rock smash / headbutt, and is nil for scripted pbWildBattle calls).
+  def current_encounter_slot
+    et = ($PokemonTemp && $PokemonTemp.respond_to?(:encounterType)) ? $PokemonTemp.encounterType : nil
+    data = (et ? GameData::EncounterType.try_get(et) : nil) rescue nil
+    cat = data ? data.type : nil
+    case cat
+    when :land, :cave, :contest then return :land
+    when :water                 then return :water
+    when :fishing
+      return et.to_s.downcase.to_sym if encounter_slot_mode == SLOTS_PER_METHOD_ROD   # :oldrod / :goodrod / :superrod
+      return :fishing
+    else
+      return :special
+    end
+  end
+
+  def slot_key(area, slot = current_encounter_slot)
+    return area if area.nil? || encounter_slot_mode == SLOTS_PER_AREA
+    return "#{area}|#{slot}"
+  end
+
+  # The area part of a registry key ("Route 3|fishing" -> "Route 3").
+  def plain_area(key)
+    return key.to_s.split("|", 2)[0]
+  end
+
+  def registry_includes?(list, area, key)
+    return false if !list || area.nil?
+    return true if list.include?(key)
+    return true if list.include?(area)                       # plain record blocks every slot
+    if encounter_slot_mode == SLOTS_PER_AREA
+      prefix = "#{area}|"
+      return true if list.any? { |k| k.to_s.start_with?(prefix) }
+    end
+    return false
+  end
+
+  #-----------------------------------------------------------------------------
   # Dupes Clause.
   #-----------------------------------------------------------------------------
   def dupes_clause_active?
@@ -165,8 +224,9 @@ module NuzlockeCaptureRules
     return $game_switches[SWITCH_NUZLOCKE_SHINY_CLAUSE] ? true : false
   end
 
-  # The area key that THIS battle freshly recorded as first-encountered (nil if
-  # this battle didn't record one). Lets the Shiny Clause give the area back.
+  # The registry key ("Area" or "Area|slot") THIS battle freshly recorded as
+  # first-encountered (nil if it didn't record one). Lets the Shiny Clause give
+  # the slot back and Soul Link detect a forfeited encounter.
   def area_recorded_this_battle
     return $nuzlocke_area_recorded_this_battle
   end
@@ -237,16 +297,17 @@ module NuzlockeCaptureRules
     end
     area = current_area_key
     return if area.nil?
-    # Only flag the battle catchable when this call FRESHLY records the area's
+    key = slot_key(area)
+    # Only flag the battle catchable when this call FRESHLY records the slot's
     # first encounter. We deliberately do NOT reset the flag to false otherwise:
     # EncounterModifier fires once PER wild in a battle, so a double battle's 2nd
     # mon would otherwise clear the flag the 1st mon set. Between battles the flag
-    # is reset to false by clear_wild_encounter_flag (onWildBattleEnd), so a later
-    # battle in an already-encountered area stays non-catchable.
-    if !first_encounter_areas.include?(area)
-      first_encounter_areas.push(area)
+    # is reset to false by clear_wild_encounter_flag, so a later battle in an
+    # already-encountered slot stays non-catchable.
+    if !registry_includes?(first_encounter_areas, area, key)
+      first_encounter_areas.push(key)
       $nuzlocke_current_is_first_encounter = true
-      $nuzlocke_area_recorded_this_battle = area
+      $nuzlocke_area_recorded_this_battle = key
     end
   end
 
@@ -392,19 +453,20 @@ module NuzlockeCaptureRules
     return false
   end
 
-  # True if the current area's one allowed catch has already been used.
+  # True if the current area's (slot's) one allowed catch has already been used.
   def current_area_used?
     area = current_area_key
     return false if area.nil?
-    return caught_areas.include?(area)
+    return registry_includes?(caught_areas, area, slot_key(area))
   end
 
-  # Mark the current area as having had its catch used (idempotent).
+  # Mark the current area (slot) as having had its catch used (idempotent).
   def mark_current_area_used
     area = current_area_key
     return if area.nil?
+    key = slot_key(area)
     list = caught_areas
-    list.push(area) if !list.include?(area)
+    list.push(key) if !list.include?(key)
   end
 
   # Alias with the intent spelled out.

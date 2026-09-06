@@ -16,6 +16,9 @@ Running list of reported problems and their status. Add new ones at the top of
 
 ## Fixed
 
+- Added: encounter slots per method / per rod (Nuzlocke settings), and the
+  Field Medkit key item. (v1.1.1)
+
 - Cap Candy "Use" in the Bag did nothing: the item was registered with
   field_use 2 (a from-Bag handler in this engine) instead of 5 (usable on a
   Pokémon, not consumed), and a stale duplicate handler in

@@ -191,9 +191,10 @@ module NuzlockeSoulLink
   def note_wild_battle_end
     return if !active?
     return if NuzlockeCaptureRules.catch_rule_mode != NuzlockeCaptureRules::CATCH_RULE_FIRST_ENCOUNTER
-    area = NuzlockeCaptureRules.area_recorded_this_battle
-    return if !area
-    return if NuzlockeCaptureRules.caught_areas.include?(area)
+    key = NuzlockeCaptureRules.area_recorded_this_battle
+    return if !key
+    return if NuzlockeCaptureRules.caught_areas.include?(key)
+    area = NuzlockeCaptureRules.plain_area(key)
     st = state
     st[:failed_areas].push(area) if !st[:failed_areas].include?(area)
     dirty!

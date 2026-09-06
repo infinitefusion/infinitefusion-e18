@@ -40,7 +40,8 @@ What it enforces (each has a toggle):
 
 - **Catch rule** — only the first wild Pokémon you meet in each area can be
   caught (canonical), or one catch per area (lenient), or off. Static encounters
-  count. Areas are the on-screen location names.
+  count. Areas are the on-screen location names, with walking, surfing, fishing
+  (optionally per rod) and special encounters as separate slots.
 - **Perma-death** — fainted Pokémon are gone for good. For fusions choose whether
   the head, the body, or both halves die; a surviving half comes back unfused as
   the same individual. Held items return to your Bag.
@@ -50,8 +51,9 @@ What it enforces (each has a toggle):
   spend an area.
 - **Battle items forbidden**, **Trainer fleeing** allowed/disallowed, forced
   **Set battle style**, enforced **level caps**.
-- **Cap Candy** — optional reusable key item that raises one Pokémon straight
-  to the current level cap.
+- **Cap Candy** and **Field Medkit** — optional reusable key items: one raises a
+  Pokémon straight to the current level cap, the other fully heals your party
+  anywhere outside battle.
 - **Starter slot machine** — a slot machine next to the starter table in Oak's
   lab rerolls the three starters as often as you like, until you pick one.
 - **Reset Run** — pause-menu option that wipes the run (rerolling any

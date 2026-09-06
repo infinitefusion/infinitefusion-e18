@@ -28,8 +28,10 @@ toggle.
 - **Area identity:** `$game_map.name` (the location-signpost name) — matches the
   "Met at" convention; a route split across sub-maps counts as one area. ✅ shipped.
 - **Encounter-slot nuance (canon):** fishing / surfing / rock-smash are *separate*
-  encounter slots from walking in the same area. ✅ DEFAULTED — v1 treats the whole
-  named area as one slot (simpler). Revisit if you want fishing to grant its own.
+  encounter slots from walking in the same area. ✅ shipped (v1.1.1) as
+  `VAR_NUZLOCKE_ENCOUNTER_SLOTS`: Per area (strict) / **Per method** (default:
+  land, water, fishing, special) / Per rod (each rod its own fishing slot).
+  Webs and other scripted wild battles are "special".
 - **Static / scripted encounters (ours):** legendaries, Snorlax, event fights go
   through the same first-encounter bookkeeping as walking encounters. ✅ shipped
   (v1.0.0). Before that they never registered and could not be caught at all in

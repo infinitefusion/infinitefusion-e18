@@ -17,6 +17,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 5 | Catch rule: One catch per area (lenient) | Catch rule → Per area | — | ✅ |
 | 6 | Catch rule: Off | Catch rule → Off | — | ✅ |
 | 7 | Area = displayed area name (a route split across maps is one area) | — | — | ✅ |
+| 7b | Encounter slots: one per area (strict), one per method (walking / surfing / fishing / special: webs, rock smash, headbutt, scripted wilds), or per method with each rod its own slot | Encounter slots | **Per method** | ✅ *new in v1.1.1* |
 | 8 | Balls-first: nothing counts (no first encounters, no perma-death) until Professor Oak hands out Poké Balls, so a randomized early Poké Ball can't burn a route | — | — | ✅ *fixed in v1.1.1* (was "a ball in the bag") |
 | 9 | Static / scripted encounters (legendaries, Snorlax, event fights) count as the area's first encounter and are catchable | — | — | ✅ *new in v1.0.0* |
 | 10 | Fleeing / KO'ing the first encounter forfeits the area (first-only mode) | — | — | ✅ *fixed in v1.0.0* — the per-battle flag was never cleared after normal wild battles, so later wilds in the same area stayed catchable |
@@ -38,6 +39,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 26 | Level cap enforced (no EXP / Rare Candy past the next gym's cap) | Level cap → Enforced | Player's choice | ✅ *new in v1.0.0* (reuses the game's own level-cap system) |
 | 27 | Guarantee every PokéMart stocks an HP-healing item (randomized runs) | Guarantee Mart heals | On | ✅ |
 | 28 | Cap Candy: a reusable key item in your Bag that raises one Pokémon to the current level cap | Cap Candy | Off | ✅ *reworked in v1.1.1* — now a key item handed out directly (mart stock is randomized away in randomized runs) |
+| 28b | Field Medkit: a reusable key item that fully heals the party anywhere outside battle | Field Medkit | Off | ✅ *new in v1.1.1* |
 | 29 | Reset Run (pause menu: wipe progress, reroll randomization, keep name, look & settings) | Enable Reset Run | On | ✅ *rebuilt in v1.1.1* — now a genuine new game + intro replay + the game's own skip-to-starter, instead of a saved copy of the player's game |
 | 30 | Reset Run lands you at starter selection in Oak's lab, pre-Pokédex | — | — | ✅ *fixed in v1.1.1* — the old copy was taken after the first save, so saving after the Pokédex made resets land post-Pokédex |
 | 31 | Auto Reset Run on a full wipe (not on fleeing a trainer or other scripted blackouts with living Pokémon) | On wipe → Reset run | Blackout | ✅ *new in v1.0.0, fixed in v1.1.1* |
@@ -49,8 +51,6 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 These came out of the May research pass but were never signed off in the
 ruleset decision log, so they are not in the game and have no switches:
 
-- Separate encounter slots for fishing / surfing / rock smash within one area
-  (v1 treats the whole named area as one slot).
 - Species/ban list (legendaries, pseudo-legendaries).
 - Dupes Clause by evolution line (current clause is by exact species).
 - Level-cap **BST tiers** for fusions.

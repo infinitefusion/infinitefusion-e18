@@ -21,7 +21,8 @@ To update later, rename the folder to `InfiniteFusion` and run `INSTALL_OR_UPDAT
 - **Dupes Clause** (a fusion is a dupe only if you own both halves) and **Shiny Clause** (shinies always catchable, never spend an area).
 - **Battle items forbidden** (Poké Balls still work), **trainer fleeing** allowed/disallowed.
 - **Set battle style** and **level cap** enforcement (Hardcore options, off by default).
-- **Cap Candy**: optional reusable key item that raises one Pokémon to the current level cap.
+- **Cap Candy** and **Field Medkit**: optional reusable key items (level-cap boost; full party heal outside battle).
+- **Encounter slots**: per area, per method (walking / surfing / fishing / special), or per rod.
 - **Guaranteed Mart heals** for randomized runs.
 - **Reset Run** from the pause menu, and optional **auto Reset Run on a wipe**.
 - **Starter slot machine** next to the starter table in Oak's lab: reroll the three starters until you pick one (toggle in Nuzlocke settings).

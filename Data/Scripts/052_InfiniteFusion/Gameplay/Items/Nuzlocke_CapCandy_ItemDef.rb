@@ -43,28 +43,6 @@ module NuzlockeCapCandy
     return cap.clamp(1, GameData::GrowthRate.max_level)
   end
 
-  # Keep the Bag in step with the setting: present while on, gone while off.
-  # Returns :added, :removed or :unchanged.
-  def sync_inventory!
-    return :unchanged if !$PokemonBag || !$PokemonBag.respond_to?(:pbHasItem?)
-    return :unchanged if !GameData::Item.exists?(ITEM_ID)
-    has = $PokemonBag.pbHasItem?(ITEM_ID)
-    if enabled? && !has
-      $PokemonBag.pbStoreItem(ITEM_ID, 1)
-      return :added
-    elsif !enabled? && has
-      5.times do
-        break if !$PokemonBag.pbHasItem?(ITEM_ID)
-        $PokemonBag.pbDeleteItem(ITEM_ID, 1)
-      end
-      return :removed
-    end
-    return :unchanged
-  rescue => e
-    PBDebug.log("[Nuzlocke] Cap Candy sync failed: #{e.message}") if defined?(PBDebug)
-    return :unchanged
-  end
-
   def register_item
     return if GameData::Item.try_get(ITEM_ID)
     item = GameData::Item.new({
@@ -98,20 +76,130 @@ module GameData
         alias_method :nuzlocke_orig_load, :load
         def load
           nuzlocke_orig_load
-          NuzlockeCapCandy.register_item
+          NuzlockeKeyItems.register_all
         end
       end
     end
   end
 end
 
-# Also register now, in case DATA was already loaded before this file ran.
-NuzlockeCapCandy.register_item if GameData::Item::DATA.is_a?(Hash) && !GameData::Item::DATA.empty?
+#===============================================================================
+# Field Medkit (Nuzlocke mode) -- reusable key item, full party heal from the
+# Bag anywhere outside battle (battle_use 0 keeps it out of the battle bag).
+#===============================================================================
+module NuzlockeMedkit
+  ITEM_ID     = :NUZLOCKEMEDKIT
+  ITEM_NUMBER = 9647
 
-# Keep the Bag in step with the setting whenever the player changes maps
-# (cheap: one pbHasItem? check), so old saves and toggles both converge.
+  module_function
+
+  def enabled?
+    return false if !$game_switches
+    return false if !$game_switches[SWITCH_NUZLOCKE_MODE]
+    return $game_switches[SWITCH_NUZLOCKE_MEDKIT_ENABLED] ? true : false
+  end
+
+  def sync_inventory!
+    return NuzlockeKeyItems.sync_item(ITEM_ID, enabled?)
+  end
+
+  # Heal everyone. Returns true if anything was actually healed.
+  def heal_party!
+    return false if !$Trainer || !$Trainer.party
+    needed = $Trainer.party.compact.any? { |p| !p.egg? && (p.hp < p.totalhp || p.status != :NONE || p.moves.any? { |m| m && m.pp < m.total_pp }) }
+    $Trainer.heal_party if $Trainer.respond_to?(:heal_party)
+    return needed
+  end
+
+  def register_item
+    return if GameData::Item.try_get(ITEM_ID)
+    desc = "A Nuzlocke-only medkit that fully heals your whole party anywhere outside battle. Never runs out."
+    item = GameData::Item.new({
+      id: ITEM_ID, id_number: ITEM_NUMBER, name: "Field Medkit", name_plural: "Field Medkits",
+      pocket: 8, price: 0, description: desc,
+      field_use: 2,      # usable from the Bag (UseFromBag handler), no target
+      battle_use: 0, type: 6, move: nil
+    })
+    item.define_singleton_method(:name)        { "Field Medkit" }
+    item.define_singleton_method(:name_plural) { "Field Medkits" }
+    item.define_singleton_method(:description) { desc }
+    GameData::Item::DATA[ITEM_ID]     = item
+    GameData::Item::DATA[ITEM_NUMBER] = item
+  end
+end
+
+ItemHandlers::UseFromBag.add(:NUZLOCKEMEDKIT, proc { |_item|
+  if !NuzlockeMedkit.enabled?
+    pbMessage(_INTL("It won't have any effect."))
+    next 0
+  end
+  if !$Trainer || $Trainer.party.compact.empty?
+    pbMessage(_INTL("There is no Pokémon."))
+    next 0
+  end
+  healed = NuzlockeMedkit.heal_party!
+  if healed
+    (pbSEPlay("Pkmn heal") rescue nil)
+    pbMessage(_INTL("Your Pokémon were fully healed!"))
+  else
+    pbMessage(_INTL("Your Pokémon are already in perfect health."))
+  end
+  next 1
+})
+
+#===============================================================================
+# Shared: registration on data load, Bag sync for every Nuzlocke key item.
+#===============================================================================
+module NuzlockeKeyItems
+  module_function
+
+  def register_all
+    NuzlockeCapCandy.register_item
+    NuzlockeMedkit.register_item
+  end
+
+  # Present while +wanted+, gone otherwise. Returns :added, :removed, :unchanged.
+  def sync_item(item_id, wanted)
+    return :unchanged if !$PokemonBag || !$PokemonBag.respond_to?(:pbHasItem?)
+    return :unchanged if !GameData::Item.exists?(item_id)
+    has = $PokemonBag.pbHasItem?(item_id)
+    if wanted && !has
+      $PokemonBag.pbStoreItem(item_id, 1)
+      return :added
+    elsif !wanted && has
+      5.times do
+        break if !$PokemonBag.pbHasItem?(item_id)
+        $PokemonBag.pbDeleteItem(item_id, 1)
+      end
+      return :removed
+    end
+    return :unchanged
+  rescue => e
+    PBDebug.log("[Nuzlocke] key item sync failed for #{item_id}: #{e.message}") if defined?(PBDebug)
+    return :unchanged
+  end
+
+  def sync_all!
+    NuzlockeCapCandy.sync_inventory!
+    NuzlockeMedkit.sync_inventory!
+  end
+end
+
+# Cap Candy's own sync now routes through the shared helper.
+module NuzlockeCapCandy
+  module_function
+  def sync_inventory!
+    return NuzlockeKeyItems.sync_item(ITEM_ID, enabled?)
+  end
+end
+
+# Also register now, in case DATA was already loaded before this file ran.
+NuzlockeKeyItems.register_all if GameData::Item::DATA.is_a?(Hash) && !GameData::Item::DATA.empty?
+
+# Keep the Bag in step with the settings whenever the player changes maps
+# (cheap: one pbHasItem? check per item), so old saves and toggles converge.
 if defined?(Events) && Events.respond_to?(:onMapChange)
   Events.onMapChange += proc { |_sender, _e|
-    NuzlockeCapCandy.sync_inventory! if $game_switches && $game_switches[SWITCH_NUZLOCKE_MODE]
+    NuzlockeKeyItems.sync_all! if $game_switches && $game_switches[SWITCH_NUZLOCKE_MODE]
   }
 end
