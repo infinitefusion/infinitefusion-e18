@@ -123,6 +123,8 @@ toggle.
 | Level caps / no overleveling | Hardcore | `SWITCH_NUZLOCKE_LEVEL_CAP` — ✅ shipped (v1.0.0), default off; forces the game's own level-cap system on. |
 | Guarantee Mart healing items | (IF QoL, ours) | `SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS` — ✅ shipped. |
 | Cap Candy (raise to level cap) | (ours, QoL) | `SWITCH_NUZLOCKE_CAP_CANDY_ENABLED` — ✅ shipped (v1.0.0): runtime-registered item, sold in every PokéMart while on. |
+| Field Medkit (full party heal outside battle) | (ours, QoL) | `SWITCH_NUZLOCKE_MEDKIT_ENABLED` — ✅ shipped (v1.1.1): key item, registerable to the ready menu. |
+| Repel Toggle (endless Repel on/off) | (ours, QoL) | `SWITCH_NUZLOCKE_REPEL_TOGGLE_ENABLED` — ✅ shipped (v1.1.1): key item, state saved in `$PokemonGlobal.nuzlocke_repel_on`; hooks `isRepelActive`. |
 
 ---
 

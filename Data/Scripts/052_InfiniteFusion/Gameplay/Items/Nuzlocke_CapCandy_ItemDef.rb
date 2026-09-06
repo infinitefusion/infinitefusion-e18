@@ -198,6 +198,100 @@ ItemHandlers::UseInField.add(:CAPCANDYNUZLOCKE, proc { |item|
 })
 
 #===============================================================================
+# Repel Toggle (Nuzlocke mode) -- key item that switches an endless Repel on
+# and off. State lives in $PokemonGlobal.nuzlocke_repel_on (saved with the
+# game). While on, isRepelActive() reports true, so wild Pokemon below the
+# lead's level stay away exactly as with a normal Repel; nothing counts down.
+# Turning the setting off takes the item away and switches the repel off.
+#===============================================================================
+class PokemonGlobalMetadata
+  attr_accessor :nuzlocke_repel_on          # true while the Repel Toggle is switched on
+end
+
+module NuzlockeRepelToggle
+  ITEM_ID     = :NUZLOCKEREPELTOGGLE
+  ITEM_NUMBER = 9648
+
+  module_function
+
+  def enabled?
+    return false if !$game_switches
+    return false if !$game_switches[SWITCH_NUZLOCKE_MODE]
+    return $game_switches[SWITCH_NUZLOCKE_REPEL_TOGGLE_ENABLED] ? true : false
+  end
+
+  def on?
+    return false if !$PokemonGlobal || !$PokemonGlobal.respond_to?(:nuzlocke_repel_on)
+    return $PokemonGlobal.nuzlocke_repel_on ? true : false
+  end
+
+  # The repel effect applies only while both the setting and the toggle are on.
+  def active?
+    return enabled? && on?
+  end
+
+  def set(value)
+    return if !$PokemonGlobal || !$PokemonGlobal.respond_to?(:nuzlocke_repel_on=)
+    $PokemonGlobal.nuzlocke_repel_on = value ? true : false
+  end
+
+  # Flip the toggle and tell the player. Returns 1 (used, kept).
+  def toggle!
+    set(!on?)
+    if on?
+      (pbSEPlay("Item use") rescue nil) if defined?(pbSEPlay)
+      pbMessage(_INTL("The Repel Toggle is now ON. Weak wild Pokémon will stay away."))
+    else
+      (pbSEPlay("GUI menu close") rescue nil) if defined?(pbSEPlay)
+      pbMessage(_INTL("The Repel Toggle is now OFF."))
+    end
+    return 1
+  end
+
+  def sync_inventory!
+    set(false) if !enabled? && on?
+    return NuzlockeKeyItems.sync_item(ITEM_ID, enabled?)
+  end
+
+  def register_item
+    return if GameData::Item.try_get(ITEM_ID)
+    desc = "A Nuzlocke-only switch for an endless Repel. Use it to turn the repel effect on or off at any time."
+    item = GameData::Item.new({
+      id: ITEM_ID, id_number: ITEM_NUMBER, name: "Repel Toggle", name_plural: "Repel Toggles",
+      pocket: 8, price: 0, description: desc,
+      field_use: 2,      # usable from the Bag (UseFromBag handler), no target
+      battle_use: 0, type: 6, move: nil
+    })
+    item.define_singleton_method(:name)        { "Repel Toggle" }
+    item.define_singleton_method(:name_plural) { "Repel Toggles" }
+    item.define_singleton_method(:description) { desc }
+    GameData::Item::DATA[ITEM_ID]     = item
+    GameData::Item::DATA[ITEM_NUMBER] = item
+  end
+end
+
+NUZLOCKE_REPEL_TOGGLE_USE = proc { |_item|
+  if !NuzlockeRepelToggle.enabled?
+    pbMessage(_INTL("It won't have any effect."))
+    next 0
+  end
+  next NuzlockeRepelToggle.toggle!
+}
+ItemHandlers::UseFromBag.add(:NUZLOCKEREPELTOGGLE, NUZLOCKE_REPEL_TOGGLE_USE)
+ItemHandlers::UseInField.add(:NUZLOCKEREPELTOGGLE, NUZLOCKE_REPEL_TOGGLE_USE)
+
+# The engine asks isRepelActive() once per step / turn and passes the answer
+# into the wild-encounter roll. An incense (FUSIONREPEL) still wins: that check
+# comes first in the original and forces fusions instead of blocking.
+if defined?(isRepelActive) && !defined?(nuzlocke_orig_isRepelActive)
+  alias nuzlocke_orig_isRepelActive isRepelActive
+  def isRepelActive
+    return true if NuzlockeRepelToggle.active? && !($game_switches && $game_switches[SWITCH_USED_AN_INCENSE])
+    return nuzlocke_orig_isRepelActive
+  end
+end
+
+#===============================================================================
 # Shared: registration on data load, Bag sync for every Nuzlocke key item.
 #===============================================================================
 module NuzlockeKeyItems
@@ -206,6 +300,7 @@ module NuzlockeKeyItems
   def register_all
     NuzlockeCapCandy.register_item
     NuzlockeMedkit.register_item
+    NuzlockeRepelToggle.register_item
   end
 
   # Present while +wanted+, gone otherwise. Returns :added, :removed, :unchanged.
@@ -232,6 +327,7 @@ module NuzlockeKeyItems
   def sync_all!
     NuzlockeCapCandy.sync_inventory!
     NuzlockeMedkit.sync_inventory!
+    NuzlockeRepelToggle.sync_inventory!
   end
 end
 

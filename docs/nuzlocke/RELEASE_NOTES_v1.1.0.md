@@ -21,7 +21,7 @@ To update later, rename the folder to `InfiniteFusion` and run `INSTALL_OR_UPDAT
 - **Dupes Clause** (a fusion is a dupe only if you own both halves) and **Shiny Clause** (shinies always catchable, never spend an area).
 - **Battle items forbidden** (Poké Balls still work), **trainer fleeing** allowed/disallowed.
 - **Set battle style** and **level cap** enforcement (Hardcore options, off by default).
-- **Cap Candy** and **Field Medkit**: optional reusable key items (level-cap boost; full party heal outside battle).
+- **Cap Candy**, **Field Medkit** and **Repel Toggle**: optional reusable key items (level-cap boost; full party heal outside battle; endless Repel on/off). All registerable to the ready menu.
 - **Encounter slots**: per area, per method (walking / surfing / fishing / special), or per rod.
 - **Guaranteed Mart heals** for randomized runs.
 - **Reset Run** from the pause menu, and optional **auto Reset Run on a wipe**.

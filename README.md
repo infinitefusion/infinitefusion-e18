@@ -52,9 +52,10 @@ What it enforces (each has a toggle):
   spend an area.
 - **Battle items forbidden**, **Trainer fleeing** allowed/disallowed, forced
   **Set battle style**, enforced **level caps**.
-- **Cap Candy** and **Field Medkit** — optional reusable key items: one raises a
-  Pokémon straight to the current level cap, the other fully heals your party
-  anywhere outside battle.
+- **Cap Candy**, **Field Medkit** and **Repel Toggle** — optional reusable key
+  items: one raises a Pokémon straight to the current level cap, one fully heals
+  your party anywhere outside battle, one switches an endless Repel on and off.
+  All three can be registered to the ready menu.
 - **Starter reroll terminal** — a terminal next to the starter table in Oak's
   lab rerolls the three starters as often as you like, until you pick one.
 - **Reset Run** — pause-menu option that wipes the run (rerolling any

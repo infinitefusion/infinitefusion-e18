@@ -656,6 +656,8 @@ module PBItems
   INFINITEREVERSERS = 644
   INFINITESPLICERS = 645
   CAPCANDYNUZLOCKE = 9646   # Nuzlocke Cap Candy (runtime-registered; see Nuzlocke_CapCandy_ItemDef.rb)
+  NUZLOCKEMEDKIT = 9647     # Nuzlocke Field Medkit (runtime-registered; same file)
+  NUZLOCKEREPELTOGGLE = 9648 # Nuzlocke Repel Toggle (runtime-registered; same file)
 
   def PBItems.getName(item)
     return GameData::Item.get(item).real_name

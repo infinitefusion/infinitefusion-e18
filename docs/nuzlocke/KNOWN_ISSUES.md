@@ -21,6 +21,12 @@ Running list of reported problems and their status. Add new ones at the top of
     (`001_Overworld_BattleStarting.rb`, wild and trainer paths), so it is
     mostly relay plumbing plus rules for what a fainted ally Pokémon means.
     The other player is not interrupted and does not choose moves. Feasible.
+    Soul Link already pairs catches by area, so the natural ally is not the
+    partner's whole party but the counterpart of each of your Pokémon: your
+    Route 1 catch always fights next to their Route 1 catch. Must be an
+    option, never forced: every battle as a double would change the game's
+    balance (gym leaders, rival fights, wild 2v1s), so gate it behind its own
+    setting, and consider "wild only", "trainers only" and "all" as values.
   - Tier 2, "true co-op": both players pick moves each turn, exchanged through
     the relay in lockstep. Needs a shared RNG seed with identical `rand` call
     order on both clients, a wait/timeout UI, disconnect handling, and a
@@ -29,6 +35,9 @@ Running list of reported problems and their status. Add new ones at the top of
 
 ## Fixed
 
+- Added: Repel Toggle key item (Nuzlocke settings → Repel Toggle): switches an
+  endless Repel on and off from the Bag or the ready menu. Saved with the game;
+  turning the setting off removes the item and switches the repel off.
 - Added: Cap Candy and Field Medkit can be registered to the ready menu.
   (v1.1.1)
 

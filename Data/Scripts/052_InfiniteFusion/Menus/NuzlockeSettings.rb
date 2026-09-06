@@ -159,6 +159,15 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      "A reusable Field Medkit key item in your Bag fully heals your party anywhere outside battle."
       ),
 
+      EnumOption.new(_INTL("Repel Toggle"), [_INTL("Off"), _INTL("On")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_REPEL_TOGGLE_ENABLED] ? 1 : 0 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_REPEL_TOGGLE_ENABLED] = (value == 1)
+                       NuzlockeKeyItems.sync_all! if defined?(NuzlockeKeyItems)
+                     },
+                     "A Repel Toggle key item in your Bag switches an endless Repel on and off. Wild Pokémon below your lead's level stay away while it is on."
+      ),
+
       EnumOption.new(_INTL("Guarantee Mart heals"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS] ? 0 : 1 },
                      proc { |value|
