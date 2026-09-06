@@ -80,6 +80,9 @@ module NuzlockeBattleRules
     survivor.reset_moves   # moves reset to the half's natural set (lost, as in unfuse)
     survivor.heal          # the survivor returns ready to battle
     survivor.obtain_method = 0
+    # Soul Link: the survivor keeps only its own half's link areas; the dead
+    # half's areas are recorded as dead.
+    NuzlockeSoulLink.split_on_survivor(fused, survivor, keep_body) if defined?(NuzlockeSoulLink)
     return survivor
   rescue => e
     PBDebug.log("[Nuzlocke] build_survivor failed: #{e.message}") if defined?(PBDebug)
@@ -158,6 +161,7 @@ module NuzlockeBattleRules
         # --- Feature 1: unfused perma-death ---
         if perma_unfused
           reclaim_held_item(mon)   # item back to the Bag; only the mon is lost
+          NuzlockeSoulLink.note_death(mon) if defined?(NuzlockeSoulLink)
           messages.push(_INTL("{1} can never battle again...", mon.name))
           # Dropped from survivors => permanently removed.
         else
@@ -186,6 +190,7 @@ module NuzlockeBattleRules
         end
       when 3   # Both die
         reclaim_held_item(mon)   # both halves gone; item back to the Bag
+        NuzlockeSoulLink.note_death(mon) if defined?(NuzlockeSoulLink)
         messages.push(_INTL("{1} can never battle again...", mon.name))
         # Dropped => removed entirely.
       else     # 0 = Off: normal revive-at-center behaviour

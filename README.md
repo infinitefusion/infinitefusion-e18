@@ -56,6 +56,10 @@ What it enforces (each has a toggle):
   randomization) while keeping your name and settings; optionally triggered
   automatically when your whole team is wiped.
 - Optional **randomization** of the run, using the game's own randomizer.
+- **Soul Link** — Soullocke with a friend: create a room code in the pause
+  menu, they join it, and catches from the same area are linked across both
+  games. If theirs dies, yours does too. Runs over a tiny relay you host on
+  Cloudflare's free tier (`tools/soul_link_relay/`). No accounts for players.
 
 Full status table: `docs/nuzlocke/FEATURES.md`. Rules rationale:
 `docs/nuzlocke/NUZLOCKE_RULESET.md`.

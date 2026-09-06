@@ -88,7 +88,7 @@ NUZLOCKE_RESET_PRESERVED_SWITCH_SYMS = [
   :SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS, :SWITCH_NUZLOCKE_DUPES_CLAUSE,
   :SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED, :SWITCH_NUZLOCKE_SHINY_CLAUSE,
   :SWITCH_NUZLOCKE_SET_BATTLE_STYLE, :SWITCH_NUZLOCKE_LEVEL_CAP,
-  :SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE,
+  :SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE, :SWITCH_NUZLOCKE_SOUL_LINK,
   # --- Randomizer configuration switches (define how the run randomizes) ---
   :SWITCH_RANDOMIZED_AT_LEAST_ONCE, :SWITCH_RANDOMIZED_MODE_INTRO,
   :SWITCH_RANDOM_WILD, :SWITCH_RANDOM_WILD_AREA, :SWITCH_RANDOM_WILD_TO_FUSION,
@@ -216,6 +216,7 @@ def nuzlocke_reset_run(confirm = true)
   # perma-death and randomization for the post-reset run. We re-apply these
   # immediately after the load so the reset keeps your settings exactly.
   preserved_switches, preserved_vars = nuzlocke_reset_capture_settings
+  soul_link_cfg = defined?(NuzlockeSoulLink) ? NuzlockeSoulLink.export_config : nil
 
   # Restore the snapshot into the live globals. This wipes party / bag /
   # badges / progress flags back to the captured "post-intro, pre-starter"
@@ -239,6 +240,9 @@ def nuzlocke_reset_run(confirm = true)
   # the snapshot happened to hold). This must happen before the reshuffle below,
   # which keys off these switches.
   nuzlocke_reset_restore_settings(preserved_switches, preserved_vars)
+  # Soul Link: the room pairing survives the reset; the ledger starts fresh and
+  # is re-published so partners see the new run.
+  NuzlockeSoulLink.import_config(soul_link_cfg) if soul_link_cfg && defined?(NuzlockeSoulLink)
 
   # Rebuild PokemonEncounters for whatever map the snapshot put us on.
   $PokemonEncounters = PokemonEncounters.new

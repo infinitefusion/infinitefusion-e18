@@ -1,6 +1,6 @@
 # Nuzlocke Mode — Feature Checklist
 
-Status of every Nuzlocke feature in this fork, as of release `v1.0.0-nuzlocke`.
+Status of every Nuzlocke feature in this fork, as of release `v1.1.0-nuzlocke`.
 "Tested" means a suite exists in `Data/Scripts/052_Tests/` and runs through the
 boot-time harness (see **Running the tests** at the bottom).
 
@@ -41,6 +41,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 29 | Reset Run (pause menu: wipe progress, reroll randomization, keep name & settings) | Enable Reset Run | On | ✅ |
 | 30 | Reset Run keeps you at the snapshot position and skips the intro | — | — | ✅ |
 | 31 | Auto Reset Run on a full wipe | On wipe → Reset run | Blackout | ✅ *new in v1.0.0* |
+| 32 | Soul Link (Soullocke) with a partner over a room-code relay: linked deaths, broken links, fusion-aware, linked-box warnings | Soul Link | Off | ✅ *new in v1.1.0* (needs the relay deployed, see `tools/soul_link_relay/`) |
 
 ## Not built (by design)
 
@@ -56,7 +57,7 @@ ruleset decision log, so they are not in the game and have no switches:
   Fusion Mandate, Fusion Permanence Lock, Splice Economy, Evolution Roulette,
   Encounter Dex Lock, Seeded Run, Starter Fusion Lock. Their placeholder
   constant names were removed from the code in v1.0.0 so nothing dead remains.
-- Soul Link — see `docs/nuzlocke/SOUL_LINK_DESIGN.md`.
+- Soul Link type clause and hard-enforced linked boxes (warning only).
 
 ## Known limitations
 
@@ -68,6 +69,9 @@ ruleset decision log, so they are not in the game and have no switches:
   English (they bypass the translation tables).
 - **Auto Reset on wipe** fires on your first overworld step after the blackout
   (reloading the snapshot from inside the post-battle sequence is not safe).
+- **Soul Link** is honor-system by design: the game applies what a partner's
+  ledger says after a prompt. The relay URL must be set before shipping a
+  build (`DEFAULT_RELAY_URL`), or per-install via `soul_link_relay.txt`.
 - **Old saves** from before v1.0.0: the new toggles default to Off except Shiny
   Clause, which reads as Off until you turn it on in the Nuzlocke settings
   (only `initializeNuzlockeMode` sets defaults, and it runs at New Game).

@@ -31,6 +31,7 @@ SWITCH_NUZLOCKE_SHINY_CLAUSE=1210          # shiny wilds never spend/forfeit an 
 SWITCH_NUZLOCKE_SET_BATTLE_STYLE=1211      # force Set style (no free switch on a KO)
 SWITCH_NUZLOCKE_LEVEL_CAP=1212             # force the game's level caps on for this run
 SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE=1213    # a blackout wipes the run and triggers Reset Run
+SWITCH_NUZLOCKE_SOUL_LINK=1214             # Soul Link (Soullocke) sync via the relay
 # VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE lives in CONSTANTS_GameVariables.rb
 # Values: 0=Off, 1=Head only, 2=Body only, 3=Both (default)
 

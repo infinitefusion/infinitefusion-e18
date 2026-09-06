@@ -151,6 +151,14 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      "Adds a 'Reset Run' option to the pause menu. Wipes all progress and rerolls randomization, keeping your name."
       ),
 
+      EnumOption.new(_INTL("Soul Link"), [_INTL("Off"), _INTL("On")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_SOUL_LINK] ? 1 : 0 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_SOUL_LINK] = (value == 1)
+                     },
+                     "Soullocke with a friend: catches from the same area are linked across your games. If theirs dies, yours does too. Set up the room from the pause menu."
+      ),
+
       EnumOption.new(_INTL("On wipe"), [_INTL("Blackout"), _INTL("Reset run")],
                      proc { $game_switches[SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE] ? 1 : 0 },
                      proc { |value|

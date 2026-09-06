@@ -29,6 +29,8 @@ def initializeNuzlockeMode()
   $game_switches[SWITCH_NUZLOCKE_SET_BATTLE_STYLE] = false
   $game_switches[SWITCH_NUZLOCKE_LEVEL_CAP] = false
   $game_switches[SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE] = false
+  # Soul Link is opt-in: it needs a partner and a room code.
+  $game_switches[SWITCH_NUZLOCKE_SOUL_LINK] = false
 
   # Fused perma-death defaults to "Both" (the most punishing canonical option).
   pbSet(VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE, 3)

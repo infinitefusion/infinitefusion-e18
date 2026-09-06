@@ -73,7 +73,11 @@ NuzlockeTestBattle = Struct.new(:caughtPokemon, :canLose) unless defined?(Nuzloc
 class NuzlockeTestTrainer
   attr_accessor :party
   attr_accessor :badge_count
-  def initialize; @party = []; @pokedex = NuzlockeTestPokedex.new; @badge_count = 0; end
+  attr_accessor :name, :id
+  def initialize
+    @party = []; @pokedex = NuzlockeTestPokedex.new; @badge_count = 0
+    @name = "Tester"; @id = 424242
+  end
   def pokedex; @pokedex; end
   def party_full?; @party.length >= 6; end
   def save_slot; "TEST"; end

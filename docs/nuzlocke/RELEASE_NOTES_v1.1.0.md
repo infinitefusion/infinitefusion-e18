@@ -1,7 +1,7 @@
-# Nuzlocke Mode v1.0.0 — release notes
+# Nuzlocke Mode v1.1.0 — release notes
 
 Paste this as the body when publishing the GitHub release for tag
-`v1.0.0-nuzlocke` (Releases → Draft a new release → choose the tag).
+`v1.1.0-nuzlocke` (Releases → Draft a new release → choose the tag).
 
 ---
 
@@ -24,6 +24,7 @@ To update later, rename the folder to `InfiniteFusion` and run `INSTALL_OR_UPDAT
 - **Cap Candy**: optional item sold in every PokéMart that raises one Pokémon to the current level cap.
 - **Guaranteed Mart heals** for randomized runs.
 - **Reset Run** from the pause menu, and optional **auto Reset Run on a wipe**.
+- **Soul Link** (v1.1.0): Soullocke with a friend over a room code. Linked deaths, broken links, fusion-aware. Needs the relay from `tools/soul_link_relay/` deployed once.
 - Optional randomization through the game's own randomizer.
 
 ## New / fixed in this build

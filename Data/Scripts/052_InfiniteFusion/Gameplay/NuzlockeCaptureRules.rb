@@ -685,6 +685,9 @@ module NuzlockeCaptureRules
       return yield
     ensure
       $nuzlocke_wild_battle_pending = false
+      # Soul Link needs to know about a forfeited first encounter before the
+      # per-battle bookkeeping is cleared.
+      NuzlockeSoulLink.note_wild_battle_end if defined?(NuzlockeSoulLink)
       clear_wild_encounter_flag
     end
   end

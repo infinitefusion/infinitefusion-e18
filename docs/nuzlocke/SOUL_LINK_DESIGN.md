@@ -1,8 +1,56 @@
-# Soul Link — Design Proposal
+# Soul Link — Design & Implementation
 
-Status: **proposal, not built.** Written after the v1.0.0 feature audit so the
-variant can be picked before code is written. The three options below lead to
-materially different implementations, so this needs a decision first.
+Status: **implemented (v1.1.0)** as the zero-provider relay variant. The
+original option analysis is kept below for the record.
+
+## What shipped
+
+- **Toggle:** Nuzlocke settings → *Soul Link: On*. Off by default.
+- **Pairing:** pause menu → *Soul Link* → *Create a room* shows a 6-character
+  code; the partner picks *Join a room* and types it. No accounts, no logins.
+- **Transport:** a Cloudflare Worker + KV relay (`tools/soul_link_relay/`).
+  Each player POSTs their own ledger and GETs everyone else's. The relay URL is
+  `NuzlockeSoulLink::DEFAULT_RELAY_URL`, overridable by a `soul_link_relay.txt`
+  file next to the exe.
+- **Linking:** every acquired Pokémon (catch, starter, gift, trade, hatch) is
+  tagged with the area it was obtained in. Pokémon obtained before Soul Link
+  was switched on fall back to the map they were met on.
+- **Fusions** carry both halves' areas. A linked death of either half releases
+  the whole fusion. Unfusing hands the head its own areas back; a perma-death
+  survivor keeps only its half's areas.
+- **Linked death:** partner's area is `dead` → your Pokémon linked to that
+  area must be released (confirmation prompt; "Not now" re-asks on the next
+  sync). Held item goes back to the Bag.
+- **Broken link:** partner's area is `failed` (they forfeited the first
+  encounter) → same release.
+- **Linked boxes:** party/box mismatches are listed on the Soul Link screen,
+  never enforced.
+- **Cadence:** push when something changed (after battles, on map change);
+  pull at most every 30 s on map change, and on demand from the screen.
+  Prompts fire on the next overworld step, never mid-transfer. A dead relay
+  triggers a 2-minute backoff so it can't stall the game repeatedly.
+- **Reset Run** keeps the room pairing and re-publishes a fresh ledger.
+- **Type clause:** not included (decision 3).
+
+## Ledger format (one per player)
+
+```json
+{ "v": 1, "name": "Matt", "key": "Matt_12345", "updated": 1725600000,
+  "areas": { "Route 3": { "species": "PIDGEY", "name": "Bird",
+                          "status": "alive", "location": "party" },
+             "Route 4": { "status": "dead" }, "Route 5": { "status": "failed" } } }
+```
+`alive` wins over `dead`, `dead` over `failed`, when the same area has several
+sources.
+
+## Deploying the relay
+
+See `tools/soul_link_relay/README.md`. Until a URL is set the in-game screen
+says the relay isn't configured.
+
+---
+
+# Original proposal (May 2026)
 
 ## What a Soul Link (Soullocke) is
 
