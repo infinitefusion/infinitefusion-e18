@@ -10,3 +10,15 @@ Game.rxproj
 .DS_Store
 PBS/*
 rpgmaker.sh
+
+# IDE / OS / scratch
+.idea/
+*.iml
+debug_trace.log
+traceback.log
+savefiles
+# Nuzlocke test harness one-shot flags + logs
+nuzlocke_run_tests.flag
+nuzlocke_realsave_check.flag
+nuzlocke_test_results.log
+nuzlocke_realsave_results.log

@@ -86,13 +86,9 @@ NUZLOCKE_RESET_PRESERVED_SWITCH_SYMS = [
   :SWITCH_NUZLOCKE_RESET_ENABLED, :SWITCH_NUZLOCKE_AT_LEAST_ONCE,
   :SWITCH_NUZLOCKE_BATTLE_ITEMS_ALLOWED, :SWITCH_NUZLOCKE_CAP_CANDY_ENABLED,
   :SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS, :SWITCH_NUZLOCKE_DUPES_CLAUSE,
-  :SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED,
-  # --- Nuzlocke Phase 2 switches (skipped until released) ---
-  :SWITCH_NUZLOCKE_HERITAGE_MOVEPOOL, :SWITCH_NUZLOCKE_ENCOUNTER_DEX_LOCK,
-  :SWITCH_NUZLOCKE_MONOTYPE_FUSION_MANDATE, :SWITCH_NUZLOCKE_FUSION_PERMANENCE_LOCK,
-  :SWITCH_NUZLOCKE_SEEDED_RUN, :SWITCH_NUZLOCKE_EVOLUTION_ROULETTE,
-  :SWITCH_NUZLOCKE_STARTER_FUSION_LOCK, :SWITCH_NUZLOCKE_DUPES_CLAUSE_ADDITIVE,
-  :SWITCH_NUZLOCKE_SHINY_CLAUSE,
+  :SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED, :SWITCH_NUZLOCKE_SHINY_CLAUSE,
+  :SWITCH_NUZLOCKE_SET_BATTLE_STYLE, :SWITCH_NUZLOCKE_LEVEL_CAP,
+  :SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE,
   # --- Randomizer configuration switches (define how the run randomizes) ---
   :SWITCH_RANDOMIZED_AT_LEAST_ONCE, :SWITCH_RANDOMIZED_MODE_INTRO,
   :SWITCH_RANDOM_WILD, :SWITCH_RANDOM_WILD_AREA, :SWITCH_RANDOM_WILD_TO_FUSION,
@@ -112,11 +108,7 @@ NUZLOCKE_RESET_PRESERVED_SWITCH_SYMS = [
 NUZLOCKE_RESET_PRESERVED_VAR_SYMS = [
   :VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE,
   :VAR_NUZLOCKE_CATCH_RULE_MODE,
-  :VAR_RANDOMIZER_WILD_POKE_BST,
-  # Phase 2 vars (skipped until released)
-  :VAR_NUZLOCKE_HERITAGE_MOVEPOOL_MODE, :VAR_NUZLOCKE_SPLICE_ECONOMY_MODE,
-  :VAR_NUZLOCKE_SPLICE_ECONOMY_COST, :VAR_NUZLOCKE_SEEDED_RUN_SEED,
-  :VAR_NUZLOCKE_EVOLUTION_ROULETTE_BUDGET, :VAR_NUZLOCKE_DUPES_CLAUSE_REROLL_ATTEMPTS
+  :VAR_RANDOMIZER_WILD_POKE_BST
 ].freeze
 
 # Capture {switch_id => value} for every preserved switch that is currently defined.
@@ -176,14 +168,16 @@ end
 #===============================================================================
 # Public entry-point called from the pause menu
 #===============================================================================
-def nuzlocke_reset_run
+# +confirm+ false skips the "are you sure?" prompt (used by the automatic
+# reset-on-wipe path, where the wipe itself was the decision).
+def nuzlocke_reset_run(confirm = true)
   path = nuzlocke_snapshot_path
   if path.nil? || !File.file?(path)
     pbMessage(_INTL("No reset snapshot is available for this save."))
     return
   end
 
-  if !pbConfirmMessageSerious(_INTL("This will wipe ALL progress and reset you to the start. Your name and Nuzlocke settings stay. Continue?"))
+  if confirm && !pbConfirmMessageSerious(_INTL("This will wipe ALL progress and reset you to the start. Your name and Nuzlocke settings stay. Continue?"))
     return
   end
 
@@ -286,3 +280,66 @@ def nuzlocke_reset_run
 
   $game_temp.transition_processing = true if $game_temp
 end
+
+#===============================================================================
+# Auto Reset Run on a wipe (SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE).
+#
+# A blackout in a Nuzlocke is a wipe: under perma-death the whole team is gone,
+# and even with perma-death off the canonical rule is "whiteout = run over".
+# When the toggle is on we let the engine's own pbStartOver finish (it heals the
+# empty/fainted party and warps to the last Pokemon Center), flag the wipe on
+# $PokemonGlobal (so it survives a save/quit), and perform the actual Reset Run
+# on the player's next overworld step -- pbStartOver runs from inside the
+# post-battle sequence, where reloading the snapshot and rebuilding the map
+# scene is not safe. The step hook is onStepTakenTransferPossible, the engine's
+# own hook for step handlers that may transfer the player.
+#===============================================================================
+class PokemonGlobalMetadata
+  attr_accessor :nuzlocke_auto_reset_pending
+end
+
+def nuzlocke_auto_reset_active?
+  return false if !$game_switches
+  return false if !$game_switches[SWITCH_NUZLOCKE_MODE]
+  return $game_switches[SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE] ? true : false
+end
+
+# Called right after a blackout. Arms the pending auto-reset when the feature is
+# on and a snapshot exists to reset to. Bug Contest "start over" is a contest
+# loss, not a run wipe, so it never arms.
+def nuzlocke_flag_auto_reset_after_wipe
+  return if !nuzlocke_auto_reset_active?
+  return if !$PokemonGlobal
+  return if defined?(pbInBugContest?) && pbInBugContest?
+  return if !nuzlocke_snapshot_exists?
+  $PokemonGlobal.nuzlocke_auto_reset_pending = true
+end
+
+# Performs the armed reset. Returns true if a reset ran.
+def nuzlocke_run_pending_auto_reset
+  return false if !$PokemonGlobal || !$PokemonGlobal.nuzlocke_auto_reset_pending
+  $PokemonGlobal.nuzlocke_auto_reset_pending = false
+  return false if !nuzlocke_auto_reset_active?
+  return false if !nuzlocke_snapshot_exists?
+  pbMessage(_INTL("Your whole team was wiped out... The run is over."))
+  nuzlocke_reset_run(false)
+  return true
+end
+
+class Object
+  unless private_method_defined?(:nuzlocke_orig_pbStartOver) ||
+         method_defined?(:nuzlocke_orig_pbStartOver)
+    alias_method :nuzlocke_orig_pbStartOver, :pbStartOver
+    def pbStartOver(gameover = false)
+      nuzlocke_orig_pbStartOver(gameover)
+      nuzlocke_flag_auto_reset_after_wipe
+    end
+  end
+end
+
+Events.onStepTakenTransferPossible += proc { |_sender, e|
+  handled = e[0]
+  next if handled[0]
+  next if !$PokemonGlobal || !$PokemonGlobal.nuzlocke_auto_reset_pending
+  handled[0] = true if nuzlocke_run_pending_auto_reset
+}

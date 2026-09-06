@@ -67,6 +67,14 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                       _INTL("A fused Pokémon dies regardless of which half faints (canonical).")]
       ),
 
+      EnumOption.new(_INTL("Shiny Clause"), [_INTL("On"), _INTL("Off")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_SHINY_CLAUSE] ? 0 : 1 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_SHINY_CLAUSE] = (value == 0)
+                     },
+                     "A shiny wild Pokémon can always be caught and never uses up the area's catch."
+      ),
+
       EnumOption.new(_INTL("Dupes Clause"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[SWITCH_NUZLOCKE_DUPES_CLAUSE] ? 0 : 1 },
                      proc { |value|
@@ -101,10 +109,31 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                      "Whether the bag can be used during battle. Classic Nuzlockes forbid it."
       ),
 
-      # Cap Candy toggle hidden until the item itself ships (#12) -- avoids a UX
-      # vapor toggle that does nothing. Re-add once the PBS entry, effect handler,
-      # and icon sprite are built. (SWITCH_NUZLOCKE_CAP_CANDY_ENABLED still exists
-      # and stays settable from a debug path; it just isn't in the player menu.)
+      EnumOption.new(_INTL("Battle style"), [_INTL("Player's choice"), _INTL("Set")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_SET_BATTLE_STYLE] ? 1 : 0 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_SET_BATTLE_STYLE] = (value == 1)
+                     },
+                     [_INTL("Uses the Battle style chosen in the game's Options (Switch or Set)."),
+                      _INTL("Forces Set style: no free switch when a foe's Pokémon faints (Hardcore rule).")]
+      ),
+
+      EnumOption.new(_INTL("Level cap"), [_INTL("Player's choice"), _INTL("Enforced")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_LEVEL_CAP] ? 1 : 0 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_LEVEL_CAP] = (value == 1)
+                     },
+                     [_INTL("Uses the Level caps setting from the game's Options."),
+                      _INTL("No EXP or Rare Candies past the next Gym Leader's level cap (Hardcore rule).")]
+      ),
+
+      EnumOption.new(_INTL("Cap Candy"), [_INTL("Off"), _INTL("On")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] ? 1 : 0 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_CAP_CANDY_ENABLED] = (value == 1)
+                     },
+                     "Every PokéMart sells Cap Candy, which raises one Pokémon straight to the current level cap. Cuts grinding after a death."
+      ),
 
       EnumOption.new(_INTL("Guarantee Mart heals"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS] ? 0 : 1 },
@@ -120,6 +149,15 @@ class NuzlockeSettingsScene < PokemonOption_Scene
                        $game_switches[SWITCH_NUZLOCKE_RESET_ENABLED] = (value == 0)
                      },
                      "Adds a 'Reset Run' option to the pause menu. Wipes all progress and rerolls randomization, keeping your name."
+      ),
+
+      EnumOption.new(_INTL("On wipe"), [_INTL("Blackout"), _INTL("Reset run")],
+                     proc { $game_switches[SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE] ? 1 : 0 },
+                     proc { |value|
+                       $game_switches[SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE] = (value == 1)
+                     },
+                     [_INTL("Losing every Pokémon sends you to the Pokémon Center as usual. You decide what happens next."),
+                      _INTL("Losing every Pokémon ends the run: on your next step the game performs a Reset Run automatically.")]
       ),
     ]
     return options

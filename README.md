@@ -30,6 +30,43 @@ To play Infinite Fusion on Android, you need to use a RPG Maker emulator called 
 [Android setup guide](https://hackmd.io/@PIF-Tech/AndroidGuide)
 
 ---
+## Nuzlocke Mode (this fork)
+
+This fork adds **Nuzlocke Mode** as a fifth game mode. Pick it under *New Game →
+Which mode would you like to play?* and the Nuzlocke settings menu opens so you
+can tune the rules before the run starts.
+
+What it enforces (each has a toggle):
+
+- **Catch rule** — only the first wild Pokémon you meet in each area can be
+  caught (canonical), or one catch per area (lenient), or off. Static encounters
+  count. Areas are the on-screen location names.
+- **Perma-death** — fainted Pokémon are gone for good. For fusions choose whether
+  the head, the body, or both halves die; a surviving half comes back unfused as
+  the same individual. Held items return to your Bag.
+- **Force nicknames** — every Pokémon you obtain must be nicknamed.
+- **Dupes Clause** and **Shiny Clause** — skip species you already own (a fusion
+  is a dupe only if you own both halves); shinies are always catchable and never
+  spend an area.
+- **Battle items forbidden**, **Trainer fleeing** allowed/disallowed, forced
+  **Set battle style**, enforced **level caps**.
+- **Cap Candy** — optional QoL item sold in every PokéMart that raises one
+  Pokémon straight to the current level cap.
+- **Reset Run** — pause-menu option that wipes the run (rerolling any
+  randomization) while keeping your name and settings; optionally triggered
+  automatically when your whole team is wiped.
+- Optional **randomization** of the run, using the game's own randomizer.
+
+Full status table: `docs/nuzlocke/FEATURES.md`. Rules rationale:
+`docs/nuzlocke/NUZLOCKE_RULESET.md`.
+
+**Downloading:** grab the latest release zip from the GitHub Releases page of
+this repository, extract it anywhere, and run `InfiniteFusion.exe`. The game
+downloads fusion sprites on first launch as usual. `INSTALL_OR_UPDATE.bat`
+pulls the newest code from this fork's `nuzlocke-mode` branch (the folder must
+be named `InfiniteFusion`).
+
+---
 ## Contributing to the game
 
 Pokémon Infinite Fusion is open-source! All of the game's code is located in the Data/Scripts folder.

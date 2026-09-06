@@ -28,8 +28,12 @@ toggle.
 - **Area identity:** `$game_map.name` (the location-signpost name) — matches the
   "Met at" convention; a route split across sub-maps counts as one area. ✅ shipped.
 - **Encounter-slot nuance (canon):** fishing / surfing / rock-smash are *separate*
-  encounter slots from walking in the same area. ⚠ DECISION — v1 treats the whole
+  encounter slots from walking in the same area. ✅ DEFAULTED — v1 treats the whole
   named area as one slot (simpler). Revisit if you want fishing to grant its own.
+- **Static / scripted encounters (ours):** legendaries, Snorlax, event fights go
+  through the same first-encounter bookkeeping as walking encounters. ✅ shipped
+  (v1.0.0). Before that they never registered and could not be caught at all in
+  first-encounter mode.
 - **Balls-first caveat (ours):** encounters before you own a Poké Ball never burn
   the area. ✅ shipped.
 
@@ -40,8 +44,9 @@ toggle.
   `VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE` (fused: 0 Off / 1 Head / 2 Body / 3 Both).
 - **Status:** ✅ shipped, now gated balls-first (perma-death inert until you own a
   ball, so the pre-catch rival fight can't kill your starter).
-- ⚠ DECISION #21 — optional auto-reset the run on a full party wipe (vs normal
-  blackout). Needs its own toggle, e.g. `On wipe: Reset run / Blackout`.
+- ✅ #21 shipped (v1.0.0) — `SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE`, menu toggle
+  `On wipe: Blackout / Reset run`, default Blackout. The reset fires on the first
+  overworld step after the blackout.
 
 ---
 
@@ -57,8 +62,8 @@ toggle.
 
 | Clause | Canon definition | Our plan |
 |---|---|---|
-| **Dupes Clause** | If your first encounter is a species (or evo-line) you already own, you may skip it and keep searching. | `SWITCH_NUZLOCKE_DUPES_CLAUSE_ADDITIVE` (1217) + `VAR_NUZLOCKE_DUPES_CLAUSE_REROLL_ATTEMPTS` (default 3). ⚠ DECISION on fusion matching — see §4.1. |
-| **Shiny Clause** | A shiny encounter may be caught WITHOUT spending the area's catch (you get the shiny *and* your normal encounter). | ✅ DECIDED — add `SWITCH_NUZLOCKE_SHINY_CLAUSE`, **default On**. A shiny wild mon is exempt from the catch-rule limit and never burns/forfeits the area. |
+| **Dupes Clause** | If your first encounter is a species (or evo-line) you already own, you may skip it and keep searching. | ✅ shipped — `SWITCH_NUZLOCKE_DUPES_CLAUSE`, default On. Fusion matching per §4.1. |
+| **Shiny Clause** | A shiny encounter may be caught WITHOUT spending the area's catch (you get the shiny *and* your normal encounter). | ✅ shipped (v1.0.0) — `SWITCH_NUZLOCKE_SHINY_CLAUSE`, **default On**. A shiny wild is exempt from the catch-rule limit and never burns/forfeits the area. |
 | **Species Clause** | Usually = Dupes by evolutionary line (own any stage → can't catch others in that line). | Fold into Dupes Clause as "by evo line" (recommend). |
 | **Ban List** | Legendaries / pseudo / OP species banned from use. | Optional, low priority. Can piggyback on existing legendary handling. |
 
@@ -112,17 +117,17 @@ toggle.
 | Rule | Canon status | Our handling |
 |---|---|---|
 | No items in battle | Hardcore-variant standard | `SWITCH_NUZLOCKE_BATTLE_ITEMS_ALLOWED` — ✅ shipped (blocks non-ball items; balls always allowed). |
-| Set battle style | Hardcore | ⚠ optional toggle, not yet wired. |
-| Level caps / no overleveling | Hardcore | §4.4 — later. |
-| Guarantee Mart healing items | (IF QoL, ours) | `SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS` — Wave 2 world team. |
-| Cap Candy (raise to level cap) | (ours, QoL) | `SWITCH_NUZLOCKE_CAP_CANDY_ENABLED` — Wave 2 item team. |
+| Set battle style | Hardcore | `SWITCH_NUZLOCKE_SET_BATTLE_STYLE` — ✅ shipped (v1.0.0), default off. |
+| Level caps / no overleveling | Hardcore | `SWITCH_NUZLOCKE_LEVEL_CAP` — ✅ shipped (v1.0.0), default off; forces the game's own level-cap system on. |
+| Guarantee Mart healing items | (IF QoL, ours) | `SWITCH_NUZLOCKE_GUARANTEE_HEALING_ITEMS` — ✅ shipped. |
+| Cap Candy (raise to level cap) | (ours, QoL) | `SWITCH_NUZLOCKE_CAP_CANDY_ENABLED` — ✅ shipped (v1.0.0): runtime-registered item, sold in every PokéMart while on. |
 
 ---
 
 ## 6. Variants (potential future presets)
 - **Hardcore Nuzlocke** — Set mode + level caps + no battle items. (Could be a one-tap preset that flips our toggles.)
 - **Wonderlocke** — every catch is Wonder-Traded for a random mon. (No Wonder Trade in IF → likely N/A.)
-- **Soullocke** — 2-player linked deaths. (Out of scope, single-player.)
+- **Soullocke** — 2-player linked deaths. See `SOUL_LINK_DESIGN.md` (proposal).
 - **Cagelocke** — post-gym cage matches. (Out of scope / manual.)
 - **Egglocke** — eggs replace encounters. (Possible later.)
 - **Ceqlocke** — could not find authoritative definition; skip unless user defines it.
@@ -148,7 +153,9 @@ toggle.
 6. **#21 Auto-reset on wipe:** default to the normal **Blackout** (already shipped);
    auto-reset-on-wipe deferred to its own optional toggle later.
 
-**New constants needed (Wave 2):** catch-rule 3-state VAR (replacing the boolean
-`SWITCH_NUZLOCKE_ONE_CATCH_PER_AREA`), `SWITCH_NUZLOCKE_SHINY_CLAUSE`. Dupes uses the
-already-staged `SWITCH_NUZLOCKE_DUPES_CLAUSE_ADDITIVE` (1217) +
-`VAR_NUZLOCKE_DUPES_CLAUSE_REROLL_ATTEMPTS` (1206).
+**Constants (all shipped):** `VAR_NUZLOCKE_CATCH_RULE_MODE` (1220),
+`SWITCH_NUZLOCKE_DUPES_CLAUSE` (1218), `SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED` (1219),
+`SWITCH_NUZLOCKE_SHINY_CLAUSE` (1210), `SWITCH_NUZLOCKE_SET_BATTLE_STYLE` (1211),
+`SWITCH_NUZLOCKE_LEVEL_CAP` (1212), `SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE` (1213).
+
+See `FEATURES.md` for the per-feature status table.

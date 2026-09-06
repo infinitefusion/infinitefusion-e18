@@ -655,7 +655,7 @@ module PBItems
   JETPACK = 643
   INFINITEREVERSERS = 644
   INFINITESPLICERS = 645
-  CAPCANDYNUZLOCKE = 646
+  CAPCANDYNUZLOCKE = 9646   # Nuzlocke Cap Candy (runtime-registered; see Nuzlocke_CapCandy_ItemDef.rb)
 
   def PBItems.getName(item)
     return GameData::Item.get(item).real_name

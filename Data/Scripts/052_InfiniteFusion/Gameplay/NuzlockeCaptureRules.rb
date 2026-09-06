@@ -20,6 +20,16 @@
 #   2. Force nicknames (SWITCH_NUZLOCKE_FORCE_NICKNAMES)
 #      - Every caught Pokemon is nicknamed unconditionally (the optional yes/no
 #        confirm is skipped). Vanilla optional behavior is preserved when off.
+#   3. Shiny Clause (SWITCH_NUZLOCKE_SHINY_CLAUSE)
+#      - A shiny wild Pokemon is always catchable, regardless of the catch rule,
+#        and catching it never spends the area. In first-encounter mode a shiny
+#        also never burns the area's first encounter: the next non-shiny wild is
+#        still the area's real first encounter.
+#   4. Static / scripted wild battles (legendaries, Snorlax, event fights) go
+#      through the same first-encounter bookkeeping as walking encounters, via a
+#      wrapper on pbWildBattleCore / pbSafariBattle. Without that wrapper those
+#      battles never fired EncounterModifier, so in first-encounter mode they
+#      could never be caught.
 #
 # Everything is gated on SWITCH_NUZLOCKE_MODE. When that switch is off, every
 # alias falls straight through to the original implementation.
@@ -147,6 +157,74 @@ module NuzlockeCaptureRules
     return encounter
   end
 
+  #-----------------------------------------------------------------------------
+  # Shiny Clause.
+  #-----------------------------------------------------------------------------
+  def shiny_clause_active?
+    return false if !nuzlocke_active?
+    return $game_switches[SWITCH_NUZLOCKE_SHINY_CLAUSE] ? true : false
+  end
+
+  # The area key that THIS battle freshly recorded as first-encountered (nil if
+  # this battle didn't record one). Lets the Shiny Clause give the area back.
+  def area_recorded_this_battle
+    return $nuzlocke_area_recorded_this_battle
+  end
+
+  # True when every opposing, non-fainted battler in +battle+ is shiny (in a
+  # single wild battle: the one wild you'd throw at). Used to exempt the throw
+  # from the catch rule. Objects without the battle API (test doubles, nil)
+  # are never exempt.
+  def opposing_wild_shiny?(battle)
+    return false if !battle || !battle.respond_to?(:eachOtherSideBattler)
+    found = false
+    all_shiny = true
+    battle.eachOtherSideBattler(0) do |b|
+      found = true
+      all_shiny = false if !(b.shiny? rescue false)
+    end
+    return found && all_shiny
+  end
+
+  # Called with every wild Pokemon that is actually about to be fought (from the
+  # pbWildBattleCore / pbSafariBattle wrappers and Events.onWildPokemonCreate).
+  # If it is shiny and the Shiny Clause is on, give back the first-encounter slot
+  # this battle just recorded, so the shiny never spends the area.
+  def note_wild_pokemon(pkmn)
+    return if !pkmn
+    return if !shiny_clause_active?
+    return if !(pkmn.shiny? rescue false)
+    area = $nuzlocke_area_recorded_this_battle
+    return if !area
+    first_encounter_areas.delete(area)
+    $nuzlocke_area_recorded_this_battle = nil
+  end
+
+  # Register the wilds of a battle started through pbWildBattleCore(*args).
+  # Mirrors the engine's own argument walk: Pokemon objects (roamers, scripted
+  # fights), [species, level] pairs, or species followed by level. Idempotent:
+  # a walking encounter already registered via EncounterModifier is a no-op here
+  # because the area is already in first_encounter_areas.
+  def note_wild_battle_args(args)
+    return if !args.is_a?(Array)
+    pending_species = nil
+    args.each do |arg|
+      if arg.is_a?(Pokemon)
+        note_wild_encounter_start([arg.species, arg.level])
+        note_wild_pokemon(arg)
+      elsif arg.is_a?(Array)
+        note_wild_encounter_start(arg)
+      elsif pending_species
+        note_wild_encounter_start([pending_species, arg])
+        pending_species = nil
+      else
+        pending_species = arg
+      end
+    end
+  rescue => e
+    PBDebug.log("[Nuzlocke] note_wild_battle_args failed: #{e.message}") if defined?(PBDebug)
+  end
+
   def note_wild_encounter_start(encounter = nil)
     return if catch_rule_mode != CATCH_RULE_FIRST_ENCOUNTER
     return if !player_has_balls?
@@ -168,12 +246,15 @@ module NuzlockeCaptureRules
     if !first_encounter_areas.include?(area)
       first_encounter_areas.push(area)
       $nuzlocke_current_is_first_encounter = true
+      $nuzlocke_area_recorded_this_battle = area
     end
   end
 
-  # Clear the transient flag when the wild battle ends.
+  # Clear the transient per-battle state when the wild battle ends. Called from
+  # the pbWildBattleCore / pbSafariBattle wrappers (ensure) and onWildBattleEnd.
   def clear_wild_encounter_flag
     $nuzlocke_current_is_first_encounter = false
+    $nuzlocke_area_recorded_this_battle = nil
   end
 
   def force_nicknames_active?
@@ -362,8 +443,11 @@ module ItemHandlers
           return false
         end
         # One-catch-per-area: block a Poke Ball when this area's catch is spent.
+        # Shiny Clause: a shiny wild is always catchable.
         if is_ball && NuzlockeCaptureRules.one_catch_per_area_active? &&
-           NuzlockeCaptureRules.should_block_catch?
+           NuzlockeCaptureRules.should_block_catch? &&
+           !(NuzlockeCaptureRules.shiny_clause_active? &&
+             NuzlockeCaptureRules.opposing_wild_shiny?(battle))
           if showMessages && scene && scene.respond_to?(:pbDisplay)
             scene.pbDisplay(_INTL("You already caught a Pokémon in this area!"))
           end
@@ -392,7 +476,13 @@ module PokeBattle_BattleCommon
       result = nuzlocke_orig_pbThrowPokeBall(idxBattler, ball, catch_rate, showPlayer)
       if NuzlockeCaptureRules.one_catch_per_area_active?
         after = (@caughtPokemon.is_a?(Array) ? @caughtPokemon.length : 0)
-        NuzlockeCaptureRules.mark_current_area_used if after > before
+        if after > before
+          # Shiny Clause: catching a shiny never spends the area.
+          target = (@battlers.is_a?(Array) ? @battlers[idxBattler] : nil) rescue nil
+          shiny_exempt = NuzlockeCaptureRules.shiny_clause_active? &&
+                         target && (target.shiny? rescue false)
+          NuzlockeCaptureRules.mark_current_area_used if !shiny_exempt
+        end
       end
       return result
     end
@@ -563,4 +653,63 @@ end
 EncounterModifier.register(NuzlockeCaptureRules::ENCOUNTER_START_PROC) if defined?(EncounterModifier)
 if defined?(Events) && Events.respond_to?(:onWildBattleEnd)
   Events.onWildBattleEnd += NuzlockeCaptureRules::WILD_BATTLE_END_PROC
+end
+
+#===============================================================================
+# Wild-battle entry wrappers.
+#
+# pbWildBattleCore is the single funnel for every wild battle (walking
+# encounters, static/scripted fights, roamers, double wilds). Wrapping it does
+# two things the EncounterModifier hook alone cannot:
+#   * Static / scripted battles never pass through EncounterModifier, so in
+#     first-encounter mode they were never flagged catchable. note_wild_battle_args
+#     registers them exactly like a walking encounter (idempotent for walking
+#     encounters, which are already registered).
+#   * The engine only triggers Events.onWildBattleEnd for Safari / Bug Contest /
+#     roamer battles, NOT for ordinary wild battles -- so the per-battle
+#     "this is the first encounter" flag used to leak into the NEXT battle in the
+#     same area. The ensure block clears it after every wild battle.
+# While the wrapper is active ($nuzlocke_wild_battle_pending) the
+# onWildPokemonCreate hook below sees the generated wilds (for the Shiny Clause);
+# outside a battle (roamer generation, catching contest) it stays inert.
+#===============================================================================
+module NuzlockeCaptureRules
+  WILD_POKEMON_CREATE_PROC = proc { |_sender, e|
+    NuzlockeCaptureRules.note_wild_pokemon(e[0]) if $nuzlocke_wild_battle_pending
+  }
+
+  def self.wrap_wild_battle(args)
+    note_wild_battle_args(args)
+    $nuzlocke_wild_battle_pending = true
+    begin
+      return yield
+    ensure
+      $nuzlocke_wild_battle_pending = false
+      clear_wild_encounter_flag
+    end
+  end
+end
+
+if defined?(Events) && Events.respond_to?(:onWildPokemonCreate)
+  Events.onWildPokemonCreate += NuzlockeCaptureRules::WILD_POKEMON_CREATE_PROC
+end
+
+class Object
+  unless private_method_defined?(:nuzlocke_orig_pbWildBattleCore) ||
+         method_defined?(:nuzlocke_orig_pbWildBattleCore)
+    alias_method :nuzlocke_orig_pbWildBattleCore, :pbWildBattleCore
+    def pbWildBattleCore(*args)
+      NuzlockeCaptureRules.wrap_wild_battle(args) { nuzlocke_orig_pbWildBattleCore(*args) }
+    end
+  end
+
+  if method_defined?(:pbSafariBattle) || private_method_defined?(:pbSafariBattle)
+    unless private_method_defined?(:nuzlocke_orig_pbSafariBattle) ||
+           method_defined?(:nuzlocke_orig_pbSafariBattle)
+      alias_method :nuzlocke_orig_pbSafariBattle, :pbSafariBattle
+      def pbSafariBattle(species, level)
+        NuzlockeCaptureRules.wrap_wild_battle([[species, level]]) { nuzlocke_orig_pbSafariBattle(species, level) }
+      end
+    end
+  end
 end

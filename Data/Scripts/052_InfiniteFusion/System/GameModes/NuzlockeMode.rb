@@ -20,6 +20,15 @@ def initializeNuzlockeMode()
   # with perma-death produces a Nuzlocke-flavored partial-forfeit (whoever fainted
   # is gone, the rest get out). Player can switch to Disallowed for a strict run.
   $game_switches[SWITCH_NUZLOCKE_TRAINER_FLEE_ALLOWED] = true
+  # Shiny Clause on by default (community standard): a shiny wild is always
+  # catchable and never spends or forfeits the area's encounter.
+  $game_switches[SWITCH_NUZLOCKE_SHINY_CLAUSE] = true
+  # Hardcore extras default OFF: Set battle style and forced level caps are
+  # opt-in ("Hardcore Nuzlocke" rules), and a wipe blacks out normally unless the
+  # player opts into auto Reset Run.
+  $game_switches[SWITCH_NUZLOCKE_SET_BATTLE_STYLE] = false
+  $game_switches[SWITCH_NUZLOCKE_LEVEL_CAP] = false
+  $game_switches[SWITCH_NUZLOCKE_AUTO_RESET_ON_WIPE] = false
 
   # Fused perma-death defaults to "Both" (the most punishing canonical option).
   pbSet(VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE, 3)

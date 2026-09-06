@@ -18,14 +18,14 @@ if /i not "%currentFolder%"=="InfiniteFusion" (
 
 set mgit=".\REQUIRED_BY_INSTALLER_UPDATER\cmd\git.exe"
 %mgit% init .
-%mgit% remote add origin "https://github.com/infinitefusion/infinitefusion-e18.git" >nul 2>&1
-%mgit% fetch --depth=1 origin releases
+%mgit% remote add origin "https://github.com/MrChuck123/infinitefusion-e18.git" >nul 2>&1
+%mgit% fetch --depth=1 origin nuzlocke-mode
 if %errorlevel% neq 0 (
     echo:
     echo Failed to download update. Reverting to previous game version.
     pause
 )
-%mgit% reset --hard origin/releases
+%mgit% reset --hard origin/nuzlocke-mode
 
 echo:
 echo Installation Complete.  

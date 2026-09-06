@@ -11,6 +11,12 @@
 #   2. Perma-death (fused)   - fainted fusions are handled per
 #      VAR_NUZLOCKE_FUSED_PERMA_DEATH_MODE (0 Off / 1 Head dies / 2 Body dies /
 #      3 Both die). The surviving half is unfused and kept.
+#   3. Set battle style      - SWITCH_NUZLOCKE_SET_BATTLE_STYLE forces every
+#      battle to Set style (no free switch when a foe faints), regardless of the
+#      player's global Options choice.
+#   4. Level cap             - SWITCH_NUZLOCKE_LEVEL_CAP forces the game's own
+#      level-cap system on (no EXP past the next gym's cap, no Rare Candy past
+#      it) for this run, regardless of the global Options choice.
 #
 # Perma-death stays inert until the player owns at least one Poke Ball
 # (balls-first parity with the one-catch rule), and an empty post-battle party
@@ -216,9 +222,59 @@ module NuzlockeBattleRules
   def blackout_after_empty_party
     return if !active?
     return if !$Trainer || !$Trainer.party || !$Trainer.party.empty?
-    Kernel.pbStartOver(false)
+    # Bare call on purpose: pbStartOver is a top-level (private Object) method.
+    # `Kernel.pbStartOver` raises NoMethodError under Ruby 3 (private method
+    # called with an explicit receiver), which the rescue below silently ate --
+    # so the soft-lock guard never actually fired.
+    pbStartOver(false)
   rescue => e
     PBDebug.log("[Nuzlocke] blackout_after_empty_party failed: #{e.message}") if defined?(PBDebug)
+  end
+end
+
+#===============================================================================
+# Features 3 & 4: Set battle style + forced level caps.
+#===============================================================================
+module NuzlockeBattleRules
+  module_function
+
+  def set_style_forced?
+    return false if !active?
+    return $game_switches[SWITCH_NUZLOCKE_SET_BATTLE_STYLE] ? true : false
+  end
+
+  def level_cap_forced?
+    return false if !active?
+    return $game_switches[SWITCH_NUZLOCKE_LEVEL_CAP] ? true : false
+  end
+end
+
+# pbPrepareBattle is where the engine copies $PokemonSystem.battlestyle onto the
+# battle (battle.switchStyle). Run after it and override when Set is forced.
+class Object
+  unless private_method_defined?(:nuzlocke_orig_pbPrepareBattle) ||
+         method_defined?(:nuzlocke_orig_pbPrepareBattle)
+    alias_method :nuzlocke_orig_pbPrepareBattle, :pbPrepareBattle
+    def pbPrepareBattle(battle)
+      nuzlocke_orig_pbPrepareBattle(battle)
+      if NuzlockeBattleRules.set_style_forced? && battle.respond_to?(:switchStyle=)
+        battle.switchStyle = false
+      end
+    end
+  end
+end
+
+# The engine's level-cap checks all read `$PokemonSystem.level_caps == 1`
+# (EXP gain in 004_Battle_ExpAndMoveLearning.rb, Rare Candy in
+# 002_Item_Effects.rb). Reporting 1 while the Nuzlocke toggle is on turns the
+# whole existing system on for this run without touching those call sites.
+class PokemonSystem
+  unless method_defined?(:nuzlocke_orig_level_caps)
+    alias_method :nuzlocke_orig_level_caps, :level_caps
+    def level_caps
+      return 1 if defined?(NuzlockeBattleRules) && NuzlockeBattleRules.level_cap_forced?
+      return nuzlocke_orig_level_caps
+    end
   end
 end
 

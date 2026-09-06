@@ -1,5 +1,12 @@
 # Nuzlocke Phase 2 — Enforcement Hook Map
 
+> **Status (v1.0.0):** historical research document. The Battle, Capture and
+> World groups, plus Cap Candy, are implemented (see `FEATURES.md`). The
+> **Fusion/splicer group** and the **Evolution Roulette / Dex Lock / Seeded Run /
+> Starter Fusion Lock** ideas were never signed off and are NOT built; their
+> placeholder constant names were removed from the code. Treat the file:line
+> citations below as approximate — they date from May 2026.
+
 Research output (read-only survey, 2026-05). File:line citations were accurate at
 time of writing — re-verify against current code before editing, especially after
 an IF update. Preferred implementation style is **aliasing** the target method from
