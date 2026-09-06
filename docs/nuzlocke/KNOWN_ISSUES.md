@@ -16,6 +16,9 @@ Running list of reported problems and their status. Add new ones at the top of
 
 ## Fixed
 
+- Added: Cap Candy and Field Medkit can be registered to the ready menu.
+  (v1.1.1)
+
 - Existing saves could not change any Nuzlocke setting (the menu only opened
   at New Game): the Help Man in Pokémon Centers now offers "Nuzlocke settings"
   in Nuzlocke runs. (v1.1.1)

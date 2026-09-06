@@ -40,6 +40,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | 27 | Guarantee every PokéMart stocks an HP-healing item (randomized runs) | Guarantee Mart heals | On | ✅ |
 | 28 | Cap Candy: a reusable key item in your Bag that raises one Pokémon to the current level cap | Cap Candy | Off | ✅ *reworked in v1.1.1* — now a key item handed out directly (mart stock is randomized away in randomized runs) |
 | 28b | Field Medkit: a reusable key item that fully heals the party anywhere outside battle | Field Medkit | Off | ✅ *new in v1.1.1* |
+| 28c | Both key items can be registered to the ready menu (Bag → Register) | — | — | ✅ *new in v1.1.1* |
 | 29 | Reset Run (pause menu: wipe progress, reroll randomization, keep name, look & settings) | Enable Reset Run | On | ✅ *rebuilt in v1.1.1* — now a genuine new game + intro replay + the game's own skip-to-starter, instead of a saved copy of the player's game |
 | 30 | Reset Run lands you at starter selection in Oak's lab, pre-Pokédex | — | — | ✅ *fixed in v1.1.1* — the old copy was taken after the first save, so saving after the Pokédex made resets land post-Pokédex |
 | 31 | Auto Reset Run on a full wipe (not on fleeing a trainer or other scripted blackouts with living Pokémon) | On wipe → Reset run | Blackout | ✅ *new in v1.0.0, fixed in v1.1.1* |

@@ -148,6 +148,56 @@ ItemHandlers::UseFromBag.add(:NUZLOCKEMEDKIT, proc { |_item|
 })
 
 #===============================================================================
+# Ready-menu ("Register") support. The Bag offers Register for any item with a
+# UseInField handler; the registered item is then used straight from the ready
+# menu key. Return 1 = used (kept), 0 = not used.
+#===============================================================================
+ItemHandlers::UseInField.add(:NUZLOCKEMEDKIT, proc { |_item|
+  if !NuzlockeMedkit.enabled?
+    pbMessage(_INTL("It won't have any effect."))
+    next 0
+  end
+  if !$Trainer || $Trainer.party.compact.empty?
+    pbMessage(_INTL("There is no Pokémon."))
+    next 0
+  end
+  if NuzlockeMedkit.heal_party!
+    (pbSEPlay("Pkmn heal") rescue nil)
+    pbMessage(_INTL("Your Pokémon were fully healed!"))
+  else
+    pbMessage(_INTL("Your Pokémon are already in perfect health."))
+  end
+  next 1
+})
+
+ItemHandlers::UseInField.add(:CAPCANDYNUZLOCKE, proc { |item|
+  if !NuzlockeCapCandy.enabled?
+    pbMessage(_INTL("It won't have any effect."))
+    next 0
+  end
+  if !$Trainer || $Trainer.party.compact.empty?
+    pbMessage(_INTL("There is no Pokémon."))
+    next 0
+  end
+  used = false
+  pbFadeOutIn {
+    scene = PokemonParty_Scene.new
+    screen = PokemonPartyScreen.new(scene, $Trainer.party)
+    screen.pbStartScene(_INTL("Use on which Pokémon?"), false)
+    loop do
+      scene.pbSetHelpText(_INTL("Use on which Pokémon?"))
+      chosen = screen.pbChoosePokemon
+      break if chosen < 0
+      pkmn = $Trainer.party[chosen]
+      next if !pkmn
+      used = ItemHandlers.triggerUseOnPokemon(item, pkmn, screen) || used
+    end
+    screen.pbEndScene
+  }
+  next used ? 1 : 0
+})
+
+#===============================================================================
 # Shared: registration on data load, Bag sync for every Nuzlocke key item.
 #===============================================================================
 module NuzlockeKeyItems

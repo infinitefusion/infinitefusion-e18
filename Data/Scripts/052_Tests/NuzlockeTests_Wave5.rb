@@ -204,4 +204,21 @@ NuzlockeTestHarness.suite("Help Man (common event 37) offers Nuzlocke settings i
   end
 end
 
+NuzlockeTestHarness.suite("Key items are registerable to the ready menu") do |t|
+  t.assert("Cap Candy has a UseInField handler", ItemHandlers.hasUseInFieldHandler(:CAPCANDYNUZLOCKE) == true)
+  t.assert("Medkit has a UseInField handler", ItemHandlers.hasUseInFieldHandler(:NUZLOCKEMEDKIT) == true)
+  t.assert("Bag offers Register for Cap Candy", pbCanRegisterItem?(:CAPCANDYNUZLOCKE) == true)
+  t.assert("Bag offers Register for Medkit", pbCanRegisterItem?(:NUZLOCKEMEDKIT) == true)
+  # Medkit from the ready menu heals without opening any screen.
+  t.set_switch(SWITCH_NUZLOCKE_MODE, true)
+  t.set_switch(SWITCH_NUZLOCKE_MEDKIT_ENABLED, true)
+  hurt = t.make_pokemon(:PIKACHU, 20, fainted: true)
+  t.set_party([hurt])
+  r = ItemHandlers.triggerUseInField(:NUZLOCKEMEDKIT)
+  t.assert_eq("field use returns 1 (used, kept)", 1, r)
+  t.refute("party healed from the ready menu", hurt.fainted?)
+  t.set_switch(SWITCH_NUZLOCKE_MEDKIT_ENABLED, false)
+  t.assert_eq("disabled -> 0", 0, ItemHandlers.triggerUseInField(:NUZLOCKEMEDKIT))
+end
+
 end # defined?(NuzlockeTestHarness)
