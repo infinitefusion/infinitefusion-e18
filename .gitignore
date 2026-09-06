@@ -22,3 +22,4 @@ nuzlocke_run_tests.flag
 nuzlocke_realsave_check.flag
 nuzlocke_test_results.log
 nuzlocke_realsave_results.log
+TEST_nuzlocke_reset.rxdata
