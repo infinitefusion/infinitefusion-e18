@@ -17,15 +17,21 @@ if /i not "%currentFolder%"=="InfiniteFusion" (
 )
 
 set mgit=".\REQUIRED_BY_INSTALLER_UPDATER\cmd\git.exe"
+
+REM Branch to install/update from. Priority: 1st argument, then update_branch.txt, then nuzlocke-mode.
+set "branch=nuzlocke-mode"
+if exist "update_branch.txt" set /p branch=<"update_branch.txt"
+if not "%~1"=="" set "branch=%~1"
+echo Updating from branch: %branch%
 %mgit% init .
 %mgit% remote add origin "https://github.com/MrChuck123/infinitefusion-e18.git" >nul 2>&1
-%mgit% fetch --depth=1 origin nuzlocke-mode
+%mgit% fetch --depth=1 origin "%branch%"
 if %errorlevel% neq 0 (
     echo:
     echo Failed to download update. Reverting to previous game version.
     pause
 )
-%mgit% reset --hard origin/nuzlocke-mode
+%mgit% reset --hard "origin/%branch%"
 
 echo:
 echo Installation Complete.  
