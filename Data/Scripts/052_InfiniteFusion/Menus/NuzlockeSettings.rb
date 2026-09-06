@@ -1,5 +1,5 @@
 class NuzlockeSettingsScene < PokemonOption_Scene
-  # +mid_run+ true when opened from the pause menu of an existing run: the
+  # +mid_run+ true when opened from the Help Man during an existing run: the
   # Randomization entry (which re-opens the New Game randomizer flow) is hidden,
   # everything else can be changed at any time.
   def initialize(mid_run = false)
@@ -216,7 +216,8 @@ class NuzlockeSettingsScene < PokemonOption_Scene
   end
 end
 
-# Open the Nuzlocke settings from the pause menu of an existing run.
+# Open the Nuzlocke settings mid-run. Called by the Help Man NPC in Pokemon
+# Centers (common event 37) when the run is a Nuzlocke.
 def pbOpenNuzlockeSettingsMidRun
   pbFadeOutIn {
     scene = NuzlockeSettingsScene.new(true)

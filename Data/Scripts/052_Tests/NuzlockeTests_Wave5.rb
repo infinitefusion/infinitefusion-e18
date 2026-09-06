@@ -174,7 +174,7 @@ NuzlockeTestHarness.suite("Wave 5 mode defaults") do |t|
   t.assert("Medkit switch preserved by Reset Run", NUZLOCKE_RESET_PRESERVED_SWITCH_SYMS.include?(:SWITCH_NUZLOCKE_MEDKIT_ENABLED))
 end
 
-NuzlockeTestHarness.suite("Nuzlocke settings can be opened mid-run (pause menu) without the Randomization entry") do |t|
+NuzlockeTestHarness.suite("Nuzlocke settings can be opened mid-run (Help Man) without the Randomization entry") do |t|
   begin
     scene = NuzlockeSettingsScene.new(true)
     names = scene.pbGetOptions.map { |o| o.name }
@@ -187,7 +187,21 @@ NuzlockeTestHarness.suite("Nuzlocke settings can be opened mid-run (pause menu) 
   rescue => e
     t.assert("settings scene builds its options: #{e.class}: #{e.message}", false)
   end
-  t.assert("pause-menu opener defined", defined?(pbOpenNuzlockeSettingsMidRun) ? true : false)
+  t.assert("mid-run opener defined", defined?(pbOpenNuzlockeSettingsMidRun) ? true : false)
+end
+
+NuzlockeTestHarness.suite("Help Man (common event 37) offers Nuzlocke settings in Nuzlocke runs") do |t|
+  ces = (load_data("Data/CommonEvents.rxdata") rescue nil)
+  ce = ces && ces[37]
+  t.assert("common event 37 exists and is the Help Man", ce && ce.name.to_s =~ /Update man/i ? true : false)
+  if ce
+    list = ce.list
+    i = list.index { |c| c.code == 111 && c.parameters[0] == 0 && c.parameters[1] == SWITCH_NUZLOCKE_MODE }
+    t.assert("dialog starts with 'if Nuzlocke mode'", i == 0)
+    t.assert("offers the Nuzlocke settings choice", list.any? { |c| c.code == 102 && c.parameters[0].map(&:to_s).include?("Nuzlocke settings") })
+    t.assert("calls the mid-run opener", list.any? { |c| c.code == 355 && c.parameters[0].to_s.include?("pbOpenNuzlockeSettingsMidRun") })
+    t.assert("still greets normally afterwards", list.any? { |c| c.code == 101 && c.parameters[0].to_s.include?("Is there anything I can help you") })
+  end
 end
 
 end # defined?(NuzlockeTestHarness)

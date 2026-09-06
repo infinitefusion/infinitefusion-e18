@@ -11,7 +11,7 @@ Legend: ✅ implemented & tested · ☑ implemented (seam not unit-testable) · 
 | # | Feature | Setting (Nuzlocke settings menu) | Default | Status |
 |---|---------|-----------------------------------|---------|--------|
 | 1 | Nuzlocke as a game mode (5th mode in New Game) | — | — | ✅ |
-| 2 | Nuzlocke settings sub-menu (opens after picking the mode, and from the pause menu at any time; randomization is only offered at New Game) | — | — | ✅ *pause-menu entry new in v1.1.1* |
+| 2 | Nuzlocke settings sub-menu (opens after picking the mode, and from the Help Man in any Pokémon Center during the run; randomization is only offered at New Game) | — | — | ✅ *Help Man entry new in v1.1.1* |
 | 3 | Optional randomization inside a Nuzlocke run | Randomization | Off | ✅ |
 | 4 | Catch rule: First encounter only (canonical) | Catch rule → First only | **First only** | ✅ |
 | 5 | Catch rule: One catch per area (lenient) | Catch rule → Per area | — | ✅ |
@@ -76,8 +76,8 @@ ruleset decision log, so they are not in the game and have no switches:
   ledger says after a prompt. The relay URL must be set before shipping a
   build (`DEFAULT_RELAY_URL`), or per-install via `soul_link_relay.txt`.
 - **Old saves**: toggles added after the save was started read as Off (and
-  Encounter slots as Per area) until you set them from Pause → Nuzlocke
-  Settings; only `initializeNuzlockeMode` applies the defaults, at New Game.
+  Encounter slots as Per area) until you set them via the Help Man in a Pokémon
+  Center → Nuzlocke settings; only `initializeNuzlockeMode` applies the defaults, at New Game.
 
 ## Running the tests
 

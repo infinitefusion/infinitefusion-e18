@@ -17,7 +17,8 @@ Running list of reported problems and their status. Add new ones at the top of
 ## Fixed
 
 - Existing saves could not change any Nuzlocke setting (the menu only opened
-  at New Game): added Pause → Nuzlocke Settings. (v1.1.1)
+  at New Game): the Help Man in Pokémon Centers now offers "Nuzlocke settings"
+  in Nuzlocke runs. (v1.1.1)
 
 - Added: encounter slots per method / per rod (Nuzlocke settings), and the
   Field Medkit key item. (v1.1.1)

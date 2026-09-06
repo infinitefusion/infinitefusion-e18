@@ -115,7 +115,6 @@ class PokemonPauseMenu
     cmdEndGame = -1
     cmdNuzlockeReset = -1
     cmdSoulLink = -1
-    cmdNuzlockeSettings = -1
     if $Trainer.has_pokedex && $Trainer.pokedex.accessible_dexes.length > 0
       commands[cmdPokedex = commands.length] = _INTL("Pokédex")
     end
@@ -128,9 +127,6 @@ class PokemonPauseMenu
     end
     if defined?(NuzlockeSoulLink) && NuzlockeSoulLink.active?
       commands[cmdSoulLink = commands.length] = _INTL("Soul Link")
-    end
-    if $game_switches[SWITCH_NUZLOCKE_MODE] && defined?(pbOpenNuzlockeSettingsMidRun)
-      commands[cmdNuzlockeSettings = commands.length] = _INTL("Nuzlocke Settings")
     end
     commands[cmdOutfit = commands.length] = _INTL("Outfit") if $Trainer.can_change_outfit
     if pbInSafari?
@@ -262,10 +258,6 @@ class PokemonPauseMenu
       elsif cmdSoulLink >= 0 && command == cmdSoulLink
         @scene.pbHideMenu
         NuzlockeSoulLinkScreen.show
-        pbShowMenu
-      elsif cmdNuzlockeSettings >= 0 && command == cmdNuzlockeSettings
-        @scene.pbHideMenu
-        pbOpenNuzlockeSettingsMidRun
         pbShowMenu
       elsif cmdSave >= 0 && command == cmdSave
         @scene.pbHideMenu
