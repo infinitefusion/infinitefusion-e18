@@ -20,19 +20,23 @@ mkdir -p "$OUTPUT_FOLDER"
 FOLDERS=("Audio" "Data" "Fonts" "Graphics")
 FILES=(
     ".nomedia"
-    "Credits.txt" 
-    "Game.ini" 
-    "InfiniteFusion.exe" 
     "Credits.txt"
-    "InfiniteFusion-performance.exe" 
-    "mkxp.json" 
-    "README.md" 
-    "RGSS100J.dll" 
-    "RGSS104E.dll" 
-    "x64-msvcrt-ruby300.dll" 
-    "x64-msvcrt-ruby310.dll" 
+    "Game.ini"
+    "InfiniteFusion.exe"
+    "InfiniteFusion-performance.exe"
+    "mkxp.json"
+    "README.md"
+    "RGSS100J.dll"
+    "RGSS104E.dll"
+    "x64-msvcrt-ruby300.dll"
+    "x64-msvcrt-ruby310.dll"
     "zlib1.dll"
     "Savefile.lnk"
+)
+
+# Blacklist: files (paths relative to the project root) that must NOT be in the release
+BLACKLIST=(
+    "Data/Scripts/LocalSettings.rb"
 )
 
 # 3. Copy Folders
@@ -57,11 +61,23 @@ for file in "${FILES[@]}"; do
     fi
 done
 
-# 5. Create the Zip Archive
+# 5. Remove blacklisted files from the release copy
+echo "Removing blacklisted files..."
+for blocked in "${BLACKLIST[@]}"; do
+    target="$RELEASE_DIR/$blocked"
+    if [ -e "$target" ] || [ -L "$target" ]; then
+        rm -f "$target"
+        echo "Excluded: $blocked"
+    else
+        echo "Note: $blocked not present in release (nothing to remove)."
+    fi
+done
+
+# 6. Create the Zip Archive
 echo "Creating zip archive..."
 zip -r "$ZIP_NAME" "$RELEASE_DIR"
 
-# 6. Move to Releases and Cleanup
+# 7. Move to Releases and Cleanup
 mv "$ZIP_NAME" "$OUTPUT_FOLDER/"
 rm -rf "$RELEASE_DIR"
 
