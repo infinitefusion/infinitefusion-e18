@@ -15,3 +15,4 @@ Game.rxproj
 .DS_Store
 Game.exe
 rpgmaker.sh
+Releases/*.zip
