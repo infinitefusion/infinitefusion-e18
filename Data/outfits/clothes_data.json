@@ -161,6 +161,20 @@
         "notes": "If the convention idea gets added, these should be purchaseable there. Could be used for an NPC?"
     },
     {
+        "dateadded": "2026-11-02T05:00:00.000Z",
+        "author": "edenthaw",
+        "preview": "The Pokemon Company",
+        "id": "announcerhorizons",
+        "name": "Showman Suit",
+        "description": "A vibrant, tailored outfit made to display showmanship while guiding the spotlight.",
+        "price": 5000,
+        "contestcondition": "beautiful",
+        "storelocation": "celadon, goldenrod",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Other NPC / Quest",
+        "notes": "Suggestion: Could be unlocked after achieving a higher rank in one of the Pokemon Contest categories."
+    },
+    {
         "dateadded": "2026-09-22T04:00:00.000Z",
         "author": "mizartz",
         "preview": {
@@ -487,7 +501,7 @@
         "tags": "special",
         "contestcondition": "tough",
         "storelocation": "saffron",
-        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Trainer Friendship",
         "notes": "Gifted by a battle girl trainer after max friendship."
     },
@@ -770,6 +784,23 @@
         "notes": "city exclusive outfit"
     },
     {
+        "dateadded": "2026-10-18T04:00:00.000Z",
+        "author": "edenthaw",
+        "additionalcredits": "Genius Sonority",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "coolgirlBR",
+        "name": "Stylish Outfit (F)",
+        "description": "Strut through the colosseum like a new star in a pair of cool jeans and accessories!",
+        "tags": "special",
+        "contestcondition": "cool",
+        "regiontags": "sinnoh",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "This is from Battle Revolution - could be given in a sidequest instead"
+    },
+    {
         "author": ".realthree",
         "preview": {
             "valueType": "IMAGE"
@@ -811,6 +842,20 @@
         "storelocation": "vermillion, mauville",
         "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-11-02T05:00:00.000Z",
+        "author": "gummy.frog & edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "darkhero",
+        "name": "Dark Hero's Gear",
+        "description": "A dark and edgy cosplay costume modeled after an anti-hero popular with the coolest trainers.",
+        "price": 2500,
+        "contestcondition": "cool, tough",
+        "storelocation": "crimson, saffron, lilycove",
+        "notes": "If we do the convention idea that we discussed, this should be buyable there!"
     },
     {
         "author": "ohok3441",
@@ -930,6 +975,22 @@
         "obtainmethodkanto": "Fashion Designer, Store (City)",
         "obtainmethodhoenn": "Fashion Designer",
         "notes": "found at sky pillar"
+    },
+    {
+        "dateadded": "2026-10-18T04:00:00.000Z",
+        "author": "marraneitor & edenthaw",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "empoleonsuit",
+        "name": "Empoleon Suit",
+        "description": "A sharp-looking outfit that captures the air of professionalism. Dignified and ready to take charge!",
+        "contestcondition": "cool, beautiful",
+        "pokemontags": "piplup, prinplup, empoleon",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "notes": "Suggestion: Could have a Piplup pop out and dance/cheer when a quest is completed or a gym badge is received before it vanishes back into the wild. When paired with Empoleon's Crown accessory, an extra Piplup will join in the cheer."
     },
     {
         "author": "xenophaclius",
@@ -1751,6 +1812,23 @@
         "notes": "type trainer (fairy)"
     },
     {
+        "dateadded": "2026-11-02T05:00:00.000Z",
+        "author": "edenthaw",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "mimejrcostume",
+        "name": "Mime Jr. Costume",
+        "description": "A fun, silly costume that brings laughter, surprises, and a little bit of mischief!",
+        "price": 1000,
+        "contestcondition": "cute",
+        "pokemontags": "mime jr., mr. mime",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "notes": "Suggestion: Confetti will appear around the character when a quest is completed or a badge is received. You could add a little noise maker honk for extra silliness!"
+    },
+    {
         "dateadded": "2026-09-03T04:00:00.000Z",
         "author": "purple_guy_2137_ & malxire",
         "preview": {
@@ -1794,6 +1872,21 @@
         "obtainmethodkanto": "Store (Regional Set)",
         "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "regional set"
+    },
+    {
+        "dateadded": "2026-10-18T04:00:00.000Z",
+        "author": "edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ninjaskracesuit",
+        "name": "Ninjask Racing Gear",
+        "description": "Zoom past like Ninjask in this protective gear as you ride with style!",
+        "contestcondition": "clever, tough",
+        "pokemontags": "ninjask",
+        "storelocation": "cerulean, mauville",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
     },
     {
         "author": "busilisk",
@@ -2387,8 +2480,8 @@
         "price": 1500,
         "tags": "special",
         "regiontags": "johto",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "quarases",
@@ -2401,8 +2494,8 @@
         "price": 12000,
         "contestcondition": "cute",
         "pokemontags": "slowpoke,slowbro,slowking",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "duskrd",
@@ -2416,7 +2509,7 @@
         "contestcondition": "cool",
         "pokemontags": "alolan_grimer, alolan_muk, grimer, muk",
         "storelocation": "cinnabar",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodkanto": "Fashion Designer",
         "obtainmethodhoenn": "Fashion Designer"
     },
     {
@@ -2430,8 +2523,8 @@
         "price": 5000,
         "contestcondition": "clever, cute",
         "storelocation": "mahogany,crimson,",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "given by npc at the gap at the ice mountains, or sold at a lil stand there?"
     },
     {
@@ -2460,8 +2553,8 @@
         "price": 10000,
         "contestcondition": "clever",
         "pokemontags": "fused",
-        "obtainmethodkanto": "#REF!",
-        "obtainmethodhoenn": "#REF!"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "voxposs",
@@ -2552,8 +2645,8 @@
         "contestcondition": "cute",
         "regiontags": "orre",
         "storelocation": "mauville",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "dabouiw",
@@ -3014,36 +3107,6 @@
         "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable",
         "notes": "Suggested obtain method: In a Evil Team Hideout have a clown battles you, upon defeat they give you \"an outfit an old rival use to wear.\" \n\nItem effect: (In the Submerged Temple if a Sharpedo attacks you while wearing this you get a second chance/bypass them with a notification saying it's thanks to your outfit coming with a \"Sharpedo Repel\" referencing the infamous Adam West Batman vs Shark scene"
-    },
-    {
-        "preview": {
-            "valueType": "IMAGE"
-        }
-    },
-    {
-        "preview": {
-            "valueType": "IMAGE"
-        }
-    },
-    {
-        "preview": {
-            "valueType": "IMAGE"
-        }
-    },
-    {
-        "preview": {
-            "valueType": "IMAGE"
-        }
-    },
-    {
-        "preview": {
-            "valueType": "IMAGE"
-        }
-    },
-    {
-        "preview": {
-            "valueType": "IMAGE"
-        }
     },
     {
         "preview": {
