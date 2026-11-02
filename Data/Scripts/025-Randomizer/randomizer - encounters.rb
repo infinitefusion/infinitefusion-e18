@@ -9,6 +9,14 @@ def Kernel.randomizeWildPokemonByRoute()
   onlyCustoms = $game_switches[SWITCH_RANDOM_WILD_ONLY_CUSTOMS] && randomizeToFusions
   customsList = onlyCustoms ? getCustomSpeciesList() : []
   maxSpecies = randomizeToFusions ? PBSpecies.maxValue : NB_POKEMON
+
+  # Shared across all routes (only needed for custom sprites)
+  if onlyCustoms
+    bst_cache       = new_bst_cache
+    egg_group_cache = new_egg_group_cache
+    legendary_cache = new_legendary_cache
+  end
+
   GameData::EncounterRandom::DATA.clear
   GameData::Encounter.each do |enc_data|
     encounters_hash = {}
@@ -19,8 +27,8 @@ def Kernel.randomizeWildPokemonByRoute()
     types_hash = {}
     enc_data.types.each do |key, value|
       pokemonList = value
-      newType = randomizePokemonList(pokemonList,bstRange,maxSpecies,onlyCustoms,customsList)
-      types_hash[key]= newType
+      newType = randomizePokemonList(pokemonList, bstRange, maxSpecies, onlyCustoms, customsList, bst_cache, egg_group_cache, legendary_cache)
+      types_hash[key] = newType
     end
     encounters_hash[:types] = types_hash
     GameData::EncounterRandom.register(encounters_hash)
@@ -33,17 +41,27 @@ def Kernel.randomizeWildPokemonByRoute()
 end
 
 #input: [[60, :TENTACOOL,5,40, [30, :GOLDEEN, 5, 35], etc.]]
-def randomizePokemonList(encountersList,bstRange=50,maxSpecies=NB_POKEMON,customOnly=false,customsList=[])
+def randomizePokemonList(encountersList, bstRange = 50, maxSpecies = NB_POKEMON, customOnly = false, customsList = [],
+                         bst_cache = nil, egg_group_cache = nil, legendary_cache = nil)
+  same_egg_group = $game_switches[SWITCH_RANDOM_WILD_EGG_GROUP]
   includeLegendaries = $game_switches[SWITCH_RANDOM_WILD_LEGENDARIES]
-  newList=[]
+
+  if customOnly
+    bst_cache       ||= new_bst_cache
+    egg_group_cache ||= new_egg_group_cache
+    legendary_cache ||= new_legendary_cache
+  end
+
+  newList = []
   for encounter in encountersList
     oldPokemon = encounter[1]
     if customOnly
-      newPokemon = getNewCustomSpecies(oldPokemon,customsList,bstRange,false,includeLegendaries)
+      newPokemon = getNewCustomSpecies(oldPokemon, customsList, bstRange, false, includeLegendaries, same_egg_group,
+                                       bst_cache, egg_group_cache, legendary_cache)
     else
-      newPokemon = getNewSpecies(oldPokemon,bstRange,false,maxSpecies,includeLegendaries)
+      newPokemon = getNewSpecies(oldPokemon, bstRange, false, maxSpecies, includeLegendaries, same_egg_group)
     end
-    newEntry =[]
+    newEntry = []
     newEntry << encounter[0]
     newEntry << getSpecies(newPokemon).species
     newEntry << encounter[2]
@@ -52,6 +70,7 @@ def randomizePokemonList(encountersList,bstRange=50,maxSpecies=NB_POKEMON,custom
   end
   return newList
 end
+
 
 
 #

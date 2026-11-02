@@ -47,6 +47,7 @@ class Player < Trainer
 
   attr_accessor :birth_day
   attr_accessor :birth_month
+  attr_accessor :birthdays_celebrated
 
 
   # @return [Array<Boolean>] the player's Gym Badges (true if owned)

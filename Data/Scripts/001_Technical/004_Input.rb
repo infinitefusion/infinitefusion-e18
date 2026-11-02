@@ -8,18 +8,18 @@ module Input
   AUX1     = L
   AUX2     = R
 
-  unless defined?(update_KGC_ScreenCapture)
-    class << Input
-      alias update_KGC_ScreenCapture update
-    end
-  end
+  # unless defined?(update_KGC_ScreenCapture)
+  #   class << Input
+  #     alias update_KGC_ScreenCapture update
+  #   end
+  # end
 
-  def self.update
-    update_KGC_ScreenCapture
-    if trigger?(Input::F8)
-      pbScreenCapture
-    end
-  end
+  # def self.update
+  #   update_KGC_ScreenCapture
+  #   if trigger?(Input::F8)
+  #     pbScreenCapture
+  #   end
+  # end
 end
 
 module Mouse

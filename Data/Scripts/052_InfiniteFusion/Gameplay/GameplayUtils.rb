@@ -33,7 +33,7 @@ def floorHole(mapBelow, frames_for_fall = 8, bikeOnly = true)
   event.instance_variable_set(:@idle_frames, event.instance_variable_get(:@idle_frames) + 1)
 
   frames_for_fall = 0 if bikeOnly && !$PokemonGlobal.bicycle
-
+  pbSEPlay("bw_fall")
   if event.instance_variable_get(:@idle_frames) >= frames_for_fall
     event.instance_variable_set(:@idle_frames, 0)
 
@@ -47,18 +47,49 @@ def floorHole(mapBelow, frames_for_fall = 8, bikeOnly = true)
     event.turn_left
 
     pbWait(4)
-    pbFadeOutIn {
-      $game_temp.player_new_map_id = mapBelow
-      $game_temp.player_new_x = target_x
-      $game_temp.player_new_y = target_y
-      pbCancelVehicles
-      $scene.transfer_player
-      $game_map.autoplay
-      $game_map.refresh
-    }
+    playerFall(mapBelow, target_x, target_y)
     pbWait(8)
   end
 end
+
+def floorHoleSameMap(x_offset,y_offset, frames_for_fall = 8, bikeOnly = true, relative_to_player=true,landing_animation = Settings::EXCLAMATION_ANIMATION_ID)
+  return unless x_offset && y_offset
+  if relative_to_player
+    x = $game_player.x+x_offset
+    y = $game_player.y+y_offset
+  else
+    x = x_offset
+    y = y_offset
+  end
+  return if $game_player.moving?
+
+  event = this_event()
+  event.instance_variable_set(:@idle_frames, 0) unless event.instance_variable_defined?(:@idle_frames)
+  event.instance_variable_set(:@idle_frames, event.instance_variable_get(:@idle_frames) + 1)
+
+  frames_for_fall = 0 if bikeOnly && !$PokemonGlobal.bicycle
+  if event.instance_variable_get(:@idle_frames) >= frames_for_fall
+    event.instance_variable_set(:@idle_frames, 0)
+
+    # Find a passable landing tile on the target map
+    target_x, target_y = findPassableLanding($game_map.map_id, x, y)
+    return unless target_x
+
+    pbSEPlay("Slash")
+    playAnimation(Settings::EXCLAMATION_ANIMATION_ID, $game_player.x, $game_player.y)
+    event.direction_fix = false
+    event.turn_left
+
+    pbWait(4)
+    playerFall($game_map.map_id, target_x, target_y, landing_animation)
+    event.turn_down
+    event.direction_fix = true
+    pbWait(8)
+  end
+end
+
+
+
 
 # Loads the target map and spirals outward from (start_x, start_y)
 # until a passable tile is found. Returns [x, y] or [nil, nil].
@@ -205,3 +236,175 @@ def pokedex_check
   return missing
 end
 
+def replace_water_autotile(target_base_id = 240)
+  map = $MapFactory.getMap($game_map.map_id)
+  tiles_per_autotile = TilemapRenderer::TILES_PER_AUTOTILE rescue 48
+
+  for x in 0..map.width - 1
+    for y in 0..map.height - 1
+      for z in [2, 1, 0]
+        tile_id = map.data[x, y, z]
+        next unless tile_id && tile_id > 0
+
+        terrain_tag = GameData::TerrainTag.try_get(map.terrain_tags[tile_id]) if map.terrain_tags
+        if terrain_tag && terrain_tag.can_surf
+          shape_index = tile_id % tiles_per_autotile
+          new_tile_id = target_base_id + shape_index
+          if map.data[x, y, z] != new_tile_id
+            echoln "(#{x},#{y},#{z}): #{tile_id} -> #{new_tile_id}"
+            map.set_tile(x, y, z, new_tile_id)
+          end
+        end
+      end
+    end
+  end
+end
+
+
+#checks each of the events passed as ID to see if a berry of a specific type has been planted
+# @return
+# -1 : Berry not found
+# 0 : Berry found, not grown
+# 1 : Berry found, fully grown
+def check_event_for_berries(wanted_berry_type, variable_result,variable_quantity, events_list = [])
+  quantity_found = 0
+  found_berry= false
+  found_full_grown = false
+  events_list.each do |event_id|
+    berry_data = $PokemonGlobal.eventvars[[$game_map.map_id, event_id]]
+    if berry_data
+      berry_type = berry_data[1]
+      growth_stage= berry_data[0]
+      if berry_type == wanted_berry_type
+        found_berry = true
+        quantity_found+=1
+        if growth_stage == 5
+          found_full_grown = true
+        end
+      end
+    end
+  end
+  pbSet(variable_quantity, quantity_found)
+  if found_full_grown
+    pbSet(variable_result, 1) if found_full_grown
+  elsif found_berry
+    pbSet(variable_result, 0) if found_berry
+  else
+    pbSet(variable_result, -1)
+  end
+  return found_berry
+end
+
+def berryMasterRandomBerry(rare_berries_only=false)
+  rare_berries = [    :GREPABERRY, :HONDEWBERRY, :KELPSYBERRY, :MAGOSTBERRY, :NOMELBERRY, :POMEGBERRY,
+                      :QUALOTBERRY, :RABUTABERRY, :TAMATOBERRY,
+
+                      :SPELONBERRY, :PAMTREBERRY, :WATMELBERRY, :DURINBERRY, :BELUEBERRY, # given by the wife in the originals
+  ]
+  normal_berries = [    :ASPEARBERRY, :CHERIBERRY, :CHESTOBERRY, :LEPPABERRY, :LUMBERRY, :ORANBERRY,
+                        :PECHABERRY, :PERSIMBERRY, :RAWSTBERRY, :SITRUSBERRY]
+
+  berries_list = rare_berries_only ? rare_berries : (rare_berries + normal_berries)
+  berry = berries_list.sample
+  pbReceiveItem(berry)
+end
+
+def last_map_position_smell_npc
+  last_map = $Trainer.last_visited_town_map_location
+  case last_map
+  when MAP_MT_CHIMNEY
+  when MAP_ROUTE_112
+  when MAP_ROUTE_112_NORTH
+  when MAP_JAGGED_PASS
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Sniff...\nUm... You, uh... smell singed."))
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Were you at a volcano or something?"))
+  when MAP_DESERT
+  when MAP_ROUTE_113
+  when MAP_FALLARBOR
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Sniff...\nUm... You, uh... smell like dust."))
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Were you in a desert or something?"))
+  when MAP_RUSTURF_TUNNEL
+  when MAP_SHOAL_CAVE
+  when MAP_METEOR_FALLS
+  when MAP_DESERT_UNDERPASS
+  when MAP_GRANITE_CAVE
+    pbCallBub(2,@event_id)
+        pbMessage(_INTL("Sniff...\nUm... You, uh... smell damp."))
+        pbCallBub(2,@event_id)
+        pbMessage(_INTL("Were you in a cave or something?"))
+  when MAP_RUSTBORO
+      pbCallBub(2,@event_id)
+      pbMessage(_INTL("Sniff...\nUm... You, uh... smell like rust."))
+      pbCallBub(2,@event_id)
+      pbMessage(_INTL("Were you in an old city or something?"))
+  when MAP_MAUVILLE
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Sniff...\nUm... You, uh... smell like ozone."))
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Were you near a power plant or something?"))
+  when MAP_DEWFORD
+  when MAP_SLATEPORT
+  when MAP_MOSSDEEP
+  when MAP_SOOTOPOLIS
+  when MAP_PACIFIDLOG
+  when MAP_AQUA_CAMP
+  when MAP_ROUTE_104_SOUTH
+  when MAP_ROUTE_105
+  when MAP_ROUTE_106
+  when MAP_ROUTE_107
+  when MAP_ROUTE_108
+  when MAP_ROUTE_109
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Sniff...\nUm... You, uh... smell like brine."))
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Were you at the beach or something?"))
+  else
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Sniff...\nUm... You, uh... smell like the rainforest."))
+    pbCallBub(2,@event_id)
+    pbMessage(_INTL("Ah, the smell of home!"))
+  end
+end
+#
+DIRECTION_ARROWS = {
+  left:  "←",
+  right: "→",
+  down:  "↓",
+  up:    "↑"
+}
+def direction_sign(**directions)
+  lines = []
+  directions.each do |key, label|
+    arrow = DIRECTION_ARROWS[key]
+    next if arrow.nil? || label.nil?
+    lines << "#{arrow} #{label}"
+  end
+  pbMessage(lines.join("\n"))
+end
+
+
+# map = $MapFactory.getMap($game_map.map_id)
+#
+# erased_tiles = []
+# for tile in tiles_to_cut
+#   for map_layer in [2, 1, 0]
+#     tile_id = map.data[tile[1], tile[2], map_layer]
+#     cut_tile_id = tile_id -8
+#     next if tile_id == nil
+#     tile_tag = GameData::TerrainTag.try_get(map.terrain_tags[tile_id])
+#     next unless tile_tag.battle_environment == :Grass
+#     map.erase_tile(tile[1], tile[2], map_layer)
+#     unless tile_tag.id == :CutGrass
+#       map.set_tile(tile[1], tile[2], map_layer,cut_tile_id)
+#     end
+#     erased_tiles << tile
+#   end
+# end
+# unless erased_tiles.empty?
+#   pbSEPlay("Cut", 80)
+#   $scene.spriteset.addUserAnimation(Settings::CUT_TREE_ANIMATION_ID, $game_player.x, $game_player.y, false, 1)
+# end

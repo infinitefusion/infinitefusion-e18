@@ -128,8 +128,8 @@ GameData::Weather.register({
   :graphics         => [["sandstorm_1", "sandstorm_2", "sandstorm_3", "sandstorm_4"], ["sandstorm_tile"]],
   :particle_delta_x => -1200,
   :particle_delta_y => 640,
-  :tile_delta_x     => -720,
-  :tile_delta_y     => 360,
+  :tile_delta_x     => -800,
+  :tile_delta_y     => 400,
   :tone_proc        => proc { |strength|
     next Tone.new(strength / 2, 0, -strength / 2, 0)
   }
@@ -199,9 +199,11 @@ GameData::Weather.register({
    :graphics         => [["ash_1", "ash_2", "ash_3"]],
    :particle_delta_x => 20,
    :particle_delta_y => 100,
-   :tone_proc        => proc { |strength|
-     next Tone.new(strength / 2, strength / 2, strength / 2, 0)
-   }
+   :tone_proc        => proc { |strength| next Tone.new(0, 0, 0, 0) }
+   # :tone_proc        => proc { |strength|
+   #   # next Tone.new(strength / 2, strength / 2, strength / 2, 0)
+   #   next Tone.new(0, 0, 0, 0)
+   # }
  })
 
 GameData::Weather.register({  #Used underwater
@@ -209,8 +211,20 @@ GameData::Weather.register({  #Used underwater
      :id_number        => 13,
      :graphics         => [["bubble_1", "bubble_2", "bubble_3"]],
      :particle_delta_x => 20,
-     :particle_delta_y => 40,
+     :particle_delta_y => -40,
      :tone_proc        => proc { |strength|
        next Tone.new(strength / 2, strength / 2, strength / 2, 0)
      }
    })
+
+GameData::Weather.register({
+                             :id               => :Crumble,
+                             :id_number        => 14,
+                             :category         => :Crumble,
+                             :graphics         => [[], ["crumble_tile"]],
+                             :tile_delta_x     => 0,
+                             :tile_delta_y     => 300,
+                             :tone_proc        => proc { |strength|
+                               next Tone.new(strength / 2, 0, -strength / 2, 0)
+                             }
+                           })

@@ -14,7 +14,7 @@ Events.onStepTakenFieldMovement += proc { |_sender, e|
         break
       else
         if mapTerrainTag == 16
-          pbSEPlay("puddle", 100) if event == $game_player && !$PokemonGlobal.surfing
+          pbSEPlay("puddle", 30) if event == $game_player && !$PokemonGlobal.surfing
           $scene.spriteset.addUserAnimation(PUDDLE_ANIMATION_ID, event.x, event.y, true, 0)
           break
         end

@@ -83,11 +83,18 @@ class SpriteOptionsScene < PokemonOption_Scene
                                _INTL("Uses the same party icon for all fusions")]
     )
 
-    battle_type_icon_option_selected = $PokemonSystem.type_icons ? 1 : 0
-    options << EnumOption.new(_INTL("Battle Type Icons"), [_INTL("Off"), _INTL("On")],
-                              proc { battle_type_icon_option_selected },
-                              proc { |value| $PokemonSystem.type_icons = value == 1 },
+    battle_type_icon_opp_option_selected = $PokemonSystem.type_icons_opponent ? 1 : 0
+    options << EnumOption.new(_INTL("Type Icons (Enemy)"), [_INTL("Off"), _INTL("On")],
+                              proc { battle_type_icon_opp_option_selected },
+                              proc { |value| $PokemonSystem.type_icons_opponent = value == 1 },
                               _INTL("Display the enemy Pokémon type in battles.")
+    )
+
+    battle_type_icon_player_option_selected = $PokemonSystem.type_icons_player ? 1 : 0
+    options << EnumOption.new(_INTL("Type Icons (Player)"), [_INTL("Off"), _INTL("On")],
+                              proc { battle_type_icon_player_option_selected },
+                              proc { |value| $PokemonSystem.type_icons_player = value == 1 },
+                              _INTL("Display the player's Pokémon type in battles.")
     )
 
     options << EnumOption.new(_INTL("Battle Animations"), [_INTL("On"), _INTL("Off")],

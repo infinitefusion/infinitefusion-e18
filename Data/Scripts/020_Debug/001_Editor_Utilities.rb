@@ -387,7 +387,7 @@ def pbChooseList(commands, default = 0, cancelValue = -1, sortType = 1)
 end
 
 def pbChooseListWithFilter(commands, default = 0, cancelValue = -1, sortType = 1,
-                           window_x = 0, window_y = 0, filter_default_text = "",
+                           window_x = 0, window_y = 0, filter_default_text = _INTL("Select an option"),
                            width_mode = :filter_text)
   filter_height = 60
   case width_mode

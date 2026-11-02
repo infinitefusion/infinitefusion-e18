@@ -96,7 +96,8 @@ GameData::Environment.register({
 
 GameData::Environment.register({
   :id   => :Snow,
-  :name => _INTL("Snow")
+  :name => _INTL("Snow"),
+  :battle_base => "snow"
 })
 
 GameData::Environment.register({

@@ -108,6 +108,9 @@ class SecretBaseImporter
         pokemon.pif_sprite = PIFSprite.new(:BASE, pokemon.id_number,nil,poke_json[:alt_sprite])
       end
     end
+    pokemon.shiny=poke_json[:shiny]
+    pokemon.natural_shiny=true if pokemon.shiny?
+
     moves = poke_json[:moves]
     pokemon_moves = []
     moves.each do |move_id|

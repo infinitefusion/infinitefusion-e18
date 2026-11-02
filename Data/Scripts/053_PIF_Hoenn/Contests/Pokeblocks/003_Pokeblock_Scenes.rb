@@ -163,87 +163,117 @@ class PokeblockCase_Screen
 		@pokeblocks = $Trainer.pokeblocks
 	end
 
-	def pbStartScreen
+	def pbStartScreen(is_feeding_pokemon)
 		@scene.pbStartScene
 		item = nil
 		
 		loop do
 			item = @scene.pbChooseItem
 			break if !item
-			cmdUse      = -1
-			cmdToss     = -1
-			cmdDebug    = -1
+			cmdUse      =  _INTL("Feed")
+			cmdPlace      =  _INTL("Place down")
+
+			cmdToss     = _INTL("Toss")
+			cmdDebug    = _INTL("Debug")
+			cmdCancel = _INTL("Cancel")
+
 			commands = []
-			# Generate command list
-			commands[cmdUse = commands.length]    = _INTL("Use")
-			commands[cmdToss = commands.length]   = _INTL("Toss")
-			commands[cmdDebug = commands.length]  = _INTL("Debug") if $DEBUG
-			commands[commands.length]             = _INTL("Cancel")
+			commands.push(cmdUse)
+			commands.push(cmdPlace) if is_outdoor_map?
+			commands.push(cmdToss)
+			commands.push(cmdDebug) if $DEBUG
+			commands.push(cmdCancel)
+
 			# Show commands generated above
 			itemname = item.name
 			command = @scene.pbShowCommands(_INTL("{1} is selected.", itemname), commands)
-			if cmdUse >= 0 && command == cmdUse   # Use item
-				ret = pbFeedPokeblock(item, @scene)
-				# ret: 0=Item wasn't used; 1=Item used; 2=Close Bag to use in field
-				break if ret == 2   # End screen
-				@scene.pbRefresh
+
+			case commands[command]
+			when cmdUse
+				if is_feeding_pokemon
+					ret = pbFeedPokeblock(item, @scene)
+					break if ret == 2   # End screen
+					@scene.pbRefresh
+				else
+					@scene.pbEndScene
+					return(item)
+				end
 				next
-			elsif cmdToss >= 0 && command == cmdToss   # Toss item
-				# qty = @bag.quantity(item)
-				# if qty > 1
-				  # helptext = _INTL("Toss out how many {1}?", itm.name_plural)
-				  # qty = @scene.pbChooseNumber(helptext, qty)
-				# end
-				# if qty > 0
-				  # itemname = itm.name_plural if qty > 1
-				  # if pbConfirm(_INTL("Is it OK to throw away {1} {2}?", qty, itemname))
-					# pbDisplay(_INTL("Threw away {1} {2}.", qty, itemname))
-					# qty.times { @bag.remove(item) }
-					# @scene.pbRefresh
-				  # end
-				# end
+
+			when cmdPlace
+				color = item.color#:RED
+				position = pbFacingTile($game_player.direction)
+				x_pos, y_pos = position[1],position[2]
+
+				if tile_passable_or_water(x_pos, y_pos)
+					if !tile_is_water?($game_player.x, $game_player.y) && tile_is_water?(x_pos, y_pos)
+						dx = x_pos - $game_player.x
+						dy = y_pos - $game_player.y
+						far_x, far_y = x_pos + dx, y_pos + dy
+						if tile_is_water?(far_x, far_y) && tile_passable_or_water(far_x, far_y)
+							x_pos, y_pos = far_x, far_y
+						end
+					end
+				else
+					x_pos, y_pos = $game_player.x, $game_player.y
+				end
+
+				event = $PokemonTemp.createTempEvent(TEMPLATE_EVENT_POKEBLOCK,
+																								 $game_map.map_id,
+																								 [x_pos, y_pos],
+																								 $game_player.direction,
+																								 PokeblockEvent, [item])
+				if event.is_on_water
+					event.floating = true
+					event.forced_bush_depth = 8
+					event.calculate_bush_depth
+				end
+				pbRemovePokeblock(item)
+				@scene.pbEndScene
+				break
+			when cmdToss
 				if pbConfirm(_INTL("Is it OK to throw away the {1}?", itemname))
 					pbDisplay(_INTL("Threw away the {1}.", itemname))
 					#@pokeblocks.remove(item)
 					pbRemovePokeblock(item)
 					@scene.pbRefresh
 				end
-			elsif cmdDebug >= 0 && command == cmdDebug   # Debug
+			when cmdDebug
 				command = 0
 				loop do
-				  command = @scene.pbShowCommands(_INTL("Do what with {1}?", itemname),
-												  [_INTL("Change flavor"),_INTL("Change feel"),
-												   _INTL("Cancel")], command)
-				  case command
-				  ### Cancel ###
-				  when -1, 2
-					break
-				  ### Change flavor ###
-				  when 0
-					flavor = item.flavor
-					fNames = ["Spicy", "Dry", "Sweet", "Bitter", "Sour"]
-					flavor.each_with_index { |f,i|
+					command = @scene.pbShowCommands(_INTL("Do what with {1}?", itemname),
+																					[_INTL("Change flavor"),_INTL("Change feel"),
+																					 _INTL("Cancel")], command)
+					case command
+						### Cancel ###
+					when -1, 2
+						break
+						### Change flavor ###
+					when 0
+						flavor = item.flavor
+						fNames = ["Spicy", "Dry", "Sweet", "Bitter", "Sour"]
+						flavor.each_with_index { |f,i|
+							params = ChooseNumberParams.new
+							params.setRange(0, 99)
+							params.setDefaultValue(f)
+							value = pbMessageChooseNumber(
+								_INTL("Choose new {1} value (max. 99).", fNames[i]), params
+							) { @scene.pbUpdate }
+							item.flavor[i] = value
+						}
+						item.level = item.flavor.max
+						@scene.pbRefresh
+						### Change feel ###
+					when 1
+						feel = item.smoothness
 						params = ChooseNumberParams.new
-						params.setRange(0, 99)
-						params.setDefaultValue(f)
-						value = pbMessageChooseNumber(
-						  _INTL("Choose new {1} value (max. 99).", fNames[i]), params
+						params.setRange(0, 255)
+						params.setDefaultValue(feel)
+						item.smoothness = pbMessageChooseNumber(
+							_INTL("Choose new Feel value (max. 255)."), params
 						) { @scene.pbUpdate }
-						item.flavor[i] = value
-					}
-					item.level = item.flavor.max
-					@scene.pbRefresh
-				  ### Change feel ###
-				  when 1
-					feel = item.smoothness
-					params = ChooseNumberParams.new
-					params.setRange(0, 255)
-					params.setDefaultValue(feel)
-					item.smoothness = pbMessageChooseNumber(
-						  _INTL("Choose new Feel value (max. 255)."), params
-						) { @scene.pbUpdate }
-					@scene.pbRefresh
-				  end
+						@scene.pbRefresh
+					end
 				end
 			end
 		end		

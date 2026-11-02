@@ -357,7 +357,7 @@ class PokeRadarAppScene < PokeNavAppScene
   end
 
   def showAreaName
-    map_name = getMapName($game_map.map_id)
+    map_name = pbGetMapNameFromId($game_map.map_id)
     text = _INTL("{1}", map_name)
     encounter_type = get_encounter_type_name
     if encounter_type && !encounter_type.empty?
@@ -389,8 +389,10 @@ class PokeRadarAppScene < PokeNavAppScene
       return _INTL("Grass")
     when :WaterMorning, :WaterDay, :WaterNight
       return _INTL("Water")
-    when :TallGrass
+    when :TallGrass, :TallGrassNight
       return _INTL("Tall Grass")
+    when :Puddle
+      return _INTL("Shallow Water")
     else
       return encounter_type.to_s
     end
@@ -401,7 +403,7 @@ end
 def getTerrainType
   encounter_type = $PokemonEncounters.encounter_type
   case encounter_type
-  when :Land, :Land1, :Land2, :Land3, :LandMorning, :LandDay, :LandNight, :TallGrass
+  when :Land, :Land1, :Land2, :Land3, :Land4, :LandMorning, :LandDay, :LandNight, :TallGrass, :TallGrassNight
     return :Grass
   else
     return encounter_type

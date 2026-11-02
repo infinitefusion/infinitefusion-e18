@@ -164,6 +164,7 @@ class PokemonTilesetScene
   end
 
   def pbStartScene
+    current_tag = 0
     open_screen
     loop do
       Graphics.update
@@ -182,17 +183,24 @@ class PokemonTilesetScene
         update_cursor_position(0, @visible_height)
       elsif Input.trigger?(Input::ACTION)
         commands = [
-           _INTL("Go to bottom"),
+          _INTL("Change tag"),
+          _INTL("Go to bottom"),
            _INTL("Go to top"),
            _INTL("Change tileset"),
            _INTL("Cancel")
         ]
         case pbShowCommands(nil, commands, -1)
         when 0
-          update_cursor_position(0, 99999)
+          selected = tile_ID_from_coordinates(@x, @y)
+          params = ChooseNumberParams.new
+          params.setRange(0, 99)
+          params.setDefaultValue(@tileset.terrain_tags[selected])
+          current_tag = pbMessageChooseNumber(_INTL("Set the terrain tag."),params)
         when 1
-          update_cursor_position(0, -99999)
+          update_cursor_position(0, 99999)
         when 2
+          update_cursor_position(0, -99999)
+        when 3
           choose_tileset
         end
       elsif Input.trigger?(Input::BACK)
@@ -207,15 +215,20 @@ class PokemonTilesetScene
               $scene.createSpritesets
             end
           end
-          pbMessage(_INTL("To ensure that the changes remain, close and reopen RPG Maker XP."))
+          pbMessage(_INTL("To ensure that the changes remain, close and reopen RPG Maker XP without saving."))
         end
         break if pbConfirmMessage(_INTL("Exit from the editor?"))
       elsif Input.trigger?(Input::USE)
         selected = tile_ID_from_coordinates(@x, @y)
-        params = ChooseNumberParams.new
-        params.setRange(0, 99)
-        params.setDefaultValue(@tileset.terrain_tags[selected])
-        set_terrain_tag_for_tile_ID(selected, pbMessageChooseNumber(_INTL("Set the terrain tag."), params))
+        #set_terrain_tag_for_tile_ID(selected, pbMessageChooseNumber(_INTL("Set the terrain tag."), params))
+
+        selected_tag = @tileset.terrain_tags[selected]
+        if selected_tag == current_tag
+          set_terrain_tag_for_tile_ID(selected, 0)
+        else
+          set_terrain_tag_for_tile_ID(selected, current_tag)
+        end
+
         draw_overlay
       end
     end

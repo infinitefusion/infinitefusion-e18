@@ -145,10 +145,15 @@ class Scene_Map
     $game_temp.in_menu = true
     $game_player.straighten
     $game_map.update
+    if $PokemonTemp.overworld_safari
+      caught_pokemon_icons = displayCaughtPokemonIcons
+    end
+
     sscene = PokemonPauseMenu_Scene.new
     sscreen = PokemonPauseMenu.new(sscene)
     sscreen.pbStartPokemonMenu
     $game_temp.in_menu = false
+    caught_pokemon_icons.dispose if $PokemonTemp.overworld_safari
   end
 
   def call_debug

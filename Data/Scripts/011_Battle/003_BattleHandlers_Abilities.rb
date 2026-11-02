@@ -183,7 +183,7 @@ BattleHandlers::StatusImmunityAbilityNonIgnorable.add(:COMATOSE,
 
 BattleHandlers::StatusImmunityAbilityNonIgnorable.add(:SHIELDSDOWN,
   proc { |ability,battler,status|
-    next true if battler.isFusionOf(:MINIOR_C) && battler.form<7
+    next true if battler.isFusionOf(:MINIOR_M) && battler.form<7
   }
 )
 
@@ -1453,6 +1453,11 @@ BattleHandlers::TargetAbilityOnHit.add(:ILLUSION,
     next if !target.effects[PBEffects::Illusion]
     target.effects[PBEffects::Illusion] = nil
     battle.scene.pbChangePokemon(target,target.pokemon)
+    if user.pbOwnedByPlayer?
+      battle.scene.pbRefreshOne(target.index) if $PokemonSystem.type_icons_player
+    else
+      battle.scene.pbRefreshOne(target.index) if $PokemonSystem.type_icons_opponent
+    end
     battle.pbDisplay(_INTL("{1}'s illusion wore off!",target.pbThis))
     battle.pbSetSeen(target)
   }

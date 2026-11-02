@@ -44,12 +44,11 @@ class BushBitmap
     ret = Bitmap.new(bitmap.width, bitmap.height)
     charheight = ret.height
     cy = charheight - depth - 2
-    y = charheight
     if cy >= 0
-      ret.blt(0, y, bitmap, Rect.new(0, y, ret.width, cy))
-      ret.blt(0, y + cy, bitmap, Rect.new(0, y + cy, ret.width, 2), 170)
+      ret.blt(0, 0, bitmap, Rect.new(0, 0, ret.width, cy))
+      ret.blt(0, cy, bitmap, Rect.new(0, cy, ret.width, 2), 170)
     end
-    ret.blt(0, y + cy + 2, bitmap, Rect.new(0, y + cy + 2, ret.width, 2), 85) if cy + 2 >= 0
+    ret.blt(0, cy + 2, bitmap, Rect.new(0, cy + 2, ret.width, 2), 85) if cy + 2 >= 0
     return ret
   end
 end
@@ -263,7 +262,8 @@ class Sprite_Character < RPG::Sprite
         self.bitmap = (@charbitmapAnimated) ? @charbitmap.bitmap : @charbitmap
       end
     else
-      @bushbitmap = BushBitmap.new(@charbitmap, (@tile_id >= 384), bushdepth) if !@bushbitmap
+      source = (@character == $game_player) ? getClothedPlayerSprite() : (@charbitmapAnimated ? @charbitmap.bitmap : @charbitmap)
+      @bushbitmap = BushBitmap.new(source, (@tile_id >= 384), bushdepth) if !@bushbitmap
       self.bitmap = @bushbitmap.bitmap
     end
     self.visible = !@character.transparent

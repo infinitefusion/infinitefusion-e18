@@ -264,6 +264,15 @@ GameData::Evolution.register({
   }
 })
 
+
+GameData::Evolution.register({
+ :id                   => :ReversersLevel,
+ :parameter            => Integer,
+ :level_up_proc        => proc { |pkmn, parameter|
+   next pkmn.level >= parameter #TODO
+ }
+})
+
 GameData::Evolution.register({
   :id            => :Happiness,
   :minimum_level => 1,   # Needs any level up

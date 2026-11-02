@@ -178,7 +178,7 @@ QUESTS = {
     "legendary_meloetta_3" => Quest.new("legendary_meloetta_3", _INTL("A legendary band (Part 3)"), _INTL("The drummer from a legendary Pokéband wants you to find its former bandmates. There are rumors about strange music that was heard around the region."), "band_drummer", _INTL("Saffron City"), LegendaryQuestColor),
     "legendary_meloetta_4" => Quest.new("legendary_meloetta_4", _INTL("A legendary band (Part 4)"), _INTL("You assembled the full band! Come watch the show on Saturday night."), "BW117", _INTL("Saffron City"), LegendaryQuestColor),
 
-    "legendary_cresselia_1" => Quest.new(61, _INTL("Mysterious Lunar feathers"), _INTL("A mysterious entity asked you to collect Lunar Feathers for them. It said that they will come at night to tell you where to look. Whoever that may be..."), "lunarFeather", _INTL("Lavender Town"), LegendaryQuestColor),
+    "legendary_cresselia_1" => Quest.new("legendary_cresselia_1", _INTL("Mysterious Lunar feathers"), _INTL("A mysterious entity asked you to collect Lunar Feathers for them. It said that they will come at night to tell you where to look. Whoever that may be..."), "lunarFeather", _INTL("Lavender Town"), LegendaryQuestColor),
     #removed
     #11 => Quest.new(11, "Powering the Lighthouse", "Catch some Voltorb to power up the lighthouse", QuestBranchHotels, "BW (43)", "Vermillion City", HotelQuestColor),
 }
@@ -205,6 +205,9 @@ define_quest("main_league",:MAIN_QUEST,_INTL("Pokémon League Challenge"), _INTL
 define_quest("main_stolen_parts",:MAIN_QUEST,_INTL("Stolen Package"), _INTL("Recover a package stolen by Team Magma!"),_INTL("Rustboro City"),"NPC_Hoenn_MrStone")
 define_quest("main_steven_letter",:MAIN_QUEST,_INTL("Steven's Letter"), _INTL("Deliver a letter from the Devon Corp. president to Steven in Granite Cave. "),_INTL("Granite Cave"),"NPC_Hoenn_MrStone",MAP_DEWFORD)
 define_quest("main_devon_parts",:MAIN_QUEST,_INTL("Devon Parts Delivery"), _INTL("Deliver the Devon Parts to the Shipyard in Slateport City."),_INTL("Slateport City"),"NPC_Hoenn_MrStone",MAP_SLATEPORT)
+define_quest("main_meteor_falls",:MAIN_QUEST,_INTL("Find Professor Cozmo"), _INTL("Find Professor Cozmo in Meteor Falls."),_INTL("Meteor Falls"),"NPC_Hoenn_AromaLady",MAP_METEOR_FALLS)
+define_quest("mt_chimney_aqua",:MAIN_QUEST,_INTL("Stop Team Magma!"), _INTL("Team Magma wants to use the Meteorite's power at Mt. Chimney. They need to be stopped before it's too late."),_INTL("Mt. Chimney"),"NPC_Hoenn_Magma_Maxie",MAP_MT_CHIMNEY)
+define_quest("mt_chimney_magma",:MAIN_QUEST,_INTL("The Meteorite's Power"), _INTL("Go to Mt. Chimney to help Team Magma harness the power of the Meteorite."),_INTL("Mt. Chimney"),"NPC_Hoenn_Magma_Maxie",MAP_MT_CHIMNEY)
 
 #SIDE QUESTS
 define_quest("template",:FIELD_QUEST,_INTL("Template Quest"), _INTL("Don't forget to change the quest ID if you copy paste this!"),_INTL("Unknown"),"000")
@@ -284,7 +287,7 @@ define_quest("mauville_quests_7",:FIELD_QUEST,_INTL("Associate Producer! - Episo
 define_quest("mauville_magma",:MAGMA_QUEST,_INTL("The Element of Surprise!"), _INTL("Catch a Tynamo in the waters near New Mauville to catch Team Aqua by surprise."),_INTL("Mauville City"),"NPC_Hoenn_Magma_Grunt_M")
 define_quest("mauville_aqua",:AQUA_QUEST,_INTL("The Element of Surprise!"), _INTL("Catch a Tynamo in the waters near New Mauville to catch Team Magma by surprise."),_INTL("Mauville City"),"NPC_Hoenn_Aqua_Grunt_M")
 
-#Route 111
+#Route 111 (South)
 define_quest("route111_winstrate",:FIELD_QUEST,_INTL("The Winstrate Family"), _INTL("Defeat all 4 members of the Winstrate family in back-to-back battles."),_INTL("Route 111"),"NPC_Hoenn_Pokefan_M")
 
 #Verdanturf
@@ -294,3 +297,29 @@ define_quest("verdanturf_nurse",:FIELD_QUEST,_INTL("The Bored Nurse"), _INTL("Th
 #Rusturf Tunnel
 define_quest("rusturf_trumpet",:FIELD_QUEST,_INTL("Uproar in B Flat"), _INTL("A trumpet player is cornered in Rusturf Tunnel. Find a way to help him!"),_INTL("Rusturf Tunnel"),"NPC_Hoenn_trumpet_playing")
 define_quest("evergrande_trumpet",:FIELD_QUEST,_INTL("The Trumpet Festival!"), _INTL("Find the 4 Trumpet Brothers and join the Trumpet Festival in Evergrande City."),_INTL("Evergrande City"),"NPC_Hoenn_trumpet_playing",MAP_EVERGRANDE)
+
+#Route 112
+#Route 111 (North)
+define_quest("route111_cut",:FIELD_QUEST,_INTL("Lawnmower Mon"), _INTL("Use the move Cut in the field to get rid of the tall grass near the campsite."),_INTL("Route 111"),"NPC_Hoenn_Schoolmate_Senior")
+#Route 113
+define_quest("route113_sootgrass",:FIELD_QUEST,_INTL("Clear Out the Soot!"), _INTL("Get rid of the soot on every single patch of grass on Route 113."),_INTL("Route 113"),"NPC_oldman3")
+
+#Fallarbor Town
+define_quest("fallarbor_berries",:FIELD_QUEST,_INTL("Fireproof Berries"), _INTL("Fallarbor Town residents cannot grow crops because of a Slugma infestation. Find fire-resistant berries for them to grow."),_INTL("Fallarbor Town"),"NPC_oldman3")
+
+#Route 114
+define_quest("route114_roar",:FIELD_QUEST,_INTL("Hear Me Roar!"), _INTL("Use Roar outside of battles to get to the end of the tunnel on Route 114 without encountering a single Pokémon."),_INTL("Route 114"),"NPC_Hoenn_Gentleman")
+
+#Desert
+define_quest("desert_caves",:FIELD_QUEST,_INTL("Find the lost Assistant!"), _INTL("An archeologist lost his assistant in the caves beneath the desert. Help him find him!"),_INTL("Mauville Desert"),"NPC_Hoenn_RuinManiac")
+
+#Route 119
+define_quest("route_119_fishing",:FIELD_QUEST,_INTL("Fishing with Bait!"), _INTL("Fish up a Feebas with the Good Rod by placing a Blue Pokéblock in the water."),_INTL("Route 119"),"NPC_Hoenn_Fisherman")
+
+#Safari Zone
+define_quest("safari_flowers",:FIELD_QUEST,_INTL("Safari Flowers"), _INTL("Unlock every area in the Safari Zone to scout for spots to plant flowers."),_INTL("Safari Zone"),"NPC_Hoenn_AromaLady")
+define_quest("safari_balls1",:FIELD_QUEST,_INTL("Bidoof Population Survey"), _INTL("Catch 5 Bidoof in the Safari Zone."),_INTL("Safari Zone"),"NPC_Hoenn_Ranger_F")
+define_quest("safari_balls2",:FIELD_QUEST,_INTL("Bibarel Population Survey"), _INTL("Catch 3 Bibarel in the Safari Zone."),_INTL("Safari Zone"),"NPC_Hoenn_Ranger_F")
+define_quest("safari_blocks1",:FIELD_QUEST,_INTL("Phanpy Population Survey"), _INTL("Catch 5 Phanpy in the Safari Zone."),_INTL("Safari Zone"),"NPC_Hoenn_Ranger_M")
+define_quest("safari_blocks2",:FIELD_QUEST,_INTL("Kangaskhan Population Survey"), _INTL("Catch 2 Kangaskhan in the Safari Zone."),_INTL("Safari Zone"),"NPC_Hoenn_Ranger_M")
+

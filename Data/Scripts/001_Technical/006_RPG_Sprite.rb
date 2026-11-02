@@ -128,6 +128,7 @@ class SpriteAnimation
   end
 
   def effect?
+    return false unless @_animation_duration
     return @_animation_duration > 0
   end
 

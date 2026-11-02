@@ -192,6 +192,9 @@ module GameData
     end
     # @return [String] the translated name of this species
     def name
+      if getCurrentLanguage == :FRENCH_QC
+        return @real_name
+      end
       ret = MessageTypes.get(MessageTypes::Species, @id_number)
       return (ret && !ret.empty?) ? ret : @real_name
     end

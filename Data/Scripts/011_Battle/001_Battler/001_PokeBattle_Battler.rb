@@ -301,7 +301,7 @@ class PokeBattle_Battler
   end
 
   def pbWeight
-    ret = (@pokemon) ? @pokemon.weight : 500
+    ret = (@pokemon) ? @pokemon.species_data.weight : 500
     ret += @effects[PBEffects::WeightChange]
     ret = 1 if ret < 1
     if abilityActive? && !@battle.moldBreaker

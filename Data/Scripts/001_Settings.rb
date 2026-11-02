@@ -5,14 +5,15 @@
 #==============================================================================#
 module Settings
   # The version of your game. It has to adhere to the MAJOR.MINOR.PATCH format.
-  GAME_VERSION_NUMBER = "6.8.3"
-  LATEST_GAME_RELEASE = "6.8"
+  GAME_VERSION_NUMBER = "6.9"
+  LATEST_GAME_RELEASE = "6.9.0"
 
-  HOENN_VERSION_NUMBER = "1.1.0"
-  HOENN_LATEST_GAME_RELEASE = "1.1.0"
+  HOENN_VERSION_NUMBER = "1.3"
+  HOENN_LATEST_GAME_RELEASE = "1.2.0"
 
-  SNOW_DAY = false
+  SNOW_DAY = true
 
+  EXPERIMENTAL_FEATURES = false
   KANTO = GAME_ID == :IF_KANTO
   HOENN = GAME_ID == :IF_HOENN
 
@@ -36,7 +37,7 @@ module Settings
   ANIMATE_REFLECTIONS = false # GAME_ID == :IF_HOENN #true
   USE_REFLECTIONS = false
   # Infinite fusion settings
-  NB_POKEMON = 576
+  NB_POKEMON = 582
   TRANSFER_BOX_DISCLAIMER_MESSAGE = ""
   CUSTOM_BASE_SPRITES_FOLDER = "Graphics/CustomBattlers/local_sprites/BaseSprites/"
   CUSTOM_BATTLERS_FOLDER = "Graphics/CustomBattlers/"
@@ -47,9 +48,13 @@ module Settings
   DOWNLOADED_SPRITES_FOLDER = "Graphics/temp/"
   DEFAULT_SPRITE_PATH = "Graphics/Battlers/Special/000.png"
   CREDITS_FILE_PATH = "Data/sprites/Sprite_Credits.csv"
+
   VERSION_FILE_PATH = "Data/VERSION"
   CUSTOM_SPRITES_FILE_PATH = "Data/sprites/CUSTOM_SPRITES"
   BASE_SPRITES_FILE_PATH = "Data/sprites/BASE_SPRITES"
+  REFERENCES_FILE_PATH = "Data/sprites/SELECTED_REFERENCES"
+
+
   CUSTOM_DEX_ENTRIES_PATH = "Data/pokedex/dex.json"
   AI_DEX_ENTRIES_PATH = "Data/pokedex/generated_entries.json"
   POKEDEX_ENTRIES_PATH = "Data/pokedex/all_entries.json"
@@ -114,11 +119,6 @@ module Settings
   DISCORD_URL = "https://discord.com/invite/infinitefusion"
   WIKI_URL = "https://infinitefusion.fandom.com/"
   FAQ_URL = "https://hackmd.io/@PIF-Staff/PIF-Hoenn-FAQ"
-
-  AI_ENTRIES_URL = "https://ai-entries.pkmninfinitefusion.workers.dev/"
-  AI_ENTRIES_RATE_MAX_NB_REQUESTS = 10 # Nb. requests allowed in each time window
-  AI_ENTRIES_RATE_TIME_WINDOW = 120 # In seconds
-  AI_ENTRIES_RATE_LOG_FILE = 'Data/pokedex/dex_rate_limit.log' # Path to the log file
 
   CUSTOMSPRITES_RATE_MAX_NB_REQUESTS = 15 # Nb. requests allowed in each time window
   CUSTOMSPRITES_ENTRIES_RATE_TIME_WINDOW = 120 # In seconds
@@ -279,7 +279,7 @@ module Settings
   #=============================================================================
 
   # The number of steps allowed before a Safari Zone game is over (0=infinite).
-  SAFARI_STEPS = 600
+  SAFARI_STEPS = Settings::KANTO ? 600 : -1
   # The number of seconds a Bug Catching Contest lasts for (0=infinite).
   BUG_CONTEST_TIME = 20 * 60 # 20 minutes
 
@@ -312,7 +312,7 @@ module Settings
   BADGE_FOR_FLY = 3
   BADGE_FOR_STRENGTH = 5
   BADGE_FOR_DIVE = 9
-  BADGE_FOR_WATERFALL = 9
+  BADGE_FOR_WATERFALL = 10
   BADGE_FOR_TELEPORT = 1
   BADGE_FOR_BOUNCE = 8
   BADGE_FOR_ROCKCLIMB = 16
@@ -562,6 +562,8 @@ module Settings
   ANGRY_ANIMATION_ID = 24
   ANGRY_SHORT_ANIMATION_ID = 34
 
+  STEAM_ANIMATION = 38
+
   FUSE_ANIMATION_ID = 33
 
   # ID of the animation played when a patch of grass rustles due to using the
@@ -584,6 +586,7 @@ module Settings
   CUT_TREE_ANIMATION_ID = 19
   ROCK_SMASH_ANIMATION_ID = 20
 
+  ANIMATION_OW_ATTACK = 14
   #=============================================================================
 
   # An array of available languages in the game, and their corresponding message
@@ -591,15 +594,17 @@ module Settings
   # from.
   LANGUAGES = {
     :IF_KANTO => [
-      ["English", "english.dat"],
-      ["Français", "french.dat"],
-      ["中文", "chinese.dat"]
+      ["English", "english.dat", :ENGLISH],
+      ["Français", "french.dat", :FRENCH],
+      ["Français (Québec)", "french.dat", :FRENCH_QC],
+      ["中文", "chinese.dat", :CHINESE]
     ],
     :IF_HOENN => [
-      ["English", "english.dat"],
-      ["Français", "french.dat"],
-      #["Español", "spanish.dat"],
-      ["中文", "chinese.dat"]
+      ["English", "english.dat", :ENGLISH],
+      ["Français", "french.dat",:FRENCH],
+      ["Français (Québec)", "french.dat", :FRENCH_QC],
+      #["Español", "spanish.dat", :SPANISH],
+      ["中文", "chinese.dat", :CHINESE]
     ]
   }
 

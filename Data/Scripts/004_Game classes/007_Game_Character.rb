@@ -23,6 +23,8 @@ class Game_Character
   attr_accessor :animation_id
   attr_accessor :transparent
   attr_reader :move_speed
+  attr_accessor :move_speed_override
+
   attr_accessor :walk_anime
   attr_writer :bob_height
   attr_accessor :under_everything # under even grass
@@ -34,6 +36,8 @@ class Game_Character
   attr_accessor :shadow_offset
   attr_accessor :animation_speed
   attr_accessor :step_anime
+
+  attr_accessor :can_hop_cliff
   def initialize(map = nil)
     @map = map
     @id = 0
@@ -89,6 +93,8 @@ class Game_Character
     @forced_bush_depth = nil
     @shadow_offset =0
     @animation_speed = nil #override if the animation  speed needs to be different from move speed
+    @move_speed_override = nil
+    @can_hop_cliff = false
   end
 
   def at_coordinate?(check_x, check_y)
@@ -242,7 +248,7 @@ class Game_Character
       this_map = (self.map.valid?(@x, @y)) ? [self.map, @x, @y] : $MapFactory.getNewMap(@x, @y)
       if this_map[0].deepBush?(this_map[1], this_map[2]) && self.map.deepBush?(xbehind, ybehind)
         @bush_depth = Game_Map::TILE_HEIGHT
-      elsif !moving? && this_map[0].bush?(this_map[1], this_map[2])
+      elsif this_map[0].bush?(this_map[1], this_map[2])
         @bush_depth = 12
       else
         @bush_depth = 0
@@ -690,6 +696,10 @@ class Game_Character
       @x += (dir == 4) ? -1 : (dir == 6) ? 1 : 0
       @y += (dir == 8) ? -1 : (dir == 2) ? 1 : 0
       increase_steps
+    elsif @can_hop_cliff && (pbFacingTerrainTag.is_cliff || terrain_tag.is_cliff)
+      @through = true
+      jump_forward(1)
+      @through = false
     else
       check_event_trigger_touch(dir)
     end
@@ -1286,9 +1296,21 @@ class Game_Character
     @stopped_this_frame = false
   end
 
+  def play_step_animation(nb_times)
+    return if @lock_pattern
+    return if @step_anime_once
+    @step_anime_once = true
+    @step_animation_nb_times = nb_times
+    @step_animation_current_time = 0
+    @step_anime_once_frame_count = 0
+    @old_step_anime = @step_anime
+    @step_anime = true
+    @pattern = 0
+    @anime_count = 0
+  end
+
   def update_pattern
     return if @lock_pattern
-    #    return if @jump_count > 0   # Don't animate if jumping on the spot
     # Character has stopped moving, return to original pattern
     if @moved_last_frame && !@moved_this_frame && !@step_anime
       @pattern = @original_pattern
@@ -1301,21 +1323,33 @@ class Game_Character
       @anime_count = 0
       return
     end
-    # Calculate how many frames each pattern should display for, i.e. the time
-    # it takes to move half a tile (or a whole tile if cycling). We assume the
-    # game uses square tiles.
+    # Calculate how many frames each pattern should display for
     real_speed = (jumping?) ? jump_speed_real : move_speed_real
     if @animation_speed
       base = Game_Map::REAL_RES_X / 2.0
       frames_per_pattern = base / @animation_speed
     else
       frames_per_pattern = Game_Map::REAL_RES_X / (real_speed * 2.0)
-      frames_per_pattern *= 2 if move_speed >= 5 # Cycling speed or faster
+      frames_per_pattern *= 2 if move_speed >= 5
     end
     return if @anime_count < frames_per_pattern
     # Advance to the next animation frame
     @pattern = (@pattern + 1) % 4
     @anime_count -= frames_per_pattern
+    advance_step_animation_once if @step_anime_once
+  end
+
+  def advance_step_animation_once
+    @step_anime_once_frame_count += 1
+
+    total_frames = @step_animation_nb_times * 4
+    if @step_anime_once_frame_count % 4 == 0
+      @pattern = 0  #loop
+    end
+    return if @step_anime_once_frame_count < total_frames
+    @pattern = 0
+    @step_anime = @old_step_anime
+    @step_anime_once = false
   end
 
   # def distance_from_player
@@ -1327,6 +1361,13 @@ class Game_Character
     return Float::INFINITY if self.map_id != $game_map.map_id
     dx = (@x - $game_player.x).abs
     dy = (@y - $game_player.y).abs
+    return (dx + dy) - 1
+  end
+
+  def distance_from_target(target)
+    return Float::INFINITY if self.map_id != $game_map.map_id
+    dx = (@x - target.x).abs
+    dy = (@y - target.y).abs
     return (dx + dy) - 1
   end
 

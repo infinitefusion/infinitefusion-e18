@@ -272,8 +272,11 @@ class PokemonDataBox < SpriteWrapper
     end
 
     # Draw type icons (foe Pokémon only)
-    if @battler.opposes?(0) && $PokemonSystem.type_icons
+    if @battler.opposes?(0) && $PokemonSystem.type_icons_opponent
       drawEnemyTypeIcons(imagePos)
+    end
+    if @battler.pbOwnedByPlayer? && $PokemonSystem.type_icons_player
+      drawPlayerTypeIcons(imagePos)
     end
 
     pbDrawImagePositions(self.bitmap, imagePos)
@@ -281,35 +284,37 @@ class PokemonDataBox < SpriteWrapper
     refreshExp
   end
 
-  def drawEnemyTypeIcons(imagePos)
+  def drawTypeIcons(imagePos, x_position, first_icon_y_position, wrap_direction)
     return if @battler.is_a?(PokeBattle_FakeBattler)
-    type1_number = GameData::Type.get(@battler.type1).id_number
-    type2_number = GameData::Type.get(@battler.type2).id_number
+
     vertical_margin = 2
     iconHeight = 19
-
-    type_icons_x_position = @spriteBaseX + 210
-    type1_icon_y_position = 16
-    type2_icon_y_position = type1_icon_y_position + vertical_margin + iconHeight
-
-    type1_y_offset = type1_number * iconHeight
-    type2_y_offset = type2_number * iconHeight
+    types_icon_path = "Graphics/Pictures/Battle/typesSmall"
+    y_position = first_icon_y_position
     x_offset = 0
 
-    types_icon_path = "Graphics/Pictures/Battle/typesSmall"
-    if type1_number == type2_number
-      imagePos.push([types_icon_path, type_icons_x_position, type1_icon_y_position,
-                     x_offset, type1_y_offset, -1, iconHeight])
-    else
-      imagePos.push([types_icon_path, type_icons_x_position,
-                     type1_icon_y_position,
-                     x_offset,
-                     type1_y_offset, -1, iconHeight]
-      )
-      imagePos.push([types_icon_path, type_icons_x_position, type2_icon_y_position,
-                     x_offset,
-                     type2_y_offset, -1, iconHeight])
-    end
+    illusion = @battler.effects[PBEffects::Illusion]
+    types = illusion ? [ illusion.type1, illusion.type2 ] : @battler.pbTypes(true)
+    types.uniq.each { |type|
+      type_number = GameData::Type.get(type).id_number
+      type_y_offset = type_number * iconHeight
+      imagePos.push([types_icon_path, x_position, y_position,
+                     x_offset, type_y_offset, -1, iconHeight])
+
+      y_position += vertical_margin + iconHeight
+      if y_position + iconHeight > self.bitmap.height
+        y_position = first_icon_y_position
+        x_position += (vertical_margin + iconHeight) * wrap_direction
+      end
+    }
+  end
+
+  def drawEnemyTypeIcons(imagePos)
+    drawTypeIcons(imagePos, @spriteBaseX + 210, 16, 1)
+  end
+
+  def drawPlayerTypeIcons(imagePos)
+    drawTypeIcons(imagePos, @spriteBaseX -20, 16, -1)
   end
 
   def refreshHP

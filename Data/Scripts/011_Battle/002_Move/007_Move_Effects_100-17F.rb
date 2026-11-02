@@ -1352,6 +1352,11 @@ class PokeBattle_Move_142 < PokeBattle_Move
 
   def pbEffectAgainstTarget(user, target)
     target.effects[PBEffects::Type3] = :GHOST
+    if target.pbOwnedByPlayer?
+      @battle.scene.pbRefreshOne(target.index) if $PokemonSystem.type_icons_player
+    else
+      @battle.scene.pbRefreshOne(target.index) if $PokemonSystem.type_icons_opponent
+    end
     typeName = GameData::Type.get(:GHOST).name
     @battle.pbDisplay(_INTL("{1} transformed into the {2} type!", target.pbThis, typeName))
   end
@@ -1371,6 +1376,11 @@ class PokeBattle_Move_143 < PokeBattle_Move
 
   def pbEffectAgainstTarget(user, target)
     target.effects[PBEffects::Type3] = :GRASS
+    if target.pbOwnedByPlayer?
+      @battle.scene.pbRefreshOne(target.index) if $PokemonSystem.type_icons_player
+    else
+      @battle.scene.pbRefreshOne(target.index) if $PokemonSystem.type_icons_opponent
+    end
     typeName = GameData::Type.get(:GRASS).name
     @battle.pbDisplay(_INTL("{1} transformed into the {2} type!", target.pbThis, typeName))
   end
@@ -2017,6 +2027,11 @@ class PokeBattle_Move_162 < PokeBattle_Move
   def pbEffectAfterAllHits(user, target)
     if !user.effects[PBEffects::BurnUp]
       user.effects[PBEffects::BurnUp] = true
+      if user.pbOwnedByPlayer?
+        @battle.scene.pbRefreshOne(user.index) if $PokemonSystem.type_icons_player
+      else
+        @battle.scene.pbRefreshOne(user.index) if $PokemonSystem.type_icons_opponent
+      end
       @battle.pbDisplay(_INTL("{1} burned itself out!", user.pbThis))
     end
   end

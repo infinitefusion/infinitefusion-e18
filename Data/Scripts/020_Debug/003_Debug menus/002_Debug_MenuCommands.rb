@@ -941,19 +941,19 @@ DebugMenuCommands.register("terraintags", {
 })
 
 
-# DebugMenuCommands.register("positionsprites", {
-#   "parent"      => "editorsmenu",
-#   "name"        => _INTL("Edit Pokémon Sprite Positions"),
-#   "description" => _INTL("Reposition Pokémon sprites in battle."),
-#   "always_show" => true,
-#   "effect"      => proc {
-#     pbFadeOutIn {
-#       sp = SpritePositioner.new
-#       sps = SpritePositionerScreen.new(sp)
-#       sps.pbStart
-#     }
-#   }
-# })
+DebugMenuCommands.register("positionsprites", {
+  "parent"      => "editorsmenu",
+  "name"        => _INTL("Edit Pokémon Sprite Positions"),
+  "description" => _INTL("Reposition Pokémon sprites in battle."),
+  "always_show" => true,
+  "effect"      => proc {
+    pbFadeOutIn {
+      sp = SpritePositioner.new
+      sps = SpritePositionerScreen.new(sp)
+      sps.pbStart
+    }
+  }
+})
 #
 # DebugMenuCommands.register("autopositionsprites", {
 #   "parent"      => "editorsmenu",

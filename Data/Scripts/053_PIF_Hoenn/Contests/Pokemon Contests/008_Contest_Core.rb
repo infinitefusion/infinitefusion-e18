@@ -221,7 +221,7 @@ class PokemonContest
 					bonus += 80
 				elsif hat_match
 					pbCallBub(1, @crowdNPCs.sample.id)
-					pbMessage(_INTL("It matches its Trainer's!"))
+					pbMessage(_INTL("It matches its Trainer's hat!"))
 					bonus += 40
 				elsif clothes_match
 					pbCallBub(1, @crowdNPCs.sample.id)
@@ -253,7 +253,7 @@ class PokemonContest
 		if val >= req[0]
 			events = @crowdNPCs.sample(s)
 			events.each { |event|
-				$scene.spriteset(map).addUserAnimation(ContestSettings::HEART_ANIMATION_ID, event.x, event.y, false, 2)
+				$scene.spriteset.addUserAnimation(ContestSettings::HEART_ANIMATION_ID, event.x, event.y, false, 2)
 				pbWait(rand(6)+4)
 			}
 			hearts = 8

@@ -30,7 +30,6 @@ def initializeLegendaryMode()
   $game_switches[SWITCH_RANDOMIZED_AT_LEAST_ONCE] = true
   addLegendaryEggsToPC
   $PokemonSystem.hide_custom_eggs = true
-  $PokemonSystem.type_icons = true
 end
 
 def convert_species_to_legendary(dex_number)

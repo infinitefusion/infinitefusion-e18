@@ -74,9 +74,7 @@ def moveFancy(follower,direction)
   newY = follower.y + deltaY
   # Move if new position is the player's, or the new position is passable,
   # or the current position is not passable
-  if ($game_player.x==newX && $game_player.y==newY) ||
-     pbTestPass(follower,newX,newY,0) ||
-     !pbTestPass(follower,follower.x,follower.y,0)
+  if can_move_to_new_position(newX,newY,follower)
     oldThrough=follower.through
     follower.through=true
     case direction
@@ -87,6 +85,13 @@ def moveFancy(follower,direction)
     end
     follower.through=oldThrough
   end
+end
+
+def can_move_to_new_position(newX,newY, follower)
+  return true if ($game_player.x==newX && $game_player.y==newY)
+  return true if pbTestPass(follower,newX,newY,0)
+  return true unless !pbTestPass(follower,follower.x,follower.y,0)
+  return false
 end
 
 # Same map only

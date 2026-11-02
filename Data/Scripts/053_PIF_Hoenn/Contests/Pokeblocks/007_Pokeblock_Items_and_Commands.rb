@@ -89,7 +89,7 @@ def pbFeedPokeblock(pokeblock,oldScene=nil)
 	return ret
 end
 
-def pbPokeblockCase
+def pbPokeblockCase(feeding_pokemon=true)
 	if !$Trainer.hasPokeblocks?
 		pbMessage(_INTL("You don't have any Pokéblocks!"))
 		return false
@@ -97,7 +97,7 @@ def pbPokeblockCase
 	pbFadeOutIn {
 		scene = PokeblockCase_Scene.new
 		screen = PokeblockCase_Screen.new(scene)
-		ret = screen.pbStartScreen
+		ret = screen.pbStartScreen(feeding_pokemon)
 	}
 end
 

@@ -286,6 +286,94 @@ class LightEffect_DayNight < LightEffect
   end
 end
 
+class LightEffect_PokemonGlow < LightEffect_DayNight
+
+  def initialize(event, viewport = nil, map = nil)
+    return unless event.is_a?(OverworldPokemonEvent)
+    @event = event
+    @map   = map || $game_map
+    @disposed = false
+    glow_sprite_path = "Graphics/Characters/#{event.character_name}_glow"
+    if pbResolveBitmap(glow_sprite_path)
+      @glow_bitmap = AnimatedBitmap.new(glow_sprite_path).bitmap
+    else
+      @glow_bitmap = AnimatedBitmap.new("Graphics/Pictures/LE_pokemon").bitmap
+    end
+
+    # 4 rows = directions (down, left, right, up), columns = walk frames.
+    # Frame is assumed square, same as the character's own charset.
+    @frame_height = @glow_bitmap.height / 4
+    @frame_width  = @frame_height
+    @num_frames   = [@glow_bitmap.width / @frame_width, 1].max
+
+    @light = Sprite.new(viewport)
+    @light.bitmap = Bitmap.new(@frame_width, @frame_height)
+    @light.z = 1000
+
+    @last_direction = nil
+    @last_pattern   = nil
+    update_frame
+  end
+
+  def dispose
+    @glow_bitmap&.dispose
+    super
+  end
+
+  def update
+    return if !@light || !@event || @disposed
+    update_frame
+    @light.update
+    if $PokemonGlobal&.diving
+      shade = 0
+    else
+      shade = PBDayNight.getShade
+    end
+    if shade >= 144
+      shade = 255
+    elsif shade <= 64
+      shade = 0
+    else
+      shade = 255 - (255 * (144 - shade) / (144 - 64))
+    end
+    @light.opacity = 255 - shade
+    return if @light.opacity <= 0
+    @light.ox = @frame_width / 2
+    @light.oy = @frame_height
+    if (Object.const_defined?(:ScreenPosHelper) rescue false)
+      @light.x      = ScreenPosHelper.pbScreenX(@event)
+      @light.y      = ScreenPosHelper.pbScreenY(@event)
+      @light.zoom_x = ScreenPosHelper.pbScreenZoomX(@event)
+      @light.zoom_y = ScreenPosHelper.pbScreenZoomY(@event)
+    else
+      @light.x      = @event.screen_x
+      @light.y      = @event.screen_y
+      @light.zoom_x = 1.0
+      @light.zoom_y = 1.0
+    end
+    @light.tone.set($game_screen.tone.red, $game_screen.tone.green,
+                    $game_screen.tone.blue, $game_screen.tone.gray)
+  end
+
+  private
+
+  def update_frame
+    return unless @glow_bitmap
+    direction = @event.direction
+    pattern   = (@event.pattern rescue 0)
+    return if direction == @last_direction && pattern == @last_pattern
+
+    row = [2, 4, 6, 8].index(direction) || 0
+    col = pattern.clamp(0, @num_frames - 1)
+
+    src_rect = Rect.new(col * @frame_width, row * @frame_height, @frame_width, @frame_height)
+    @light.bitmap.clear
+    @light.bitmap.blt(0, 0, @glow_bitmap, src_rect)
+
+    @last_direction = direction
+    @last_pattern   = pattern
+  end
+end
 
 
 Events.onSpritesetCreate += proc { |_sender,e|
@@ -293,16 +381,23 @@ Events.onSpritesetCreate += proc { |_sender,e|
   viewport  = e[1]      # Viewport used for tilemap and characters
   map = spriteset.map   # Map associated with the spriteset (not necessarily the current map)
   for i in map.events.keys
-    if map.events[i].name[/^outdoorlight\((\w+)\)$/i]
+    event = map.events[i]
+    if event.is_a?(OverworldPokemonEvent)
+      if event.glow_in_the_dark
+        spriteset.addUserSprite(LightEffect_PokemonGlow.new(event,viewport,map))
+      end
+    end
+
+    if event.name[/^outdoorlight\((\w+)\)$/i]
       filename = $~[1].to_s
-      spriteset.addUserSprite(LightEffect_DayNight.new(map.events[i],viewport,map,filename))
-    elsif map.events[i].name[/^outdoorlight$/i]
-      spriteset.addUserSprite(LightEffect_DayNight.new(map.events[i],viewport,map))
-    elsif map.events[i].name[/^light\((\w+)\)$/i]
+      spriteset.addUserSprite(LightEffect_DayNight.new(event,viewport,map,filename))
+    elsif event.name[/^outdoorlight$/i]
+      spriteset.addUserSprite(LightEffect_DayNight.new(event,viewport,map))
+    elsif event.name[/^light\((\w+)\)$/i]
       filename = $~[1].to_s
-      spriteset.addUserSprite(LightEffect_Basic.new(map.events[i],viewport,map,filename))
-    elsif map.events[i].name[/^light$/i]
-      spriteset.addUserSprite(LightEffect_Basic.new(map.events[i],viewport,map))
+      spriteset.addUserSprite(LightEffect_Basic.new(event,viewport,map,filename))
+    elsif event.name[/^light$/i]
+      spriteset.addUserSprite(LightEffect_Basic.new(event,viewport,map))
     end
   end
   spriteset.addUserSprite(Particle_Engine.new(viewport,map))

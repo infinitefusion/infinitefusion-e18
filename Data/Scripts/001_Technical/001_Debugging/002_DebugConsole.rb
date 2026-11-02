@@ -39,7 +39,7 @@ end
 module Kernel
   def echo(string)
     return unless $DEBUG
-    printf(string.is_a?(String) ? string : string.inspect)
+    printf("%s", string.is_a?(String) ? string : string.inspect)
   end
 
   def echoln(string)

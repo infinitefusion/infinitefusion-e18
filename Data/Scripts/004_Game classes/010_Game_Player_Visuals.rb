@@ -74,6 +74,8 @@ class Game_Player < Game_Character
     if $game_player.pbTerrainTag.ice
       reset_bike_speed
       self.move_speed = 4
+    elsif $game_player.move_speed_override
+      self.move_speed = $game_player.move_speed_override
     elsif !@move_route_forcing && $PokemonGlobal
       if $PokemonGlobal.bicycle
         self.move_speed = current_bicycle_speed

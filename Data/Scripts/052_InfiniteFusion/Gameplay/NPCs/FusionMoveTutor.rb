@@ -33,7 +33,7 @@ end
 
 def showRandomRareMoveConditionExample(legendary = false)
   example = legendary ? getlegendaryConditionExample : getRegularConditionExample
-  text = "For example, " + example
+  text = _INTL("For example, ") + example
   pbMessage(text)
 end
 

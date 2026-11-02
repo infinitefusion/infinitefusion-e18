@@ -297,6 +297,7 @@ class PokeBattle_Battler
       @spatk        = @pokemon.spatk
       @spdef        = @pokemon.spdef
       @speed        = @pokemon.speed
+      @attack, @defense = @defense, @attack if @effects[PBEffects::PowerTrick]
       if fullChange
         @type1      = @pokemon.type1
         @type2      = @pokemon.type2

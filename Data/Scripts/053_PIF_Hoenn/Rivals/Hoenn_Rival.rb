@@ -6,6 +6,11 @@ HOENN_MOM_BRENDAN_CHARNAME = "NPC_Hoenn_BrendanMom"
 HOENN_MOM_MAY_CHARNAME = "NPC_Hoenn_MayMom"
 HOENN_MAX_CHARNAME = "NPC_Hoenn_Max"
 
+SWITCH_RIVAL_ON_MT_CHIMNEY = 2213
+
+COMMON_EVENT_RIVAL_FOLLOWING_DIALOGUE = 204
+
+
 class Player < Trainer
   attr_accessor :rival_appearance
 
@@ -47,14 +52,20 @@ def get_hoenn_character_name(name)
   return pbGetMessageFromHash(MessageTypes::TrainerNames, name)
 end
 
-def get_rival_name
+def get_default_rival_name
   rival_name = get_hoenn_character_name("Brendan") if isPlayerFemale
   rival_name = get_hoenn_character_name("May") if isPlayerMale
   return rival_name
 end
 
+def get_system_rival_name
+  rival_name = "Brendan" if isPlayerFemale
+  rival_name = "May" if isPlayerMale
+  return rival_name
+end
+
 def init_rival_name
-  rival_name = get_rival_name
+  rival_name = get_default_rival_name
   @name = rival_name
   return rival_name
 end
@@ -77,14 +88,13 @@ class Sprite_Character
   def checkModifySpriteGraphics(character)
     PIF_typeExpert_checkModifySpriteGraphics(character)
     return if character == $game_player
-    unless character.visible?
+    if !character.visible? && !character.is_rival_following
       @bitmap_override = nil
       updateBitmap
       return
     end
-    setSpriteToAppearance($Trainer.rival_appearance) if isPlayerFemale && character.name.start_with?(HOENN_RIVAL_EVENT_NAME) && character.character_name == TEMPLATE_CHARACTER_FILE
-    setSpriteToAppearance($Trainer.rival_appearance) if isPlayerMale && character.name.start_with?(HOENN_RIVAL_EVENT_NAME) && character.character_name == TEMPLATE_CHARACTER_FILE
-
+    setSpriteToAppearance($Trainer.rival_appearance) if isPlayerFemale && is_rival_character(character)
+    setSpriteToAppearance($Trainer.rival_appearance) if isPlayerMale && is_rival_character(character)
     if character.character_name == HOENN_MOM_BRENDAN_CHARNAME
       skinColor = $Trainer.skin_tone if isPlayerMale
       skinColor = $Trainer.rival_appearance.skin_color if isPlayerFemale
@@ -104,6 +114,11 @@ class Sprite_Character
       setSpriteToStaticAppearance(sprite_path)
     end
   end
+end
+
+def is_rival_character(character)
+  return true if character&.is_rival_following
+  return character.name.start_with?(HOENN_RIVAL_EVENT_NAME) && character.character_name == TEMPLATE_CHARACTER_FILE
 end
 
 def get_hoenn_rival_starter
@@ -308,8 +323,9 @@ def initializeRivalBattledTrainer
   trainer_type = :RIVAL1
   trainer_name = pbGet(VAR_RIVAL_NAME)
   trainer_appearance = $Trainer.rival_appearance
-  rivalBattledTrainer = BattledTrainer.new(trainer_type, trainer_name, 0, BATTLED_TRAINER_RIVAL_KEY)
+  rivalBattledTrainer = BattledTrainer.new(trainer_type, get_system_rival_name, 0, BATTLED_TRAINER_RIVAL_KEY)
   rivalBattledTrainer.set_custom_appearance(trainer_appearance)
+  rivalBattledTrainer.trainerName = trainer_name
   rivalBattledTrainer.friendship_level = 1
   team = []
   team << Pokemon.new(get_hoenn_rival_starter, 5, trainer_name)
@@ -349,4 +365,39 @@ def hoennRivalBattle(loseDialog = "...", canLose = false, items = [])
     rival_trainer = $PokemonGlobal.battledTrainers[BATTLED_TRAINER_RIVAL_KEY]
   end
   return customTrainerBattle(rival_trainer.trainerName, rival_trainer.trainerType, rival_trainer.currentTeam, rival_trainer, loseDialog, nil, $Trainer.rival_appearance, items, canLose)
+end
+
+
+def rival_follow(eventId)
+  trainer = $PokemonGlobal.battledTrainers[BATTLED_TRAINER_RIVAL_KEY]
+  partnerWithTrainer(eventId, $game_map.map_id, trainer, BATTLED_TRAINER_RIVAL_KEY, COMMON_EVENT_RIVAL_FOLLOWING_DIALOGUE)
+
+  partner_event = pbGetDependency(BATTLED_TRAINER_RIVAL_KEY)
+  return unless partner_event
+  partner_event.is_rival_following = true
+  partner_event.name = HOENN_RIVAL_EVENT_NAME
+end
+
+def rival_unfollow()
+  unpartnerWithTrainer()
+end
+
+def playRivalBgm()
+  if isPlayerFemale()
+    pbBGMPlay("rival_brendan",100)
+  else
+    pbBGMPlay("rival_may",100)
+  end
+end
+
+class DependentEvents
+  alias hoennRival_createEvent createEvent
+  def createEvent(eventData)
+    newEvent = hoennRival_createEvent(eventData)
+    if eventData[8] == BATTLED_TRAINER_RIVAL_KEY
+      newEvent.name = HOENN_RIVAL_EVENT_NAME
+      newEvent.is_rival_following = true
+    end
+    return newEvent
+  end
 end

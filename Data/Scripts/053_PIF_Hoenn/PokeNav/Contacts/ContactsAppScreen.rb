@@ -35,6 +35,10 @@ class ContactsAppScreen
         contacts_list_by_location[_INTL("Favorites")] << trainer
       else
         location = trainer.location
+        if trainer.location_map_id
+          translated_location = pbGetMessage(MessageTypes::MapNames, trainer.location_map_id)
+          location = translated_location if translated_location && translated_location != ""
+        end
         contacts_list_by_location[location] ||= []
         contacts_list_by_location[location] << trainer
       end

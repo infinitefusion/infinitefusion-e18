@@ -50,7 +50,7 @@ class HairMartAdapter < OutfitsMartAdapter
   def toggleText()
     text = ""
     #text << "Color: R, \n"
-    text << "Toggle Hat: D\n"
+    text << _INTL("Toggle Hat: D\n")
 
   end
 
@@ -161,7 +161,7 @@ class HairMartAdapter < OutfitsMartAdapter
   def getSpecialItemCaption(specialType)
     case specialType
     when :SWAP_COLOR
-      return "Swap Color"
+      return _INTL("Swap Color")
     end
     return nil
   end
@@ -183,7 +183,7 @@ class HairMartAdapter < OutfitsMartAdapter
   end
 
   def getSpecialItemDescription(specialType)
-    return "Swap to the next base hair color."
+    return _INTL("Swap to the next base hair color.")
   end
 
   def doSpecialItemAction(specialType)

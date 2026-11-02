@@ -218,6 +218,16 @@ class PokeBattle_Battle
       end
   end
 
+  def list_all_player_participants
+    participating = []
+    pbParty(0).each_with_index do |pkmn, i|
+      next if !pkmn
+      if @usedInBattle[0][i] == true
+        participating.push(pkmn) unless pkmn.fainted?
+      end
+    end
+    return participating
+  end
 
 
   def singleBattle?

@@ -140,10 +140,37 @@ def legendaryOk(oldspecies,newspecies,includeLegendaries)
 
 end
 
+def egg_group_ok(oldSpecies_id,newSpecies_id)
+  oldSpecies = GameData::Species.get(oldSpecies_id)
+  newSpecies = GameData::Species.get(newSpecies_id)
+  oldEggGroups = Array(oldSpecies.egg_groups)
+  newEggGroups = Array(newSpecies.egg_groups)
+  return oldEggGroups.any? { |g| newEggGroups.include?(g) }
+end
+
 def bstNotOk(newspecies, oldPokemonSpecies, bst_range = 50)
   newBST = calcBaseStatsSum(newspecies)
   originalBST = calcBaseStatsSum(oldPokemonSpecies)
   return newBST < originalBST - bst_range || newBST > originalBST + bst_range
+end
+
+def legendaryOk_cached(oldspecies, newspecies, includeLegendaries, legendary_cache)
+  old_legendary = legendary_cache[oldspecies]
+  return legendary_cache[newspecies] if old_legendary
+  return true if includeLegendaries
+  return !legendary_cache[newspecies]
+end
+
+def egg_group_ok_cached(oldSpecies_id, newSpecies_id, egg_group_cache)
+  old_groups = egg_group_cache[oldSpecies_id]
+  new_groups = egg_group_cache[newSpecies_id]
+  old_groups.any? { |g| new_groups.include?(g) }
+end
+
+def bstNotOk_cached(newspecies, oldPokemonSpecies, bst_range, bst_cache)
+  newBST = bst_cache[newspecies]
+  originalBST = bst_cache[oldPokemonSpecies]
+  newBST < originalBST - bst_range || newBST > originalBST + bst_range
 end
 
 def gymLeaderOk(newspecies)
@@ -281,56 +308,99 @@ def Kernel.pbRandomizeTM()
   end
 end
 
-def getNewSpecies(oldSpecies, bst_range = 50, ignoreRivalPlaceholder = false, maxDexNumber = PBSpecies.maxValue, includeLegendaries=true)
-
+def getNewSpecies(oldSpecies, bst_range = 50, ignoreRivalPlaceholder = false, maxDexNumber = PBSpecies.maxValue, includeLegendaries=true, same_egg_group=false)
   oldSpecies_dex = dexNum(oldSpecies)
   return oldSpecies_dex if (oldSpecies_dex == Settings::RIVAL_STARTER_PLACEHOLDER_SPECIES && !ignoreRivalPlaceholder)
   return oldSpecies_dex if oldSpecies_dex >= Settings::ZAPMOLCUNO_NB
 
   if $game_switches[SWITCH_LEGENDARY_MODE]
-    new_species= convert_species_to_legendary(oldSpecies)
-    newspecies_dex = dexNum(new_species)
-    return newspecies_dex
+    new_species = convert_species_to_legendary(oldSpecies)
+    return dexNum(new_species)
   end
 
   newspecies_dex = rand(maxDexNumber - 1) + 1
   i = 0
-  while bstNotOk(newspecies_dex, oldSpecies_dex, bst_range) || !(legendaryOk(oldSpecies_dex,newspecies_dex,includeLegendaries))
-    newspecies_dex = rand(maxDexNumber - 1) + 1
-    i += 1
-    if i % 10 == 0
-      bst_range += 5
+  validated = false
+  until validated
+    is_valid = true
+    is_valid = false if bstNotOk(newspecies_dex, oldSpecies_dex, bst_range)
+    is_valid = false unless legendaryOk(oldSpecies_dex, newspecies_dex, includeLegendaries)
+    is_valid = false if same_egg_group && !egg_group_ok(oldSpecies_dex, newspecies_dex)
+
+    validated = is_valid
+    unless validated
+      newspecies_dex = rand(maxDexNumber - 1) + 1
+      i += 1
+      bst_range += 5 if i % 10 == 0
     end
+    break if i > 200
   end
+
   return newspecies_dex
 end
 
-def getNewCustomSpecies(oldSpecies, customSpeciesList, bst_range = 50, ignoreRivalPlaceholder = false,includeLegendaries=true)
+
+#Don't use cache past this point
+CUSTOM_LIST_THRESHOLD = 5000
+
+
+def new_bst_cache
+  Hash.new { |h, sp| h[sp] = calcBaseStatsSum(sp) }
+end
+
+def new_egg_group_cache
+  Hash.new { |h, sp| h[sp] = Array(GameData::Species.get(sp).egg_groups) }
+end
+
+def new_legendary_cache
+  Hash.new { |h, sp| h[sp] = is_legendary_num(sp) }
+end
+
+def getNewCustomSpecies(oldSpecies, customSpeciesList, bst_range, ignoreRivalPlaceholder, includeLegendaries, same_egg_group,
+                        bst_cache = nil, egg_group_cache = nil, legendary_cache = nil, fallback_cache = nil)
   if $game_switches[SWITCH_LEGENDARY_MODE]
-    new_species= convert_species_to_legendary(oldSpecies)
-
-    echoln "CHOSEN  #{get_readable_fusion_name(oldSpecies)} -> #{get_readable_fusion_name(new_species)}"
-
-    newspecies_dex = dexNum(new_species)
-    return newspecies_dex
+    return dexNum(convert_species_to_legendary(oldSpecies))
   end
 
   oldSpecies_dex = dexNum(oldSpecies)
   return oldSpecies_dex if (oldSpecies_dex == Settings::RIVAL_STARTER_PLACEHOLDER_SPECIES && !ignoreRivalPlaceholder)
   return oldSpecies_dex if oldSpecies_dex >= Settings::ZAPMOLCUNO_NB
-  i = rand(customSpeciesList.length - 1) + 1
-  n = 0
-  newspecies_dex = customSpeciesList[i]
 
-  while bstNotOk(newspecies_dex, oldSpecies_dex, bst_range) || !(legendaryOk(oldSpecies_dex,newspecies_dex,includeLegendaries))
-    i = rand(customSpeciesList.length - 1) #+1
-    newspecies_dex = customSpeciesList[i]
-    n += 1
-    if n % 10 == 0
-      bst_range += 5
-    end
+  #when cache not passed as argument: initialize
+  bst_cache       ||= new_bst_cache
+  egg_group_cache ||= new_egg_group_cache
+  legendary_cache ||= new_legendary_cache
+  fallback_cache  ||= {}
+
+  ok = lambda do |sp, range|
+    !bstNotOk_cached(sp, oldSpecies_dex, range, bst_cache) &&
+      legendaryOk_cached(oldSpecies_dex, sp, includeLegendaries, legendary_cache) &&
+      (!same_egg_group || egg_group_ok_cached(oldSpecies_dex, sp, egg_group_cache))
   end
-  return newspecies_dex
+
+  # Fast path: random picks (works great when the list is big)
+  range = bst_range
+  100.times do |n|
+    sp = customSpeciesList.sample
+    return sp if ok.call(sp, range)
+    range += 5 if (n + 1) % 10 == 0
+  end
+
+  # Slow path (rare with big lists, cheap with small ones): full filter, cached per old species
+  key = [oldSpecies_dex, bst_range, includeLegendaries, same_egg_group]
+  candidates = fallback_cache[key]
+  if candidates.nil?
+    range = bst_range
+    candidates = []
+    10.times do
+      candidates = customSpeciesList.select { |sp| ok.call(sp, range) }
+      break unless candidates.empty?
+      range += 5
+    end
+    candidates = customSpeciesList if candidates.empty?
+    fallback_cache[key] = candidates
+  end
+  candidates.sample
 end
 
 def playShuffleSE(i)
@@ -351,35 +421,55 @@ end
 
 def Kernel.pbShuffleTrainers(bst_range = 50, customsOnly = false, customsList = nil)
   bst_range = pbGet(VAR_RANDOMIZER_TRAINER_BST)
-
-  if customsOnly && customsList == nil
-    customsOnly = false
-  end
+  customsOnly = false if customsOnly && customsList == nil
   randomTrainersHash = Hash.new
 
+  # Create the bar BEFORE any heavy work so the screen updates immediately
+  progress_bar = ShuffleProgressBar.new(_INTL("Shuffling Trainers..."))
+  update_progress_bar(progress_bar, 0, 1)
 
-  trainers_data = getTrainersDataMode.list_all
-  trainers_data.each do |key, value|
-    trainer = trainers_data[key]
-    #echoln "------"
-    #echoln "Processing [#{trainer.id}#] {trainer.trainer_type} ##{trainer.real_name}"
+  begin
+    trainers_data = getTrainersDataMode.list_all
+
+    bst_cache       = new_bst_cache
+    egg_group_cache = new_egg_group_cache
+    legendary_cache = new_legendary_cache
+    fallback_cache  = {}
+
+    total = trainers_data.size
     i = 0
-    new_party = []
-    for poke in trainer.pokemon
-      old_poke = GameData::Species.get(poke[:species]).id_number
-      new_poke = customsOnly ? getNewCustomSpecies(old_poke, customsList, bst_range) : getNewSpecies(old_poke, bst_range)
-      new_party << new_poke
+    trainers_data.each do |key, value|
+      trainer = trainers_data[key]
+      new_party = []
+      same_egg_group = $game_switches[SWITCH_RANDOM_TRAINERS]
+      for poke in trainer.pokemon
+        old_poke = GameData::Species.get(poke[:species]).id_number
+        new_poke = customsOnly ?
+                     getNewCustomSpecies(old_poke, customsList, bst_range, false, true, same_egg_group, bst_cache, egg_group_cache, legendary_cache, fallback_cache) :
+                     getNewSpecies(old_poke, bst_range, false, PBSpecies.maxValue, true, same_egg_group)
+        new_party << new_poke
+      end
+      randomTrainersHash[trainer.id] = new_party
+      i += 1
+      if i % 20 == 0 || i == total
+        playShuffleSE(i)
+        update_progress_bar(progress_bar, i, total)
+      end
     end
-    randomTrainersHash[trainer.id] = new_party
-    playShuffleSE(i)
-    i += 1
-    if i % 2 == 0
-      n = (i.to_f / trainers.length) * 100
-      Kernel.pbMessageNoSound(_INTL("\\ts[]Shuffling trainers...\\n {1}%\\^", sprintf('%.2f', n), PBSpecies.maxValue))
-    end
+  ensure
+    progress_bar.dispose
   end
+
   $PokemonGlobal.randomTrainersHash = randomTrainersHash
+  $PokemonTemp.should_reshuffle_trainers = false
 end
+
+def update_progress_bar(progress_bar, nb_processed, nb_to_process)
+  return if !progress_bar || progress_bar.disposed?
+  progress_bar.progress = nb_processed.to_f / nb_to_process
+  progress_bar.update
+end
+
 
 # def Kernel.pbShuffleTrainers(bst_range = 50)
 #   randomTrainersHash = Hash.new
@@ -407,16 +497,24 @@ def Kernel.pbShuffleTrainersCustom(bst_range = 50)
   bst_range = pbGet(VAR_RANDOMIZER_TRAINER_BST)
 
   Kernel.pbMessage(_INTL("Parsing custom sprites folder...\\wtnp[20]"))
-  customsList = getCustomSpeciesList(true, true)
+  reference_sprites = $game_switches[SWITCH_RANDOM_REFERENCE_SPRITES]
+  if reference_sprites
+    reference_sprites_list = getSelectedReferenceSprites
+    $PokemonTemp.selected_reference_sprites = reference_sprites_list
+    customsList = getSelectedReferenceSpeciesList(reference_sprites_list)
+  else
+    customsList = getCustomSpeciesList(true, true)
+  end
+
   Kernel.pbMessage(_INTL("{1} sprites found. Shuffling...\\wtnp[20]", customsList.length.to_s))
 
   if customsList.length == 0
     Kernel.pbMessage(_INTL("To use custom sprites, please place correctly named sprites in the /CustomBattlers folder. See readMe.txt for more information."))
     Kernel.pbMessage(_INTL("Trainer Pokémon will include auto-generated sprites."))
     return Kernel.pbShuffleTrainers(bst_range)
-  elsif customsList.length < 200
+  elsif customsList.length < 100 && ! $game_switches[SWITCH_RANDOM_REFERENCE_SPRITES]
     if Kernel.pbConfirmMessage(_INTL("Too few custom sprites were found. This will result in a very low Pokémon variety for trainers. Would you like to disable the Custom Sprites only option?"))
-      Kernel.pbMessage(_INTL("Trainer Pokémon will include auto-generated sprites."))
+      Kernel.pbMessage(_INTL("Trainer Pokémon may also include auto-generated sprites."))
       return Kernel.pbShuffleTrainers(bst_range) ##use regular shuffle if not enough sprites
     end
     if Kernel.pbConfirmMessage(_INTL("This will result in a very low Pokémon variety for trainers. Continue anyway?"))
@@ -426,6 +524,7 @@ def Kernel.pbShuffleTrainersCustom(bst_range = 50)
       return Kernel.pbShuffleTrainers(bst_range) ##use regular shuffle if not enough sprites
     end
   end
+
   Kernel.pbShuffleTrainers(bst_range, true, customsList)
 end
 
@@ -493,7 +592,40 @@ def getCustomSpeciesList(allowOnline = true, redownload_file = false)
   return speciesList
 end
 
+def getNonReferenceSprites(full_list, references_map = nil)
+  full_list = getCustomSpeciesList(false, false) unless full_list
+  references_map = map_sprites_by_reference() unless references_map
 
+  referenced = {}
+  references_map.each_value do |sprites|
+    sprites.each { |sprite| referenced[sprite] = true }
+  end
+
+  full_list.reject { |sprite| referenced.key?(sprite) }
+  return full_list
+end
+
+
+def getSelectedReferenceSprites
+  spritesList = []
+  path = Settings::REFERENCES_FILE_PATH
+  return spritesList if !File.exist?(path)
+
+  File.foreach(path) do |line|
+    spritename = line.chomp
+    spritesList << spritename if !spritename.empty?
+  end
+  return spritesList
+end
+def getSelectedReferenceSpeciesList(spriteslist)
+  species_id_list = []
+  for file in spriteslist
+    dexnum = getDexNumFromFilename(file)
+    species_id_list << dexnum
+  end
+
+  return species_id_list
+end
 
 def is_file_alt(file)
   filename = file.split(".")[0]

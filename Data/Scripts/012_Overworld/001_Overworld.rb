@@ -126,54 +126,63 @@ def pbCheckAllFainted
   end
 end
 
-# Gather soot from soot grass
+def playFootstepSound(sound_file)
+  volume = rand(25..40)
+  pitch = rand(90..110)
+  pbSEPlay(sound_file,volume,pitch)
+end
+
+
+#Stuff that happens when stepping on a tile depending on TerrainTags
+#
 Events.onStepTakenFieldMovement += proc { |_sender, e|
-  event = e[0] # Get the event affected by field movement
-  thistile = $MapFactory.getRealTilePos(event.map.map_id, event.x, event.y)
-  map = $MapFactory.getMap(thistile[0])
+  event = e[0]
+  next unless $scene.is_a?(Scene_Map)
+  map = $MapFactory.getMapNoAdd(event.map.map_id)
+  next unless map
+  terrainTagEffectsOnStep(event, map)
+}
+
+def terrainTagEffectsOnStep(event, map)
+  event.each_occupied_tile do |x, y|
+    terrain_tag = map.terrain_tag(x, y, true)
+    next unless terrain_tag
+    next if terrain_tag.bridge && $PokemonGlobal.bridge == 0
+    playFootstepSound(terrain_tag.step_sound) if terrain_tag.step_sound  && event == $game_player
+    if terrain_tag.shows_grass_rustle && !event.floating
+      $scene.spriteset.addUserAnimation(Settings::GRASS_ANIMATION_ID, x, y, true, 1)
+    end
+    gatherSootGrass(map, x, y, event) if terrain_tag.id == :SootGrass
+  end
+
+  # Player-only effects: waterfall descent / ice / water-current sliding.
+  return unless event == $game_player
+  currentTag = $game_player.pbTerrainTag
+  if isTerrainWaterfall(currentTag)
+    pbDescendWaterfall
+  elsif currentTag.ice && !$PokemonGlobal.sliding
+    pbSlideOnIce
+  elsif currentTag.waterCurrent && !$PokemonGlobal.sliding
+    pbSlideOnWater
+  end
+end
+
+# Erases a soot grass tile once walked over, gathering soot if the walker is
+# the player and has a Soot Sack.
+def gatherSootGrass(map, x, y, event)
   for i in [2, 1, 0]
-    tile_id = map.data[thistile[1], thistile[2], i]
-    next if tile_id == nil
+    tile_id = map.data[x, y, i]
+    next if tile_id.nil?
     next if GameData::TerrainTag.try_get(map.terrain_tags[tile_id]).id != :SootGrass
     if event == $game_player && GameData::Item.exists?(:SOOTSACK)
       $Trainer.soot += 1 if $PokemonBag.pbHasItem?(:SOOTSACK)
     end
-    #    map.data[thistile[1], thistile[2], i] = 0
-    #    $scene.createSingleSpriteset(map.map_id)
+    playAnimation(SOOT_DUST_ANIMATION, x, y)
+    map.erase_tile(x, y, i)
     break
   end
-}
+end
 
-# Show grass rustle animation, and auto-move the player over waterfalls and ice
-Events.onStepTakenFieldMovement += proc { |_sender, e|
-  event = e[0] # Get the event affected by field movement
-  if $scene.is_a?(Scene_Map)
-    event.each_occupied_tile do |x, y|
-      if $MapFactory.getTerrainTag(event.map.map_id, x, y, true).shows_grass_rustle
-        $scene.spriteset.addUserAnimation(Settings::GRASS_ANIMATION_ID, x, y, true, 1) unless event.floating
-      end
-    end
-    if event == $game_player
-      currentTag = $game_player.pbTerrainTag
-      if isTerrainWaterfall(currentTag)
-        pbDescendWaterfall
-      elsif currentTag.ice && !$PokemonGlobal.sliding
-        pbSlideOnIce
-      elsif currentTag.waterCurrent && !$PokemonGlobal.sliding
-        pbSlideOnWater
-      end
-    end
-  end
-}
-
-# Events.onStepTakenFieldMovement += proc { |_sender, e|
-#   event = e[0] # Get the event affected by field movement
-#   return unless event == $game_player
-#   currentTag = $game_player.pbTerrainTag
-#   if currentTag.stairs
-#     $PokemonSystem.runstyle=0
-#   end
-# }
 
 def isTerrainWaterfall(currentTag)
   return currentTag.waterfall_crest || currentTag.waterfall
@@ -196,7 +205,6 @@ def pbOnStepTaken(eventTriggered)
   repel_active = isRepelActive()
 
   Events.onStepTaken.trigger(nil)
-  #  Events.onStepTakenFieldMovement.trigger(nil,$game_player)
   handled = [nil]
   Events.onStepTakenTransferPossible.trigger(nil, handled)
   return if handled[0]
@@ -410,7 +418,7 @@ Events.onMapSceneChange += proc { |_sender, e|
         break if nosignpost
       end
       mapinfos = pbLoadMapInfos
-      oldmapname = mapinfos[$PokemonGlobal.mapTrail[1]].name
+      oldmapname = mapinfos[$PokemonGlobal.mapTrail[1]]&.name
       nosignpost = true if $game_map.name == oldmapname
     end
     nosignpost = true if $game_switches[SWITCH_AQUA_CAMP]  #Camp is split between 2 maps. Don't want the window when in.
@@ -723,7 +731,6 @@ def pbLedge(_xOffset, _yOffset)
 end
 
 def sitOnChair()
-
   if $game_player.pbFacingTerrainTag.chair
     if $PokemonGlobal.bicycle
       bump_into_object

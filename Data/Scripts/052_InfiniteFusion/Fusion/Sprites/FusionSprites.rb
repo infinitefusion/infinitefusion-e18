@@ -295,6 +295,9 @@ end
 #
 class PokemonTemp
   attr_accessor :forced_alt_sprites
+  attr_accessor :selected_reference_sprites
+  attr_accessor :reference_sprite_index
+
 end
 
 # todo:

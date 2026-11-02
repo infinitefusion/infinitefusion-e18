@@ -29,7 +29,9 @@ def find_random_tall_grass_coordinates_near_player(width,height,variance,max_nb_
   encounter_type = :Land1 if terrain.id == :Grass_alt1
   encounter_type = :Land2 if terrain.id == :Grass_alt2
   encounter_type = :Land3 if terrain.id == :Grass_alt3
+  encounter_type = :Land4 if terrain.id == :Grass_alt4
   encounter_type = :TallGrass if terrain.id == :TallGrass
+  encounter_type = :Puddle if terrain.id == :Puddle
 
   return [x,y],encounter_type
 end
@@ -111,3 +113,4 @@ def showLocation(map_name=nil)
     scene.spriteset.addUserSprite(LocationWindow.new(map_name))
   end
 end
+

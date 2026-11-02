@@ -81,13 +81,19 @@ class AutosaveOptionsScene < PokemonOption_Scene
                      },
                      _INTL("Autosave when healing at a Pokémon Center")
       ),
-      EnumOption.new(_INTL("When catching Pokémon"), [_INTL("On"), _INTL("Off")],
-                     proc { $game_switches[AUTOSAVE_CATCH_SWITCH] ? 0 : 1 },
-                     proc { |value|
-                       $game_switches[AUTOSAVE_CATCH_SWITCH] = value == 0
-                     },
-                     _INTL("Autosave everytime a new Pokémon is caught")
-      ),
+
+
+      #Removed because battle restarts right away after reloading and duplicates the Pokemon.
+      # if $game_switches[AUTOSAVE_CATCH_SWITCH]
+      #   Kernel.tryAutosave()
+      # end
+      # EnumOption.new(_INTL("When catching Pokémon"), [_INTL("On"), _INTL("Off")],
+      #                proc { $game_switches[AUTOSAVE_CATCH_SWITCH] ? 0 : 1 },
+      #                proc { |value|
+      #                  $game_switches[AUTOSAVE_CATCH_SWITCH] = value == 0
+      #                },
+      #                _INTL("Autosave everytime a new Pokémon is caught")
+      # ),
       EnumOption.new(_INTL("After trainer battles"), [_INTL("On"), _INTL("Off")],
                      proc { $game_switches[AUTOSAVE_WIN_SWITCH] ? 0 : 1 },
                      proc { |value|

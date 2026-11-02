@@ -212,7 +212,6 @@ module GameData
     end
 
     def generateRandomGymSpecies(old_species)
-      echoln "GENERATING GYM SPECIES"
       gym_index = pbGet(VAR_CURRENT_GYM_TYPE)
       return old_species if gym_index == -1
       return generateRandomChampionSpecies(old_species) if gym_index == 999
@@ -222,10 +221,12 @@ module GameData
       customsList = getCustomSpeciesList()
       bst_range = pbGet(VAR_RANDOMIZER_TRAINER_BST)
       gym_type = GameData::Type.get(type_id)
-      echoln "type: #{gym_type.id}"
+      #echoln "type: #{gym_type.id}"
+      same_egg_group = $game_switches[SWITCH_RANDOM_GYM_EGG_GROUP]
 
       while true
-        new_species = $game_switches[SWITCH_RANDOM_GYM_CUSTOMS] ? getSpecies(getNewCustomSpecies(old_species, customsList, bst_range)) : getSpecies(getNewSpecies(old_species, bst_range))
+        new_species = $game_switches[SWITCH_RANDOM_GYM_CUSTOMS] ? getSpecies(getNewCustomSpecies(old_species, customsList, bst_range, false, true, same_egg_group)) : getSpecies(getNewSpecies(old_species, bst_range, false, PBSpecies.maxValue, true, same_egg_group))
+        #echoln "#{old_species} - #{new_species.name}> "
         return new_species if $game_switches[SWITCH_LEGENDARY_MODE] #        new_species = $game_switches[SWITCH_RANDOM_GYM_CUSTOMS] ? getSpecies(getNewCustomSpecies(old_species, customsList, bst_range)) : getSpecies(getNewSpecies(old_species, bst_range))
         if new_species.hasType?(gym_type)
           return new_species

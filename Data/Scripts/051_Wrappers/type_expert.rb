@@ -101,20 +101,20 @@ TYPE_EXPERT_REWARDS = {
   :NORMAL => [CLOTHES_NORMAL],
 }
 
-TOTAL_NB_TYPE_EXPERTS = 14
+TOTAL_NB_TYPE_EXPERTS = 18
 
 def type_expert_battle(type_id)
   type = GameData::Type.get(type_id)
   pbCallBub(2, @event_id)
-  pbMessage(_INTL("Ah! Can you feel the energy in here? This place is great for {1}-Pokémon!", type.real_name))
+  pbMessage(_INTL("Ah! Can you feel the energy in here? This place is great for {1}-Pokémon!", type.name))
   pbCallBub(2, @event_id)
-  pbMessage(_INTL("I'm what you could call an expert on {1}-Pokémon. I've grown with them for all of my life.", type.real_name))
+  pbMessage(_INTL("I'm what you could call an expert on {1}-Pokémon. I've grown with them for all of my life.", type.name))
   pbCallBub(2, @event_id)
-  pbMessage(_INTL("I'll give you my \\C[5]special outfit\\C[0] if you can defeat my team using only {1}-Pokémon. ", type.real_name))
+  pbMessage(_INTL("I'll give you my \\C[5]special outfit\\C[0] if you can defeat my team using only {1}-Pokémon. ", type.name))
   pbCallBub(2, @event_id)
   if pbConfirmMessage(_INTL("Do you think you can handle that?"))
     pbCallBub(2, @event_id)
-    pbMessage(_INTL("Select your team! Remember, only {1}-type Pokémon are allowed!", type.real_name))
+    pbMessage(_INTL("Select your team! Remember, only {1}-type Pokémon are allowed!", type.name))
 
     gym_randomizer_index = GYM_TYPES_CLASSIC.index(type_id)
     echoln gym_randomizer_index
@@ -140,7 +140,7 @@ def type_expert_battle(type_id)
           obtainClothes(clothes)
         end
         pbCallBub(2, @event_id)
-        pbMessage(_INTL("When you wear it, you can sometimes find {1}-type related items after battles!", type.real_name))
+        pbMessage(_INTL("When you wear it, you can sometimes find {1}-type related items after battles!", type.name))
         show_nb_type_experts_defeated()
         PokemonSelection.restore
         $game_switches[Settings::OVERRIDE_BATTLE_LEVEL_SWITCH] = false
@@ -150,7 +150,7 @@ def type_expert_battle(type_id)
       end
     else
       pbCallBub(2, @event_id)
-      pbMessage(_INTL("Remember, you're only allowed to use {1}-type Pokémon!", type.real_name))
+      pbMessage(_INTL("Remember, you're only allowed to use {1}-type Pokémon!", type.name))
     end
   end
   PokemonSelection.restore

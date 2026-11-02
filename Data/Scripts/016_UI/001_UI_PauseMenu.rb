@@ -105,6 +105,7 @@ class PokemonPauseMenu
   ICON_DEBUG = "menuIcons/DEBUG"
   ICON_TITLE = "menuIcons/TITLE"
   ICON_QUIT_SAFARI = "menuIcons/SAFARI"
+  ICON_PC = "menuIcons/PC"
 
   def pbStartPokemonMenu
     if !$Trainer
@@ -126,6 +127,7 @@ class PokemonPauseMenu
     cmdPokegear = -1
     cmdDebug = -1
     cmdQuit = -1
+    cmdPC = -1
     cmdEndGame = -1
     if $Trainer.has_pokedex && $Trainer.pokedex.accessible_dexes.length > 0
       commands[cmdPokedex = commands.length] = "  <icon=#{ICON_POKEDEX}>  " + _INTL("Pokédex")
@@ -136,11 +138,12 @@ class PokemonPauseMenu
     commands[cmdTrainer = commands.length] = "  <icon=#{ICON_PLAYER}>  " + _INTL("{1}", $Trainer.name)
     commands[cmdOutfit = commands.length] = "  <icon=#{ICON_OUTFIT}>  " + _INTL("Outfit") if $Trainer.can_change_outfit
     if pbInSafari?
-      if Settings::SAFARI_STEPS <= 0
+      if Settings::SAFARI_STEPS > 0
         @scene.pbShowInfo(_INTL("Balls: {1}", pbSafariState.ballcount))
-      else
-        @scene.pbShowInfo(_INTL("Steps: {1}/{2}\nBalls: {3}",
-                                pbSafariState.steps, Settings::SAFARI_STEPS, pbSafariState.ballcount))
+        @scene.pbShowInfo(_INTL("Steps: {1}/{2}\nBalls: {3}", pbSafariState.steps, Settings::SAFARI_STEPS, pbSafariState.ballcount))
+      end
+      if $PokemonTemp.overworld_safari
+        commands[cmdPC = commands.length] = "  <icon=#{ICON_PC}>  " + _INTL("PC")
       end
       commands[cmdQuit = commands.length] = "  <icon=#{ICON_QUIT_SAFARI}>  " + _INTL("Quit")
     elsif pbInBugContest?
@@ -238,7 +241,12 @@ class PokemonPauseMenu
       elsif cmdOutfit && cmdOutfit >= 0 && command == cmdOutfit
         @scene.pbHideMenu
         pbCommonEvent(COMMON_EVENT_OUTFIT)
-
+      elsif cmdPC >= 0 && command == cmdPC
+        pbFadeOutIn {
+          scene = PokemonStorageScene.new
+          screen = PokemonStorageScreen.new(scene, $PokemonStorage)
+          screen.pbStartScreen(0) # Boot PC in organize mode
+        }
       elsif cmdQuit >= 0 && command == cmdQuit
         @scene.pbHideMenu
         if pbInSafari?

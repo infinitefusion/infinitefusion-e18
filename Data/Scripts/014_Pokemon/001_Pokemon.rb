@@ -117,6 +117,7 @@ class Pokemon
   # Another Pokémon which has been fused with this Pokémon (or nil if there is none).
   # Currently only used by Kyurem, to record a fused Reshiram or Zekrom.
   # @return [Pokemon, nil] the Pokémon fused into this one (nil if there is none)
+  attr_accessor :chatter_text
   attr_accessor :fused
   # @return [Integer] this Pokémon's personal ID
   attr_accessor :personalID

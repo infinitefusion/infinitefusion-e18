@@ -275,6 +275,11 @@ ItemHandlers::UseInField.add(:SPAWNER, proc { |item|
   spawn_ow_pokemon(species.species,5,1)
 })
 
+ItemHandlers::UseInField.add(:DEBUGSPONGE, proc { |item|
+  replace_water_autotile_by_seafloor
+})
+
+
 def useSleepingBag()
   currentSecondsValue = pbGet(UnrealTime::EXTRA_SECONDS)
   choices = [_INTL("1 hour"), _INTL("6 hours"), _INTL("12 hours"), _INTL("24 hours"), _INTL("Cancel")]
@@ -308,7 +313,7 @@ def useSleepingBag()
   time = pbGetTimeNow.strftime("%I:%M %p")
   newDay = getDayOfTheWeek()
   if newDay != oldDay
-    Kernel.pbMessage(_INTL("The current time is now {1} on {2}.", time, newDay.downcase.capitalize))
+    Kernel.pbMessage(_INTL("The current time is now {1} on {2}.", time, getDayOfTheWeekName(newDay)))
   else
     Kernel.pbMessage(_INTL("The current time is now {1}.", time))
   end
@@ -344,7 +349,7 @@ def useFieldSleepingBag()
     time = pbGetTimeNow.strftime("%I:%M %p")
     newDay = getDayOfTheWeek()
     if newDay != oldDay
-      Kernel.pbMessage(_INTL("The current time is now {1} on {2}.", time, newDay.downcase.capitalize))
+      Kernel.pbMessage(_INTL("The current time is now {1} on {2}.", time, getDayOfTheWeekName(newDay)))
     else
       Kernel.pbMessage(_INTL("The current time is now {1}.", time))
     end
@@ -649,13 +654,17 @@ def useAquaUniform()
   return 1
 end
 
-
 def useDreamMirror
-  visitedMap = $PokemonGlobal.visitedMaps[pbGet(226)]
-  map_name = visitedMap ? getMapName(pbGet(226)).to_s : _INTL("an unknown location")
+  map_id = pbGet(226)
+  visitedMap = $PokemonGlobal.visitedMaps[map_id]
+
+  if visitedMap
+    map_name = pbGetMessage(MessageTypes::MapNames, map_id).to_s
+  else
+    map_name = _INTL("an unknown location")
+  end
 
   Kernel.pbMessage(_INTL("You peeked into the Dream Mirror..."))
-
   Kernel.pbMessage(_INTL("You can see a faint glimpse of {1} in the reflection.", map_name))
 end
 
@@ -2177,7 +2186,7 @@ def track_pokemon()
   mapinfos = $RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
   currently_roaming.each do |roamer_id|
     map_id = $PokemonGlobal.roamPosition[roamer_id]
-    map_name = mapinfos[map_id].name
+    map_name = pbGetMessage(MessageTypes::MapNames, map_id)
     weather_type = Settings::ROAMING_SPECIES[roamer_id][6]
     case weather_type
     when :Storm

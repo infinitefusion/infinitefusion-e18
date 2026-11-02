@@ -5,15 +5,15 @@ class PokeBattle_AI
   def pbGetMoveScoreFunctionCode(score,move,user,target,skill=100)
     case move.function
       #---------------------------------------------------------------------------
-    when "000"   # No extra effect
+    when MoveFunctions::NO_ADDITIONAL_EFFECT   # No extra effect
       #---------------------------------------------------------------------------
-    when "001"
+    when MoveFunctions::NO_EFFECT # Splash, Counterfeit
       score -= 95
       score = 0 if skill>=PBTrainerAI.highSkill
       #---------------------------------------------------------------------------
-    when "002"   # Struggle
+    when MoveFunctions::STRUGGLE   # Struggle
       #---------------------------------------------------------------------------
-    when "003"
+    when MoveFunctions::INFLICT_SLEEP # Spore, Sing, Hypnosis, Sleep Powder, Dark Void...
       if target.pbCanSleep?(user,false)
         score += 30
         if skill>=PBTrainerAI.mediumSkill
@@ -22,8 +22,8 @@ class PokeBattle_AI
         if skill>=PBTrainerAI.highSkill
           score -= 30 if target.hasActiveAbility?(:MARVELSCALE)
         end
-        if skill>=PBTrainerAI.bestSkill
-          if target.pbHasMoveFunction?("011","0B4")   # Snore, Sleep Talk
+        if skill>=PBTrainerAI.mediumSkill
+          if target.pbHasMoveFunction?(MoveFunctions::HIT_ONLY_WHILE_ASLEEP,MoveFunctions::RANDOM_MOVE_WHILE_ASLEEP)   # Snore, Sleep Talk
             score -= 50
           end
         end
@@ -33,7 +33,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "004"
+    when MoveFunctions::INFLICT_DROWSY #Yawn
       if target.effects[PBEffects::Yawn]>0 || !target.pbCanSleep?(user,false)
         score -= 90 if skill>=PBTrainerAI.mediumSkill
       else
@@ -42,13 +42,13 @@ class PokeBattle_AI
           score -= 30 if target.hasActiveAbility?(:MARVELSCALE)
         end
         if skill>=PBTrainerAI.bestSkill
-          if target.pbHasMoveFunction?("011","0B4")   # Snore, Sleep Talk
+          if target.pbHasMoveFunction?(MoveFunctions::HIT_ONLY_WHILE_ASLEEP,MoveFunctions::RANDOM_MOVE_WHILE_ASLEEP)   # Snore, Sleep Talk
             score -= 50
           end
         end
       end
       #---------------------------------------------------------------------------
-    when "005", "006", "0BE"
+    when MoveFunctions::INFLICT_POISON, MoveFunctions::INFLICT_BAD_POISON, MoveFunctions::HIT_TWICE_POISON # Sludge Bomb, Poison Jab, Gunk Shot, Smog, Poison Gas... / Toxic, Poison Fang / Twineedle
       if target.pbCanPoison?(user,false)
         score += 30
         if skill>=PBTrainerAI.mediumSkill
@@ -67,7 +67,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "007", "008", "009", "0C5"
+    when MoveFunctions::INFLICT_PARALYSIS, MoveFunctions::INFLICT_PARALYSIS_THUNDER, MoveFunctions::PARALYZE_OR_FLINCH, MoveFunctions::TWO_TURN_FREEZE_SHOCK # Thunderbolt, Thunder Wave, Body Slam, Glare, Stun Spore... / Thunder (weather affects accuracy) / Thunder Fang / Freeze Shock
       if target.pbCanParalyze?(user,false) &&
         !(skill>=PBTrainerAI.mediumSkill &&
           move.id == :THUNDERWAVE &&
@@ -91,7 +91,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "00A", "00B", "0C6"
+    when MoveFunctions::INFLICT_BURN, MoveFunctions::BURN_OR_FLINCH, MoveFunctions::TWO_TURN_ICE_BURN # Flamethrower, Fire Blast, Will-O-Wisp, Scald, Ember... / Fire Fang / Ice Burn
       if target.pbCanBurn?(user,false)
         score += 30
         if skill>=PBTrainerAI.highSkill
@@ -103,7 +103,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "00C", "00D", "00E"
+    when MoveFunctions::INFLICT_FREEZE, MoveFunctions::INFLICT_FREEZE_BLIZZARD, MoveFunctions::FREEZE_OR_FLINCH # Ice Beam, Ice Punch, Powder Snow / Blizzard (perfect accuracy in hail) / Ice Fang
       if target.pbCanFreeze?(user,false)
         score += 30
         if skill>=PBTrainerAI.highSkill
@@ -115,21 +115,21 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "00F"
+    when MoveFunctions::FLINCH # Bite, Air Slash, Iron Head, Headbutt, Rock Slide...
       score += 30
       if skill>=PBTrainerAI.highSkill
         score += 30 if !target.hasActiveAbility?(:INNERFOCUS) &&
           target.effects[PBEffects::Substitute]==0
       end
       #---------------------------------------------------------------------------
-    when "010"
+    when MoveFunctions::FLINCH_MINIMIZE_BOOST # Stomp, Steamroller, Dragon Rush
       if skill>=PBTrainerAI.highSkill
         score += 30 if !target.hasActiveAbility?(:INNERFOCUS) &&
           target.effects[PBEffects::Substitute]==0
       end
       score += 30 if target.effects[PBEffects::Minimize]
       #---------------------------------------------------------------------------
-    when "011"
+    when MoveFunctions::HIT_ONLY_WHILE_ASLEEP # Snore
       if user.asleep?
         score += 100   # Because it can only be used while asleep
         if skill>=PBTrainerAI.highSkill
@@ -137,11 +137,10 @@ class PokeBattle_AI
             target.effects[PBEffects::Substitute]==0
         end
       else
-        score -= 90   # Because it will fail here
-        score = 0 if skill>=PBTrainerAI.bestSkill
+        score = 0
       end
       #---------------------------------------------------------------------------
-    when "012"
+    when MoveFunctions::FLINCH_FIRST_TURN_ONLY # Fake Out
       if user.turnCount==0
         if skill>=PBTrainerAI.highSkill
           score += 30 if !target.hasActiveAbility?(:INNERFOCUS) &&
@@ -152,7 +151,7 @@ class PokeBattle_AI
         score = 0 if skill>=PBTrainerAI.bestSkill
       end
       #---------------------------------------------------------------------------
-    when "013", "014", "015"
+    when MoveFunctions::INFLICT_CONFUSION, MoveFunctions::INFLICT_CONFUSION_CHATTER, MoveFunctions::INFLICT_CONFUSION_HURRICANE # Psybeam, Confusion, Confuse Ray, Supersonic, Water Pulse... / Chatter / Hurricane (weather affects accuracy)
       if target.pbCanConfuse?(user,false)
         score += 30
       else
@@ -161,7 +160,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "016"
+    when MoveFunctions::INFLICT_ATTRACT # Attract
       canattract = true
       agender = user.gender
       ogender = target.gender
@@ -179,10 +178,10 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "017"
+    when MoveFunctions::BURN_FREEZE_OR_PARALYZE #Tri Attack
       score += 30 if target.status == :NONE
       #---------------------------------------------------------------------------
-    when "018"
+    when MoveFunctions::CURE_USER_STATUS #Refresh
       case user.status
       when :POISON
         score += 40
@@ -200,7 +199,7 @@ class PokeBattle_AI
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "019"
+    when MoveFunctions::CURE_PARTY_STATUS # Aromatherapy, Heal Bell
       statuses = 0
       @battle.pbParty(user.index).each do |pkmn|
         statuses += 1 if pkmn && pkmn.status != :NONE
@@ -211,7 +210,7 @@ class PokeBattle_AI
         score += 20*statuses
       end
       #---------------------------------------------------------------------------
-    when "01A"
+    when MoveFunctions::SAFEGUARD # Safeguard
       if user.pbOwnSide.effects[PBEffects::Safeguard]>0
         score -= 80
       elsif user.status != :NONE
@@ -220,14 +219,14 @@ class PokeBattle_AI
         score += 30
       end
       #---------------------------------------------------------------------------
-    when "01B"
+    when MoveFunctions::TRANSFER_STATUS # Psycho Shift
       if user.status == :NONE
         score -= 90
       else
         score += 40
       end
       #---------------------------------------------------------------------------
-    when "01C"
+    when MoveFunctions::USER_ATTACK_UP_1 # Howl, Sharpen, Meditate, Meteor Mash, Metal Claw, Power-Up Punch
       if move.statusMove?
         if user.statStageAtMax?(:ATTACK)
           score -= 90
@@ -260,7 +259,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "01D", "01E", "0C8"
+    when MoveFunctions::USER_DEFENSE_UP_1, MoveFunctions::USER_DEFENSE_UP_1_CURL, MoveFunctions::TWO_TURN_SKULL_BASH # Harden, Withdraw, Steel Wing / Defense Curl / Skull Bash
       if move.statusMove?
         if user.statStageAtMax?(:DEFENSE)
           score -= 90
@@ -271,7 +270,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:DEFENSE]<0
       end
       #---------------------------------------------------------------------------
-    when "01F"
+    when MoveFunctions::USER_SPEED_UP_1 # Flame Charge
       if move.statusMove?
         if user.statStageAtMax?(:SPEED)
           score -= 90
@@ -287,7 +286,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:SPEED]<0
       end
       #---------------------------------------------------------------------------
-    when "020"
+    when MoveFunctions::USER_SP_ATK_UP_1 # Charge Beam, Fiery Dance
       if move.statusMove?
         if user.statStageAtMax?(:SPECIAL_ATTACK)
           score -= 90
@@ -320,7 +319,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "021"
+    when MoveFunctions::USER_SP_DEF_UP_1_CHARGE # Charge
       foundMove = false
       user.eachMove do |m|
         next if m.type != :ELECTRIC || !m.damagingMove?
@@ -338,7 +337,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:SPECIAL_DEFENSE]<0
       end
       #---------------------------------------------------------------------------
-    when "022"
+    when MoveFunctions::USER_EVASION_UP_1 # Double Team
       if move.statusMove?
         if user.statStageAtMax?(:EVASION)
           score -= 90
@@ -349,7 +348,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:EVASION]<0
       end
       #---------------------------------------------------------------------------
-    when "023"
+    when MoveFunctions::USER_CRIT_RATE_UP # Focus Energy
       if move.statusMove?
         if user.effects[PBEffects::FocusEnergy]>=2
           score -= 80
@@ -360,7 +359,7 @@ class PokeBattle_AI
         score += 30 if user.effects[PBEffects::FocusEnergy]<2
       end
       #---------------------------------------------------------------------------
-    when "024"
+    when MoveFunctions::USER_ATK_DEF_UP_1 # Bulk Up
       if user.statStageAtMax?(:ATTACK) &&
         user.statStageAtMax?(:DEFENSE)
         score -= 90
@@ -382,7 +381,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "025"
+    when MoveFunctions::USER_ATK_DEF_ACC_UP_1 # Coil
       if user.statStageAtMax?(:ATTACK) &&
         user.statStageAtMax?(:DEFENSE) &&
         user.statStageAtMax?(:ACCURACY)
@@ -406,7 +405,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "026"
+    when MoveFunctions::USER_ATK_SPEED_UP_1 # Dragon Dance
       score += 40 if user.turnCount==0   # Dragon Dance tends to be popular
       if user.statStageAtMax?(:ATTACK) &&
         user.statStageAtMax?(:SPEED)
@@ -434,7 +433,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "027", "028"
+    when MoveFunctions::USER_ATK_SP_ATK_UP_1, MoveFunctions::USER_ATK_SP_ATK_UP_1_SUN # Work Up / Growth (doubled in sun)
       if user.statStageAtMax?(:ATTACK) &&
         user.statStageAtMax?(:SPECIAL_ATTACK)
         score -= 90
@@ -454,12 +453,12 @@ class PokeBattle_AI
             score -= 90
           end
         end
-        if move.function=="028"   # Growth
+        if move.function==MoveFunctions::USER_ATK_SP_ATK_UP_1_SUN   # Growth
           score += 20 if [:Sun, :HarshSun].include?(@battle.pbWeather)
         end
       end
       #---------------------------------------------------------------------------
-    when "029"
+    when MoveFunctions::USER_ATK_ACC_UP_1 # Hone Claws
       if user.statStageAtMax?(:ATTACK) &&
         user.statStageAtMax?(:ACCURACY)
         score -= 90
@@ -481,7 +480,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "02A"
+    when MoveFunctions::USER_DEF_SP_DEF_UP_1 # Cosmic Power, Defend Order
       if user.statStageAtMax?(:DEFENSE) &&
         user.statStageAtMax?(:SPECIAL_DEFENSE)
         score -= 90
@@ -490,7 +489,7 @@ class PokeBattle_AI
         score -= user.stages[:SPECIAL_DEFENSE]*10
       end
       #---------------------------------------------------------------------------
-    when "02B"
+    when MoveFunctions::USER_SP_ATK_SP_DEF_SPEED_UP_1 # Quiver Dance
       if user.statStageAtMax?(:SPEED) &&
         user.statStageAtMax?(:SPECIAL_ATTACK) &&
         user.statStageAtMax?(:SPECIAL_DEFENSE)
@@ -521,7 +520,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "02C"
+    when MoveFunctions::USER_SP_ATK_SP_DEF_UP_1 # Calm Mind
       if user.statStageAtMax?(:SPECIAL_ATTACK) &&
         user.statStageAtMax?(:SPECIAL_DEFENSE)
         score -= 90
@@ -544,7 +543,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "02D"
+    when MoveFunctions::USER_ALL_STATS_UP_1 # Ancient Power, Ominous Wind, Silver Wind
       GameData::Stat.each_main_battle { |s| score += 10 if user.stages[s.id] < 0 }
       if skill>=PBTrainerAI.mediumSkill
         hasDamagingAttack = false
@@ -556,7 +555,7 @@ class PokeBattle_AI
         score += 20 if hasDamagingAttack
       end
       #---------------------------------------------------------------------------
-    when "02E"
+    when MoveFunctions::USER_ATTACK_UP_2 # Swords Dance
       if move.statusMove?
         if user.statStageAtMax?(:ATTACK)
           score -= 90
@@ -591,7 +590,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "02F"
+    when MoveFunctions::USER_DEFENSE_UP_2 # Acid Armor, Barrier, Iron Defense
       if move.statusMove?
         if user.statStageAtMax?(:DEFENSE)
           score -= 90
@@ -604,7 +603,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:DEFENSE]<0
       end
       #---------------------------------------------------------------------------
-    when "030", "031"
+    when MoveFunctions::USER_SPEED_UP_2, MoveFunctions::USER_SPEED_UP_2_LOSE_WEIGHT # Agility, Rock Polish / Autotomize
       if move.statusMove?
         if user.statStageAtMax?(:SPEED)
           score -= 90
@@ -622,7 +621,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:SPEED]<0
       end
       #---------------------------------------------------------------------------
-    when "032"
+    when MoveFunctions::USER_SP_ATK_UP_2 # Nasty Plot
       if move.statusMove?
         if user.statStageAtMax?(:SPECIAL_ATTACK)
           score -= 90
@@ -657,7 +656,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "033"
+    when MoveFunctions::USER_SP_DEF_UP_2 # Amnesia
       if move.statusMove?
         if user.statStageAtMax?(:SPECIAL_DEFENSE)
           score -= 90
@@ -670,7 +669,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:SPECIAL_DEFENSE]<0
       end
       #---------------------------------------------------------------------------
-    when "034"
+    when MoveFunctions::USER_EVASION_UP_2_MINIMIZE # Minimize
       if move.statusMove?
         if user.statStageAtMax?(:EVASION)
           score -= 90
@@ -683,7 +682,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:EVASION]<0
       end
       #---------------------------------------------------------------------------
-    when "035"
+    when MoveFunctions::USER_SHELL_SMASH # Shell Smash
       score -= user.stages[:ATTACK]*20
       score -= user.stages[:SPEED]*20
       score -= user.stages[:SPECIAL_ATTACK]*20
@@ -699,7 +698,7 @@ class PokeBattle_AI
         score += 20 if hasDamagingAttack
       end
       #---------------------------------------------------------------------------
-    when "036"
+    when MoveFunctions::USER_SPEED_UP_2_ATTACK_UP_1 # Shift Gear
       if user.statStageAtMax?(:ATTACK) &&
         user.statStageAtMax?(:SPEED)
         score -= 90
@@ -726,7 +725,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "037"
+    when MoveFunctions::RAISE_RANDOM_STAT_2 # Acupressure
       avgStat = 0; canChangeStat = false
       GameData::Stat.each_battle do |s|
         next if target.statStageAtMax?(s.id)
@@ -740,7 +739,7 @@ class PokeBattle_AI
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "038"
+    when MoveFunctions::USER_DEFENSE_UP_3 # Cotton Guard
       if move.statusMove?
         if user.statStageAtMax?(:DEFENSE)
           score -= 90
@@ -753,7 +752,7 @@ class PokeBattle_AI
         score += 30 if user.stages[:DEFENSE]<0
       end
       #---------------------------------------------------------------------------
-    when "039"
+    when MoveFunctions::USER_SP_ATK_UP_3 # Tail Glow
       if move.statusMove?
         if user.statStageAtMax?(:SPECIAL_ATTACK)
           score -= 90
@@ -788,7 +787,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "03A"
+    when MoveFunctions::USER_BELLY_DRUM # Belly Drum
       if user.statStageAtMax?(:ATTACK) ||
         user.hp<=user.totalhp/2
         score -= 100
@@ -809,36 +808,36 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "03B"
+    when MoveFunctions::USER_ATK_DEF_DOWN_1 # Superpower
       avg =  user.stages[:ATTACK]*10
       avg += user.stages[:DEFENSE]*10
       score += avg/2
       #---------------------------------------------------------------------------
-    when "03C"
+    when MoveFunctions::USER_DEF_SP_DEF_DOWN_1 # Close Combat, Dragon Ascent
       avg =  user.stages[:DEFENSE]*10
       avg += user.stages[:SPECIAL_DEFENSE]*10
       score += avg/2
       #---------------------------------------------------------------------------
-    when "03D"
+    when MoveFunctions::USER_DEF_SP_DEF_SPEED_DOWN_1 # V-create
       avg =  user.stages[:DEFENSE]*10
       avg += user.stages[:SPEED]*10
       avg += user.stages[:SPECIAL_DEFENSE]*10
       score += (avg/3).floor
       #---------------------------------------------------------------------------
-    when "03E"
+    when MoveFunctions::USER_SPEED_DOWN_1 # Hammer Arm, Ice Hammer
       score += user.stages[:SPEED]*10
       #---------------------------------------------------------------------------
-    when "03F"
+    when MoveFunctions::USER_SP_ATK_DOWN_2 # Draco Meteor, Overheat, Leaf Storm, Psycho Boost, Fleur Cannon
       score += user.stages[:SPECIAL_ATTACK]*10
       #---------------------------------------------------------------------------
-    when "040"
+    when MoveFunctions::TARGET_SP_ATK_UP_1_CONFUSE # Flatter
       if !target.pbCanConfuse?(user,false)
         score -= 90
       else
         score += 30 if target.stages[:SPECIAL_ATTACK]<0
       end
       #---------------------------------------------------------------------------
-    when "041"  #Swagger
+    when MoveFunctions::TARGET_ATTACK_UP_2_CONFUSE  #Swagger
       if !target.pbCanConfuse?(user,false)
         score -= 90
       else
@@ -847,7 +846,7 @@ class PokeBattle_AI
         score += 30 if user.pbHasMove?(:FOULPLAY)
       end
       #---------------------------------------------------------------------------
-    when "042"
+    when MoveFunctions::TARGET_ATTACK_DOWN_1 # Growl, Play Rough, Lunge, Baby-Doll Eyes, Aurora Beam...
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:ATTACK,user)
           score -= 90
@@ -880,7 +879,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "043"
+    when MoveFunctions::TARGET_DEFENSE_DOWN_1 # Leer, Tail Whip, Crunch, Iron Tail, Rock Smash...
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:DEFENSE,user)
           score -= 90
@@ -891,7 +890,7 @@ class PokeBattle_AI
         score += 20 if target.stages[:DEFENSE]>0
       end
       #---------------------------------------------------------------------------
-    when "044"
+    when MoveFunctions::TARGET_SPEED_DOWN_1 # Icy Wind, Bulldoze, Mud Shot, Rock Tomb, Bubble Beam...
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:SPEED,user)
           score -= 90
@@ -907,7 +906,7 @@ class PokeBattle_AI
         score += 20 if user.stages[:SPEED]>0
       end
       #---------------------------------------------------------------------------
-    when "045"
+    when MoveFunctions::TARGET_SP_ATK_DOWN_1 # Moonblast, Snarl, Struggle Bug, Mystical Fire, Mist Ball
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:SPECIAL_ATTACK,user)
           score -= 90
@@ -940,7 +939,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "046"
+    when MoveFunctions::TARGET_SP_DEF_DOWN_1 # Psychic, Shadow Ball, Energy Ball, Earth Power, Bug Buzz...
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:SPECIAL_DEFENSE,user)
           score -= 90
@@ -951,7 +950,7 @@ class PokeBattle_AI
         score += 20 if target.stages[:SPECIAL_DEFENSE]>0
       end
       #---------------------------------------------------------------------------
-    when "047"
+    when MoveFunctions::TARGET_ACCURACY_DOWN_1 # Smokescreen, Sand Attack, Mud-Slap, Flash, Octazooka...
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:ACCURACY,user)
           score -= 90
@@ -962,7 +961,7 @@ class PokeBattle_AI
         score += 20 if target.stages[:ACCURACY]>0
       end
       #---------------------------------------------------------------------------
-    when "048"
+    when MoveFunctions::TARGET_EVASION_DOWN # Sweet Scent
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:EVASION,user)
           score -= 90
@@ -973,7 +972,7 @@ class PokeBattle_AI
         score += 20 if target.stages[:EVASION]>0
       end
       #---------------------------------------------------------------------------
-    when "049"
+    when MoveFunctions::TARGET_EVASION_DOWN_CLEAR_FIELD # Defog
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:EVASION,user)
           score -= 90
@@ -992,12 +991,12 @@ class PokeBattle_AI
         target.pbOwnSide.effects[PBEffects::ToxicSpikes]>0 ||
         target.pbOwnSide.effects[PBEffects::StealthRock]
       #---------------------------------------------------------------------------
-    when "04A"
+    when MoveFunctions::TARGET_ATK_DEF_DOWN_1 # Tickle
       avg =  target.stages[:ATTACK]*10
       avg += target.stages[:DEFENSE]*10
       score += avg/2
       #---------------------------------------------------------------------------
-    when "04B"
+    when MoveFunctions::TARGET_ATTACK_DOWN_2 # Charm, Feather Dance
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:ATTACK,user)
           score -= 90
@@ -1032,7 +1031,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "04C"
+    when MoveFunctions::TARGET_DEFENSE_DOWN_2 # Screech
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:DEFENSE,user)
           score -= 90
@@ -1045,7 +1044,7 @@ class PokeBattle_AI
         score += 20 if target.stages[:DEFENSE]>0
       end
       #---------------------------------------------------------------------------
-    when "04D"
+    when MoveFunctions::TARGET_SPEED_DOWN_2 # String Shot, Cotton Spore, Scary Face
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:SPEED,user)
           score -= 90
@@ -1063,7 +1062,7 @@ class PokeBattle_AI
         score += 30 if target.stages[:SPEED]>0
       end
       #---------------------------------------------------------------------------
-    when "04E"
+    when MoveFunctions::TARGET_SP_ATK_DOWN_2_GENDER # Captivate
       if user.gender==2 || target.gender==2 || user.gender==target.gender ||
         target.hasActiveAbility?(:OBLIVIOUS)
         score -= 90
@@ -1101,7 +1100,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "04F"
+    when MoveFunctions::TARGET_SP_DEF_DOWN_2 # Fake Tears, Acid Spray, Seed Flare, Metal Sound
       if move.statusMove?
         if !target.pbCanLowerStatStage?(:SPECIAL_DEFENSE,user)
           score -= 90
@@ -1114,7 +1113,7 @@ class PokeBattle_AI
         score += 20 if target.stages[:SPECIAL_DEFENSE]>0
       end
       #---------------------------------------------------------------------------
-    when "050"
+    when MoveFunctions::RESET_TARGET_STAT_STAGES # Clear Smog
       if target.effects[PBEffects::Substitute]>0
         score -= 90
       else
@@ -1131,7 +1130,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "051"
+    when MoveFunctions::RESET_ALL_STAT_STAGES # Haze
       if skill>=PBTrainerAI.mediumSkill
         stages = 0
         @battle.eachBattler do |b|
@@ -1146,7 +1145,7 @@ class PokeBattle_AI
         score += stages*10
       end
       #---------------------------------------------------------------------------
-    when "052"
+    when MoveFunctions::SWAP_ATTACK_STAGES # Power Swap
       if skill>=PBTrainerAI.mediumSkill
         aatk = user.stages[:ATTACK]
         aspa = user.stages[:SPECIAL_ATTACK]
@@ -1162,7 +1161,7 @@ class PokeBattle_AI
         score -= 50
       end
       #---------------------------------------------------------------------------
-    when "053"
+    when MoveFunctions::SWAP_DEFENSE_STAGES # Guard Swap
       if skill>=PBTrainerAI.mediumSkill
         adef = user.stages[:DEFENSE]
         aspd = user.stages[:SPECIAL_DEFENSE]
@@ -1178,7 +1177,7 @@ class PokeBattle_AI
         score -= 50
       end
       #---------------------------------------------------------------------------
-    when "054"
+    when MoveFunctions::SWAP_ALL_STAGES # Heart Swap
       if skill>=PBTrainerAI.mediumSkill
         userStages = 0; targetStages = 0
         GameData::Stat.each_battle do |s|
@@ -1190,7 +1189,7 @@ class PokeBattle_AI
         score -= 50
       end
       #---------------------------------------------------------------------------
-    when "055"
+    when MoveFunctions::COPY_TARGET_STAGES # Psych Up
       if skill>=PBTrainerAI.mediumSkill
         equal = true
         GameData::Stat.each_battle do |s|
@@ -1203,10 +1202,10 @@ class PokeBattle_AI
         score -= 50
       end
       #---------------------------------------------------------------------------
-    when "056"
+    when MoveFunctions::PREVENT_STAT_DROPS # Mist
       score -= 80 if user.pbOwnSide.effects[PBEffects::Mist]>0
       #---------------------------------------------------------------------------
-    when "057"
+    when MoveFunctions::SWAP_USER_ATK_DEF # Power Trick
       if skill>=PBTrainerAI.mediumSkill
         aatk = pbRoughStat(user,:ATTACK,skill)
         adef = pbRoughStat(user,:DEFENSE,skill)
@@ -1222,7 +1221,7 @@ class PokeBattle_AI
         score -= 30
       end
       #---------------------------------------------------------------------------
-    when "058"
+    when MoveFunctions::AVERAGE_ATTACK_STATS # Power Split
       if skill>=PBTrainerAI.mediumSkill
         aatk   = pbRoughStat(user,:ATTACK,skill)
         aspatk = pbRoughStat(user,:SPECIAL_ATTACK,skill)
@@ -1239,7 +1238,7 @@ class PokeBattle_AI
         score -= 30
       end
       #---------------------------------------------------------------------------
-    when "059"
+    when MoveFunctions::AVERAGE_DEFENSE_STATS # Guard Split
       if skill>=PBTrainerAI.mediumSkill
         adef   = pbRoughStat(user,:DEFENSE,skill)
         aspdef = pbRoughStat(user,:SPECIAL_DEFENSE,skill)
@@ -1256,7 +1255,7 @@ class PokeBattle_AI
         score -= 30
       end
       #---------------------------------------------------------------------------
-    when "05A"
+    when MoveFunctions::AVERAGE_HP # Pain Split
       if target.effects[PBEffects::Substitute]>0
         score -= 90
       elsif user.hp>=(user.hp+target.hp)/2
@@ -1265,16 +1264,16 @@ class PokeBattle_AI
         score += 40
       end
       #---------------------------------------------------------------------------
-    when "05B"
+    when MoveFunctions::TAILWIND # Tailwind
       score -= 90 if user.pbOwnSide.effects[PBEffects::Tailwind]>0
       #---------------------------------------------------------------------------
-    when "05C"
+    when MoveFunctions::MIMIC # Mimic
       moveBlacklist = [
-        "002",   # Struggle
-        "014",   # Chatter
-        "05C",   # Mimic
-        "05D",   # Sketch
-        "0B6"    # Metronome
+        MoveFunctions::STRUGGLE,   # Struggle
+        MoveFunctions::INFLICT_CONFUSION_CHATTER,   # Chatter
+        MoveFunctions::MIMIC,   # Mimic
+        MoveFunctions::SKETCH,   # Sketch
+        MoveFunctions::METRONOME    # Metronome
       ]
       if user.effects[PBEffects::Transform] || !target.lastRegularMoveUsed
         score -= 90
@@ -1291,11 +1290,11 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "05D"
+    when MoveFunctions::SKETCH # Sketch
       moveBlacklist = [
-        "002",   # Struggle
-        "014",   # Chatter
-        "05D"    # Sketch
+        MoveFunctions::STRUGGLE,   # Struggle
+        MoveFunctions::INFLICT_CONFUSION_CHATTER,   # Chatter
+        MoveFunctions::SKETCH    # Sketch
       ]
       if user.effects[PBEffects::Transform] || !target.lastRegularMoveUsed
         score -= 90
@@ -1312,7 +1311,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "05E"
+    when MoveFunctions::CHANGE_TYPE_TO_MOVE # Conversion
       if !user.canChangeType?
         score -= 90
       else
@@ -1327,7 +1326,7 @@ class PokeBattle_AI
         score -= 90 if !has_possible_type
       end
       #---------------------------------------------------------------------------
-    when "05F"
+    when MoveFunctions::CHANGE_TYPE_TO_RESIST # Conversion 2
       if !user.canChangeType?
         score -= 90
       elsif !target.lastMoveUsed || !target.lastMoveUsedType ||
@@ -1354,7 +1353,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "060"
+    when MoveFunctions::CHANGE_TYPE_BY_ENVIRONMENT # Camouflage
       if !user.canChangeType?
         score -= 90
       elsif skill>=PBTrainerAI.mediumSkill
@@ -1398,14 +1397,14 @@ class PokeBattle_AI
         score -= 90 if !user.pbHasOtherType?(new_type)
       end
       #---------------------------------------------------------------------------
-    when "061"
+    when MoveFunctions::TARGET_BECOMES_WATER # Soak
       if target.effects[PBEffects::Substitute]>0 || !target.canChangeType?
         score -= 90
       elsif !target.pbHasOtherType?(:WATER)
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "062"
+    when MoveFunctions::COPY_TARGET_TYPE # Reflect Type
       if !user.canChangeType? || target.pbTypes(true).length == 0
         score -= 90
       elsif user.pbTypes == target.pbTypes &&
@@ -1413,7 +1412,7 @@ class PokeBattle_AI
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "063"
+    when MoveFunctions::TARGET_ABILITY_SIMPLE # Simple Beam
       if target.effects[PBEffects::Substitute]>0
         score -= 90
       elsif skill>=PBTrainerAI.mediumSkill
@@ -1422,7 +1421,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "064"
+    when MoveFunctions::TARGET_ABILITY_INSOMNIA # Worry Seed
       if target.effects[PBEffects::Substitute]>0
         score -= 90
       elsif skill>=PBTrainerAI.mediumSkill
@@ -1431,7 +1430,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "065"
+    when MoveFunctions::USER_COPY_TARGET_ABILITY # Role Play
       score -= 40   # don't prefer this move
       if skill>=PBTrainerAI.mediumSkill
         if !target.ability || user.ability==target.ability ||
@@ -1449,7 +1448,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "066"
+    when MoveFunctions::TARGET_COPY_USER_ABILITY # Entrainment
       score -= 40   # don't prefer this move
       if target.effects[PBEffects::Substitute]>0
         score -= 90
@@ -1469,7 +1468,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "067"
+    when MoveFunctions::SWAP_ABILITIES # Skill Swap
       score -= 40 # don't prefer this move
       if skill >= PBTrainerAI.mediumSkill
         if (!user.ability && !target.ability) ||
@@ -1501,7 +1500,7 @@ class PokeBattle_AI
       end
 
       #---------------------------------------------------------------------------
-    when "068"
+    when MoveFunctions::NEGATE_TARGET_ABILITY # Gastro Acid
       if target.effects[PBEffects::Substitute]>0 ||
         target.effects[PBEffects::GastroAcid]
         score -= 90
@@ -1509,41 +1508,41 @@ class PokeBattle_AI
         score -= 90 if [:MULTITYPE, :RKSSYSTEM, :SLOWSTART, :TRUANT].include?(target.ability_id)
       end
       #---------------------------------------------------------------------------
-    when "069"
+    when MoveFunctions::TRANSFORM # Transform
       score -= 70
       #---------------------------------------------------------------------------
-    when "06A"
+    when MoveFunctions::FIXED_DAMAGE_20 # Sonic Boom
       if target.hp<=20
         score += 80
       elsif target.level>=25
         score -= 60   # Not useful against high-level Pokemon
       end
       #---------------------------------------------------------------------------
-    when "06B"
+    when MoveFunctions::FIXED_DAMAGE_40 # Dragon Rage
       score += 80 if target.hp<=40
       #---------------------------------------------------------------------------
-    when "06C"
+    when MoveFunctions::FIXED_DAMAGE_HALF_TARGET_HP # Super Fang, Nature's Madness
       score -= 50
       score += target.hp*100/target.totalhp
       #---------------------------------------------------------------------------
-    when "06D"
+    when MoveFunctions::FIXED_DAMAGE_USER_LEVEL # Seismic Toss, Night Shade
       score += 80 if target.hp<=user.level
       #---------------------------------------------------------------------------
-    when "06E"
+    when MoveFunctions::FIXED_DAMAGE_MATCH_USER_HP # Endeavor
       if user.hp>=target.hp
         score -= 90
       elsif user.hp<target.hp/2
         score += 50
       end
       #---------------------------------------------------------------------------
-    when "06F"
+    when MoveFunctions::FIXED_DAMAGE_RANDOM_LEVEL # Psywave
       score += 30 if target.hp<=user.level
       #---------------------------------------------------------------------------
-    when "070"
+    when MoveFunctions::ONE_HIT_KO # Fissure, Sheer Cold, Guillotine, Horn Drill
       score -= 90 if target.hasActiveAbility?(:STURDY)
       score -= 90 if target.level>user.level
       #---------------------------------------------------------------------------
-    when "071"
+    when MoveFunctions::COUNTER_PHYSICAL # Counter
       if target.effects[PBEffects::HyperBeam]>0
         score -= 90
       else
@@ -1557,7 +1556,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "072"
+    when MoveFunctions::COUNTER_SPECIAL # Mirror Coat
       if target.effects[PBEffects::HyperBeam]>0
         score -= 90
       else
@@ -1571,55 +1570,55 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "073"
+    when MoveFunctions::COUNTER_LAST_DAMAGE # Metal Burst
       score -= 90 if target.effects[PBEffects::HyperBeam]>0
       #---------------------------------------------------------------------------
-    when "074"
+    when MoveFunctions::DAMAGE_TARGET_ALLY # Flame Burst
       target.eachAlly do |b|
         next if !b.near?(target)
         score += 10
       end
       #---------------------------------------------------------------------------
-    when "075"
+    when MoveFunctions::DOUBLE_POWER_VS_DIVE # Surf
       #---------------------------------------------------------------------------
-    when "076"
+    when MoveFunctions::DOUBLE_POWER_VS_DIG # Earthquake
       #---------------------------------------------------------------------------
-    when "077"
+    when MoveFunctions::DOUBLE_POWER_VS_FLYING_GUST # Gust
       #---------------------------------------------------------------------------
-    when "078"
+    when MoveFunctions::DOUBLE_POWER_VS_FLYING_TWISTER # Twister (also flinches)
       if skill>=PBTrainerAI.highSkill
         score += 30 if !target.hasActiveAbility?(:INNERFOCUS) &&
           target.effects[PBEffects::Substitute]==0
       end
       #---------------------------------------------------------------------------
-    when "079"
+    when MoveFunctions::DOUBLE_POWER_AFTER_FUSION_FLARE # Fusion Bolt
       #---------------------------------------------------------------------------
-    when "07A"
+    when MoveFunctions::DOUBLE_POWER_AFTER_FUSION_BOLT # Fusion Flare
       #---------------------------------------------------------------------------
-    when "07B"
+    when MoveFunctions::DOUBLE_POWER_IF_POISONED # Venoshock
       #---------------------------------------------------------------------------
-    when "07C"
+    when MoveFunctions::DOUBLE_POWER_IF_PARALYZED # Smelling Salts
       score -= 20 if target.status == :PARALYSIS   # Will cure status
       #---------------------------------------------------------------------------
-    when "07D"
+    when MoveFunctions::DOUBLE_POWER_IF_ASLEEP # Wake-Up Slap
       score -= 20 if target.status == :SLEEP &&   # Will cure status
         target.statusCount > 1
       #---------------------------------------------------------------------------
-    when "07E"
+    when MoveFunctions::DOUBLE_POWER_IF_USER_STATUS # Facade
       #---------------------------------------------------------------------------
-    when "07F"
+    when MoveFunctions::DOUBLE_POWER_IF_TARGET_STATUS # Hex
       #---------------------------------------------------------------------------
-    when "080"
+    when MoveFunctions::DOUBLE_POWER_IF_TARGET_HALF_HP # Brine
       #---------------------------------------------------------------------------
-    when "081"
+    when MoveFunctions::DOUBLE_POWER_IF_USER_HIT # Revenge, Avalanche
       attspeed = pbRoughStat(user,:SPEED,skill)
       oppspeed = pbRoughStat(target,:SPEED,skill)
       score += 30 if oppspeed>attspeed
       #---------------------------------------------------------------------------
-    when "082"
+    when MoveFunctions::DOUBLE_POWER_IF_TARGET_DAMAGED # Assurance
       score += 20 if @battle.pbOpposingBattlerCount(user)>1
       #---------------------------------------------------------------------------
-    when "083"
+    when MoveFunctions::ROUND # Round
       if skill>=PBTrainerAI.mediumSkill
         user.eachAlly do |b|
           next if !b.pbHasMove?(move.id)
@@ -1627,60 +1626,60 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "084"
+    when MoveFunctions::DOUBLE_POWER_IF_TARGET_MOVED # Payback
       attspeed = pbRoughStat(user,:SPEED,skill)
       oppspeed = pbRoughStat(target,:SPEED,skill)
       score += 30 if oppspeed>attspeed
       #---------------------------------------------------------------------------
-    when "085"
+    when MoveFunctions::DOUBLE_POWER_IF_ALLY_FAINTED # Retaliate
       #---------------------------------------------------------------------------
-    when "086"
+    when MoveFunctions::DOUBLE_POWER_IF_NO_ITEM # Acrobatics
       #---------------------------------------------------------------------------
-    when "087"
+    when MoveFunctions::WEATHER_BALL # Weather Ball
       #---------------------------------------------------------------------------
-    when "088"
+    when MoveFunctions::PURSUIT # Pursuit
       #---------------------------------------------------------------------------
-    when "089"
+    when MoveFunctions::POWER_BY_HAPPINESS # Return
       #---------------------------------------------------------------------------
-    when "08A"
+    when MoveFunctions::POWER_BY_LOW_HAPPINESS # Frustration
       #---------------------------------------------------------------------------
-    when "08B"
+    when MoveFunctions::POWER_BY_USER_HP # Eruption, Water Spout
       #---------------------------------------------------------------------------
-    when "08C"
+    when MoveFunctions::POWER_BY_TARGET_HP # Crush Grip, Wring Out
       #---------------------------------------------------------------------------
-    when "08D"
+    when MoveFunctions::POWER_BY_SPEED_DIFF_SLOWER # Gyro Ball
       #---------------------------------------------------------------------------
-    when "08E"
+    when MoveFunctions::POWER_BY_USER_STAT_BOOSTS # Power Trip, Stored Power
       #---------------------------------------------------------------------------
-    when "08F"
+    when MoveFunctions::POWER_BY_TARGET_STAT_BOOSTS # Punishment
       #---------------------------------------------------------------------------
-    when "090"
+    when MoveFunctions::HIDDEN_POWER # Hidden Power
       #---------------------------------------------------------------------------
-    when "091"
+    when MoveFunctions::POWER_DOUBLES_CONSECUTIVE # Fury Cutter
       #---------------------------------------------------------------------------
-    when "092"
+    when MoveFunctions::POWER_BY_CONSECUTIVE_TURNS # Echoed Voice
       #---------------------------------------------------------------------------
-    when "093"
+    when MoveFunctions::RAGE # Rage
       score += 25 if user.effects[PBEffects::Rage]
       #---------------------------------------------------------------------------
-    when "094"
+    when MoveFunctions::PRESENT # Present
       #---------------------------------------------------------------------------
-    when "095"
+    when MoveFunctions::MAGNITUDE # Magnitude
       #---------------------------------------------------------------------------
-    when "096"
+    when MoveFunctions::NATURAL_GIFT # Natural Gift
       score -= 90 if !user.item || !user.item.is_berry? || !user.itemActive?
       #---------------------------------------------------------------------------
-    when "097"
+    when MoveFunctions::POWER_BY_LOW_PP # Trump Card
       #---------------------------------------------------------------------------
-    when "098"
+    when MoveFunctions::POWER_BY_LOW_USER_HP # Flail, Reversal
       #---------------------------------------------------------------------------
-    when "099"
+    when MoveFunctions::POWER_BY_SPEED_DIFF_FASTER # Electro Ball
       #---------------------------------------------------------------------------
-    when "09A"
+    when MoveFunctions::POWER_BY_TARGET_WEIGHT # Low Kick, Grass Knot
       #---------------------------------------------------------------------------
-    when "09B"
+    when MoveFunctions::POWER_BY_WEIGHT_DIFF # Heat Crash, Heavy Slam
       #---------------------------------------------------------------------------
-    when "09C"
+    when MoveFunctions::HELPING_HAND # Helping Hand
       hasAlly = false
       user.eachAlly do |b|
         hasAlly = true
@@ -1689,34 +1688,34 @@ class PokeBattle_AI
       end
       score -= 90 if !hasAlly
       #---------------------------------------------------------------------------
-    when "09D"
+    when MoveFunctions::MUD_SPORT # Mud Sport
       score -= 90 if user.effects[PBEffects::MudSport]
       #---------------------------------------------------------------------------
-    when "09E"
+    when MoveFunctions::WATER_SPORT # Water Sport
       score -= 90 if user.effects[PBEffects::WaterSport]
       #---------------------------------------------------------------------------
-    when "09F"
+    when MoveFunctions::TYPE_BY_HELD_ITEM # Judgment, Multi-Attack, Techno Blast
       #---------------------------------------------------------------------------
-    when "0A0"
+    when MoveFunctions::ALWAYS_CRITICAL_HIT # Frost Breath, Storm Throw
       #---------------------------------------------------------------------------
-    when "0A1"
+    when MoveFunctions::LUCKY_CHANT # Lucky Chant
       score -= 90 if user.pbOwnSide.effects[PBEffects::LuckyChant]>0
       #---------------------------------------------------------------------------
-    when "0A2"
+    when MoveFunctions::REFLECT # Reflect
       score -= 90 if user.pbOwnSide.effects[PBEffects::Reflect]>0
       #---------------------------------------------------------------------------
-    when "0A3"
+    when MoveFunctions::LIGHT_SCREEN # Light Screen
       score -= 90 if user.pbOwnSide.effects[PBEffects::LightScreen]>0
       #---------------------------------------------------------------------------
-    when "0A4"
+    when MoveFunctions::SECRET_POWER # Secret Power
       #---------------------------------------------------------------------------
-    when "0A5"
+    when MoveFunctions::ALWAYS_HITS # Swift, Aerial Ace, Aura Sphere, Shock Wave, Magical Leaf...
       #---------------------------------------------------------------------------
-    when "0A6"
+    when MoveFunctions::LOCK_ON # Lock-On, Mind Reader
       score -= 90 if target.effects[PBEffects::Substitute]>0
       score -= 90 if user.effects[PBEffects::LockOn]>0
       #---------------------------------------------------------------------------
-    when "0A7"
+    when MoveFunctions::FORESIGHT # Foresight, Odor Sleuth
       if target.effects[PBEffects::Foresight]
         score -= 90
       elsif target.pbHasType?(:GHOST)
@@ -1725,7 +1724,7 @@ class PokeBattle_AI
         score -= 60
       end
       #---------------------------------------------------------------------------
-    when "0A8"
+    when MoveFunctions::MIRACLE_EYE # Miracle Eye
       if target.effects[PBEffects::MiracleEye]
         score -= 90
       elsif target.pbHasType?(:DARK)
@@ -1734,9 +1733,9 @@ class PokeBattle_AI
         score -= 60
       end
       #---------------------------------------------------------------------------
-    when "0A9"
+    when MoveFunctions::IGNORE_DEFENSE_STAGES # Chip Away, Darkest Lariat, Sacred Sword
       #---------------------------------------------------------------------------
-    when "0AA"
+    when MoveFunctions::PROTECT # Protect, Detect
       if user.effects[PBEffects::ProtectRate]>1 ||
         target.effects[PBEffects::HyperBeam]>0
         score -= 90
@@ -1748,56 +1747,56 @@ class PokeBattle_AI
         score += 30 if target.effects[PBEffects::TwoTurnAttack]
       end
       #---------------------------------------------------------------------------
-    when "0AB"
+    when MoveFunctions::QUICK_GUARD # Quick Guard
       #---------------------------------------------------------------------------
-    when "0AC"
+    when MoveFunctions::WIDE_GUARD # Wide Guard
       #---------------------------------------------------------------------------
-    when "0AD"
+    when MoveFunctions::FEINT # Feint
       #---------------------------------------------------------------------------
-    when "0AE"
+    when MoveFunctions::MIRROR_MOVE # Mirror Move
       score -= 40
       if skill>=PBTrainerAI.highSkill
         score -= 100 if !target.lastRegularMoveUsed ||
           !GameData::Move.get(target.lastRegularMoveUsed).flags[/e/]   # Not copyable by Mirror Move
       end
       #---------------------------------------------------------------------------
-    when "0AF"
+    when MoveFunctions::COPYCAT # Copycat
       #---------------------------------------------------------------------------
-    when "0B0"
+    when MoveFunctions::ME_FIRST # Me First
       #---------------------------------------------------------------------------
-    when "0B1"
+    when MoveFunctions::MAGIC_COAT # Magic Coat
       #---------------------------------------------------------------------------
-    when "0B2"
+    when MoveFunctions::SNATCH # Snatch
       #---------------------------------------------------------------------------
-    when "0B3"
+    when MoveFunctions::NATURE_POWER # Nature Power
       #---------------------------------------------------------------------------
-    when "0B4"
+    when MoveFunctions::RANDOM_MOVE_WHILE_ASLEEP # Sleep Talk
       if user.asleep?
         score += 100   # Because it can only be used while asleep
       else
-        score -= 90
+        score = 0
       end
       #---------------------------------------------------------------------------
-    when "0B5"
+    when MoveFunctions::ASSIST # Assist
       #---------------------------------------------------------------------------
-    when "0B6"
+    when MoveFunctions::METRONOME # Metronome
       #---------------------------------------------------------------------------
-    when "0B7"
+    when MoveFunctions::TORMENT # Torment
       score -= 90 if target.effects[PBEffects::Torment]
       #---------------------------------------------------------------------------
-    when "0B8"
+    when MoveFunctions::IMPRISON # Imprison
       score -= 90 if user.effects[PBEffects::Imprison]
       #---------------------------------------------------------------------------
-    when "0B9"
+    when MoveFunctions::DISABLE # Disable
       score -= 90 if target.effects[PBEffects::Disable]>0
       #---------------------------------------------------------------------------
-    when "0BA"
+    when MoveFunctions::TAUNT # Taunt
       score -= 90 if target.effects[PBEffects::Taunt]>0
       #---------------------------------------------------------------------------
-    when "0BB"
+    when MoveFunctions::HEAL_BLOCK # Heal Block
       score -= 90 if target.effects[PBEffects::HealBlock]>0
       #---------------------------------------------------------------------------
-    when "0BC"
+    when MoveFunctions::ENCORE # Encore
       aspeed = pbRoughStat(user,:SPEED,skill)
       ospeed = pbRoughStat(target,:SPEED,skill)
       if target.effects[PBEffects::Encore]>0
@@ -1818,59 +1817,59 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "0BD"
+    when MoveFunctions::HIT_TWICE # Double Kick, Dual Chop, Bonemerang, Double Hit, Gear Grind
       #---------------------------------------------------------------------------
-    when "0BF"
+    when MoveFunctions::HIT_THREE_TIMES_POWER_UP # Triple Kick
       #---------------------------------------------------------------------------
-    when "0C0"
+    when MoveFunctions::HIT_2_TO_5_TIMES # Fury Attack, Bullet Seed, Rock Blast, Icicle Spear, Pin Missile...
       #---------------------------------------------------------------------------
-    when "0C1"
+    when MoveFunctions::BEAT_UP # Beat Up
       #---------------------------------------------------------------------------
-    when "0C2"
+    when MoveFunctions::RECHARGE_NEXT_TURN # Hyper Beam, Giga Impact, Blast Burn, Frenzy Plant, Hydro Cannon...
       #---------------------------------------------------------------------------
-    when "0C3"
+    when MoveFunctions::TWO_TURN_RAZOR_WIND # Razor Wind
       #---------------------------------------------------------------------------
-    when "0C4"
+    when MoveFunctions::TWO_TURN_SOLAR_BEAM # Solar Beam, Solar Blade
       #---------------------------------------------------------------------------
-    when "0C7"
+    when MoveFunctions::TWO_TURN_SKY_ATTACK # Sky Attack
       score += 20 if user.effects[PBEffects::FocusEnergy]>0
       if skill>=PBTrainerAI.highSkill
         score += 20 if !target.hasActiveAbility?(:INNERFOCUS) &&
           target.effects[PBEffects::Substitute]==0
       end
       #---------------------------------------------------------------------------
-    when "0C9"
+    when MoveFunctions::TWO_TURN_FLY # Fly
       #---------------------------------------------------------------------------
-    when "0CA"
+    when MoveFunctions::TWO_TURN_DIG # Dig
       #---------------------------------------------------------------------------
-    when "0CB"
+    when MoveFunctions::TWO_TURN_DIVE # Dive
       #---------------------------------------------------------------------------
-    when "0CC"
+    when MoveFunctions::TWO_TURN_BOUNCE # Bounce
       #---------------------------------------------------------------------------
-    when "0CD"
+    when MoveFunctions::TWO_TURN_SHADOW_FORCE # Shadow Force
       #---------------------------------------------------------------------------
-    when "0CE"
+    when MoveFunctions::TWO_TURN_SKY_DROP # Sky Drop
       #---------------------------------------------------------------------------
-    when "0CF"
+    when MoveFunctions::TRAP_TARGET # Bind, Wrap, Clamp, Fire Spin, Magma Storm, Sand Tomb, Infestation
       score += 40 if target.effects[PBEffects::Trapping]==0
       #---------------------------------------------------------------------------
-    when "0D0"
+    when MoveFunctions::TRAP_TARGET_WHIRLPOOL # Whirlpool
       score += 40 if target.effects[PBEffects::Trapping]==0
       #---------------------------------------------------------------------------
-    when "0D1"
+    when MoveFunctions::UPROAR # Uproar
       #---------------------------------------------------------------------------
-    when "0D2"
+    when MoveFunctions::RAMPAGE_THEN_CONFUSE # Outrage, Petal Dance, Thrash
       #---------------------------------------------------------------------------
-    when "0D3"
+    when MoveFunctions::ROLLOUT # Rollout, Ice Ball
       #---------------------------------------------------------------------------
-    when "0D4"
+    when MoveFunctions::BIDE # Bide
       if user.hp<=user.totalhp/4
         score -= 90
       elsif user.hp<=user.totalhp/2
         score -= 50
       end
       #---------------------------------------------------------------------------
-    when "0D5", "0D6"
+    when MoveFunctions::HEAL_USER_HALF, MoveFunctions::HEAL_USER_HALF_ROOST # Recover, Slack Off, Soft-Boiled, Milk Drink, Heal Order / Roost
       if user.hp==user.totalhp || (skill>=PBTrainerAI.mediumSkill && !user.canHeal?)
         score -= 90
       else
@@ -1878,10 +1877,10 @@ class PokeBattle_AI
         score -= user.hp*100/user.totalhp
       end
       #---------------------------------------------------------------------------
-    when "0D7"
+    when MoveFunctions::WISH # Wish
       score -= 90 if @battle.positions[user.index].effects[PBEffects::Wish]>0
       #---------------------------------------------------------------------------
-    when "0D8"
+    when MoveFunctions::HEAL_USER_BY_WEATHER # Moonlight, Morning Sun, Synthesis
       if user.hp==user.totalhp || (skill>=PBTrainerAI.mediumSkill && !user.canHeal?)
         score -= 90
       else
@@ -1896,7 +1895,7 @@ class PokeBattle_AI
         score -= user.hp*100/user.totalhp
       end
       #---------------------------------------------------------------------------
-    when "0D9"
+    when MoveFunctions::REST # Rest
       if user.hp==user.totalhp || !user.pbCanSleep?(user,false,nil,true)
         score -= 90
       else
@@ -1905,13 +1904,13 @@ class PokeBattle_AI
         score += 30 if user.status != :NONE
       end
       #---------------------------------------------------------------------------
-    when "0DA"
+    when MoveFunctions::AQUA_RING # Aqua Ring
       score -= 90 if user.effects[PBEffects::AquaRing]
       #---------------------------------------------------------------------------
-    when "0DB"
+    when MoveFunctions::INGRAIN # Ingrain
       score -= 90 if user.effects[PBEffects::Ingrain]
       #---------------------------------------------------------------------------
-    when "0DC"
+    when MoveFunctions::LEECH_SEED # Leech Seed
       if target.effects[PBEffects::LeechSeed]>=0
         score -= 90
       elsif skill>=PBTrainerAI.mediumSkill && target.pbHasType?(:GRASS)
@@ -1920,14 +1919,14 @@ class PokeBattle_AI
         score += 60 if user.turnCount==0
       end
       #---------------------------------------------------------------------------
-    when "0DD"
+    when MoveFunctions::DRAIN_HALF_DAMAGE # Absorb, Giga Drain, Drain Punch, Horn Leech, Leech Life...
       if skill>=PBTrainerAI.highSkill && target.hasActiveAbility?(:LIQUIDOOZE)
         score -= 70
       else
         score += 20 if user.hp<=user.totalhp/2
       end
       #---------------------------------------------------------------------------
-    when "0DE"
+    when MoveFunctions::DREAM_EATER # Dream Eater
       if !target.asleep?
         score -= 100
       elsif skill>=PBTrainerAI.highSkill && target.hasActiveAbility?(:LIQUIDOOZE)
@@ -1936,15 +1935,14 @@ class PokeBattle_AI
         score += 20 if user.hp<=user.totalhp/2
       end
       #---------------------------------------------------------------------------
-    when "0DF"
+    when MoveFunctions::HEAL_TARGET_HALF # Heal Pulse
       if user.opposes?(target)
         score -= 100
       else
-        score += 20 if target.hp<target.totalhp/2 &&
-          target.effects[PBEffects::Substitute]==0
+        score += 60 if target.hp<target.totalhp/2 && target.effects[PBEffects::Substitute]==0
       end
       #---------------------------------------------------------------------------
-    when "0E0"
+    when MoveFunctions::USER_FAINTS_EXPLODE # Explosion, Self-Destruct
       reserves = @battle.pbAbleNonActiveCount(user.idxOwnSide)
       foes     = @battle.pbAbleNonActiveCount(user.idxOpposingSide)
       if @battle.pbCheckGlobalAbility(:DAMP)
@@ -1957,9 +1955,9 @@ class PokeBattle_AI
         score -= user.hp*100/user.totalhp
       end
       #---------------------------------------------------------------------------
-    when "0E1"
+    when MoveFunctions::FINAL_GAMBIT # Final Gambit
       #---------------------------------------------------------------------------
-    when "0E2"
+    when MoveFunctions::MEMENTO # Memento
       if !target.pbCanLowerStatStage?(:ATTACK,user) &&
         !target.pbCanLowerStatStage?(:SPECIAL_ATTACK,user)
         score -= 100
@@ -1971,27 +1969,27 @@ class PokeBattle_AI
         score -= user.hp*100/user.totalhp
       end
       #---------------------------------------------------------------------------
-    when "0E3", "0E4"
+    when MoveFunctions::HEALING_WISH, MoveFunctions::LUNAR_DANCE # Healing Wish / Lunar Dance
       score -= 70
       #---------------------------------------------------------------------------
-    when "0E5"
+    when MoveFunctions::PERISH_SONG # Perish Song
       if @battle.pbAbleNonActiveCount(user.idxOwnSide)==0
         score -= 90
       else
         score -= 90 if target.effects[PBEffects::PerishSong]>0
       end
       #---------------------------------------------------------------------------
-    when "0E6"
+    when MoveFunctions::GRUDGE # Grudge
       score += 50
       score -= user.hp*100/user.totalhp
       score += 30 if user.hp<=user.totalhp/10
       #---------------------------------------------------------------------------
-    when "0E7"
+    when MoveFunctions::DESTINY_BOND # Destiny Bond
       score += 50
       score -= user.hp*100/user.totalhp
       score += 30 if user.hp<=user.totalhp/10
       #---------------------------------------------------------------------------
-    when "0E8"
+    when MoveFunctions::ENDURE # Endure
       score -= 25 if user.hp>user.totalhp/2
       if skill>=PBTrainerAI.mediumSkill
         score -= 90 if user.effects[PBEffects::ProtectRate]>1
@@ -2000,7 +1998,7 @@ class PokeBattle_AI
         score -= user.effects[PBEffects::ProtectRate]*40
       end
       #---------------------------------------------------------------------------
-    when "0E9"
+    when MoveFunctions::NON_LETHAL_HIT # False Swipe, Hold Back
       if target.hp==1
         score -= 90
       elsif target.hp<=target.totalhp/8
@@ -2009,10 +2007,10 @@ class PokeBattle_AI
         score -= 30
       end
       #---------------------------------------------------------------------------
-    when "0EA"
+    when MoveFunctions::TELEPORT # Teleport
       score -= 100 if @battle.trainerBattle?
       #---------------------------------------------------------------------------
-    when "0EB"
+    when MoveFunctions::FORCE_SWITCH_STATUS # Roar, Whirlwind
       if target.effects[PBEffects::Ingrain] ||
         (skill>=PBTrainerAI.highSkill && target.hasActiveAbility?(:SUCTIONCUPS))
         score -= 90
@@ -2029,7 +2027,7 @@ class PokeBattle_AI
         score += 50 if target.pbOwnSide.effects[PBEffects::StealthRock]
       end
       #---------------------------------------------------------------------------
-    when "0EC"
+    when MoveFunctions::FORCE_SWITCH_DAMAGE # Dragon Tail, Circle Throw
       if !target.effects[PBEffects::Ingrain] &&
         !(skill>=PBTrainerAI.highSkill && target.hasActiveAbility?(:SUCTIONCUPS))
         score += 40 if target.pbOwnSide.effects[PBEffects::Spikes]>0
@@ -2037,7 +2035,7 @@ class PokeBattle_AI
         score += 40 if target.pbOwnSide.effects[PBEffects::StealthRock]
       end
       #---------------------------------------------------------------------------
-    when "0ED"
+    when MoveFunctions::BATON_PASS # Baton Pass
       if !@battle.pbCanChooseNonActive?(user.index)
         score -= 80
       else
@@ -2059,17 +2057,17 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "0EE"
+    when MoveFunctions::SWITCH_OUT_AFTER_HIT # U-turn, Volt Switch
       #---------------------------------------------------------------------------
-    when "0EF"
+    when MoveFunctions::PREVENT_ESCAPE # Mean Look, Block, Spider Web, Anchor Shot, Spirit Shackle...
       score -= 90 if target.effects[PBEffects::MeanLook]>=0
       #---------------------------------------------------------------------------
-    when "0F0"
+    when MoveFunctions::KNOCK_OFF # Knock Off
       if skill>=PBTrainerAI.highSkill
         score += 20 if target.item
       end
       #---------------------------------------------------------------------------
-    when "0F1"
+    when MoveFunctions::STEAL_ITEM # Thief, Covet
       if skill>=PBTrainerAI.highSkill
         if !user.item && target.item
           score += 40
@@ -2080,7 +2078,7 @@ class PokeBattle_AI
         score -= 80
       end
       #---------------------------------------------------------------------------
-    when "0F2"
+    when MoveFunctions::SWAP_ITEMS # Trick, Switcheroo
       if !user.item && !target.item
         score -= 90
       elsif skill>=PBTrainerAI.highSkill && target.hasActiveAbility?(:STICKYHOLD)
@@ -2090,10 +2088,10 @@ class PokeBattle_AI
         score += 50
       elsif !user.item && target.item
         score -= 30 if user.lastMoveUsed &&
-          GameData::Move.get(user.lastMoveUsed).function_code == "0F2"   # Trick/Switcheroo
+          GameData::Move.get(user.lastMoveUsed).function_code == MoveFunctions::SWAP_ITEMS   # Trick/Switcheroo
       end
       #---------------------------------------------------------------------------
-    when "0F3"
+    when MoveFunctions::BESTOW # Bestow
       if !user.item || target.item
         score -= 90
       else
@@ -2105,46 +2103,46 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "0F4", "0F5"
+    when MoveFunctions::EAT_TARGET_BERRY, MoveFunctions::DESTROY_TARGET_BERRY # Bug Bite, Pluck / Incinerate
       if target.effects[PBEffects::Substitute]==0
         if skill>=PBTrainerAI.highSkill && target.item && target.item.is_berry?
           score += 30
         end
       end
       #---------------------------------------------------------------------------
-    when "0F6"
+    when MoveFunctions::RECYCLE # Recycle
       if !user.recycleItem || user.item
         score -= 80
       elsif user.recycleItem
         score += 30
       end
       #---------------------------------------------------------------------------
-    when "0F7"
+    when MoveFunctions::FLING # Fling
       if !user.item || !user.itemActive? ||
         user.unlosableItem?(user.item) || user.item.is_poke_ball?
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "0F8"
+    when MoveFunctions::EMBARGO # Embargo
       score -= 90 if target.effects[PBEffects::Embargo]>0
       #---------------------------------------------------------------------------
-    when "0F9"
+    when MoveFunctions::MAGIC_ROOM # Magic Room
       if @battle.field.effects[PBEffects::MagicRoom]>0
         score -= 90
       else
         score += 30 if !user.item && target.item
       end
       #---------------------------------------------------------------------------
-    when "0FA"
+    when MoveFunctions::RECOIL_QUARTER # Take Down, Submission, Wild Charge, Head Charge
       score -= 25
       #---------------------------------------------------------------------------
-    when "0FB"
+    when MoveFunctions::RECOIL_THIRD # Double-Edge, Brave Bird, Wood Hammer
       score -= 30
       #---------------------------------------------------------------------------
-    when "0FC"
+    when MoveFunctions::RECOIL_HALF # Head Smash, Light of Ruin
       score -= 40
       #---------------------------------------------------------------------------
-    when "0FD"
+    when MoveFunctions::RECOIL_THIRD_PARALYZE # Volt Tackle
       score -= 30
       if target.pbCanParalyze?(user,false)
         score += 30
@@ -2162,7 +2160,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "0FE"
+    when MoveFunctions::RECOIL_THIRD_BURN # Flare Blitz
       score -= 30
       if target.pbCanBurn?(user,false)
         score += 30
@@ -2171,7 +2169,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "0FF"
+    when MoveFunctions::WEATHER_SUN # Sunny Day
       if @battle.pbCheckGlobalAbility(:AIRLOCK) ||
         @battle.pbCheckGlobalAbility(:CLOUDNINE)
         score -= 90
@@ -2184,7 +2182,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "100"
+    when MoveFunctions::WEATHER_RAIN # Rain Dance
       if @battle.pbCheckGlobalAbility(:AIRLOCK) ||
         @battle.pbCheckGlobalAbility(:CLOUDNINE)
         score -= 90
@@ -2197,7 +2195,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "101"
+    when MoveFunctions::WEATHER_SANDSTORM # Sandstorm
       if @battle.pbCheckGlobalAbility(:AIRLOCK) ||
         @battle.pbCheckGlobalAbility(:CLOUDNINE)
         score -= 90
@@ -2205,7 +2203,7 @@ class PokeBattle_AI
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "102"
+    when MoveFunctions::WEATHER_HAIL # Hail
       if @battle.pbCheckGlobalAbility(:AIRLOCK) ||
         @battle.pbCheckGlobalAbility(:CLOUDNINE)
         score -= 90
@@ -2213,7 +2211,7 @@ class PokeBattle_AI
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "103"
+    when MoveFunctions::HAZARD_SPIKES # Spikes
       if user.pbOpposingSide.effects[PBEffects::Spikes]>=3
         score -= 90
       else
@@ -2232,7 +2230,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "104"
+    when MoveFunctions::HAZARD_TOXIC_SPIKES # Toxic Spikes
       if user.pbOpposingSide.effects[PBEffects::ToxicSpikes]>=2
         score -= 90
       else
@@ -2251,7 +2249,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "105"
+    when MoveFunctions::HAZARD_STEALTH_ROCK # Stealth Rock
       if user.pbOpposingSide.effects[PBEffects::StealthRock]
         score -= 90
       else
@@ -2269,30 +2267,30 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "106"
+    when MoveFunctions::PLEDGE_GRASS # Grass Pledge
       #---------------------------------------------------------------------------
-    when "107"
+    when MoveFunctions::PLEDGE_FIRE # Fire Pledge
       #---------------------------------------------------------------------------
-    when "108"
+    when MoveFunctions::PLEDGE_WATER # Water Pledge
       #---------------------------------------------------------------------------
-    when "109"
+    when MoveFunctions::PAY_DAY # Pay Day
       #---------------------------------------------------------------------------
-    when "10A"
+    when MoveFunctions::BREAK_SCREENS # Brick Break, Psychic Fangs
       score += 20 if user.pbOpposingSide.effects[PBEffects::AuroraVeil]>0
       score += 20 if user.pbOpposingSide.effects[PBEffects::Reflect]>0
       score += 20 if user.pbOpposingSide.effects[PBEffects::LightScreen]>0
       #---------------------------------------------------------------------------
-    when "10B"
+    when MoveFunctions::CRASH_DAMAGE_ON_MISS # Jump Kick, High Jump Kick
       score += 10*(user.stages[:ACCURACY]-target.stages[:EVASION])
       #---------------------------------------------------------------------------
-    when "10C"
+    when MoveFunctions::SUBSTITUTE # Substitute
       if user.effects[PBEffects::Substitute]>0
         score -= 90
       elsif user.hp<=user.totalhp/4
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "10D"
+    when MoveFunctions::CURSE # Curse
       if user.pbHasType?(:GHOST)
         if target.effects[PBEffects::Curse]
           score -= 90
@@ -2311,10 +2309,10 @@ class PokeBattle_AI
         score += avg/3
       end
       #---------------------------------------------------------------------------
-    when "10E"
+    when MoveFunctions::SPITE # Spite
       score -= 40
       #---------------------------------------------------------------------------
-    when "10F"
+    when MoveFunctions::NIGHTMARE # Nightmare
       if target.effects[PBEffects::Nightmare] ||
         target.effects[PBEffects::Substitute]>0
         score -= 90
@@ -2325,7 +2323,7 @@ class PokeBattle_AI
         score += 50 if target.statusCount>3
       end
       #---------------------------------------------------------------------------
-    when "110"
+    when MoveFunctions::RAPID_SPIN # Rapid Spin
       score += 30 if user.effects[PBEffects::Trapping]>0
       score += 30 if user.effects[PBEffects::LeechSeed]>=0
       if @battle.pbAbleNonActiveCount(user.idxOwnSide)>0
@@ -2334,7 +2332,7 @@ class PokeBattle_AI
         score += 80 if user.pbOwnSide.effects[PBEffects::StealthRock]
       end
       #---------------------------------------------------------------------------
-    when "111"
+    when MoveFunctions::DELAYED_ATTACK # Future Sight, Doom Desire
       if @battle.positions[target.index].effects[PBEffects::FutureSightCounter]>0
         score -= 100
       elsif @battle.pbAbleNonActiveCount(user.idxOwnSide)==0
@@ -2342,7 +2340,7 @@ class PokeBattle_AI
         score -= 70
       end
       #---------------------------------------------------------------------------
-    when "112"
+    when MoveFunctions::STOCKPILE # Stockpile
       avg = 0
       avg -= user.stages[:DEFENSE]*10
       avg -= user.stages[:SPECIAL_DEFENSE]*10
@@ -2351,13 +2349,13 @@ class PokeBattle_AI
         score -= 80
       else
         # More preferable if user also has Spit Up/Swallow
-        score += 20 if user.pbHasMoveFunction?("113","114")   # Spit Up, Swallow
+        score += 20 if user.pbHasMoveFunction?(MoveFunctions::SPIT_UP,MoveFunctions::SWALLOW)   # Spit Up, Swallow
       end
       #---------------------------------------------------------------------------
-    when "113"
+    when MoveFunctions::SPIT_UP # Spit Up
       score -= 100 if user.effects[PBEffects::Stockpile]==0
       #---------------------------------------------------------------------------
-    when "114"
+    when MoveFunctions::SWALLOW # Swallow
       if user.effects[PBEffects::Stockpile]==0
         score -= 90
       elsif user.hp==user.totalhp
@@ -2368,14 +2366,14 @@ class PokeBattle_AI
         score -= user.hp*mult*2/user.totalhp
       end
       #---------------------------------------------------------------------------
-    when "115"
+    when MoveFunctions::FAILS_IF_USER_HIT # Focus Punch
       score += 50 if target.effects[PBEffects::HyperBeam]>0
       score -= 35 if target.hp<=target.totalhp/2   # If target is weak, no
       score -= 70 if target.hp<=target.totalhp/4   # need to risk this move
       #---------------------------------------------------------------------------
-    when "116"
+    when MoveFunctions::FAILS_IF_TARGET_NOT_ATTACKING # Sucker Punch
       #---------------------------------------------------------------------------
-    when "117"
+    when MoveFunctions::REDIRECT_ATTACKS_TO_USER # Follow Me, Rage Powder
       hasAlly = false
       user.eachAlly do |b|
         hasAlly = true
@@ -2383,7 +2381,7 @@ class PokeBattle_AI
       end
       score -= 90 if !hasAlly
       #---------------------------------------------------------------------------
-    when "118"
+    when MoveFunctions::GRAVITY # Gravity
       if @battle.field.effects[PBEffects::Gravity]>0
         score -= 90
       elsif skill>=PBTrainerAI.mediumSkill
@@ -2397,64 +2395,64 @@ class PokeBattle_AI
         score += 20 if target.effects[PBEffects::SkyDrop]>=0
         score += 20 if target.effects[PBEffects::MagnetRise]>0
         score += 20 if target.effects[PBEffects::Telekinesis]>0
-        score += 20 if target.inTwoTurnAttack?("0C9","0CC","0CE")   # Fly, Bounce, Sky Drop
+        score += 20 if target.inTwoTurnAttack?(MoveFunctions::TWO_TURN_FLY,MoveFunctions::TWO_TURN_BOUNCE,MoveFunctions::TWO_TURN_SKY_DROP)   # Fly, Bounce, Sky Drop
         score += 20 if target.pbHasType?(:FLYING)
         score += 20 if target.hasActiveAbility?(:LEVITATE)
         score += 20 if target.hasActiveItem?(:AIRBALLOON)
       end
       #---------------------------------------------------------------------------
-    when "119"
+    when MoveFunctions::MAGNET_RISE # Magnet Rise
       if user.effects[PBEffects::MagnetRise]>0 ||
         user.effects[PBEffects::Ingrain] ||
         user.effects[PBEffects::SmackDown]
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "11A"
+    when MoveFunctions::TELEKINESIS # Telekinesis
       if target.effects[PBEffects::Telekinesis]>0 ||
         target.effects[PBEffects::Ingrain] ||
         target.effects[PBEffects::SmackDown]
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "11B"
+    when MoveFunctions::HITS_FLYING_TARGETS # Sky Uppercut
       #---------------------------------------------------------------------------
-    when "11C"
+    when MoveFunctions::GROUND_TARGET # Smack Down, Thousand Arrows
       if skill>=PBTrainerAI.mediumSkill
         score += 20 if target.effects[PBEffects::MagnetRise]>0
         score += 20 if target.effects[PBEffects::Telekinesis]>0
-        score += 20 if target.inTwoTurnAttack?("0C9","0CC")   # Fly, Bounce
+        score += 20 if target.inTwoTurnAttack?(MoveFunctions::TWO_TURN_FLY,MoveFunctions::TWO_TURN_BOUNCE)   # Fly, Bounce
         score += 20 if target.pbHasType?(:FLYING)
         score += 20 if target.hasActiveAbility?(:LEVITATE)
         score += 20 if target.hasActiveItem?(:AIRBALLOON)
       end
       #---------------------------------------------------------------------------
-    when "11D"
+    when MoveFunctions::AFTER_YOU # After You
       #---------------------------------------------------------------------------
-    when "11E"
+    when MoveFunctions::QUASH # Quash
       #---------------------------------------------------------------------------
-    when "11F"
+    when MoveFunctions::TRICK_ROOM # Trick Room
       #---------------------------------------------------------------------------
-    when "120"
+    when MoveFunctions::ALLY_SWITCH # Ally Switch
       #---------------------------------------------------------------------------
-    when "121"
+    when MoveFunctions::USE_TARGET_ATTACK # Foul Play
       #---------------------------------------------------------------------------
-    when "122"
+    when MoveFunctions::USE_TARGET_DEFENSE # Psyshock, Psystrike, Secret Sword
       #---------------------------------------------------------------------------
-    when "123"
+    when MoveFunctions::DAMAGE_SAME_TYPE_ONLY # Synchronoise
       if !target.pbHasType?(user.type1) &&
         !target.pbHasType?(user.type2)
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "124"
+    when MoveFunctions::WONDER_ROOM # Wonder Room
       #---------------------------------------------------------------------------
-    when "125"
+    when MoveFunctions::LAST_RESORT # Last Resort
       #---------------------------------------------------------------------------
-    when "126"
+    when "126" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       #---------------------------------------------------------------------------
-    when "127"
+    when "127" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       if target.pbCanParalyze?(user,false)
         score += 30
@@ -2472,7 +2470,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "128"
+    when "128" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       if target.pbCanBurn?(user,false)
         score += 30
@@ -2481,7 +2479,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "129"
+    when "129" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       if target.pbCanFreeze?(user,false)
         score += 30
@@ -2490,7 +2488,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "12A"
+    when "12A" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       if target.pbCanConfuse?(user,false)
         score += 30
@@ -2500,7 +2498,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "12B"
+    when "12B" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       if !target.pbCanLowerStatStage?(:DEFENSE,user)
         score -= 90
@@ -2509,7 +2507,7 @@ class PokeBattle_AI
         score += target.stages[:DEFENSE]*20
       end
       #---------------------------------------------------------------------------
-    when "12C"
+    when "12C" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       if !target.pbCanLowerStatStage?(:EVASION,user)
         score -= 90
@@ -2517,23 +2515,23 @@ class PokeBattle_AI
         score += target.stages[:EVASION]*15
       end
       #---------------------------------------------------------------------------
-    when "12D"
+    when "12D" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       #---------------------------------------------------------------------------
-    when "12E"
+    when "12E" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       score += 20 if target.hp>=target.totalhp/2
       score -= 20 if user.hp<user.hp/2
       #---------------------------------------------------------------------------
-    when "12F"
+    when "12F" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       score -= 110 if target.effects[PBEffects::MeanLook]>=0
       #---------------------------------------------------------------------------
-    when "130"
+    when "130" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       score -= 40
       #---------------------------------------------------------------------------
-    when "131"
+    when "131" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       if @battle.pbCheckGlobalAbility(:AIRLOCK) ||
         @battle.pbCheckGlobalAbility(:CLOUDNINE)
@@ -2542,7 +2540,7 @@ class PokeBattle_AI
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "132"
+    when "132" # Shadow move (no constant defined)
       score += 20   # Shadow moves are more preferable
       if target.pbOwnSide.effects[PBEffects::AuroraVeil]>0 ||
         target.pbOwnSide.effects[PBEffects::Reflect]>0 ||
@@ -2557,11 +2555,11 @@ class PokeBattle_AI
         score -= 110
       end
       #---------------------------------------------------------------------------
-    when "133", "134"
+    when MoveFunctions::HOLD_HANDS, MoveFunctions::CELEBRATE # Hold Hands / Celebrate
       score -= 95
       score = 0 if skill>=PBTrainerAI.highSkill
       #---------------------------------------------------------------------------
-    when "135"
+    when MoveFunctions::FREEZE_SUPER_EFFECTIVE_WATER # Freeze-Dry
       if target.pbCanFreeze?(user,false)
         score += 30
         if skill>=PBTrainerAI.highSkill
@@ -2569,10 +2567,10 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "136"
+    when MoveFunctions::USER_DEFENSE_UP_2_DIAMOND_STORM # Diamond Storm
       score += 20 if user.stages[:DEFENSE]<0
       #---------------------------------------------------------------------------
-    when "137"
+    when MoveFunctions::MAGNETIC_FLUX # Magnetic Flux
       hasEffect = user.statStageAtMax?(:DEFENSE) &&
         user.statStageAtMax?(:SPECIAL_DEFENSE)
       user.eachAlly do |b|
@@ -2588,14 +2586,14 @@ class PokeBattle_AI
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "138"
+    when MoveFunctions::AROMATIC_MIST # Aromatic Mist
       if target.statStageAtMax?(:SPECIAL_DEFENSE)
         score -= 90
       else
         score -= target.stages[:SPECIAL_DEFENSE]*10
       end
       #---------------------------------------------------------------------------
-    when "139"
+    when MoveFunctions::TARGET_ATTACK_DOWN_1_NEVER_MISS # Play Nice
       if !target.pbCanLowerStatStage?(:ATTACK,user)
         score -= 90
       else
@@ -2615,22 +2613,22 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "13A"
+    when MoveFunctions::TARGET_ATK_SP_ATK_DOWN_1 # Noble Roar, Tearful Look
       avg  = target.stages[:ATTACK]*10
       avg += target.stages[:SPECIAL_ATTACK]*10
       score += avg/2
       #---------------------------------------------------------------------------
-    when "13B"
+    when MoveFunctions::HYPERSPACE_FURY # Hyperspace Fury
       if !user.isSpecies?(:HOOPA) || user.form!=1
         score -= 100
       else
         score += 20 if target.stages[:DEFENSE]>0
       end
       #---------------------------------------------------------------------------
-    when "13C"
+    when MoveFunctions::TARGET_SP_ATK_DOWN_1_NEVER_MISS # Confide
       score += 20 if target.stages[:SPECIAL_ATTACK]>0
       #---------------------------------------------------------------------------
-    when "13D"
+    when MoveFunctions::TARGET_SP_ATK_DOWN_2_PLAIN # Eerie Impulse
       if !target.pbCanLowerStatStage?(:SPECIAL_ATTACK,user)
         score -= 90
       else
@@ -2638,7 +2636,7 @@ class PokeBattle_AI
         score += target.stages[:SPECIAL_ATTACK]*20
       end
       #---------------------------------------------------------------------------
-    when "13E"
+    when MoveFunctions::ROTOTILLER # Rototiller
       count = 0
       @battle.eachBattler do |b|
         if b.pbHasType?(:GRASS) && !b.airborne? &&
@@ -2654,7 +2652,7 @@ class PokeBattle_AI
       end
       score -= 95 if count==0
       #---------------------------------------------------------------------------
-    when "13F"
+    when MoveFunctions::FLOWER_SHIELD # Flower Shield
       count = 0
       @battle.eachBattler do |b|
         if b.pbHasType?(:GRASS) && !b.statStageAtMax?(:DEFENSE)
@@ -2668,7 +2666,7 @@ class PokeBattle_AI
       end
       score -= 95 if count==0
       #---------------------------------------------------------------------------
-    when "140"
+    when MoveFunctions::VENOM_DRENCH # Venom Drench
       count=0
       @battle.eachBattler do |b|
         if b.poisoned? &&
@@ -2687,7 +2685,7 @@ class PokeBattle_AI
       end
       score -= 95 if count==0
       #---------------------------------------------------------------------------
-    when "141"
+    when MoveFunctions::TOPSY_TURVY # Topsy-Turvy
       if target.effects[PBEffects::Substitute]>0
         score -= 90
       else
@@ -2703,24 +2701,24 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "142"
+    when MoveFunctions::ADD_GHOST_TYPE # Trick-or-Treat
       score -= 90 if target.pbHasType?(:GHOST)
       #---------------------------------------------------------------------------
-    when "143"
+    when MoveFunctions::ADD_GRASS_TYPE # Forest's Curse
       score -= 90 if target.pbHasType?(:GRASS)
       #---------------------------------------------------------------------------
-    when "144"
+    when MoveFunctions::FLYING_PRESS # Flying Press
       #---------------------------------------------------------------------------
-    when "145"
+    when MoveFunctions::ELECTRIFY # Electrify
       aspeed = pbRoughStat(user,:SPEED,skill)
       ospeed = pbRoughStat(target,:SPEED,skill)
       score -= 90 if aspeed>ospeed
       #---------------------------------------------------------------------------
-    when "146"
+    when MoveFunctions::ION_DELUGE # Ion Deluge, Plasma Fists
       #---------------------------------------------------------------------------
-    when "147"
+    when MoveFunctions::HYPERSPACE_HOLE # Hyperspace Hole
       #---------------------------------------------------------------------------
-    when "148"
+    when MoveFunctions::POWDER # Powder
       aspeed = pbRoughStat(user,:SPEED,skill)
       ospeed = pbRoughStat(target,:SPEED,skill)
       if aspeed>ospeed
@@ -2729,7 +2727,7 @@ class PokeBattle_AI
         score += 30 if target.pbHasMoveType?(:FIRE)
       end
       #---------------------------------------------------------------------------
-    when "149"
+    when MoveFunctions::MAT_BLOCK # Mat Block
       if user.turnCount==0
         score += 30
       else
@@ -2737,9 +2735,9 @@ class PokeBattle_AI
         score = 0 if skill>=PBTrainerAI.bestSkill
       end
       #---------------------------------------------------------------------------
-    when "14A"
+    when MoveFunctions::CRAFTY_SHIELD # Crafty Shield
       #---------------------------------------------------------------------------
-    when "14B", "14C"
+    when MoveFunctions::KINGS_SHIELD, MoveFunctions::SPIKY_SHIELD # King's Shield / Spiky Shield
       if user.effects[PBEffects::ProtectRate]>1 ||
         target.effects[PBEffects::HyperBeam]>0
         score -= 90
@@ -2751,9 +2749,9 @@ class PokeBattle_AI
         score += 30 if target.effects[PBEffects::TwoTurnAttack]
       end
       #---------------------------------------------------------------------------
-    when "14D"
+    when MoveFunctions::TWO_TURN_PHANTOM_FORCE # Phantom Force
       #---------------------------------------------------------------------------
-    when "14E"
+    when MoveFunctions::GEOMANCY # Geomancy
       if user.statStageAtMax?(:SPECIAL_ATTACK) &&
         user.statStageAtMax?(:SPECIAL_DEFENSE) &&
         user.statStageAtMax?(:SPEED)
@@ -2782,39 +2780,39 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "14F"
+    when MoveFunctions::DRAIN_THREE_QUARTERS_DAMAGE # Draining Kiss, Oblivion Wing
       if skill>=PBTrainerAI.highSkill && target.hasActiveAbility?(:LIQUIDOOZE)
         score -= 80
       else
         score += 40 if user.hp<=user.totalhp/2
       end
       #---------------------------------------------------------------------------
-    when "150"
+    when MoveFunctions::FELL_STINGER # Fell Stinger
       score += 20 if !user.statStageAtMax?(:ATTACK) && target.hp<=target.totalhp/4
       #---------------------------------------------------------------------------
-    when "151"
+    when MoveFunctions::PARTING_SHOT # Parting Shot
       avg  = target.stages[:ATTACK]*10
       avg += target.stages[:SPECIAL_ATTACK]*10
       score += avg/2
       #---------------------------------------------------------------------------
-    when "152"
+    when MoveFunctions::FAIRY_LOCK # Fairy Lock
       #---------------------------------------------------------------------------
-    when "153"
+    when MoveFunctions::HAZARD_STICKY_WEB # Sticky Web
       score -= 95 if user.pbOpposingSide.effects[PBEffects::StickyWeb]
       #---------------------------------------------------------------------------
-    when "154"
+    when MoveFunctions::TERRAIN_ELECTRIC # Electric Terrain
       #---------------------------------------------------------------------------
-    when "155"
+    when MoveFunctions::TERRAIN_GRASSY # Grassy Terrain
       #---------------------------------------------------------------------------
-    when "156"
+    when MoveFunctions::TERRAIN_MISTY # Misty Terrain
       #---------------------------------------------------------------------------
-    when "157"
+    when MoveFunctions::HAPPY_HOUR # Happy Hour
       score -= 90
       #---------------------------------------------------------------------------
-    when "158"
+    when MoveFunctions::BELCH # Belch
       score -= 90 if !user.belched?
       #---------------------------------------------------------------------------
-    when "159"
+    when MoveFunctions::TOXIC_THREAD # Toxic Thread
       if !target.pbCanPoison?(user,false) && !target.pbCanLowerStatStage?(:SPEED,user)
         score -= 90
       else
@@ -2841,14 +2839,14 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "15A"
+    when MoveFunctions::SPARKLING_ARIA # Sparkling Aria
       if target.opposes?(user)
         score -= 40 if target.status == :BURN
       else
         score += 40 if target.status == :BURN
       end
       #---------------------------------------------------------------------------
-    when "15B"
+    when MoveFunctions::PURIFY # Purify
       if target.status == :NONE
         score -= 90
       elsif user.hp==user.totalhp && target.opposes?(user)
@@ -2858,7 +2856,7 @@ class PokeBattle_AI
         score -= 30 if target.opposes?(user)
       end
       #---------------------------------------------------------------------------
-    when "15C"
+    when MoveFunctions::GEAR_UP # Gear Up
       hasEffect = user.statStageAtMax?(:ATTACK) &&
         user.statStageAtMax?(:SPECIAL_ATTACK)
       user.eachAlly do |b|
@@ -2874,7 +2872,7 @@ class PokeBattle_AI
         score -= 90
       end
       #---------------------------------------------------------------------------
-    when "15D"
+    when MoveFunctions::SPECTRAL_THIEF # Spectral Thief
       numStages = 0
       GameData::Stat.each_battle do |s|
         next if target.stages[s.id] <= 0
@@ -2882,17 +2880,17 @@ class PokeBattle_AI
       end
       score += numStages*20
       #---------------------------------------------------------------------------
-    when "15E"
+    when MoveFunctions::LASER_FOCUS # Laser Focus
       if user.effects[PBEffects::LaserFocus]>0
         score -= 90
       else
         score += 40
       end
       #---------------------------------------------------------------------------
-    when "15F"
+    when MoveFunctions::USER_DEFENSE_DOWN_1 # Clanging Scales
       score += user.stages[:DEFENSE]*10
       #---------------------------------------------------------------------------
-    when "160"
+    when MoveFunctions::STRENGTH_SAP # Strength Sap
       if target.statStageAtMin?(:ATTACK)
         score -= 90
       else
@@ -2915,7 +2913,7 @@ class PokeBattle_AI
         score += (user.totalhp-user.hp)*50/user.totalhp
       end
       #---------------------------------------------------------------------------
-    when "161"
+    when MoveFunctions::SPEED_SWAP # Speed Swap
       if skill>=PBTrainerAI.mediumSkill
         if user.speed>target.speed
           score += 50
@@ -2924,14 +2922,14 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "162"
+    when MoveFunctions::BURN_UP # Burn Up
       score -= 90 if !user.pbHasType?(:FIRE)
       #---------------------------------------------------------------------------
-    when "163"
+    when MoveFunctions::IGNORE_ABILITIES # Moongeist Beam, Sunsteel Strike
       #---------------------------------------------------------------------------
-    when "164"
+    when MoveFunctions::PHOTON_GEYSER # Photon Geyser
       #---------------------------------------------------------------------------
-    when "165"
+    when MoveFunctions::CORE_ENFORCER # Core Enforcer
       if skill>=PBTrainerAI.mediumSkill
         userSpeed   = pbRoughStat(user,:SPEED,skill)
         targetSpeed = pbRoughStat(target,:SPEED,skill)
@@ -2942,16 +2940,16 @@ class PokeBattle_AI
         score += 30
       end
       #---------------------------------------------------------------------------
-    when "166"
+    when MoveFunctions::DOUBLE_POWER_IF_LAST_MOVE_FAILED # Stomping Tantrum
       #---------------------------------------------------------------------------
-    when "167"
+    when MoveFunctions::AURORA_VEIL # Aurora Veil
       if user.pbOwnSide.effects[PBEffects::AuroraVeil]>0 || @battle.pbWeather != :Hail
         score -= 90
       else
         score += 40
       end
       #---------------------------------------------------------------------------
-    when "168"
+    when MoveFunctions::BANEFUL_BUNKER # Baneful Bunker
       if user.effects[PBEffects::ProtectRate]>1 ||
         target.effects[PBEffects::HyperBeam]>0
         score -= 90
@@ -2964,9 +2962,9 @@ class PokeBattle_AI
         score += 20   # Because of possible poisoning
       end
       #---------------------------------------------------------------------------
-    when "169"
+    when MoveFunctions::REVELATION_DANCE # Revelation Dance
       #---------------------------------------------------------------------------
-    when "16A"
+    when MoveFunctions::SPOTLIGHT # Spotlight
       hasAlly = false
       target.eachAlly do |b|
         hasAlly = true
@@ -2974,7 +2972,7 @@ class PokeBattle_AI
       end
       score -= 90 if !hasAlly
       #---------------------------------------------------------------------------
-    when "16B"
+    when MoveFunctions::INSTRUCT # Instruct
       if skill>=PBTrainerAI.mediumSkill
         if !target.lastRegularMoveUsed ||
           !target.pbHasMove?(target.lastRegularMoveUsed) ||
@@ -2987,7 +2985,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "16C"
+    when MoveFunctions::THROAT_CHOP # Throat Chop
       if target.effects[PBEffects::ThroatChop]==0 && skill>=PBTrainerAI.highSkill
         hasSoundMove = false
         user.eachMove do |m|
@@ -2998,7 +2996,7 @@ class PokeBattle_AI
         score += 40 if hasSoundMove
       end
       #---------------------------------------------------------------------------
-    when "16D"
+    when MoveFunctions::HEAL_USER_HALF_SANDSTORM_BOOST # Shore Up
       if user.hp==user.totalhp || (skill>=PBTrainerAI.mediumSkill && !user.canHeal?)
         score -= 90
       else
@@ -3007,7 +3005,7 @@ class PokeBattle_AI
         score += 30 if @battle.pbWeather == :Sandstorm
       end
       #---------------------------------------------------------------------------
-    when "16E"
+    when MoveFunctions::HEAL_TARGET_HALF_GRASSY_BOOST # Floral Healing
       if user.hp==user.totalhp || (skill>=PBTrainerAI.mediumSkill && !user.canHeal?)
         score -= 90
       else
@@ -3018,7 +3016,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "16F"
+    when MoveFunctions::POLLEN_PUFF # Pollen Puff
       if !target.opposes?(user)
         if target.hp==target.totalhp || (skill>=PBTrainerAI.mediumSkill && !target.canHeal?)
           score -= 90
@@ -3028,7 +3026,7 @@ class PokeBattle_AI
         end
       end
       #---------------------------------------------------------------------------
-    when "170"
+    when MoveFunctions::MIND_BLOWN # Mind Blown
       reserves = @battle.pbAbleNonActiveCount(user.idxOwnSide)
       foes     = @battle.pbAbleNonActiveCount(user.idxOpposingSide)
       if @battle.pbCheckGlobalAbility(:DAMP)
@@ -3041,7 +3039,7 @@ class PokeBattle_AI
         score -= (user.totalhp-user.hp)*75/user.totalhp
       end
       #---------------------------------------------------------------------------
-    when "171"
+    when MoveFunctions::SHELL_TRAP # Shell Trap
       if skill>=PBTrainerAI.mediumSkill
         hasPhysicalAttack = false
         target.eachMove do |m|
@@ -3052,15 +3050,15 @@ class PokeBattle_AI
         score -= 80 if !hasPhysicalAttack
       end
       #---------------------------------------------------------------------------
-    when "172"
+    when MoveFunctions::BEAK_BLAST # Beak Blast
       score += 20   # Because of possible burning
       #---------------------------------------------------------------------------
-    when "173"
+    when MoveFunctions::TERRAIN_PSYCHIC # Psychic Terrain
       #---------------------------------------------------------------------------
-    when "174"
+    when MoveFunctions::FAILS_AFTER_FIRST_TURN # First Impression
       score -= 90 if user.turnCount > 0
       #---------------------------------------------------------------------------
-    when "175"
+    when MoveFunctions::HIT_TWICE_FLINCH # Double Iron Bash
       score += 30 if target.effects[PBEffects::Minimize]
       #---------------------------------------------------------------------------
     end
@@ -3072,4 +3070,3 @@ class PokeBattle_AI
     return score
   end
 end
-

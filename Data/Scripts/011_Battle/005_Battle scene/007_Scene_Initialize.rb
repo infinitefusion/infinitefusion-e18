@@ -211,14 +211,21 @@ class PokeBattle_Scene
     else
       x = 200
       y = 380
-      # Partner trainer's sprite
-      trainerFile = GameData::TrainerType.front_sprite_filename(trainerType)
-      echoln ""
-      echoln "-------"
-      echoln trainerFile
+      echoln trainerType
+      if trainerType == :RIVAL1 && Settings::HOENN
+        trainer_sprite = IconSprite.new(x,y,@viewport)
+        trainer_sprite.setBitmapDirectly(generate_front_trainer_sprite_bitmap_from_appearance($Trainer.rival_appearance))
+      else
+        # Partner trainer's sprite
+        trainerFile = GameData::TrainerType.front_sprite_filename(trainerType)
+        echoln ""
+        echoln "-------"
+        echoln trainerFile
 
-      trainer_sprite = IconSprite.new(x,y,@viewport)
-      trainer_sprite.setBitmap(trainerFile)
+        trainer_sprite = IconSprite.new(x,y,@viewport)
+        trainer_sprite.setBitmap(trainerFile)
+
+      end
       trainer_sprite.zoom_x=2
       trainer_sprite.zoom_y=2
       trainer_sprite.z = 30 + idxTrainer

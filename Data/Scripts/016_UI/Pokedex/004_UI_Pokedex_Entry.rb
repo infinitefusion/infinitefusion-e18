@@ -455,52 +455,52 @@ class PokemonPokedexInfo_Scene
   end
 
   # unused
-  def getAIDexEntry(pokemonID, name)
-    begin
-      head_number = get_head_number_from_symbol(pokemonID).to_s
-      body_number = get_body_number_from_symbol(pokemonID).to_s
-
-      # Ensure the file exists, if not, create it
-      unless File.exist?(Settings::AI_DEX_ENTRIES_PATH)
-        File.write(Settings::AI_DEX_ENTRIES_PATH, '{}')
-      end
-
-      json_data = File.read(Settings::AI_DEX_ENTRIES_PATH)
-      data = HTTPLite::JSON.parse(json_data)
-
-      # Check if the entry exists
-      unless data[head_number] && data[head_number][body_number]
-        # If not, fetch it from the API
-        url = Settings::AI_ENTRIES_URL + "?head=#{head_number}&body=#{body_number}"
-        if !requestRateExceeded?(Settings::AI_ENTRIES_RATE_LOG_FILE, Settings::AI_ENTRIES_RATE_TIME_WINDOW, Settings::AI_ENTRIES_RATE_MAX_NB_REQUESTS)
-          fetched_entry = clean_json_string(pbDownloadToString(url))
-        else
-          echoln "API rate exceeded for AI entries"
-        end
-        return nil if !fetched_entry || fetched_entry.empty?
-        # If the fetched entry is valid, update the JSON and save it
-        unless fetched_entry.empty?
-          data[head_number] ||= {}
-          data[head_number][body_number] = fetched_entry
-          serialized_data = serialize_json(data)
-          File.write(Settings::AI_DEX_ENTRIES_PATH, serialized_data)
-        else
-          echoln "No AI entry found for Pokemon " + pokemonID.to_s
-          return nil
-        end
-      end
-
-      entry = data[head_number][body_number]
-      entry = entry.gsub(Settings::CUSTOM_ENTRIES_NAME_PLACEHOLDER, name)
-      entry = entry.gsub("\n", "")
-
-      # Unescape any escaped quotes before returning the entry
-      entry = entry.gsub('\\"', '"')
-      return clean_json_string(entry)
-    rescue MKXPError
-      return nil
-    end
-  end
+  # def getAIDexEntry(pokemonID, name)
+  #   begin
+  #     head_number = get_head_number_from_symbol(pokemonID).to_s
+  #     body_number = get_body_number_from_symbol(pokemonID).to_s
+  #
+  #     # Ensure the file exists, if not, create it
+  #     unless File.exist?(Settings::AI_DEX_ENTRIES_PATH)
+  #       File.write(Settings::AI_DEX_ENTRIES_PATH, '{}')
+  #     end
+  #
+  #     json_data = File.read(Settings::AI_DEX_ENTRIES_PATH)
+  #     data = HTTPLite::JSON.parse(json_data)
+  #
+  #     # Check if the entry exists
+  #     unless data[head_number] && data[head_number][body_number]
+  #       # If not, fetch it from the API
+  #       url = Settings::AI_ENTRIES_URL + "?head=#{head_number}&body=#{body_number}"
+  #       if !requestRateExceeded?(Settings::getAIDexEntry, Settings::AI_ENTRIES_RATE_TIME_WINDOW, Settings::AI_ENTRIES_RATE_MAX_NB_REQUESTS)
+  #         fetched_entry = clean_json_string(pbDownloadToString(url))
+  #       else
+  #         echoln "API rate exceeded for AI entries"
+  #       end
+  #       return nil if !fetched_entry || fetched_entry.empty?
+  #       # If the fetched entry is valid, update the JSON and save it
+  #       unless fetched_entry.empty?
+  #         data[head_number] ||= {}
+  #         data[head_number][body_number] = fetched_entry
+  #         serialized_data = serialize_json(data)
+  #         File.write(Settings::AI_DEX_ENTRIES_PATH, serialized_data)
+  #       else
+  #         echoln "No AI entry found for Pokemon " + pokemonID.to_s
+  #         return nil
+  #       end
+  #     end
+  #
+  #     entry = data[head_number][body_number]
+  #     entry = entry.gsub(Settings::CUSTOM_ENTRIES_NAME_PLACEHOLDER, name)
+  #     entry = entry.gsub("\n", "")
+  #
+  #     # Unescape any escaped quotes before returning the entry
+  #     entry = entry.gsub('\\"', '"')
+  #     return clean_json_string(entry)
+  #   rescue MKXPError
+  #     return nil
+  #   end
+  # end
 
   def pbFindEncounter(enc_types, species)
     return false if !enc_types

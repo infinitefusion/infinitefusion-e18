@@ -302,7 +302,8 @@ class PokeBattle_Battle
     sendOuts.each do |b|
       @scene.pbResetMoveIndex(b[0])
       pbSetSeen(@battlers[b[0]])
-      @usedInBattle[b[0] & 1][b[0] / 2] = true
+      idxParty = @battlers[b[0]].pokemonIndex
+      @usedInBattle[b[0] & 1][idxParty] = true if idxParty >= 0
     end
   end
 

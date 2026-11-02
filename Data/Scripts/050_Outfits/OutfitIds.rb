@@ -63,6 +63,8 @@ CLOTHES_LADY = "lady"
 CLOTHES_PSYSHAMAN_M = "psyshaman"
 CLOTHES_PSYSHAMAN_F = "psyshamanf"
 
+CLOTHES_ZUBAT_KID = "zubatkidcostume"
+HAT_ZUBAT_KID = "zubatkidmask"
 
 CLOTHES_SWIMMING_M = "BlackSwimTrunks"
 CLOTHES_SAILOR = "WingullOutfit"
@@ -98,7 +100,19 @@ HAT_POOCHYENA_MASK = "PoochyenaHead"
 HAT_LOTAD_MASK = "LotadHead"
 HAT_ZIGZAGOON_MASK = "ZigzagoonHead"
 HAT_WURMPLE_MASK = "WurmpleHead"
+HAT_SEEDOT_MASK = "SeedotHead"
+HAT_TAILLOW_MASK = "TaillowHead"
+HAT_TREECKO_MASK = "TreeckoHead"
+HAT_MUDKIP_MASK = "MudkipHead"
 
+
+HAT_PARTY_1 = "partywurmple"
+HAT_PARTY_2 = "partygostripes"
+HAT_PARTY_3 = "partygopolka"
+HAT_PARTY_4 = "partyhatennaspots"
+HAT_PARTY_5 = "partysmashstars"
+HAT_PARTY_6 = "partyanimestripes"
+HAT_PARTY_7 = "partyanimespots"
 
 HAT_DUSKULL_MASK = "duskullmask"
 HAT_SLEEPMASK = "sleepmask"
@@ -128,6 +142,9 @@ HAT_CLOWN = "clownnose"
 HAT_WHITE_HAND = "whitehand"
 HAT_COFFEE = "cupofcoffee"
 
+HAT_GOGOGGLES = "gogoggles"
+
+
 HAT_BREEDER_1 = "breedervisor"
 HAT_BREEDER_2 = "breederbandana"
 HAT_BREEDER_2_2 = "PKMBreeder"
@@ -144,6 +161,9 @@ FUSION_HAT = "fusionnerd"
 FUSION_OUTFIT = "fusionnerd"
 
 HAT_ASH = "ash"
+CLOTHES_ASH = "ash"
+CLOTHES_ASH_2 = "ash_b"
+
 HAT_BIANCA = "bianca"
 HAT_CLEFAIRY = "clefairyearheadband"
 HAT_FLOWER = "mikufairy"
@@ -167,11 +187,21 @@ HAT_NURSE_BLANK = "nursejoy"
 HAT_NURSE = "nursejoyhat"
 HAT_TRUMPET = "trumpet"
 
+HAT_CRADILY = "cradiclava"
+
+HAT_BIKE = "Bikingvolthelmet"
+CLOTHES_BIKE = "Bikingvolt"
+
+
 HAT_GYM_REWARD_1 = Settings::KANTO ? "brockpan" : "aronmask"
 HAT_GYM_REWARD_2 = Settings::KANTO ? "starmieclip" : "brawlyshades"
 HAT_GYM_REWARD_3 = Settings::KANTO ? "surgeglasses" : "magnemitepin"
 HAT_GYM_REWARD_4 = Settings::KANTO ? "erikaHeadband" : "flannerybeanie"
 HAT_GYM_REWARD_5 = Settings::KANTO ? "kogascarf" : "eeveeears"
+
+HAT_GYM_REWARD_5_HOENN_M = "brendanE"
+HAT_GYM_REWARD_5_HOENN_F = "brendanE"
+
 HAT_GYM_REWARD_6 = Settings::KANTO ? "sabrinasballs" : "winona"
 HAT_GYM_REWARD_7 = Settings::KANTO ? "blaineGlasses" : "sabrinasballs"
 HAT_GYM_REWARD_8 = Settings::KANTO ? "giovannifedora" : "starmieclip"
@@ -237,6 +267,8 @@ HAIR_JASMINE = "jasmine" # does not exist yet
 HAIR_ROXANNE = "roxanne"
 HAIR_BRAWLY = "brawly"
 HAIR_WATTSON = "wattson"
+HAIR_FLANNERY = "flannery"
+HAIR_NORMAN = "norman"
 
 HAIR_HOOH = "ho-oh"
 HAIR_CRESSELIA = "lunarbob"

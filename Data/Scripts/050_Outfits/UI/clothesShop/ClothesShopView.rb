@@ -2,7 +2,7 @@ class ClothesShopView < PokemonMart_Scene
 
   def initialize(currency_name = _INTL("Money"))
     @currency_name = currency_name
-    @currency_name = COSMETIC_CURRENCY_NAME if Settings::HOENN
+    @currency_name = get_cosmetic_currency_name if Settings::HOENN
   end
 
   def pbStartBuyOrSellScene(buying, stock, adapter)

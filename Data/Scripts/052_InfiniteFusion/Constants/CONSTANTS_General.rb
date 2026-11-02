@@ -25,6 +25,9 @@ GENDER_MALE=1
 MELOETTA_BAND_NAME = _INTL("Miss Melody and the Mystic Musicians")
 SUCKY_BAND_NAME = _INTL("MooMoo Milk")
 COSMETIC_CURRENCY_NAME = _INTL("Glimmer Coins")
+def get_cosmetic_currency_name()
+  _INTL("Glimmer Coins")
+end
 
 NB_POKEMON = Settings::NB_POKEMON#809#420 #351  #aussi CONST_NB_POKE
 CONST_NB_POKE = NB_POKEMON

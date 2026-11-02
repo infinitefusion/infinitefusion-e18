@@ -91,10 +91,20 @@ end
 def pbStartOver(gameover = false)
   $game_variables[VAR_CURRENT_GYM_TYPE] = -1
   $game_switches[SWITCH_LOCK_PLAYER_MOVEMENT] = false
+
   $game_switches[SWITCH_TEAMED_WITH_ERIKA_SEWERS] = false
   if $game_switches[SWITCH_WALLY_CATCHING_POKEMON] || $game_switches[SWITCH_WALLY_GAVE_POKEMON]
     $game_switches[SWITCH_DIED_WITH_WALLY] = true
   end
+  $game_switches[SWITCH_CANNOT_CATCH_POKEMON] = false
+
+  if Settings::HOENN
+    $game_switches[SWITCH_RIVAL_ON_MT_CHIMNEY] = false
+    $game_switches[SWITCH_WAILMER_EGGS_QUEST] = false
+    $game_variables[]
+  end
+
+
   pbBridgeOff
   $PokemonTemp.enteredSecretBaseController = nil
   clear_all_images()
@@ -133,6 +143,8 @@ def pbStartOver(gameover = false)
     $game_temp.player_new_x = $PokemonGlobal.pokecenterX
     $game_temp.player_new_y = $PokemonGlobal.pokecenterY
     $game_temp.player_new_direction = $PokemonGlobal.pokecenterDirection
+
+    adjustWarpCoordinatesExceptions()
     if $scene.is_a?(Scene_Map)
       $scene.transfer_player
       $scene.reset_map(false)
@@ -176,4 +188,16 @@ def pbStartOver(gameover = false)
     end
   end
   pbEraseEscapePoint
+end
+
+def adjustWarpCoordinatesExceptions()
+  switch_azalea_unflooded = 314
+
+  if Settings::KANTO
+    map_azalea_center_unflooded = 279
+    map_azalea_center_flooded = 339
+    if $game_temp.player_new_map_id == map_azalea_center_flooded && $game_switches[switch_azalea_unflooded]
+      $game_temp.player_new_map_id = map_azalea_center_unflooded
+    end
+  end
 end

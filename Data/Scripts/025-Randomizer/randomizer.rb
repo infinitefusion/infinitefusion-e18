@@ -6,6 +6,15 @@ LEGENDARIES_LIST = [:ARTICUNO, :ZAPDOS, :MOLTRES, :MEWTWO, :MEW,
                     :GENESECT, :RESHIRAM, :ZEKROM, :KYUREM, :MELOETTA_A,:MELOETTA_P,
                     :NECROZMA, :U_NECROZMA, :DIANCIE]
 
+
+class PokemonTemp
+  attr_accessor :should_reshuffle_trainers
+  attr_accessor :should_reshuffle_pokemon
+  attr_accessor :should_reshuffle_items
+  attr_accessor :should_reshuffle_gyms
+
+end
+
 class PokemonGlobalMetadata
   attr_accessor :psuedoHash
   attr_accessor :psuedoBSTHash
@@ -42,79 +51,145 @@ end
 
 def get_randomized_bst_hash(poke_list, bst_range, show_progress = true)
   bst_hash = Hash.new
+  msg = ""
+  progress_bar = ShuffleProgressBar.new(_INTL("Shuffling wild Pokémon...")) if show_progress
+
   for i in 1..NB_POKEMON
-    show_shuffle_progress(i) if show_progress
+    show_shuffle_progress(progress_bar, i, NB_POKEMON) if progress_bar
     baseStats = getBaseStatsFormattedForRandomizer(i)
     statsTotal = getStatsTotal(baseStats)
 
-    targetStats_max = statsTotal + bst_range
-    targetStats_min = statsTotal - bst_range
-    max_bst_allowed = targetStats_max
-    min_bst_allowed = targetStats_min
-    #if a match, add to hash, remove from array, and cycle to next poke in dex
+    max_bst_allowed = statsTotal + bst_range
+    min_bst_allowed = statsTotal - bst_range
 
-    #only randomize legendaries to legendaries if Allow Legendaries not enabled
-    #
-
-    #
-    # if !$game_switches[SWITCH_RANDOM_WILD_LEGENDARIES]
-    #   current_species = GameData::Species.get(i).id
-    #   random_poke_species = GameData::Species.get(random_poke).id
-    #   next if !legendaryOk(current_species,random_poke_species,$game_switches[SWITCH_RANDOM_WILD_LEGENDARIES])
-    #
-    #   if !is_legendary(current_species)
-    #     next if is_legendary(random_poke_species,true)
-    #   else
-    #     next if !is_legendary(random_poke_species,true)
-    #   end
-    # end
     playShuffleSE(i)
-    random_poke = poke_list.sample
-    random_poke_bst = getStatsTotal(getBaseStatsFormattedForRandomizer(random_poke))
-    j = 0
 
     includeLegendaries = $game_switches[SWITCH_RANDOM_WILD_LEGENDARIES]
-    current_species = GameData::Species.get(i).id
-    random_poke_species = GameData::Species.get(random_poke).id
-    while (random_poke_bst <= min_bst_allowed || random_poke_bst >= max_bst_allowed) || !legendaryOk(current_species,random_poke_species,includeLegendaries)
-      random_poke = poke_list.sample
-      random_poke_species = GameData::Species.get(random_poke).id
-      #todo: right now, the main function uses dex numbers, but the legendaryOK check needs the ids.
-      # This can be a hit on performance to recalculate the ids from the dex numbers.
-      # The function should be optimized to just use the ids everywhere
+    same_egg_group = $game_switches[SWITCH_RANDOM_WILD_EGG_GROUP]
+    current_species_data = GameData::Species.get(i)
+    current_species = current_species_data.id
+    current_egg_groups = Array(current_species_data.egg_groups)
 
+    j = 0
+    loop do
+      random_poke = poke_list.sample
+      random_poke_species_data = GameData::Species.get(random_poke)
+      random_poke_species = random_poke_species_data.id
       random_poke_bst = getStatsTotal(getBaseStatsFormattedForRandomizer(random_poke))
+
+      if same_egg_group
+        random_poke_egg_groups = Array(random_poke_species_data.egg_groups)
+        egg_group_ok = random_poke_egg_groups.any? { |g| current_egg_groups.include?(g) }
+      else
+        egg_group_ok = true
+      end
+      bst_ok = random_poke_bst > min_bst_allowed && random_poke_bst < max_bst_allowed
+      legendary_ok = legendaryOk(current_species, random_poke_species, includeLegendaries)
+
       j += 1
-      if j % 5 == 0 #to avoid infinite loops if can't find anything
+      if j % 5 == 0
         min_bst_allowed -= 1
         max_bst_allowed += 1
       end
+
+      if egg_group_ok && bst_ok && legendary_ok
+        msg += "#{current_species_data.species} (#{current_species_data.egg_groups})-> #{random_poke_species_data.species} (#{random_poke_species_data.egg_groups})\n"
+        bst_hash[i] = random_poke
+        break
+      end
     end
-    bst_hash[i] = random_poke
   end
+  progress_bar.dispose if progress_bar
+  Input.clipboard = msg if $DEBUG
   return bst_hash
 end
 
-def is_legendary(dex_num,printInfo=false)
-  pokemon_id = getPokemon(dex_num).id
-  is_legendary = is_fusion_of_any(pokemon_id,LEGENDARIES_LIST)
-
-  #echoln "#{pokemon_id} is legendary? : #{is_legendary}"
-  #echoln "{1} ({2}) {3}",dex_num,pokemon_id,is_legendary) if printInfo
-  return is_legendary
+LEGENDARY_LOOKUP = {}
+LEGENDARIES_LIST.each { |sp| LEGENDARY_LOOKUP[sp] = true }
+def is_legendary(dex_num)
+  if dex_num.is_a?(Integer)
+    return is_legendary_num(dex_num)
+  end
+  id = getPokemon(dex_num).id
+  if species_is_fusion(id)
+    LEGENDARY_LOOKUP.key?(get_body_species_from_symbol(id)) ||
+      LEGENDARY_LOOKUP.key?(get_head_species_from_symbol(id))
+  else
+    LEGENDARY_LOOKUP.key?(id)
+  end
 end
 
-def show_shuffle_progress(i)
-  if i % 2 == 0
-    n = (i.to_f / NB_POKEMON) * 100
-    Kernel.pbMessageNoSound(_INTL("\\ts[]Shuffling wild Pokémon...\\n {1}%\\^", sprintf('%.2f', n), NB_POKEMON))
+def legendary_nums
+  $legendary_nums ||= begin
+                        h = {}
+                        LEGENDARIES_LIST.each { |sym| h[GameData::Species.get(sym).id_number] = true }
+                        h
+                      end
+end
+
+def is_legendary_num(dex)
+  if dex <= NB_POKEMON
+    legendary_nums.key?(dex)
+  else
+    legendary_nums.key?(dex / NB_POKEMON) || legendary_nums.key?(dex % NB_POKEMON)
+  end
+end
+
+def build_species_cache(species_ids)
+  bst_cache = {}
+  legendary_cache = {}
+  egg_group_cache = {}
+
+  species_ids.each do |id|
+    next if bst_cache.key?(id)
+    bst_cache[id] = calcBaseStatsSum(id)
+    legendary_cache[id] = is_legendary(id)
+    sp = GameData::Species.get(id)
+    egg_group_cache[id] = Array(sp.egg_groups)
+  end
+
+  [bst_cache, legendary_cache, egg_group_cache]
+end
+
+def show_shuffle_progress(progress_bar, nb_processed, nb_to_process)
+  return if !progress_bar || progress_bar.disposed?
+  progress_bar.progress = nb_processed.to_f / nb_to_process
+  progress_bar.update
+  # if i % 2 == 0
+  #   n = (i.to_f / NB_POKEMON) * 100
+  #   Kernel.pbMessageNoSound(_INTL("\\ts[]Shuffling wild Pokémon...\\n {1}%\\^", sprintf('%.2f', n), NB_POKEMON))
+  # end
+end
+
+#equivalent of common event 28 (APPLY randomizer options)
+def reshuffleWithCurrentSettings()
+  if $PokemonTemp.should_reshuffle_pokemon
+    bst = pbGet(VAR_RANDOMIZER_WILD_POKE_BST)
+    if $game_switches[SWITCH_RANDOM_WILD_TO_FUSION]
+      type = 1
+    else
+      type = nil
+    end
+    Kernel.initRandomTypeArray
+    Kernel.pbShuffleDex(bst,type, true)
+
+  end
+  if $PokemonTemp.should_reshuffle_trainers
+    if $game_switches[SWITCH_RANDOM_TRAINERS_CUSTOMS_ONLY]
+      Kernel.pbShuffleTrainersCustom
+    else
+      Kernel.pbShuffleTrainers
+    end
   end
 end
 
 ##############
 # randomizer shuffle
 # ##############
-def Kernel.pbShuffleDex(range = 50, type = 0)
+def Kernel.pbShuffleDex(range = nil, type = nil, force_reshuffle=true)
+  range = 50 unless range
+  type = 0 unless type
+  return if $PokemonGlobal.psuedoBSTHash && !force_reshuffle
   $game_switches[SWITCH_RANDOMIZED_AT_LEAST_ONCE] = true
 
   #type 0: BST
@@ -127,7 +202,8 @@ def Kernel.pbShuffleDex(range = 50, type = 0)
   if !pokemon_list #when not enough custom sprites
     pokemon_list = get_pokemon_list(should_include_fusions)
   end
-  $PokemonGlobal.psuedoBSTHash = get_randomized_bst_hash(pokemon_list, range, should_include_fusions)
+  $PokemonGlobal.psuedoBSTHash = get_randomized_bst_hash(pokemon_list, range, true)
+  $PokemonTemp.should_reshuffle_pokemon = false
 end
 
 def itemCanBeRandomized(item)

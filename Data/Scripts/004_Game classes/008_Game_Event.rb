@@ -10,6 +10,8 @@ class Game_Event < Game_Character
   attr_reader :page
   attr_reader :on_bridge
   attr_accessor :refresh_hue
+  attr_accessor :is_rival_following
+  attr_accessor :forced_bush_depth
 
   def initialize(map_id, event, map=nil)
     super(map)
@@ -38,12 +40,20 @@ class Game_Event < Game_Character
     if @event.name[/forced_z\s*=\s*(-?\d+)/i]
       @forced_z = $1.to_i
     end
+    if @event.name.include?("under_player")
+      @under_player = true
+    end
     if @event.name.include?("on_bridge")
       @on_bridge = true
     end
     moveto(@event.x, @event.y) if map
     refresh
   end
+
+  # def forced_bush_depth=(value)
+  #   @bush_depth = value
+  #   update
+  # end
 
   def through
     return true if @on_bridge && $PokemonGlobal.bridge <= 0
@@ -65,10 +75,22 @@ class Game_Event < Game_Character
     @starting = true if @list.size > 1
   end
 
+  def name=(value)
+    @event.name = value
+  end
+
   def erase
     @erased = true
     refresh
   end
+
+  def despawn   #Should only ever be called on dynamically created events
+    erase
+    $game_map.events.delete(@id)
+    $PokemonTemp.tempEvents&.each { |_, events| events.delete(self) }
+    $PokemonTemp.tempEvents&.delete_if { |_, v| v.empty? }
+  end
+
 
   def erase_route
     @route_erased = true
@@ -236,6 +258,9 @@ class Game_Event < Game_Character
       @interpreter    = nil
       return
     end
+    if @forced_bush_depth && @page&.graphic&.character_name == "shadow_event"  #hardcoded hack for ninjakids that hide in the water...
+        @forced_bush_depth = false
+    end
     @tile_id              = @page.graphic.tile_id
     @character_name       = @page.graphic.character_name
     @character_hue        = @page.graphic.character_hue if @refresh_hue
@@ -314,5 +339,9 @@ class Game_Event < Game_Character
     return @page.graphic.character_name != "" && active?
   end
 
+
+  def is_on_water
+    return self.terrain_tag.can_surf
+  end
 
 end

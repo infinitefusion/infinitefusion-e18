@@ -7,6 +7,9 @@ def getTVAnnouncementsHash #Keep in the function
     :hidden_ability => _INTL("This is a special bulletin for all Pokémon Trainers!\nPokémon boasting their hidden abilities have been spotted around \\C[1]{1}\\C[0]! Make sure to make your way over there for rare Pokémon before they're gone!\nThis concludes our special bulletin.", getCurrentHiddenAbilityMapName),
     :petalburg_contest => _INTL("Attention all Berry enthusiasts! The Petalburg Berry Contest is now about to begin!\nWe'll be covering the event live in Petalburg Town, so make sure to tune in for this special broadcast!"),
     :petalburg_interview => proc { berryContestTVNews },
+    :trainer_search_rt112 => proc { trainerSearchRt112 },
+    :trainer_search_rt118 => proc { trainerSearchRt118 },
+
   }
 end
 

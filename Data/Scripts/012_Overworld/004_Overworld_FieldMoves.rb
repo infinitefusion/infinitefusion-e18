@@ -214,6 +214,13 @@ HiddenMoveHandlers::CanUseMove.add(:CUT, proc { |move, pkmn, showmsg|
   next false if !pbCheckHiddenMoveBadge(Settings::BADGE_FOR_CUT, showmsg)
   facingEvent = $game_player.pbFacingEvent
   if !facingEvent || !facingEvent.name[/cuttree/i]
+    currentTile = $game_player.getTerrainTag
+    facingTile = $game_player.pbFacingTerrainTag
+    cuttable_environments = [:Grass]
+    currentTile.battle_environment
+    if cuttable_environments.include?(facingTile.battle_environment) || cuttable_environments.include?(currentTile.battle_environment)
+      next true
+    end
     pbMessage(_INTL("Can't use that here.")) if showmsg
     next false
   end
@@ -227,9 +234,93 @@ HiddenMoveHandlers::UseMove.add(:CUT, proc { |move, pokemon|
   facingEvent = $game_player.pbFacingEvent
   if facingEvent
     pbSmashEvent(facingEvent)
+  else
+    currentTile = $game_player.getTerrainTag
+    facingTile = $game_player.pbFacingTerrainTag
+    cuttable_environments = [:Grass]
+    if cuttable_environments.include?(facingTile.battle_environment) || cuttable_environments.include?(currentTile.battle_environment)
+      cutTallGrass
+      next true
+    end
   end
   next true
 })
+
+def cutTallGrass
+  return unless Settings::HOENN
+  #3*2 rectangle in front of the player (including under the player)
+  # - - -
+  # x x -
+  # o x -
+  # x x -
+  # - - -
+  tiles_to_cut = [[$game_map, $game_player.x, $game_player.y]]
+  case $game_player.direction
+  when DIRECTION_RIGHT
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y]
+    tiles_to_cut << [$game_map, $game_player.x, $game_player.y+1]
+    tiles_to_cut << [$game_map, $game_player.x, $game_player.y-1]
+
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y+1]
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y-1]
+
+    tiles_to_cut << [$game_map, $game_player.x+2, $game_player.y]
+    tiles_to_cut << [$game_map, $game_player.x+2, $game_player.y+1]
+    tiles_to_cut << [$game_map, $game_player.x+2, $game_player.y-1]
+
+  when DIRECTION_LEFT
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y]
+    tiles_to_cut << [$game_map, $game_player.x, $game_player.y+1]
+    tiles_to_cut << [$game_map, $game_player.x, $game_player.y-1]
+
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y+1]
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y-1]
+
+    tiles_to_cut << [$game_map, $game_player.x-2, $game_player.y]
+    tiles_to_cut << [$game_map, $game_player.x-2, $game_player.y+1]
+    tiles_to_cut << [$game_map, $game_player.x-2, $game_player.y-1]
+  when DIRECTION_UP
+    tiles_to_cut << [$game_map, $game_player.x, $game_player.y-1]
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y]
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y]
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y-1]
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y-1]
+
+    tiles_to_cut << [$game_map, $game_player.x, $game_player.y-2]
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y-2]
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y-2]
+  when DIRECTION_DOWN
+    tiles_to_cut << [$game_map, $game_player.x, $game_player.y+1]
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y]
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y]
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y+1]
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y+1]
+
+    tiles_to_cut << [$game_map, $game_player.x, $game_player.y+2]
+    tiles_to_cut << [$game_map, $game_player.x+1, $game_player.y+2]
+    tiles_to_cut << [$game_map, $game_player.x-1, $game_player.y+2]
+  end
+
+  map = $MapFactory.getMap($game_map.map_id)
+
+  erased_tiles = []
+  for tile in tiles_to_cut
+    for map_layer in [2, 1, 0]
+      tile_id = map.data[tile[1], tile[2], map_layer]
+      cut_tile_id = tile_id -8
+      next if tile_id == nil
+      tile_tag = GameData::TerrainTag.try_get(map.terrain_tags[tile_id])
+      next unless tile_tag.battle_environment == :Grass
+      map.set_tile(tile[1], tile[2], map_layer,cut_tile_id)
+      erased_tiles << tile
+    end
+  end
+  unless erased_tiles.empty?
+    pbSEPlay("Cut", 80)
+    $scene.spriteset.addUserAnimation(Settings::CUT_TREE_ANIMATION_ID, $game_player.x, $game_player.y, false, 1)
+  end
+
+end
 
 def pbSmashEvent(event)
   return if !event
@@ -328,6 +419,7 @@ end
 # Dive
 #===============================================================================
 def pbDive
+  return
   return false if $game_player.pbFacingEvent
   map_metadata = GameData::MapMetadata.try_get($game_map.map_id)
   return false if !map_metadata || !map_metadata.dive_map_id
@@ -534,6 +626,13 @@ HiddenMoveHandlers::UseMove.add(:FLASH, proc { |move, pokemon|
   if !pbHiddenMoveAnimation(pokemon)
     pbMessage(_INTL("{1} used {2}!", pokemon.name, GameData::Move.get(move).name))
   end
+  useFlash()
+  next true
+})
+
+def useFlash
+  darkness = $PokemonTemp.darknessSprite
+  return if !darkness || darkness.disposed?
   $PokemonGlobal.flashUsed = true
   radiusDiff = 8 * 20 / Graphics.frame_rate
   while darkness.radius < darkness.radiusMax
@@ -543,8 +642,7 @@ HiddenMoveHandlers::UseMove.add(:FLASH, proc { |move, pokemon|
     darkness.radius += radiusDiff
     darkness.radius = darkness.radiusMax if darkness.radius > darkness.radiusMax
   end
-  next true
-})
+end
 
 #===============================================================================
 # Fly / Teleport
@@ -585,6 +683,9 @@ def pbFly(move, pokemon)
   if !pbHiddenMoveAnimation(pokemon)
     pbMessage(_INTL("{1} used {2}!", pokemon.name, GameData::Move.get(move).name))
   end
+  $PokemonGlobal.common_map_entrance_id = nil
+  $PokemonGlobal.common_map_entrance_position = nil
+  reset_pokemart_variables
   pbFadeOutIn {
     $game_temp.player_new_map_id = $PokemonTemp.flydata[0]
     $game_temp.player_new_x = $PokemonTemp.flydata[1]
@@ -951,6 +1052,13 @@ Events.onAction += proc { |_sender, _e|
   pbSurf
 }
 
+#Waterfall
+Events.onAction += proc { |_sender, _e|
+  next unless $PokemonGlobal.surfing
+  next unless $game_player.pbFacingTerrainTag.waterfall
+  pbWaterfall
+}
+
 # Flowers
 Events.onAction += proc { |_sender, _e|
   next if !$game_player.pbFacingTerrainTag.flower
@@ -1077,9 +1185,10 @@ def pbSweetScent
   end
   viewport.dispose
   enctype = $PokemonEncounters.encounter_type
-  if enctype || !$PokemonEncounters.encounter_possible_here? ||
-    !pbEncounter(enctype)
-    pbMessage(_INTL("There appears to be nothing here..."))
+  if enctype || !$PokemonEncounters.encounter_possible_here?
+    unless pbEncounter(enctype)
+      pbMessage(_INTL("There appears to be nothing here..."))
+    end
   end
 end
 
@@ -1097,6 +1206,28 @@ HiddenMoveHandlers::UseMove.add(:SWEETSCENT, proc { |move, pokemon|
 
 HiddenMoveHandlers::CanUseMove.add(:RAINDANCE, proc { |move, pkmn, showmsg|
   next true if Settings::GAME_ID == :IF_HOENN
+})
+
+HiddenMoveHandlers::CanUseMove.add(:HAIL, proc { |move, pkmn, showmsg|
+  next true if Settings::GAME_ID == :IF_HOENN
+})
+
+HiddenMoveHandlers::UseMove.add(:HAIL, proc { |move, pokemon|
+  next false unless Settings::EXPERIMENTAL_FEATURES
+  next false if GameWeather::NO_SNOW_MAPS.include?($game_map.map_id)
+  if !pbHiddenMoveAnimation(pokemon)
+    pbMessage(_INTL("{1} used {2}!", pokemon.name, GameData::Move.get(move).name))
+  end
+  changeCurrentWeather(:Snow, 1)
+  next true
+})
+
+HiddenMoveHandlers::UseMove.add(:SUNNYDAY, proc { |move, pokemon|
+  if !pbHiddenMoveAnimation(pokemon)
+    pbMessage(_INTL("{1} used {2}!", pokemon.name, GameData::Move.get(move).name))
+  end
+  changeCurrentWeather(:Sunny, 1)
+  next true
 })
 
 HiddenMoveHandlers::UseMove.add(:RAINDANCE, proc { |move, pokemon|
@@ -1148,6 +1279,28 @@ HiddenMoveHandlers::UseMove.add(:THUNDER, proc { |move, pokemon|
   next true
 })
 
+HiddenMoveHandlers::CanUseMove.add(:ROAR, proc { |move, pkmn, showmsg|
+  next true if $PokemonSystem.overworld_encounters
+})
+HiddenMoveHandlers::UseMove.add(:ROAR, proc { |move, pokemon|
+  playAnimation(NOISE_ANIMATION_ID,$game_player.x, $game_player.y)
+  playCry(pokemon.species)
+  scareOffWildPokemon(5)
+  next true
+})
+
+HiddenMoveHandlers::CanUseMove.add(:CHATTER, proc { |move, pkmn, showmsg|
+  next true
+})
+HiddenMoveHandlers::UseMove.add(:CHATTER, proc { |move, pokemon|
+  text = pokemon.chatter_text
+  text = "" unless text
+  pokemon.chatter_text = pbEnterText(_INTL("Teach a phrase!"),0,16, text)
+  pokemon.chatter_text = nil if pokemon.chatter_text == ""
+  next true
+})
+
+
 HiddenMoveHandlers::CanUseMove.add(:MAGNETRISE, proc { |move, pkmn, showmsg|
   next true unless $PokemonGlobal.surfing
 })
@@ -1173,10 +1326,9 @@ HiddenMoveHandlers::UseMove.add(:SPLASH, proc { |move, pokemon|
     pbMessage(_INTL("{1} used {2}!", pokemon.name, GameData::Move.get(move).name))
   end
   pbSEPlay("jump", 80, 100)
-  $game_player.jump(0,0)
+  $game_player.jump(0, 0)
   next true
 })
-
 
 HiddenMoveHandlers::CanUseMove.add(:MIST, proc { |move, pkmn, showmsg|
   next true if Settings::GAME_ID == :IF_HOENN
@@ -1327,12 +1479,7 @@ end
 #   end
 # }
 
-def isFacingTempWaterfall()
-  return if !$game_temp.temp_waterfall
-  player_coordinates = [$game_player.x, $game_player.y]
-  echoln $game_temp.temp_waterfall.include?(player_coordinates)
-  return $game_temp.temp_waterfall.include?(player_coordinates)
-end
+
 
 HiddenMoveHandlers::CanUseMove.add(:WATERFALL, proc { |move, pkmn, showmsg|
   next false if !pbCheckHiddenMoveBadge(Settings::BADGE_FOR_WATERFALL, showmsg)

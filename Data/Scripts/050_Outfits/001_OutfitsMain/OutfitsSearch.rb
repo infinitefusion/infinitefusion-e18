@@ -23,7 +23,7 @@ end
 def filter_clothes_only_not_owned(clothes_ids_list)
   filtered_list = []
   clothes_ids_list.each do|clothe_id|
-    filtered_list << clothe_id if !$Trainer.unlocked_clothes.include?(clothe_id)
+    filtered_list << clothe_id unless $Trainer.unlocked_clothes.include?(clothe_id)
   end
   return filtered_list
 end

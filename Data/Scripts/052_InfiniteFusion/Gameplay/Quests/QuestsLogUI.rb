@@ -1,7 +1,6 @@
 ##=============================================================================
 ##  Easy Questing System - Refactored with Extensible Mode System
 ##  Original by M3rein
-#   Refactored using by Claude
 #   Adapted for Pokemon Infinite Fusion by chardub
 ##=============================================================================
 ##  Main entry point for the quest log
@@ -72,7 +71,7 @@ end
 
 class CompletedQuestMode < QuestCategory
   def initialize
-    super("Completed Quests", "Completed")
+    super(_INTL("Completed Quests"), _INTL("Completed"))
   end
   def button_path
     return "Graphics/Pictures/eqi/quest_button_complete"
@@ -90,7 +89,7 @@ end
 
 class MainQuestMode < QuestCategory
   def initialize
-    super("Main Quests", "Main Quests")
+    super(_INTL("Main Quests"), _INTL("Main Quests"))
   end
 
   def button_path
@@ -107,7 +106,7 @@ end
 
 class SideQuestMode < QuestCategory
   def initialize
-    super("Side Quests", "Side Quests")
+    super(_INTL("Side Quests"), _INTL("Side Quests"))
   end
 
   def button_path
@@ -830,9 +829,14 @@ class Questlog
 
     pbDrawOutlineText(@main, 188, 54, 512, 384, quest.name,
                       Color.new(255, 172, 115), Color.new(0, 0, 0))
-    drawTextExMulti(@main, 188, 84, 318, 8, quest.desc,
+    drawTextExMulti(@main, 188, 84, 318, 8, quest.desc.gsub(/\\n/, "\n"),
                     Color.new(255, 255, 255), Color.new(0, 0, 0))
-    pbDrawOutlineText(@main, 188, 330, 512, 384, quest.location,
+    location_y = 330
+    current_language = getCurrentLanguage
+    if current_language == :CHINESE
+      location_y += 10
+    end
+    pbDrawOutlineText(@main, 188, location_y, 512, 384, quest.location,
                       Color.new(255, 172, 115), Color.new(0, 0, 0))
 
 

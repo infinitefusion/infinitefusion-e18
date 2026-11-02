@@ -1,5 +1,6 @@
 OVERWORLD_POKEMON_EVENT_NAME = "OverworldPokemon"
 LEGENDARY_EVENT_NAME = "Legendary"
+POKEBLOCK_EVENT_NAME = "PokeBlock"
 # For adding wild overworld Pokemon as static events.
 #
 # The event needs to have the name OverworldPokemon and be have a first comment at the top setup like this
@@ -65,6 +66,9 @@ class Game_Map
         event.erase
         return event
       end
+    elsif event.name.start_with?(POKEBLOCK_EVENT_NAME)
+      game_event = PokeblockEvent.new(@map_id, event, self)
+      return game_event if game_event
     end
 
     return ow_game_map_create_new_event(event)

@@ -13,6 +13,11 @@ class PokemonTemp
   attr_accessor :encounterType
   attr_accessor :evolutionLevels
   attr_accessor :battle_npc_used_items
+  attr_accessor :last_battle_participants
+
+  def last_participants
+    return @last_battle_participants
+  end
 
   def battleRules
     @battleRules = {} if !@battleRules
@@ -175,6 +180,9 @@ def pbPrepareBattle(battle)
   # Environment
   if battleRules["environment"].nil?
     battle.environment = pbGetEnvironment
+    if Settings::SNOW_DAY && battle.environment == :Grass
+      battle.environment = GameData::Environment.get(:Snow)
+    end
   else
     battle.environment = battleRules["environment"]
   end
@@ -657,6 +665,7 @@ def pbTrainerBattleCore(*args)
   #    2 - Player lost
   #    3 - Player or wild Pokémon ran from battle, or player forfeited the match
   #    5 - Draw
+  pbAfterTrainerBattle(decision, battle)
   pbSet(outcomeVar, decision)
   return decision
 end
@@ -708,6 +717,7 @@ def rematchable_trainer_battle(rematchable_trainers = [], default_level = 50, ca
       end
     }
     loseDialog = trainer_data ? trainer_data.rematch_lose_text : "..."
+    loseDialog = loseDialog.gsub("<PLAYER_NAME>", $Trainer.name)
 
     npc_trainer = NPCTrainer.new(trainer.trainerName, trainer.trainerType, nil, trainer.custom_appearance)
     npc_trainer.lose_text = loseDialog
@@ -942,6 +952,7 @@ Events.onEndBattle += proc { |_sender, e|
     pickUpTypeItemSetBonus()
     nurseOutfitHeal()
     qmarkMaskCheck()
+
   when 2, 5 # Lose, draw
     if !canLose
       $game_system.bgm_unpause
@@ -950,6 +961,17 @@ Events.onEndBattle += proc { |_sender, e|
     end
   end
 }
+
+#Called after trainer battles only
+def pbAfterTrainerBattle(decision, battle)
+  battle_participants = battle.list_all_player_participants
+  $PokemonTemp.last_battle_participants = battle_participants
+  case decision
+  when 1# Win
+    checkObtainClothesAfterBattle(battle.list_all_player_participants) if Settings::HOENN
+  else
+  end
+end
 
 Events.onWildBattleEnd += proc { |_sender, e|
   species = e[0]

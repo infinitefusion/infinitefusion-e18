@@ -48,6 +48,7 @@ class Movie
       picture.bitmap = pbBitmap(frame)
       picture.visible=true
       pbWait(Graphics.frame_rate / 20)
+      picture.bitmap&.dispose
       picture.dispose
       @currentFrame += 1
     end

@@ -56,6 +56,7 @@ Always_Give_Shadow_If_Event_Name_Has = [
 
 # Determines whether or not an event should be given a shadow.
 def pbShouldGetShadow?(event)
+  return false if event.character_name == "invisible"
   return true if event.is_a?(Game_Player) # The player will always have a shadow
   page = pbGetActiveEventPage(event)
   return false unless page

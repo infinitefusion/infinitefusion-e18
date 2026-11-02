@@ -19,6 +19,72 @@ def turnEventTowardsEvent(turning, turnedTowards)
   end
 end
 
+
+def moveEventTowardsEvent(turning, turnedTowards)
+  if turnedTowards.is_a?(Integer)
+    turnedTowards = $game_map.events[turnedTowards]
+  end
+  if turning.is_a?(Integer)
+    turning = $game_map.events[turning]
+  end
+
+  event_x = turnedTowards.x
+  event_y = turnedTowards.y
+  dx = event_x - turning.x
+  dy = event_y - turning.y
+
+  # Already next to it
+  if (dx == 0 && dy.abs == 1) || (dy == 0 && dx.abs == 1)
+    turnEventTowardsEvent(turning, turnedTowards)
+    return
+  end
+  if turning.x < event_x
+    turning.move_right
+  elsif turning.x > event_x
+    turning.move_left
+  elsif turning.y < event_y
+    turning.move_down
+  elsif turning.y > event_y
+    turning.move_up
+  end
+end
+
+def moveEventAwayFromEvent(moving, movingAwayFrom)
+  if movingAwayFrom.is_a?(Integer)
+    movingAwayFrom = $game_map.events[movingAwayFrom]
+  end
+  if moving.is_a?(Integer)
+    moving = $game_map.events[moving]
+  end
+
+  event_x = movingAwayFrom.x
+  event_y = movingAwayFrom.y
+  dx = moving.x - event_x
+  dy = moving.y - event_y
+
+  # Move in whichever axis has the larger distance, away from the target
+  if dx.abs >= dy.abs
+    if moving.x < event_x
+      moving.move_left
+    elsif moving.x > event_x
+      moving.move_right
+    elsif moving.y < event_y
+      moving.move_up
+    elsif moving.y > event_y
+      moving.move_down
+    end
+  else
+    if moving.y < event_y
+      moving.move_up
+    elsif moving.y > event_y
+      moving.move_down
+    elsif moving.x < event_x
+      moving.move_left
+    elsif moving.x > event_x
+      moving.move_right
+    end
+  end
+end
 def resetFrames(event)
   if event.is_a?(Integer)
     event = $game_map.events[event]
@@ -147,9 +213,9 @@ def kick_ball(eventId, obstacleName = nil, targetDestination = nil, targetSwitch
   # Shorter kick distance — scales gently with speed
   player_speed = $game_player.move_speed
   remaining_distance = [player_speed * 0.8, 1].max.floor
-
-  pbSEPlay("jump", 80, 100) rescue nil
+  pbSEPlay("kick_ball", 80, 100) rescue nil
   pbWait(3)
+  pbSEPlay("jump", 80, 100) rescue nil
 
   current_dir = dir
   total_bounces = 0
@@ -279,8 +345,6 @@ def sit_on_chair
       $game_player.direction_fix = false
     else
       passable = $game_map.passable?($game_player.x, $game_player.y, direction)
-      dest_x = $game_player.x + (direction == 6 ? 1 : direction == 4 ? -1 : 0)
-      dest_y = $game_player.y + (direction == 2 ? 1 : direction == 8 ? -1 : 0)
       if passable #&& !$game_map.event_at_position(dest_x, dest_y)  #todo Meant to make it so that you can't get stuck, but also prevents from interacting with
         $game_player.turn_generic(direction)
         $game_player.jump_forward
@@ -307,16 +371,39 @@ def checkInputDirection
   return nil
 end
 
+SWITCH_ON_BOAT = 2214
 def getOnBoat
+  $game_switches[SWITCH_ON_BOAT] = true
   set_player_graphics("boat_briney_peeko")
   $PokemonTemp.prevent_ow_battles = true
   $PokemonGlobal.boat = true
+end
+
+def tile_is_water?(x, y, map = $game_map)
+  return false if !map.valid?(x, y)
+  tag = map.terrain_tag(x, y)
+  return !!(tag && tag.can_surf)
+end
+
+def tile_passable_or_water(x, y, map = $game_map)
+  return false if !map.valid?(x, y)
+  map.events.each_value do |event|
+    next if !event.at_coordinate?(x, y) || event.through
+    return false if event.character_name != ""
+  end
+  terrain_tag = map.terrain_tag(x, y)
+  return true if terrain_tag && terrain_tag.can_surf
+  [2, 4, 6, 8].each do |d|
+    return true if map.passable?(x, y, d)
+  end
+  return false
 end
 
 def getOffBoat
   reset_player_graphics
   $PokemonTemp.prevent_ow_battles = false
   $PokemonGlobal.boat = false
+  $game_switches[SWITCH_ON_BOAT] = false
   $game_map.refresh
 end
 
@@ -414,6 +501,22 @@ def clefairy_minigame(length = 4, clefairy_event_id = nil)
   end
 end
 
+def getEventsInRadius(radius = 5)
+  player_x = $game_player.x
+  player_y = $game_player.y
+  nearby_events = []
+
+  $game_map.events.each_value do |event|
+    next if event.nil? || !event.active?
+    distance = Math.sqrt((event.x - player_x)**2 + (event.y - player_y)**2)
+    if distance <= radius
+      nearby_events << event
+    end
+  end
+  return nearby_events
+end
+
+
 # Switch 20
 def isDebugMode()
   return $DEBUG
@@ -474,7 +577,7 @@ def get_random_trend
 end
 
 def trendSet(option1, option2)
-  choice = pbMessage(_INTL("What do you think? Do you think any of these have any potential?"), [_INTL("Not really..."), "#{option1} is pretty cool!", "I like #{option2}!"])
+  choice = pbMessage(_INTL("What do you think? Do you think any of these have any potential?"), [_INTL("Not really..."), _INTL("{1} is pretty cool!", option1), _INTL("I like {1}!", option2)])
   case choice
   when 0
     return false
@@ -692,3 +795,98 @@ def getRandomUnisexName
   return RandTrainerNames_unisex.sample
 end
 
+def playAnimationAroundPlayer(animation_id, radius, only_passable = false)
+  player_x = $game_player.x
+  player_y = $game_player.y
+  valid_tiles = []
+
+  (-radius..radius).each do |dx|
+    (-radius..radius).each do |dy|
+      next if Math.sqrt(dx**2 + dy**2) > radius
+      target_x = player_x + dx
+      target_y = player_y + dy
+      next unless $game_map.valid?(target_x, target_y)
+      if only_passable
+        next unless $game_player.passable?(target_x, target_y, 0)
+      end
+      valid_tiles << [target_x, target_y]
+    end
+  end
+  return if valid_tiles.empty?
+
+  selected_x, selected_y = valid_tiles.sample
+  playAnimation(animation_id, selected_x, selected_y)
+end
+
+
+def playerFall(mapBelow, target_x, target_y, landing_animation=DUST_ANIMATION_ID)
+  $game_player.walk_anime =false
+  $game_player.direction_fix =true
+  $game_player.move_speed_override = 5
+  $game_player.through = true
+
+  pbWait(4)
+  pbFadeOutIn {
+    $game_temp.player_new_map_id = mapBelow
+    $game_temp.player_new_x = target_x
+    $game_temp.player_new_y = target_y-4
+    pbCancelVehicles
+    $scene.transfer_player
+    $game_map.autoplay
+    $game_map.refresh
+  }
+  pbSEPlay("bw_fall")
+  $game_player.move_down
+  $game_player.move_down
+  $game_player.move_down
+  $game_player.move_down
+  pbWait(16)
+  pbSEPlay("Earth3")
+  playAnimation(landing_animation,$game_player.x,$game_player.y)
+  $game_screen.start_shake(2, 8, 8)
+
+  $game_player.walk_anime =true
+  $game_player.direction_fix =false
+  $game_player.move_speed_override = nil
+  $game_player.through = false
+
+end
+
+def playerLift(mapAbove, target_x, target_y, lift_animation=nil)
+  $game_player.walk_anime =false
+  $game_player.direction_fix =true
+  $game_player.move_speed_override = 6
+  $game_player.through = true
+  pbWait(4)
+
+  playAnimation(lift_animation, $game_player.x, $game_player.y) if lift_animation
+
+  pbWait(1)
+  $game_player.move_up
+  $game_player.move_up
+  $game_player.move_up
+  $game_player.move_up
+  $game_player.move_up
+  $game_player.move_up
+  pbWait(16)
+  pbFadeOutIn {
+    $game_temp.player_new_map_id = mapAbove
+    $game_temp.player_new_x = target_x
+    $game_temp.player_new_y = target_y
+    pbCancelVehicles
+    $scene.transfer_player
+    $game_map.autoplay
+    $game_map.refresh
+  }
+
+  playAnimation(DUST_ANIMATION_ID,$game_player.x,$game_player.y)
+  pbSEPlay("Earth3")
+
+  $game_screen.start_shake(2, 8, 8)
+
+  $game_player.walk_anime =true
+  $game_player.direction_fix =false
+  $game_player.move_speed_override = nil
+  $game_player.through = false
+
+end

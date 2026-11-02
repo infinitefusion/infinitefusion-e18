@@ -2498,8 +2498,14 @@ class PokeBattle_Move_0D6 < PokeBattle_HealingMove
     return (user.totalhp/2.0).round
   end
 
-  def pbEffectAfterAllHits(user,target)
+  def pbEffectGeneral(user)
     user.effects[PBEffects::Roost] = true
+    if user.pbOwnedByPlayer?
+      @battle.scene.pbRefreshOne(user.index) if $PokemonSystem.type_icons_player
+    else
+      @battle.scene.pbRefreshOne(user.index) if $PokemonSystem.type_icons_opponent
+    end
+    super(user)
   end
 end
 
@@ -3223,8 +3229,7 @@ class PokeBattle_Move_0F1 < PokeBattle_Move
     itemName = target.itemName
     user.item = target.item
     # Permanently steal the item from wild Pokémon
-    # removed target.item == target.initialItem, this may cause bugs.
-    if @battle.wildBattle? && target.opposes? && !user.initialItem
+    if @battle.wildBattle? && target.opposes? && !user.initialItem && target.item&.id == target.initialItem
       user.setInitialItem(target.item)
     end
     target.pbRemoveItem(false)
@@ -3284,8 +3289,7 @@ class PokeBattle_Move_0F2 < PokeBattle_Move
     target.effects[PBEffects::ChoiceBand] = nil
     target.effects[PBEffects::Unburden]   = (!target.item && oldTargetItem)
     # Permanently steal the item from wild Pokémon
-    if @battle.wildBattle? && target.opposes? &&
-       target.initialItem==oldTargetItem && !user.initialItem
+    if @battle.wildBattle? && target.opposes? && target.initialItem==oldTargetItem&.id && !user.initialItem
       user.setInitialItem(oldTargetItem)
     end
     @battle.pbDisplay(_INTL("{1} switched items with its opponent!",user.pbThis))
@@ -3328,8 +3332,7 @@ class PokeBattle_Move_0F3 < PokeBattle_Move
     itemName = user.itemName
     target.item = user.item
     # Permanently steal the item from wild Pokémon
-    if @battle.wildBattle? && user.opposes? &&
-       user.initialItem==user.item && !target.initialItem
+    if @battle.wildBattle? && user.opposes? && user.initialItem==user.item&.id && !target.initialItem
       target.setInitialItem(user.item)
       user.pbRemoveItem
     else
@@ -3534,6 +3537,7 @@ class PokeBattle_Move_0F7 < PokeBattle_Move
     @willFail = true if user.item.is_berry? && !user.canConsumeBerry?
     return if @willFail
     return if user.item.is_mega_stone?
+    return if user.item.is_berry? 
     flingableItem = false
     @flingPowers.each do |_power, items|
       next if !items.include?(user.item_id)

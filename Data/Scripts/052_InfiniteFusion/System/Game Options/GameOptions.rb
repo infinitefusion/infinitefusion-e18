@@ -1,3 +1,16 @@
+def openRandomizerMenu()
+  pbFadeOutIn {
+    scene = RandomizerOptionsScene.new
+    screen = PokemonOptionScreen.new(scene)
+    screen.pbStartScreen
+  }
+  if $PokemonTemp.should_reshuffle_pokemon || $PokemonTemp.should_reshuffle_trainers
+    if pbConfirmMessage(_INTL("Your changes won't take effect until you re-shuffle. Would you like to do it now?"))
+      reshuffleWithCurrentSettings
+    end
+  end
+end
+
 class PokemonGameOption_Scene < PokemonOption_Scene
   ICON_AUDIO = "optionIcons/AUDIO"
   ICON_GAMEPLAY = "optionIcons/GAMEPLAY"
@@ -70,15 +83,7 @@ class PokemonGameOption_Scene < PokemonOption_Scene
     @challenge_menu = false
   end
 
-  def openRandomizerMenu()
-    return unless @randomizer_menu
-    pbFadeOutIn {
-      scene = RandomizerOptionsScene.new
-      screen = PokemonOptionScreen.new(scene)
-      screen.pbStartScreen
-    }
-    @randomizer_menu = false
-  end
+
 
   def openSystemMenu()
     return unless @system_menu

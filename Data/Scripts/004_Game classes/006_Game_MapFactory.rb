@@ -202,10 +202,10 @@ class PokemonMapFactory
     return true if thisEvent.through
     if thisEvent==$game_player
       if !($DEBUG && Input.press?(Input::CTRL))
-        return false if !map.passableStrict?(x,y,0,thisEvent)
+        return false if !map.playerPassable?(x,y,0,thisEvent)
       end
     else
-      return false if !map.passableStrict?(x,y,0,thisEvent)
+      return false if !map.playerPassable?(x,y,0,thisEvent)
     end
     for event in map.events.values
       next if event == thisEvent || !event.at_coordinate?(x, y)

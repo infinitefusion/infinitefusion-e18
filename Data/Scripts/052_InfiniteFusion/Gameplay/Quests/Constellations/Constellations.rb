@@ -21,10 +21,10 @@ def get_constellation_variable(pokemon)
     # when :LUGIA;      return  VAR_CONSTELLATION_LUGIA
     # when :HOOH;       return  VAR_CONSTELLATION_HOOH
     # when :CELEBI;     return  VAR_CONSTELLATION_CELEBI
-    # when :SLAKING;    return  VAR_CONSTELLATION_SLAKING
-    # when :JIRACHI;    return  VAR_CONSTELLATION_JIRACHI
+     when :SLAKING;    return  VAR_CONSTELLATION_SLAKING
+     when :JIRACHI;    return  VAR_CONSTELLATION_JIRACHI
     # when :TYRANTRUM;  return  VAR_CONSTELLATION_TYRANTRUM
-    # when :SHARPEDO;   return  VAR_CONSTELLATION_SHARPEDO
+     when :SHARPEDO;   return  VAR_CONSTELLATION_SHARPEDO
     # when :ARCEUS;     return  VAR_CONSTELLATION_ARCEUS
   end
 end

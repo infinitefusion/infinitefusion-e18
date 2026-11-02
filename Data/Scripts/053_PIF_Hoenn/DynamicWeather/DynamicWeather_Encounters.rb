@@ -21,7 +21,7 @@ class PokemonEncounters
     return pokemonEssentials_PokemonEncounter_choose_wild_pokemon(enc_type, *args)
   end
 
-  SUBSTITUTABLE_ENCOUNTER_TYPES = [:LandDay, :LandNight, :LandMorning, :Land, :Land1, :Land2, :Land3, :TallGrass, :Water]
+  SUBSTITUTABLE_ENCOUNTER_TYPES = [:LandDay, :LandNight, :LandMorning, :Land, :Land1, :Land2, :Land3, :Land4, :TallGrass, :TallGrassNight, :Water]
 
   def can_substitute_for_weather_encounter(encounter_type, current_weather)
     return false if Settings::GAME_ID != :IF_HOENN

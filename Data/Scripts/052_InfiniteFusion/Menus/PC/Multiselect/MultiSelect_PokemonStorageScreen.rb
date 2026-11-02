@@ -141,7 +141,7 @@ class PokemonStorageScreen
 
     commands << cmdMove
     commands << cmdSort
-    commands << cmdRelease if $DEBUG
+    commands << cmdRelease #if $DEBUG
     commands << cmdCancel
 
     chosen = pbShowCommands(helptext, commands)

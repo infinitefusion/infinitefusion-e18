@@ -234,7 +234,7 @@ def convertHeartScalesToCoins
     pbSEPlay("MiningRevealItem")
     pbWait(4)
     pbCallBubDown(2, @event_id)
-    pbMessage(_INTL("Here you go! I converted your Heart Scales into {1} \\C[1]{2}\\C[0]!", nb_coins, COSMETIC_CURRENCY_NAME))
+    pbMessage(_INTL("Here you go! I converted your Heart Scales into {1} \\C[1]{2}\\C[0]!", nb_coins, get_cosmetic_currency_name))
     pbReceiveCosmeticsMoney(nb_coins)
     pbCallBubDown(2, @event_id)
     pbMessage(_INTL("Come back whenever you find more Heart Scales to convert!"))
@@ -321,3 +321,95 @@ def inputColorCode(codeVariable)
   return ColorCodeDoor.new(codeVariable).inputColorCode
 end
 
+
+def count_soot()
+  return count_tile(:SootGrass)
+end
+def count_tile(terrain_tag)
+  map = $MapFactory.getMap($game_map.map_id)
+  count = 0
+  for x in 0...map.data.xsize
+    for y in 0...map.data.ysize
+      for i in 0...map.data.zsize
+        tile_id = map.data[x, y, i]
+        next if GameData::TerrainTag.try_get(map.terrain_tags[tile_id]).id != terrain_tag
+        #echoln [x,y]
+        count+=1
+      end
+    end
+  end
+  return count
+end
+
+
+def obtainBirthdayHat(celebration_id)
+  current_year = Time.now.year
+  birthday_id = "#{celebration_id}_#{current_year}".to_sym
+  $Trainer.birthdays_celebrated = [] unless $Trainer.birthdays_celebrated
+  return if $Trainer.birthdays_celebrated.include?(birthday_id)
+  possible_hats = [HAT_PARTY_1, HAT_PARTY_2, HAT_PARTY_3, HAT_PARTY_4, HAT_PARTY_5, HAT_PARTY_6, HAT_PARTY_7]
+  possible_hats = possible_hats.reject { |hatID| hasHat?(hatID) }
+  unless possible_hats.empty?
+    obtainHat(possible_hats.sample)
+    $Trainer.birthdays_celebrated << birthday_id
+  end
+end
+
+def crumbleMirageTower(event_base_id, event_top_id, tiles = 8)
+  event_base = $game_map.events[event_base_id]
+  event_top  = $game_map.events[event_top_id]
+  return unless event_base && event_top
+
+  ground_y = event_base.y
+
+  tiles.times do
+    event_base.move_down
+    event_top.move_down
+    loop do
+      pbSEPlay("Earth4",80,80,)
+      update_crumble_mask(event_base, ground_y)
+      update_crumble_mask(event_top, ground_y)
+      Graphics.update
+      Input.update
+      pbUpdateSceneMap
+      break if !event_base.moving? && !event_top.moving?
+    end
+  end
+end
+
+def update_crumble_mask(ev, ground_y)
+  ground_real = ground_y * Game_Map::REAL_RES_Y
+  sunk_real   = ev.real_y - ground_real
+  sunk_px     = (sunk_real / Game_Map::Y_SUBPIXELS).to_i
+  depth       = [sunk_px, 0].max
+  return if ev.forced_bush_depth == depth
+  ev.forced_bush_depth = depth
+  ev.calculate_bush_depth
+end
+
+Events.onWildBattleEnd += proc { |_sender, e|
+  $game_switches[SWITCH_ENCOUNTERED_A_POKEMON] = true
+}
+
+def petalburg_unlock_doors(doors=[])
+  for door in doors
+    pbSetSelfSwitch(door,"A",true)
+  end
+  pbWait(8)
+  pbSEPlay("unlock")
+  pbWait(8)
+  if doors.length >1
+    pbMessage(_INTL("The doors unlocked!"))
+  else
+    pbMessage(_INTL("The door unlocked!"))
+  end
+end
+
+def obtainNormanHat
+  gender=getPlayerGenderId()
+  if gender == GENDER_MALE
+    obtainHat(HAT_GYM_REWARD_5_HOENN_M)
+  else
+    obtainHat(HAT_GYM_REWARD_5_HOENN_F)
+  end
+end

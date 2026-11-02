@@ -127,6 +127,7 @@ def registerBattledTrainer(event_id, mapId, trainerType, trainerName, trainerVer
   trainer.setLinkedTrainer(linked_event) if linked_event
   trainer.setOverworldSprite(getOverworldSprite(event_id,mapId))
   trainer.setLocation(getMapName(mapId))
+  trainer.location_map_id = mapId
   $PokemonGlobal.battledTrainers[key] = trainer
   echoln "Registered rematchable trainer #{key}"
   return trainer

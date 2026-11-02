@@ -154,6 +154,7 @@ class HallOfFameSimple_Scene < HallOfFame_Scene
       rival.friendship_level = 2
       $PokemonGlobal.battledTrainers[BATTLED_TRAINER_RIVAL_KEY] = rival
     end
+    return unless wally
     if wally.friendship_level == 0
       wally.friendship_level = 1
       $PokemonGlobal.battledTrainers[BATTLED_TRAINER_WALLY_KEY] = wally

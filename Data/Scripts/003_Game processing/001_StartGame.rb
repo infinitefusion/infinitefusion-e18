@@ -126,6 +126,16 @@ module Game
             pokemon.exp_when_fused_body=nil
             pokemon.exp_gained_since_fused=nil
             pokemon.level = 5
+
+            if pokemon.original_body
+              pokemon.original_body.level = 5
+              pokemon.original_body.exp_gained_with_player = 0
+            end
+
+            if pokemon.original_head
+              pokemon.original_head.level = 5
+              pokemon.original_head.exp_gained_with_player = 0
+            end
             pokemon.pif_sprite =nil
 
             pokemon.owner.id = $Trainer.id

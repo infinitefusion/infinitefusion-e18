@@ -431,7 +431,7 @@ end
 
 def pbDisplayCosmeticsMoneyWindow(msgwindow,x=nil,y=nil)
   moneyString = pbGetCosmeticsMoneyString()
-  goldwindow = Window_AdvancedTextPokemon.new(_INTL("{2}:\n<ar>{1}</ar>", moneyString,COSMETIC_CURRENCY_NAME))
+  goldwindow = Window_AdvancedTextPokemon.new(_INTL("{2}:\n<ar>{1}</ar>", moneyString, get_cosmetic_currency_name))
   goldwindow.setSkin("Graphics/Windowskins/goldskin")
   goldwindow.resizeToFit(goldwindow.text, Graphics.width)
   goldwindow.width = 160 if goldwindow.width <= 160
@@ -648,6 +648,16 @@ def pbMessageDisplay(msgwindow, message, letterbyletter = true, commandProc = ni
   text.gsub!(/\\pog/i, "")
   text.gsub!(/\\b/i, "<c3=3050C8,D0D0C8>")
   text.gsub!(/\\r/i, "<c3=E00808,D0D0C8>")
+
+  text.gsub!("<-","←")
+  text.gsub!("->","→")
+  text.gsub!("<arr_left>","←")
+  text.gsub!("<arr_right>","→")
+  text.gsub!("<arr_down>","↓")
+  text.gsub!("<arr_up>","↑")
+  text.gsub!("<arr_down>","↓")
+
+
   text.gsub!(/\\mu\[(.*?)\]/i) do
     $Trainer && isPlayerMale() ? $1 : ""
   end
@@ -948,6 +958,7 @@ def pbMessage(message, commands = nil, cmdIfCancel = 0, skin = nil, defaultCmd =
 end
 
 def pbMessageNoSound(message, commands = nil, cmdIfCancel = 0, skin = nil, defaultCmd = 0, &block)
+  echoln message
   ret = 0
   msgwindow = pbCreateMessageWindow(nil, skin)
   if commands

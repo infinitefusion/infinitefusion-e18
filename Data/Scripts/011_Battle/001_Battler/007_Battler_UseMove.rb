@@ -171,6 +171,7 @@ class PokeBattle_Battler
     pbBeginTurn(choice)
     # Force the use of certain moves if they're already being used
     if usingMultiTurnAttack?
+      echoln @currentMove
       choice[2] = PokeBattle_Move.from_pokemon_move(@battle, Pokemon::Move.new(@currentMove))
       specialUsage = true
     elsif @effects[PBEffects::Encore] > 0 && choice[1] >= 0 &&

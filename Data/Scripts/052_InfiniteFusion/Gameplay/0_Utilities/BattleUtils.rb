@@ -23,7 +23,7 @@ end
 def Kernel.getRoamingMap(roamingArrayPos)
   curmap = $PokemonGlobal.roamPosition[roamingArrayPos]
   mapinfos = $RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
-  text = mapinfos[curmap].name #,(curmap==$game_map.map_id) ? _INTL("(this map)") : "")
+  text = pbGetMessage(MessageTypes::MapNames, curmap) #,(curmap==$game_map.map_id) ? _INTL("(this map)") : "")
   return text
 end
 

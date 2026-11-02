@@ -13,6 +13,7 @@ class Pokemon
     # Creates a new Move object.
     # @param move_id [Symbol, String, Integer] move ID
     def initialize(move_id)
+
       @id   = GameData::Move.get(move_id).id
       @ppup = 0
       @pp   = total_pp

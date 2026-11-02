@@ -37,7 +37,7 @@ module GameData
 
       @base_exp = calculate_base_exp()
       @growth_rate = calculate_growth_rate()
-      @gender_ratio = calculate_gender() #todo
+      @gender_ratio = calculate_gender()
       @catch_rate = calculate_catch_rate()
       @happiness = calculate_base_happiness()
 
@@ -285,7 +285,7 @@ module GameData
 
     def get_split_names
       case getCurrentLanguage
-      when :ENGLISH
+      when :ENGLISH, :FRENCH_CANADA
         return GameData::SPLIT_NAMES
       when :FRENCH
         return GameData::SPLIT_NAMES_FRENCH
@@ -393,11 +393,12 @@ module GameData
       return :Medium
     end
 
+    #todo
     def calculate_gender
       head_ratio = @head_pokemon.gender_ratio
       body_ratio = @body_pokemon.gender_ratio
       return :Genderless if head_ratio == :Genderless || body_ratio == :Genderless
-      return :Female50Percent
+      return @body_pokemon.gender_ratio
     end
 
 

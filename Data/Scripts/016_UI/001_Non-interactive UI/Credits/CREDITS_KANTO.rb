@@ -76,6 +76,14 @@ locpic_
 blood.wolf58 (Willi)
 ragzzh
 
+<title>Chinese Translation
+翻译、UI：Leon (Leonnovation)
+日语支持：Charlotte (Charlotte)
+内测反馈：晓夜千羽 (Xion) 风伊布 (Breezeon)
+技术支持：白崎时绘 (Shiroe)
+中文Logo：未蓝啊 (Weilan)
+字体支持：狼人小林 (FusionPixel)
+
 <title>The following free resources were also used 
 <title>with their respective authors' consent:
 

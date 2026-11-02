@@ -200,16 +200,18 @@ def generateTrainerTradeOffer(trainer)
     pbChoosePokemon(1, 2)
   else
     wanted_types_string = wanted_types.map { |type|
-      type_name = GameData::Type.get(type).real_name
+      type_name = GameData::Type.get(type).name
       "\\C[1]#{type_name}\\C[0]"
     }.join(", ")
 
-    trainerClassName = GameData::TrainerType.get(trainer.trainerType).real_name
+    trainerClassName = GameData::TrainerType.get(trainer.trainerType).name
+    trainerName = pbGetMessageFromHash(MessageTypes::TrainerNames, trainer.trainerName)
     pbMessage(_INTL("{1} {2} is looking for Pokémon of the following type(s):\\n{3}\\nWhich Pokémon do you want to trade?",
-                    trainerClassName, trainer.trainerName, wanted_types_string))
+                    trainerClassName, trainerName, wanted_types_string))
     pbChoosePokemon(1, 2,
                     proc { |pokemon|
-                      pokemon.hasOneOfTheseTypes?(wanted_types)
+                      pokemon.hasOneOfTheseTypes?(wanted_types) &&
+                      !pokemon.egg?
                     })
   end
   chosen_index = pbGet(1)
@@ -217,15 +219,15 @@ def generateTrainerTradeOffer(trainer)
     chosen_pokemon = $Trainer.party[chosen_index]
     offered_pokemon = offerPokemonForTrade(chosen_pokemon, trainer.currentTeam, trainer.trainerType, trainer.favorite_type)
     if !offered_pokemon
-      pbMessage(_INTL("{1} {2} does not want to trade...", trainerClassName, trainer.trainerName))
+      pbMessage(_INTL("{1} {2} does not want to trade...", trainerClassName, trainerName))
       return trainer
     end
 
     pif_sprite = BattleSpriteLoader.new.get_pif_sprite_from_species(offered_pokemon.species)
-    message = _INTL("{1} {2} is offering {3} (Level {4}) for your {5}.", trainerClassName, trainer.trainerName, offered_pokemon.name, offered_pokemon.level, chosen_pokemon.name)
+    message = _INTL("{1} {2} is offering {3} (Level {4}) for your {5}.", trainerClassName, trainerName, offered_pokemon.name, offered_pokemon.level, chosen_pokemon.name)
     showPokemonInPokeballWithMessage(pif_sprite, message)
 
-    if pbConfirmMessage(_INTL("Trade away {1} for {2} {3}'s {4}?", chosen_pokemon.name, trainerClassName, trainer.trainerName, offered_pokemon.name))
+    if pbConfirmMessage(_INTL("Trade away {1} for {2} {3}'s {4}?", chosen_pokemon.name, trainerClassName, trainerName, offered_pokemon.name))
       pbStartTrade(chosen_index, offered_pokemon, offered_pokemon.name, trainer.trainerName, 0)
       updated_party = trainer.currentTeam
       trainer.increase_friendship(10) if  GameData::Type.exists?(trainer.favorite_type) && offered_pokemon.hasType?(trainer.favorite_type)

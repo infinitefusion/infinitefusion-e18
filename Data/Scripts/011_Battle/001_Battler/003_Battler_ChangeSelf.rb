@@ -136,6 +136,11 @@ class PokeBattle_Battler
     end
     @effects[PBEffects::BurnUp] = false
     @effects[PBEffects::Roost]  = false
+    if pbOwnedByPlayer?
+      @battle.scene.pbRefreshOne(@index) if $PokemonSystem.type_icons_player
+    else
+      @battle.scene.pbRefreshOne(@index) if $PokemonSystem.type_icons_opponent
+    end
   end
 
   #=============================================================================

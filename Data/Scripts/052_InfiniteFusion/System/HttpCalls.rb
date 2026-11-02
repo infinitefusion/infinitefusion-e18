@@ -19,6 +19,7 @@ end
 
 def updateCustomDexFile
   return if !downloadAllowed?()
+  #pbMessage(_INTL("Downloading custom Pokédex entries...\\wtnp[10]"))
   download_file(Settings::CUSTOM_DEX_FILE_URL, Settings::CUSTOM_DEX_ENTRIES_PATH,)
 end
 

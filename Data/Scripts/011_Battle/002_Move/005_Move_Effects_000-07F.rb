@@ -277,6 +277,14 @@ end
 # Confuses the target.
 #===============================================================================
 class PokeBattle_Move_013 < PokeBattle_ConfuseMove
+
+  def pbOnStartUse(user,target)
+    if user.pokemon.chatter_text
+      pbCallBubOverBattler(user)
+      pbMessage(user.pokemon.chatter_text + "!\\wtnp[15]")
+    end
+    super(user,target)
+  end
 end
 
 #===============================================================================
@@ -1753,7 +1761,7 @@ class PokeBattle_Move_060 < PokeBattle_Move
     end
     if !checkedTerrain
       case @battle.environment
-      when :Grass, :TallGrass, :Grass_alt1,:Grass_alt2,:Grass_alt3,
+      when :Grass, :TallGrass, :Grass_alt1,:Grass_alt2,:Grass_alt3,:Grass_alt4
         @newType = :GRASS
       when :MovingWater, :StillWater, :Puddle, :Underwater
         @newType = :WATER

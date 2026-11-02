@@ -208,44 +208,7 @@ class PokeBattle_Battle
     # Weather
     pbEORWeather(priority)
     # Future Sight/Doom Desire
-    @positions.each_with_index do |pos,idxPos|
-      next if !pos || pos.effects[PBEffects::FutureSightCounter]==0
-      pos.effects[PBEffects::FutureSightCounter] -= 1
-      next if pos.effects[PBEffects::FutureSightCounter]>0
-      next if !@battlers[idxPos] || @battlers[idxPos].fainted?   # No target
-      moveUser = nil
-      eachBattler do |b|
-        next if b.opposes?(pos.effects[PBEffects::FutureSightUserIndex])
-        next if b.pokemonIndex!=pos.effects[PBEffects::FutureSightUserPartyIndex]
-        moveUser = b
-        break
-      end
-      next if moveUser && moveUser.index==idxPos   # Target is the user
-      if !moveUser   # User isn't in battle, get it from the party
-        party = pbParty(pos.effects[PBEffects::FutureSightUserIndex])
-        pkmn = party[pos.effects[PBEffects::FutureSightUserPartyIndex]]
-        if pkmn && pkmn.able?
-          moveUser = PokeBattle_Battler.new(self,pos.effects[PBEffects::FutureSightUserIndex])
-          moveUser.pbInitDummyPokemon(pkmn,pos.effects[PBEffects::FutureSightUserPartyIndex])
-        end
-      end
-      next if !moveUser   # User is fainted
-      move = pos.effects[PBEffects::FutureSightMove]
-      pbDisplay(_INTL("{1} took the {2} attack!",@battlers[idxPos].pbThis,
-         GameData::Move.get(move).name))
-      # NOTE: Future Sight failing against the target here doesn't count towards
-      #       Stomping Tantrum.
-      userLastMoveFailed = moveUser.lastMoveFailed
-      @futureSight = true
-      moveUser.pbUseMoveSimple(move,idxPos)
-      @futureSight = false
-      moveUser.lastMoveFailed = userLastMoveFailed
-      @battlers[idxPos].pbFaint if @battlers[idxPos].fainted?
-      pos.effects[PBEffects::FutureSightCounter]        = 0
-      pos.effects[PBEffects::FutureSightMove]           = nil
-      pos.effects[PBEffects::FutureSightUserIndex]      = -1
-      pos.effects[PBEffects::FutureSightUserPartyIndex] = -1
-    end
+    @positions.each_with_index { |pos, idxPos| pbEORUseFutureSight(pos, idxPos) }
     # Wish
     @positions.each_with_index do |pos,idxPos|
       next if !pos || pos.effects[PBEffects::Wish]==0
@@ -261,8 +224,8 @@ class PokeBattle_Battle
     for side in 0...2
       next if sides[side].effects[PBEffects::SeaOfFire]==0
       next if [:Rain, :HeavyRain].include?(curWeather)
-      @battle.pbCommonAnimation("SeaOfFire") if side==0
-      @battle.pbCommonAnimation("SeaOfFireOpp") if side==1
+      pbCommonAnimation("SeaOfFire") if side==0
+      pbCommonAnimation("SeaOfFireOpp") if side==1
       priority.each do |b|
         next if b.opposes?(side)
         next if !b.takesIndirectDamage? || b.pbHasType?(:FIRE)
@@ -631,7 +594,14 @@ class PokeBattle_Battle
       b.effects[PBEffects::PriorityItem]     = false
       b.effects[PBEffects::Protect]          = false
       b.effects[PBEffects::RagePowder]       = false
-      b.effects[PBEffects::Roost]            = false
+      if b.effects[PBEffects::Roost]
+        b.effects[PBEffects::Roost]          = false
+        if b.pbOwnedByPlayer?
+          @scene.pbRefreshOne(b.index) if $PokemonSystem.type_icons_player
+        else
+          @scene.pbRefreshOne(b.index) if $PokemonSystem.type_icons_opponent
+        end
+      end
       b.effects[PBEffects::Snatch]           = 0
       b.effects[PBEffects::SpikyShield]      = false
       b.effects[PBEffects::Spotlight]        = 0
@@ -662,5 +632,52 @@ class PokeBattle_Battle
     @field.effects[PBEffects::FusionBolt]  = false
     @field.effects[PBEffects::FusionFlare] = false
     @endOfRound = false
+  end
+
+
+
+  #-----------------------------------------------------------------------------
+  # End Of Round use delayed moves (Future Sight, Doom Desire).
+  #-----------------------------------------------------------------------------
+
+  def pbEORUseFutureSight(position, position_index)
+    return if !position || position.effects[PBEffects::FutureSightCounter] == 0
+    position.effects[PBEffects::FutureSightCounter] -= 1
+    return if position.effects[PBEffects::FutureSightCounter] > 0
+    move     = position.effects[PBEffects::FutureSightMove]
+    userIdx  = position.effects[PBEffects::FutureSightUserIndex]
+    partyIdx = position.effects[PBEffects::FutureSightUserPartyIndex]
+    position.effects[PBEffects::FutureSightCounter]        = 0
+    position.effects[PBEffects::FutureSightMove]           = nil
+    position.effects[PBEffects::FutureSightUserIndex]      = -1
+    position.effects[PBEffects::FutureSightUserPartyIndex] = -1
+    return if !move   # defensive: corrupted/never-set state, bail out safely
+    return if !@battlers[position_index] || @battlers[position_index].fainted?
+    moveUser = nil
+    allBattlers = @battlers.select { |b| b && !b.fainted? }
+    allBattlers.each do |battler|
+      next if battler.opposes?(userIdx)
+      next if battler.pokemonIndex != partyIdx
+      moveUser = battler
+      break
+    end
+    return if moveUser && moveUser.index == position_index
+    if !moveUser
+      party = pbParty(userIdx)
+      pkmn = (partyIdx >= 0) ? party[partyIdx] : nil
+      if pkmn&.able?
+        moveUser = PokeBattle_Battler.new(self, userIdx)
+        moveUser.pbInitDummyPokemon(pkmn, partyIdx)
+      end
+    end
+    return if !moveUser
+    pbDisplay(_INTL("{1} took the {2} attack!", @battlers[position_index].pbThis,
+                    GameData::Move.get(move).name))
+    userLastMoveFailed = moveUser.lastMoveFailed
+    @futureSight = true
+    moveUser.pbUseMoveSimple(move, position_index)
+    @futureSight = false
+    moveUser.lastMoveFailed = userLastMoveFailed
+    @battlers[position_index].pbFaint if @battlers[position_index].fainted?
   end
 end

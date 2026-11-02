@@ -83,7 +83,6 @@ class PokeBattle_Battle
           @sideSizes[0] -= 1
         end
       end
-
       PBDebug.log("Trying #{@sideSizes[0]}v#{@sideSizes[1]} battle instead")
       if @sideSizes[0] <= 0 || @sideSizes[1] <= 0
         raise _INTL("Couldn't reduce battle size any further, battle isn't possible")
@@ -103,6 +102,9 @@ class PokeBattle_Battle
     pbClearChoice(idxBattler)
     @successStates[idxBattler] = PokeBattle_SuccessState.new
     @battlers[idxBattler].pbInitialize(pkmn, idxParty)
+
+    side = idxBattler % 2
+    @usedInBattle[side][idxParty] = true if @usedInBattle && @usedInBattle[side]
   end
 
   def pbSetUpSides
@@ -378,7 +380,7 @@ class PokeBattle_Battle
     $Trainer.cosmetics_money = 0 unless $Trainer.cosmetics_money
     pbPlayer.cosmetics_money += cosmetics_money
     if !@moneyGain && cosmetics_money > 0 # message displayed in pbGainMoney if player wins money
-      pbDisplayPaused(_INTL("You got some {1} for winning!", COSMETIC_CURRENCY_NAME))
+      pbDisplayPaused(_INTL("You got some {1} for winning!", get_cosmetic_currency_name))
     end
     return cosmetics_money
   end
@@ -395,7 +397,7 @@ class PokeBattle_Battle
 
       if moneyGained > 0
         if cosmetics_money > 0
-          pbDisplayPaused(_INTL("You got ${1} and some {2} for winning!", moneyGained.to_s_formatted, COSMETIC_CURRENCY_NAME))
+          pbDisplayPaused(_INTL("You got ${1} and some {2} for winning!", moneyGained.to_s_formatted, get_cosmetic_currency_name))
         else
           pbDisplayPaused(_INTL("You got ${1} for winning!", moneyGained.to_s_formatted))
         end
@@ -457,7 +459,15 @@ class PokeBattle_Battle
         @opponent.each_with_index do |_t, i|
           @scene.pbShowOpponent(i)
           msg = (@endSpeeches[i] && @endSpeeches[i] != "") ? @endSpeeches[i] : "..."
-          pbDisplayPaused(msg.gsub(/\\[Pp][Nn]/, pbPlayer.name))
+          msg = MessageTypes.getFromMapHash($game_map.map_id, msg)
+          msg = msg.gsub(/\\[Pp][Nn]/, pbPlayer.name)
+          msg = msg.gsub(/\\n/, "\n")
+          if Settings::EXPERIMENTAL_FEATURES
+            pbCallBubFixed(60, 4, 340, 100, true)
+            pbMessage(msg)
+          else
+            pbDisplayPaused(msg)
+          end
         end
       end
       # Gain money from winning a trainer battle, and from Pay Day
@@ -499,7 +509,10 @@ class PokeBattle_Battle
           @opponent.each_with_index do |_t, i|
             @scene.pbShowOpponent(i)
             msg = (@endSpeechesWin[i] && @endSpeechesWin[i] != "") ? @endSpeechesWin[i] : "..."
-            pbDisplayPaused(msg.gsub(/\\[Pp][Nn]/, pbPlayer.name))
+            msg = MessageTypes.getFromMapHash($game_map.map_id, msg)
+            msg = msg.gsub(/\\[Pp][Nn]/, pbPlayer.name)
+            msg = msg.gsub(/\\n/, "\n")
+            pbDisplayPaused(msg)
           end
         end
       end

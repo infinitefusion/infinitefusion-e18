@@ -839,11 +839,19 @@ class BetterRegionMap
         end
       end
     end
+
+    region_y = 0     #default
+    location_y = 354 #default
+    current_language = getCurrentLanguage
+    if current_language == :CHINESE
+      region_y -= 6
+      location_y -= 6
+    end
     @sprites["txt"].draw([
-                           [pbGetMessage(MessageTypes::RegionNames, @region), 16, 0, 0,
+                           [pbGetMessage(MessageTypes::RegionNames, @region), 16, region_y, 0,
                             Color.new(255, 255, 255), Color.new(0, 0, 0)],
-                           [text, 16, 354, 0, Color.new(255, 255, 255), Color.new(0, 0, 0)],
-                           [poi, 496, 354, 1, Color.new(255, 255, 255), Color.new(0, 0, 0)],
+                           [text, 16, location_y, 0, Color.new(255, 255, 255), Color.new(0, 0, 0)],
+                           [poi, 496, location_y, 1, Color.new(255, 255, 255), Color.new(0, 0, 0)],
                          ], true)
     #on_hover($PokemonGlobal.regionMapSel[0], $PokemonGlobal.regionMapSel[1]) if location
   end

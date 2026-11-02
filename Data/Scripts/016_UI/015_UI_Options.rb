@@ -23,7 +23,9 @@ class PokemonSystem
   attr_accessor :speedup_speed_battles
   attr_accessor :max_nb_sprites_download
   attr_accessor :on_mobile
-  attr_accessor :type_icons
+  attr_accessor :type_icons_opponent
+  attr_accessor :type_icons_player
+
   attr_accessor :use_generated_dex_entries
   attr_accessor :hide_custom_eggs
   attr_accessor :include_alt_sprites_in_random
@@ -37,6 +39,8 @@ class PokemonSystem
   attr_accessor :no_healing_items_ow
   attr_accessor :no_pokemon_center
   attr_accessor :obtained_transfer_box
+
+  attr_accessor :selected_reference_sprite_categories
 
   def initialize
     @textspeed = 1 # Text speed (0=slow, 1=normal, 2=fast)
@@ -58,7 +62,9 @@ class PokemonSystem
     @download_sprites = 0
     @max_nb_sprites_download = 5
     @on_mobile = false
-    @type_icons = true
+    @type_icons_opponent = true
+    @type_icons_player = true
+
     @use_generated_dex_entries = true
     @hide_custom_eggs = true
     @include_alt_sprites_in_random = false

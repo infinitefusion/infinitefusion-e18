@@ -2,6 +2,11 @@ def unlock_easter_egg_hats()
   if $Trainer.name.downcase == "ash"
     $Trainer.hat = HAT_ASH
     $Trainer.unlock_hat(HAT_ASH)
+
+    $Trainer.clothes = CLOTHES_ASH
+
+    $Trainer.unlock_clothes(CLOTHES_ASH)
+    $Trainer.unlock_clothes(CLOTHES_ASH_2)
   end
   if $Trainer.name.downcase == "frogman"
     $Trainer.hat = HAT_FROG
@@ -96,7 +101,12 @@ def give_date_specific_hats()
   end
 end
 
+class PokemonTemp
+  attr_accessor :current_party
+  attr_accessor :obtainable_outfits_from_team
+end
 
+#Random chance of obtaining a hat related to the wild Pokemon you just defeated after a battle
 def check_obtain_hat_after_battle(species)
   hat_chance = 1
   if rand(1..100) <= hat_chance
@@ -105,6 +115,35 @@ def check_obtain_hat_after_battle(species)
       obtainHat(hat)
     end
   end
+end
+
+#Random chance of obtaining a hat related to the Pokemon in your team that took part in the battle after winning a Trainer battle
+def checkObtainClothesAfterBattle(battle_participants)
+  clothes_chance = 1
+  if rand(1..100) <= clothes_chance
+    possible_outfits = list_obtainable_clothes_from_party(battle_participants)
+    if possible_outfits && !possible_outfits.empty?
+      pbMessage(_INTL("Huh? Your Pokémon found something during the battle..."))
+      obtainClothes(possible_outfits.sample)
+    end
+  end
+end
+
+def list_obtainable_clothes_from_party(battle_participants)
+  species_list = []
+  battle_participants.each do |pokemon|
+    body_pokemon_id = get_body_species_from_symbol(pokemon.species).to_s.downcase
+    head_pokemon_id = get_head_species_from_symbol(pokemon.species).to_s.downcase
+    body_pokemon_tag = "pokemon-#{body_pokemon_id}"
+    head_pokemon_tag = "pokemon-#{head_pokemon_id}"
+    species_list << body_pokemon_tag unless species_list.include?(body_pokemon_tag)
+    species_list << head_pokemon_tag unless species_list.include?(head_pokemon_tag)
+  end
+  echoln species_list
+  return if species_list.empty?
+  possible_clothes = search_clothes(species_list)
+  possible_clothes = filter_clothes_only_not_owned(possible_clothes)
+  return possible_clothes
 end
 
 

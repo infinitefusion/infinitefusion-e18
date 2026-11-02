@@ -303,7 +303,8 @@ end
 def pbUseKeyItem
   moves = [:CUT, :DEFOG, :DIG, :DIVE, :FLASH, :FLY, :ROCKCLIMB,
            :ROCKSMASH, :SECRETPOWER, :STRENGTH, :SURF, :SWEETSCENT, :TELEPORT,
-           :WATERFALL, :WHIRLPOOL, :BOUNCE, :SUNNYDAY, :RAINDANCE, :WHIRLWIND]
+           :WATERFALL, :WHIRLPOOL, :BOUNCE, :SUNNYDAY, :RAINDANCE, :WHIRLWIND,
+           :THUNDER, :MAGNETRISE, :SPLASH, :ROAR, :MIST, :DEFOG]
   real_moves = []
   moves.each do |move|
     $Trainer.pokemon_party.each_with_index do |pkmn, i|

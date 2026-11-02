@@ -76,10 +76,11 @@ module PokeBattle_BattleCommon
       gave_away_pokemon = promptGiveToPartner(pkmn) if isPartneredWithAnyTrainer()
 
       promptCaughtPokemonAction(pkmn) if !gave_away_pokemon
-      if $game_switches[AUTOSAVE_CATCH_SWITCH]
-        Kernel.tryAutosave()
-      end
 
+      #Removed because battle restarts right away after reloading and duplicates the Pokemon.
+      # if $game_switches[AUTOSAVE_CATCH_SWITCH]
+      #   Kernel.tryAutosave()
+      # end
     end
     @caughtPokemon.clear
   end

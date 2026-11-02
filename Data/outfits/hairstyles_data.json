@@ -2,6 +2,10 @@
     {
         "author": "malxire",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "aaron",
         "name": "Short Cut with Antenna",
         "description": "A simple short hairstyle with an antenna that sticks up like a Heracross's, like Aaron of the Sinnoh Elite Four's.",
@@ -15,30 +19,58 @@
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "aceHGSSf",
         "name": "Balanced Bun",
         "description": "A practical bun worn by ace trainers. It kind of looks like a Medicham's helmet.",
         "price": 600,
         "tags": "default, short, tied, npc",
         "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "aceHGSSm",
         "name": "Slick Spikes",
         "description": "Short spikes slick with gel, so your hair doesn't fall down in your face while you train.",
         "price": 500,
         "tags": "default, short, spiky, npc",
         "storelocation": "default",
-        "obtainmethodkanto": "#REF!",
-        "obtainmethodhoenn": "#REF!"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
+        "dateadded": "2026-10-18T04:00:00.000Z",
+        "author": "gummy.frog",
+        "additionalcredits": "Kyledove",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "aceORASm",
+        "name": "Short Angular Cut",
+        "description": "A short cut with pointed, angular bangs and sides. It's popular with ace trainers.",
+        "tags": "default, short, spiky, npc",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "afro",
         "name": "Afro",
         "description": "A full, fluffy afro that's big, bold, and impossible to ignore, perfect for making a statement!",
@@ -48,17 +80,91 @@
         "obtainmethodhoenn": "Store (All)"
     },
     {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "nymphiaribbon._.",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "altaria",
+        "name": "Mage's Flowing Locks",
+        "description": "These beautiful, flowing tresses will go with your Mega Mage Altaria cosplay perfectly!",
+        "price": 800,
+        "tags": "long, thick, pokemon",
+        "storelocation": "goldenrod, celadon, mauville, saffron",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
+    },
+    {
+        "dateadded": "2026-11-02T05:00:00.000Z",
+        "author": "edenthaw",
+        "additionalcredits": "The Pokemon Company",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "announcerhorizons",
+        "name": "Encore Curls",
+        "description": "A tousled look with a bold, sweeping fringe for a charismatic spokesperson.",
+        "price": 500,
+        "tags": "short, thick",
+        "storelocation": "mauville, pewter",
+        "obtainmethodkanto": "Store (All), Store (Regional Set)",
+        "obtainmethodhoenn": "Store (All), Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-09-22T04:00:00.000Z",
+        "author": "mizartz",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ash",
+        "name": "Bedhead Spikes",
+        "description": "A short, spiky hairstyle that's been partially flattened by frequent hat usage.",
+        "price": 9,
+        "tags": "protag, short, spiky, special",
+        "regiontags": "kanto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "Available from Mom in PIF Kanto; Name player 'Ash'"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "nymphiaribbon._. & dualblades1147",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "audino",
+        "name": "Mage's Flowing Pigtails",
+        "description": "These beautiful, flowing pigtails will go with your Mega Mage Audino cosplay perfectly!",
+        "price": 800,
+        "tags": "long, tied, thick, pokemon",
+        "storelocation": "goldenrod, celadon, mauville, saffron",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
+    },
+    {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "babyhair",
         "name": "Baby Hair",
         "description": "A single curled strand of hair that makes you look like you were just born.",
         "price": 800,
         "storelocation": "cerulean",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "kiwikelly",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "bald",
         "name": "Bald",
         "description": "A completely bald look - no hair, no fuss, just pure, unadulterated scalp!",
@@ -68,37 +174,70 @@
         "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
+        "dateadded": "2026-07-18T04:00:00.000Z",
+        "author": "gummy.frog",
+        "additionalcredits": "kyledove",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "battlegirl",
+        "name": "Messy High Ponytail",
+        "description": "A tight, but messy ponytail that's been through a lot of training exercises. It's cute and edgy.",
+        "price": 800,
+        "tags": "default, npc, thick, tied",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
         "author": "ororus",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "bfro",
         "name": "Messy Afro",
         "description": "A flattened afro with an unkempt, rounded shape, offering a low-maintenance yet distinctive look.",
-        "price": 300,
-        "storelocation": "default",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
-    },
-    {
-        "author": "blackbosom",
-        "id": "bob",
-        "name": "Bob Cut",
-        "description": "A sleek bob cut with chin-length hair that frames the face with a sharp, modern edge.",
-        "price": 300,
-        "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
-    },
-    {
-        "author": "blackbosom",
-        "id": "bowlcut",
-        "name": "Bowl Cut",
-        "description": "A classic bowl cut with evenly trimmed hair all around, offering a neat and straightforward look.",
         "price": 300,
         "storelocation": "default",
         "obtainmethodkanto": "Store (All)",
         "obtainmethodhoenn": "Store (All)"
     },
     {
+        "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "bob",
+        "name": "Bob Cut",
+        "description": "A sleek bob cut with chin-length hair that frames the face with a sharp, modern edge.",
+        "price": 300,
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "bowlcut",
+        "name": "Bowl Cut",
+        "description": "A classic bowl cut with evenly trimmed hair all around, offering a neat and straightforward look.",
+        "price": 300,
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "boxbraidedbuns",
         "name": "Box Braided Buns",
         "description": "A half-up, half-down hairstyle featuring cute, poofy buns and elegant box braids.",
@@ -109,6 +248,10 @@
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "boxbraids",
         "name": "Box Braids",
         "description": "A cascade of long, elegant, intricate box braids.",
@@ -120,40 +263,73 @@
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "braidedbuns",
         "name": "Braided Buns",
         "description": "This space-inspired hairstyle combines braids and poofy hair into one adorable updo.",
         "price": 300,
         "tags": "short, smooth, tied, default",
         "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Unobtainable"
     },
     {
         "dateadded": "2026-05-11T04:00:00.000Z",
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "braidhawk",
         "name": "Braided Mohawk",
         "description": "A mohawk comprised of one giant braid. It's very edgy and stylish!",
         "price": 1000,
         "tags": "default, medium, thick, tied",
         "storelocation": "default",
-        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "enderwarlock",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "brassius",
+        "name": "Thorny Comb Over",
+        "description": "A relaxed comb over that looks like thorny vines. This style was popularized by Gym Leader Brassius.",
+        "price": 450,
+        "tags": "npc, short, spiky",
+        "regiontags": "paldea",
+        "storelocation": "celadon",
+        "obtainmethodkanto": "Store (City), Store (Regional Set)",
         "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "brawly",
         "name": "Crashing Wave Mane",
         "description": "A medium-length haircut often sported by surfers.",
         "price": 2000,
         "regiontags": "hoenn",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (City), Store (Regional Set)"
     },
     {
         "author": ".payapon",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "brendan",
         "name": "Ruby Spikes",
         "description": "Short hair with sharp, upward spikes at the front and crown. This style is popular with fledgling trainers in Hoenn.",
@@ -165,6 +341,10 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "brock",
         "name": "Short, Neat Spikes",
         "description": "Neatly arranged spikes that look intimidating and disciplined. The style was popularized by Gym Leader Brock.",
@@ -178,6 +358,10 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "bugsy",
         "name": "Square-Cut Bangs",
         "description": "Medium-length hair with messy square-cut bangs. This cut is usually seen on young Bug Catchers.",
@@ -186,13 +370,17 @@
         "regiontags": "johto",
         "storelocation": "azalea,",
         "obtainmethodkanto": "Store (Gym Leader)",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (All)",
         "notes": "azalea towns salon?"
     },
     {
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "burgh",
         "name": "Artistic Waves",
         "description": "Waves cascading from your head that look almost too precise to be messy. Now that's art!",
@@ -200,46 +388,64 @@
         "tags": "default, npc, medium, thick",
         "regiontags": "unova",
         "storelocation": "default",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "buzzcut",
         "name": "Buzz Cut",
         "description": "A clean, close-cropped buzz cut for a sharp and low-maintenance appearance.",
         "price": 300,
         "storelocation": "default",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "ChaserF",
         "name": "Windswept Locks",
-        "description": "Straightened hair with a middle part. It catches the wind as you chase down legendary Pokemon.",
+        "description": "Straightened hair with a middle part. It catches the wind as you chase down legendary Pokémon.",
         "price": 800,
         "tags": "npc, default, long, smooth",
         "regiontags": "orre",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "cheryl",
         "name": "Over-Shoulder Braid",
         "description": "A long braid that goes over the shoulder.",
         "price": 300,
+        "tags": "tied, thick, npc",
+        "regiontags": "sinnoh",
         "storelocation": "celadon, rustboro",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (City), Store (Regional Set)",
+        "obtainmethodhoenn": "Store (City), Store (Regional Set)"
     },
     {
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "chili",
         "name": "Wildfire Updo",
         "description": "A wild, unkempt hairstyle that resembles the flaming heat of the kitchen.",
@@ -247,36 +453,65 @@
         "tags": "short, spiky, npc",
         "regiontags": "unova",
         "storelocation": "celadon, sootopolis",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set), Store (City)"
     },
     {
         "author": ".payapon",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "clair",
         "name": "Ponytail Spiky Bangs",
         "description": "Long, beautiful bushy hair tied in a thick ponytail. The style was popularized by Gym Leader Clair.",
         "price": 2000,
         "tags": "long, tied, spiky, thick",
         "regiontags": "johto",
+        "storelocation": "blackthorn",
         "obtainmethodkanto": "Store (Gym Leader)",
-        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "blackthorn city's salon after beating gym?"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "clive",
         "name": "Pointy Pompadour",
-        "description": "A pointy geled pompadour, to make you look like a totally normal academy student",
+        "description": "A pointy gelled pompadour, to make you look like a totally normal academy student",
         "price": 1300,
         "regiontags": "paldea",
-        "obtainmethodkanto": "Store (All), Store (Regional Set)",
-        "obtainmethodhoenn": "Store (All), Store (Regional Set)"
+        "storelocation": "saffron",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
+        "dateadded": "2026-10-18T04:00:00.000Z",
+        "author": "edenthaw",
+        "additionalcredits": "Genius Sonority",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "coolgirlBR",
+        "name": "Sassy Style",
+        "description": "A stylish hairstyle popular among new stars with spunky attitude!",
+        "tags": "untied, smooth, long, default, npc",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "corbeau",
         "name": "Side Slick Fade",
-        "description": "A short hairstyle popular in Kalos, inspired by Poison-type Pokemon.",
+        "description": "A short hairstyle popular in Kalos, inspired by Poison-type Pokémon.",
         "price": 300,
         "tags": "default, short, spiky, npc",
         "regiontags": "kalos",
@@ -286,40 +521,57 @@
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "cornrows",
         "name": "Cornrows",
         "description": "Neatly braided cornrows that run close to the scalp that create a sleek and intricate pattern.",
         "price": 300,
         "storelocation": "default",
-        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
         "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "malxire",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "dancer",
         "name": "Dancer",
         "description": "Braids put up in a ponytail. They flow with the rhythm of the music as you dance.",
         "price": 300,
         "tags": "tied, medium",
         "storelocation": "fuchsia",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "fuchsia specialty"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Zender1752 & Pokemon Destination Project",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "dawn",
         "name": "Twinleaf Tresses",
         "description": "A long, half-updo style with blunt bangs. Popular among fledgling trainers in the Sinnoh region.",
         "price": 1200,
         "regiontags": "sinnoh",
-        "obtainmethodkanto": "Store (Regional Set), Store (City)",
-        "obtainmethodhoenn": "Store (Regional Set), Store (City)"
+        "storelocation": "pewter",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "nymphiaribbon._.",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "eeveetail",
         "name": "Eevee Tail",
         "description": "A puffy ponytail that looks just like the tail of an Eevee.",
@@ -331,28 +583,42 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "elm",
         "name": "Neat Backwave",
-        "description": "Short, combed back to hair that give a tidy and professional appearance. This style was popularized by Professor Elm.",
+        "description": "Short, combed back hair that give a tidy and professional appearance. This style was popularized by Professor Elm.",
         "price": 300,
+        "tags": "short",
+        "regiontags": "johto",
         "storelocation": "goldenrod,",
-        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodkanto": "Store (City), Store (Regional Set)",
         "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "new bark town npc"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "emo",
         "name": "Emo Bangs",
         "description": "A styled haircut with long, angled layers and sweeping bangs for a dramatic and edgy look.",
         "price": 300,
         "storelocation": "default",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "erika",
         "name": "Bandana Straight Hair",
         "description": "Medium-length hair that falls straight down around a gray bandana. The style was popularized by Gym Leader Erika.",
@@ -364,18 +630,42 @@
         "notes": "celadon city's salon after beating gym?"
     },
     {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "chromaerym",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "esperpigtails",
+        "name": "Esper Pigtails",
+        "description": "Fluffy pigtails popular with psychic-type trainers. It's inspired by Espeon.",
+        "price": 800,
+        "tags": "pokemon, spiky, tied",
+        "storelocation": "saffron, lilycove",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "fade",
         "name": "Fade Haircut",
         "description": "A fade haircut with gradually shortened sides and back, blending seamlessly into longer hair on top.",
         "price": 300,
         "storelocation": "default",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "falkner",
         "name": "Droopy Bangs",
         "description": "Medium-length bangs that flow beautifully in the wind. This style was popularized by Gym Leader Falkner.",
@@ -383,13 +673,17 @@
         "tags": "medium,untied,smooth",
         "regiontags": "johto",
         "obtainmethodkanto": "Store (Gym Leader)",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set), Store (City)",
         "notes": "violet city's salon after beating gym?"
     },
     {
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "flannery",
         "name": "Lava Plume Ponytail",
         "description": "A topknot ponytail that flares out into a brilliant plume of hair.",
@@ -398,35 +692,51 @@
         "regiontags": "hoenn",
         "storelocation": "cinnabar, sootopolis, blackthorn",
         "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodhoenn": "Store (Gym Leader)",
+        "notes": "Available after defeating Flannery in Hoenn"
     },
     {
         "dateadded": "2026-06-23T04:00:00.000Z",
         "author": "gaogao028",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "flareout",
         "name": "Medium Flareout",
-        "description": "Medium, smooth hair which curls at its endsides, giving a winged silhouette to your hair..",
+        "description": "Medium, smooth hair which curls at its endsides, giving a winged silhouette to your hair.",
         "price": 500,
         "tags": "default, untied, medium, smooth",
         "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": "ohok3441",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "fusionnerd",
         "name": "Side-Swept Fringe",
         "description": "A bold, asymmetrical hairstyle where strands fuse into a stylish wave.",
         "price": 1000,
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "tags": "short, spiky",
+        "storelocation": "fuchsia, fortree",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": ".payapon",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "gardevoir",
         "name": "Guardian Fringe",
         "description": "A neat fringe that covers one eye that is styled to look like a Gardevoir.",
         "price": 3000,
+        "tags": "medium, smooth",
         "obtainmethodkanto": "Fashion Designer",
         "obtainmethodhoenn": "Fashion Designer",
         "notes": "saffron boutique"
@@ -434,40 +744,74 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "gary",
         "name": "Front Spikes",
         "description": "Spikes that give an air of smugness and youthful rebellion. The style is popular with fledgling trainers in Kanto.",
         "price": 300,
         "tags": "medium, untied, spiky, thick, npc",
-        "obtainmethodkanto": "Other NPC / Quest",
-        "obtainmethodhoenn": "Store (All)",
+        "regiontags": "kanto",
+        "obtainmethodkanto": "Other NPC / Quest, Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "garys mom in their house (lol)?"
     },
     {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "chromaerym",
+        "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "glacialbun",
+        "name": "Glacial Bun",
+        "description": "A sharp bun, giving an icy appearance to it's wearer.",
+        "price": 800,
+        "tags": "special, pokemon, tied",
+        "storelocation": "saffron, lilycove",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
         "author": "ohok3441",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "glitzerset",
         "name": "Pomeg Cut",
         "description": "A cute cut that is styled like a Pomeg berry!",
         "price": 2000,
         "storelocation": "kin",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Pokemon Destination Project",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "gloria",
         "name": "Glorious Bob-cut",
         "description": "A short, chin-length haircut with a longer strand on the left side. Popular among fledgling trainers in the Galar region.",
         "price": 1200,
         "regiontags": "galar",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "dateadded": "2026-06-11T04:00:00.000Z",
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "gold",
         "name": "Short Unkempt Tuft",
         "description": "A short unkempt hairstyle with a long bang. Popular with young trainers in the Johto Region.",
@@ -479,6 +823,10 @@
     },
     {
         "author": "rosemagwin",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "happinysuit",
         "name": "Playhouse Ponytail",
         "description": "A cute curly ponytail styled just like a Happiny. A wonderfully charming style for any fans of Baby Pokémon.",
@@ -490,27 +838,39 @@
     },
     {
         "author": "xenophacilus",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "HexManiac",
         "name": "Wild Locks",
         "description": "This wild mane of flowing locks is untamable, as if it was haunted. This style is popular with Hex Maniacs.",
         "price": 300,
         "tags": "long, untied, spiky, thick",
         "obtainmethodkanto": "Other NPC / Quest",
-        "obtainmethodhoenn": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Lavender Town/Pokemon tower specialty"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "highbun",
         "name": "High-bun",
         "description": "A high bun, ideal for keeping your hair out of your face.",
         "price": 300,
         "storelocation": "default",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "highbunbangs",
         "name": "High-bun Bangs",
         "description": "A high bun with bangs, ideal for keeping the rest of your hair out of your face.",
@@ -521,47 +881,67 @@
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "highpony",
         "name": "Ponytail",
         "description": "A high ponytail reminiscent of Lopunny's fur.",
         "price": 300,
         "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "HighPuffBun",
         "name": "Puffy High Bun",
         "description": "A textured bun tied up high on your head.",
         "price": 300,
         "tags": "medium, tied, thick",
         "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "hilda",
         "name": "High-pony",
         "description": "A voluminous high ponytail that shows you're ready for adventure. It's popular with new trainers in Unova!",
         "price": 1300,
         "regiontags": "unova,",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "hime",
         "name": "Hime",
         "description": "Straight, shoulder-length hair with blunt bangs and long side strands.",
         "price": 300,
         "storelocation": "default",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "apixelperfectionist",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "ho-oh",
         "name": "Phoenix Crest",
         "description": "A bold, fiery style featuring a high, curved ponytail resembling the sweeping feathers of Ho-Oh.",
@@ -572,28 +952,40 @@
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "idolf",
         "name": "Demi Bob",
         "description": "A soft, short bob with a glamorous edge.",
         "price": 300,
         "storelocation": "saffron",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Pokemon Destination Project",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "idolM",
         "name": "Short Idol Hair",
-        "description": "A short hairstyle with a flowly top.",
+        "description": "A short hairstyle with a fluffy, flowy top.",
         "price": 300,
         "storelocation": "cerulean, mauville",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set), Store (City)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "janine",
         "name": "Spiky Ponytail",
         "description": "Slicked back hair tied in a tight spiky ponytail. The style was popularized by Gym Leader Koga's daughter, Janine.",
@@ -609,6 +1001,10 @@
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "jasmine",
         "name": "Steel Twintails",
         "description": "A half-up, half-down hairstyle that invokes the security of the steel type.",
@@ -616,58 +1012,110 @@
         "tags": "npc, long, tied, smooth",
         "regiontags": "johto",
         "storelocation": "kin, rustboro",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set), Store (City)"
     },
     {
         "author": "xenophacilud",
+        "previewcolor": 5,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "jessie",
         "name": "Rocket Wave",
         "description": "A dramatic, sleek style with ultra-long hair swept back into a high, gravity-defying wave.",
         "price": 2000,
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-09-03T04:00:00.000Z",
+        "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "jigglycurl",
+        "name": "Jigglypuff Curl",
+        "description": "A giant curl inspired by Jigglypuff. This was famously worn by pop stars in the past.",
+        "price": 500,
+        "tags": "pokemon, thick, short",
+        "storelocation": "saffron, lilycove",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "eliyhel",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "jirachibuns",
+        "name": "Jirachi Buns",
+        "description": "A pair of conical buns styled to resemble the Pokémon Jirachi.",
+        "price": 800,
+        "tags": "tied, pokemon, special, medium",
+        "storelocation": "saffron, lilycove",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "jovi",
         "name": "Quirky Odango Bob",
         "description": "This quirky, cutesy hairstyle is popular with young girls.",
         "price": 500,
         "tags": "short, spiky, tied, npc",
         "regiontags": "orre",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Unlocked along with Jovi's outfit"
     },
     {
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "juniper",
         "name": "Nuvema Updo",
-        "description": "A stylish and practical updo that keeps the hair out of your face while you research Pokemon.",
+        "description": "A stylish and practical updo that keeps the hair out of your face while you research Pokémon.",
         "price": 500,
         "tags": "default, npc, smooth, tied",
         "regiontags": "unova",
         "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set), Store (City)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "kiraga-neko",
+        "previewcolor": 5,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "kris",
         "name": "Springy Pigtails",
         "description": "Springy pigtails that somehow defy gravity.",
         "price": 1300,
         "regiontags": "johto,",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "kurt",
         "name": "Slicked-Back Straight",
         "description": "Slicked-back medium-length straight hair, in a very traditional cut. The style was popularized by Gym Leader Kurt.",
@@ -675,64 +1123,88 @@
         "tags": "medium, untied, smooth",
         "regiontags": "johto",
         "obtainmethodkanto": "Store (Gym Leader)",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "azaleacity's salon after beating gym?"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lady",
         "name": "Waist-Length Hair",
-        "description": "Long, flowing waist-length hair with short, chunky bangs. ",
+        "description": "Long, flowing waist-length hair with short, chunky bangs.",
         "price": 300,
         "tags": "default",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lance",
         "name": "Wild Upwards Spikes",
         "description": "Upwards-facing wild spikes. Very bold! The style was popularized by Elite Four Lance.",
         "price": 2000,
         "tags": "short, untied, spiky",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "TBD"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "larry",
         "name": "Two-Toned Slick Back",
-        "description": "A practical, elegant style perfect for conducting business. Or battling with various Pokemon types. This style is modeled after Larry's, who's in the Paldean Elite Four.",
+        "description": "A practical, elegant style perfect for conducting business. Or battling with various Pokémon types. This style is modeled after Larry's, who's in the Paldean Elite Four.",
         "price": 500,
         "tags": "short, smooth, npc",
         "regiontags": "paldea",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lass",
         "name": "Puffy Pigtails",
         "description": "Medium-length hair styled into two puffy pigtails, giving a cheerful and youthful look.",
         "price": 300,
         "tags": "default",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lassDPP",
         "name": "Poofy Hair",
-        "description": "Long, poofy hair popular with young women. ",
+        "description": "Long, poofy hair popular with young women.",
         "price": 300,
         "storelocation": "pewter, rustboro",
-        "obtainmethodkanto": "Store (Regional Set), Store (City)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "kiwikelly",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "leaf",
         "name": "Shaggy Hair Bangs",
         "description": "Shoulder length shaggy hair that's been kept in check by constantly wearing a hat.",
@@ -745,6 +1217,10 @@
     },
     {
         "author": "ohok3441",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "leafeonbob",
         "name": "Verdant Bob",
         "description": "A peculiar hairstyle that's meant to resembles the leaves of a Leafeon.",
@@ -756,30 +1232,42 @@
     {
         "author": ".payapon & kiwikelly",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lenora",
         "name": "Tied-back Afro",
         "description": "An afro tied back with a headband to keep flyaway hairs taime. The style was popularized by the Unovan Gym Leader Lenora.",
         "price": 1300,
         "regiontags": "unova,",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)",
         "notes": "protag special - unlocked after quest, show a Pokemon from unova"
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lowbraids",
         "name": "Low Braids w/ Bangs",
         "description": "Long flowing hair tied in low braids, laid over the shoulders. It's a cute, easy style for traveling trainers.",
         "price": 300,
         "tags": "long, tied, smooth,default",
-        "obtainmethodkanto": "Store (All), Store (Regional Set)",
-        "obtainmethodhoenn": "Store (All), Store (Regional Set)"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lowpony",
         "name": "Low-pony",
-        "description": "A low ponytail reminiscent of Lopunny's fur",
+        "description": "A low ponytail reminiscent of Lopunny's fur.",
         "price": 300,
         "tags": "default,",
         "obtainmethodkanto": "Store (Regional Set)",
@@ -787,18 +1275,26 @@
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lucy",
         "name": "Voluminous Curls",
         "description": "Long, wavy hair with a distinctive side part, featuring large curls that frame the face and flow down the shoulders.",
         "price": 1300,
         "tags": "long, npc",
         "regiontags": "hoenn,",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)",
         "notes": "protag special - unlocked after quest, show a Pokemon from hoenn"
     },
     {
         "author": "chromaerym",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lunarbob",
         "name": "Lunar Cut",
         "description": "A bob cut shaped like a crescent moon, with a sleek, curved silhouette.",
@@ -810,6 +1306,10 @@
     },
     {
         "author": "cristata",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lycanrocshorthair",
         "name": "Lupine Cut",
         "description": "A sleek cut that is reminiscent of a Lycanroc's mane",
@@ -821,98 +1321,166 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "lyra",
         "name": "Peppy Pigtails",
-        "description": "Bouncy pigtails with a playful charm that gives off a carefree vibes.",
+        "description": "Bouncy pigtails with a playful charm that gives off a carefree vibe.",
         "price": 1300,
         "tags": "tied, medium",
         "regiontags": "johto,",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "marshawk",
         "name": "Marshtomp Mohawk",
         "description": "An edgy mohawk inspired by Marshtomp's upper fin.",
         "price": 500,
         "tags": "spiky, short, pokemon",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "mykoloth94",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "mawile",
-        "name": "Long Teethed Ponytail",
-        "description": "A unique style of ponytail adorned with acessories that look just like the teethed antenna of a Mawile.",
+        "name": "Long, Toothy Ponytail",
+        "description": "A unique style of ponytail adorned with accessories that look just like the toothy antennae of a Mawile.",
         "price": 3000,
         "tags": "long, tied, smooth, pokemon",
         "storelocation": "crimson",
-        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
         "obtainmethodhoenn": "Fashion Designer",
         "notes": "Crimson City special"
     },
     {
         "author": "kiwikelly & .payapon",
         "additionalcredits": "zender1752, tebited15 & Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "may",
         "name": "Sapphire Side Tails",
         "description": "Medium-length brown hair with a fringe and side-swept bangs. This style is popular with fledgling trainers in Hoenn.",
         "price": 1300,
         "tags": "protag, npc, short",
         "regiontags": "hoenn,",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
+        "obtainmethodkanto": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set), Store (City)",
         "notes": "protag special - unlocked after quest, show a Pokemon from hoenn"
     },
     {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "nymphiaribbon._.",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "meganium",
+        "name": "Mage's Flowing Ponytail",
+        "description": "This beautiful, flowing ponytail will go with your Mega Mage Meganium cosplay perfectly!",
+        "price": 800,
+        "tags": "long, pokemon, tied, thick",
+        "storelocation": "goldenrod, celadon, mauville, saffron",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
+    },
+    {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "mikufairy",
         "name": "Flowing Twin Tails",
         "description": "Long hair styled into voluminous twin tails with delicate, flowing strands that give off a magical and ethereal appearance.",
         "price": 2000,
         "tags": "long, thick, tied",
         "storelocation": "goldenrod,",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "mikutwintails",
         "name": "High Twin Tails",
         "description": "Long hair styled into high, puffy twin tails with straight, side-swept bangs that give off a vibrant and playful look.",
         "price": 2000,
         "tags": "long, tied, thick",
         "storelocation": "goldenrod,",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-11-02T05:00:00.000Z",
+        "author": "edenthaw",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "mimejrcurls",
+        "name": "Bubbly Curls",
+        "description": "Styling in these thick curls will make you feel like having a bounce to your step!",
+        "price": 800,
+        "tags": "short, thick, pokemon",
+        "storelocation": "saffron, lilycove",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "miriam",
         "name": "Bow and Stripes",
         "description": "A cute hairstyle featuring long twintails with stripey highlights and a bow.",
         "price": 300,
         "tags": "long, thick, tied, npc",
         "regiontags": "paldea",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "Possibly obtainable in the Pokemon Trainer School."
     },
     {
         "author": ".payapon",
         "additionalcredits": "zender1752",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "miror",
         "name": "Two-Toned Afro",
         "description": "An large two-toned afro with a zigzag pattern. A very bold choice, only for the most disco of trainers.",
         "price": 3000,
         "tags": "long, untied, smooth, thick, npc",
         "storelocation": "saffron,",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "zender1752 & Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "mistyGSC",
         "name": "Spiky Medium Hair",
         "description": "Medium-length hair that looks beautiful and youthful. The style was popularized by Gym Leader Misty.",
@@ -920,12 +1488,16 @@
         "tags": "medium, untied, spiky",
         "regiontags": "kanto",
         "obtainmethodkanto": "Store (Gym Leader)",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodhoenn": "Store (All), Store (Regional Set)",
         "notes": "cerulean city's salon after beating gym?"
     },
     {
         "author": ".payapon",
         "additionalcredits": "zender1752 & Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "mistyRBY",
         "name": "Spiky Side Pigtail",
         "description": "Short, spiky hair with a spiky side ponytail. The style was popularized by Gym Leader Misty.",
@@ -938,17 +1510,25 @@
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "modbob",
         "name": "Mod Bob",
         "description": "Chin-length hairstyle with sharp and geometric lines that was popular a long time ago.",
         "price": 300,
         "tags": "short, smooth",
         "storelocation": "violet, mauville",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "mohawk",
         "name": "Short Mohawk",
         "description": "A short mohawk with the rest of the head shaved to a buzz cut. It's a style popular with punks and bikers.",
@@ -962,29 +1542,57 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "momBW1",
         "name": "Elegant Mom Pony",
         "description": "An elegant hairstyle popular with moms. It's practical and fashionable!",
         "price": 1300,
         "tags": "tied, npc, medium",
         "regiontags": "unova",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "momBW2",
         "name": "Messy Mom Bun",
         "description": "A messy hairstyle typically seen on moms who really deserve a break...",
         "price": 1300,
         "tags": "tied, medium, npc",
         "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "chromaerym",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "moonlitbob",
+        "name": "Moonlit Bob",
+        "description": "A cool bob popular with dark-type trainers. It's inspired by Umbreon.",
+        "price": 800,
+        "tags": "pokemon, short, smooth",
+        "storelocation": "saffron, lilycove",
         "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "mudkipflip",
         "name": "Mudkip Flip",
         "description": "A spiky, flipped hairstyle inspired by the gills on Mudkip.",
@@ -996,17 +1604,25 @@
     },
     {
         "author": ".payapon",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "mullet",
         "name": "Mullet",
         "description": "Business in the front, party in the back!",
         "price": 300,
         "tags": "medium, smooth",
         "storelocation": "vermillion",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "murdockanime",
         "name": "Fork and Knife Cut",
         "description": "A hairstyle worn by those who love to cook.",
@@ -1014,27 +1630,35 @@
         "tags": "short, smooth, npc",
         "regiontags": "paldea",
         "storelocation": "default",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "nate",
-        "name": "Short, Shaggy spikes",
+        "name": "Short, Shaggy Spikes",
         "description": "Short, shaggy spikes that go well with visor-type hats. The style is popular with fledgling trainers in Unova.",
         "price": 1300,
         "tags": "short, untied, spiky, thick, protag",
         "regiontags": "unova,",
-        "obtainmethodkanto": "Store (City)",
+        "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable",
         "notes": "protag special - unlocked after quest, show a Pokemon from unova"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "naveen",
         "name": "Accessorized Corn Rows",
-        "description": "Long corn rows with accesories, the last in kalosian fashion ",
+        "description": "Long corn rows with accessories. It's the latest trend in Kalosian fashion!",
         "price": 1300,
         "regiontags": "kalos",
         "obtainmethodkanto": "Store (Regional Set)",
@@ -1043,30 +1667,42 @@
     {
         "author": "capwolfbane",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "nhair",
         "name": "Shaggy Ponytail",
         "description": "A long, low ponytail that gives off a mysterious air. The style is popular with trainers in Unova.",
         "price": 1300,
         "tags": "long, tied, spiky, thick, npc",
         "regiontags": "unova,",
-        "obtainmethodkanto": "Store (City)",
+        "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable",
         "notes": "protag special - unlocked after quest, show a Pokemon from unova"
     },
     {
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "nursejoy",
         "name": "Joyful Puffs",
         "description": "Neatly coiled twin buns perched high on each side, radiating care and warmth.",
         "price": 3000,
         "tags": "special",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "nursejoyalt",
         "name": "Side Joyful Puff",
         "description": "A single coiled bun perched high on one side, radiating care and warmth.",
@@ -1076,20 +1712,44 @@
         "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "odango",
+        "name": "Odango Buns",
+        "description": "Perfectly round buns that look like dumplings.",
+        "price": 400,
+        "tags": "default, tied",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "officeworkerF",
         "name": "Elegant Waves",
         "description": "A sophisticated hairstyle that's popular with a lot of trainers with corporate jobs.",
         "price": 300,
         "tags": "long, untied, smooth",
         "storelocation": "saffron,",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Saffron city special"
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "oricoriopuffs",
         "name": "Pom-Pom Puffs",
         "description": "Big, bubbly twin puffs bursting with cheer!",
@@ -1100,6 +1760,10 @@
     },
     {
         "author": "kiwikelly",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "painter",
         "name": "Soft Side Bangs",
         "description": "Short hair with soft, fluffy bangs parted to the sides, often worn by sensitive souls such as artists.",
@@ -1110,68 +1774,112 @@
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "pigtails",
         "name": "Pigtails",
         "description": "High, bouncy pigtails tied with ribbons, adding a fun and youthful touch to your look.",
-        "price": 300,
-        "tags": "default",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
-    },
-    {
-        "author": "blackbosom",
-        "id": "pixie",
-        "name": "Pixie Cut",
-        "description": "A short, playful pixie cut with closely cropped sides and a bit of length on top for a modern, airy look.",
         "price": 300,
         "tags": "default",
         "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable"
     },
     {
+        "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "pixie",
+        "name": "Pixie Cut",
+        "description": "A short, playful pixie cut with closely cropped sides and a bit of length on top for a modern, airy look.",
+        "price": 300,
+        "tags": "default",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
         "author": ".realthree",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "polishedbald",
         "name": "Polished Scalp",
         "description": "A completely bald head with some polish to make it shiny!",
         "price": 100,
         "tags": "special",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "Wartortle"
     },
     {
         "author": "dabouiw",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "pompadour",
         "name": "Pompadour",
         "description": "A dramatic, swept-back hairstyle with towering volume at the front.",
         "price": 2000,
         "storelocation": "violet,",
-        "obtainmethodkanto": "Store (All), Store (Regional Set)",
-        "obtainmethodhoenn": "Store (All), Store (Regional Set)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "ohok3441",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "psychicstellar",
+        "name": "Beaded Locs",
+        "description": "Locs with fun, colorful beads embedded into them.",
+        "price": 800,
+        "tags": "medium, tied, smooth",
+        "storelocation": "saffron, mossdeep",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "punktails",
         "name": "Punk Tails",
         "description": "High, wild twin ponytails bursting with volume and rebellion.",
         "price": 300,
         "storelocation": "celadon",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "raisingstar",
         "name": "Rising Star Dreads",
         "description": "Stylish dreadlocks tied up in a bun. Some hang down loosely in the front.",
         "price": 300,
         "tags": "default, tied, npc, thick",
         "storelocation": "default",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "kiwikelly",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "red",
         "name": "Short Hat Hair",
         "description": "Short spiky hair that's been flattened by constantly wearing a hat.",
@@ -1184,31 +1892,75 @@
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "redeyes",
         "name": "Edgy Asymmetrical Cut",
-        "description": "An edgy, asymmetrical hairstyle with a highlight in the center. ",
+        "description": "An edgy, asymmetrical hairstyle with a highlight in the center.",
         "price": 1500,
         "tags": "short, untied, spiky, npc",
         "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "Possibly tied to a ranger-themed quest?"
+    },
+    {
+        "dateadded": "2026-08-19T04:00:00.000Z",
+        "author": "eliyhel",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ribbonbunstraight",
+        "name": "Ribbon Bun (Straight)",
+        "description": "A loose, low bun tied by a long black ribbon to create a look that's both elegant and low-maintenance.",
+        "price": 900,
+        "tags": "tied, smooth",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-08-19T04:00:00.000Z",
+        "author": "eliyhel",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ribbonbuntextured",
+        "name": "Ribbon Bun (Textured)",
+        "description": "A loose, low bun tied by a long black ribbon to create a look that's both elegant and low-maintenance.",
+        "price": 900,
+        "tags": "tied, thick",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": "blackbosom",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "richboy",
         "name": "Combover",
         "description": "A sleek, neatly styled combover with a side part that creates a polished and refined appearance.",
         "price": 300,
         "tags": "default",
-        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Unobtainable"
     },
     {
         "dateadded": "2026-05-11T04:00:00.000Z",
         "author": "malxire",
         "additionalcredits": "kyledove",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "rika",
         "name": "Paldean Ponytail",
         "description": "A long ponytail with spiky bangs, just like the Paldean Elite Four member Rika's.",
@@ -1216,24 +1968,32 @@
         "tags": "default, spiky, long, tied, npc",
         "regiontags": "paldea",
         "storelocation": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (All), Store (Regional Set)",
+        "obtainmethodhoenn": "Store (All), Store (Regional Set)"
     },
     {
         "author": ".payapon & gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "rosa",
-        "name": "Long Pigtails Buns",
-        "description": "An eye-catching hairdo with two large side buns that continue into long pigtails. It's popular with fledgling trainers in Unova",
+        "name": "Long Pigtails With Buns",
+        "description": "An eye-catching hairdo with two large side buns that continue into long pigtails. It's popular with fledgling trainers in Unova.",
         "price": 1300,
         "tags": "long, tied, smooth, protag",
         "regiontags": "unova",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "protag special - unlocked after quest, show a Pokemon from unova"
     },
     {
         "author": "xenophaclius",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "roseradeF",
         "name": "Roserade (Medium)",
         "description": "Medium-length spiky hair that's styled to resemble a Roserade's head flower.",
@@ -1246,6 +2006,10 @@
     },
     {
         "author": "xenophaclius",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "roseradeM",
         "name": "Roserade (Short)",
         "description": "Short, spiky hair that's styled to resemble a Roserade's head flower.",
@@ -1259,18 +2023,26 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "roxanne",
         "name": "Studious Pigtails",
         "description": "Two long, straight pigtails that are secured by a large, fan like ribbon.",
         "price": 2000,
         "regiontags": "hoenn",
-        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Store (Gym Leader)"
     },
     {
         "dateadded": "2026-06-24T04:00:00.000Z",
         "author": "gummy.frog",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "roxie",
         "name": "Poison Barb Ponytail",
         "description": "A spiky topknot that's sure to intoxicate all who look upon you onstage as you rock out.",
@@ -1278,11 +2050,15 @@
         "tags": "tied, spiky, npc, medium",
         "regiontags": "unova",
         "storelocation": "fuchsia, mauville",
-        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "ryme",
         "name": "Bone Braids",
         "description": "Wickedly cool braids styled to look like bones. It's modeled after Paldean rapper Ryme's signature look.",
@@ -1290,25 +2066,33 @@
         "tags": "long, smooth, tied, npc, special",
         "regiontags": "paldea",
         "storelocation": "mahogany, lilycove",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "sabrinaGSC",
         "name": "Clairvoyant Cut",
-        "description": "A medium-length cut with a fringe that frames the face.The style was popularized by the Gym Leader Sabrina.",
+        "description": "A medium-length cut with a fringe that frames the face. The style was popularized by the Gym Leader Sabrina.",
         "price": 2000,
         "tags": "npc, spiky, short",
         "regiontags": "kanto",
         "storelocation": "saffron",
         "obtainmethodkanto": "Store (Gym Leader)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "zender1752",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "sabrinaRBY",
         "name": "Telekinetic Tresses",
         "description": "A long hairstyle with blunt bangs. It seems to flow independently of the wind. Popularized by the Gym Leader Sabrina.",
@@ -1317,10 +2101,14 @@
         "regiontags": "kanto",
         "storelocation": "saffron",
         "obtainmethodkanto": "Store (Gym Leader)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "sada",
         "name": "Paradox Cut",
         "description": "A hairstyle reminiscent of one that was known to be popular a long, long time ago...",
@@ -1328,105 +2116,194 @@
         "tags": "npc, special, long",
         "regiontags": "paldea,",
         "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "samurai",
         "name": "Samurai",
         "description": "A hairstyle just like the one that a samurai would wear!",
         "price": 500,
         "tags": "short, tied",
         "storelocation": "pewter",
-        "obtainmethodkanto": "Store (City)",
+        "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "malxire",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "saturn",
         "name": "New Moon Points",
         "description": "A short hairstyle with two distinct points. It almost looks like Skitty ears.",
         "price": 1000,
         "tags": "short, untied, smooth, npc",
         "regiontags": "sinnoh",
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "Part of a regional set"
     },
     {
+        "dateadded": "2026-09-17T04:00:00.000Z",
+        "author": "edenthaw",
+        "additionalcredits": "Pokemon Showdown & Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "scientistFRLG",
+        "name": "Researcher's Haircut",
+        "description": "A short, practical hairstyle for diving deep into the unknowns of science.",
+        "price": 300,
+        "tags": "short, npc, default",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
         "author": "rosemagwin",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "short1",
         "name": "Straight Side Bangs",
         "description": "Short, smooth hair that frames the face nicely and gives a trainer a youthful appearance.",
         "price": 300,
         "tags": "short, untied, smooth",
         "storelocation": "cinnabar,",
+        "obtainmethodkanto": "Store (All), Store (Regional Set)",
+        "obtainmethodhoenn": "Store (All), Store (Regional Set)"
+    },
+    {
+        "author": "icytos",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "shortbeard",
+        "name": "Short Beard",
+        "description": "Either you miraculously gained the ability to grow a beard, or you got creative with glue and salon floor clippings.",
+        "price": 300,
         "obtainmethodkanto": "Store (Regional Set)",
         "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
-        "author": "icytos",
-        "id": "shortbeard",
-        "name": "Short Beard",
-        "description": "Either you miraculously got the ability to grow beard, or you got creative with glue and salon floor clippings.",
-        "price": 300,
-        "obtainmethodkanto": "Store (All)",
-        "obtainmethodhoenn": "Store (All)"
-    },
-    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "shortcut",
         "name": "Square-Cut Bangs",
         "description": "Very short hair with square-cut bangs framing the face, giving a trainer a youthful, charming appearance.",
         "price": 300,
         "tags": "short, untied, smooth,default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "blackbosom",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "shortspike",
         "name": "Short Spikes",
         "description": "A short, spiky hairstyle popular with the alternative crowd.",
         "price": 300,
         "tags": "default",
-        "obtainmethodkanto": "Store (All), Store (Regional Set)",
-        "obtainmethodhoenn": "Store (All), Store (Regional Set)"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-09-17T04:00:00.000Z",
+        "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "shyfloof",
+        "name": "Overgrown Bangs",
+        "description": "A short, fluffy hairdo with bangs that are way too long. Perfect for you to hide your eyes, if you're the shy type.",
+        "price": 300,
+        "tags": "short, thick, default",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak & Pokemon Destination Project",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "singlebraid",
         "name": "Single Back Braid",
         "description": "A simplistic long braid along the back.",
         "price": 300,
         "storelocation": "rustboro, cinnabar",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "chromaerym",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "slickmullet",
         "name": "Slick Mullet",
         "description": "A slicked-back mullet. It was popular when your parents were young, but it has since started to come back into fashion.",
         "price": 300,
         "storelocation": "celadon, mauville",
-        "obtainmethodkanto": "Store (City)",
+        "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "dateadded": "2026-08-06T04:00:00.000Z",
+        "author": "eliyhel",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "somberponytail",
+        "name": "Somber Ponytail",
+        "description": "A long and melancholic style, tied back in a simple ponytail.",
+        "price": 700,
+        "tags": "default",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": ".payapon",
         "additionalcredits": "zender1752 & brumirage",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "sonia",
         "name": "High Side Pony",
         "description": "An elegant ponytail worn to the side that was popularized by a Galarian research assistant.",
         "price": 1500,
         "regiontags": "galar",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": "xenophaclius",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "SpecialLatias",
         "name": "Eon Bob",
         "description": "A layered bob with long, outward curls, exuding a gentle and mysterious charm.",
@@ -1437,6 +2314,10 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "surge",
         "name": "Surge Spikes",
         "description": "A spiky haircut often worn by members of the Kantonian military.",
@@ -1444,36 +2325,48 @@
         "tags": "short, spiky, npc",
         "regiontags": "kanto",
         "obtainmethodkanto": "Store (Gym Leader)",
-        "obtainmethodhoenn": "Store (Regional Set), Store (City)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "vermilion salon after beating surge"
     },
     {
         "author": ".payapon",
         "additionalcredits": "Pokemon Destination Project",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "tiedbackwicks",
         "name": "Tied-back Wicks",
         "description": "Four very thick, chunky, cylindrical locs tied back behind the head in a cool style.",
         "price": 300,
         "tags": "default",
-        "obtainmethodkanto": "Store (Regional Set), Store (City)",
-        "obtainmethodhoenn": "Store (Regional Set), Store (City)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "malxire",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "tieddreads",
         "name": "Tied-back Dreads",
         "description": "Some dreads that are half-up, half-down. It keeps them out of your face while still looking stylish.",
         "price": 500,
         "tags": "default, tied, medium, smooth",
         "storelocation": "default",
-        "obtainmethodkanto": "Store (Regional Set), Store (City)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "torchictuft",
         "name": "Torchic Tuft",
-        "description": "A topknot-style ponytail inspired by the little tufts on a torchic's head.",
+        "description": "A topknot-style ponytail inspired by the little tufts on a Torchic's head.",
         "price": 2000,
         "tags": "spiky, medium, tied, pokemon",
         "obtainmethodkanto": "Fashion Designer",
@@ -1481,7 +2374,27 @@
         "notes": "PIF Hoenn: Start with Torchic or show the equivalent of the Saffron Boutique a Torchic fusion; PIF1: Show the Saffron Boutique woman a Torchic fusion"
     },
     {
+        "dateadded": "2026-09-12T04:00:00.000Z",
+        "author": "edenthaw",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "toxtricitytwinmohawks",
+        "name": "Twin Mohawks with Bangs",
+        "description": "A pair of mohawks with long bangs to bring out the inner punk!",
+        "price": 800,
+        "tags": "spiky, pokemon",
+        "storelocation": "mauville, vermillion",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
         "author": ".payapon",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "tyranaspikes",
         "name": "Tyranaspikes",
         "description": "Sharp spikes that look like the hide of a Tyranitar.",
@@ -1492,6 +2405,10 @@
     },
     {
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "urbain",
         "name": "Flyaway Short Cut",
         "description": "A messy, wind-swept crop with long, asymmetrical bangs that's popular in the Kalos region.",
@@ -1503,18 +2420,26 @@
     {
         "author": "blackbosom",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "vetf",
         "name": "Veteran Bob",
         "description": "Short, practical hair styled into a neat bob with subtle layers, giving a no-nonsense look.",
         "price": 300,
         "storelocation": "crimson",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "cinabar special"
     },
     {
         "author": "malxire",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "volkner",
         "name": "Spiky Sideburns",
         "description": "A spiky hairstyle with long sideburns. This style was popularized by Volkner, a Gym Leader from Sinnoh.",
@@ -1528,38 +2453,54 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "wattson",
         "name": "Electrified Elder Hair",
         "description": "Thick beard and hair combo that sticks up in a single, prominent tuft.",
         "price": 2000,
         "regiontags": "hoenn",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "author": "sakebishi",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "wavy",
         "name": "Wavy Hair",
         "description": "A cute, short, wavy bob. It flows beautifully in the wind.",
         "price": 300,
         "tags": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": ".payapon & blackbosom",
         "additionalcredits": "Pokemon Destination Project",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "wavyponytail",
         "name": "Wavy Ponytail",
         "description": "A simple and cute ponytail made up of wavy hair.",
         "price": 300,
         "tags": "default",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "dateadded": "2026-06-27T04:00:00.000Z",
         "author": "gummy.frog",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "wes",
         "name": "Messy Spikes",
         "description": "A short, spiky hairdo. It's been messed up from riding around on a motorcycle all day.",
@@ -1573,20 +2514,44 @@
     {
         "author": ".payapon",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "whitney",
         "name": "Spiky Low Pigtails",
         "description": "Low pigtails that give a youthful look to the wearer. The style was popularized by Gym Leader Whitney.",
         "price": 300,
         "tags": "medium, tied, spiky",
         "regiontags": "johto",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)",
         "notes": "goldenrod city's salon after beating gym?"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "screeeee",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "wild",
+        "name": "Wild Locks",
+        "description": "This hairstyle is just as wild and free-flowing as a wild Pokémon.",
+        "price": 500,
+        "tags": "medium, thick",
+        "storelocation": "fuchsia, lilycove",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
     },
     {
         "dateadded": "2026-05-11T04:00:00.000Z",
         "author": "malxire",
         "additionalcredits": "Game Freak",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
         "id": "will",
         "name": "Magician's Bob",
         "description": "A short hairstyle with mysterious, side-parted bangs like Will of the Elite Four's.",
@@ -1594,7 +2559,113 @@
         "tags": "default, medium, smooth, npc",
         "regiontags": "johto",
         "storelocation": "default",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "eliyhel",
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "zoroarkmane",
+        "name": "Zoroark Mane",
+        "description": "This hairstyle resembles the spiky, fluffy mane of a Zoroark.",
+        "price": 800,
+        "tags": "pokemon, thick, tied, long",
+        "storelocation": "saffron, lilycove",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Unobtainable"
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
+    },
+    {
+        "previewcolor": 1,
+        "preview": {
+            "valueType": "IMAGE"
+        }
     }
 ]

@@ -74,7 +74,7 @@ end
 
 def showNewSideQuestMessage(title, description, show_description)
   pbMEPlay("Voltorb Flip Win") if Settings::KANTO
-  pbMEPlay("match_call") if Settings::HOENN
+  pbMEPlay("quest_jingle") if Settings::HOENN
 
   pbCallBub(3)
   Kernel.pbMessage(_INTL("\\C[6]NEW QUEST: ") + title)

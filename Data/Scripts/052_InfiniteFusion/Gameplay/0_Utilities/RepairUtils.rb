@@ -66,7 +66,7 @@ def convertAllPokemon()
     if $game_switches[SWITCH_RANDOM_TRAINERS] #randomized trainers
       Kernel.pbShuffleTrainers()
     end
-    if $game_switches[956] #randomized pokemon
+    if $game_switches[SWITCH_WILD_RANDOM_GLOBAL] #randomized pokemon
       range = pbGet(197) == nil ? 25 : pbGet(197)
       Kernel.pbShuffleDex(range, 1)
     end

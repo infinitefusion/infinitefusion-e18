@@ -21,6 +21,21 @@ def getRoamingSprite(species_data,shiny=false)
   return flyingPath if flyingPath
 end
 
+def get_ow_sprite_path(species_data,sprite_name,shiny=false)
+  species = species_data.species
+  is_fusion = isSpeciesFusion(species)
+  if is_fusion
+    species_name = species_data.get_body_species_symbol.to_s
+  else
+    species_name = species.to_s
+  end
+  base_path = get_base_sprite_path(is_fusion, shiny)
+  path = "#{base_path}#{species_name}_#{sprite_name}"
+  if pbResolveBitmap("Graphics/Characters/#{path}")
+    return path
+  end
+end
+
 def getOverworldLandPath(species_data,shiny=false)
   species = species_data.species
   is_fusion = isSpeciesFusion(species)
@@ -37,48 +52,22 @@ def getOverworldLandPath(species_data,shiny=false)
 end
 
 def getOverworldFlyingPath(species_data,shiny=false)
-  species = species_data.species
-  is_fusion = isSpeciesFusion(species)
-  if is_fusion
-    species_name = species_data.get_body_species_symbol.to_s
-  else
-    species_name = species.to_s
-  end
-  base_path = get_base_sprite_path(is_fusion, shiny)
-  path = "#{base_path}#{species_name}_fly"
-  if pbResolveBitmap("Graphics/Characters/#{path}")
-    return path
-  end
+  return get_ow_sprite_path(species_data,"fly",shiny)
 end
 
 def getOverworldNoticedPath(species_data,shiny=false)
-  species = species_data.species
-  is_fusion = isSpeciesFusion(species)
-  if is_fusion
-    species_name = species_data.get_body_species_symbol.to_s
-  else
-    species_name = species.to_s
-  end
-  base_path = get_base_sprite_path(is_fusion, shiny)
-  path = "#{base_path}#{species_name}_notice"
-  if pbResolveBitmap("Graphics/Characters/#{path}")
-    return path
-  end
+  return get_ow_sprite_path(species_data,"notice",shiny)
 end
 
 def getOverworldSwimmingPath(species_data,shiny=false)
-  species = species_data.species
+  return get_ow_sprite_path(species_data,"swim",shiny)
+end
 
-  is_fusion = isSpeciesFusion(species)
-  if is_fusion
-    species_name = species_data.get_body_species_symbol.to_s
+def getOverworldIdleAnimation(species_data,is_flying, shiny=false)
+  if is_flying
+    return get_ow_sprite_path(species_data,"fly_idle",shiny)
   else
-    species_name = species.to_s
-  end
-  base_path = get_base_sprite_path(is_fusion, shiny)
-  path = "#{base_path}#{species_name}_swim"
-  if pbResolveBitmap("Graphics/Characters/#{path}")
-    return path
+    return get_ow_sprite_path(species_data,"idle",shiny)
   end
 end
 
@@ -93,4 +82,19 @@ def getRandomPokemonFromRoute(excluded_species,terrain)
     i+=1
   end
   return GameData::Species.get(random_species)
+end
+
+
+#Used when using Roar in the OW. Makes all the pokemon near the player back off.
+def scareOffWildPokemon(radius=5)
+  pokemon_in_radius = []
+  events_in_radius = getEventsInRadius(radius)
+  events_in_radius.each do |event|
+    pokemon_in_radius << event if event.is_a?(OverworldPokemonEvent)
+  end
+  pokemon_in_radius.each do |pokemon_event|
+    playAnimation(EXCLAMATION_ANIMATION_ID,pokemon_event.x,pokemon_event.y)
+    pokemon_event.move_away_from_player
+    pokemon_event.move_away_from_player
+  end
 end

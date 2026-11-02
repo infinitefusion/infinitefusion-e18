@@ -62,15 +62,15 @@ def getTVTrendMessages()
   end
 
   pbMessage(_INTL("It's the trend-watcher network channel!"))
-  pbMessage(_INTL("\"Everybody's talking about it, #{current_phrase} has been all the rage all around the region!\""))
-  pbMessage(_INTL("\"Nobody knows where it's started, but #{current_phrase} is all that the younger people are talking about these days.\""))
+  pbMessage(_INTL("\"Everybody's talking about it, {1} has been all the rage all around the region!\"", current_phrase))
+  pbMessage(_INTL("\"Nobody knows where it's started, but {1} is all that the younger people are talking about these days.\"", current_phrase))
   case rand(3)
   when 0
-    pbMessage(_INTL("\"Where can someone get their hands on #{adverb} #{current_phrase}? We'll continue our investigation to find out!'\""))
+    pbMessage(_INTL("\"Where can someone get their hands on {1} {2}? We'll continue our investigation to find out!'\"", adverb, current_phrase))
   when 1
-    pbMessage(_INTL("\"Experts say that #{current_phrase} may just be the next big thing! Stay tuned for updates!\""))
+    pbMessage(_INTL("\"Experts say that {1} may just be the next big thing! Stay tuned for updates!\"", current_phrase))
   when 2
-    pbMessage(_INTL("\"Some say that #{current_phrase} just a fad, but others seem to think it's here to stay! Stay tuned for updates!\""))
+    pbMessage(_INTL("\"Some say that {1} just a fad, but others seem to think it's here to stay! Stay tuned for updates!\"", current_phrase))
   end
 end
 
@@ -134,4 +134,65 @@ def berryContestTVNews
   end
   pbWait(10)
   pbMessage(_INTL("\"This was Gabby, reporting live from Petalburg Town. We'll see you again on our next broadcast!\""))
+end
+
+
+VAR_REPORTER_POKEMON_112 = 976
+def trainerSearchRt112
+  poke_name = pbGet(VAR_REPORTER_POKEMON_112)
+  pbMessage(_INTL("\"...This is Gabby for Trainer Search, We're currently standing at the foot of Mt. Chimney, where local Trainers like to gather.\"",$Trainer.name))
+  pbMessage(_INTL("\"We're currently joined by {1}, a young Trainer who bested me in a Pokémon battle.\"",$Trainer.name))
+  if poke_name.is_a?(String)
+    pbMessage(_INTL("\"Their {1} absolutely wiped the floor with my Pokémon!\"", poke_name))
+  end
+
+
+  player_response_q1 = pbGet(VAR_REPORTER_Q1)
+  player_response_q2 = pbGet(VAR_REPORTER_Q2)
+
+  case player_response_q1
+  when 0
+    pbMessage(_INTL("\"They responded that they were looking for rare Pokémon! Indeed, Mt. Chimney is home to many rare fire-type Pokémon that aren't found anywhere else in the region.\""))
+  when 1
+    pbMessage(_INTL("\"They said that it was the thrill of exploring that brought them here. Such an adventurous spirit at such a young age!\""))
+  when 2
+    pbMessage(_INTL("\"They said that they were simply trying to get the other side of the volcano. Of course, Mt. Chimney sits at the center of the region, so Trainers who want to get Fallarbor Town need to cross right through it.\"",$Trainer.name))
+  when 3
+    pbMessage(_INTL("\"They said they got lost and didn't know where they were! I made sure to point them in the right direction.\""))
+  end
+  pbMessage(_INTL("\"I then asked {1} what exactly it was that they were expecting to find here in Mt. Chimney and their answer totally floored me!\"",$Trainer.name))
+  pbMessage(_INTL("\"They said that they're looking for {1}. How crazy is that!\"",player_response_q2))
+  pbMessage(_INTL("\"But it does makes total sense if you think about it!\""))
+  pbWait(10)
+  pbMessage(_INTL("\"That's all for today. We'll continue our search throughout the region for more Trainers to interview! Thanks for joining me on Trainer Search. This was Gabby, reporting from Mt. Chimney.\""))
+end
+
+VAR_REPORTER_POKEMON_118 = 977
+
+def trainerSearchRt118
+  poke_name = pbGet(VAR_REPORTER_POKEMON_118)
+  pbMessage(_INTL("\"...This is Gabby for Trainer Search, We're currently standing on the beach on Route 118\"",$Trainer.name))
+  pbMessage(_INTL("\"We're currently joined by {1}, a young Trainer who bested me in a Pokémon battle.\"",$Trainer.name))
+  if poke_name.is_a?(String)
+    pbMessage(_INTL("\"My Pokémon stood no chance against their {1}!\"", poke_name))
+  end
+
+  player_response_q1 = pbGet(VAR_REPORTER_Q1)
+  player_response_q2 = pbGet(VAR_REPORTER_Q2)
+  pbMessage(_INTL("\"They seemed to be on their way to Fortree City, so I started by asking them what they were expecting to see on the way there.\"",$Trainer.name))
+
+  case player_response_q1
+  when 0
+    pbMessage(_INTL("\"They responded that they were looking for rare Pokémon! Indeed, the way to Fortree City is home to many rare tropical Pokémon that aren't found anywhere else in the region.\""))
+  when 1
+    pbMessage(_INTL("\"As it turns out, they came here to appreciate the beautiful tropical landscapes that the route has to offer.\""))
+  when 2
+    pbMessage(_INTL("\"Apparently, they were looking for strong Trainers to fight! I'm sure they'll find their match somewhere in this untamed wilderness.\""))
+  when 3
+    pbMessage(_INTL("\"They seemed worried about all of the plants that grow on this route. Trainers around here have to watch their steps carefully if they want to avoid getting a mean rash!'\""))
+  end
+  pbMessage(_INTL("\"I then asked {1} what exactly what made them decide to brave the wilderness to go to Fortree City.'\"",$Trainer.name))
+  pbMessage(_INTL("\"They said that they're looking for {1}. That sounds about right!\"",player_response_q2))
+  pbWait(10)
+  pbMessage(_INTL("\"That's all for today. We'll continue our search throughout the region for more Trainers to interview! Thanks for joining me on Trainer Search. This was Gabby, reporting from Mt. Chimney.\""))
 end

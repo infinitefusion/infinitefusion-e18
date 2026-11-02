@@ -77,6 +77,12 @@ GameData::EncounterType.register({
   :old_slots      => [30,30,10,15,5,10],
 })
 
+GameData::EncounterType.register({
+ :id		  => :TallGrassNight,
+ :type		  => :land,
+ :old_slots      => [30,30,10,15,5,10],
+})
+
 
 
 

@@ -88,8 +88,10 @@ def generate_neighbor_map_from_connections
   return neighbor_map
 end
 
-def is_indoor_map?(map_id)
-  return false
+def is_outdoor_map?(map_id = $game_map.map_id)
+  return !is_indoor_map?(map_id)
+end
+def is_indoor_map?(map_id = $game_map.map_id)
   mapMetadata = GameData::MapMetadata.try_get(map_id)
   return true if !mapMetadata
   return !mapMetadata.outdoor_map

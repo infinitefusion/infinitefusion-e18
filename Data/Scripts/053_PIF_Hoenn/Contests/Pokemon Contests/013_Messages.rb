@@ -62,6 +62,17 @@ def pbMessageDisplayContest(msgwindow,message,letterbyletter=true,commandProc=ni
 	text.gsub!(/\\b/i,"<c3=3050C8,D0D0C8>")
 	text.gsub!(/\\r/i,"<c3=E00808,D0D0C8>")
 	text.gsub!(/\\[Ww]\[([^\]]*)\]/) {
+
+		text.gsub!("<-","←")
+		text.gsub!("->","→")
+		text.gsub!("<arr_left>","←")
+		text.gsub!("<arr_right>","→")
+		text.gsub!("<arr_down>","↓")
+		text.gsub!("<arr_up>","↑")
+		text.gsub!("<arr_down>","↓")
+
+
+
 		w = $1.to_s
 		if w==""
 		  msgwindow.windowskin = nil

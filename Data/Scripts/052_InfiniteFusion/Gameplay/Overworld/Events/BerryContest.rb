@@ -24,9 +24,11 @@ end
 
 
 def berry_contest_results(player_score)
-  contestants = {"Evelyn" => rand(5..8),
-                 "Martin" => rand(4..8),
-                 "Sarah" => rand(3..5)}
+  contestants = {
+    _INTL("Evelyn") => rand(5..8),
+    _INTL("Martin") => rand(4..8),
+    _INTL("Sarah")  => rand(3..5)
+  }
   contestants[$Trainer.name] = player_score
   results = contestants.sort_by { |name, score| score }
   return results

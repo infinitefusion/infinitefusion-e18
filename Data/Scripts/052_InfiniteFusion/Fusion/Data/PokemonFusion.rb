@@ -1137,6 +1137,7 @@ end
 
 def drawSpriteCredits(pif_sprite, viewport)
   @credits_overlay = BitmapSprite.new(Graphics.width, Graphics.height, @viewport).bitmap
+  pbSetSystemFont(@credits_overlay) 
   return if pif_sprite.type == :AUTOGEN
   return if pif_sprite.local_path
   x = Graphics.width / 2

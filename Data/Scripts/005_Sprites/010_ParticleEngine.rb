@@ -25,7 +25,7 @@ class Particle_Engine
       "flare"        => Particle_Engine::Flare,
       "splash"       => Particle_Engine::Splash,
       # By Peter O.
-      "starteleport" => Particle_Engine::StarTeleport
+      "starteleport" => Particle_Engine::StarTeleport,
     }
   end
 
@@ -373,13 +373,11 @@ end
 class Particle_Engine::Smoke < ParticleEffect_Event
   def initialize(event, viewport)
     super
-    setParameters([0, 0, 0, 80, 20, 0.5, -64,
-                   Graphics.height, -64, Graphics.width, 0.5, 0.10, -5, -15, 5, 80])
-    initParticles("smoke", 250)
+    setParameters([0, 0, 0, 30, 20, 0.5, -64,
+                   Graphics.height, -64, Graphics.width, 0.5, 0.05, -5, -15, 5, 80])
+    initParticles("smoke", 100)
   end
 end
-
-
 
 class Particle_Engine::Teleport < ParticleEffect_Event
   def initialize(event, viewport)

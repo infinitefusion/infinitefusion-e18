@@ -201,6 +201,36 @@ class TilemapRenderer
     }
   }
 
+  #path: 276 -
+  EMPTY_TILE = 0
+  GROUND_SNOW_TILE = 418
+  TILESET_SUPPORTING_SNOW_TREES = [1,2,5,7,8,9,12,13,15,34]
+  SNOW_SUBSTITUTIONS = {
+    #Trees
+    864 =>868, 865=>869,
+    872=>876, 873=>877,
+    880=>884, 881=>885,
+    866=>870, 867=>871,
+    874=>878, 875=>879,
+    #Grass
+    424=> GROUND_SNOW_TILE, 425 => GROUND_SNOW_TILE,426=> GROUND_SNOW_TILE,427=> GROUND_SNOW_TILE,
+    432=> GROUND_SNOW_TILE,433=> GROUND_SNOW_TILE,434=> GROUND_SNOW_TILE,435=> GROUND_SNOW_TILE,
+    440=> GROUND_SNOW_TILE,441=> GROUND_SNOW_TILE,442=> GROUND_SNOW_TILE,443=> GROUND_SNOW_TILE,
+    448=> GROUND_SNOW_TILE,449=> GROUND_SNOW_TILE,450=> GROUND_SNOW_TILE,451=>GROUND_SNOW_TILE,
+
+    # grass details, flowers,
+    1009=>GROUND_SNOW_TILE, 1010=>GROUND_SNOW_TILE,
+    992=>GROUND_SNOW_TILE, 993=>GROUND_SNOW_TILE,
+
+    #Ledges
+    1352=>1357,1353=>1358,1354=>1359,1355=>1350,1356=>1351,
+    1360=>1365, 1361=>1366,1362=>1367,
+    1368 =>1373, 1369=>1374, 1370=>1375,
+  }
+  # SNOW_TREES_TILES = [864,865,872,873,880,881,
+  #                     866,867,874,875]
+
+
   WIND_TREE_AUTOTILES = {
     1 => { # Route-field
            864 => "tree_sway_single_1",
@@ -325,6 +355,20 @@ class TilemapRenderer
             867 => "tree_sway_group_2",
             874 => "tree_sway_group_3",
             875 => "tree_sway_group_4",
+    },
+
+    36 => { # Route-tropical
+            832 => "tree_sway_tropical_single_1",
+            833 => "tree_sway_tropical_single_2",
+            840 => "tree_sway_tropical_single_3",
+            841 => "tree_sway_tropical_single_4",
+            848 => "tree_sway_tropical_single_5",
+            889 => "tree_sway_tropical_single_6",
+
+            834 => "tree_sway_tropical_group_1",
+            835 => "tree_sway_tropical_group_2",
+            842 => "tree_sway_tropical_group_3",
+            843 => "tree_sway_tropical_group_4",
     },
 
   }
@@ -694,9 +738,28 @@ class TilemapRenderer
   end
 
   INVISIBLE_WALL_TILE_ID = 384
+  def get_snow_tile_id(tile_id, current_tileset)
+    return tile_id unless Settings::HOENN
+    return tile_id unless TILESET_SUPPORTING_SNOW_TREES.include?(current_tileset)
+    return tile_id unless Settings::SNOW_DAY
+    return tile_id unless SNOW_SUBSTITUTIONS.include?(tile_id)
+    return SNOW_SUBSTITUTIONS[tile_id]
+  end
+
+  def check_hoenn_safari_flowers(tile_id)
+    replacement_tile = EMPTY_TILE
+    safari_flower_tiles = [987,998]
+    return tile_id unless Settings::HOENN
+    return tile_id unless HOENN_SAFARI_MAPS.include?(@current_map_id)
+    return tile_id if $game_switches[SWITCH_SAFARI_FLOWERS_PLANTED]
+    return tile_id unless safari_flower_tiles.include?(tile_id)
+    echoln "deleting flowers!"
+    return replacement_tile
+  end
 
   def refresh_tile_bitmap(tile, map, tile_id)
     tile.tile_id = tile_id
+    original_id = tile_id
     if tile_id < TILES_PER_AUTOTILE || (Settings::HOENN && tile_id == INVISIBLE_WALL_TILE_ID)
       tile.set_bitmap("", tile_id, false, false, 0, nil)
       tile.shows_reflection = false
@@ -716,7 +779,6 @@ class TilemapRenderer
       #   true_tileset_start_id += single_autotile_count
       # end
 
-      filename = nil
       extra_autotile_hash = get_autotile_overrides(map.tileset_id, map.map_id)
 
       if extra_autotile_hash && extra_autotile_hash[tile_id]
@@ -739,6 +801,15 @@ class TilemapRenderer
       else
         filename = map.tileset_name
         tile.set_bitmap(filename, tile_id, false, false, priority, @tilesets[filename])
+      end
+      tile_id = get_snow_tile_id(tile_id,map.tileset_id) #returns the original tile if no snow
+      tile_id = check_hoenn_safari_flowers(tile_id) #Removes flowers in safari if not unlocked all zones
+      if tile_id == EMPTY_TILE
+        tile.set_bitmap("", original_id, false, false, 0, nil)
+        tile.shows_reflection = false
+        tile.underwater_tile = false
+        tile.bridge = false
+        return
       end
 
       tile.shows_reflection = terrain_tag_data&.shows_reflections

@@ -82,9 +82,9 @@ def pbReceiveCosmeticsMoney(amount, showMessage=true, msgwindow=nil, goldwindow=
 
   if showMessage
     if amount >= 0
-      pbMessage(_INTL("{1} received {2} {3}!", $Trainer.name, amount.to_s_formatted, COSMETIC_CURRENCY_NAME))
+      pbMessage(_INTL("{1} received {2} {3}!", $Trainer.name, amount.to_s_formatted, get_cosmetic_currency_name))
     else
-      pbMessage(_INTL("{1} spent {2} {3}!", $Trainer.name, amount.abs.to_s_formatted, COSMETIC_CURRENCY_NAME))
+      pbMessage(_INTL("{1} spent {2} {3}!", $Trainer.name, amount.abs.to_s_formatted, get_cosmetic_currency_name))
     end
   end
 
@@ -111,7 +111,7 @@ def pbReceiveCosmeticsMoney(amount, showMessage=true, msgwindow=nil, goldwindow=
     sign    = amount >= 0 ? "+" : "-"
     goldwindow.text = _INTL(
       "{1}:\n<ar>{2}</ar>\n<ar><c3={3}>{4} {5}</c3></ar>",
-      COSMETIC_CURRENCY_NAME,
+      get_cosmetic_currency_name,
       current.to_s_formatted,
       color,
       sign,
@@ -131,7 +131,7 @@ def pbReceiveCosmeticsMoney(amount, showMessage=true, msgwindow=nil, goldwindow=
   # Final display text
   goldwindow.text = _INTL(
     "{1}:\n<ar>{2}</ar>",
-    COSMETIC_CURRENCY_NAME,
+    get_cosmetic_currency_name,
     targetMoney.to_s_formatted
   )
 

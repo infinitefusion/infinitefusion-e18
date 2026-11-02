@@ -115,6 +115,10 @@ def numeric_string?(str)
   str.match?(/\A\d+\z/)
 end
 
+def titleize(str)
+  str.split(/ |\_/).map(&:capitalize).join(" ")
+end
+
 def timeDateGreaterThan(date1, date2)
   return (
     date1.year  > date2.year ||

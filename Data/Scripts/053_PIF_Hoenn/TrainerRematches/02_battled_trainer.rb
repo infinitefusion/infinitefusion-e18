@@ -48,6 +48,7 @@ class BattledTrainer
   attr_accessor :friendship_level
 
   attr_accessor :overworld_sprite
+  attr_accessor :location_map_id
 
   attr_reader :favorite
 
@@ -146,8 +147,9 @@ class BattledTrainer
     while @friendship_level < thresholds.length && @friendship >= thresholds[@friendship_level]
       @friendship_level += 1
 
-      trainerClassName = GameData::TrainerType.get(@trainerType).real_name
-      pbMessage(_INTL("\\C[3]Friendship increased with {1} {2}!", trainerClassName, @trainerName))
+      trainerClassName = GameData::TrainerType.get(@trainerType).name
+      trainerName = pbGetMessageFromHash(MessageTypes::TrainerNames, @trainerName)
+      pbMessage(_INTL("\\C[3]Friendship increased with {1} {2}!", trainerClassName, trainerName))
       case @friendship_level
       when 1
         pbMessage(_INTL("You can now trade with each other!"))
@@ -172,7 +174,7 @@ class BattledTrainer
     store_usable_item_chance = 80
 
     chance_to_give_item = 60
-
+    @inventory = [] unless @inventory
     #Move pokemon held items to inventory
     @currentTeam.each do |pokemon|
       next unless pokemon.item
@@ -289,8 +291,17 @@ class BattledTrainer
         pbMessage(_INTL("Don't say anything... I know you want this."))
         obtainClothes(CLOTHES_PSYSHAMAN_F)
       end
+
+    when :TRIATHLETE_BIKE_M, :TRIATHLETE_BIKE_F
+      if !hasClothes?(CLOTHES_BIKE)
+        pbCallBub(2, event.id)
+        pbMessage(_INTL("The best athletes need the best gear! This should help improve your performance even more."))
+        obtainClothes(CLOTHES_BIKE)
+        obtainHat(HAT_BIKE)
+      end
     when :POKEFAN_M, :POKEFAN_F
-      possible_masks = [HAT_POOCHYENA_MASK, HAT_LOTAD_MASK, HAT_ZIGZAGOON_MASK, HAT_WURMPLE_MASK]
+      possible_masks = [HAT_POOCHYENA_MASK, HAT_LOTAD_MASK, HAT_ZIGZAGOON_MASK, HAT_WURMPLE_MASK,
+                        HAT_SEEDOT_MASK, HAT_TAILLOW_MASK, HAT_TREECKO_MASK, HAT_MUDKIP_MASK]
       unobtained_masks = possible_masks.reject { |hatID| hasHat?(hatID) }
       unless unobtained_masks.empty?
         pbCallBub(2, event.id)

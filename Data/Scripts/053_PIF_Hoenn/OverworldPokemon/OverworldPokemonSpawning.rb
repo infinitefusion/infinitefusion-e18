@@ -212,6 +212,12 @@ def spawn_overworld_pokemon(wild_pokemon, position, terrain, behavior_roaming = 
   return event
 end
 
+#Adds a pokemon to the end of the list so that it doesn't get despawned right away
+def renew_overworld_pokemon(event_id)
+  $PokemonTemp.overworld_pokemon_on_map.delete(event_id)
+  $PokemonTemp.overworld_pokemon_on_map << event_id
+end
+
 def despawn_overworld_pokemon(event_id, terrain)
   event = $game_map.events[event_id]
   if !event
@@ -219,8 +225,7 @@ def despawn_overworld_pokemon(event_id, terrain)
     return
   end
   if event.pokemon.shiny? # re-add it ad the end of the list instead
-    $PokemonTemp.overworld_pokemon_on_map.delete(event.id)
-    $PokemonTemp.overworld_pokemon_on_map << event.id
+    renew_overworld_pokemon(event.id)
     event_id = $PokemonTemp.overworld_pokemon_on_map[0]
     event = $game_map.events[event_id]
   end
@@ -255,6 +260,7 @@ Events.onMapChanging += proc { |_sender, e|
 }
 
 def clearOverworldPokemon
+  return unless $game_map&.events
   echoln "Clearing Overworld Pokemon"
   $game_map.events.clone.each do |id, event|
     if event.is_a?(DynamicOverworldPokemonEvent)

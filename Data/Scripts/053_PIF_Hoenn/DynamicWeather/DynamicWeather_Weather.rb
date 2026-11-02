@@ -40,17 +40,23 @@ class GameWeather
   BASE_CHANCES_OF_WEATHER_MOVE = 10
   DEBUG_PROPAGATION = false
 
+  NO_WEATHER_MAPS = [MAP_DESERT_UNDERPASS] #For outdoor maps that shouldn't get weather
+
   COLD_MAPS = [MAP_SHOAL_CAVE] # Rain is snow on that map (shoal cave)
   SNOW_LIMITS = [MAP_ROUTE_121,MAP_PACIFIDLOG] #Snow turns to rain if it reaches these maps
+  NO_SNOW_MAPS = [MAP_ROUTE_121, MAP_FORTREE, MAP_ROUTE_120] #Maps where it's too warm to snow
+
   SOOT_LIMITS = [MAP_ROUTE_113,MAP_FALLARBOR, MAP_ROUTE_111]  #Can't let it propagate too much because then the grass would have to be covered in soot in those maps too....
 
   SANDSTORM_MAPS = [MAP_DESERT] # Always sandstorm, doesn't spread
   NO_WIND_MAPS = [MAP_SOOTOPOLIS]
   NO_RAIN_MAPS = [MAP_MT_CHIMNEY,MAP_DESERT]
 
-  FREQUENT_WEATHER = [MAP_ROUTE_113,MAP_ROUTE_120]  #More likely to spawn a new weather
+  #Maps where it's likely to spawn a new weather. Value is the number of weather re-rolls.
+  FREQUENT_WEATHER = {MAP_ROUTE_113=> 3,
+                      MAP_ROUTE_120 => 2}
   WINDY_MAPS = [MAP_MT_CHIMNEY,MAP_MT_PYRE] #More likely to be windy
-  RAINY_MAPS = [MAP_ROUTE_113,MAP_ROUTE_119,MAP_ROUTE_120] #More likely to be raining,
+  RAINY_MAPS = [MAP_ROUTE_113, MAP_ROUTE_119_SOUTH, MAP_ROUTE_120] #More likely to be raining,
   # 113 is in there because rain turns into soot there
 
   SOOT_MAPS = [MAP_ROUTE_113]
@@ -155,7 +161,10 @@ class GameWeather
   def try_spawn_new_weather(map_id,map_weather_type,spawn_chance=nil)
     return if map_weather_type != :None
     spawn_chance = CHANCE_OF_NEW_WEATHER unless spawn_chance
-    spawn_chance*=2 if FREQUENT_WEATHER.include?(map_id)
+    if FREQUENT_WEATHER.include?(map_id)
+      nb_rerolls =FREQUENT_WEATHER[map_id]
+      spawn_chance*=nb_rerolls
+    end
     new_weather = select_new_weather_spawn(spawn_chance, map_id)
     @current_weather[map_id] = adjust_weather_for_map(new_weather,map_id)
   end
@@ -233,6 +242,9 @@ class GameWeather
   end
 
   def get_updated_weather(type, intensity, map_id)
+    if NO_WEATHER_MAPS.include?(map_id)
+      return [:None,0]
+    end
     if COLD_MAPS.include?(map_id) || Settings::SNOW_DAY
       type = :Snow if type == :Rain
       type = :Blizzard if type == :Storm
@@ -260,6 +272,7 @@ class GameWeather
       type = :Sandstorm
       intensity = 9
     end
+
     if (PBDayNight.isNight? || PBDayNight.isEvening?) && type == :Sunny
       type = :None
       intensity = 0

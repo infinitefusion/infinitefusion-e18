@@ -1,6 +1,15 @@
 def pbAddScriptTexts(items, script)
   script.force_encoding(Encoding::UTF_8)
+
   script.scan(/(?:_I|sign)\s*\(\s*\"((?:[^\\\"]*\\\"?)*[^\"]*)\"/) do |s|
+    string = s[0]
+    string.gsub!(/\\\"/, "\"")
+    string.gsub!(/\\\\/, "\\")
+    items.push(string)
+  end
+
+  # extract pbTrainerBattle(..., "TrainerName", "LoseText", ...) in PIF1
+  script.scan(/pbTrainerBattle\s*\(\s*[^,]+,\s*"[^"]*"\s*,\s*"([^"]*)"/) do |s|
     string = s[0]
     string.gsub!(/\\\"/, "\"")
     string.gsub!(/\\\\/, "\\")
@@ -509,7 +518,6 @@ class Messages
   end
 
   def extract(outfile)
-    #    return if !@messages
     origMessages = Messages.new("Data/messages.dat")
     File.open(outfile, "wb") { |f|
       f.write(0xef.chr)
@@ -517,12 +525,18 @@ class Messages
       f.write(0xbf.chr)
       f.write("# To localize this text for a particular language, please\r\n")
       f.write("# translate every second line of this file.\r\n")
-      if origMessages.messages[0]
-        for i in 0...origMessages.messages[0].length
-          msgs = origMessages.messages[0][i]
+
+      # Map messages use the newly collected messages in @messages.
+      # This includes text extracted from map events, such as
+      # pbTrainerBattle(..., "Trainer", "LoseText", ...).
+      if @messages && @messages[0]
+        for i in 0...@messages[0].length
+          msgs = @messages[0][i]
           Messages.writeObject(f, msgs, "Map#{i}", origMessages)
         end
       end
+
+      # Keep the original behavior for non-map message sections.
       for i in 1...origMessages.messages.length
         msgs = origMessages.messages[i]
         Messages.writeObject(f, msgs, i, origMessages)
@@ -534,7 +548,7 @@ class Messages
     @messages = [] if !@messages
     arr = []
     for i in 0...array.length
-      arr[i] = (array[i]) ? array[i] : ""
+      arr[i] = (array[i] == "") ? nil : array[i]
     end
     @messages[type] = arr
   end
@@ -543,7 +557,8 @@ class Messages
     @messages = [] if !@messages
     arr = (@messages[type]) ? @messages[type] : []
     for i in 0...array.length
-      arr[i] = (array[i]) ? array[i] : (arr[i]) ? arr[i] : ""
+      arr[i] = array[i] if array[i]
+      arr[i] = nil if arr[i] == ""
     end
     @messages[type] = arr
   end
@@ -749,6 +764,10 @@ module MessageTypes
 
   def self.loadMessageFile(filename)
     @@messages.loadMessageFile(filename)
+  end
+
+  def self.loadFallbackMessageFile(filename)
+    @@messagesFallback.loadMessageFile(filename)
   end
 
   def self.get(type, id)

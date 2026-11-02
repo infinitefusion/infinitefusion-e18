@@ -30,7 +30,7 @@ CLOTHES_GRASS    = "grassexpert"
 
 CLOTHES_ELECTRIC = "urbanelectric"
 
-CLOTHES_PSYCHIC_M  = "psyshamanm"
+CLOTHES_PSYCHIC_M  = "psyshaman"
 CLOTHES_PSYCHIC_F  = "psyshamanf"
 
 CLOTHES_ICE      = "iceoutfit"

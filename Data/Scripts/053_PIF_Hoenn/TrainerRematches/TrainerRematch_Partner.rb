@@ -7,7 +7,8 @@ class Trainer
 end
 def partnerWithTrainer(eventId, mapID, trainer,trainer_key=nil ,common_event=nil)
   common_event = COMMON_EVENT_TRAINER_REMATCH_PARTNER if !common_event
-  Kernel.pbAddDependency2(eventId,trainer.trainerName,common_event)
+  trainer_key = getRebattledTrainerKey(eventId,mapID) if !trainer_key
+  Kernel.pbAddDependency2(eventId,trainer_key,common_event)
   pbCancelVehicles
   originalTrainer = pbLoadTrainer(trainer.trainerType, trainer.trainerName, 0)
   Events.onTrainerPartyLoad.trigger(nil, originalTrainer)

@@ -299,6 +299,7 @@ def scanLocalMysteryGifts
   skipped_filenames = ["configuration.json", "mkxp.json"]
   mystery_gifts = []
   Dir.glob("*.json").each do |filename|
+    echoln filename
     next if skipped_filenames.include?(filename)
     begin
     next if !safeExists?(filename)
