@@ -1,5 +1,644 @@
 [
     {
+        "dateadded": "2026-05-11T04:00:00.000Z",
+        "author": "chromaerym",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "chimingdress",
+        "name": "Chiming Dress",
+        "description": "A light sundress ressembling the tag of a Chimecho.",
+        "price": 1500,
+        "contestcondition": "beautiful, cool",
+        "regiontags": "orre",
+        "pokemontags": "chingling, chimecho",
+        "storelocation": "lilycove",
+        "obtainmethodkanto": "Store (Regional Set), Fashion Designer",
+        "obtainmethodhoenn": "Store (Regional Set), Fashion Designer, Store (City)",
+        "notes": "should be obtainable with the chiming ribbon hat"
+    },
+    {
+        "dateadded": "2026-05-11T04:00:00.000Z",
+        "author": "chromaerym",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "fossilseeker",
+        "name": "Fossil Seeker's Garb",
+        "description": "An old-timey dress worn by paleontologists and fossil fans.",
+        "price": 5000,
+        "tags": "special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Overworld",
+        "notes": "maybe increased chance to get fossils with rock smash or obtained with fossil quest? (also paired with the fossil seeker hat)"
+    },
+    {
+        "dateadded": "2026-05-11T04:00:00.000Z",
+        "author": "zephyr.txt",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "strappydress",
+        "name": "Strapped Dress",
+        "description": "The soft, breezy fabric of this dress makes you feel like you're soaring upon the back of a Flying Type.",
+        "price": 2000,
+        "tags": "default",
+        "contestcondition": "beautiful",
+        "storelocation": "default",
+        "obtainmethodkanto": "Store (All), Store (City)",
+        "obtainmethodhoenn": "Store (All)"
+    },
+    {
+        "dateadded": "2026-05-20T04:00:00.000Z",
+        "author": "the.red.letter",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "nsclothes",
+        "name": "Harmonious Outfit",
+        "description": "The outfit of a Pokémon whisperer. Wearing it makes you feel like you understand your Pokémon.",
+        "price": 1500,
+        "tags": "special",
+        "regiontags": "unova",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-06-23T04:00:00.000Z",
+        "author": "albinosfox",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "BugCatcherORAS",
+        "name": "Green Striped Tank",
+        "description": "A green tank top with a yellow stripe, paired with a pair of baggy black shorts to hold bug catching gear.",
+        "price": 1500,
+        "tags": "special",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a bug catcher trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-06-23T04:00:00.000Z",
+        "author": "gaogao028",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "dragoniteset",
+        "name": "Dragonite Coat",
+        "description": "A cozy thematic outfit reminiscent of Dragonite which offers resistance to cold weathers.",
+        "price": 1500,
+        "contestcondition": "tough, clever",
+        "pokemontags": "dratini, dragonair, dragonite",
+        "storelocation": "mauville",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
+    },
+    {
+        "dateadded": "2026-06-23T04:00:00.000Z",
+        "author": "albinosfox",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "FishermanORAS",
+        "name": "Fisherman's Vest",
+        "description": "Typically seen on fishermen, this outfit sports a vest and cargo pants made to hold all sorts of tackle.",
+        "price": 1500,
+        "tags": "special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a fisherman trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-06-23T04:00:00.000Z",
+        "author": "albinosfox",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "GoldGSC",
+        "name": "Sporty Red Outfit",
+        "description": "A comfy red jacket and white shorts. It's worn by fledgling trainers from Johto.",
+        "price": 1500,
+        "tags": "special",
+        "regiontags": "johto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "regional set (johto)"
+    },
+    {
+        "dateadded": "2026-06-23T04:00:00.000Z",
+        "author": "albinosfox",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "WingullOutfit",
+        "name": "Wingull Sailor Outfit",
+        "description": "A cute sailor outfit inspired by Wingull.",
+        "price": 800,
+        "contestcondition": "cute",
+        "pokemontags": "wingull, pelipper",
+        "storelocation": "cerulean",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "dateadded": "2026-06-23T04:00:00.000Z",
+        "author": "albinosfox",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "youngsterORAS",
+        "name": "Printed Tee and Shorts",
+        "description": "A yellow t-shirt with a design on the front. It's paired with shorts that are comfy and easy to wear.",
+        "price": 1000,
+        "tags": "special",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a youngster trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-06-23T04:00:00.000Z",
+        "author": "albinosfox",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "YoungsterRSE",
+        "name": "Yellow Tee and Shorts",
+        "description": "A baggy yellow t-shirt paired with shorts that are comfy and easy to wear.",
+        "price": 1000,
+        "tags": "special",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a youngster trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-06-23T04:00:00.000Z",
+        "author": "albinosfox",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ZigzagoonSweater",
+        "name": "Zigzagoon Sweater",
+        "description": "A warm, fuzzy sweater sporting a striped pattern that resembles a Zigzagoon's fur.",
+        "price": 1500,
+        "contestcondition": "cute",
+        "pokemontags": "zigzagoon, linoone",
+        "storelocation": "celadon, goldenrod, mauville",
+        "obtainmethodkanto": "Store (City), Fashion Designer",
+        "obtainmethodhoenn": "Store (City), Fashion Designer"
+    },
+    {
+        "dateadded": "2026-06-25T04:00:00.000Z",
+        "author": "albinosfox",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "BugCatcherRSE",
+        "name": "Loose Blue Tank",
+        "description": "A loose-fitting blue tanktop paired with cargo shorts. All those pockets and a satchel will carry your stuff!",
+        "price": 800,
+        "tags": "special",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a bug catcher trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-06-25T04:00:00.000Z",
+        "author": "gummy.frog",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ChaserF",
+        "name": "Cropped Sportswear",
+        "description": "A cropped longsleeve shirt, comfortable leggings and worn boots. Perfect for chasing Legendary Pokémon.",
+        "price": 2000,
+        "contestcondition": "cool, beautiful",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
+        "notes": "Potentailly available in Orre/Orre quest"
+    },
+    {
+        "dateadded": "2026-06-25T04:00:00.000Z",
+        "author": "albinosfox",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "SilverGSC",
+        "name": "Black and Red Jacket",
+        "description": "This dark ensemble will intimidate your rivals as you take on the Pokemon League.",
+        "price": 1500,
+        "tags": "special",
+        "regiontags": "johto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-06-25T04:00:00.000Z",
+        "author": "gummy.frog",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "streetperformer",
+        "name": "Flashy Dress",
+        "description": "A colorful, almost tacky dress that will surely get peoples' attention as you perform magic tricks on the street.",
+        "price": 1500,
+        "contestcondition": "cute",
+        "regiontags": "orre",
+        "storelocation": "mauville",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-06-27T04:00:00.000Z",
+        "author": "albinosfox",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "BlackSwimTrunks",
+        "name": "Black Swim Trunks",
+        "description": "A pair of black swim trunks with a Pokeball design on one leg, and a life jacket.",
+        "price": 1000,
+        "contestcondition": "clever",
+        "storelocation": "vermillion",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a swimmer trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-06-27T04:00:00.000Z",
+        "author": "albinosfox",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "YoungsterHGSS",
+        "name": "Striped Orange Tee",
+        "description": "An orange t-shirt with a stripe across the middle. It's paired with shorts that are comfy and easy to wear.",
+        "price": 1000,
+        "tags": "special",
+        "contestcondition": "cool",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a youngster trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-07-05T04:00:00.000Z",
+        "author": "albinosfox",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "BlueSwimTrunks",
+        "name": "Blue Swim Trunks",
+        "description": "A pair of blue swim trunks with white stripes on the legs, and a life jacket.",
+        "price": 1000,
+        "contestcondition": "clever",
+        "storelocation": "vermillion",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a swimmer trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-07-06T04:00:00.000Z",
+        "author": "gummy.frog",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "battlegirl",
+        "name": "Orange Workout Gear",
+        "description": "Violently orange sportswear paired with fighting gloves. It's perfect for training fighting type Pokemon.",
+        "price": 1000,
+        "tags": "special",
+        "contestcondition": "tough",
+        "storelocation": "saffron",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a battle girl trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-07-06T04:00:00.000Z",
+        "author": "gummy.frog",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "battlegirlflat",
+        "name": "Orange Workout Gear",
+        "description": "Violently orange sportswear paired with fighting gloves. It's perfect for training fighting type Pokemon.",
+        "price": 1000,
+        "tags": "special",
+        "contestcondition": "tough",
+        "storelocation": "saffron",
+        "obtainmethodkanto": "Store (Regional Set), Fashion Designer",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a battle girl trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-07-18T04:00:00.000Z",
+        "author": "albinosfox",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "FlameSwimTrunks",
+        "name": "Flame Swim Trunks",
+        "description": "Red and orange swim trunks with a firey design, and an orange life jacket.",
+        "price": 1000,
+        "tags": "special",
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a swimmer trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-07-18T04:00:00.000Z",
+        "author": "enderwarlock",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "zubatkidcostume",
+        "name": "Zubat Kid Costume",
+        "description": "A heroic costume inspired by Zubat. Become the trainer they don't deserve, but do need. ",
+        "price": 2000,
+        "tags": "special",
+        "contestcondition": "clever, tough",
+        "pokemontags": "zubat, golbat, crobat",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
+        "notes": "Suggested obtain method: In a Evil Team Hideout have a clown battles you, upon defeat they give you \"an outfit an old rival use to wear.\" \n\nItem effect: (In the Submerged Temple if a Sharpedo attacks you while wearing this you get a second chance/bypass them with a notification saying it's thanks to your outfit coming with a \"Sharpedo Repel\" referencing the infamous Adam West Batman vs Shark scene"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "the.red.letter",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "dawnPT",
+        "name": "Twinleaf Dress Coat",
+        "description": "An outfit featuring a long, flared coat with a scarf. It's popular among trainers from Sinnoh.",
+        "price": 1500,
+        "tags": "special",
+        "regiontags": "sinnoh",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "malxire & chromaerym",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "fossilseekermale",
+        "name": "Fossil Seeker's Garb",
+        "description": "An old-timey outfit worn by paleontologists and fossil fans.",
+        "price": 5000,
+        "tags": "special",
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Overworld",
+        "notes": "Same obtain method as the dress. Malxire intended for this to be the rock expert outfit, but I don't really agree with it"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "eliyhel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "lavendercloak",
+        "name": "Lavender Cloak",
+        "description": "An elegant dark cloak patterned with flowers.",
+        "price": 3500,
+        "contestcondition": "beautiful",
+        "storelocation": "lavender, mossdeep",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "blackbosom",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "qipao",
+        "name": "Blue Qipao",
+        "description": "An elegant blue qipao imported from a region far, far away.",
+        "price": 3500,
+        "contestcondition": "beautiful",
+        "storelocation": "celadon, goldenrod, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "eliyhel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "teamaquaORASf",
+        "name": "Neo Aqua Uniform (F)",
+        "description": "A modern, updated version of the official Team Aqua uniform.",
+        "price": 0,
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest",
+        "notes": "Team Aqua ORAS Uniform for Females"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "eliyhel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "teamaquaORASm",
+        "name": "Neo Aqua Uniform (M)",
+        "description": "A modern, updated version of the official Team Aqua uniform.",
+        "price": 0,
+        "tags": "special",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Other NPC / Quest",
+        "notes": "Team Aqua ORAS Uniform for Males"
+    },
+    {
+        "dateadded": "2026-07-25T04:00:00.000Z",
+        "author": "screeeee",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "wild",
+        "name": "Wild PokeFan Attire",
+        "description": "Wearing this will show your support for all Pokemon found in the wild!",
+        "price": 1000,
+        "contestcondition": "cool, cute",
+        "storelocation": "fuchsia, lilycove",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-07-30T04:00:00.000Z",
+        "author": "technicolorfez",
+        "additionalcredits": "elihyel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "groundmiku",
+        "name": "Desert Wanderer's Outfit",
+        "description": "An outfit that was said to be worn by a songstress who wandered the desert.",
+        "price": 2000,
+        "contestcondition": "tough",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
+        "notes": "project voltage miku outfit"
+    },
+    {
+        "dateadded": "2026-08-06T04:00:00.000Z",
+        "author": "eliyhel & subernaut",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "avaluggarmor",
+        "name": "Avalugg Armor",
+        "description": "A suit of armor resembling an ice-type pokémon from a distant region.",
+        "price": 3000,
+        "contestcondition": "clever",
+        "pokemontags": "bergmite, avalugg",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Overworld",
+        "notes": "Seafoam Islands B4 in Kanto and Shoal Cave's ice cave in Hoenn "
+    },
+    {
+        "dateadded": "2026-08-06T04:00:00.000Z",
+        "author": "eliyhel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "bloomingoveralls",
+        "name": "Blooming Overalls",
+        "description": "A set of green overalls with huge pockets, perfect for foraging!",
+        "price": 1500,
+        "contestcondition": "cute, clever",
+        "storelocation": "celadon, lilycove",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-08-06T04:00:00.000Z",
+        "author": "eliyhel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "cybercoat",
+        "name": "Cyber Coat",
+        "description": "A bold, futuristic ensemble fit for busting corporations and hacking mainframes.",
+        "price": 1500,
+        "contestcondition": "cool, tough",
+        "storelocation": "vermillion, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-08-06T04:00:00.000Z",
+        "author": "albinosfox",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "PoochyenaPunkOutfit",
+        "name": "Lone Wolf Outfit",
+        "description": "A punk ensemble inspired by Poochyena. Let the wolf in you rise!",
+        "price": 2000,
+        "contestcondition": "tough, cool",
+        "pokemontags": "poochyena, mightyena",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "dateadded": "2026-08-06T04:00:00.000Z",
+        "author": "zifi.png",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "steampunk",
+        "name": "Elegant Brass Coat",
+        "description": "A steampunk outfit with a long brown coat, brass accents, gray trousers, and brown boots.",
+        "price": 2500,
+        "contestcondition": "beautiful",
+        "obtainmethodkanto": "Overworld",
+        "obtainmethodhoenn": "Overworld",
+        "notes": "Found by power plant or somewhere else with machinery"
+    },
+    {
+        "dateadded": "2026-08-06T04:00:00.000Z",
+        "author": "albinosfox",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "YoungsterGSC",
+        "name": "White T-Shirt and Shorts",
+        "description": "A crisp white t-shirt paired with blue shorts that are comfy and easy to wear.",
+        "price": 500,
+        "obtainmethodkanto": "Trainer Friendship",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Gifted by a youngster trainer after max friendship."
+    },
+    {
+        "dateadded": "2026-08-19T04:00:00.000Z",
+        "author": "eliyhel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "sunsetshawl",
+        "name": "Sunset Shawl",
+        "description": "A light, beachy shawl in warm colors layered over a long ruffled skirt.",
+        "price": 1000,
+        "contestcondition": "beautiful",
+        "storelocation": "fuchsia, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-08-19T04:00:00.000Z",
+        "author": ".rayzard",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "swalothoodie",
+        "name": "Swalot Hoodie",
+        "description": "A comfy hoodie inspired by Swalot.",
+        "price": 800,
+        "contestcondition": "cool, tough",
+        "pokemontags": "gulpin, swalot",
+        "storelocation": "rustboro, fuchsia, mahogany",
+        "obtainmethodkanto": "Store (City), Fashion Designer",
+        "obtainmethodhoenn": "Store (City), Fashion Designer"
+    },
+    {
+        "dateadded": "2026-08-19T04:00:00.000Z",
+        "author": "blackbosom",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "veteranf",
+        "name": "Veteran Dress",
+        "description": "A heavy black coat with a striking scarf and dress, often worn by Veteran trainers.",
+        "price": 1500,
+        "tags": "special",
+        "contestcondition": "beautiful, tough",
+        "obtainmethodkanto": "Trainer Friendship",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Veteran Traner Friendship"
+    },
+    {
         "dateadded": "2026-09-02T04:00:00.000Z",
         "author": "eliyhel",
         "preview": {
@@ -28,6 +667,443 @@
         "storelocation": "pewter, mauville",
         "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "nymphiaribbon._.",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "altaria",
+        "name": "Mage Altaria Cosplay",
+        "description": "A cosplay of one of the characters from Mega Magica. Mega Mage Altaria has the power to rule the skies!",
+        "price": 1000,
+        "contestcondition": "cute",
+        "pokemontags": "swablu, altaria",
+        "storelocation": "celadon, goldenrod, mauville",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)",
+        "notes": "If the convention idea gets added, these should be purchaseable there. Could be used for an NPC?"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "nymphiaribbon._. & dualblades1147",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "audino",
+        "name": "Mage Audino Cosplay",
+        "description": "A cosplay of one of the characters from Mega Magica. Mega Mage Audino has the power to manipulate sound!",
+        "price": 1000,
+        "contestcondition": "cute",
+        "pokemontags": "audino",
+        "storelocation": "celadon, goldenrod, mauville",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)",
+        "notes": "If the convention idea gets added, these should be purchaseable there. Could be used for an NPC?"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "captain__slime",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "AuspiciousArmour",
+        "name": "Auspicious Armour",
+        "description": "Armour that has seen countless battles. It resembles a Pokémon from far away.",
+        "price": 2000,
+        "contestcondition": "tough",
+        "pokemontags": "charcadet, armorouge",
+        "storelocation": "cinnabar, sootopolis",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
+        "notes": "Paired with the Auspicious Helmet, as they are part of the same matching armour set. Also could be with the Malicious set as they are based on the same pair of Pokémon."
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": ".sr.azul",
+        "additionalcredits": "Pokemon Showdown",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "Bikingvolt",
+        "name": "High-Voltage Biking Suit",
+        "description": "Inspired by Vikavolt, this biking suit will have you charging through the streets!",
+        "price": 800,
+        "contestcondition": "clever",
+        "pokemontags": "charjabug, vikavolt",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Trainer Friendship",
+        "notes": "Would love if you somehow got it on cycling road!"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "chromaerym",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "glaciercoatdress",
+        "name": "Glacier Coat",
+        "description": "A well insulated dress for winter styled after a Glaceon. Snowflakes caught on it don't melt.",
+        "price": 2000,
+        "contestcondition": "beautiful",
+        "pokemontags": "glaceon",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "chansondoree & edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "KrowDoctor",
+        "name": "Plague Doctor's Coat",
+        "description": "In medieval times, doctors wore robes based on Honchkrow so that they'd be easily identifiable in times of need.",
+        "price": 1000,
+        "contestcondition": "clever",
+        "pokemontags": "murkrow, honchkrow",
+        "storelocation": "lavender, mossdeep, saffron",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "eliyhel, blackbosom, & malxire",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "lampent",
+        "name": "Lampent Hakama",
+        "description": "This hakama seems to be cursed... You feel spirits watching you as you put it on.",
+        "price": 1800,
+        "contestcondition": "beautiful",
+        "pokemontags": "lampent, litwick, chandelure",
+        "storelocation": "lavender, mossdeep, saffron, blackthorn",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "captain__slime",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "MaliciousArmour",
+        "name": "Malicious Armour",
+        "description": "Armour cloaked in a mysterious aura. It resembles a Pokémon from far away.",
+        "price": 2000,
+        "contestcondition": "tough",
+        "pokemontags": "charcadet, ceruledge",
+        "storelocation": "cinnabar, sootopolis",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
+        "notes": "Paired with the Malicious Helmet, as they are part of a matching set. similarly could be near the auspicious armour set as well, being based on the same pair of pokémon."
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "nymphiaribbon._.",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "meganium",
+        "name": "Mega Meganium Cosplay",
+        "description": "A cosplay of one of the characters from Mega Magica. Mega Mage Meganium has the power to command plants!",
+        "price": 1000,
+        "contestcondition": "cute",
+        "pokemontags": "chikorita, bayleef, meganium",
+        "storelocation": "goldenrod, celadon, mauville",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)",
+        "notes": "If the convention idea gets added, these should be purchaseable there. Could be used for an NPC?"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "ohok3441",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "psychicstellar",
+        "name": "Psychic Ace's Coat",
+        "description": "A deceivingly light set of clothes themed after psychic energy.",
+        "price": 1800,
+        "contestcondition": "cool",
+        "storelocation": "saffron, mossdeep",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "roaringmoon",
+        "name": "Roaring Moon Suit",
+        "description": "A suit of armor fit for a dragon tamer, draped with a regal, winged cape.",
+        "price": 2500,
+        "contestcondition": "tough, beautiful",
+        "pokemontags": "bagon, shelgon, salamence",
+        "storelocation": "saffron, lilycove",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)",
+        "notes": "Obtained as an achievement. Option 1: Own/discover X-number of dragon-type Pokemon. Option 2: Knock out X-number of opponent's Pokemon with a dragon-type."
+    },
+    {
+        "dateadded": "2026-09-02T04:00:00.000Z",
+        "author": "eliyhel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "wishinggown",
+        "name": "Wishing Gown",
+        "description": "An elegant dress with long sleeves that resembles the Pokémon Jirachi.",
+        "price": 2500,
+        "contestcondition": "beautiful",
+        "pokemontags": "jirachi",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
+    },
+    {
+        "dateadded": "2026-09-03T04:00:00.000Z",
+        "author": "purple_guy_2137_ & malxire",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "mimikyu",
+        "name": "Mimikyu Rag Cloak",
+        "description": "A cut-up and worn rag repurposed into a cloak. It looks like Mimikyu's signature disguise.",
+        "price": 1000,
+        "contestcondition": "cute",
+        "pokemontags": "mimikyu",
+        "storelocation": "lavender",
+        "obtainmethodkanto": "Store (City), Fashion Designer",
+        "obtainmethodhoenn": "Store (City), Fashion Designer"
+    },
+    {
+        "dateadded": "2026-09-03T04:00:00.000Z",
+        "author": "edenthaw & _deba",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "pelipperoutfit",
+        "name": "Breezy Pelipper Outfit",
+        "description": "A cool, striped tank and shorts for afternoon walks on the pier.",
+        "price": 800,
+        "contestcondition": "cool",
+        "pokemontags": "wingull, pelipper",
+        "storelocation": "vermillion",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Other NPC / Quest",
+        "notes": "Obtained by an achievement. Option 1: Chase away Wingulls on the beach. Option 2: Help Mr. Briney stop Peeko from running in the house."
+    },
+    {
+        "dateadded": "2026-09-05T04:00:00.000Z",
+        "author": "edenthaw & stickieanimates",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "unitesylveonoutfit",
+        "name": "Sylveon Jacket",
+        "description": "A bright, athletic style with a varsity jacket that brings fairy energy to the field. SCORE!",
+        "price": 1000,
+        "contestcondition": "cool, cute",
+        "pokemontags": "sylveon",
+        "storelocation": "saffron, lilycove",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Store (City), Fashion Designer",
+        "notes": "Suggestion: When the overworld trainer does something special like raising their pokeball to activate an HM or complete a quest, they'll twinkle with a sparkly effect. (Fanfare tune plays... Bliing!~)"
+    },
+    {
+        "dateadded": "2026-09-12T04:00:00.000Z",
+        "author": "edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "toxtricityflannel",
+        "name": "Low Key Punk Flannel",
+        "description": "A casual flannel shirt over dark denim for bassists ready to take the stage!",
+        "price": 1000,
+        "contestcondition": "cool, tough",
+        "storelocation": "vermillion, mauville",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)"
+    },
+    {
+        "dateadded": "2026-09-17T04:00:00.000Z",
+        "author": "Purple_guy2137_ & eliyhel",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "HaunterBedsheet",
+        "name": "Haunter Bedsheet",
+        "description": "Simple and cheap to make costume but surprisingly effective at candy gathering.",
+        "price": 500,
+        "contestcondition": "clever",
+        "pokemontags": "haunter, gengar, gastly",
+        "storelocation": "lavender, lilycove",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer",
+        "notes": "Could also be obtainable when the computer's date is set to Halloween?"
+    },
+    {
+        "dateadded": "2026-09-17T04:00:00.000Z",
+        "author": "edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "scientistFRLG",
+        "name": "Lab Coat",
+        "description": "A long lab coat worn over a polo shirt for scientists aiding the Professor with his research.",
+        "price": 1500,
+        "contestcondition": "clever",
+        "obtainmethodkanto": "Trainer Friendship",
+        "obtainmethodhoenn": "Trainer Friendship"
+    },
+    {
+        "dateadded": "2026-09-22T04:00:00.000Z",
+        "author": "mizartz",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ash",
+        "name": "Pallet Vest",
+        "description": "A short-sleeved blue jacket worn over a dark shirt and jeans. It makes you want to catch them all.",
+        "price": 2000,
+        "regiontags": "kanto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "Could be given to you in Kanto the same way you obtain Red and Leaf's attire; Player named \"Ash\""
+    },
+    {
+        "dateadded": "2026-09-22T04:00:00.000Z",
+        "author": "mizartz",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ash_b",
+        "name": "Pallet Vest and Backpack",
+        "description": "A short-sleeved blue jacket worn over a dark shirt and jeans. It makes you want to catch them all.",
+        "price": 2000,
+        "regiontags": "kanto",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "Could be given to you in Kanto the same way you obtain Red and Leaf's attire; Player named \"Ash\""
+    },
+    {
+        "dateadded": "2026-09-29T04:00:00.000Z",
+        "author": "edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "thievulswashbuckler",
+        "name": "Thievul Rogue's Cloak",
+        "description": "A poet shirt paired with trousers and a cape, made for the most adventurous of trainers. En garde!",
+        "price": 1500,
+        "contestcondition": "tough, cool",
+        "storelocation": "sootopolis, cinnabar",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Store (City)",
+        "notes": "Suggestion if you want to get it through a unique event instead of shops: Could be obtained after receiving X amount of money from rich class trainers."
+    },
+    {
+        "dateadded": "2026-10-18T04:00:00.000Z",
+        "author": "edenthaw",
+        "additionalcredits": "Genius Sonority",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "coolgirlBR",
+        "name": "Stylish Outfit (F)",
+        "description": "Strut through the colosseum like a new star in a pair of cool jeans and accessories!",
+        "price": 2000,
+        "tags": "special",
+        "contestcondition": "cool",
+        "regiontags": "sinnoh",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
+        "notes": "This is from Battle Revolution - could be given in a sidequest instead"
+    },
+    {
+        "dateadded": "2026-10-18T04:00:00.000Z",
+        "author": "marraneitor & edenthaw",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "empoleonsuit",
+        "name": "Empoleon Suit",
+        "description": "A sharp-looking outfit that captures the air of professionalism. Dignified and ready to take charge!",
+        "price": 2000,
+        "contestcondition": "cool, beautiful",
+        "pokemontags": "piplup, prinplup, empoleon",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "notes": "Suggestion: Could have a Piplup pop out and dance/cheer when a quest is completed or a gym badge is received before it vanishes back into the wild. When paired with Empoleon's Crown accessory, an extra Piplup will join in the cheer."
+    },
+    {
+        "dateadded": "2026-10-18T04:00:00.000Z",
+        "author": "edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "ninjaskracesuit",
+        "name": "Ninjask Racing Gear",
+        "description": "Zoom past like Ninjask in this protective gear as you ride with style!",
+        "price": 2000,
+        "contestcondition": "clever, tough",
+        "pokemontags": "ninjask",
+        "storelocation": "cerulean, mauville",
+        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Fashion Designer, Store (City)"
+    },
+    {
+        "dateadded": "2026-11-02T05:00:00.000Z",
+        "author": "edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "announcerhorizons",
+        "name": "Showman Suit",
+        "description": "A vibrant, tailored outfit made to display showmanship while guiding the spotlight.",
+        "price": 5000,
+        "contestcondition": "beautiful",
+        "storelocation": "celadon, goldenrod",
+        "obtainmethodkanto": "Store (City)",
+        "obtainmethodhoenn": "Other NPC / Quest",
+        "notes": "Suggestion: Could be unlocked after achieving a higher rank in one of the Pokemon Contest categories."
+    },
+    {
+        "dateadded": "2026-11-02T05:00:00.000Z",
+        "author": "gummy.frog & edenthaw",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "darkhero",
+        "name": "Dark Hero's Gear",
+        "description": "A dark and edgy cosplay costume modeled after an anti-hero popular with the coolest trainers.",
+        "price": 2500,
+        "contestcondition": "cool, tough",
+        "storelocation": "crimson, saffron, lilycove",
+        "notes": "If we do the convention idea that we discussed, this should be buyable there!"
+    },
+    {
+        "dateadded": "2026-11-02T05:00:00.000Z",
+        "author": "edenthaw",
+        "additionalcredits": "Game Freak",
+        "preview": {
+            "valueType": "IMAGE"
+        },
+        "id": "mimejrcostume",
+        "name": "Mime Jr. Costume",
+        "description": "A fun, silly costume that brings laughter, surprises, and a little bit of mischief!",
+        "price": 1000,
+        "contestcondition": "cute",
+        "pokemontags": "mime jr., mr. mime",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
+        "notes": "Suggestion: Confetti will appear around the character when a quest is completed or a badge is received. You could add a little noise maker honk for extra silliness!"
     },
     {
         "author": "gummy.frog",
@@ -142,117 +1218,6 @@
         "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Unobtainable",
         "notes": "city exclusive outfit / pokechallenges"
-    },
-    {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "nymphiaribbon._.",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "altaria",
-        "name": "Mega Mage Altaria Costume",
-        "description": "A cosplay of one of the characters from Mega Magica. Mega Mage Altaria has the power to rule the skies!",
-        "price": 1000,
-        "contestcondition": "cute",
-        "pokemontags": "swablu, altaria",
-        "storelocation": "celadon, goldenrod, mauville",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)",
-        "notes": "If the convention idea gets added, these should be purchaseable there. Could be used for an NPC?"
-    },
-    {
-        "dateadded": "2026-11-02T05:00:00.000Z",
-        "author": "edenthaw",
-        "preview": "The Pokemon Company",
-        "id": "announcerhorizons",
-        "name": "Showman Suit",
-        "description": "A vibrant, tailored outfit made to display showmanship while guiding the spotlight.",
-        "price": 5000,
-        "contestcondition": "beautiful",
-        "storelocation": "celadon, goldenrod",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Other NPC / Quest",
-        "notes": "Suggestion: Could be unlocked after achieving a higher rank in one of the Pokemon Contest categories."
-    },
-    {
-        "dateadded": "2026-09-22T04:00:00.000Z",
-        "author": "mizartz",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "ash",
-        "name": "Pallet Vest",
-        "description": "A short-sleeved blue jacket worn over a dark shirt and jeans. It makes you want to catch them all.",
-        "price": 2000,
-        "regiontags": "kanto",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
-        "notes": "Could be given to you in Kanto the same way you obtain Red and Leaf's attire; Player named \"Ash\""
-    },
-    {
-        "dateadded": "2026-09-22T04:00:00.000Z",
-        "author": "mizartz",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "ash_b",
-        "name": "Pallet Vest and Backpack",
-        "description": "A short-sleeved blue jacket worn over a dark shirt and jeans. It makes you want to catch them all.",
-        "price": 2000,
-        "regiontags": "kanto",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
-        "notes": "Could be given to you in Kanto the same way you obtain Red and Leaf's attire; Player named \"Ash\""
-    },
-    {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "nymphiaribbon._. & dualblades1147",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "audino",
-        "name": "Mega Mage Audino Costume",
-        "description": "A cosplay of one of the characters from Mega Magica. Mega Mage Audino has the power to manipulate sound!",
-        "price": 1000,
-        "contestcondition": "cute",
-        "pokemontags": "audino",
-        "storelocation": "celadon, goldenrod, mauville",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)",
-        "notes": "If the convention idea gets added, these should be purchaseable there. Could be used for an NPC?"
-    },
-    {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "captain__slime",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "AuspiciousArmour",
-        "name": "Auspicious Armour",
-        "description": "Armour that has seen countless battles. It resembles a Pokémon from far away.",
-        "price": 2000,
-        "contestcondition": "tough",
-        "pokemontags": "charcadet, armorouge",
-        "storelocation": "cinnabar, sootopolis",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
-        "notes": "Paired with the Auspicious Helmet, as they are part of the same matching armour set. Also could be with the Malicious set as they are based on the same pair of Pokémon."
-    },
-    {
-        "dateadded": "2026-08-06T04:00:00.000Z",
-        "author": "eliyhel & subernaut",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "avaluggarmor",
-        "name": "Avalugg Armor",
-        "description": "A suit of armor resembling an ice-type pokémon from a distant region.",
-        "price": 3000,
-        "contestcondition": "clever",
-        "pokemontags": "bergmite, avalugg",
-        "obtainmethodkanto": "Overworld",
-        "obtainmethodhoenn": "Overworld",
-        "notes": "Seafoam Islands B4 in Kanto and Shoal Cave's ice cave in Hoenn "
     },
     {
         "author": "malxire",
@@ -489,40 +1454,6 @@
         "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
-        "dateadded": "2026-07-06T04:00:00.000Z",
-        "author": "gummy.frog",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "battlegirl",
-        "name": "Orange Workout Gear",
-        "description": "Violently orange sportswear paired with fighting gloves. It's perfect for training fighting type Pokemon.",
-        "price": 1000,
-        "tags": "special",
-        "contestcondition": "tough",
-        "storelocation": "saffron",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a battle girl trainer after max friendship."
-    },
-    {
-        "dateadded": "2026-07-06T04:00:00.000Z",
-        "author": "gummy.frog",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "battlegirlflat",
-        "name": "Orange Workout Gear",
-        "description": "Violently orange sportswear paired with fighting gloves. It's perfect for training fighting type Pokemon.",
-        "price": 1000,
-        "tags": "special",
-        "contestcondition": "tough",
-        "storelocation": "saffron",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a battle girl trainer after max friendship."
-    },
-    {
         "author": "volvonovic",
         "preview": {
             "valueType": "IMAGE"
@@ -536,23 +1467,6 @@
         "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Unobtainable",
         "notes": "city exclusive outfit"
-    },
-    {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": ".sr.azul",
-        "additionalcredits": "Pokemon Showdown",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "Bikingvolt",
-        "name": "High-Voltage Biking Suit",
-        "description": "Inspired by Vikavolt, this biking suit will have you charging through the streets!",
-        "price": 800,
-        "contestcondition": "clever",
-        "pokemontags": "charjabug, vikavolt",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Would love if you somehow got it on cycling road!"
     },
     {
         "author": "chromaerym",
@@ -569,53 +1483,6 @@
         "obtainmethodhoenn": "Store (City)"
     },
     {
-        "dateadded": "2026-06-27T04:00:00.000Z",
-        "author": "albinosfox",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "BlackSwimTrunks",
-        "name": "Black Swim Trunks",
-        "description": "A pair of black swim trunks with a Pokeball design on one leg, and a life jacket.",
-        "price": 1000,
-        "contestcondition": "clever",
-        "storelocation": "vermillion",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a swimmer trainer after max friendship."
-    },
-    {
-        "dateadded": "2026-08-06T04:00:00.000Z",
-        "author": "eliyhel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "bloomingoveralls",
-        "name": "Blooming Overalls",
-        "description": "A set of green overalls with huge pockets, perfect for foraging!",
-        "price": 1500,
-        "contestcondition": "cute, clever",
-        "storelocation": "celadon, lilycove",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
-    },
-    {
-        "dateadded": "2026-07-05T04:00:00.000Z",
-        "author": "albinosfox",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "BlueSwimTrunks",
-        "name": "Blue Swim Trunks",
-        "description": "A pair of blue swim trunks with white stripes on the legs, and a life jacket.",
-        "price": 1000,
-        "contestcondition": "clever",
-        "storelocation": "vermillion",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a swimmer trainer after max friendship."
-    },
-    {
         "author": ".payapon",
         "preview": {
             "valueType": "IMAGE"
@@ -627,46 +1494,13 @@
         "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
-        "dateadded": "2026-06-23T04:00:00.000Z",
-        "author": "albinosfox",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "BugCatcherORAS",
-        "name": "Green Striped Tank",
-        "description": "A green tank top with a yellow stripe, paired with a pair of baggy black shorts to hold bug catching gear.",
-        "price": 1500,
-        "tags": "special",
-        "contestcondition": "cool",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a bug catcher trainer after max friendship."
-    },
-    {
-        "dateadded": "2026-06-25T04:00:00.000Z",
-        "author": "albinosfox",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "BugCatcherRSE",
-        "name": "Loose Blue Tank",
-        "description": "A loose-fitting blue tanktop paired with cargo shorts. All those pockets and a satchel will carry your stuff!",
-        "price": 800,
-        "tags": "special",
-        "contestcondition": "cool",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a bug catcher trainer after max friendship."
-    },
-    {
         "author": ".realthree",
         "preview": {
             "valueType": "IMAGE"
         },
         "id": "bughakama",
         "name": "Bug Hakama Dress",
-        "description": "A traditional looking hakama dress, that captures the essence of bug-type Pokémon, complete with a bug-catching net!",
+        "description": "A traditional looking hakama dress that captures the essence of bug-type Pokémon.",
         "price": 10000,
         "tags": "special",
         "contestcondition": "clever, beautiful",
@@ -682,7 +1516,7 @@
         },
         "id": "bughakamapants",
         "name": "Bug Hakama Pants",
-        "description": "A traditinnal looking pair of hakama pants that capture the essence of bug-type Pokémon, complete with a bug-catching net!",
+        "description": "A traditional looking pair of hakama pants that capture the essence of bug-type Pokémon.",
         "price": 10000,
         "tags": "special",
         "contestcondition": "clever, beautiful",
@@ -735,40 +1569,6 @@
         "obtainmethodhoenn": "Unobtainable"
     },
     {
-        "dateadded": "2026-06-25T04:00:00.000Z",
-        "author": "gummy.frog",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "ChaserF",
-        "name": "Cropped Sportswear",
-        "description": "A cropped longsleeve shirt, comfortable leggings and worn boots. Perfect for chasing Legendary Pokémon.",
-        "price": 2000,
-        "contestcondition": "cool, beautiful",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable",
-        "notes": "Potentailly available in Orre/Orre quest"
-    },
-    {
-        "dateadded": "2026-05-11T04:00:00.000Z",
-        "author": "chromaerym",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "chimingdress",
-        "name": "Chiming Dress",
-        "description": "A light sundress ressembling the tag of a Chimecho.",
-        "price": 1500,
-        "contestcondition": "beautiful, cool",
-        "regiontags": "orre",
-        "pokemontags": "chingling, chimecho",
-        "storelocation": "lilycove",
-        "obtainmethodkanto": "Store (Regional Set), Fashion Designer",
-        "obtainmethodhoenn": "Store (Regional Set), Fashion Designer, Store (City)",
-        "notes": "should be obtainable with the chiming ribbon hat"
-    },
-    {
         "author": "nakamagic",
         "preview": {
             "valueType": "IMAGE"
@@ -782,24 +1582,6 @@
         "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Unobtainable",
         "notes": "city exclusive outfit"
-    },
-    {
-        "dateadded": "2026-10-18T04:00:00.000Z",
-        "author": "edenthaw",
-        "additionalcredits": "Genius Sonority",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "coolgirlBR",
-        "name": "Stylish Outfit (F)",
-        "description": "Strut through the colosseum like a new star in a pair of cool jeans and accessories!",
-        "price": 2000,
-        "tags": "special",
-        "contestcondition": "cool",
-        "regiontags": "sinnoh",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
-        "notes": "This is from Battle Revolution - could be given in a sidequest instead"
     },
     {
         "author": ".realthree",
@@ -830,35 +1612,6 @@
         "obtainmethodhoenn": "Fashion Designer"
     },
     {
-        "dateadded": "2026-08-06T04:00:00.000Z",
-        "author": "eliyhel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "cybercoat",
-        "name": "Cyber Coat",
-        "description": "A bold, futuristic ensemble fit for busting corporations and hacking mainframes.",
-        "price": 1500,
-        "contestcondition": "cool, tough",
-        "storelocation": "vermillion, mauville",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
-    },
-    {
-        "dateadded": "2026-11-02T05:00:00.000Z",
-        "author": "gummy.frog & edenthaw",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "darkhero",
-        "name": "Dark Hero's Gear",
-        "description": "A dark and edgy cosplay costume modeled after an anti-hero popular with the coolest trainers.",
-        "price": 2500,
-        "contestcondition": "cool, tough",
-        "storelocation": "crimson, saffron, lilycove",
-        "notes": "If we do the convention idea that we discussed, this should be buyable there!"
-    },
-    {
         "author": "ohok3441",
         "preview": {
             "valueType": "IMAGE"
@@ -871,22 +1624,6 @@
         "contestcondition": "cool, tough",
         "obtainmethodkanto": "Type Expert",
         "obtainmethodhoenn": "Type Expert"
-    },
-    {
-        "dateadded": "2026-07-25T04:00:00.000Z",
-        "author": "the.red.letter",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "dawnPT",
-        "name": "Twinleaf Dress Coat",
-        "description": "An outfit featuring a long coat that flares out at the bottom with a scarf. It's popular among fledgling trainers from Sinnoh.",
-        "price": 1500,
-        "tags": "special",
-        "regiontags": "sinnoh",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "plasticshark",
@@ -932,22 +1669,6 @@
         "obtainmethodhoenn": "Type Expert"
     },
     {
-        "dateadded": "2026-06-23T04:00:00.000Z",
-        "author": "gaogao028",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "dragoniteset",
-        "name": "Dragonite Coat",
-        "description": "A cozy thematic outfit reminiscent of Dragonite which offers resistance to cold weathers.",
-        "price": 1500,
-        "contestcondition": "tough, clever",
-        "pokemontags": "dratini, dragonair, dragonite",
-        "storelocation": "mauville",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)"
-    },
-    {
         "author": "ohok3441 & .realthree",
         "preview": {
             "valueType": "IMAGE"
@@ -976,23 +1697,6 @@
         "obtainmethodkanto": "Fashion Designer, Store (City)",
         "obtainmethodhoenn": "Fashion Designer",
         "notes": "found at sky pillar"
-    },
-    {
-        "dateadded": "2026-10-18T04:00:00.000Z",
-        "author": "marraneitor & edenthaw",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "empoleonsuit",
-        "name": "Empoleon Suit",
-        "description": "A sharp-looking outfit that captures the air of professionalism. Dignified and ready to take charge!",
-        "price": 2000,
-        "contestcondition": "cool, beautiful",
-        "pokemontags": "piplup, prinplup, empoleon",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer",
-        "notes": "Suggestion: Could have a Piplup pop out and dance/cheer when a quest is completed or a gym badge is received before it vanishes back into the wild. When paired with Empoleon's Crown accessory, an extra Piplup will join in the cheer."
     },
     {
         "author": "xenophaclius",
@@ -1066,39 +1770,6 @@
         "obtainmethodhoenn": "Type Expert"
     },
     {
-        "dateadded": "2026-06-23T04:00:00.000Z",
-        "author": "albinosfox",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "FishermanORAS",
-        "name": "Fisherman's Vest",
-        "description": "Typically seen on fishermen, this outfit sports a vest and cargo pants made to hold all sorts of tackle.",
-        "price": 1500,
-        "tags": "special",
-        "contestcondition": "tough",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a fisherman trainer after max friendship."
-    },
-    {
-        "dateadded": "2026-07-18T04:00:00.000Z",
-        "author": "albinosfox",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "FlameSwimTrunks",
-        "name": "Flame Swim Trunks",
-        "description": "Red and orange swim trunks with a firey design, and an orange life jacket.",
-        "price": 1000,
-        "tags": "special",
-        "contestcondition": "tough",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a swimmer trainer after max friendship."
-    },
-    {
         "author": "lunabups",
         "preview": {
             "valueType": "IMAGE"
@@ -1141,38 +1812,6 @@
         "contestcondition": "beautiful, clever",
         "obtainmethodkanto": "Type Expert",
         "obtainmethodhoenn": "Type Expert"
-    },
-    {
-        "dateadded": "2026-05-11T04:00:00.000Z",
-        "author": "chromaerym",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "fossilseeker",
-        "name": "Fossil Seeker's Garb",
-        "description": "An old-timey dress worn by paleontologists and fossil fans.",
-        "price": 5000,
-        "tags": "special",
-        "contestcondition": "clever",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Overworld",
-        "notes": "maybe increased chance to get fossils with rock smash or obtained with fossil quest? (also paired with the fossil seeker hat)"
-    },
-    {
-        "dateadded": "2026-07-25T04:00:00.000Z",
-        "author": "malxire & chromaerym",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "fossilseekermale",
-        "name": "Fossil Seeker's Garb",
-        "description": "An old-timey outfit worn by paleontologists and fossil fans.",
-        "price": 5000,
-        "tags": "special",
-        "contestcondition": "clever",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Overworld",
-        "notes": "Same obtain method as the dress. Malxire intended for this to be the rock expert outfit, but I don't really agree with it"
     },
     {
         "author": "chromaerym",
@@ -1220,22 +1859,6 @@
         "notes": "type trainer"
     },
     {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "chromaerym",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "glaciercoatdress",
-        "name": "Glacier Coat",
-        "description": "A well insulated dress for winter styled after a glaceon, snowflakes caught on it don't melt.",
-        "price": 2000,
-        "contestcondition": "beautiful",
-        "pokemontags": "glaceon",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer"
-    },
-    {
         "author": "ohok3441",
         "preview": {
             "valueType": "IMAGE"
@@ -1247,23 +1870,6 @@
         "tags": "special",
         "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Other NPC / Quest"
-    },
-    {
-        "dateadded": "2026-06-23T04:00:00.000Z",
-        "author": "albinosfox",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "GoldGSC",
-        "name": "Sporty Red Outfit",
-        "description": "A comfy red jacket and white shorts. It's worn by fledgling trainers from Johto.",
-        "price": 1500,
-        "tags": "special",
-        "regiontags": "johto",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
-        "notes": "regional set (johto)"
     },
     {
         "author": "stickieanimates",
@@ -1286,7 +1892,7 @@
         },
         "id": "grassexpert",
         "name": "Grass Outfit",
-        "description": "A charming outfit that resembles a beautiful flower found deep in the forest. It captures the essence of Grass-Type Pokémon.",
+        "description": "An outfit that resembles a flower found in the forest. It captures the essence of Grass-Type Pokémon.",
         "price": 10000,
         "tags": "type-grass,special",
         "contestcondition": "beautiful",
@@ -1308,22 +1914,6 @@
         "obtainmethodkanto": "Type Expert",
         "obtainmethodhoenn": "Type Expert",
         "notes": "type trainer"
-    },
-    {
-        "dateadded": "2026-07-30T04:00:00.000Z",
-        "author": "technicolorfez",
-        "additionalcredits": "elihyel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "groundmiku",
-        "name": "Desert Wanderer's Outfit",
-        "description": "An outfit that was said to be worn by a songstress who wandered the desert.",
-        "price": 2000,
-        "contestcondition": "tough",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable",
-        "notes": "project voltage miku outfit"
     },
     {
         "author": "malxire",
@@ -1367,23 +1957,6 @@
         "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable",
         "notes": "regional set"
-    },
-    {
-        "dateadded": "2026-09-17T04:00:00.000Z",
-        "author": "Purple_guy2137_ & eliyhel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "HaunterBedsheet",
-        "name": "Haunter Bedsheet",
-        "description": "Simple and cheap to make costume but surprisingly effective at candy gathering.",
-        "price": 500,
-        "contestcondition": "clever",
-        "pokemontags": "haunter, gengar, gastly",
-        "storelocation": "lavender, lilycove",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer",
-        "notes": "Could also be obtainable when the computer's date is set to Halloween?"
     },
     {
         "author": "xenophaclius",
@@ -1478,7 +2051,7 @@
         },
         "id": "jovi",
         "name": "Quirky Turtleneck Dress",
-        "description": "A white turtleneck dress paired with unique turquoise bottoms that are a pair of pants and a pair of shoes at the same time. How quirky!",
+        "description": "A turtleneck dress paired with unique bottoms that are pants and shoes at the same time. How quirky!",
         "price": 3000,
         "tags": "special",
         "regiontags": "orre",
@@ -1516,22 +2089,6 @@
         "notes": "regional"
     },
     {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "chansondoree & edenthaw",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "KrowDoctor",
-        "name": "Plague Doctor's Coat",
-        "description": "In medieval times, doctors wore robes based on Honchkrow so that they'd be easily identifiable in times of need.",
-        "price": 1000,
-        "contestcondition": "clever",
-        "pokemontags": "murkrow, honchkrow",
-        "storelocation": "lavender, mossdeep, saffron",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)"
-    },
-    {
         "author": "blackbosom",
         "additionalcredits": "Game Freak",
         "preview": {
@@ -1546,22 +2103,6 @@
         "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Trainer Friendship",
         "notes": "city-exclusive outfit"
-    },
-    {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "eliyhel, blackbosom, & malxire",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "lampent",
-        "name": "Lampent Hakama",
-        "description": "This hakama seems to be cursed... You feel spirits watching you as you put it on.",
-        "price": 1800,
-        "contestcondition": "beautiful",
-        "pokemontags": "lampent, litwick, chandelure",
-        "storelocation": "lavender, mossdeep, saffron, blackthorn",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)"
     },
     {
         "author": "blackbosom",
@@ -1592,21 +2133,6 @@
         "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Overworld",
         "notes": "city-exclusive outfit"
-    },
-    {
-        "dateadded": "2026-07-25T04:00:00.000Z",
-        "author": "eliyhel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "lavendercloak",
-        "name": "Lavender Cloak",
-        "description": "An elegant dark cloak patterned with flowers.",
-        "price": 3500,
-        "contestcondition": "beautiful",
-        "storelocation": "lavender, mossdeep",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "kiwikelly",
@@ -1723,23 +2249,6 @@
         "obtainmethodhoenn": "Unobtainable"
     },
     {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "captain__slime",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "MaliciousArmour",
-        "name": "Malicious Armour",
-        "description": "Armour cloaked in a mysterious aura. It resembles a Pokémon from far away.",
-        "price": 2000,
-        "contestcondition": "tough",
-        "pokemontags": "charcadet, ceruledge",
-        "storelocation": "cinnabar, sootopolis",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
-        "notes": "Paired with the Malicious Helmet, as they are part of a matching set. similarly could be near the auspicious armour set as well, being based on the same pair of pokémon."
-    },
-    {
         "author": "shocktopus1717",
         "preview": {
             "valueType": "IMAGE"
@@ -1765,23 +2274,6 @@
         "price": 2000,
         "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Other NPC / Quest"
-    },
-    {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "nymphiaribbon._.",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "meganium",
-        "name": "Meganium Costume",
-        "description": "A cosplay of one of the characters from Mega Magica. Mega Mage Meganium has the power to command plants!",
-        "price": 1000,
-        "contestcondition": "cute",
-        "pokemontags": "chikorita, bayleef, meganium",
-        "storelocation": "goldenrod, celadon, mauville",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)",
-        "notes": "If the convention idea gets added, these should be purchaseable there. Could be used for an NPC?"
     },
     {
         "author": "blackbosom",
@@ -1814,46 +2306,13 @@
         "notes": "type trainer (fairy)"
     },
     {
-        "dateadded": "2026-11-02T05:00:00.000Z",
-        "author": "edenthaw",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "mimejrcostume",
-        "name": "Mime Jr. Costume",
-        "description": "A fun, silly costume that brings laughter, surprises, and a little bit of mischief!",
-        "price": 1000,
-        "contestcondition": "cute",
-        "pokemontags": "mime jr., mr. mime",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer",
-        "notes": "Suggestion: Confetti will appear around the character when a quest is completed or a badge is received. You could add a little noise maker honk for extra silliness!"
-    },
-    {
-        "dateadded": "2026-09-03T04:00:00.000Z",
-        "author": "purple_guy_2137_ & malxire",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "mimikyu",
-        "name": "Mimikyu Rag Cloak",
-        "description": "A cut-up and worn rag repurposed into a cloak. It looks like Mimikyu's signature disguise.",
-        "price": 1000,
-        "contestcondition": "cute",
-        "pokemontags": "mimikyu",
-        "storelocation": "lavender",
-        "obtainmethodkanto": "Store (City), Fashion Designer",
-        "obtainmethodhoenn": "Store (City), Fashion Designer"
-    },
-    {
         "author": "gummy.frog",
         "preview": {
             "valueType": "IMAGE"
         },
         "id": "moddress",
         "name": "Mod Dress",
-        "description": "A retro dress from several decades ago. Its square design and go-go boots made it popular with young trainers looking to match their Pokemon.",
+        "description": "A retro dress from several decades ago. Its square design and go-go boots made it popular with young trainers.",
         "price": 3200,
         "contestcondition": "cool, beautiful",
         "storelocation": "vermillion, mauville",
@@ -1876,22 +2335,6 @@
         "notes": "regional set"
     },
     {
-        "dateadded": "2026-10-18T04:00:00.000Z",
-        "author": "edenthaw",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "ninjaskracesuit",
-        "name": "Ninjask Racing Gear",
-        "description": "Zoom past like Ninjask in this protective gear as you ride with style!",
-        "price": 2000,
-        "contestcondition": "clever, tough",
-        "pokemontags": "ninjask",
-        "storelocation": "cerulean, mauville",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)"
-    },
-    {
         "author": "busilisk",
         "preview": {
             "valueType": "IMAGE"
@@ -1903,22 +2346,6 @@
         "tags": "type-normal,special",
         "obtainmethodkanto": "Type Expert",
         "obtainmethodhoenn": "Type Expert"
-    },
-    {
-        "dateadded": "2026-05-20T04:00:00.000Z",
-        "author": "the.red.letter",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "nsclothes",
-        "name": "Harmonious Outfit",
-        "description": "The outfit of a Pokémon whisperer. Wearing it makes you feel like you understand your Pokémon.",
-        "price": 1500,
-        "tags": "special",
-        "regiontags": "unova",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "gummy.frog",
@@ -2045,23 +2472,6 @@
         "notes": "regional set"
     },
     {
-        "dateadded": "2026-09-03T04:00:00.000Z",
-        "author": "edenthaw & _deba",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "pelipperoutfit",
-        "name": "Breezy Pelipper Outfit",
-        "description": "A cool, striped tank and shorts for afternoon walks on the pier.",
-        "price": 800,
-        "contestcondition": "cool",
-        "pokemontags": "wingull, pelipper",
-        "storelocation": "vermillion",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Other NPC / Quest",
-        "notes": "Obtained by an achievement. Option 1: Chase away Wingulls on the beach. Option 2: Help Mr. Briney stop Peeko from running in the house."
-    },
-    {
         "author": "kiwikelly",
         "preview": {
             "valueType": "IMAGE"
@@ -2088,8 +2498,8 @@
         "price": 4000,
         "contestcondition": "cute",
         "storelocation": "rustboro",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Store (City)",
+        "obtainmethodkanto": "#REF!",
+        "obtainmethodhoenn": "#REF!",
         "notes": "bill"
     },
     {
@@ -2118,7 +2528,7 @@
         "price": 3500,
         "contestcondition": "cool, tough",
         "storelocation": "azalea,",
-        "obtainmethodkanto": "Store (City)",
+        "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable",
         "notes": "city-exclusive outfit"
     },
@@ -2168,36 +2578,6 @@
         "notes": "pinkan island quest (police side)"
     },
     {
-        "dateadded": "2026-08-06T04:00:00.000Z",
-        "author": "albinosfox",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "PoochyenaPunkOutfit",
-        "name": "Lone Wolf Outfit",
-        "description": "A punk ensemble inspired by Poochyena. Let the wolf in you rise!",
-        "price": 2000,
-        "contestcondition": "tough, cool",
-        "pokemontags": "poochyena, mightyena",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer"
-    },
-    {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "ohok3441",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "psychicstellar",
-        "name": "Psychic Ace's Coat",
-        "description": "A deceivingly light set of clothes themed after psychic energy.",
-        "price": 1800,
-        "contestcondition": "cool",
-        "storelocation": "saffron, mossdeep",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
-    },
-    {
         "author": "malxire",
         "preview": {
             "valueType": "IMAGE"
@@ -2208,7 +2588,7 @@
         "price": 10000,
         "tags": "type-psychic",
         "contestcondition": "clever, tough",
-        "obtainmethodkanto": "Type Expert",
+        "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Trainer Friendship"
     },
     {
@@ -2226,21 +2606,6 @@
         "obtainmethodhoenn": "Trainer Friendship"
     },
     {
-        "dateadded": "2026-07-25T04:00:00.000Z",
-        "author": "blackbosom",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "qipao",
-        "name": "Blue Qipao",
-        "description": "An elegant blue qipao imported from a region far, far away.",
-        "price": 3500,
-        "contestcondition": "beautiful",
-        "storelocation": "celadon, goldenrod, mauville",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
-    },
-    {
         "author": "xenophacilus",
         "preview": {
             "valueType": "IMAGE"
@@ -2251,8 +2616,8 @@
         "price": 4500,
         "contestcondition": "clever",
         "regiontags": "kalos,",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Type Expert",
         "notes": "regional set"
     },
     {
@@ -2265,8 +2630,8 @@
         "description": "The uniform worn by those who dedicate their lives to protecting nature.",
         "price": 2000,
         "storelocation": "mahogany",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Unobtainable"
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)"
     },
     {
         "author": "kiwikelly",
@@ -2275,12 +2640,12 @@
             "valueType": "IMAGE"
         },
         "id": "red",
-        "name": "Red jacket and Jeans",
+        "name": "Red Jacket and Jeans",
         "description": "Your favourite red jacket and jeans that you always wear on adventures!",
         "price": 1500,
         "regiontags": "kanto",
         "obtainmethodkanto": "Other NPC / Quest",
-        "obtainmethodhoenn": "Store (Regional Set)",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "starting outfit"
     },
     {
@@ -2295,8 +2660,8 @@
         "price": 3500,
         "contestcondition": "beautiful",
         "storelocation": "goldenrod, mauville",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "city-exclusive outfit"
     },
     {
@@ -2316,23 +2681,6 @@
         "notes": "city-exclusive outfit"
     },
     {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "edenthaw",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "roaringmoon",
-        "name": "Roaring Moon Suit",
-        "description": "A suit of armor fit for a dragon tamer, draped with a regal, winged cape.",
-        "price": 2500,
-        "contestcondition": "tough, beautiful",
-        "pokemontags": "bagon, shellgon, salamence",
-        "storelocation": "saffron, lilycove",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)",
-        "notes": "Obtained as an achievement. Option 1: Own/discover X-number of dragon-type Pokemon. Option 2: Knock out X-number of opponent's Pokemon with a dragon-type."
-    },
-    {
         "author": "kiwikelly",
         "preview": {
             "valueType": "IMAGE"
@@ -2342,7 +2690,7 @@
         "description": "The feminine version of the Team Rocket uniform every Grunt wears.",
         "price": 0,
         "obtainmethodkanto": "Overworld",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodhoenn": "Store (City)",
         "notes": "nugget bridge recruiter"
     },
     {
@@ -2397,8 +2745,8 @@
         "contestcondition": "clever, beautiful",
         "pokemontags": "budew,roserade,roselia",
         "storelocation": "celadon",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer"
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable"
     },
     {
         "author": "xenophacilus",
@@ -2422,12 +2770,12 @@
         },
         "id": "sada",
         "name": "Primitive Clothes (F)",
-        "description": "An outfit inspired by styles that were popular thousands of years ago. Just wearing it makes you feel like you've gone back to the prehistoric age.",
+        "description": "An outfit inspired by styles that were worn in the prehistoric age.",
         "price": 10000,
         "tags": "special",
         "contestcondition": "tough",
         "obtainmethodkanto": "Other NPC / Quest",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "fossil guy final"
     },
     {
@@ -2437,7 +2785,7 @@
         },
         "id": "sado",
         "name": "Primitive Clothes (M)",
-        "description": "An outfit inspired by styles that were popular thousands of years ago. Just wearing it makes you feel like you've gone back to the prehistoric age.",
+        "description": "An outfit inspired by styles that were worn in the prehistoric age.",
         "price": 10000,
         "tags": "special",
         "contestcondition": "tough",
@@ -2452,37 +2800,10 @@
         },
         "id": "sandshrewoutfit",
         "name": "Sandshrew Outfit",
-        "description": "A pants and cape set designed with a texture mimicking Sandshrew's hide that allows you to easily blend in with desert environments.",
+        "description": "A pants and cape set designed to look like Sandshrew's hide. It helps you to blend in with the desert.",
         "price": 12000,
         "contestcondition": "cool",
         "pokemontags": "sandshrew,sandslash,",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer"
-    },
-    {
-        "dateadded": "2026-09-17T04:00:00.000Z",
-        "author": "edenthaw",
-        "preview": "Game Freak",
-        "id": "scientistFRLG",
-        "name": "Lab Coat",
-        "description": "A long lab coat worn over a polo shirt for scientists aiding the Professor with his research.",
-        "price": 1500,
-        "contestcondition": "clever",
-        "obtainmethodkanto": "Trainer Friendship",
-        "obtainmethodhoenn": "Trainer Friendship"
-    },
-    {
-        "dateadded": "2026-06-25T04:00:00.000Z",
-        "author": "albinosfox",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "SilverGSC",
-        "name": "Black and Red Jacket",
-        "description": "This dark ensemble will intimidate your rivals as you take on the Pokemon League.",
-        "price": 1500,
-        "tags": "special",
-        "regiontags": "johto",
         "obtainmethodkanto": "Unobtainable",
         "obtainmethodhoenn": "Unobtainable"
     },
@@ -2497,8 +2818,8 @@
         "price": 12000,
         "contestcondition": "cute",
         "pokemontags": "slowpoke,slowbro,slowking",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set)"
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer"
     },
     {
         "author": "duskrd",
@@ -2575,21 +2896,6 @@
         "notes": "starting outfit?"
     },
     {
-        "dateadded": "2026-08-06T04:00:00.000Z",
-        "author": "zifi.png",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "steampunk",
-        "name": "Elegant Brass Coat",
-        "description": "A steampunk outfit with a long brown coat, brass accents, gray trousers, and brown boots.",
-        "price": 2500,
-        "contestcondition": "beautiful",
-        "obtainmethodkanto": "Overworld",
-        "obtainmethodhoenn": "Overworld",
-        "notes": "Found by power plant or somewhere else with machinery"
-    },
-    {
         "author": "_evermore",
         "preview": {
             "valueType": "IMAGE"
@@ -2600,8 +2906,8 @@
         "price": 10000,
         "tags": "type-steel,special",
         "contestcondition": "tough",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodkanto": "Store (All)",
+        "obtainmethodhoenn": "Store (All)",
         "notes": "type trainer (steel)"
     },
     {
@@ -2620,38 +2926,6 @@
         "notes": "type trainer (steel)"
     },
     {
-        "dateadded": "2026-05-11T04:00:00.000Z",
-        "author": "zephyr.txt",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "strappydress",
-        "name": "Strapped Dress",
-        "description": "The soft, breezy fabric of this dress makes you feel like you're soaring upon the back of a Flying Type.",
-        "price": 2000,
-        "tags": "default",
-        "contestcondition": "beautiful",
-        "storelocation": "default",
-        "obtainmethodkanto": "Type Expert",
-        "obtainmethodhoenn": "Type Expert"
-    },
-    {
-        "dateadded": "2026-06-25T04:00:00.000Z",
-        "author": "gummy.frog",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "streetperformer",
-        "name": "Flashy Dress",
-        "description": "A colorful, almost tacky dress that will surely get peoples' attention as you perform magic tricks on the street.",
-        "price": 1500,
-        "contestcondition": "cute",
-        "regiontags": "orre",
-        "storelocation": "mauville",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
-    },
-    {
         "author": "dabouiw",
         "preview": {
             "valueType": "IMAGE"
@@ -2662,8 +2936,8 @@
         "price": 1200,
         "contestcondition": "tough, cool",
         "storelocation": "blackthorn, mauville",
-        "obtainmethodkanto": "Store (Regional Set)",
-        "obtainmethodhoenn": "Store (Regional Set), Store (City)"
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Type Expert"
     },
     {
         "author": "worm9766",
@@ -2680,37 +2954,6 @@
         "obtainmethodhoenn": "Store (City)"
     },
     {
-        "dateadded": "2026-08-19T04:00:00.000Z",
-        "author": "eliyhel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "sunsetshawl",
-        "name": "Sunset Shawl",
-        "description": "A light, beachy shawl in warm colors layered over a long ruffled skirt.",
-        "price": 1000,
-        "contestcondition": "beautiful",
-        "storelocation": "fuchsia, mauville",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
-    },
-    {
-        "dateadded": "2026-08-19T04:00:00.000Z",
-        "author": ".rayzard",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "swalothoodie",
-        "name": "Swalot Hoodie",
-        "description": "A comfy hoodie inspired by Swalot.",
-        "price": 800,
-        "contestcondition": "cool, tough",
-        "pokemontags": "gulpin, swalot",
-        "storelocation": "rustboro, fuchsia, mahogany",
-        "obtainmethodkanto": "Store (City), Fashion Designer",
-        "obtainmethodhoenn": "Store (City), Fashion Designer"
-    },
-    {
         "author": "dabouiw",
         "preview": {
             "valueType": "IMAGE"
@@ -2720,7 +2963,7 @@
         "description": "The standard-issue uniform typically worn by Team Aqua grunts.",
         "price": 6000,
         "tags": "special",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
+        "obtainmethodkanto": "Store (All)",
         "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
@@ -2737,52 +2980,6 @@
         "obtainmethodhoenn": "Other NPC / Quest"
     },
     {
-        "dateadded": "2026-07-25T04:00:00.000Z",
-        "author": "eliyhel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "teamaquaORASf",
-        "name": "Neo Aqua Uniform (F)",
-        "description": "A modern, updated version of the official Team Aqua uniform.",
-        "price": 0,
-        "tags": "special",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Other NPC / Quest",
-        "notes": "Team Aqua ORAS Uniform for Females"
-    },
-    {
-        "dateadded": "2026-07-25T04:00:00.000Z",
-        "author": "eliyhel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "teamaquaORASm",
-        "name": "Neo Aqua Uniform (M)",
-        "description": "A modern, updated version of the official Team Aqua uniform.",
-        "price": 0,
-        "tags": "special",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Other NPC / Quest",
-        "notes": "Team Aqua ORAS Uniform for Males"
-    },
-    {
-        "dateadded": "2026-09-29T04:00:00.000Z",
-        "author": "edenthaw",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "thievulswashbuckler",
-        "name": "Thievul Rogue's Cloak",
-        "description": "A poet shirt paired with trousers and a cape, made for the most adventurous of trainers. En garde!",
-        "price": 1500,
-        "contestcondition": "tough, cool",
-        "storelocation": "sootopolis, cinnabar",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
-        "notes": "Suggestion if you want to get it through a unique event instead of shops: Could be obtained after receiving X amount of money from rich class trainers."
-    },
-    {
         "author": "gummy.frog",
         "preview": {
             "valueType": "IMAGE"
@@ -2796,24 +2993,9 @@
         "regiontags": "hoenn",
         "pokemontags": "torchic, combusken, blaziken",
         "storelocation": "saffron",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)",
+        "obtainmethodkanto": "Unobtainable",
+        "obtainmethodhoenn": "Unobtainable",
         "notes": "PIF1: saffron boutique, PIF2: start torchic or show boutique owner torchic fusion"
-    },
-    {
-        "dateadded": "2026-09-12T04:00:00.000Z",
-        "author": "edenthaw",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "toxtricityflannel",
-        "name": "Low Key Punk Flannel",
-        "description": "A casual flannel shirt over dark denim for bassists ready to take the stage!",
-        "price": 1000,
-        "contestcondition": "cool, tough",
-        "storelocation": "vermillion, mauville",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
     },
     {
         "author": "ohok3441",
@@ -2826,25 +3008,8 @@
         "price": 25000,
         "contestcondition": "beautiful",
         "pokemontags": "phantump,trevenant,",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
-    },
-    {
-        "dateadded": "2026-09-05T04:00:00.000Z",
-        "author": "edenthaw & stickieanimates",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "unitesylveonoutfit",
-        "name": "Sylveon Jacket",
-        "description": "A bright, athletic style with a varsity jacket that brings fairy energy to the field. SCORE!",
-        "price": 1000,
-        "contestcondition": "cool, cute",
-        "pokemontags": "sylveon",
-        "storelocation": "saffron, lilycove",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Store (City), Fashion Designer",
-        "notes": "Suggestion: When the overworld trainer does something special like raising their pokeball to activate an HM or complete a quest, they'll twinkle with a sparkly effect. (Fanfare tune plays... Bliing!~)"
+        "obtainmethodkanto": "Store (Regional Set), Fashion Designer, Store (City)",
+        "obtainmethodhoenn": "Store (Regional Set), Fashion Designer"
     },
     {
         "author": "ohok3441 & .realthree",
@@ -2853,12 +3018,12 @@
         },
         "id": "urbanelectric",
         "name": "Electric Outfit",
-        "description": "An outfit that's shockingly comfortable, considering how stylish it is! It captures the essence of Electric-Type Pokémon.",
+        "description": "An outfit that's shockingly cool! It captures the essence of Electric-Type Pokémon.",
         "price": 10000,
         "tags": "type-electric,special",
         "contestcondition": "beautiful",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Fashion Designer, Store (City)",
+        "obtainmethodkanto": "Fashion Designer",
+        "obtainmethodhoenn": "Fashion Designer",
         "notes": "type trainer"
     },
     {
@@ -2877,22 +3042,6 @@
         "notes": "regional set"
     },
     {
-        "dateadded": "2026-08-19T04:00:00.000Z",
-        "author": "blackbosom",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "veteranf",
-        "name": "Veteran Dress",
-        "description": "A heavy black coat with a striking scarf and dress, often worn by Veteran trainers.",
-        "price": 1500,
-        "tags": "special",
-        "contestcondition": "beautiful, tough",
-        "obtainmethodkanto": "Trainer Friendship",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Veteran Traner Friendship"
-    },
-    {
         "author": "jarviselrey",
         "additionalcredits": "Game Freak",
         "preview": {
@@ -2904,8 +3053,8 @@
         "price": 22000,
         "contestcondition": "beautiful, tough",
         "storelocation": "crimson",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable",
+        "obtainmethodkanto": "Store (Regional Set)",
+        "obtainmethodhoenn": "Store (Regional Set)",
         "notes": "/pokechallenge50"
     },
     {
@@ -2938,53 +3087,6 @@
         "obtainmethodhoenn": "Type Expert"
     },
     {
-        "dateadded": "2026-07-25T04:00:00.000Z",
-        "author": "screeeee",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "wild",
-        "name": "Wild PokeFan Attire",
-        "description": "Wearing this will show your support for all Pokemon found in the wild!",
-        "price": 1000,
-        "contestcondition": "cool, cute",
-        "storelocation": "fuchsia, lilycove",
-        "obtainmethodkanto": "Type Expert",
-        "obtainmethodhoenn": "Type Expert"
-    },
-    {
-        "dateadded": "2026-06-23T04:00:00.000Z",
-        "author": "albinosfox",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "WingullOutfit",
-        "name": "Wingull Sailor Outfit",
-        "description": "A cute sailor outfit inspired by Wingull.",
-        "price": 800,
-        "contestcondition": "cute",
-        "pokemontags": "wingull, pelipper",
-        "storelocation": "cerulean",
-        "obtainmethodkanto": "Store (City)",
-        "obtainmethodhoenn": "Store (City)"
-    },
-    {
-        "dateadded": "2026-09-02T04:00:00.000Z",
-        "author": "eliyhel",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "wishinggown",
-        "name": "Wishing Gown",
-        "description": "An elegant dress with long sleeves that resembles the Pokémon Jirachi.",
-        "price": 2500,
-        "contestcondition": "beautiful",
-        "pokemontags": "jirachi",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer"
-    },
-    {
         "author": "coridiant",
         "preview": {
             "valueType": "IMAGE"
@@ -2994,8 +3096,8 @@
         "description": "A yellow qipao worn over pants. It's popular with fledgling trainers in Kanto.",
         "price": 3000,
         "storelocation": "pewter, rustboro",
-        "obtainmethodkanto": "Fashion Designer",
-        "obtainmethodhoenn": "Fashion Designer"
+        "obtainmethodkanto": "Type Expert",
+        "obtainmethodhoenn": "Type Expert"
     },
     {
         "author": "blackbosom",
@@ -3012,104 +3114,6 @@
         "obtainmethodkanto": "Store (City)",
         "obtainmethodhoenn": "Store (City)",
         "notes": "city-exclusive outfit"
-    },
-    {
-        "dateadded": "2026-08-06T04:00:00.000Z",
-        "author": "albinosfox",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "YoungsterGSC",
-        "name": "White T-Shirt and Shorts",
-        "description": "A crisp white t-shirt paired with blue shorts that are comfy and easy to wear.",
-        "price": 500,
-        "obtainmethodkanto": "Trainer Friendship",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a youngster trainer after max friendship."
-    },
-    {
-        "dateadded": "2026-06-27T04:00:00.000Z",
-        "author": "albinosfox",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "YoungsterHGSS",
-        "name": "Striped Orange Tee",
-        "description": "An orange t-shirt with a stripe across the middle. It's paired with shorts that are comfy and easy to wear.",
-        "price": 1000,
-        "tags": "special",
-        "contestcondition": "cool",
-        "obtainmethodkanto": "Fashion Designer, Store (City)",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a youngster trainer after max friendship."
-    },
-    {
-        "dateadded": "2026-06-23T04:00:00.000Z",
-        "author": "albinosfox",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "youngsterORAS",
-        "name": "Printed Tee and Shorts",
-        "description": "A yellow t-shirt with a design on the front. It's paired with shorts that are comfy and easy to wear.",
-        "price": 1000,
-        "tags": "special",
-        "contestcondition": "cool",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a youngster trainer after max friendship."
-    },
-    {
-        "dateadded": "2026-06-23T04:00:00.000Z",
-        "author": "albinosfox",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "YoungsterRSE",
-        "name": "Yellow Tee and Shorts",
-        "description": "A baggy yellow t-shirt paired with shorts that are comfy and easy to wear.",
-        "price": 1000,
-        "tags": "special",
-        "contestcondition": "cool",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Trainer Friendship",
-        "notes": "Gifted by a youngster trainer after max friendship."
-    },
-    {
-        "dateadded": "2026-06-23T04:00:00.000Z",
-        "author": "albinosfox",
-        "additionalcredits": "Game Freak",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "ZigzagoonSweater",
-        "name": "Zigzagoon Sweater",
-        "description": "A warm, fuzzy sweater sporting a striped pattern that resembles a Zigzagoon's fur.",
-        "price": 1500,
-        "contestcondition": "cute",
-        "pokemontags": "zigzagoon, linoone",
-        "storelocation": "celadon, goldenrod, mauville",
-        "obtainmethodkanto": "Store (City), Fashion Designer",
-        "obtainmethodhoenn": "Store (City), Fashion Designer"
-    },
-    {
-        "dateadded": "2026-07-18T04:00:00.000Z",
-        "author": "enderwarlock",
-        "preview": {
-            "valueType": "IMAGE"
-        },
-        "id": "zubatkidcostume",
-        "name": "Zubat Kid Costume",
-        "description": "A heroic costume inspired by Zubat. Become the trainer they don't deserve, but do need. ",
-        "price": 2000,
-        "tags": "special",
-        "contestcondition": "clever, tough",
-        "pokemontags": "zubat, golbat, crobat",
-        "obtainmethodkanto": "Unobtainable",
-        "obtainmethodhoenn": "Unobtainable",
-        "notes": "Suggested obtain method: In a Evil Team Hideout have a clown battles you, upon defeat they give you \"an outfit an old rival use to wear.\" \n\nItem effect: (In the Submerged Temple if a Sharpedo attacks you while wearing this you get a second chance/bypass them with a notification saying it's thanks to your outfit coming with a \"Sharpedo Repel\" referencing the infamous Adam West Batman vs Shark scene"
     },
     {
         "preview": {
