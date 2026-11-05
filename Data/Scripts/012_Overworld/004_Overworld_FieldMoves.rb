@@ -419,7 +419,6 @@ end
 # Dive
 #===============================================================================
 def pbDive
-  return
   return false if $game_player.pbFacingEvent
   map_metadata = GameData::MapMetadata.try_get($game_map.map_id)
   return false if !map_metadata || !map_metadata.dive_map_id

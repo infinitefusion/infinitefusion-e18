@@ -5,11 +5,11 @@
 #==============================================================================#
 module Settings
   # The version of your game. It has to adhere to the MAJOR.MINOR.PATCH format.
-  GAME_VERSION_NUMBER = "6.9.1"
-  LATEST_GAME_RELEASE = "6.9.1"
+  GAME_VERSION_NUMBER = "6.9.2"
+  LATEST_GAME_RELEASE = "6.9.2"
 
-  HOENN_VERSION_NUMBER = "1.3"
-  HOENN_LATEST_GAME_RELEASE = "1.3.2"
+  HOENN_VERSION_NUMBER = "1.3.1"
+  HOENN_LATEST_GAME_RELEASE = "1.3.1"
 
   SNOW_DAY = true
 
@@ -37,7 +37,7 @@ module Settings
   ANIMATE_REFLECTIONS = false # GAME_ID == :IF_HOENN #true
   USE_REFLECTIONS = false
   # Infinite fusion settings
-  NB_POKEMON = 576
+  NB_POKEMON = 582
   TRANSFER_BOX_DISCLAIMER_MESSAGE = ""
   CUSTOM_BASE_SPRITES_FOLDER = "Graphics/CustomBattlers/local_sprites/BaseSprites/"
   CUSTOM_BATTLERS_FOLDER = "Graphics/CustomBattlers/"

@@ -168,7 +168,7 @@ end
 def mainFunctionDebug
   begin
     showLoadingScreen
-    MessageTypes.loadFallbackMessageFile("Data/messages.dat") if safeExists?("Data/messages.dat")
+    MessageTypes.loadMessageFile("Data/messages.dat") if safeExists?("Data/messages.dat")
     PluginManager.runPlugins
     Compiler.main
     Game.initialize

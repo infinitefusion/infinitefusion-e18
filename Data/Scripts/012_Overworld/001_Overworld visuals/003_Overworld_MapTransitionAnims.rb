@@ -101,7 +101,6 @@ def pbStartOver(gameover = false)
   if Settings::HOENN
     $game_switches[SWITCH_RIVAL_ON_MT_CHIMNEY] = false
     $game_switches[SWITCH_WAILMER_EGGS_QUEST] = false
-    $game_variables[]
   end
 
 

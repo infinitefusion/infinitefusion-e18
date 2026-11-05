@@ -202,7 +202,15 @@ module GameData
     def generateRandomChampionSpecies(old_species)
       customsList = getCustomSpeciesList()
       bst_range = pbGet(VAR_RANDOMIZER_TRAINER_BST)
-      new_species = $game_switches[SWITCH_RANDOM_GYM_CUSTOMS] ? getSpecies(getNewCustomSpecies(old_species, customsList, bst_range)) : getSpecies(getNewSpecies(old_species, bst_range))
+
+      same_egg_group = $game_switches[SWITCH_RANDOM_WILD_EGG_GROUP]
+      includeLegendaries = $game_switches[SWITCH_RANDOM_WILD_LEGENDARIES]
+
+      if $game_switches[SWITCH_RANDOM_GYM_CUSTOMS]
+        new_species = getSpecies(getNewCustomSpecies(old_species, customsList, bst_range,false,includeLegendaries,same_egg_group))
+      else
+        new_species = getSpecies(getNewSpecies(old_species, bst_range,false,PBSpecies.maxValue,includeLegendaries,same_egg_group))
+      end
       #every pokemon should be fully evolved
       evolved_species_id = getEvolution(new_species)
       evolved_species_id = getEvolution(evolved_species_id)

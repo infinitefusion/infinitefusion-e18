@@ -356,7 +356,7 @@ def new_legendary_cache
   Hash.new { |h, sp| h[sp] = is_legendary_num(sp) }
 end
 
-def getNewCustomSpecies(oldSpecies, customSpeciesList, bst_range, ignoreRivalPlaceholder, includeLegendaries, same_egg_group,
+def getNewCustomSpecies(oldSpecies, customSpeciesList, bst_range, ignoreRivalPlaceholder=false, includeLegendaries=true, same_egg_group=false,
                         bst_cache = nil, egg_group_cache = nil, legendary_cache = nil, fallback_cache = nil)
   if $game_switches[SWITCH_LEGENDARY_MODE]
     return dexNum(convert_species_to_legendary(oldSpecies))

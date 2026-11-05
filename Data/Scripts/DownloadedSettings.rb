@@ -9,15 +9,14 @@ module Settings
 
   ALTERING_CAVE_ENCOUNTERS =
     {
-    :MONDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :PHANTUMP],
-    :TUESDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :STANTLER],
-    :WEDNESDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :GASTLY],
-    :THURSDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :MIMIKYU],
-    :FRIDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :HOOTHOOT],
-    :SATURDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :PUMPKABOO],
-    :SUNDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :MISDREAVUS],
+    :MONDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :HOUNDOUR],
+    :TUESDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :SCRAGGY],
+    :WEDNESDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :PINECO],
+    :THURSDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :MAREEP],
+    :FRIDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :TEDDIURSA],
+    :SATURDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :AIPOM],
+    :SUNDAY => [:ZUBAT, :ZUBAT, :ZUBAT, :WOOBAT, :SMEARGLE],
   }
-
 
   STARTUP_MESSAGES = "Pokémon Infinite Fusion 2 is now available! Download it from the game's Discord!" #Legacy starting PIF1 6.8
   STARTUP_MESSAGES_KANTO = "Pokémon Infinite Fusion 2 is now available! Download it from the game's Discord!"
