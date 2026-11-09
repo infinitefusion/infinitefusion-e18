@@ -5,8 +5,8 @@
 #==============================================================================#
 module Settings
   # The version of your game. It has to adhere to the MAJOR.MINOR.PATCH format.
-  GAME_VERSION_NUMBER = "6.9.2"
-  LATEST_GAME_RELEASE = "6.9.2"
+  GAME_VERSION_NUMBER = "6.9.3"
+  LATEST_GAME_RELEASE = "6.9.3"
 
   HOENN_VERSION_NUMBER = "1.3.1"
   HOENN_LATEST_GAME_RELEASE = "1.3.1"
