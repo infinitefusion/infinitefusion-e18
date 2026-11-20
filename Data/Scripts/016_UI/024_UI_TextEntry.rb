@@ -82,6 +82,7 @@ class PokemonEntryScene
   USEKEYBOARD=true
 
   def pbStartScene(helptext,minlength,maxlength,initialText,subject=0,pokemon=nil)
+    helptext = _INTL(helptext) if helptext.is_a?(String)
     @text_color_base = Color.new(16, 24, 32)
     @text_color_shadow = Color.new(168, 184, 184)
 
@@ -386,6 +387,7 @@ class PokemonEntryScene2
 
 
   def pbStartScene(helptext,minlength,maxlength,initialText,subject=0,pokemon=nil)
+    helptext = _INTL(helptext) if helptext.is_a?(String)
     @text_color_base = Color.new(16, 24, 32)
     @text_color_shadow = Color.new(168, 184, 184)
     if isDarkMode

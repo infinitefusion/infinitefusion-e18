@@ -115,7 +115,7 @@ module MessageConfig
 
   def self.pbDefaultSystemFontName
     current_language = getCurrentLanguage
-    if current_language == :CHINESE
+    if current_language == :CHINESE || current_language == :RUSSIAN
       return MessageConfig.pbTryFonts(FONT_NAME_CHINESE)
     end
     return MessageConfig.pbTryFonts(FONT_NAME)
@@ -127,7 +127,7 @@ module MessageConfig
 
   def self.pbDefaultSmallFontName
     current_language = getCurrentLanguage
-    if current_language == :CHINESE
+    if current_language == :CHINESE || current_language == :RUSSIAN
       return MessageConfig.pbTryFonts(SMALL_FONT_NAME_CHINESE)
     end
     return MessageConfig.pbTryFonts(SMALL_FONT_NAME)
@@ -135,7 +135,7 @@ module MessageConfig
 
   def self.pbDefaultNarrowFontName
     current_language = getCurrentLanguage
-    if current_language == :CHINESE
+    if current_language == :CHINESE || current_language == :RUSSIAN
       return MessageConfig.pbTryFonts(NARROW_FONT_NAME_CHINESE)
     end
     return MessageConfig.pbTryFonts(NARROW_FONT_NAME)
@@ -444,7 +444,7 @@ end
 #===============================================================================
 # Sets a bitmap's font to the system font.
 def pbSetSystemFont(bitmap)
-  if getCurrentLanguage == :CHINESE
+  if getCurrentLanguage == :CHINESE || getCurrentLanguage == :RUSSIAN
     bitmap.font.name  = MessageConfig::FONT_NAME_CHINESE
     bitmap.font.size  = MessageConfig::FONT_SIZE
   else
@@ -455,7 +455,7 @@ end
 
 # Sets a bitmap's font to the system small font.
 def pbSetSmallFont(bitmap)
-  if getCurrentLanguage == :CHINESE
+  if getCurrentLanguage == :CHINESE || getCurrentLanguage == :RUSSIAN
     bitmap.font.name = MessageConfig::SMALL_FONT_NAME_CHINESE
     bitmap.font.size = MessageConfig::SMALL_FONT_SIZE
     return
@@ -466,7 +466,7 @@ end
 
 # Sets a bitmap's font to the system narrow font.
 def pbSetNarrowFont(bitmap)
-  if getCurrentLanguage == :CHINESE
+  if getCurrentLanguage == :CHINESE || getCurrentLanguage == :RUSSIAN
     bitmap.font.name = MessageConfig::NARROW_FONT_NAME_CHINESE
     bitmap.font.size = MessageConfig::NARROW_FONT_SIZE
     return

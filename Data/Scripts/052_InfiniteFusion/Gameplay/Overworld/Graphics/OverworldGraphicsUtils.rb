@@ -59,7 +59,14 @@ def setFog(intensity)
 end
 
 def show_starter(species, pokemonName)
+  if species
+    begin
+      sp_data = GameData::Species.get(species)
+      pokemonName = sp_data.name if sp_data && sp_data.name && !sp_data.name.empty?
+    rescue
+    end
+  end
   pif_sprite = BattleSpriteLoader.new.get_pif_sprite_from_species(species)
-  showPokemonInPokeballWithMessage(pif_sprite, _INTL("This Poké Ball contains {1}",pokemonName))
+  showPokemonInPokeballWithMessage(pif_sprite, _INTL("This Poké Ball contains {1}", pokemonName))
   return pif_sprite
 end

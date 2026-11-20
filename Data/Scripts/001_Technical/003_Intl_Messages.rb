@@ -797,12 +797,28 @@ end
 # Replaces first argument with a localized version and formats the other
 # parameters by replacing {1}, {2}, etc. with those placeholders.
 def _OUTFIT_INTL(str)
-  return MessageTypes.getFromHash(MessageTypes::OutfitTexts, str)
+  res = MessageTypes.getFromHash(MessageTypes::OutfitTexts, str)
+  if res == str || res.nil? || res.empty?
+    res = MessageTypes.getFromHash(MessageTypes::ScriptTexts, str)
+  end
+  return res || str
 end
 
 def _INTL(*arg)
   begin
     string = MessageTypes.getFromHash(MessageTypes::ScriptTexts, arg[0])
+    if string == arg[0] && arg[0].is_a?(String) && arg[0].include?("\r")
+      s2 = MessageTypes.getFromHash(MessageTypes::ScriptTexts, arg[0].gsub("\r\n", "\n"))
+      string = s2 if s2 != arg[0].gsub("\r\n", "\n")
+    end
+    if string == arg[0] && arg[0].is_a?(String) && !arg[0].include?("\r") && arg[0].include?("\n")
+      s2 = MessageTypes.getFromHash(MessageTypes::ScriptTexts, arg[0].gsub("\n", "\r\n"))
+      string = s2 if s2 != arg[0].gsub("\n", "\r\n")
+    end
+    if string == arg[0]
+      outfit_str = MessageTypes.getFromHash(MessageTypes::OutfitTexts, arg[0])
+      string = outfit_str if outfit_str && !outfit_str.empty?
+    end
   rescue
     string = arg[0]
   end
@@ -813,9 +829,6 @@ def _INTL(*arg)
   return string
 end
 
-# Replaces first argument with a localized version and formats the other
-# parameters by replacing {1}, {2}, etc. with those placeholders.
-# This version acts more like sprintf, supports e.g. {1:d} or {2:s}
 def _ISPRINTF(*arg)
   begin
     string = MessageTypes.getFromHash(MessageTypes::ScriptTexts, arg[0])

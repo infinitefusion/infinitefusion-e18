@@ -9,6 +9,7 @@ class PokedexTextEntry
   USEKEYBOARD=true
 
   def pbStartScene(helptext,minlength,maxlength,initialText,subject=0,pokemon=nil)
+    helptext = _INTL(helptext) if helptext.is_a?(String)
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999

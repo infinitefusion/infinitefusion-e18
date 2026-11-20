@@ -538,10 +538,14 @@ class PokemonLoadScreen
     end
 
     if Settings::STARTUP_MESSAGES_KANTO != "" && Settings::KANTO
-      pbMessage(_INTL(Settings::STARTUP_MESSAGES_KANTO))
+      msg = Settings::STARTUP_MESSAGES_KANTO
+      msg = "Pokémon Infinite Fusion 2 уже доступна! Скачивайте её в официальном Discord игры!" if getCurrentLanguage == :RUSSIAN || (defined?($PokemonSystem) && $PokemonSystem && $PokemonSystem.language == 1)
+      pbMessage(_INTL(msg))
     end
     if Settings::STARTUP_MESSAGES_HOENN != "" && Settings::HOENN
-      pbMessage(_INTL(Settings::STARTUP_MESSAGES_HOENN))
+      msg = Settings::STARTUP_MESSAGES_HOENN
+      msg = "Pokémon Infinite Fusion 2 всё ещё находится в разработке. Перезапускайте игру время от времени при возникновении задержек." if getCurrentLanguage == :RUSSIAN || (defined?($PokemonSystem) && $PokemonSystem && $PokemonSystem.language == 1)
+      pbMessage(_INTL(msg))
     end
 
     if ($game_temp.unimportedSprites && $game_temp.unimportedSprites.size > 0)
@@ -575,38 +579,40 @@ class PokemonLoadScreen
       cmd_lang_icon = -4
       show_continue = !@save_data.empty?
       new_game_plus = show_continue && (@save_data[:player].new_game_plus_unlocked || $DEBUG)
+      is_ru = (getCurrentLanguage == :RUSSIAN || (defined?($PokemonSystem) && $PokemonSystem && $PokemonSystem.language == 1))
 
       if show_continue
-        commands[cmd_continue = commands.length] = "#{@selected_file}"
+        file_label = "#{@selected_file}"
+        file_label = file_label.gsub('File', 'Файл').gsub('Auto', 'Авто') if is_ru
+        commands[cmd_continue = commands.length] = file_label
         #if @save_data[:player].mystery_gift_unlocked
-        commands[cmd_mystery_gift = commands.length] = _INTL("Mystery Gift")
+        commands[cmd_mystery_gift = commands.length] = is_ru ? "Таинственный подарок" : _INTL("Mystery Gift")
         #end
       end
 
-      commands[cmd_new_game = commands.length] = _INTL("New Game")
+      commands[cmd_new_game = commands.length] = is_ru ? "Новая игра" : _INTL("New Game")
       if new_game_plus
-        commands[cmd_new_game_plus = commands.length] = _INTL("New Game +")
+        commands[cmd_new_game_plus = commands.length] = is_ru ? "Новая игра +" : _INTL("New Game +")
       end
-      commands[cmd_options = commands.length] = _INTL("Options")
+      commands[cmd_options = commands.length] = is_ru ? "Настройки" : _INTL("Options")
       #commands[cmd_language = commands.length] = _INTL("Language") if Settings::LANGUAGES[Settings::GAME_ID].length >= 2
 
       cmd_links = {}
 
-      # if Settings::HOENN && new_game_plus && !Settings::FEEDBACK_FORM_URL.empty?
-      #   cmd_links[commands.length] = Settings::FEEDBACK_FORM_URL
-      #   commands[commands.length] = _INTL("Game Feedback Form")
-      # end
-
       Settings::MAIN_MENU_LINKS.each do |key, value|
         cmd_links[commands.length] = value
-        commands[commands.length] = _INTL(key)
+        title = _INTL(key)
+        if is_ru
+          title = "Discord (сообщество)" if key == "Discord"
+          title = "Частые вопросы (FAQ)" if key == "FAQ"
+          title = "База знаний (Wiki)" if key == "Wiki"
+        end
+        commands[commands.length] = title
       end
 
-      # commands[cmd_discord = commands.length] = _INTL("Discord")
-      # commands[cmd_wiki = commands.length] = _INTL("Wiki")
-      commands[cmd_savefile = commands.length] = _INTL("Savefile management") if show_continue
-      commands[cmd_debug = commands.length] = _INTL("Debug") if $DEBUG
-      commands[cmd_quit = commands.length] = _INTL("Quit Game")
+      commands[cmd_savefile = commands.length] = (is_ru ? "Управление сохранениями" : _INTL("Savefile management")) if show_continue
+      commands[cmd_debug = commands.length] = (is_ru ? "Отладка" : _INTL("Debug")) if $DEBUG
+      commands[cmd_quit = commands.length] = is_ru ? "Выйти из игры" : _INTL("Quit Game")
       cmd_left = -3
       cmd_right = -2
 
@@ -851,8 +857,10 @@ class PokemonSaveScreen
   def slotSelect
     ret = false
     choices = SaveData::MANUAL_SLOTS
+    is_ru = (getCurrentLanguage == :RUSSIAN || (defined?($PokemonSystem) && $PokemonSystem && $PokemonSystem.language == 1))
+    display_choices = choices.map { |s| is_ru ? s.gsub('File', 'Файл').gsub('Auto', 'Авто') : s }
     choice_info = SaveData::MANUAL_SLOTS.map { |s| getSaveInfoBoxContents(s) }
-    index = slotSelectCommands(choices, choice_info)
+    index = slotSelectCommands(display_choices, choice_info)
     if index >= 0
       slot = SaveData::MANUAL_SLOTS[index]
       # Confirm if slot not empty
